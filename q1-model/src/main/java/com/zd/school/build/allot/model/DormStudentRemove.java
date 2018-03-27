@@ -12,8 +12,8 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "DORM_T_STUDENTREMOVE")
-@AttributeOverride(name = "uuid", column = @Column(name = "UUID", length = 36, nullable = false) )
+@Table(name = "T_PT_StudentRemove")
+@AttributeOverride(name = "uuid", column = @Column(name = "uuid", length = 36, nullable = false) )
 public class DormStudentRemove extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
