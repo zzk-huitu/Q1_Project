@@ -32,7 +32,6 @@ stand-service/target/
 stand-dao/target/
 stand-web/target/
 stand-web/src/main/webapp/static/core/build
-stand-web/src/main/resources/sqlserver.properties
 .settings/
 stand.iml
 stand-web/src/main/webapp/static/core/bootstrap.json
@@ -43,4 +42,6 @@ stand-web/src/main/webapp/static/core/bootstrap.css
 stand-web/src/main/webapp/static/core/bootstrap.js
 stand-web/src/main/webapp/static/core/sass/example/bootstrap.js
 stand-web/src/main/webapp/static/core/sass/example/example.css
+
+#stand-web/src/main/resources/sqlserver.properties
 
