@@ -71,5 +71,11 @@ UP+Q1数据库结构调整
   主键名：使用尾部的驼峰格式表名+Id
   exp：userId
 
+模型类包名：
+  com.yc.q1.base.pt.model	(base代表基础库，pt代表平台模块）	
+  com.yc.q1.base.xf.model	（base代表基础库，xf代表消费子模块）
+  com.yc.q1.storage.xf.model	（storage代表数据存储库，xf代表消费子模块）
+  com.yc.q1.storage.dk.model
 
+	
 
