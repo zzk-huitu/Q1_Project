@@ -15,7 +15,7 @@ import com.zd.school.excel.annotation.MapperCell;
 /**
  * 
  * ClassName: OaInfoterm Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 信息发布终端(OA_T_INFOTERM)实体类. date: 2017-01-14
+ * REASON(可选). Description: 信息发布终端(T_PT_InfoTerminal)实体类. date: 2017-01-14
  *
  * @author luoyibo 创建文件
  * @version 0.1
@@ -23,51 +23,51 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 
 @Entity
-@Table(name = "OA_T_INFOTERM")
-@AttributeOverride(name = "uuid", column = @Column(name = "TERM_ID", length = 36, nullable = false))
+@Table(name = "T_PT_InfoTerminal")
+@AttributeOverride(name = "infoTerminalId", column = @Column(name = "infoTerminalId", length = 36, nullable = false))
 public class OaInfoterm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@ExportExcelAnnotation(columnName="终端号",columnWidth=15,order = 1)
 	@MapperCell(cellName = "终端号", order = 1)
 	@FieldInfo(name = "终端号")
-	@Column(name = "TERM_CODE", length = 6, nullable = false)
-	private String termCode;
+	@Column(name = "terminalNO", length = 6, nullable = false)
+	private String terminalNO;
 
-	public void setTermCode(String termCode) {
-		this.termCode = termCode;
+	public String getTerminalNO() {
+		return terminalNO;
 	}
 
-	public String getTermCode() {
-		return termCode;
+	public void setTerminalNO(String terminalNO) {
+		this.terminalNO = terminalNO;
 	}
 	
 	@FieldInfo(name = "终端类型，数据字典INFOTERTYPE")
-	@Column(name = "TERM_TYPE", length = 16, nullable = false)
-	private String termType;
-
-	public void setTermType(String termType) {
-		this.termType = termType;
+	@Column(name = "terminalType", length = 16, nullable = false)
+	private String terminalType;
+	public String getTerminalType() {
+		return terminalType;
 	}
 
-	public String getTermType() {
-		return termType;
+	public void setTerminalType(String terminalType) {
+		this.terminalType = terminalType;
 	}
+
 
 	@FieldInfo(name = "规格")
-	@Column(name = "TERM_SPEC", length = 32, nullable = true)
-	private String termSpec;
+	@Column(name = "terminalSpec", length = 32, nullable = true)
+	private String terminalSpec;
 
-	public void setTermSpec(String termSpec) {
-		this.termSpec = termSpec;
+	public String getTerminalSpec() {
+		return terminalSpec;
 	}
 
-	public String getTermSpec() {
-		return termSpec;
+	public void setTerminalSpec(String terminalSpec) {
+		this.terminalSpec = terminalSpec;
 	}
 
 	@FieldInfo(name = "使用状态，0-未使用 1-已使用")
-	@Column(name = "IS_USE", length = 10, nullable = false)
+	@Column(name = "isUse", length = 10, nullable = false)
 	private Integer isUse;
 
 	public void setIsUse(Integer isUse) {
@@ -79,7 +79,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "使用房间ID")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	public void setRoomId(String roomId) {
@@ -94,7 +94,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	@MapperCell(cellName = "使用房间名称", order = 2)
 	@FieldInfo(name = "使用房间名称")
 	//@Formula("(SELECT a.ROOM_NAME FROM BuildRoominfo a WHERE a.ROOM_ID=ROOM_ID)")
-	@Column(name = "ROOM_NAME", length = 64, nullable = true)
+	@Column(name = "roomName", length = 64, nullable = true)
 	private String roomName;
 
 	public void setRoomName(String roomName) {
@@ -108,15 +108,15 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	@ExportExcelAnnotation(columnName="使用房间门牌号",columnWidth=20,order = 2)
 	@MapperCell(cellName = "使用房间门牌号", order = 3)
 	@FieldInfo(name = "使用房间名称门牌号")
-	@Column(name = "HOUSE_NUMB", length = 64, nullable = true)
-	private String houseNumb;
+	@Column(name = "houseNo", length = 64, nullable = true)
+	private String houseNo;
 
-	public String getHouseNumb() {
-		return houseNumb;
+	public String getHouseNo() {
+		return houseNo;
 	}
 
-	public void setHouseNumb(String houseNumb) {
-		this.houseNumb = houseNumb;
+	public void setHouseNo(String houseNo) {
+		this.houseNo = houseNo;
 	}
 
 	/**

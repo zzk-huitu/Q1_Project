@@ -32,7 +32,7 @@ import com.zd.core.util.DateTimeSerializer;
  * ClassName: AttTime 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 考勤时间(ATT_T_TIME)实体类.
+ * Description: 考勤时间(T_PT_AttendanceTime)实体类.
  * date: 2017-05-15
  *
  * @author  luoyibo 创建文件
@@ -41,23 +41,23 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "ATT_T_TIME")
-@AttributeOverride(name = "uuid", column = @Column(name = "TIME_ID", length = 36, nullable = false))
+@Table(name = "T_PT_AttendanceTime")
+@AttributeOverride(name = "attendanceTimeId", column = @Column(name = "attendanceTimeId", length = 36, nullable = false))
 public class AttTime extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "主题ID")
-    @Column(name = "TITLE_ID", length = 36, nullable = true)
-    private String titleId;
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
-    }
-    public String getTitleId() {
-        return titleId;
-    }
+    @Column(name = "themeId", length = 36, nullable = true)
+    private String themeId;
+    public String getThemeId() {
+ 		return themeId;
+ 	}
+ 	public void setThemeId(String themeId) {
+ 		this.themeId = themeId;
+ 	}
         
     @FieldInfo(name = "星期")
-    @Column(name = "WEEK_DAY", length = 10, nullable = false)
+    @Column(name = "weekDay", length = 10, nullable = false)
     private Integer weekDay;
     public void setWeekDay(Integer weekDay) {
         this.weekDay = weekDay;
@@ -67,7 +67,7 @@ public class AttTime extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "选课开始日期")
-    @Column(name = "BEGIN_DATE", columnDefinition = "datetime", nullable = true)
+    @Column(name = "beginDate", columnDefinition = "datetime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date beginDate;
@@ -79,7 +79,7 @@ public class AttTime extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "选课结束日期")
-    @Column(name = "END_DATE", columnDefinition = "datetime", nullable = true)
+    @Column(name = "endDate", columnDefinition = "datetime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date endDate;
@@ -91,7 +91,7 @@ public class AttTime extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "开始时间")
-    @Column(name = "BEGIN_TIME", columnDefinition = "datetime", nullable = false)
+    @Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date beginTime;
@@ -103,7 +103,7 @@ public class AttTime extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "结束时间")
-    @Column(name = "END_TIME", columnDefinition = "datetime",nullable = true)
+    @Column(name = "endTime", columnDefinition = "datetime",nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date endTime;
@@ -115,13 +115,13 @@ public class AttTime extends BaseEntity implements Serializable{
     }
     
     @FieldInfo(name = "节次")
-    @Column(name = "TEACH_TIME", length = 36, nullable = true)
-    private String teachTime;
-	public String getTeachTime() {
-		return teachTime;
+    @Column(name = "period", length = 36, nullable = true)
+    private String period ;
+	public String getPeriod() {
+		return period;
 	}
-	public void setTeachTime(String teachTime) {
-		this.teachTime = teachTime;
+	public void setPeriod(String period) {
+		this.period = period;
 	}
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 

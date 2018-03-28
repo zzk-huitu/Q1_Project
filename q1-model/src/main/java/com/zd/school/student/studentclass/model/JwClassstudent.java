@@ -20,27 +20,27 @@ import com.zd.school.excel.annotation.MapperCell;
  *
  */
 @Entity
-@Table(name = "JW_T_CLASSSTUDENT")
-@AttributeOverride(name = "uuid", column = @Column(name = "CSTUDENT_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_ClassStudent")
+@AttributeOverride(name = "classStudentId", column = @Column(name = "classStudentId", length = 36, nullable = false) )
 public class JwClassstudent extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "CLAI_ID", length = 36, nullable = true)
-	private String claiId;
+	@Column(name = "classId", length = 36, nullable = true)
+	private String classId;
 
 	@FieldInfo(name = "学生ID")
-	@Column(name = "STUDENT_ID", length = 36, nullable = true)
+	@Column(name = "studentId", length = 36, nullable = true)
 	private String studentId;
 
 	@MapperCell(cellName="学年",order=2)
 	@FieldInfo(name = "学年")
-	@Column(name = "STUDY_YEAH", length = 10, nullable = false)
-	private String studyYeah;
+	@Column(name = "schoolYear", length = 10, nullable = false)
+	private String schoolYear;
 
 	
 	@FieldInfo(name = "学期")
-	@Column(name = "SEMESTER", length = 8, nullable = false)
+	@Column(name = "semester", length = 8, nullable = false)
 	private String semester;
 
 	@FieldInfo(name = "status")
@@ -48,7 +48,7 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 	private String status="0";
 
 	@FieldInfo(name = "签到状态  1-签到 2请假 3旷课 4迟到")
-	@Column(name = "SIGN_IN_STATE", length = 8, nullable = true)
+	@Column(name = "signInState", length = 8, nullable = true)
 	private String signInState="3";
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -74,11 +74,11 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 	@MapperCell(cellName="姓名",order=4)
 	@Formula("(SELECT A.XM FROM dbo.SYS_T_USER A WHERE A.USER_ID=STUDENT_ID)")
 	@FieldInfo(name = "姓名")
-	private String xm;
+	private String name;
 	
 	@FieldInfo(name = "性别码GB/T 2261.1")
 	@Formula("(SELECT A.XBM FROM dbo.SYS_T_USER A WHERE A.USER_ID=STUDENT_ID)")
-	private String xbm;
+	private String genderCode;
 	
 	@Transient
 	@MapperCell(cellName="学期",order=3)
@@ -90,7 +90,7 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 	
 	@Formula("(SELECT A.ZP FROM dbo.STU_T_BASEINFO A WHERE A.USER_ID=STUDENT_ID)")
 	@FieldInfo(name = "照片")
-	private String zp;
+	private String photo;
 	
 	@Formula("(SELECT TOP 1 A.CARDNO FROM dbo.PT_CARD A WHERE A.USER_ID=STUDENT_ID AND A.CARDSTATUSID=1)")
 	@FieldInfo(name = "卡流水号")
@@ -98,11 +98,59 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 	
 	@Formula("(SELECT TOP 1 A.FACTORYFIXID FROM dbo.PT_CARD A WHERE A.USER_ID=STUDENT_ID AND A.CARDSTATUSID=1)")
 	@FieldInfo(name = "物理卡号")
-	private String factoryFixID;
+	private String physicsNo;
 
 	@Transient
 	private boolean isLeaveed=false;
 	
+	public String getClassId() {
+		return classId;
+	}
+
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+
+	public String getSchoolYear() {
+		return schoolYear;
+	}
+
+	public void setSchoolYear(String schoolYear) {
+		this.schoolYear = schoolYear;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getGenderCode() {
+		return genderCode;
+	}
+
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getPhysicsNo() {
+		return physicsNo;
+	}
+
+	public void setPhysicsNo(String physicsNo) {
+		this.physicsNo = physicsNo;
+	}
+
 	public String getGradeCode() {
 		return gradeCode;
 	}
@@ -111,13 +159,7 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 		this.gradeCode = gradeCode;
 	}
 
-	public String getClaiId() {
-		return claiId;
-	}
 
-	public void setClaiId(String claiId) {
-		this.claiId = claiId;
-	}
 
 	public String getStudentId() {
 		return studentId;
@@ -144,21 +186,7 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 		this.status = status;
 	}
 
-	public String getXm() {
-		return xm;
-	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
-	}
-
-	public String getXbm() {
-		return xbm;
-	}
-
-	public void setXbm(String xbm) {
-		this.xbm = xbm;
-	}
 
 	public String getClassName() {
 		return className;
@@ -168,13 +196,6 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 		this.className = className;
 	}
 
-	public String getStudyYeah() {
-		return studyYeah;
-	}
-
-	public void setStudyYeah(String studyYeah) {
-		this.studyYeah = studyYeah;
-	}
 
 	public String getUserNumb() {
 		return userNumb;
@@ -200,13 +221,6 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 		this.xbmEx = xbmEx;
 	}
 
-	public String getZp() {
-		return zp;
-	}
-
-	public void setZp(String zp) {
-		this.zp = zp;
-	}
 
 	public String getCardNo() {
 		return cardNo;
@@ -216,13 +230,7 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 		this.cardNo = cardNo;
 	}
 
-	public String getFactoryFixID() {
-		return factoryFixID;
-	}
-
-	public void setFactoryFixID(String factoryFixID) {
-		this.factoryFixID = factoryFixID;
-	}
+	
 
 	public String getSignInState() {
 		return signInState;

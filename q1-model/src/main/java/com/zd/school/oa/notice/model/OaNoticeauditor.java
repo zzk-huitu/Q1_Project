@@ -34,7 +34,7 @@ import com.zd.core.util.DateTimeSerializer;
  * ClassName: OaNoticeauditor 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 公告审核人(OA_T_NOTICEAUDITOR)实体类.
+ * Description: 公告审核人(T_PT_NoticeAuditor)实体类.
  * date: 2016-12-21
  *
  * @author  luoyibo 创建文件
@@ -43,22 +43,13 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "OA_T_NOTICEAUDITOR")
-@AttributeOverride(name = "uuid", column = @Column(name = "AUDITOR_ID", length = 36, nullable = false))
+@Table(name = "T_PT_NoticeAuditor")
+@AttributeOverride(name = "noticeAuditorId", column = @Column(name = "noticeAuditorId", length = 36, nullable = false))
 public class OaNoticeauditor extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
-    
-//    @FieldInfo(name = "公告ID")
-//    @Column(name = "NOTICE_ID", length = 36, nullable = true)
-//    private String noticeId;
-//    public void setNoticeId(String noticeId) {
-//        this.noticeId = noticeId;
-//    }
-//    public String getNoticeId() {
-//        return noticeId;
-//    }
+
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name="NOTICE_ID")
+    @JoinColumn(name="noticeId")
     private OaNotice oaNotice;
     
     public OaNotice getOaNotice() {
@@ -69,7 +60,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "人员ID")
-    @Column(name = "USER_ID", length = 36, nullable = false)
+    @Column(name = "userId", length = 36, nullable = false)
     private String userId;
     public void setUserId(String userId) {
         this.userId = userId;
@@ -79,17 +70,17 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "姓名(对应员工姓名)")
-    @Column(name = "XM", length = 32, nullable = false)
-    private String xm;
-    public void setXm(String xm) {
-        this.xm = xm;
+    @Column(name = "name", length = 32, nullable = false)
+    private String name;
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getXm() {
-        return xm;
+    public String getName() {
+        return name;
     }
         
     @FieldInfo(name = "审核意见")
-    @Column(name = "AUDIT_OPINION", length = 64, nullable = true)
+    @Column(name = "auditOpinion", length = 64, nullable = true)
     private String auditOpinion;
     public void setAuditOpinion(String auditOpinion) {
         this.auditOpinion = auditOpinion;
@@ -99,7 +90,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "审核状态(0-待审核 1-审核通过 2-审核不通过)")
-    @Column(name = "AUDIT_STATE", length = 10, nullable = false)
+    @Column(name = "auditState", length = 10, nullable = false)
     private Integer auditState;
     public void setAuditState(Integer auditState) {
         this.auditState = auditState;
@@ -109,7 +100,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "审核日期")
-    @Column(name = "AUDIT_DATE", length = 23, nullable = true)
+    @Column(name = "auditDate", length = 23, nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date auditDate;

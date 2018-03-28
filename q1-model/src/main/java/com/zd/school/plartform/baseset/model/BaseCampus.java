@@ -23,13 +23,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BASE_T_CAMPUS")
-@AttributeOverride(name = "uuid", column = @Column(name = "CAMPUS_ID", length = 36, nullable = false))
+@Table(name = "T_PT_Campus")
+@AttributeOverride(name = "campusId", column = @Column(name = "campusId", length = 36, nullable = false))
 public class BaseCampus extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "学校主键")
-    @Column(name = "SCHOOL_ID", length = 36, nullable = true)
+    @Column(name = "schoolId", length = 36, nullable = true)
     private String schoolId;
 
 
@@ -42,7 +42,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区编码")
-    @Column(name = "CAMPUS_CODE", length = 32, nullable = true)
+    @Column(name = "campusCode", length = 32, nullable = true)
     private String campusCode;
 
     public void setCampusCode(String campusCode) {
@@ -54,7 +54,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区名称")
-    @Column(name = "CAMPUS_NAME", length = 64, nullable = false)
+    @Column(name = "campusName", length = 64, nullable = false)
     private String campusName;
 
     public void setCampusName(String campusName) {
@@ -66,7 +66,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区地址")
-    @Column(name = "CAMPUS_ADDR", length = 180, nullable = true)
+    @Column(name = "campusAddr", length = 180, nullable = true)
     private String campusAddr;
 
     public void setCampusAddr(String campusAddr) {
@@ -78,19 +78,19 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "邮政编码")
-    @Column(name = "ZIP_CODE", length = 16, nullable = true)
-    private String zipCode;
+    @Column(name = "mailCode", length = 16, nullable = true)
+    private String mailCode;
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setMailCode(String mailCode) {
+        this.mailCode = mailCode;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public String getMailCode() {
+        return mailCode;
     }
 
     @FieldInfo(name = "校区联系电话")
-    @Column(name = "CAMPUS_PHONE", length = 30, nullable = true)
+    @Column(name = "campusPhone", length = 30, nullable = true)
     private String campusPhone;
 
     public void setCampusPhone(String campusPhone) {
@@ -102,7 +102,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区传真电话")
-    @Column(name = "CAMPUS_FAX", length = 30, nullable = true)
+    @Column(name = "campusFax", length = 30, nullable = true)
     private String campusFax;
 
     public void setCampusFax(String campusFax) {
@@ -114,15 +114,15 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区负责人号")
-    @Column(name = "CAMPUS_HEAD", length = 32, nullable = true)
-    private String campusHead;
+    @Column(name = "campusPrincipal", length = 32, nullable = true)
+    private String campusPrincipal;
 
-    public void setCampusHead(String campusHead) {
-        this.campusHead = campusHead;
+    public void setCampusPrincipal(String campusPrincipal) {
+        this.campusPrincipal = campusPrincipal;
     }
 
-    public String getCampusHead() {
-        return campusHead;
+    public String getCampusPrincipal() {
+        return campusPrincipal;
     }
 
     /**

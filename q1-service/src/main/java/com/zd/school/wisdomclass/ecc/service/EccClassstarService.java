@@ -2,9 +2,8 @@ package com.zd.school.wisdomclass.ecc.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.salary.jxsalary.model.XcJxbook;
 import com.zd.school.jw.ecc.model.EccClassstar ;
+import com.zd.school.plartform.system.model.SysUser;
 
 
 /**

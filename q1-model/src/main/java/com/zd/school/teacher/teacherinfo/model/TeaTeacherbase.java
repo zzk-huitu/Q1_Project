@@ -28,566 +28,515 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 
 @Entity
-@Table(name = "TEA_T_TEACHERBASE")
-//@AttributeOverride(name = "uuid", column = @Column(name = "TEACH_ID", length = 36, nullable = false))
+@Table(name = "T_PT_TeacherBaseInfo")
+// @AttributeOverride(name = "teacherBaseInfoId", column = @Column(name =
+// "teacherBaseInfoId", length = 36, nullable = false))
 public class TeaTeacherbase extends SysUser implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-//    @FieldInfo(name = "学校主键")
-//    @Column(name = "SCHOOL_ID", length = 36, nullable = true)
-//    private String schoolId;
-//
-//    public void setSchoolId(String schoolId) {
-//        this.schoolId = schoolId;
-//    }
-//
-//    public String getSchoolId() {
-//        return schoolId;
-//    }
-//
-//    @FieldInfo(name = "工号")
-//    @Column(name = "GH", length = 20, nullable = false)
-//    private String gh;
-//
-//    public void setGh(String gh) {
-//        this.gh = gh;
-//    }
-//
-//    public String getUserNumb() {
-//        return gh;
-//    }
-
-//    @FieldInfo(name = "姓名")
-//    @Column(name = "XM", length = 36, nullable = false)
-//    private String xm;
-//
-//    public void setXm(String xm) {
-//        this.xm = xm;
-//    }
-//
-//    public String getXm() {
-//        return xm;
-//    }
-
-    @FieldInfo(name = "英文姓名")
-    @Column(name = "YWXM", length = 60, nullable = true)
-    private String ywxm;
-
-    public void setYwxm(String ywxm) {
-        this.ywxm = ywxm;
-    }
-
-    public String getYwxm() {
-        return ywxm;
-    }
-
-    @FieldInfo(name = "姓名拼音")
-    @Column(name = "XMPY", length = 60, nullable = true)
-    private String xmpy;
-
-    public void setXmpy(String xmpy) {
-        this.xmpy = xmpy;
-    }
-
-    public String getXmpy() {
-        return xmpy;
-    }
-
-    @FieldInfo(name = "曾用名")
-    @Column(name = "CYM", length = 36, nullable = true)
-    private String cym;
-
-    public void setCym(String cym) {
-        this.cym = cym;
-    }
-
-    public String getCym() {
-        return cym;
-    }
-
-//    @FieldInfo(name = "性别码")
-//    @Column(name = "XBM", length = 10, nullable = true)
-//    private String xbm;
-//
-//    public void setXbm(String xbm) {
-//        this.xbm = xbm;
-//    }
-//
-//    public String getXbm() {
-//        return xbm;
-//    }
-
-    @FieldInfo(name = "出生地码")
-    @Column(name = "CSDM", length = 10, nullable = true)
-    private String csdm;
-
-    public void setCsdm(String csdm) {
-        this.csdm = csdm;
-    }
-
-    public String getCsdm() {
-        return csdm;
-    }
-
-    @FieldInfo(name = "国籍/地区码")
-    @Column(name = "GJDQM", length = 10, nullable = true)
-    private String gjdqm;
-
-    public void setGjdqm(String gjdqm) {
-        this.gjdqm = gjdqm;
-    }
-
-    public String getGjdqm() {
-        return gjdqm;
-    }
-
-    @FieldInfo(name = "籍贯")
-    @Column(name = "JG", length = 20, nullable = true)
-    private String jg;
-
-    public void setJg(String jg) {
-        this.jg = jg;
-    }
-
-    public String getJg() {
-        return jg;
-    }
-
-    @FieldInfo(name = "户口所在地")
-    @Column(name = "HKSZD", length = 180, nullable = true)
-    private String hkszd;
-
-    public void setHkszd(String hkszd) {
-        this.hkszd = hkszd;
-    }
-
-    public String getHkszd() {
-        return hkszd;
-    }
-
-    @FieldInfo(name = "户口性质码")
-    @Column(name = "HKXZM", length = 10, nullable = true)
-    private String hkxzm;
-
-    public void setHkxzm(String hkxzm) {
-        this.hkxzm = hkxzm;
-    }
-
-    public String getHkxzm() {
-        return hkxzm;
-    }
-
-    @FieldInfo(name = "民族码")
-    @Column(name = "MZM", length = 10, nullable = true)
-    private String mzm;
-
-    public void setMzm(String mzm) {
-        this.mzm = mzm;
-    }
-
-    public String getMzm() {
-        return mzm;
-    }
-
-    @FieldInfo(name = "身份证件类型码")
-    @Column(name = "SFZJLXM", length = 10, nullable = true)
-    private String sfzjlxm;
-
-    public void setSfzjlxm(String sfzjlxm) {
-        this.sfzjlxm = sfzjlxm;
-    }
-
-    public String getSfzjlxm() {
-        return sfzjlxm;
-    }
-
-    @FieldInfo(name = "身份证件号")
-    @Column(name = "SFZJH", length = 20, nullable = true)
-    private String sfzjh;
-
-    public void setSfzjh(String sfzjh) {
-        this.sfzjh = sfzjh;
-    }
-
-    public String getSfzjh() {
-        return sfzjh;
-    }
-
-    @FieldInfo(name = "婚姻状况码")
-    @Column(name = "HYZKM", length = 10, nullable = true)
-    private String hyzkm;
-
-    public void setHyzkm(String hyzkm) {
-        this.hyzkm = hyzkm;
-    }
-
-    public String getHyzkm() {
-        return hyzkm;
-    }
-
-    @FieldInfo(name = "港澳台侨外码")
-    @Column(name = "GATQWM", length = 10, nullable = true)
-    private String gatqwm;
-
-    public void setGatqwm(String gatqwm) {
-        this.gatqwm = gatqwm;
-    }
-
-    public String getGatqwm() {
-        return gatqwm;
-    }
-
-    @FieldInfo(name = "政治面貌码GB/T 4762")
-    @Column(name = "ZZMMM", length = 10, nullable = true)
-    private String zzmmm;
-
-    public void setZzmmm(String zzmmm) {
-        this.zzmmm = zzmmm;
-    }
-
-    public String getZzmmm() {
-        return zzmmm;
-    }
-
-    @FieldInfo(name = "健康状况码")
-    @Column(name = "JKZKM", length = 10, nullable = true)
-    private String jkzkm;
-
-    public void setJkzkm(String jkzkm) {
-        this.jkzkm = jkzkm;
-    }
-
-    public String getJkzkm() {
-        return jkzkm;
-    }
-
-    @FieldInfo(name = "信仰宗教码")
-    @Column(name = "XYZJM", length = 10, nullable = true)
-    private String xyzjm;
-
-    public void setXyzjm(String xyzjm) {
-        this.xyzjm = xyzjm;
-    }
-
-    public String getXyzjm() {
-        return xyzjm;
-    }
-
-    @FieldInfo(name = "血型码")
-    @Column(name = "XXM", length = 10, nullable = true)
-    private String xxm;
-
-    public void setXxm(String xxm) {
-        this.xxm = xxm;
-    }
-
-    public String getXxm() {
-        return xxm;
-    }
-
-    @FieldInfo(name = "照片")
-    @Column(name = "ZP", length = 200, nullable = true)
-    private String zp;
-
-    public void setZp(String zp) {
-        this.zp = zp;
-    }
-
-    public String getZp() {
-        return zp;
-    }
-
-    @FieldInfo(name = "身份证件有效期")
-    @Column(name = "SFZJYXQ", length = 17, nullable = true)
-    private String sfzjyxq;
-
-    public void setSfzjyxq(String sfzjyxq) {
-        this.sfzjyxq = sfzjyxq;
-    }
-
-    public String getSfzjyxq() {
-        return sfzjyxq;
-    }
-
-    @FieldInfo(name = "家庭住址")
-    @Column(name = "JTZZ", length = 180, nullable = true)
-    private String jtzz;
-
-    public void setJtzz(String jtzz) {
-        this.jtzz = jtzz;
-    }
-
-    public String getJtzz() {
-        return jtzz;
-    }
-
-    @FieldInfo(name = "现住址")
-    @Column(name = "XZZ", length = 180, nullable = true)
-    private String xzz;
-
-    public void setXzz(String xzz) {
-        this.xzz = xzz;
-    }
-
-    public String getXzz() {
-        return xzz;
-    }
-
-    @FieldInfo(name = "学历码")
-    @Column(name = "XLM", length = 10, nullable = true)
-    private String xlm;
-
-    public void setXlm(String xlm) {
-        this.xlm = xlm;
-    }
-
-    public String getXlm() {
-        return xlm;
-    }
-
-    @FieldInfo(name = "参加工作年月")
-    @Column(name = "GZNY", length = 16, nullable = true)
-    private String gzny;
-
-    public void setGzny(String gzny) {
-        this.gzny = gzny;
-    }
-
-    public String getGzny() {
-        return gzny;
-    }
-
-    @FieldInfo(name = "来校年月")
-    @Column(name = "LXNY", length = 16, nullable = true)
-    private String lxny;
-
-    public void setLxny(String lxny) {
-        this.lxny = lxny;
-    }
-
-    public String getLxny() {
-        return lxny;
-    }
-
-    @FieldInfo(name = "从教年月")
-    @Column(name = "CJNY", length = 16, nullable = true)
-    private String cjny;
-
-    public void setCjny(String cjny) {
-        this.cjny = cjny;
-    }
-
-    public String getCjny() {
-        return cjny;
-    }
-
-    @FieldInfo(name = "编制类别码")
-    @Column(name = "BZLBM", length = 10, nullable = true)
-    private String bzlbm;
-
-    public void setBzlbm(String bzlbm) {
-        this.bzlbm = bzlbm;
-    }
-
-    public String getBzlbm() {
-        return bzlbm;
-    }
-
-    @FieldInfo(name = "档案编号")
-    @Column(name = "DABH", length = 10, nullable = true)
-    private String dabh;
-
-    public void setDabh(String dabh) {
-        this.dabh = dabh;
-    }
-
-    public String getDabh() {
-        return dabh;
-    }
-
-    @FieldInfo(name = "档案文本")
-    @Column(name = "DAWB", length = 128, nullable = true)
-    private String dawb;
-
-    public void setDawb(String dawb) {
-        this.dawb = dawb;
-    }
-
-    public String getDawb() {
-        return dawb;
-    }
-
-    @FieldInfo(name = "通信地址")
-    @Column(name = "TXDZ", length = 180, nullable = true)
-    private String txdz;
-
-    public void setTxdz(String txdz) {
-        this.txdz = txdz;
-    }
-
-    public String getTxdz() {
-        return txdz;
-    }
-
-    @FieldInfo(name = "联系电话")
-    @Column(name = "LXDH", length = 30, nullable = true)
-    private String lxdh;
-
-    public void setLxdh(String lxdh) {
-        this.lxdh = lxdh;
-    }
-
-    public String getLxdh() {
-        return lxdh;
-    }
-
-    @FieldInfo(name = "邮政编码")
-    @Column(name = "YZBM", length = 6, nullable = true)
-    private String yzbm;
-
-    public void setYzbm(String yzbm) {
-        this.yzbm = yzbm;
-    }
-
-    public String getYzbm() {
-        return yzbm;
-    }
-
-    @FieldInfo(name = "电子信箱")
-    @Column(name = "DZXX", length = 40, nullable = true)
-    private String dzxx;
-
-    public void setDzxx(String dzxx) {
-        this.dzxx = dzxx;
-    }
-
-    public String getDzxx() {
-        return dzxx;
-    }
-
-    @FieldInfo(name = "主页地址")
-    @Column(name = "ZYDZ", length = 60, nullable = true)
-    private String zydz;
-
-    public void setZydz(String zydz) {
-        this.zydz = zydz;
-    }
-
-    public String getZydz() {
-        return zydz;
-    }
-
-    @FieldInfo(name = "特长")
-    @Column(name = "TC", length = 128, nullable = true)
-    private String tc;
-
-    public void setTc(String tc) {
-        this.tc = tc;
-    }
-
-    public String getTc() {
-        return tc;
-    }
-
-    @FieldInfo(name = "岗位职业码")
-    @Column(name = "GWZYM", length = 10, nullable = true)
-    private String gwzym;
-
-    public void setGwzym(String gwzym) {
-        this.gwzym = gwzym;
-    }
-
-    public String getGwzym() {
-        return gwzym;
-    }
-
-    @FieldInfo(name = "主要任课学段")
-    @Column(name = "ZYRKXD", length = 10, nullable = true)
-    private String zyrkxd;
-
-    public void setZyrkxd(String zyrkxd) {
-        this.zyrkxd = zyrkxd;
-    }
-
-    public String getZyrkxd() {
-        return zyrkxd;
-    }
-
-    @FieldInfo(name = "主讲课程")
-    @Column(name = "MAIN_COURSE", length = 36, nullable = true)
-    private String mainCourse;
-
-    public void setMainCourse(String mainCourse) {
-        this.mainCourse = mainCourse;
-    }
-
-    public String getMainCourse() {
-        return mainCourse;
-    }
-    
-    @Formula("(SELECT a.COURSE_NAME FROM  JW_T_BASECOURSE a WHERE a.BASECOURSE_ID=MAIN_COURSE )")
-    private String mainCourseName;
-
-    public void setMainCourseName(String mainCourse) {
-        this.mainCourseName = mainCourse;
-    }
-
-    public String getMainCourseName() {
-        return mainCourseName;
-    }
-    @FieldInfo(name = "出生日期")
-    @Column(name = "CSRQ", length = 23, nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonSerialize(using = DateTimeSerializer.class)
-    private Date csrq;
-
-    public void setCsrq(Date csrq) {
-        this.csrq = csrq;
-    }
-
-    public Date getCsrq() {
-        return csrq;
-    }
+	private static final long serialVersionUID = 1L;
+
+	
+	@FieldInfo(name = "英文姓名")
+	@Column(name = "englishName", length = 60, nullable = true)
+	private String englishName;
+
+	public String getEnglishName() {
+		return englishName;
+	}
+
+	public void setEnglishName(String englishName) {
+		this.englishName = englishName;
+	}
+
+	@FieldInfo(name = "姓名拼音")
+	@Column(name = "spellName", length = 60, nullable = true)
+	private String spellName;
+
+	public String getSpellName() {
+		return spellName;
+	}
+
+	public void setSpellName(String spellName) {
+		this.spellName = spellName;
+	}
+
+	@FieldInfo(name = "曾用名")
+	@Column(name = "userdName", length = 36, nullable = true)
+	private String userdName;
+
+	public String getUserdName() {
+		return userdName;
+	}
+
+	public void setUserdName(String userdName) {
+		this.userdName = userdName;
+	}
+
+	@FieldInfo(name = "出生地码")
+	@Column(name = "bornplace", length = 10, nullable = true)
+	private String bornplace;
+
+	public String getBornplace() {
+		return bornplace;
+	}
+
+	public void setBornplace(String bornplace) {
+		this.bornplace = bornplace;
+	}
+
+	@FieldInfo(name = "国籍/地区码")
+	@Column(name = "nationality", length = 10, nullable = true)
+	private String nationality;
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	@FieldInfo(name = "籍贯")
+	@Column(name = "nativePlace", length = 20, nullable = true)
+	private String nativePlace;
+
+	public String getNativePlace() {
+		return nativePlace;
+	}
+
+	public void setNativePlace(String nativePlace) {
+		this.nativePlace = nativePlace;
+	}
+
+	@FieldInfo(name = "户口所在地")
+	@Column(name = "hkadr", length = 180, nullable = true)
+	private String hkadr;
+
+	public String getHkadr() {
+		return hkadr;
+	}
+
+	public void setHkadr(String hkadr) {
+		this.hkadr = hkadr;
+	}
+
+	@FieldInfo(name = "户口性质码")
+	@Column(name = "AccountPropertyCode", length = 10, nullable = true)
+	private String AccountPropertyCode;
+
+	public String getAccountPropertyCode() {
+		return AccountPropertyCode;
+	}
+
+	public void setAccountPropertyCode(String accountPropertyCode) {
+		AccountPropertyCode = accountPropertyCode;
+	}
+
+	@FieldInfo(name = "民族码")
+	@Column(name = "folkCode", length = 10, nullable = true)
+	private String folkCode;
+
+	public String getFolkCode() {
+		return folkCode;
+	}
+
+	public void setFolkCode(String folkCode) {
+		this.folkCode = folkCode;
+	}
+
+	@FieldInfo(name = "身份证件类型码")
+	@Column(name = "identityTypeCode", length = 10, nullable = true)
+	private String identityTypeCode;
+
+	public String getIdentityTypeCode() {
+		return identityTypeCode;
+	}
+
+	public void setIdentityTypeCode(String identityTypeCode) {
+		this.identityTypeCode = identityTypeCode;
+	}
+
+	@FieldInfo(name = "身份证件号")
+	@Column(name = "personalIdentityDocument", length = 20, nullable = true)
+	private String personalIdentityDocument;
+
+	public String getPersonalIdentityDocument() {
+		return personalIdentityDocument;
+	}
+
+	public void setPersonalIdentityDocument(String personalIdentityDocument) {
+		this.personalIdentityDocument = personalIdentityDocument;
+	}
+
+	@FieldInfo(name = "婚姻状况码")
+	@Column(name = "marriageCode", length = 10, nullable = true)
+	private String marriageCode;
+
+	public void setMarriageCode(String marriageCode) {
+		this.marriageCode = marriageCode;
+	}
+
+	public String getMarriageCode() {
+		return marriageCode;
+	}
+
+	@FieldInfo(name = "港澳台侨外码")
+	@Column(name = "foreignCode", length = 10, nullable = true)
+	private String foreignCode;
+
+	public String getForeignCode() {
+		return foreignCode;
+	}
+
+	public void setForeignCode(String foreignCode) {
+		this.foreignCode = foreignCode;
+	}
+
+	@FieldInfo(name = "政治面貌码GB/T 4762")
+	@Column(name = "politicsCode", length = 10, nullable = true)
+	private String politicsCode;
+
+	public void setPoliticsCode(String politicsCode) {
+		this.politicsCode = politicsCode;
+	}
+
+	public String getPoliticsCode() {
+		return politicsCode;
+	}
+
+	@FieldInfo(name = "健康状况码")
+	@Column(name = "healthCode", length = 10, nullable = true)
+	private String healthCode;
+
+	public String getHealthCode() {
+		return healthCode;
+	}
+
+	public void setHealthCode(String healthCode) {
+		this.healthCode = healthCode;
+	}
+
+	@FieldInfo(name = "信仰宗教码")
+	@Column(name = "religiousCode", length = 10, nullable = true)
+	private String religiousCode;
+
+	public String getReligiousCode() {
+		return religiousCode;
+	}
+
+	public void setReligiousCode(String religiousCode) {
+		this.religiousCode = religiousCode;
+	}
+
+	@FieldInfo(name = "血型码")
+	@Column(name = "bloodType", length = 10, nullable = true)
+	private String bloodType;
+
+	public void setBloodType(String bloodType) {
+		this.bloodType = bloodType;
+	}
+
+	public String getbloodType() {
+		return bloodType;
+	}
+
+	@FieldInfo(name = "照片")
+	@Column(name = "photo", length = 200, nullable = true)
+	private String photo;
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	@FieldInfo(name = "身份证件有效期")
+	@Column(name = "identityTimeLimit", length = 17, nullable = true)
+	private String identityTimeLimit;
+
+	@FieldInfo(name = "家庭住址")
+	@Column(name = "homeAddress", length = 180, nullable = true)
+	private String homeAddress;
+
+	@FieldInfo(name = "现住址")
+	@Column(name = "liveLocation", length = 180, nullable = true)
+	private String liveLocation;
+
+	@FieldInfo(name = "学历码")
+	@Column(name = "degreeCode", length = 10, nullable = true)
+	private String degreeCode;
+
+	@FieldInfo(name = "参加工作年月")
+	@Column(name = "takeJobYears", length = 16, nullable = true)
+	private String takeJobYears;
+
+	@FieldInfo(name = "来校年月")
+	@Column(name = "comeSchoolYears", length = 16, nullable = true)
+	private String comeSchoolYears;
+
+	@FieldInfo(name = "从教年月")
+	@Column(name = "teachYears", length = 16, nullable = true)
+	private String teachYears;
+
+	@FieldInfo(name = "编制类别码")
+	@Column(name = "BZLBM", length = 10, nullable = true)
+	private String compileTypeCode;
+
+	@FieldInfo(name = "档案编号")
+	@Column(name = "fileNumber", length = 10, nullable = true)
+	private String fileNumber;
+
+	@FieldInfo(name = "档案文本")
+	@Column(name = "textFiles", length = 128, nullable = true)
+	private String textFiles;
+
+	@FieldInfo(name = "通信地址")
+	@Column(name = "mailingAddress", length = 180, nullable = true)
+	private String mailingAddress;
+
+	@FieldInfo(name = "联系电话")
+	@Column(name = "telePhone", length = 30, nullable = true)
+	private String telePhone;
+
+	@FieldInfo(name = "邮政编码")
+	@Column(name = "postCode", length = 6, nullable = true)
+	private String postCode;
+
+	@FieldInfo(name = "电子信箱")
+	@Column(name = "email", length = 40, nullable = true)
+	private String email;
+
+	@FieldInfo(name = "主页地址")
+	@Column(name = "homePage", length = 60, nullable = true)
+	private String homePage;
+
+	@FieldInfo(name = "特长")
+	@Column(name = "speciality ", length = 128, nullable = true)
+	private String speciality;
+
+	@FieldInfo(name = "岗位职业码")
+	@Column(name = "postJobCode", length = 10, nullable = true)
+	private String postJobCode;
+
+	@FieldInfo(name = "主要任课学段")
+	@Column(name = "mianCourseSection", length = 10, nullable = true)
+	private String mianCourseSection;
+
+	public String getIdentityTimeLimit() {
+		return identityTimeLimit;
+	}
+
+	public void setIdentityTimeLimit(String identityTimeLimit) {
+		this.identityTimeLimit = identityTimeLimit;
+	}
+
+	public String getHomeAddress() {
+		return homeAddress;
+	}
+
+	public void setHomeAddress(String homeAddress) {
+		this.homeAddress = homeAddress;
+	}
+
+	public String getLiveLocation() {
+		return liveLocation;
+	}
+
+	public void setLiveLocation(String liveLocation) {
+		this.liveLocation = liveLocation;
+	}
+
+	public String getDegreeCode() {
+		return degreeCode;
+	}
+
+	public void setDegreeCode(String degreeCode) {
+		this.degreeCode = degreeCode;
+	}
+
+	public String getTakeJobYears() {
+		return takeJobYears;
+	}
+
+	public void setTakeJobYears(String takeJobYears) {
+		this.takeJobYears = takeJobYears;
+	}
+
+	public String getComeSchoolYears() {
+		return comeSchoolYears;
+	}
+
+	public void setComeSchoolYears(String comeSchoolYears) {
+		this.comeSchoolYears = comeSchoolYears;
+	}
+
+	public String getTeachYears() {
+		return teachYears;
+	}
+
+	public void setTeachYears(String teachYears) {
+		this.teachYears = teachYears;
+	}
+
+	public String getCompileTypeCode() {
+		return compileTypeCode;
+	}
+
+	public void setCompileTypeCode(String compileTypeCode) {
+		this.compileTypeCode = compileTypeCode;
+	}
+
+	public String getFileNumber() {
+		return fileNumber;
+	}
+
+	public void setFileNumber(String fileNumber) {
+		this.fileNumber = fileNumber;
+	}
+
+	public String getTextFiles() {
+		return textFiles;
+	}
+
+	public void setTextFiles(String textFiles) {
+		this.textFiles = textFiles;
+	}
+
+	public String getMailingAddress() {
+		return mailingAddress;
+	}
+
+	public void setMailingAddress(String mailingAddress) {
+		this.mailingAddress = mailingAddress;
+	}
+
+	public String getTelePhone() {
+		return telePhone;
+	}
+
+	public void setTelePhone(String telePhone) {
+		this.telePhone = telePhone;
+	}
+
+	public String getPostCode() {
+		return postCode;
+	}
+
+	public void setPostCode(String postCode) {
+		this.postCode = postCode;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getHomePage() {
+		return homePage;
+	}
+
+	public void setHomePage(String homePage) {
+		this.homePage = homePage;
+	}
+
+	public String getSpeciality() {
+		return speciality;
+	}
+
+	public void setSpeciality(String speciality) {
+		this.speciality = speciality;
+	}
+
+	public String getPostJobCode() {
+		return postJobCode;
+	}
+
+	public void setPostJobCode(String postJobCode) {
+		this.postJobCode = postJobCode;
+	}
+
+	public String getMianCourseSection() {
+		return mianCourseSection;
+	}
+
+	public void setMianCourseSection(String mianCourseSection) {
+		this.mianCourseSection = mianCourseSection;
+	}
+
+	public Date getBirthdDate() {
+		return birthdDate;
+	}
+
+	public void setBirthdDate(Date birthdDate) {
+		this.birthdDate = birthdDate;
+	}
+
+	public String getTeacherNum() {
+		return teacherNum;
+	}
+
+	public void setTeacherNum(String teacherNum) {
+		this.teacherNum = teacherNum;
+	}
+
+	public String getTeacherName() {
+		return teacherName;
+	}
+
+	public void setTeacherName(String teacherName) {
+		this.teacherName = teacherName;
+	}
+
+	public String getBloodType() {
+		return bloodType;
+	}
+
+	@FieldInfo(name = "主讲课程")
+	@Column(name = "mainCourse", length = 36, nullable = true)
+	private String mainCourse;
+
+	public void setMainCourse(String mainCourse) {
+		this.mainCourse = mainCourse;
+	}
+
+	public String getMainCourse() {
+		return mainCourse;
+	}
+
+	@Formula("(SELECT a.COURSE_NAME FROM  JW_T_BASECOURSE a WHERE a.BASECOURSE_ID=MAIN_COURSE )")
+	private String mainCourseName;
+
+	public void setMainCourseName(String mainCourse) {
+		this.mainCourseName = mainCourse;
+	}
+
+	public String getMainCourseName() {
+		return mainCourseName;
+	}
+
+	@FieldInfo(name = "出生日期")
+	@Column(name = "birthdDate", length = 23, nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date birthdDate;
 
 	/**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
-    @FieldInfo(name = "老师工号")
-    @Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
-    private String gh;
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	@FieldInfo(name = "老师工号")
+	@Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
+	private String teacherNum;
 
-    public String getGh() {
-        return gh;
-    }
+	@Transient
+	@FieldInfo(name = "老师姓名")
+	// @Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
+	private String teacherName;
 
-    public void setGh(String gh) {
-        this.gh = gh;
-    }
-    @Transient
-    @FieldInfo(name = "老师姓名")
-    //@Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
-    private String xm;
-
-    public String getXm() {
-        return xm;
-    }
-
-    public void setXm(String xm) {
-        this.xm = xm;
-    }
-//
-//    @FieldInfo(name = "老师性别")
-//    @Formula("(SELECT a.xbm FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
-//    private String xbm;
-//
-//    public String getXbm() {
-//        return xbm;
-//    }
-//
-//    public void setXbm(String xbm) {
-//        this.xbm = xbm;
-//    }
 }

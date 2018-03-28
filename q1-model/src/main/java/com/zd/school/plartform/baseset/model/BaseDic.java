@@ -22,13 +22,13 @@ import com.zd.core.model.TreeNodeEntity;
  */
 
 @Entity
-@Table(name = "BASE_T_DIC")
-@AttributeOverride(name = "uuid", column = @Column(name = "DIC_ID", length = 36, nullable = false))
+@Table(name = "T_PT_Ddic")
+@AttributeOverride(name = "ddicId", column = @Column(name = "ddicId", length = 36, nullable = false))
 public class BaseDic extends TreeNodeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "字典编码")
-    @Column(name = "DIC_CODE", length = 16, nullable = false)
+    @Column(name = "dicCode", length = 16, nullable = false)
     private String dicCode;
 
     public void setDicCode(String dicCode) {
@@ -40,7 +40,7 @@ public class BaseDic extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "字典类型，目前就LIST与TREE两类")
-    @Column(name = "DIC_TYPE", length = 8, nullable = false)
+    @Column(name = "dicType", length = 8, nullable = false)
     private String dicType;
 
     public void setDicType(String dicType) {
@@ -51,16 +51,16 @@ public class BaseDic extends TreeNodeEntity implements Serializable {
         return dicType;
     }
 
-    @FieldInfo(name = "引用实体路径")
-    @Column(name = "REF_MODEL", length = 256, nullable = true)
-    private String refModel;
+    @FieldInfo(name = "引用实体路径")  
+    @Column(name = "physicalPath", length = 256, nullable = true)
+    private String physicalPath;
 
-    public void setRefModel(String refModel) {
-        this.refModel = refModel;
+    public void setPhysicalPath(String physicalPath) {
+        this.physicalPath = physicalPath;
     }
 
-    public String getRefModel() {
-        return refModel;
+    public String getPhysicalPath() {
+        return physicalPath;
     }
 
     /**

@@ -16,20 +16,20 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 @Entity
-@Table(name = "Td_Record_Time")
-@AttributeOverride(name = "uuid", column = @Column(name = "UUID", length = 36, nullable = false))
+@Table(name = "T_PT_RecordTime")
+@AttributeOverride(name = "recordTimeId", column = @Column(name = "recordTimeId", length = 36, nullable = false))
 public class TdRecordTime extends BaseEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "特殊刷卡时间")
-	@Column(name = "BRUSH_TIME", length = 23, nullable = true)
+	@Column(name = "brushTime", length = 23, nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date brushTime;
 	
 	@FieldInfo(name = "特殊是否需要刷卡类型 0不需要 1需要")
-	@Column(name = "BRUSH_TYPE",nullable = true)
+	@Column(name = "brushType",nullable = true)
 	private Integer brushType;
 
 	public Date getBrushTime() {

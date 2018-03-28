@@ -23,13 +23,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_DEPTRIGHT")
-@AttributeOverride(name = "uuid", column = @Column(name = "RIGHTDEPT_ID", length = 36, nullable = false))
+@Table(name = "T_PT_DeptRight")
+@AttributeOverride(name = "deptRightId", column = @Column(name = "deptRightId", length = 36, nullable = false))
 public class SysDeptRight extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = " 部门ID")
-	@Column(name = "DEPT_ID", length = 36, nullable = true)
+	@Column(name = "deptId", length = 36, nullable = true)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -41,7 +41,7 @@ public class SysDeptRight extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "用户ID")
-	@Column(name = "USER_ID", length = 36, nullable = true)
+	@Column(name = "userId", length = 36, nullable = true)
 	private String userId;
 
 	public void setUserId(String userId) {
@@ -53,7 +53,7 @@ public class SysDeptRight extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "权限来源 0-自动生成 1-手工设置")
-	@Column(name = "RIGHT_SOURCE", nullable = false)
+	@Column(name = "rightSource", nullable = false)
 	private Integer rightSource;
 
 	public Integer getRightSource() {

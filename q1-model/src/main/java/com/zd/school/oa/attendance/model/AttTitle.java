@@ -32,7 +32,7 @@ import com.zd.core.util.DateTimeSerializer;
  * ClassName: AttTitle 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 考勤主题(ATT_T_TITLE)实体类.
+ * Description: 考勤主题(T_PT_AttendanceTheme)实体类.
  * date: 2017-05-15
  *
  * @author  luoyibo 创建文件
@@ -41,20 +41,23 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "ATT_T_TITLE")
-@AttributeOverride(name = "uuid", column = @Column(name = "TITLE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_AttendanceTheme")
+@AttributeOverride(name = "attendanceThemeId", column = @Column(name = "attendanceThemeId", length = 36, nullable = false))
 public class AttTitle extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "主题名称")
-    @Column(name = "TITLE_NAME", length = 36, nullable = false)
-    private String titleName;
-    public void setTitleName(String titleName) {
-        this.titleName = titleName;
-    }
-    public String getTitleName() {
-        return titleName;
-    }
+    @Column(name = "themeName", length = 36, nullable = false)
+    private String themeName;
+
+	public String getThemeName() {
+		return themeName;
+	}
+
+	public void setThemeName(String themeName) {
+		this.themeName = themeName;
+	}
+
         
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 

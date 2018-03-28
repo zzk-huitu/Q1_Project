@@ -24,13 +24,13 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "STU_T_DIVIDERECORD")
-@AttributeOverride(name = "uuid", column = @Column(name = "DIVIDE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_DivideRecode")
+@AttributeOverride(name = "divideRecodeId", column = @Column(name = "divideRecodeId", length = 36, nullable = false))
 public class StuDividerecord extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "学年")
-    @Column(name = "SCHOOL_YEAR", length = 32, nullable = true)
+    @Column(name = "schoolYear", length = 32, nullable = true)
     private String schoolYear;
     public void setSchoolYear(String schoolYear) {
         this.schoolYear = schoolYear;
@@ -40,7 +40,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学期")
-    @Column(name = "SEMESTER", length = 8, nullable = false)
+    @Column(name = "semester", length = 8, nullable = false)
     private String semester;
     public void setSemester(String semester) {
         this.semester = semester;
@@ -50,7 +50,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "标题")
-    @Column(name = "DIVIDE_TITLE", length = 255, nullable = false)
+    @Column(name = "divideTitle", length = 255, nullable = false)
     private String divideTitle;
     public void setDivideTitle(String divideTitle) {
         this.divideTitle = divideTitle;
@@ -60,7 +60,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "状态")
-    @Column(name = "STATE", length = 4, nullable = true)
+    @Column(name = "state", length = 4, nullable = true)
     private String state;
     public void setState(String state) {
         this.state = state;
@@ -70,7 +70,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "当前步骤")
-    @Column(name = "JUST_STEP", length = 10, nullable = false)
+    @Column(name = "justStep", length = 10, nullable = false)
     private Integer justStep;
     public void setJustStep(Integer justStep) {
         this.justStep = justStep;

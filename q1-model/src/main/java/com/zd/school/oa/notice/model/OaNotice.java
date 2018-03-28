@@ -35,7 +35,7 @@ import com.zd.school.plartform.system.model.SysUser;
 /**
  * 
  * ClassName: OaNotice Function: TODO ADD FUNCTION. Reason: TODO ADD REASON(可选).
- * Description: 公告信息表(OA_T_NOTICE)实体类. date: 2016-12-21
+ * Description: 公告信息表(T_PT_Notice)实体类. date: 2016-12-21
  *
  * @author luoyibo 创建文件
  * @version 0.1
@@ -43,13 +43,13 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 
 @Entity
-@Table(name = "OA_T_NOTICE")
-@AttributeOverride(name = "uuid", column = @Column(name = "NOTICE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_Notice")
+@AttributeOverride(name = "noticeId", column = @Column(name = "noticeId", length = 36, nullable = false))
 public class OaNotice extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "公告标题")
-	@Column(name = "NOTICE_TITLE", length = 128, nullable = false)
+	@Column(name = "noticeTitle", length = 128, nullable = false)
 	private String noticeTitle;
 
 	public void setNoticeTitle(String noticeTitle) {
@@ -61,7 +61,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "公告类型(数据字典NOTICETYPE)")
-	@Column(name = "NOTICE_TYPE", length = 4, nullable = false)
+	@Column(name = "noticeType", length = 4, nullable = false)
 	private String noticeType;
 
 	public void setNoticeType(String noticeType) {
@@ -73,7 +73,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "紧急程度(数据字典EMERGENCY)")
-	@Column(name = "EMERGENCY", length = 4, nullable = false)
+	@Column(name = "emergency", length = 4, nullable = false)
 	private String emergency;
 
 	public void setEmergency(String emergency) {
@@ -85,7 +85,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "公告正文")
-	@Column(name = "NOTICE_CONTENT", /* length = 2048, */ nullable = false, columnDefinition = "varchar(MAX)")
+	@Column(name = "noticeContent", /* length = 2048, */ nullable = false, columnDefinition = "varchar(MAX)")
 	private String noticeContent;
 
 	public void setNoticeContent(String noticeContent) {
@@ -97,7 +97,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否微信通知(0-不通知，1-通知)")
-	@Column(name = "SEND_WX", length = 1, nullable = false)
+	@Column(name = "sendWx", length = 1, nullable = false)
 	private String sendWx;
 
 	public void setSendWx(String sendWx) {
@@ -109,7 +109,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否需要审核(0-不需要，1-需要,2-审核通过,3-审核不通过)")
-	@Column(name = "IS_CHECK", length = 1, nullable = false)
+	@Column(name = "isCheck", length = 1, nullable = false)
 	private String isCheck;
 
 	public void setIsCheck(String isCheck) {
@@ -121,7 +121,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "生效日期")
-	@Column(name = "BEGIN_DATE", length = 23, nullable = false)
+	@Column(name = "beginDate", length = 23, nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginDate;
@@ -135,7 +135,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "中止日期")
-	@Column(name = "END_DATE", length = 23, nullable = true)
+	@Column(name = "endDate", length = 23, nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endDate;
@@ -151,8 +151,8 @@ public class OaNotice extends BaseEntity implements Serializable {
 	@JsonIgnore
 	@FieldInfo(name = "公告通知人员")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "OA_T_NOTICEUSER", joinColumns = { @JoinColumn(name = "NOTICE_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "USER_ID") })
+	@JoinTable(name = "T_PT_NoticeUser", joinColumns = { @JoinColumn(name = "noticeId") }, inverseJoinColumns = {
+			@JoinColumn(name = "userId") })
 	//@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<SysUser> noticeUsers = new HashSet<SysUser>();
 
@@ -167,8 +167,8 @@ public class OaNotice extends BaseEntity implements Serializable {
 	@JsonIgnore
 	@FieldInfo(name = "公告通知角色")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "OA_T_NOTICEROLE", joinColumns = { @JoinColumn(name = "NOTICE_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "ROLE_ID") })
+	@JoinTable(name = "T_PT_NoticeRole", joinColumns = { @JoinColumn(name = "noticeId") }, inverseJoinColumns = {
+			@JoinColumn(name = "roleId") })
 	//@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<SysRole> noticeRoles = new HashSet<SysRole>();
 
@@ -183,8 +183,8 @@ public class OaNotice extends BaseEntity implements Serializable {
 	@JsonIgnore
 	@FieldInfo(name = "公告通知部门")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "OA_T_NOTICEDEPT", joinColumns = { @JoinColumn(name = "NOTICE_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "DEPT_ID") })
+	@JoinTable(name = "T_PT_NoticeDept", joinColumns = { @JoinColumn(name = "noticeId") }, inverseJoinColumns = {
+			@JoinColumn(name = "deptId") })
 	//@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<BaseOrg> noticeDepts = new HashSet<BaseOrg>();
 
@@ -210,34 +210,34 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "发布部门id")
-	@Column(name = "PUBDEPT_ID", length = 36, nullable = true)
-	private String pubdeptId;
+	@Column(name = "publishDeptId", length = 36, nullable = true)
+	private String publishDeptId;
 
-	public String getPubdeptId() {
-		return pubdeptId;
+	public String getPublishDeptId() {
+		return publishDeptId;
 	}
 
-	public void setPubdeptId(String pubdeptId) {
-		this.pubdeptId = pubdeptId;
+	public void setPublishDeptId(String publishDeptId) {
+		this.publishDeptId = publishDeptId;
 	}
 
 	@FieldInfo(name = "发布部门名称")
-	@Column(name = "PUBDEPT_NAME", length = 128, nullable = true)
-	private String pubdeptName;
+	@Column(name = "publishDeptName", length = 128, nullable = true)
+	private String publishDeptName;
 
-	public String getPubdeptName() {
-		return pubdeptName;
+	public String getPublishDeptName() {
+		return publishDeptName;
 	}
 
-	public void setPubdeptName(String pubdeptName) {
-		this.pubdeptName = pubdeptName;
+	public void setPublishDeptName(String publishDeptName) {
+		this.publishDeptName = publishDeptName;
 	}
 
 	@JsonIgnore
 	@FieldInfo(name = "公告发布终端")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "OA_T_NOTICETERM", joinColumns = { @JoinColumn(name = "NOTICE_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "TERM_ID") })
+	@JoinTable(name = "T_PT_NoticeTerm", joinColumns = { @JoinColumn(name = "noticeId") }, inverseJoinColumns = {
+			@JoinColumn(name = "termId") })
 	//@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<OaInfoterm> noticeTerms = new HashSet<OaInfoterm>();
 

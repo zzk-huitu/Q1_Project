@@ -27,14 +27,14 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BASE_T_ATTACHMENT")
+@Table(name = "T_PT_AttachmentInfo")
 //@Cache(region = "all", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@AttributeOverride(name = "uuid", column = @Column(name = "ATTACH_ID", length = 36, nullable = false))
+@AttributeOverride(name = "attachmentInfoId", column = @Column(name = "attachmentInfoId", length = 36, nullable = false))
 public class BaseAttachment extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "实体名称")
-    @Column(name = "ENTITY_NAME", length = 36, nullable = false)
+    @Column(name = "entityName", length = 36, nullable = false)
     private String entityName;
 
     public void setEntityName(String entityName) {
@@ -46,7 +46,7 @@ public class BaseAttachment extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "记录ID")
-    @Column(name = "RECORD_ID", length = 36, nullable = false)
+    @Column(name = "recordId", length = 36, nullable = false)
     private String recordId;
 
     public void setRecordId(String recordId) {
@@ -58,56 +58,56 @@ public class BaseAttachment extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "存放路径")
-    @Column(name = "ATTACH_URL", length = 128, nullable = false)
-    private String attachUrl;
+    @Column(name = "storeUrl", length = 128, nullable = false)
+    private String storeUrl;
 
-    public void setAttachUrl(String attachUrl) {
-        this.attachUrl = attachUrl;
+    public void setStoreUrl(String storeUrl) {
+        this.storeUrl = storeUrl;
     }
 
-    public String getAttachUrl() {
-        return attachUrl;
+    public String getStoreUrl() {
+        return storeUrl;
     }
 
     @FieldInfo(name = "文件名称")
-    @Column(name = "ATTACH_NAME", length = 64, nullable = false)
-    private String attachName;
+    @Column(name = "fileName", length = 64, nullable = false)
+    private String fileName;
 
-    public void setAttachName(String attachName) {
-        this.attachName = attachName;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
-    public String getAttachName() {
-        return attachName;
+    public String getFileName() {
+        return fileName;
     }
     
     @FieldInfo(name = "文件大小")
-    @Column(name = "ATTACH_SIZE", nullable = false)
-    private Long attachSize;
-    public void setAttachSize(Long attachSize) {
-        this.attachSize = attachSize;
+    @Column(name = "fileSize", nullable = false)
+    private Long fileSize;
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
     }
-    public Long getAttachSize() {
-        return attachSize;
+    public Long getFileSize() {
+        return fileSize;
     }
     
     @FieldInfo(name = "文件类型")
-    @Column(name = "ATTACH_TYPE", length = 20, nullable = false)
-    private String attachType;
-    public void setAttachType(String attachType) {
-        this.attachType = attachType;
+    @Column(name = "fileType", length = 20, nullable = false)
+    private String fileType;
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
-    public String getAttachType() {
-        return attachType;
+    public String getFileType() {
+        return fileType;
     }
     
     @FieldInfo(name = "是否是正文文件")
-    @Column(name = "ATTACH_ISMAIN", nullable = true,columnDefinition="INT default 0")
-    private int attachIsMain;
-    public void setAttachIsMain(int attachIsMain) {
-        this.attachIsMain = attachIsMain;
+    @Column(name = "fileIsMain", nullable = true,columnDefinition="INT default 0")
+    private int fileIsMain;
+    public void setFileIsMain(int fileIsMain) {
+        this.fileIsMain = fileIsMain;
     }
-    public int getAttachIsMain() {
-        return attachIsMain;
+    public int getFileIsMain() {
+        return fileIsMain;
     }
     
     /**

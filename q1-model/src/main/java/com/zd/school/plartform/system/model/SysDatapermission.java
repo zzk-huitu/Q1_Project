@@ -21,13 +21,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_DATAPERMISSION")
-@AttributeOverride(name = "uuid", column = @Column(name = "DPER_ID", length = 36, nullable = false))
+@Table(name = "T_PT_DataPermission")
+@AttributeOverride(name = "dataPermissionId", column = @Column(name = "dataPermissionId", length = 36, nullable = false))
 public class SysDatapermission extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "主键")
-    @Column(name = "USER_ID", length = 36, nullable = false)
+    @Column(name = "userId", length = 36, nullable = false)
     private String userId;
 
     public void setUserId(String userId) {
@@ -39,7 +39,7 @@ public class SysDatapermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "实体名称")
-    @Column(name = "ENTITY_NAME", length = 32, nullable = false)
+    @Column(name = "entityName", length = 32, nullable = false)
     private String entityName;
 
     public void setEntityName(String entityName) {
@@ -51,7 +51,7 @@ public class SysDatapermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "权限控制字段")
-    @Column(name = "RIGHT_FIELD", length = 32, nullable = false)
+    @Column(name = "rightField", length = 32, nullable = false)
     private String rightField;
 
     public void setRightField(String rightField) {
@@ -63,7 +63,7 @@ public class SysDatapermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "父节点字段:针对树形数据配置")
-    @Column(name = "PARENT_FIELD", length = 36, nullable = true)
+    @Column(name = "parentField", length = 36, nullable = true)
     private String parentField;
 
     public void setParentField(String parentField) {
@@ -75,7 +75,7 @@ public class SysDatapermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "权限类型:0-所有数据,1-本单元,2-本单元及下级单元,3-指定数据")
-    @Column(name = "RIGHT_TYPE", length = 16, nullable = false)
+    @Column(name = "rightType", length = 16, nullable = false)
     private String rightType;
 
     public void setRightType(String rightType) {
@@ -87,7 +87,7 @@ public class SysDatapermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "数据展现方式:0-列表,1-树形,默认列表")
-    @Column(name = "DISPLAY_MODE", length = 16, nullable = false)
+    @Column(name = "displayMode", length = 16, nullable = false)
     private String displayMode;
 
     public String getDisplayMode() {

@@ -41,13 +41,13 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "SYS_T_APPINFO")
-@AttributeOverride(name = "uuid", column = @Column(name = "APP_ID", length = 36, nullable = false))
+@Table(name = "T_PT_AppInfo")
+@AttributeOverride(name = "appInfoId", column = @Column(name = "appInfoId", length = 36, nullable = false))
 public class SysAppinfo extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "appIntro")
-    @Column(name = "APP_INTRO", length = 256, nullable = true)
+    @Column(name = "appIntro", length = 256, nullable = true)
     private String appIntro;
     public void setAppIntro(String appIntro) {
         this.appIntro = appIntro;
@@ -57,7 +57,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appIsuse")
-    @Column(name = "APP_ISUSE", length = 10, nullable = true)
+    @Column(name = "appIsuse", length = 10, nullable = true)
     private Integer appIsuse;
     public void setAppIsuse(Integer appIsuse) {
         this.appIsuse = appIsuse;
@@ -67,7 +67,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appTitle")
-    @Column(name = "APP_TITLE", length = 128, nullable = true)
+    @Column(name = "appTitle", length = 128, nullable = true)
     private String appTitle;
     public void setAppTitle(String appTitle) {
         this.appTitle = appTitle;
@@ -77,7 +77,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appType")
-    @Column(name = "APP_TYPE", length = 4, nullable = true)
+    @Column(name = "appType", length = 4, nullable = true)
     private String appType;
     public void setAppType(String appType) {
         this.appType = appType;
@@ -87,7 +87,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appUrl")
-    @Column(name = "APP_URL", length = 256, nullable = true)
+    @Column(name = "appUrl", length = 256, nullable = true)
     private String appUrl;
     public void setAppUrl(String appUrl) {
         this.appUrl = appUrl;
@@ -97,7 +97,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appVersion")
-    @Column(name = "APP_VERSION", length = 10, nullable = true)
+    @Column(name = "appVersion", length = 10, nullable = true)
     private Integer appVersion;
     public void setAppVersion(Integer appVersion) {
         this.appVersion = appVersion;

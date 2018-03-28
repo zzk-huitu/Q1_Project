@@ -14,7 +14,7 @@ import com.zd.core.model.BaseEntity;
 /**
  * 
  * ClassName: OaNoticetype Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 公告类型(OA_T_NOTICETYPE)实体类. date: 2016-09-19
+ * REASON(可选). Description: 公告类型(T_PT_NoticeType)实体类. date: 2016-09-19
  *
  * @author luoyibo 创建文件
  * @version 0.1
@@ -22,13 +22,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "OA_T_NOTICETYPE")
-@AttributeOverride(name = "uuid", column = @Column(name = "TYPE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_NoticeType")
+@AttributeOverride(name = "noticeTypeId", column = @Column(name = "noticeTypeId", length = 36, nullable = false))
 public class OaNoticetype extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "类型名称")
-    @Column(name = "TYPE_NAME", length = 64, nullable = false)
+    @Column(name = "typeName", length = 64, nullable = false)
     private String typeName;
 
     public void setTypeName(String typeName) {

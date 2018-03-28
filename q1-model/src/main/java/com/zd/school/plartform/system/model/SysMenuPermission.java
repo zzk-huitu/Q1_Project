@@ -2,22 +2,14 @@
 package com.zd.school.plartform.system.model;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.AttributeOverride;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
@@ -33,13 +25,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_MENUPERIMISSON")
-@AttributeOverride(name = "uuid", column = @Column(name = "PER_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_MenuPermission")
+@AttributeOverride(name = "menuPermissionuId", column = @Column(name = "menuPermissionuId", length = 36, nullable = false) )
 public class SysMenuPermission extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "菜单ID")
-	@Column(name = "MENU_ID", length = 36, nullable = false)
+	@Column(name = "menuId", length = 36, nullable = false)
 	private String menuId;
 
 	public void setMenuId(String menuId) {
@@ -51,7 +43,7 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "权限名称")
-	@Column(name = "PER_NAME", length = 36, nullable = false)
+	@Column(name = "perName", length = 36, nullable = false)
 	private String perName;
 
 	public String getPerName() {
@@ -63,7 +55,7 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "按钮别名")
-	@Column(name = "PER_BTN_NAME", length = 36, nullable = false)
+	@Column(name = "perBtnName", length = 36, nullable = false)
 	private String perBtnName;
 
 	public String getPerBtnName() {
@@ -75,31 +67,34 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "权限接口前缀")
-	@Column(name = "PER_AUTHCODE", length = 36, nullable = false)
-	private String perAuthCode;
+	@Column(name = "interfacePrefix", length = 36, nullable = false)
+	private String interfacePrefix;
 
-	public String getPerAuthCode() {
-		return perAuthCode;
-	}
-
-	public void setPerAuthCode(String perAuthCode) {
-		this.perAuthCode = perAuthCode;
-	}
 	
 	@FieldInfo(name = "权限接口后缀")
-	@Column(name = "PER_AUTH", length = 36, nullable = false)
-	private String perAuth;
+	@Column(name = "interfacePostfix", length = 36, nullable = false)
+	private String interfacePostfix;
 
-	public String getPerAuth() {
-		return perAuth;
-	}
 
-	public void setPerAuth(String perAuth) {
-		this.perAuth = perAuth;
-	}
 	
+	public String getInterfacePrefix() {
+		return interfacePrefix;
+	}
+
+	public void setInterfacePrefix(String interfacePrefix) {
+		this.interfacePrefix = interfacePrefix;
+	}
+
+	public String getInterfacePostfix() {
+		return interfacePostfix;
+	}
+
+	public void setInterfacePostfix(String interfacePostfix) {
+		this.interfacePostfix = interfacePostfix;
+	}
+
 	@FieldInfo(name = "权限备注")
-	@Column(name = "PER_REMARK", length = 100, nullable = false)
+	@Column(name = "perRemark", length = 100, nullable = false)
 	private String perRemark;
 
 	public String getPerRemark() {

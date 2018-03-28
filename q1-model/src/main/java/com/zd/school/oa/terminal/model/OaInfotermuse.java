@@ -15,7 +15,7 @@ import com.zd.core.model.BaseEntity;
  * ClassName: OaInfotermuse 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 终端使用历史(OA_T_INFOTERMUSE)实体类.
+ * Description: 终端使用历史(T_PT_InfoTerminalHistory)实体类.
  * date: 2017-01-14
  *
  * @author  luoyibo 创建文件
@@ -24,33 +24,37 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "OA_T_INFOTERMUSE")
-@AttributeOverride(name = "uuid", column = @Column(name = "USE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_InfoTerminalHistory")
+@AttributeOverride(name = "infoTerminalHistoryId", column = @Column(name = "infoTerminalHistoryId", length = 36, nullable = false))
 public class OaInfotermuse extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "终端主键ID")
-    @Column(name = "TERM_ID", length = 36, nullable = false)
-    private String termId;
-    public void setTermId(String termId) {
-        this.termId = termId;
-    }
-    public String getTermId() {
-        return termId;
-    }
+    @Column(name = "terminalId", length = 36, nullable = false)
+    private String terminalId;
+  
         
-    @FieldInfo(name = "终端号")
-    @Column(name = "TERM_CODE", length = 6, nullable = false)
-    private String termCode;
-    public void setTermCode(String termCode) {
-        this.termCode = termCode;
-    }
-    public String getTermCode() {
-        return termCode;
-    }
+    public String getTerminalId() {
+		return terminalId;
+	}
+	public void setTerminalId(String terminalId) {
+		this.terminalId = terminalId;
+	}
+
+	@FieldInfo(name = "终端号")
+    @Column(name = "terminalIdNo", length = 6, nullable = false)
+    private String terminalIdNo;
+  
         
-    @FieldInfo(name = "使用房间ID")
-    @Column(name = "ROOM_ID", length = 36, nullable = true)
+    public String getTerminalIdNo() {
+		return terminalIdNo;
+	}
+	public void setTerminalIdNo(String terminalIdNo) {
+		this.terminalIdNo = terminalIdNo;
+	}
+
+	@FieldInfo(name = "使用房间ID")
+    @Column(name = "roomId", length = 36, nullable = true)
     private String roomId;
     public void setRoomId(String roomId) {
         this.roomId = roomId;
@@ -60,7 +64,7 @@ public class OaInfotermuse extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "使用房间名称")
-    @Column(name = "ROOM_NAME", length = 64, nullable = true)
+    @Column(name = "roomName", length = 64, nullable = true)
     private String roomName;
     public void setRoomName(String roomName) {
         this.roomName = roomName;
