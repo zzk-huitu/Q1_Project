@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 com\zd\school\plartform\system\model\SysDeptRight.class
 com\zd\school\control\device\model\PtIrData.class
 com\zd\school\build\define\model\BuildFuncRoomDefine.class
@@ -169,3 +170,5 @@ com\zd\school\student\studentclass\model\StandVClassStudent.class
 com\zd\school\control\device\model\ContDevice.class
 com\zd\school\control\device\model\PtSkMeter.class
 com\zd\school\oa\notice\model\OaNoticeright.class
+=======
+>>>>>>> b0e62d72929647c3ee766cd5655c38f27077f978
