@@ -26,22 +26,22 @@ rebel*
 
 # files
 .idea/
-zd-core/target/
-stand-model/target/
-stand-service/target/
-stand-dao/target/
-stand-web/target/
-stand-web/src/main/webapp/static/core/build
+q1-zd-core/target/
+q1-model/target/
+q1-service/target/
+q1-dao/target/
+q1-web/target/
+q1-web/src/main/webapp/static/core/build
 .settings/
-stand.iml
-stand-web/src/main/webapp/static/core/bootstrap.json
-stand-web/src/main/webapp/static/core/bootstrap.jsonp
-stand-web/src/main/webapp/static/core/sass/example/bootstrap.json
-stand-web/src/main/webapp/static/core/sass/example/bootstrap.jsonp
-stand-web/src/main/webapp/static/core/bootstrap.css
-stand-web/src/main/webapp/static/core/bootstrap.js
-stand-web/src/main/webapp/static/core/sass/example/bootstrap.js
-stand-web/src/main/webapp/static/core/sass/example/example.css
+q1.iml
+q1-web/src/main/webapp/static/core/bootstrap.json
+q1-web/src/main/webapp/static/core/bootstrap.jsonp
+q1-web/src/main/webapp/static/core/sass/example/bootstrap.json
+q1-web/src/main/webapp/static/core/sass/example/bootstrap.jsonp
+q1-web/src/main/webapp/static/core/bootstrap.css
+q1-web/src/main/webapp/static/core/bootstrap.js
+q1-web/src/main/webapp/static/core/sass/example/bootstrap.js
+q1-web/src/main/webapp/static/core/sass/example/example.css
 
-#stand-web/src/main/resources/sqlserver.properties
+#q1-web/src/main/resources/sqlserver.properties
 

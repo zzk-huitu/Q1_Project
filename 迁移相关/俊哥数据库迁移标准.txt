@@ -1,0 +1,81 @@
+UP+Q1数据库结构调整
+分库
+    基础数据库，报表库，记录存储库，缓存库
+    基础数据表 （MSSQL）
+        用户表
+        人员基本信息表
+        卡片表
+        钱包表
+        设备表
+        消费报表
+        水电报表
+        组织架构
+        建筑物
+        配置参数
+        （变化量不大的，数据量小的。）
+    记录存储库 （MSSQL）
+        消费
+        水控
+        电控
+        考勤
+        门禁
+        通道
+        日志
+        （实时数据，数据量大的）
+    缓存库 （redis）
+        设备状态，卡余？，3个月内的明细记录，权限，组织架构，用户基本信息
+    好处
+        分布式部署，提升性能，容灾性强，结构清晰。
+    坏处
+        如何保证事务的完整性（java有框架可以保证事务的完整性）？部署繁琐，需要更多的服务器资源。
+    实现
+        卡余更新：1.通过缓存更新（redis事务） 2.直接更新数据库（分布式事务）
+        重复判断：1.生成唯一记录ID，对唯一ID进行重复判断。
+        部署：使用DOCK容器。
+    表命名规则
+        数据库表，字段，存储过程命名规范
+
+
+表命名
+    前缀_子系统（）_表名（模块，实体等名称），禁止使用关键字作为表名，多个单词一般为动宾短语（表的话一般名词在前动词在后）
+    前缀：T
+    子系统：汉语拼音首字母（XF，SK，DK，MJ）
+    表命：Pascal写法，模块名称（PriceBind，MeterBind）实体名（User，Employee，Room，Card）
+    Exp：T_PT_User T_XF_Record
+字段名
+    尽量不要使用缩写，以英文单词作为字段名，禁止使用关键字作为字段名
+    除以下数据类型timestamp、image、datetime、smalldatetime、uniqueidentifier、binary、sql_variant、binary 、varbinary外，必须有默认值
+    字符型的默认值为一个空字符值串’’，数值型的默认值为数值0，逻辑型的默认值为数值0
+    可能出现非ASCII字符，那么就使用nvarchar，如果是纯ASCII码的字符，那么就用varchar
+    驼峰方式，首字母小写，之后的单词首字母大写
+    Exp：userId，employeeName，cardValue
+
+存储过程
+    前缀_子系统_功能，多个单词一般为动宾短语（动词+名词或名词+动词？）
+    前缀：P
+    子系统：汉语拼音首字母（XF，SK，DK，MJ）
+    功能：动宾短语（CreateCard，InserRecord）
+    Exp：P_XF_InsertRecord
+
+索引
+    前缀_表命_字段名，多个单词一般为动宾短语（动词+名词或名词+动词？）
+    前缀：IDX
+    Exp：IDX_T_PT_User_userId，IDX_T_XF_Record_userId_consumeDate
+
+视图：
+  前缀：V
+  其他规则与表一致
+
+主键规则：
+  年月日时分秒+编码+6位流水号（流水号使用redis自动增长生成，并在每次要创建持久化实体对象时，再去调用方法获取主键）
+  主键名：使用尾部的驼峰格式表名+Id
+  exp：userId
+
+模型类包名：
+  com.yc.q1.base.pt.model	(base代表基础库，pt代表平台模块）	
+  com.yc.q1.base.xf.model	（base代表基础库，xf代表消费子模块）
+  com.yc.q1.storage.xf.model	（storage代表数据存储库，xf代表消费子模块）
+  com.yc.q1.storage.dk.model
+
+	
+
