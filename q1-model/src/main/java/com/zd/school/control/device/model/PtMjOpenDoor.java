@@ -24,69 +24,69 @@ import com.zd.school.excel.annotation.MapperCell;
  *
  */
 @Entity
-@Table(name = "PT_MJ_OPENDOOR")
-@AttributeOverride(name = "uuid", column = @Column(name = "OPENDOOR_ID", length = 36, nullable = false))
+@Table(name = "T_PT_MjOpenDoor")
+@AttributeOverride(name = "mjOpenDoorId", column = @Column(name = "mjOpenDoorId", length = 36, nullable = false))
 public class PtMjOpenDoor extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     @FieldInfo(name = "设备序列号")
-    @Column(name = "TERMSN", length = 14, nullable = true)
+    @Column(name = "termSn", length = 14, nullable = true)
     private String termSn;
 
     @MapperCell(cellName="设备名称",order=1)
     @FieldInfo(name = "设备名称")
-    @Column(name = "TERMNAME", length = 50, nullable = true)
+    @Column(name = "termName", length = 50, nullable = true)
     private String termName;
     
     @FieldInfo(name = "房间编号")
-    @Column(name = "ROOM_ID", length = 36, nullable = true)
+    @Column(name = "roomId", length = 36, nullable = true)
     private String roomId;
    
     @MapperCell(cellName="开门人员姓名",order=2)
     @FieldInfo(name = "开门人员姓名")
-    @Column(name = "USER_NAME", length = 36, nullable = true)
+    @Column(name = "userName", length = 36, nullable = true)
     private String userName;
     
     @MapperCell(cellName="开门时间",order=3)
     @FieldInfo(name = "开门时间")
-    @Column(name = "OPENDATE", columnDefinition = "datetime")
+    @Column(name = "openDate", columnDefinition = "datetime")
     @Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
     private Date openDate;
     
     @MapperCell(cellName="房间名称",order=4)
     @FieldInfo(name = "房间名称")
-    @Column(name = "ROOM_NAME", length = 36, nullable = true)
+    @Column(name = "roomName", length = 36, nullable = true)
     private String roomName;
     
     @MapperCell(cellName="房间所在区域",order=5)
     @FieldInfo(name = "房间所在区域")
-    @Column(name = "ROOM_AREA", length = 255, nullable = true)
+    @Column(name = "roomArea", length = 255, nullable = true)
     private String roomArea;
     
     @MapperCell(cellName="进出标识",order=6)
     @FieldInfo(name = "进出标识")
-    @Column(name = "INOUTTYPE", length = 50, nullable = true)
-    private String inoutType;
+    @Column(name = "inOutType", length = 50, nullable = true)
+    private String inOutType;
     
     @MapperCell(cellName="开门类型",order=7)
     @FieldInfo(name = "开门类型")
-    @Column(name = "OPENTYPE", length = 128, nullable = true)
+    @Column(name = "openType", length = 128, nullable = true)
     private String openType;
     
-    @FieldInfo(name = "设备编号")
-    @Column(name = "TERM_ID", length = 36, nullable = true)
+    @FieldInfo(name = "设备Id")
+    @Column(name = "termId", length = 36, nullable = true)
     private String termId;
     
-    @FieldInfo(name = "用户编号")
-    @Column(name = "USER_ID", length = 36, nullable = true)
+    @FieldInfo(name = "用户Id")
+    @Column(name = "userId", length = 36, nullable = true)
     private String userId;
     
-    @FieldInfo(name = "区域编号")
-    @Column(name = "AREA_ID", length = 36, nullable = true)
+    @FieldInfo(name = "区域Id")
+    @Column(name = "areaId", length = 36, nullable = true)
     private String areaId;
     
     @FieldInfo(name = "记录编号")
-    @Column(name = "RECORD_ID", length = 36, nullable = true)
+    @Column(name = "recordId", length = 36, nullable = true)
     private String recordId;
     
     /* 用于排除未定义的房间 0 */
@@ -150,12 +150,12 @@ public class PtMjOpenDoor extends BaseEntity implements Serializable{
 		this.roomArea = roomArea;
 	}
 
-	public String getInoutType() {
-		return inoutType;
+	public String getInOutType() {
+		return inOutType;
 	}
 
-	public void setInoutType(String inoutType) {
-		this.inoutType = inoutType;
+	public void setInOutType(String inOutType) {
+		this.inOutType = inOutType;
 	}
 
 	public String getOpenType() {

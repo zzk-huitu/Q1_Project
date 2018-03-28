@@ -11,47 +11,47 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "JW_T_SCHOOLCALENDER")
-@AttributeOverride(name = "uuid", column = @Column(name = "SCHOOLCANDER_ID", length = 36, nullable = false))
+@Table(name = "T_PT_SchoolClander")
+@AttributeOverride(name = "uuid", column = @Column(name = "schoolClanderId", length = 36, nullable = false))
 public class JwSchoolCalender extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "等同UUID")
-	@Column(name = "ID", length = 36, nullable = true)
+	@Column(name = "id", length = 36, nullable = true)
 	private String id;
 
 	@FieldInfo(name = "标题")
-	@Column(name = "TITLE", length = 200, nullable = true)
+	@Column(name = "title", length = 200, nullable = true)
 	private String title;
 
 	@FieldInfo(name = "开始时间")
-	@Column(name = "START_DATE", length = 36, nullable = true)
-	private String start;
+	@Column(name = "beginDate", length = 36, nullable = true)
+	private String beginDate;
 
 	@FieldInfo(name = "结束时间")
-	@Column(name = "END_DATE", length = 36, nullable = true)
-	private String end;
+	@Column(name = "endDate", length = 36, nullable = true)
+	private String endDate;
 
 	@FieldInfo(name = "位置")
-	@Column(name = "LOC", length = 200, nullable = true)
-	private String loc;
+	@Column(name = "location", length = 200, nullable = true)
+	private String location;
 
 	@FieldInfo(name = "WEB链接")
-	@Column(name = "URL", length = 1000, nullable = true)
+	@Column(name = "url", length = 1000, nullable = true)
 	private String url;
 
 	@FieldInfo(name = "便签")
-	@Column(name = "NOTES", length = 1000, nullable = true)
+	@Column(name = "notes", length = 1000, nullable = true)
 	private String notes;
 
 	@FieldInfo(name = "提醒器")
-	@Column(name = "REM", length = 36, nullable = true)
-	private String rem;
+	@Column(name = "remind", length = 36, nullable = true)
+	private String remind;
 
 	@FieldInfo(name = "是否全天")
-	@Column(name = "AD", length = 36, nullable = true)
-	private String ad;
+	@Column(name = "allDay", length = 36, nullable = true)
+	private String allDay;
 
 	public String getId() {
 		return id;
@@ -67,30 +67,6 @@ public class JwSchoolCalender extends BaseEntity implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getStart() {
-		return start;
-	}
-
-	public void setStart(String start) {
-		this.start = start;
-	}
-
-	public String getEnd() {
-		return end;
-	}
-
-	public void setEnd(String end) {
-		this.end = end;
-	}
-
-	public String getLoc() {
-		return loc;
-	}
-
-	public void setLoc(String loc) {
-		this.loc = loc;
 	}
 
 	public String getUrl() {
@@ -109,23 +85,44 @@ public class JwSchoolCalender extends BaseEntity implements Serializable {
 		this.notes = notes;
 	}
 
-	public String getRem() {
-		return rem;
+	public String getBeginDate() {
+		return beginDate;
 	}
 
-	public void setRem(String rem) {
-		this.rem = rem;
+	public void setBeginDate(String beginDate) {
+		this.beginDate = beginDate;
 	}
 
-	public String getAd() {
-		return ad;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setAd(String ad) {
-		this.ad = ad;
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
+	public String getLocation() {
+		return location;
+	}
 
+	public void setLocation(String location) {
+		this.location = location;
+	}
 
+	public String getRemind() {
+		return remind;
+	}
+
+	public void setRemind(String remind) {
+		this.remind = remind;
+	}
+
+	public String getAllDay() {
+		return allDay;
+	}
+
+	public void setAllDay(String allDay) {
+		this.allDay = allDay;
+	}
 
 }

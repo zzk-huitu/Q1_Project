@@ -23,25 +23,25 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BUILD_T_CLASSROOMDEFINE")
-@AttributeOverride(name = "uuid", column = @Column(name = "CLASSROOM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_ClassRoomDefine")
+@AttributeOverride(name = "classRoomId", column = @Column(name = "classRoomId", length = 36, nullable = false) )
 public class BuildClassRoomDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "楼层主键")
-	@Column(name = "AREA_ID", length = 36, nullable = true)
+	@Column(name = "areaId", length = 36, nullable = true)
 	private String areaId;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "ROOM_STATUS", length = 8, nullable = true)
+	@Column(name = "roomStatus", length = 8, nullable = true)
 	private String roomStatus = "0";
 	
 	@FieldInfo(name = "班级名称")
-	@Column(name = "CLASS_NAME", length = 64, nullable = true)
+	@Column(name = "className", length = 64, nullable = true)
 	private String className;
 
 	public void setClassName(String className) {

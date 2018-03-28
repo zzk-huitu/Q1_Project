@@ -26,13 +26,13 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "PT_IR_ROOM_DEVICE")
-@AttributeOverride(name = "uuid", column = @Column(name = "DEVICE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_IrRoomDevice")
+@AttributeOverride(name = "irRoomDeviceId", column = @Column(name = "irRoomDeviceId", length = 36, nullable = false))
 public class PtIrRoomDevice extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "房间编号")
-    @Column(name = "ROOM_ID", length = 36, nullable = false)
+    @Column(name = "roomId", length = 36, nullable = false)
     private String roomId;
     public void setRoomId(String roomId) {
         this.roomId = roomId;
@@ -42,11 +42,11 @@ public class PtIrRoomDevice extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "型号编号")
-    @Column(name = "BRAND_ID", length = 36, nullable = false)
+    @Column(name = "brandId", length = 36, nullable = false)
     private String brandId;
     
     @FieldInfo(name = "备注")
-    @Column(name = "NOTES", length = 1000, nullable = true)
+    @Column(name = "notes", length = 1000, nullable = true)
     private String notes;
     
     @Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")

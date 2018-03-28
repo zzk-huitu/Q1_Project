@@ -28,37 +28,37 @@ import com.zd.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "JW_T_CLASSTEACHER")
-@AttributeOverride(name = "uuid", column = @Column(name = "UUID", length = 36, nullable = false))
+@Table(name = "T_PT_ClassTeacher")
+@AttributeOverride(name = "classTeacherId", column = @Column(name = "classTeacherId", length = 36, nullable = false))
 public class JwClassteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "CLAI_ID", length = 36, nullable = false)
-	private String claiId;
+	@Column(name = "classId", length = 36, nullable = false)
+	private String classId;
 
-	public void setClaiId(String claiId) {
-		this.claiId = claiId;
+	public String getClassId() {
+		return classId;
 	}
 
-	public String getClaiId() {
-		return claiId;
+	public void setClassId(String classId) {
+		this.classId = classId;
 	}
 
 	@FieldInfo(name = "教职工ID")
-	@Column(name = "TTEAC_ID", length = 50, nullable = false)
-	private String tteacId;
+	@Column(name = "teacherId", length = 50, nullable = false)
+	private String teacherId;
 
-	public void setTteacId(String tteacId) {
-		this.tteacId = tteacId;
+	public String getTeacherId() {
+		return teacherId;
 	}
 
-	public String getTteacId() {
-		return tteacId;
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
 
 	@FieldInfo(name = "学年")
-	@Column(name = "STUDY_YEAR", length = 10, nullable = true)
+	@Column(name = "studyYear", length = 10, nullable = true)
 	private Integer studyYear;
 
 	public Integer getStudyYear() {
@@ -70,7 +70,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学期")
-	@Column(name = "SEMESTER", length = 8, nullable = true)
+	@Column(name = "semester", length = 8, nullable = true)
 	private String semester;
 
 	public void setSemester(String semester) {
@@ -81,8 +81,8 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 		return semester;
 	}
 
-	@FieldInfo(name = "身份")	//0-正班主任  1-副班主任
-	@Column(name = "CATEGORY", length = 10, nullable = false)
+	@FieldInfo(name = "身份") // 0-正班主任 1-副班主任
+	@Column(name = "category", length = 10, nullable = false)
 	private Integer category;
 
 	public void setCategory(Integer category) {
@@ -94,7 +94,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年名称")
-	@Column(name = "STUDY_YEARNAME", length = 64, nullable = true)
+	@Column(name = "studyYearName", length = 64, nullable = true)
 	private String studyYearName;
 
 	public String getStudyYearName() {
@@ -106,7 +106,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "开始时间")
-	@Column(name = "BEGIN_TIME", columnDefinition = "datetime", nullable = true)
+	@Column(name = "beginTime", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginTime;
@@ -120,7 +120,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "结束时间")
-	@Column(name = "END_TIME", columnDefinition = "datetime", nullable = true)
+	@Column(name = "endTime", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endTime;

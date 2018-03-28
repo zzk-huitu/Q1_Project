@@ -13,41 +13,57 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_StudentRemove")
-@AttributeOverride(name = "uuid", column = @Column(name = "uuid", length = 36, nullable = false) )
+@AttributeOverride(name = "studentRemoveId", column = @Column(name = "studentRemoveId", length = 36, nullable = false) )
 public class DormStudentRemove extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "班级宿舍主键")
-	@Column(name = "CDORM_ID", length = 36, nullable = true)
-	private String cdormId;
+	@Column(name = "classDormId", length = 36, nullable = true)
+	private String classDormId;
 	
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 	
 	@FieldInfo(name = "学生主键")
-	@Column(name = "STU_ID", length = 50, nullable = true)
-	private String stuId;
+	@Column(name = "studentId", length = 50, nullable = true)
+	private String studentId;
 	
 	@FieldInfo(name = "操作类型")
-	@Column(name = "OPERA_TYPE", length = 36, nullable = true)
-	private String operaType;
+	@Column(name = "operatingType", length = 36, nullable = true)
+	private String operatingType;
 	
 	@FieldInfo(name = "是否处理")
-	@Column(name = "ISHANDLE", length = 36, nullable = true)
+	@Column(name = "isHandle", length = 36, nullable = true)
 	private String isHandle;
 	
 	@FieldInfo(name = "金额")
-    @Column(name = "AMOUNT", length = 18, nullable = true)
+    @Column(name = "amount", length = 18, nullable = true)
     private BigDecimal amount;
 
-	public String getCdormId() {
-		return cdormId;
+	public String getClassDormId() {
+		return classDormId;
 	}
 
-	public void setCdormId(String cdormId) {
-		this.cdormId = cdormId;
+	public void setClassDormId(String classDormId) {
+		this.classDormId = classDormId;
+	}
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getOperatingType() {
+		return operatingType;
+	}
+
+	public void setOperatingType(String operatingType) {
+		this.operatingType = operatingType;
 	}
 
 	public String getRoomId() {
@@ -56,22 +72,6 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
-	}
-
-	public String getStuId() {
-		return stuId;
-	}
-
-	public void setStuId(String stuId) {
-		this.stuId = stuId;
-	}
-
-	public String getOperaType() {
-		return operaType;
-	}
-
-	public void setOperaType(String operaType) {
-		this.operaType = operaType;
 	}
 
 	public String getIsHandle() {

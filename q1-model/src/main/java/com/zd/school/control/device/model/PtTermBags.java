@@ -15,39 +15,39 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "PT_TERM_BAGS")
-@AttributeOverride(name = "uuid", column = @Column(name = "TERMBAG_ID", length = 36, nullable = false))
+@Table(name = "T_PT_TermBag")
+@AttributeOverride(name = "termBagId", column = @Column(name = "termBagId", length = 36, nullable = false))
 public class PtTermBags extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备序列号")
-	@Column(name = "TERMSN", length = 14, nullable = true)
+	@Column(name = "termSn", length = 14, nullable = true)
 	private String termSn;
 	
 	@FieldInfo(name = "设备类型")
-	@Column(name = "TERMTYPEID")
+	@Column(name = "termTypeId")
 	private Integer termTypeId;
 	
 	@FieldInfo(name = "设备余额")
-	@Column(name = "BAGVALUE")
+	@Column(name = "bagValue")
 	private BigDecimal bagValue;
 	
 	@FieldInfo(name = "总买量")
-	@Column(name = "TOTALBUYEDVALUE")
-	private BigDecimal totalBuyedValue;
+	@Column(name = "totalBoughtValue")
+	private BigDecimal totalBoughtValue;
 	
 	@FieldInfo(name = "总用量")
-	@Column(name = "TOTALUSEDVALUE")
+	@Column(name = "totalUsedValue")
 	private BigDecimal totalUsedValue;
 	
 	@FieldInfo(name = "总计清除补助量")
-	@Column(name = "TOTALCLEARVALUE")
+	@Column(name = "totalClearValue")
 	private BigDecimal totalClearValue;
 	
 	@FieldInfo(name = "补助剩余量")
-	@Column(name = "SUBVALUE")
-	private BigDecimal subValue;
+	@Column(name = "surplusValue")
+	private BigDecimal surplusValue;
 	
 	@Transient
 	@FieldInfo(name = "绑定费率规则")
@@ -79,14 +79,6 @@ public class PtTermBags extends BaseEntity implements Serializable {
 		this.bagValue = bagValue;
 	}
 
-	public BigDecimal getTotalBuyedValue() {
-		return totalBuyedValue;
-	}
-
-	public void setTotalBuyedValue(BigDecimal totalBuyedValue) {
-		this.totalBuyedValue = totalBuyedValue;
-	}
-
 	public BigDecimal getTotalUsedValue() {
 		return totalUsedValue;
 	}
@@ -103,12 +95,20 @@ public class PtTermBags extends BaseEntity implements Serializable {
 		this.totalClearValue = totalClearValue;
 	}
 
-	public BigDecimal getSubValue() {
-		return subValue;
+	public BigDecimal getTotalBoughtValue() {
+		return totalBoughtValue;
 	}
 
-	public void setSubValue(BigDecimal subValue) {
-		this.subValue = subValue;
+	public void setTotalBoughtValue(BigDecimal totalBoughtValue) {
+		this.totalBoughtValue = totalBoughtValue;
+	}
+
+	public BigDecimal getSurplusValue() {
+		return surplusValue;
+	}
+
+	public void setSurplusValue(BigDecimal surplusValue) {
+		this.surplusValue = surplusValue;
 	}
 
 	public String getTermName() {
@@ -126,7 +126,5 @@ public class PtTermBags extends BaseEntity implements Serializable {
 	public void setBdrole(String bdrole) {
 		this.bdrole = bdrole;
 	}
-
-	
 	
 }

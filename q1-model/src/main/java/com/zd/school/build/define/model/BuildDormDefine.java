@@ -23,61 +23,61 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "BUILD_T_DORMDEFINE")
-@AttributeOverride(name = "uuid", column = @Column(name = "DORM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_DormDefine")
+@AttributeOverride(name = "dormId", column = @Column(name = "dormId", length = 36, nullable = false) )
 public class BuildDormDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "楼层主键")
-	@Column(name = "AREA_ID", length = 36, nullable = true)
+	@Column(name = "areaId", length = 36, nullable = true)
 	private String areaId;
 
 	@FieldInfo(name = "类型:1男、2女、3不限")
-	@Column(name = "DORM_TYPE", length = 2, nullable = true)
+	@Column(name = "dormType", length = 2, nullable = true)
 	private String dormType;
 	
 	@FieldInfo(name = "宿舍类别:1学生宿舍、2教师宿舍")
-	@Column(name = "DORM_TYPELB", length = 2, nullable = true)
+	@Column(name = "dormTypeLb", length = 2, nullable = true)
 	private String dormTypeLb;
 	
 	@FieldInfo(name = "床位数")
-	@Column(name = "DORM_BEDCOUNT", length = 8, nullable = true)
+	@Column(name = "dormBedCount", length = 8, nullable = true)
 	private Integer dormBedCount;
 
 	@FieldInfo(name = "柜子数")
-	@Column(name = "DORM_CHESTCOUNT", length = 20, nullable = true)
-	private Integer dormChestCount;
+	@Column(name = "dormSarkCount", length = 20, nullable = true)
+	private Integer dormSarkCount;
 
 	@FieldInfo(name = "宿舍管理员(教师ID)")
-	@Column(name = "DORM_ADMIN", length = 50, nullable = true)
+	@Column(name = "dormAdmin", length = 50, nullable = true)
 	private String dormAdmin;
 
 	@FieldInfo(name = "管理员姓名")
-	@Column(name = "XM", length = 20, nullable = true)
+	@Column(name = "xm", length = 20, nullable = true)
 	private String xm;
 
 	@FieldInfo(name = "电话")
-	@Column(name = "DORM_PHONE", length = 20, nullable = true)
+	@Column(name = "dormPhone", length = 20, nullable = true)
 	private String dormPhone;
 
 	@FieldInfo(name = "传真")
-	@Column(name = "DORM_FAX", length = 20, nullable = true)
+	@Column(name = "dormFax", length = 20, nullable = true)
 	private String dormFax;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "ROOM_STATUS", length = 8, nullable = true)
-	private String roomStatus = "0";
+	@Column(name = "isAllot", length = 8, nullable = true)
+	private String isAllot = "0";
 
 	@FieldInfo(name = "是否混班宿舍,0否,1是")
-	@Column(name = "ISMIXED", length = 8, nullable = true)
+	@Column(name = "isMixed", length = 8, nullable = true)
 	private String isMixed = "0";
 	
 	@FieldInfo(name = "宿舍名称")
-	@Column(name = "DORM_NAME", length = 64, nullable = true)
+	@Column(name = "dormName", length = 64, nullable = true)
 	private String dormName;
 	
 	/**
@@ -169,14 +169,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormFax = dormFax;
 	}
 
-	public String getRoomStatus() {
-		return roomStatus;
-	}
-
-	public void setRoomStatus(String roomStatus) {
-		this.roomStatus = roomStatus;
-	}
-
 	public String getIsMixed() {
 		return isMixed;
 	}
@@ -217,12 +209,20 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormBedCount = dormBedCount;
 	}
 
-	public Integer getDormChestCount() {
-		return dormChestCount;
+	public Integer getDormSarkCount() {
+		return dormSarkCount;
 	}
 
-	public void setDormChestCount(Integer dormChestCount) {
-		this.dormChestCount = dormChestCount;
+	public void setDormSarkCount(Integer dormSarkCount) {
+		this.dormSarkCount = dormSarkCount;
+	}
+
+	public String getIsAllot() {
+		return isAllot;
+	}
+
+	public void setIsAllot(String isAllot) {
+		this.isAllot = isAllot;
 	}
 
 	public String getUpAreaName() {

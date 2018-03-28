@@ -23,25 +23,25 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BUILD_T_OFFICEDEFINE")
-@AttributeOverride(name = "uuid", column = @Column(name = "OFFICE_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_OfficeDefine")
+@AttributeOverride(name = "officeId", column = @Column(name = "officeId", length = 36, nullable = false) )
 public class BuildOfficeDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "楼层主键")
-	@Column(name = "AREA_ID", length = 36, nullable = true)
+	@Column(name = "areaId", length = 36, nullable = true)
 	private String areaId;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "ROOM_STATUS", length = 8, nullable = true)
-	private String roomStatus = "0";
+	@Column(name = "isAllot", length = 8, nullable = true)
+	private String isAllot = "0";
 	
 	@FieldInfo(name = "办公室名称")
-	@Column(name = "OFFICE_NAME", length = 64, nullable = true)
+	@Column(name = "officeName", length = 64, nullable = true)
 	private String officeName;
 
 	public String getOfficeName() {
@@ -104,12 +104,12 @@ public class BuildOfficeDefine extends BaseEntity implements Serializable {
 		this.areaName = areaName;
 	}
 
-	public String getRoomStatus() {
-		return roomStatus;
+	public String getIsAllot() {
+		return isAllot;
 	}
 
-	public void setRoomStatus(String roomStatus) {
-		this.roomStatus = roomStatus;
+	public void setIsAllot(String isAllot) {
+		this.isAllot = isAllot;
 	}
 
 	public String getUpAreaName() {

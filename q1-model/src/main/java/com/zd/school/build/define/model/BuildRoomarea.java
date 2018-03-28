@@ -24,13 +24,13 @@ import com.zd.core.model.TreeNodeEntity;
  */
 
 @Entity
-@Table(name = "BUILD_T_ROOMAREA")
-@AttributeOverride(name = "uuid", column = @Column(name = "AREA_ID", length = 36, nullable = false))
+@Table(name = "T_PT_RoomArea")
+@AttributeOverride(name = "roomAreaId", column = @Column(name = "roomAreaId", length = 36, nullable = false))
 public class BuildRoomarea extends TreeNodeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "区域编码")
-    @Column(name = "AREA_CODE", length = 32, nullable = true)
+    @Column(name = "areaCode", length = 32, nullable = true)
     private String areaCode;
 
     public void setAreaCode(String areaCode) {
@@ -42,7 +42,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "区域类型")
-    @Column(name = "AREA_TYPE", length = 10, nullable = true)
+    @Column(name = "areaType", length = 10, nullable = true)
     private String areaType;
 
     public void setAreaType(String areaType) {
@@ -54,7 +54,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "区域状态")
-    @Column(name = "AREA_STATU", length = 10, nullable = true)
+    @Column(name = "areaStatu", length = 10, nullable = true)
     private Integer areaStatu;
 
     public void setAreaStatu(Integer areaStatu) {
@@ -66,27 +66,27 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "区域说明")
-    @Column(name = "AREA_DESC", length = 128, nullable = true)
-    private String areaDesc;
+    @Column(name = "areaExplains", length = 128, nullable = true)
+    private String areaExplains;
 
-    public void setAreaDesc(String areaDesc) {
-        this.areaDesc = areaDesc;
+    public void setAreaExplains(String areaExplains) {
+        this.areaExplains = areaExplains;
     }
 
-    public String getAreaDesc() {
-        return areaDesc;
+    public String getAreaExplains() {
+        return areaExplains;
     }
 
     @FieldInfo(name = "区域地址")
-    @Column(name = "AREA_ADDR", length = 255, nullable = true)
-    private String areaAddr;
+    @Column(name = "areaAddress", length = 255, nullable = true)
+    private String areaAddress;
 
-    public void setAreaAddr(String areaAddr) {
-        this.areaAddr = areaAddr;
+    public void setAreaAddress(String areaAddress) {
+        this.areaAddress = areaAddress;
     }
 
-    public String getAreaAddr() {
-        return areaAddr;
+    public String getAreaAddress() {
+        return areaAddress;
     }
 
     /**

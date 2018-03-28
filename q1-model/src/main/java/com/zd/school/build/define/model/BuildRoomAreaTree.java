@@ -58,25 +58,25 @@ public class BuildRoomAreaTree extends ExtTreeNode<BuildRoomAreaTree> {
 	}
 
 	@FieldInfo(name = "区域说明")
-	private String areaDesc;
+	private String areaExplains;
 
-	public void setAreaDesc(String areaDesc) {
-		this.areaDesc = areaDesc;
+	public void setAreaExplains(String areaExplains) {
+		this.areaExplains = areaExplains;
 	}
 
-	public String getAreaDesc() {
-		return areaDesc;
+	public String getAreaExplains() {
+		return areaExplains;
 	}
 
 	@FieldInfo(name = "区域地址")
-	private String areaAddr;
+	private String areaAddress;
 
-	public void setAreaAddr(String areaAddr) {
-		this.areaAddr = areaAddr;
+	public void setAreaAddress(String areaAddress) {
+		this.areaAddress = areaAddress;
 	}
 
-	public String getAreaAddr() {
-		return areaAddr;
+	public String getAreaAddress() {
+		return areaAddress;
 	}
 
 	@FieldInfo(name = "上级区域")
@@ -116,8 +116,8 @@ public class BuildRoomAreaTree extends ExtTreeNode<BuildRoomAreaTree> {
 		this.areaCode = areaCode;
 		this.areaType = areaType;
 		this.areaStatu = areaStatu;
-		this.areaDesc = areaDesc;
-		this.areaAddr = areaAddr;
+		this.areaExplains = areaExplains;
+		this.areaAddress = areaAddress;
 		this.parentNode = parentNode;
 		// this.orderIndex = orderIndex;
 		this.roomCount = roomCount;

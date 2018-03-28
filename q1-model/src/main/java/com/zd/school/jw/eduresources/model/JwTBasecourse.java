@@ -24,185 +24,185 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "JW_T_BASECOURSE")
-@AttributeOverride(name = "uuid", column = @Column(name = "BASECOURSE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_BaseCourse")
+@AttributeOverride(name = "baseCourseId", column = @Column(name = "baseCourseId", length = 36, nullable = false))
 public class JwTBasecourse extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "学校主键")
-    @Column(name = "SCHOOL_ID", length = 36, nullable = true)
-    private String schoolId;
+	@FieldInfo(name = "学校主键")
+	@Column(name = "schoolId", length = 36, nullable = true)
+	private String schoolId;
 
-    public void setSchoolId(String schoolId) {
-        this.schoolId = schoolId;
-    }
+	public void setSchoolId(String schoolId) {
+		this.schoolId = schoolId;
+	}
 
-    public String getSchoolId() {
-        return schoolId;
-    }
+	public String getSchoolId() {
+		return schoolId;
+	}
 
-    @FieldInfo(name = "课程编码")
-    @Column(name = "COURSE_CODE", length = 32, nullable = true)
-    private String courseCode;
+	@FieldInfo(name = "课程编码")
+	@Column(name = "courseCode", length = 32, nullable = true)
+	private String courseCode;
 
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
-    }
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
+	}
 
-    public String getCourseCode() {
-        return courseCode;
-    }
+	public String getCourseCode() {
+		return courseCode;
+	}
 
-    @FieldInfo(name = "课程名称")
-    @Column(name = "COURSE_NAME", length = 60, nullable = true)
-    private String courseName;
+	@FieldInfo(name = "课程名称")
+	@Column(name = "courseName", length = 60, nullable = true)
+	private String courseName;
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
 
-    public String getCourseName() {
-        return courseName;
-    }
+	public String getCourseName() {
+		return courseName;
+	}
 
-    @FieldInfo(name = "课程类别码")
-    @Column(name = "COURSE_TYPE", length = 10, nullable = true)
-    private String courseType;
+	@FieldInfo(name = "课程类别码")
+	@Column(name = "courseType", length = 10, nullable = true)
+	private String courseType;
 
-    public void setCourseType(String courseType) {
-        this.courseType = courseType;
-    }
+	public void setCourseType(String courseType) {
+		this.courseType = courseType;
+	}
 
-    public String getCourseType() {
-        return courseType;
-    }
+	public String getCourseType() {
+		return courseType;
+	}
 
-    @FieldInfo(name = "课程等级码")
-    @Column(name = "COURSE_LEVEL", length = 10, nullable = true)
-    private String courseLevel;
+	@FieldInfo(name = "课程等级码")
+	@Column(name = "courseLevel", length = 10, nullable = true)
+	private String courseLevel;
 
-    public void setCourseLevel(String courseLevel) {
-        this.courseLevel = courseLevel;
-    }
+	public void setCourseLevel(String courseLevel) {
+		this.courseLevel = courseLevel;
+	}
 
-    public String getCourseLevel() {
-        return courseLevel;
-    }
+	public String getCourseLevel() {
+		return courseLevel;
+	}
 
-    @FieldInfo(name = "课程别名")
-    @Column(name = "ALIAS_NAME", length = 60, nullable = true)
-    private String aliasName;
+	@FieldInfo(name = "课程别名")
+	@Column(name = "aliasName", length = 60, nullable = true)
+	private String aliasName;
 
-    public void setAliasName(String aliasName) {
-        this.aliasName = aliasName;
-    }
+	public void setAliasName(String aliasName) {
+		this.aliasName = aliasName;
+	}
 
-    public String getAliasName() {
-        return aliasName;
-    }
+	public String getAliasName() {
+		return aliasName;
+	}
 
-    @FieldInfo(name = "总学时")
-    @Column(name = "TOTAL_HOUR", length = 3, nullable = true)
-    private BigDecimal totalHour;
+	@FieldInfo(name = "总学时")
+	@Column(name = "totalHour", length = 3, nullable = true)
+	private BigDecimal totalHour;
 
-    public void setTotalHour(BigDecimal totalHour) {
-        this.totalHour = totalHour;
-    }
+	public void setTotalHour(BigDecimal totalHour) {
+		this.totalHour = totalHour;
+	}
 
-    public BigDecimal getTotalHour() {
-        return totalHour;
-    }
+	public BigDecimal getTotalHour() {
+		return totalHour;
+	}
 
-    @FieldInfo(name = "周学时")
-    @Column(name = "WEEK_HOUR", length = 2, nullable = true)
-    private BigDecimal weekHour;
+	@FieldInfo(name = "周学时")
+	@Column(name = "weekHour", length = 2, nullable = true)
+	private BigDecimal weekHour;
 
-    public void setWeekHour(BigDecimal weekHour) {
-        this.weekHour = weekHour;
-    }
+	public void setWeekHour(BigDecimal weekHour) {
+		this.weekHour = weekHour;
+	}
 
-    public BigDecimal getWeekHour() {
-        return weekHour;
-    }
+	public BigDecimal getWeekHour() {
+		return weekHour;
+	}
 
-    @FieldInfo(name = "自学学时")
-    @Column(name = "ONESELF_HOUR", length = 3, nullable = true)
-    private BigDecimal oneselfHour;
+	@FieldInfo(name = "自学学时")
+	@Column(name = "selfStudyHour", length = 3, nullable = true)
+	private BigDecimal selfStudyHour;
 
-    public void setOneselfHour(BigDecimal oneselfHour) {
-        this.oneselfHour = oneselfHour;
-    }
+	public BigDecimal getSelfStudyHour() {
+		return selfStudyHour;
+	}
 
-    public BigDecimal getOneselfHour() {
-        return oneselfHour;
-    }
+	public void setSelfStudyHour(BigDecimal selfStudyHour) {
+		this.selfStudyHour = selfStudyHour;
+	}
 
-    @FieldInfo(name = "授课方式码")
-    @Column(name = "TEACH_WAY", length = 10, nullable = true)
-    private String teachWay;
+	@FieldInfo(name = "授课方式码")
+	@Column(name = "teachWay", length = 10, nullable = true)
+	private String teachWay;
 
-    public void setTeachWay(String teachWay) {
-        this.teachWay = teachWay;
-    }
+	public void setTeachWay(String teachWay) {
+		this.teachWay = teachWay;
+	}
 
-    public String getTeachWay() {
-        return teachWay;
-    }
+	public String getTeachWay() {
+		return teachWay;
+	}
 
-    @FieldInfo(name = "课程简介")
-    @Column(name = "COURSE_DESC", length = 1024, nullable = true)
-    private String courseDesc;
+	@FieldInfo(name = "课程简介")
+	@Column(name = "courseExplain", length = 1024, nullable = true)
+	private String courseExplain;
 
-    public void setCourseDesc(String courseDesc) {
-        this.courseDesc = courseDesc;
-    }
+	public String getCourseExplain() {
+		return courseExplain;
+	}
 
-    public String getCourseDesc() {
-        return courseDesc;
-    }
+	public void setCourseExplain(String courseExplain) {
+		this.courseExplain = courseExplain;
+	}
 
-    @FieldInfo(name = "课程要求")
-    @Column(name = "COURSE_REQUEST", length = 1024, nullable = true)
-    private String courseRequest;
+	@FieldInfo(name = "课程要求")
+	@Column(name = "courseRequest", length = 1024, nullable = true)
+	private String courseRequest;
 
-    public void setCourseRequest(String courseRequest) {
-        this.courseRequest = courseRequest;
-    }
+	public void setCourseRequest(String courseRequest) {
+		this.courseRequest = courseRequest;
+	}
 
-    public String getCourseRequest() {
-        return courseRequest;
-    }
+	public String getCourseRequest() {
+		return courseRequest;
+	}
 
-    public JwTBasecourse() {
+	public JwTBasecourse() {
 
-        super();
-        // TODO Auto-generated constructor stub
+		super();
+		// TODO Auto-generated constructor stub
 
-    }
+	}
 
-    public JwTBasecourse(String uuid) {
+	public JwTBasecourse(String uuid) {
 
-        super(uuid);
-        // TODO Auto-generated constructor stub
+		super(uuid);
+		// TODO Auto-generated constructor stub
 
-    }
+	}
 
-    /**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
-    @FieldInfo(name = "学校名称")
-    @Formula("(SELECT a.NODE_TEXT from BASE_T_ORG a where a.DEPT_ID=SCHOOL_ID)")
-    private String schoolName;
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	@FieldInfo(name = "学校名称")
+	@Formula("(SELECT a.NODE_TEXT from BASE_T_ORG a where a.DEPT_ID=SCHOOL_ID)")
+	private String schoolName;
 
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
-    }
+	public void setSchoolName(String schoolName) {
+		this.schoolName = schoolName;
+	}
 
-    public String getSchoolName() {
-        return schoolName;
-    }
+	public String getSchoolName() {
+		return schoolName;
+	}
 
 }

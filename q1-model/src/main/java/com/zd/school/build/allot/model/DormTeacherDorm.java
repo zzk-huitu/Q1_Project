@@ -28,45 +28,45 @@ import com.zd.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "DORM_T_TEACHERDORM")
-@AttributeOverride(name = "uuid", column = @Column(name = "TEADORM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_TeacherDorm")
+@AttributeOverride(name = "teacherDormId", column = @Column(name = "teacherDormId", length = 36, nullable = false) )
 public class DormTeacherDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "宿舍ID")
-	@Column(name = "DORM_ID", length = 36, nullable = false)
+	@Column(name = "dormId", length = 36, nullable = false)
 	private String dormId;
 	
 	@FieldInfo(name = "教师ID")
-	@Column(name = "TTEAC_ID", length = 36, nullable = false)
-	private String tteacId;
+	@Column(name = "teacherId", length = 36, nullable = false)
+	private String teacherId;
 	
 	@FieldInfo(name = "房间ID")
-	@Column(name = "ROOM_ID", length = 36, nullable = false)
+	@Column(name = "roomId", length = 36, nullable = false)
 	private String roomId;
 	
 	@FieldInfo(name = "柜子编号")
-	@Column(name = "ARK_NUM", length = 8, nullable = false)
-	private Integer arkNum=0;
+	@Column(name = "sarkNo", length = 8, nullable = false)
+	private Integer sarkNo=0;
 	
 	@FieldInfo(name = "床位编号")
-	@Column(name = "BED_NUM", length = 8, nullable = false)
-	private Integer bedNum=0;
+	@Column(name = "bedNo", length = 8, nullable = false)
+	private Integer bedNo=0;
 	
 	@FieldInfo(name = "入/退状态(0:入住,1:退住)")
-	@Column(name = "IN_OUT", length = 1, nullable = false)
-	private Integer inout=0;
+	@Column(name = "inOutState", length = 1, nullable = false)
+	private Integer inOutState=0;
 	
 	@FieldInfo(name = "入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "IN_TIME", length = 27, nullable = false)
+	@Column(name = "inTime", length = 27, nullable = false)
 	private Date inTime;
 	
 	@FieldInfo(name = "退住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "OUT_TIME", length = 27, nullable = true)
+	@Column(name = "outTime", length = 27, nullable = true)
 	private Date outTime;
 	
 	@Formula("(SELECT A.XM FROM SYS_T_USER A  WHERE A.USER_ID=TTEAC_ID)")
@@ -90,14 +90,6 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.dormId = dormId;
 	}
 
-	public String getTteacId() {
-		return tteacId;
-	}
-
-	public void setTteacId(String tteacId) {
-		this.tteacId = tteacId;
-	}
-
 	public String getRoomId() {
 		return roomId;
 	}
@@ -106,30 +98,38 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-	public Integer getArkNum() {
-		return arkNum;
+	public String getTeacherId() {
+		return teacherId;
 	}
 
-	public void setArkNum(Integer arkNum) {
-		this.arkNum = arkNum;
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
 
-	public Integer getBedNum() {
-		return bedNum;
+	public Integer getSarkNo() {
+		return sarkNo;
 	}
 
-	public void setBedNum(Integer bedNum) {
-		this.bedNum = bedNum;
+	public void setSarkNo(Integer sarkNo) {
+		this.sarkNo = sarkNo;
 	}
 
-	public Integer getInout() {
-		return inout;
+	public Integer getBedNo() {
+		return bedNo;
 	}
 
-	public void setInout(Integer inout) {
-		this.inout = inout;
+	public void setBedNo(Integer bedNo) {
+		this.bedNo = bedNo;
 	}
 
+	public Integer getInOutState() {
+		return inOutState;
+	}
+
+	public void setInOutState(Integer inOutState) {
+		this.inOutState = inOutState;
+	}
+	
 	public Date getInTime() {
 		return inTime;
 	}

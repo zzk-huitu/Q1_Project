@@ -23,34 +23,26 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BUILD_T_LABORATORYDEFINE")
-@AttributeOverride(name = "uuid", column = @Column(name = "LABORATORY_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_LaboratoryDefine")
+@AttributeOverride(name = "laboratoryId", column = @Column(name = "laboratoryId", length = 36, nullable = false) )
 public class BuildLaboratoryDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "楼层主键")
-	@Column(name = "AREA_ID", length = 36, nullable = true)
+	@Column(name = "areaId", length = 36, nullable = true)
 	private String areaId;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "ROOM_STATUS", length = 8, nullable = true)
-	private String roomStatus = "0";
+	@Column(name = "isAllot", length = 8, nullable = true)
+	private String isAllot = "0";
 	
 	@FieldInfo(name = "实验室名称")
-	@Column(name = "LABO_NAME", length = 64, nullable = true)
-	private String laboName;
-	
-	public String getLaboName() {
-		return laboName;
-	}
-
-	public void setLaboName(String laboName) {
-		this.laboName = laboName;
-	}
+	@Column(name = "laboratoryName", length = 64, nullable = true)
+	private String laboratoryName;
 	
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -104,12 +96,20 @@ public class BuildLaboratoryDefine extends BaseEntity implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public String getRoomStatus() {
-		return roomStatus;
+	public String getIsAllot() {
+		return isAllot;
 	}
 
-	public void setRoomStatus(String roomStatus) {
-		this.roomStatus = roomStatus;
+	public void setIsAllot(String isAllot) {
+		this.isAllot = isAllot;
+	}
+
+	public String getLaboratoryName() {
+		return laboratoryName;
+	}
+
+	public void setLaboratoryName(String laboratoryName) {
+		this.laboratoryName = laboratoryName;
 	}
 
 	public String getUpAreaName() {

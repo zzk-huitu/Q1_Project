@@ -24,13 +24,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BUILD_T_ROOMINFO")
-@AttributeOverride(name = "uuid", column = @Column(name = "ROOM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_RoomInfo")
+@AttributeOverride(name = "roomInfoId", column = @Column(name = "roomInfoId", length = 36, nullable = false) )
 public class BuildRoominfo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "区域ID")
-	@Column(name = "AREA_ID", length = 36, nullable = false)
+	@Column(name = "areaId", length = 36, nullable = false)
 	private String areaId;
 
 	public void setAreaId(String areaId) {
@@ -42,7 +42,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教室编码")
-	@Column(name = "ROOM_CODE", length = 32, nullable = true)
+	@Column(name = "roomCode", length = 32, nullable = true)
 	private String roomCode;
 
 	public void setRoomCode(String roomCode) {
@@ -54,7 +54,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "房间名称")
-	@Column(name = "ROOM_NAME", length = 32, nullable = true)
+	@Column(name = "roomName", length = 32, nullable = true)
 	private String roomName;
 
 	public void setRoomName(String roomName) {
@@ -66,7 +66,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "房间类型")//参考数据字典表｛宿舍-1，办公室-2，教室-3，功能室-5｝
-	@Column(name = "ROOM_TYPE", length = 16, nullable = true)
+	@Column(name = "roomType", length = 16, nullable = true)
 	private String roomType = "0";
 
 	public void setRoomType(String roomType) {
@@ -78,7 +78,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "班额代码")
-	@Column(name = "ROOM_CAPACITY", length = 32, nullable = true)
+	@Column(name = "roomCapacity", length = 32, nullable = true)
 	private String roomCapacity;
 
 	public void setRoomCapacity(String roomCapacity) {
@@ -90,19 +90,19 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否多媒体教室-0是,1否")
-	@Column(name = "ISMEDIAROOM", length = 10, nullable = true)
-	private String ismediaroom = "1";
+	@Column(name = "isMediaRoom", length = 10, nullable = true)
+	private String isMediaRoom = "1";
 
-	public void setIsmediaroom(String ismediaroom) {
-		this.ismediaroom = ismediaroom;
+	public String getIsMediaRoom() {
+		return isMediaRoom;
 	}
 
-	public String getIsmediaroom() {
-		return ismediaroom;
+	public void setIsMediaRoom(String isMediaRoom) {
+		this.isMediaRoom = isMediaRoom;
 	}
 
 	@FieldInfo(name = "网络状态：0有网络，1无网络")
-	@Column(name = "ROOM_NET", length = 10, nullable = true)
+	@Column(name = "roomNet", length = 10, nullable = true)
 	private String roomNet = "0";
 
 	public void setRoomNet(String roomNet) {
@@ -114,7 +114,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "房间状态")
-	@Column(name = "AREA_STATU", length = 10, nullable = true)
+	@Column(name = "areaStatu", length = 10, nullable = true)
 	private Integer areaStatu;
 
 	public void setAreaStatu(Integer areaStatu) {
@@ -126,19 +126,19 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教室说明")
-	@Column(name = "ROOM_DESC", length = 128, nullable = true)
-	private String roomDesc;
+	@Column(name = "roomExplains", length = 128, nullable = true)
+	private String roomExplains;
 
-	public void setRoomDesc(String roomDesc) {
-		this.roomDesc = roomDesc;
+	public String getRoomExplains() {
+		return roomExplains;
 	}
 
-	public String getRoomDesc() {
-		return roomDesc;
+	public void setRoomExplains(String roomExplains) {
+		this.roomExplains = roomExplains;
 	}
-	
+
 	@FieldInfo(name = "房间电话")
-	@Column(name = "ROOM_PHONE", length = 200, nullable = true)
+	@Column(name = "roomPhone", length = 200, nullable = true)
 	private String roomPhone;
 
 	public String getRoomPhone() {

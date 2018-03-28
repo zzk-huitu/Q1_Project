@@ -23,17 +23,17 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "JW_T_CLASSROOMALLOT")
-@AttributeOverride(name = "uuid", column = @Column(name = "CLASSROOMALLOT_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_ClassRoomAllot")
+@AttributeOverride(name = "classRoomAllotId", column = @Column(name = "classRoomAllotId", length = 36, nullable = false) )
 public class JwClassRoomAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级主键")
-	@Column(name = "CLAI_ID", length = 36, nullable = true)
-	private String claiId;
+	@Column(name = "classId", length = 36, nullable = true)
+	private String classId;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	/**
@@ -81,14 +81,6 @@ public class JwClassRoomAllot extends BaseEntity implements Serializable {
 		this.className = className;
 	}
 
-	public String getClaiId() {
-		return claiId;
-	}
-
-	public void setClaiId(String claiId) {
-		this.claiId = claiId;
-	}
-
 	public String getRoomId() {
 		return roomId;
 	}
@@ -96,4 +88,13 @@ public class JwClassRoomAllot extends BaseEntity implements Serializable {
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
+
+	public String getClassId() {
+		return classId;
+	}
+
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+	
 }

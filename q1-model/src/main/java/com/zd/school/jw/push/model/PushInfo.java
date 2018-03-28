@@ -15,38 +15,38 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 @Entity
-@Table(name = "PUSH_T_PUSHINFO")
-@AttributeOverride(name = "uuid", column = @Column(name = "PUSHINFO_ID", length = 36, nullable = false))
+@Table(name = "T_PT_PushInfo")
+@AttributeOverride(name = "pushInfoId", column = @Column(name = "pushInfoId", length = 36, nullable = false))
 public class PushInfo extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     //@Column(name = "PUSH_TYPE", length = 128, nullable = false)
     //private String pushType;	//推送的类型
 
-    @Column(name = "EVENT_TYPE", length = 128, nullable = false)
+    @Column(name = "eventType", length = 128, nullable = false)
     private String eventType;
 
-    @Column(name = "REG_STATUS", length = 1024, nullable = false)
+    @Column(name = "regStatus", length = 1024, nullable = false)
     private String regStatus;
 
-    @Column(name = "PUSH_WAY", nullable = false)
+    @Column(name = "pushWay", nullable = false)
     private Integer pushWay; //1:微信   2:APP  3:短信
 
-    @Column(name = "REG_TIME", columnDefinition = "datetime",nullable = true)
+    @Column(name = "regTime", columnDefinition = "datetime",nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)    
     private Date regTime;
 
-    @Column(name = "EMPL_NO", length = 20, nullable = false)
-    private String emplNo;
+    @Column(name = "empleeNo", length = 20, nullable = false)
+    private String empleeNo;
 
-    @Column(name = "EMPL_NAME", length = 20, nullable = false)
-    private String emplName;
+    @Column(name = "empleeName", length = 20, nullable = false)
+    private String empleeName;
 
-    @Column(name = "PUSH_STATUS", nullable = false)
+    @Column(name = "pushStatus", nullable = false)
     private Integer pushStatus; //0未发送 1发送成功 -1发送失败
 
-    @Column(name = "PUSH_URL", length = 512, nullable = true)
+    @Column(name = "pushUrl", length = 512, nullable = true)
     private String pushUrl;
 
     public String getEventType() {
@@ -81,20 +81,20 @@ public class PushInfo extends BaseEntity implements Serializable {
         this.regTime = regTime;
     }
 
-    public String getEmplNo() {
-        return emplNo;
+    public String getEmpleeNo() {
+        return empleeNo;
     }
 
-    public void setEmplNo(String emplNo) {
-        this.emplNo = emplNo;
+    public void setEmpleeNo(String empleeNo) {
+        this.empleeNo = empleeNo;
     }
 
-    public String getEmplName() {
-        return emplName;
+    public String getEmpleeName() {
+        return empleeName;
     }
 
-    public void setEmplName(String emplName) {
-        this.emplName = emplName;
+    public void setEmpleeName(String empleeName) {
+        this.empleeName = empleeName;
     }
 
     public Integer getPushStatus() {

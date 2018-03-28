@@ -24,14 +24,14 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "JW_T_LABORATORYALLOT")
-@AttributeOverride(name = "uuid", column = @Column(name = "LABORATORYALLOT_ID", length = 50, nullable = false))
+@Table(name = "T_PT_LaboratoryAllot")
+@AttributeOverride(name = "laboratoryAllotId", column = @Column(name = "laboratoryAllotId", length = 50, nullable = false))
 public class JwLaboratoryAllot extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
         
     @FieldInfo(name = "roomId")
-    @Column(name = "ROOM_ID", length = 36, nullable = true)
+    @Column(name = "roomId", length = 36, nullable = true)
     private String roomId;
     public void setRoomId(String roomId) {
         this.roomId = roomId;

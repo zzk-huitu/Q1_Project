@@ -18,37 +18,37 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "PT_GATEWAY")
-@AttributeOverride(name = "uuid", column = @Column(name = "GATEWAY_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_Gateway")
+@AttributeOverride(name = "gatewayId", column = @Column(name = "gatewayId", length = 36, nullable = false) )
 public class PtGateway extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "机号")
-	@Column(name = "GATEWAYNO")
+	@Column(name = "gatewayNo")
 	private Integer gatewayNo;
 
 	@FieldInfo(name = "网关名称")
-	@Column(name = "GATEWAYNAME", length = 200, nullable = true)
+	@Column(name = "gatewayName", length = 200, nullable = true)
 	private String gatewayName;
 	
 	@FieldInfo(name = "前置表ID")
-	@Column(name = "FRONTSERVER_ID", length = 36, nullable = true)
-	private String frontserverId;
+	@Column(name = "frontServerId", length = 36, nullable = true)
+	private String frontServerId;
 	
 	@FieldInfo(name = "序列号")
-	@Column(name = "GATEWAYSN", length = 200, nullable = true)
+	@Column(name = "gatewaySN", length = 200, nullable = true)
 	private String gatewaySN;
 
 	@FieldInfo(name = "硬件程序版本号")
-	@Column(name = "PROGRAMVER", length = 8, nullable = true)
-	private String programVer;
+	@Column(name = "programVersion", length = 8, nullable = true)
+	private String programVersion;
 
-	@FieldInfo(name = "网关IP")
-	@Column(name = "GATEWAYIP", length = 100, nullable = true)
+	@FieldInfo(name = "网关Ip")
+	@Column(name = "gatewayIp", length = 100, nullable = true)
 	private String gatewayIP;
 
 	@FieldInfo(name = "设备掩码")
-    @Column(name = "GATEWAY_MASK",length = 36,nullable = true)
+    @Column(name = "gatewayMask",length = 36,nullable = true)
     private String gatewayMask;
 
     public String getGatewayMask() {
@@ -59,7 +59,7 @@ public class PtGateway extends BaseEntity implements Serializable {
         this.gatewayMask = gatewayMask;
     }
     @FieldInfo(name = "设备MAC")
-    @Column(name = "GATEWAY_MAC",length = 36,nullable = true)
+    @Column(name = "gatewayMac",length = 36,nullable = true)
     private String gatewayMac;
 
     public String getGatewayMac() {
@@ -70,18 +70,11 @@ public class PtGateway extends BaseEntity implements Serializable {
         this.gatewayMac = gatewayMac;
     }
     @FieldInfo(name = "接入网关")
-    @Column(name = "NETGATEWAY_IP")
-    private String netgatewayIp;
-
-    public String getNetgatewayIp() {
-        return netgatewayIp;
-    }
-	public void setNetgatewayIp(String netgatewayIp) {
-		this.netgatewayIp = netgatewayIp;
-	}
+    @Column(name = "netGatewayIp")
+    private String netGatewayIp;
 	
 	@FieldInfo(name = "网关状态(1是启用 0是禁用)")//修正，数据弄反
-	@Column(name = "GATEWAYSTATUS")
+	@Column(name = "gatewayStatus")
 	private Integer gatewayStatus;
 
 	@FieldInfo(name = "前置名称")
@@ -138,14 +131,6 @@ public class PtGateway extends BaseEntity implements Serializable {
 
 	public void setGatewaySN(String gatewaySN) {
 		this.gatewaySN = gatewaySN;
-	}
-
-	public String getProgramVer() {
-		return programVer;
-	}
-
-	public void setProgramVer(String programVer) {
-		this.programVer = programVer;
 	}
 
 	public String getGatewayIP() {
@@ -228,12 +213,28 @@ public class PtGateway extends BaseEntity implements Serializable {
 		this.notes = notes;
 	}
 
-	public String getFrontserverId() {
-		return frontserverId;
+	public String getFrontServerId() {
+		return frontServerId;
 	}
 
-	public void setFrontserverId(String frontserverId) {
-		this.frontserverId = frontserverId;
+	public void setFrontServerId(String frontServerId) {
+		this.frontServerId = frontServerId;
+	}
+
+	public String getProgramVersion() {
+		return programVersion;
+	}
+
+	public void setProgramVersion(String programVersion) {
+		this.programVersion = programVersion;
+	}
+
+	public String getNetGatewayIp() {
+		return netGatewayIp;
+	}
+
+	public void setNetGatewayIp(String netGatewayIp) {
+		this.netGatewayIp = netGatewayIp;
 	}
 
 }

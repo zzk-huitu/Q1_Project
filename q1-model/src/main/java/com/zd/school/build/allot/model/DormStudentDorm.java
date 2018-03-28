@@ -31,37 +31,37 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 
 @Entity
-@Table(name = "DORM_T_STUDENTDORM")
-@AttributeOverride(name = "uuid", column = @Column(name = "STUDORM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_StudentDorm")
+@AttributeOverride(name = "studentDormId", column = @Column(name = "studentDormId", length = 36, nullable = false) )
 public class DormStudentDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级宿舍主键")
-	@Column(name = "CDORM_ID", length = 36, nullable = true)
-	private String cdormId;
+	@Column(name = "classDormId", length = 36, nullable = true)
+	private String classDormId;
 
 	@FieldInfo(name = "班级ID")
 	@Formula("(SELECT a.classId FROM STAND_V_CLASSSTUDENT a where a.userId=STU_ID)")
 	private String claiId;
 
 	@FieldInfo(name = "学生主键")
-	@Column(name = "STU_ID", length = 50, nullable = true)
-	private String stuId;
+	@Column(name = "studentId", length = 50, nullable = true)
+	private String studentId;
 
 	@FieldInfo(name = "柜子编号")
-	@Column(name = "ARK_NUM", length = 10, nullable = false)
-	private Integer arkNum=0;
+	@Column(name = "sarkNo", length = 10, nullable = false)
+	private Integer sarkNo=0;
 
 	@FieldInfo(name = "床位编号")
-	@Column(name = "BED_NUM", length = 10, nullable = false)
-	private Integer bedNum=0;
+	@Column(name = "bedNo", length = 10, nullable = false)
+	private Integer bedNo=0;
 	
 	@ExportExcelAnnotation(columnName="入住时间",columnWidth=20,order = 5)
 	@MapperCell(cellName = "入住时间", order = 3)
 	@FieldInfo(name = "入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "IN_TIME", length = 27, nullable = false)
+	@Column(name = "inTime", length = 27, nullable = false)
 	private Date inTime;
 
 	/**
@@ -158,36 +158,36 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	@FieldInfo(name = "所属楼栋")
 	private String upAreaName;
 	
-	public String getCdormId() {
-		return cdormId;
+	public String getClassDormId() {
+		return classDormId;
 	}
 
-	public void setCdormId(String cdormId) {
-		this.cdormId = cdormId;
+	public void setClassDormId(String classDormId) {
+		this.classDormId = classDormId;
 	}
 
-	public String getStuId() {
-		return stuId;
+	public String getStudentId() {
+		return studentId;
 	}
 
-	public void setStuId(String stuId) {
-		this.stuId = stuId;
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
 	}
 
-	public Integer getArkNum() {
-		return arkNum;
+	public Integer getSarkNo() {
+		return sarkNo;
 	}
 
-	public void setArkNum(Integer arkNum) {
-		this.arkNum = arkNum;
+	public void setSarkNo(Integer sarkNo) {
+		this.sarkNo = sarkNo;
 	}
 
-	public Integer getBedNum() {
-		return bedNum;
+	public Integer getBedNo() {
+		return bedNo;
 	}
 
-	public void setBedNum(Integer bedNum) {
-		this.bedNum = bedNum;
+	public void setBedNo(Integer bedNo) {
+		this.bedNo = bedNo;
 	}
 
 	public String getRoomName() {

@@ -24,47 +24,47 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "PT_IR_DEVICE_BRAND")
-@AttributeOverride(name = "uuid", column = @Column(name = "BRAND_ID", length = 36, nullable = false))
+@Table(name = "T_PT_IrDeviceBrand")
+@AttributeOverride(name = "irDeviceBrandId", column = @Column(name = "irDeviceBrandId", length = 36, nullable = false))
 public class PtIrDeviceBrand extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "品牌名称")
-    @Column(name = "BRANDNAME", length = 50, nullable = true)
-    private String brandname;
+    @Column(name = "brandName", length = 50, nullable = true)
+    private String brandName;
     
     
     @FieldInfo(name = "类型编号")
-    @Column(name = "DEVICETYPECODE", length = 36, nullable = true)
+    @Column(name = "deviceTypeCode", length = 36, nullable = true)
     private String deviceTypeCode;
     
     
     @FieldInfo(name = "产品型号")
-    @Column(name = "PRODUCTMODEL", length = 100, nullable = true)
+    @Column(name = "productModel", length = 100, nullable = true)
     private String productModel;
     
     @FieldInfo(name = "区域等级")
-    @Column(name = "LEVEL")
+    @Column(name = "level")
     private Integer level;
     
     @FieldInfo(name = "是否有下级")
-    @Column(name = "ISLEAF")
+    @Column(name = "isLeaf")
     private Integer isLeaf;
      
     @FieldInfo(name = "上级区域ID")
-    @Column(name = "PARENT_NODE", length = 36, nullable = true)
+    @Column(name = "parentNode", length = 36, nullable = true)
     private String parentNode;
     
     @FieldInfo(name = "备注")
-    @Column(name = "NOTES", length = 1000, nullable = true)
+    @Column(name = "notes", length = 1000, nullable = true)
     private String notes;
 
-	public String getBrandname() {
-		return brandname;
+	public String getBrandName() {
+		return brandName;
 	}
 
-	public void setBrandname(String brandname) {
-		this.brandname = brandname;
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
 	public Integer getLevel() {
