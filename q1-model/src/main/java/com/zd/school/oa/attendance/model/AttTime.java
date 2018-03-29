@@ -2,26 +2,14 @@ package com.zd.school.oa.attendance.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
@@ -42,12 +30,12 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_AttendanceTime")
-@AttributeOverride(name = "attendanceTimeId", column = @Column(name = "attendanceTimeId", length = 36, nullable = false))
+@AttributeOverride(name = "attendanceTimeId", column = @Column(name = "attendanceTimeId", length = 20, nullable = false))
 public class AttTime extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "主题ID")
-    @Column(name = "themeId", length = 36, nullable = true)
+    @Column(name = "themeId", length = 20, nullable = false)
     private String themeId;
     public String getThemeId() {
  		return themeId;
@@ -57,12 +45,12 @@ public class AttTime extends BaseEntity implements Serializable{
  	}
         
     @FieldInfo(name = "星期")
-    @Column(name = "weekDay", length = 10, nullable = false)
-    private Integer weekDay;
-    public void setWeekDay(Integer weekDay) {
+    @Column(name = "weekDay", nullable = false)
+    private byte weekDay;
+    public void setWeekDay(byte weekDay) {
         this.weekDay = weekDay;
     }
-    public Integer getWeekDay() {
+    public byte getWeekDay() {
         return weekDay;
     }
         
@@ -103,7 +91,7 @@ public class AttTime extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "结束时间")
-    @Column(name = "endTime", columnDefinition = "datetime",nullable = true)
+    @Column(name = "endTime", columnDefinition = "datetime",nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date endTime;
@@ -115,7 +103,7 @@ public class AttTime extends BaseEntity implements Serializable{
     }
     
     @FieldInfo(name = "节次")
-    @Column(name = "period", length = 36, nullable = true)
+    @Column(name = "period", length = 2, nullable = false)
     private String period ;
 	public String getPeriod() {
 		return period;

@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Campus")
-@AttributeOverride(name = "campusId", column = @Column(name = "campusId", length = 36, nullable = false))
+@AttributeOverride(name = "campusId", column = @Column(name = "campusId", length = 20, nullable = false))
 public class BaseCampus extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "学校主键")
-    @Column(name = "schoolId", length = 36, nullable = true)
+    @Column(name = "schoolId", length = 20, nullable = false)
     private String schoolId;
 
 
@@ -42,7 +42,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区编码")
-    @Column(name = "campusCode", length = 32, nullable = true)
+    @Column(name = "campusCode", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String campusCode;
 
     public void setCampusCode(String campusCode) {
@@ -54,7 +54,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区名称")
-    @Column(name = "campusName", length = 64, nullable = false)
+    @Column(name = "campusName", columnDefinition="nvarchar(64)", nullable = false)
     private String campusName;
 
     public void setCampusName(String campusName) {
@@ -66,7 +66,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区地址")
-    @Column(name = "campusAddr", length = 180, nullable = true)
+    @Column(name = "campusAddr", columnDefinition="nvarchar(180) defalut ''", nullable = true)
     private String campusAddr;
 
     public void setCampusAddr(String campusAddr) {
@@ -78,7 +78,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "邮政编码")
-    @Column(name = "mailCode", length = 16, nullable = true)
+    @Column(name = "mailCode", columnDefinition="nvarchar(16) defalut ''", nullable = true)
     private String mailCode;
 
     public void setMailCode(String mailCode) {
@@ -90,7 +90,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区联系电话")
-    @Column(name = "campusPhone", length = 30, nullable = true)
+    @Column(name = "campusPhone", columnDefinition="nvarchar(30) defalut ''", nullable = true)
     private String campusPhone;
 
     public void setCampusPhone(String campusPhone) {
@@ -102,7 +102,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区传真电话")
-    @Column(name = "campusFax", length = 30, nullable = true)
+    @Column(name = "campusFax", columnDefinition="nvarchar(30) defalut ''", nullable = true)
     private String campusFax;
 
     public void setCampusFax(String campusFax) {
@@ -114,7 +114,7 @@ public class BaseCampus extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "校区负责人号")
-    @Column(name = "campusPrincipal", length = 32, nullable = true)
+    @Column(name = "campusPrincipal", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String campusPrincipal;
 
     public void setCampusPrincipal(String campusPrincipal) {

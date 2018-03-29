@@ -1,31 +1,14 @@
 package com.zd.school.plartform.system.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
@@ -42,12 +25,12 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_AppInfo")
-@AttributeOverride(name = "appInfoId", column = @Column(name = "appInfoId", length = 36, nullable = false))
+@AttributeOverride(name = "appInfoId", column = @Column(name = "appInfoId", length = 20, nullable = false))
 public class SysAppinfo extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "appIntro")
-    @Column(name = "appIntro", length = 256, nullable = true)
+    @Column(name = "appIntro",columnDefinition="nvarchar(256) defalut ''", nullable = true)
     private String appIntro;
     public void setAppIntro(String appIntro) {
         this.appIntro = appIntro;
@@ -57,17 +40,17 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appIsuse")
-    @Column(name = "appIsuse", length = 10, nullable = true)
-    private Integer appIsuse;
-    public void setAppIsuse(Integer appIsuse) {
+    @Column(name = "appIsuse",columnDefinition="defalut 0", nullable = true)
+    private boolean appIsuse;
+    public void setAppIsuse(boolean appIsuse) {
         this.appIsuse = appIsuse;
     }
-    public Integer getAppIsuse() {
+    public boolean getAppIsuse() {
         return appIsuse;
     }
         
     @FieldInfo(name = "appTitle")
-    @Column(name = "appTitle", length = 128, nullable = true)
+    @Column(name = "appTitle", columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String appTitle;
     public void setAppTitle(String appTitle) {
         this.appTitle = appTitle;
@@ -77,7 +60,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appType")
-    @Column(name = "appType", length = 4, nullable = true)
+    @Column(name = "appType",columnDefinition="nvarchar(4) defalut ''", nullable = true)
     private String appType;
     public void setAppType(String appType) {
         this.appType = appType;
@@ -87,7 +70,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appUrl")
-    @Column(name = "appUrl", length = 256, nullable = true)
+    @Column(name = "appUrl",columnDefinition="nvarchar(256) defalut ''", nullable = true)
     private String appUrl;
     public void setAppUrl(String appUrl) {
         this.appUrl = appUrl;
@@ -97,7 +80,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "appVersion")
-    @Column(name = "appVersion", length = 10, nullable = true)
+    @Column(name = "appVersion",columnDefinition="defalut 0", nullable = true)
     private Integer appVersion;
     public void setAppVersion(Integer appVersion) {
         this.appVersion = appVersion;

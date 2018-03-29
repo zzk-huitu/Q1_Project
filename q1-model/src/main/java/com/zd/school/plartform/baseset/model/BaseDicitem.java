@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_DdicItem")
-@AttributeOverride(name = "ddicItemId", column = @Column(name = "ddicItemId", length = 36, nullable = false))
+@AttributeOverride(name = "ddicItemId", column = @Column(name = "ddicItemId", length = 20, nullable = false))
 public class BaseDicitem extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "字典ID")
-    @Column(name = "dicId", length = 36, nullable = true)
+    @Column(name = "dicId",columnDefinition="nvarchar(20) defalut ''", nullable = true)
     private String dicId;
 
     public void setDicId(String dicId) {
@@ -41,7 +41,7 @@ public class BaseDicitem extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "字典项编码")
-    @Column(name = "itemCode", length = 16, nullable = false)
+    @Column(name = "itemCode", columnDefinition="nvarchar(16)", nullable = false)
     private String itemCode;
 
     public void setItemCode(String itemCode) {
@@ -53,7 +53,7 @@ public class BaseDicitem extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "字典项名称")
-    @Column(name = "itemName", length = 128, nullable = false)
+    @Column(name = "itemName", columnDefinition="nvarchar(128)", nullable = false)
     private String itemName;
 
     public void setItemName(String itemName) {
@@ -65,7 +65,7 @@ public class BaseDicitem extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "字典项说明")
-    @Column(name = "itemDesc", length = 128, nullable = true)
+    @Column(name = "itemDesc",columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String itemDesc;
 
     public String getItemDesc() {

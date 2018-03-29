@@ -1,31 +1,14 @@
 package com.zd.school.oa.attendance.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
@@ -42,12 +25,12 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_AttendanceTheme")
-@AttributeOverride(name = "attendanceThemeId", column = @Column(name = "attendanceThemeId", length = 36, nullable = false))
+@AttributeOverride(name = "attendanceThemeId", column = @Column(name = "attendanceThemeId", length = 20, nullable = false))
 public class AttTitle extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "主题名称")
-    @Column(name = "themeName", length = 36, nullable = false)
+    @Column(name = "themeName", columnDefinition="nvarchar(36)", nullable = false)
     private String themeName;
 
 	public String getThemeName() {

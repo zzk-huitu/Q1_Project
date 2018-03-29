@@ -11,7 +11,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
@@ -32,47 +31,47 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_UserLoginLog")
-@AttributeOverride(name = "userLoginLogId", column = @Column(name = "userLoginLogId", length = 36, nullable = false))
+@AttributeOverride(name = "userLoginLogId", column = @Column(name = "userLoginLogId", length = 20, nullable = false))
 public class SysUserLoginLog extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "用户ID")
-    @Column(name = "userId", length = 36, nullable = false)
+    @Column(name = "userId", columnDefinition="varchar(20)", nullable = false)
     private String userId;
        
     @FieldInfo(name = "会话ID（用于区别同一个用户在不同时刻的会话）")
-    @Column(name = "sessionId", length = 36, nullable = false)
+    @Column(name = "sessionId", columnDefinition="varchar(36)", nullable = false)
     private String sessionId;
   
     @FieldInfo(name = "用户名")
-    @Column(name = "userName", length = 16, nullable = false)
+    @Column(name = "userName", columnDefinition="nvarchar(36)", nullable = false)
     private String userName;
    
     @FieldInfo(name = "IP地址")
-    @Column(name = "ipHost", length = 64, nullable = true)
+    @Column(name = "ipHost", columnDefinition="varchar(64) defalut ''", nullable = true)
     private String ipHost;
     
     @FieldInfo(name = "登录时间")
-    @Column(name = "loginDate", length = 23, nullable = false)
+    @Column(name = "loginDate", columnDefinition="datetime", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date loginDate;
         
     @FieldInfo(name = "最后访问时间")
-    @Column(name = "LastAccessDate", length = 23, nullable = true)
+    @Column(name = "LastAccessDate",columnDefinition="datetime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date LastAccessDate;
     
     @FieldInfo(name = "离线时间")
-    @Column(name = "offlineDate", length = 23, nullable = true)
+    @Column(name = "offlineDate", columnDefinition="datetime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date offlineDate;
         
     
     @FieldInfo(name = "登出说明")
-    @Column(name = "offlineIntro", length = 32, nullable = true)
+    @Column(name = "offlineIntro", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String offlineIntro;
     
     

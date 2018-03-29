@@ -26,12 +26,12 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_NoticeRight")
-@AttributeOverride(name = "rightId", column = @Column(name = "rightId", length = 36, nullable = false))
+@AttributeOverride(name = "rightId", column = @Column(name = "rightId", length = 20, nullable = false))
 public class OaNoticeright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "拥有权限的角色ID")
-    @Column(name = "ownRoleid", length = 36, nullable = false)
+    @Column(name = "ownRoleid", length = 20, nullable = false)
     private String ownRoleid;
 
 	public String getOwnRoleid() {
@@ -54,7 +54,7 @@ public class OaNoticeright extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "审核的角色ID")
-    @Column(name = "checkRoleid", length = 36, nullable = true)
+    @Column(name = "checkRoleid", length =20, nullable = true)
     private String checkRoleid;
 
 	public String getCheckRoleid() {

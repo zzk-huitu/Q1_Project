@@ -23,12 +23,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_NoticeType")
-@AttributeOverride(name = "noticeTypeId", column = @Column(name = "noticeTypeId", length = 36, nullable = false))
+@AttributeOverride(name = "noticeTypeId", column = @Column(name = "noticeTypeId", length = 20, nullable = false))
 public class OaNoticetype extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "类型名称")
-    @Column(name = "typeName", length = 64, nullable = false)
+    @Column(name = "typeName", columnDefinition="nvarchar(64)", nullable = false)
     private String typeName;
 
     public void setTypeName(String typeName) {

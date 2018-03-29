@@ -17,55 +17,55 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_RecordManage")
-@AttributeOverride(name = "recordManageId", column = @Column(name = "recordManageId", length = 36, nullable = false))
+@AttributeOverride(name = "recordManageId", column = @Column(name = "recordManageId", length = 20, nullable = false))
 public class TdRecordManage  extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "上午正常刷卡时间开始")
-	@Column(name = "morningNormalStart", length = 23, nullable = true)
+	@Column(name = "morningNormalStart", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date morningNormalStart;
 
     @FieldInfo(name = "上午正常刷卡时间结束")
-   	@Column(name = "morningNormalEnd", length = 23, nullable = true)
+   	@Column(name = "morningNormalEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date morningNormalEnd;
     
     @FieldInfo(name = "上午迟到刷卡时间开始")
-	@Column(name = "morningLateStart", length = 23, nullable = true)
+	@Column(name = "morningLateStart", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date morningLateStart;
 
     @FieldInfo(name = "上午正常刷卡时间结束")
-   	@Column(name = "morningLateEnd", length = 23, nullable = true)
+   	@Column(name = "morningLateEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date morningLateEnd;
     
     
     @FieldInfo(name = "下午正常刷卡时间开始")
-	@Column(name = "afternoonNormalStart", length = 23, nullable = true)
+	@Column(name = "afternoonNormalStart", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date afternoonNormalStart;
 
     @FieldInfo(name = "下午正常刷卡时间结束")
-   	@Column(name = "afternoonNormalEnd", length = 23, nullable = true)
+   	@Column(name = "afternoonNormalEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date afternoonNormalEnd;
     
     @FieldInfo(name = "下午迟到刷卡时间开始")
-	@Column(name = "afternoonLateStart", length = 23, nullable = true)
+	@Column(name = "afternoonLateStart",columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date afternoonLateStart;
 
     @FieldInfo(name = "下午正常刷卡时间结束")
-   	@Column(name = "afternoonLateEnd", length = 23, nullable = true)
+   	@Column(name = "afternoonLateEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date afternoonLateEnd;

@@ -22,12 +22,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Button")
-@AttributeOverride(name = "buttonId", column = @Column(name = "buttonId", length = 36, nullable = false))
+@AttributeOverride(name = "buttonId", column = @Column(name = "buttonId", length = 20, nullable = false))
 public class SysButton extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "按钮名称")
-    @Column(name = "buttonName", length = 32, nullable = false)
+    @Column(name = "buttonName", columnDefinition="nvarchar(32)", nullable = false)
     private String buttonName;
 
     public void setButtonName(String buttonName) {
@@ -39,7 +39,7 @@ public class SysButton extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "提示信息")
-    @Column(name = "buttonTitle", length = 32, nullable = false)
+    @Column(name = "buttonTitle",columnDefinition="nvarchar(32)", nullable = false)
     private String buttonTitle;
 
     public void setButtonTitle(String buttonTitle) {
@@ -51,7 +51,7 @@ public class SysButton extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "按钮编码")
-    @Column(name = "buttonCode", length = 8, nullable = false)
+    @Column(name = "buttonCode",columnDefinition="nvarchar(8)", nullable = false)
     private String buttonCode;
 
     public void setButtonCode(String buttonCode) {
@@ -63,7 +63,7 @@ public class SysButton extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "按钮图标")
-    @Column(name = "iconUrl", length = 128, nullable = false)
+    @Column(name = "iconUrl",columnDefinition="nvarchar(128)", nullable = false)
     private String iconUrl;
 
     public void setIconUrl(String iconUrl) {
@@ -75,14 +75,14 @@ public class SysButton extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否系统按钮")
-    @Column(name = "issystem", length = 10, nullable = false)
-    private Integer issystem;
+    @Column(name = "issystem",columnDefinition="defalut 0", nullable = false)
+    private boolean issystem;
 
-    public void setIssystem(Integer issystem) {
+    public void setIssystem(boolean issystem) {
         this.issystem = issystem;
     }
 
-    public Integer getIssystem() {
+    public boolean getIssystem() {
         return issystem;
     }
 

@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
-import com.zd.school.excel.annotation.MapperCell;
 
 /**
  * 
@@ -27,7 +26,7 @@ import com.zd.school.excel.annotation.MapperCell;
 
 @Entity
 @Table(name = "T_PT_Task")
-@AttributeOverride(name = "taskId", column = @Column(name = "taskId", length = 36, nullable = false) )
+@AttributeOverride(name = "taskId", column = @Column(name = "taskId", length = 20, nullable = false) )
 public class PtTask extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +45,7 @@ public class PtTask extends BaseEntity implements Serializable {
 	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
-	@Column(name = "taskData", length = 2147483647, nullable = true)
+	@Column(name = "taskData", nullable = true)
 	private byte[] taskData;
 
 	@Column(name = "timeOut", nullable = false)
@@ -55,29 +54,29 @@ public class PtTask extends BaseEntity implements Serializable {
 	@Column(name = "retryCount", nullable = false)
 	private Integer retryCount;
 
-	@Column(name = "tickSecend", nullable = true)
+	@Column(name = "tickSecend", columnDefinition="defalut 0",nullable = true)
 	private Integer tickSecend;
 
 	@Column(name = "executeCount", nullable = false)
 	private Integer executeCount;
 
-	@Column(name = "executeTime", nullable = true)
+	@Column(name = "executeTime", columnDefinition="datetime",nullable = true)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date executeTime;
 
-	@Column(name = "executeResult", nullable = true)
+	@Column(name = "executeResult", columnDefinition="defalut 0",nullable = true)
 	private Boolean executeResult;
 
-	@Column(name = "executeImmediately", nullable = true)
+	@Column(name = "executeImmediately",columnDefinition="defalut 0", nullable = true)
 	private Boolean executeImmediately;
 
-	@Column(name = "isTaskOver", nullable = true)
+	@Column(name = "isTaskOver",columnDefinition="defalut 0", nullable = true)
 	private Boolean isTaskOver;
 
-	@Column(name = "resultMsg", length = 1000, nullable = true)
+	@Column(name = "resultMsg", columnDefinition="varchar(1000) defalut ''", nullable = true)
 	private String resultMsg;
 
-	@Column(name = "userId", length = 36, nullable = true)
+	@Column(name = "userId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String userId;
 
 	public String getTaskNo() {

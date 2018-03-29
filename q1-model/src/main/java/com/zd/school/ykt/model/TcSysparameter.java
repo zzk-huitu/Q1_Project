@@ -21,24 +21,24 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_SysParameter")
-@AttributeOverride(name = "sysParameterId", column = @Column(name = "sysParameterId", length = 36, nullable = false) )
+@AttributeOverride(name = "sysParameterId", column = @Column(name = "sysParameterId", length = 20, nullable = false) )
 public class TcSysparameter extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "sysParameterNo")
-	@Column(name = "sysParameterNo", length = 10, nullable = false)
+	@Column(name = "sysParameterNo", nullable = false)
 	private Integer sysParameterNo;
 
 	@FieldInfo(name = "sysParameterName")
-	@Column(name = "sysParameterName", nullable = true, columnDefinition = "nvarchar(50)")
+	@Column(name = "sysParameterName", nullable = true, columnDefinition = "nvarchar(50) defalut ''")
 	private String sysParameterName;
 
 	@FieldInfo(name = "sysParameterValue")
-	@Column(name = "sysParameterValue", nullable = true, columnDefinition = "nvarchar(50)")
+	@Column(name = "sysParameterValue", nullable = true, columnDefinition = "nvarchar(50) defalut ''")
 	private String sysParameterValue;
 
 	@FieldInfo(name = "remark")
-	@Column(name = "remark", columnDefinition = "nvarchar(50)", nullable = true)
+	@Column(name = "remark", columnDefinition = "nvarchar(50) defalut ''", nullable = true)
 	private String remark;
 
 	public void setRemark(String remark) {
@@ -50,11 +50,11 @@ public class TcSysparameter extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "sysParameterType")
-	@Column(name = "sysParameterType", columnDefinition = "nvarchar(50)", nullable = true)
+	@Column(name = "sysParameterType", columnDefinition = "nvarchar(50) defalut ''", nullable = true)
 	private String sysParameterType;
 
 	@FieldInfo(name = "parentId")
-	@Column(name = "parentId", length = 10, nullable = true)
+	@Column(name = "parentId",columnDefinition="defalut ''", nullable = true)
 	private Integer parentId;
 
 	public Integer getSysParameterNo() {

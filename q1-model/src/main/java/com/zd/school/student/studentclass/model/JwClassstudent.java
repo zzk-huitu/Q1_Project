@@ -21,34 +21,34 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 @Entity
 @Table(name = "T_PT_ClassStudent")
-@AttributeOverride(name = "classStudentId", column = @Column(name = "classStudentId", length = 36, nullable = false) )
+@AttributeOverride(name = "classStudentId", column = @Column(name = "classStudentId", length = 20, nullable = false) )
 public class JwClassstudent extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = true)
+	@Column(name = "classId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String classId;
 
 	@FieldInfo(name = "学生ID")
-	@Column(name = "studentId", length = 36, nullable = true)
+	@Column(name = "studentId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String studentId;
 
 	@MapperCell(cellName="学年",order=2)
 	@FieldInfo(name = "学年")
-	@Column(name = "schoolYear", length = 10, nullable = false)
+	@Column(name = "schoolYear", columnDefinition="nvarchar(10)", nullable = false)
 	private String schoolYear;
 
 	
 	@FieldInfo(name = "学期")
-	@Column(name = "semester", length = 8, nullable = false)
+	@Column(name = "semester", columnDefinition="nvarchar(8)", nullable = false)
 	private String semester;
 
 	@FieldInfo(name = "status")
-	@Column(name = "STATUS", length = 8, nullable = true)
+	@Column(name = "STATUS", columnDefinition="nvarchar(8) defalut ''", nullable = true)
 	private String status="0";
 
 	@FieldInfo(name = "签到状态  1-签到 2请假 3旷课 4迟到")
-	@Column(name = "signInState", length = 8, nullable = true)
+	@Column(name = "signInState", columnDefinition="varchar(1) defalut ''", nullable = true)
 	private String signInState="3";
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加

@@ -1,5 +1,28 @@
 package com.zd.school.plartform.system.model;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Formula;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -7,15 +30,6 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeDeserializer;
 import com.zd.core.util.DateTimeSerializer;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Formula;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * ClassName: BaseTUser Function: TODO ADD FUNCTION. Reason: TODO ADD
@@ -44,7 +58,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	 */
 
 	@FieldInfo(name = "账号")
-	@Column(name = "userName", length = 16, nullable = false)
+	@Column(name = "userName", columnDefinition="nvarchar(16)", nullable = false)
 	private String userName;
 
 	public void setUserName(String userName) {
@@ -56,7 +70,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "密码")
-	@Column(name = "userPwd", length = 128, nullable = false)
+	@Column(name = "userPwd", columnDefinition="nvarchar(128)", nullable = false)
 	private String userPwd;
 
 	public void setUserPwd(String userPwd) {
@@ -68,7 +82,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "状态")
-	@Column(name = "state", length = 4, nullable = true)
+	@Column(name = "state", columnDefinition="nvarchar(4) defalut ''", nullable = true)
 	private String state;
 
 	public void setState(String state) {
@@ -80,19 +94,19 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否系统 1=非内置 0=内置")
-	@Column(name = "issystem", length = 10, nullable = true)
-	private Integer issystem;
+	@Column(name = "issystem", columnDefinition="defalut 0", nullable = true)
+	private boolean issystem;
 
-	public void setIssystem(Integer issystem) {
+	public void setIssystem(boolean issystem) {
 		this.issystem = issystem;
 	}
 
-	public Integer getIssystem() {
+	public boolean getIssystem() {
 		return issystem;
 	}
 
 	@FieldInfo(name = "身份 0=内部用户 1=老师 2=学生 3=家长 ")
-	@Column(name = "category", length = 10, nullable = true)
+	@Column(name = "category", columnDefinition="varchar(2) defalut ''", nullable = true)
 	private String category;
 
 	public void setCategory(String category) {
@@ -104,7 +118,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "最后登录时间")
-	@Column(name = "loginTime", length = 23, nullable = true)
+	@Column(name = "loginTime", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
@@ -175,7 +189,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	 */
 
 	@FieldInfo(name = "学校ID")
-	@Column(name = "schoolId", length = 36, nullable = true)
+	@Column(name = "schoolId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String schoolId;
 
 	public String getSchoolId() {
@@ -187,27 +201,27 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
-	@Column(name = "isHidden", length = 10, nullable = true)
-	private String isHidden;
+	@Column(name = "isHidden",columnDefinition="defalut 0" , nullable = true)
+	private boolean isHidden;
 
-	public String getIsHidden() {
+	public boolean getIsHidden() {
 		return isHidden;
 	}
 
-	public void setIsHidden(String isHidden) {
+	public void setIsHidden(boolean isHidden) {
 		this.isHidden = isHidden;
 	}
 
 	// 默认设置为本部门
 	@FieldInfo(name = "部门权限类型 0-所有权限 1-指定部门（默认包含了本部门和岗位主管的部门）  2-本部门")
-	@Column(name = "rightType", nullable = true)
-	private Integer rightType;
+	@Column(name = "rightType",columnDefinition="defalut 0", nullable = true)
+	private byte rightType;
 
-	public Integer getRightType() {
+	public byte getRightType() {
 		return rightType;
 	}
 
-	public void setRightType(Integer rightType) {
+	public void setRightType(byte rightType) {
 		this.rightType = rightType;
 	}
 
@@ -215,7 +229,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	 * CATEGORY=1 对应老师的工号(gh) CATEGORY=2 对应学生的学号(xh)
 	 */
 	@FieldInfo(name = "用户编号")
-	@Column(name = "userNumb", length = 16, nullable = true)
+	@Column(name = "userNumb", columnDefinition="nvarchar(18) defalut ''", nullable = true)
 	private String userNumb;
 
 	public String getUserNumb() {
@@ -227,7 +241,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "姓名")
-	@Column(name = "name", length = 36, nullable = false)
+	@Column(name = "name",  columnDefinition="nvarchar(36)", nullable = false)
 	private String name;
 
 	public void setName(String name) {
@@ -239,7 +253,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "性别码")
-	@Column(name = "genderCode", length = 10, nullable = true)
+	@Column(name = "genderCode",  columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String genderCode;
 
 	public void setGenderCode(String genderCode) {
@@ -251,7 +265,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "出生日期")
-	@Column(name = "birthData", length = 23, nullable = true)
+	@Column(name = "birthData",  columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
@@ -266,23 +280,23 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "身份证件号")
-	@Column(name = "personalIdentityDocument", length = 20, nullable = true)
+	@Column(name = "personalIdentityDocument", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String personalIdentityDocument;
 
 	@FieldInfo(name = "政治面貌")
-	@Column(name = "politicalStatus", length = 10, nullable = true)
+	@Column(name = "politicalStatus", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String politicalStatus;
 
 	@FieldInfo(name = "移动电话")
-	@Column(name = "mobilePhone", length = 64, nullable = true)
+	@Column(name = "mobilePhone",  columnDefinition="varchar(64) defalut ''", nullable = true)
 	private String mobilePhone;
 
 	@FieldInfo(name = "电子信箱")
-	@Column(name = "email", length = 40, nullable = true)
+	@Column(name = "email",  columnDefinition="varchar(40) defalut ''", nullable = true)
 	private String email;
 
 	@FieldInfo(name = "人员编制类型")
-	@Column(name = "headCountType", length = 40, nullable = true)
+	@Column(name = "headCountType",  columnDefinition="nvarchar(40) defalut ''", nullable = true)
 	private String headCountType;
 	
 

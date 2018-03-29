@@ -25,12 +25,12 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_InfoTerminalHistory")
-@AttributeOverride(name = "infoTerminalHistoryId", column = @Column(name = "infoTerminalHistoryId", length = 36, nullable = false))
+@AttributeOverride(name = "infoTerminalHistoryId", column = @Column(name = "infoTerminalHistoryId", length = 20, nullable = false))
 public class OaInfotermuse extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "终端主键ID")
-    @Column(name = "terminalId", length = 36, nullable = false)
+    @Column(name = "terminalId", length = 20, nullable = false)
     private String terminalId;
   
         
@@ -54,7 +54,7 @@ public class OaInfotermuse extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "使用房间ID")
-    @Column(name = "roomId", length = 36, nullable = true)
+    @Column(name = "roomId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String roomId;
     public void setRoomId(String roomId) {
         this.roomId = roomId;
@@ -64,7 +64,7 @@ public class OaInfotermuse extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "使用房间名称")
-    @Column(name = "roomName", length = 64, nullable = true)
+    @Column(name = "roomName", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String roomName;
     public void setRoomName(String roomName) {
         this.roomName = roomName;

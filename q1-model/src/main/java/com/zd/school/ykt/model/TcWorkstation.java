@@ -22,28 +22,28 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_WorkStation")
-@AttributeOverride(name = "workStationId", column = @Column(name = "workStationId", length = 36, nullable = false) )
+@AttributeOverride(name = "workStationId", column = @Column(name = "workStationId", length = 20, nullable = false) )
 public class TcWorkstation extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "workStationNo")
-	@Column(name = "workStationNo", length = 5, updatable = false, insertable = false, columnDefinition = " smallint  IDENTITY(1,1) NOT NULL")
+	@Column(name = "workStationNo", updatable = false, insertable = false, columnDefinition = " smallint  IDENTITY(1,1) NOT NULL")
 	private Short workStationNo;
 
 	@FieldInfo(name = "adminId")
-	@Column(name = "adminId", length = 10, nullable = true)
+	@Column(name = "adminId", columnDefinition="defalut 0", nullable = true)
 	private Integer adminId;
 
 	@FieldInfo(name = "workStationName")
-	@Column(name = "workStationName", length = 30, nullable = true)
+	@Column(name = "workStationName", columnDefinition="nvarchar(30) defalut ''", nullable = true)
 	private String workStationName;
 
 	@FieldInfo(name = "workStationIp")
-	@Column(name = "workStationIp", length = 100, nullable = true)
+	@Column(name = "workStationIp", columnDefinition="nvarchar(100) defalut ''", nullable = true)
 	private String workStationIp;
 
 	@FieldInfo(name = "nic")
-	@Column(name = "nic", length = 100, nullable = true)
+	@Column(name = "nic", columnDefinition="nvarchar(100) defalut ''", nullable = true)
 	private String nic;
 
 	public void setNic(String nic) {
@@ -55,31 +55,31 @@ public class TcWorkstation extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "computerName")
-	@Column(name = "computerName", length = 50, nullable = true)
+	@Column(name = "computerName", columnDefinition="nvarchar(50) defalut ''", nullable = true)
 	private String computerName;
 
 	@FieldInfo(name = "availablePort")
-	@Column(name = "availablePort", length = 100, nullable = true)
+	@Column(name = "availablePort", columnDefinition="nvarchar(100) defalut ''", nullable = true)
 	private String availablePort;
 
 	@FieldInfo(name = "onLine")
-	@Column(name = "onLine", length = 1, nullable = true)
+	@Column(name = "onLine",nullable = true)
 	private Boolean onLine;
 
 	@FieldInfo(name = "msServerPort")
-	@Column(name = "msServerPort", length = 10, nullable = true)
+	@Column(name = "msServerPort", columnDefinition=" defalut 0" ,nullable = true)
 	private Integer msServerPort;
 
 	@FieldInfo(name = "~工作站描述")
-	@Column(name = "workStationnNotes", length = 200, nullable = true)
+	@Column(name = "workStationnNotes", columnDefinition="nvarchar(200) defalut ''", nullable = true)
 	private String workStationnNotes;
 
 	@FieldInfo(name = "端口号")
-	@Column(name = "commPort", length = 10, nullable = true)
+	@Column(name = "commPort", columnDefinition="varchar(10) defalut ''", nullable = true)
 	private Integer commPort;
 
 	@FieldInfo(name = "最大金额")
-	@Column(name = "maxCarFree", length = 19, nullable = true)
+	@Column(name = "maxCarFree",columnDefinition="defalut 0", nullable = true)
 	private BigDecimal maxCarFree;
 
 	public Short getWorkStationNo() {

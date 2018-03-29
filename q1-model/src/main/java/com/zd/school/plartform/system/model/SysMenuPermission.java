@@ -26,12 +26,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_MenuPermission")
-@AttributeOverride(name = "menuPermissionuId", column = @Column(name = "menuPermissionuId", length = 36, nullable = false) )
+@AttributeOverride(name = "menuPermissionuId", column = @Column(name = "menuPermissionuId", length = 20, nullable = false) )
 public class SysMenuPermission extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "菜单ID")
-	@Column(name = "menuId", length = 36, nullable = false)
+	@Column(name = "menuId", columnDefinition="varchar(20)", nullable = false)
 	private String menuId;
 
 	public void setMenuId(String menuId) {
@@ -43,7 +43,7 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "权限名称")
-	@Column(name = "perName", length = 36, nullable = false)
+	@Column(name = "perName", columnDefinition="nvarchar(36)", nullable = false)
 	private String perName;
 
 	public String getPerName() {
@@ -55,7 +55,7 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "按钮别名")
-	@Column(name = "perBtnName", length = 36, nullable = false)
+	@Column(name = "perBtnName", columnDefinition="nvarchar(36)", nullable = false)
 	private String perBtnName;
 
 	public String getPerBtnName() {
@@ -67,12 +67,12 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "权限接口前缀")
-	@Column(name = "interfacePrefix", length = 36, nullable = false)
+	@Column(name = "interfacePrefix", columnDefinition="nvarchar(36)", nullable = false)
 	private String interfacePrefix;
 
 	
 	@FieldInfo(name = "权限接口后缀")
-	@Column(name = "interfacePostfix", length = 36, nullable = false)
+	@Column(name = "interfacePostfix",columnDefinition="nvarchar(36)", nullable = false)
 	private String interfacePostfix;
 
 

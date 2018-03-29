@@ -32,12 +32,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Permission")
-@AttributeOverride(name = "permissionId", column = @Column(name = "permissionId", length = 36, nullable = false))
+@AttributeOverride(name = "permissionId", column = @Column(name = "permissionId", length = 20, nullable = false))
 public class SysPermission extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "权限类型")
-    @Column(name = "perType", length = 8, nullable = false)
+    @Column(name = "perType",columnDefinition = "nvarchar(8)", nullable = false)
     private String perType;
 
     public void setPerType(String perType) {
@@ -49,7 +49,7 @@ public class SysPermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "权限码")
-    @Column(name = "perCode", length = 36, nullable = false)
+    @Column(name = "perCode", columnDefinition = "nvarchar(36)", nullable = false)
     private String perCode;
 
     public void setPerCode(String perCode) {

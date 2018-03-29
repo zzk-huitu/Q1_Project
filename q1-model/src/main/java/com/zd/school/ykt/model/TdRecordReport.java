@@ -1,7 +1,6 @@
 package com.zd.school.ykt.model;
 
 import com.zd.core.annotation.FieldInfo;
-import com.zd.school.excel.annotation.MapperCell;
 
 public class TdRecordReport {
 

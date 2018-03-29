@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_DeptRight")
-@AttributeOverride(name = "deptRightId", column = @Column(name = "deptRightId", length = 36, nullable = false))
+@AttributeOverride(name = "deptRightId", column = @Column(name = "deptRightId", length = 20, nullable = false))
 public class SysDeptRight extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = " 部门ID")
-	@Column(name = "deptId", length = 36, nullable = true)
+	@Column(name = "deptId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -41,7 +41,7 @@ public class SysDeptRight extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "用户ID")
-	@Column(name = "userId", length = 36, nullable = true)
+	@Column(name = "userId",columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String userId;
 
 	public void setUserId(String userId) {
