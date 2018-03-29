@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_GradeTeacher")
-@AttributeOverride(name = "gradeTeacherId", column = @Column(name = "gradeTeacherId", length = 36, nullable = false))
+@AttributeOverride(name = "gradeTeacherId", column = @Column(name = "gradeTeacherId", length = 20, nullable = false))
 public class JwGradeteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "年级ID")
-	@Column(name = "gradeId", length = 36, nullable = false)
+	@Column(name = "gradeId", length = 20, nullable = false)
 	private String gradeId;
 
 	public String getGradeId() {
@@ -41,7 +41,7 @@ public class JwGradeteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教职工ID")
-	@Column(name = "teacherId", length = 50, nullable = false)
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
 	public String getTeacherId() {
@@ -53,7 +53,7 @@ public class JwGradeteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年")
-	@Column(name = "studyYear", length = 10, nullable = false)
+	@Column(name = "studyYear", columnDefinition = "nvarchar(20)", nullable = false)
 	private Integer studyYear;
 
 	public Integer getStudyYear() {
@@ -65,7 +65,7 @@ public class JwGradeteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学期")
-	@Column(name = "semester", length = 8, nullable = false)
+	@Column(name = "semester", columnDefinition = "nvarchar(20)", nullable = false)
 	private String semester;
 
 	public void setSemester(String semester) {
@@ -77,7 +77,7 @@ public class JwGradeteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "身份")
-	@Column(name = "category", length = 10, nullable = false)
+	@Column(name = "category", nullable = false)
 	private Integer category;
 
 	public void setCategory(Integer category) {
@@ -89,7 +89,7 @@ public class JwGradeteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "studyYearName")
-	@Column(name = "studyYearName", length = 64, nullable = false)
+	@Column(name = "studyYearName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String studyYearName;
 
 	public String getStudyYearName() {

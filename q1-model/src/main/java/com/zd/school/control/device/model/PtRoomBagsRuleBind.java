@@ -21,20 +21,20 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 @Entity
 @Table(name = "T_PT_RoomBagRuleBind")
-@AttributeOverride(name = "boomBagRuleBindId", column = @Column(name = "boomBagRuleBindId", length = 36, nullable = false))
+@AttributeOverride(name = "boomBagRuleBindId", column = @Column(name = "boomBagRuleBindId", length = 20, nullable = false))
 public class PtRoomBagsRuleBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间ID")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "钱包规则费率绑定ID")
-	@Column(name = "roomRuleId", length = 36, nullable = true)
+	@Column(name = "roomRuleId",columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomRuleId;
 
 	@FieldInfo(name = "指定扣费模式下扣费的用户ID")
-	@Column(name = "deductionUserId", length = 36, nullable = true)
+	@Column(name = "deductionUserId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String deductionUserId;
 
 	

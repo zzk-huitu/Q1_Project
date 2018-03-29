@@ -28,12 +28,12 @@ import com.zd.school.plartform.baseset.model.BaseAttachment;
 
 @Entity
 @Table(name = "T_PT_ClassMien")
-@AttributeOverride(name = "classMienId", column = @Column(name = "classMienId", length = 36, nullable = false))
+@AttributeOverride(name = "classMienId", column = @Column(name = "classMienId", length = 20, nullable = false))
 public class EccClasselegant extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = true)
+	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
 	public String getClassId() {
@@ -56,7 +56,7 @@ public class EccClasselegant extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "标题")
-	@Column(name = "title", length = 36, nullable = true)
+	@Column(name = "title", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String title;
 
 	public String getTitle() {

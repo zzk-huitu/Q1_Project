@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Grade")
-@AttributeOverride(name = "gradeId", column = @Column(name = "gradeId", length = 36, nullable = false))
+@AttributeOverride(name = "gradeId", column = @Column(name = "gradeId", length = 20, nullable = false))
 public class JwTGrade extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "学校主键")
-	@Column(name = "schoolId", length = 36, nullable = true)
+	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
 	public void setSchoolId(String schoolId) {
@@ -41,7 +41,7 @@ public class JwTGrade extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学段编码")
-	@Column(name = "sectionCode", length = 32, nullable = true)
+	@Column(name = "sectionCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String sectionCode;
 
 	public void setSectionCode(String sectionCode) {
@@ -53,7 +53,7 @@ public class JwTGrade extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "年级编码")
-	@Column(name = "gradeCode", length = 32, nullable = true)
+	@Column(name = "gradeCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String gradeCode;
 
 	public void setGradeCode(String gradeCode) {
@@ -65,7 +65,7 @@ public class JwTGrade extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "年级名称")
-	@Column(name = "gradeName", length = 32, nullable = true)
+	@Column(name = "gradeName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String gradeName;
 
 	public void setGradeName(String gradeName) {
@@ -77,7 +77,7 @@ public class JwTGrade extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "年级")
-	@Column(name = "nj", length = 32, nullable = true)
+	@Column(name = "nj", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String nj;
 
 	public String getNj() {

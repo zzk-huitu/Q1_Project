@@ -16,13 +16,13 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_TermBag")
-@AttributeOverride(name = "termBagId", column = @Column(name = "termBagId", length = 36, nullable = false))
+@AttributeOverride(name = "termBagId", column = @Column(name = "termBagId", length = 20, nullable = false))
 public class PtTermBags extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备序列号")
-	@Column(name = "termSn", length = 14, nullable = true)
+	@Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
 	private String termSn;
 	
 	@FieldInfo(name = "设备类型")

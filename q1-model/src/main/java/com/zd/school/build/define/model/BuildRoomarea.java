@@ -25,123 +25,123 @@ import com.zd.core.model.TreeNodeEntity;
 
 @Entity
 @Table(name = "T_PT_RoomArea")
-@AttributeOverride(name = "roomAreaId", column = @Column(name = "roomAreaId", length = 36, nullable = false))
+@AttributeOverride(name = "roomAreaId", column = @Column(name = "roomAreaId", length = 20, nullable = false))
 public class BuildRoomarea extends TreeNodeEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "区域编码")
-    @Column(name = "areaCode", length = 32, nullable = true)
-    private String areaCode;
+	@FieldInfo(name = "区域编码")
+	@Column(name = "areaCode", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String areaCode;
 
-    public void setAreaCode(String areaCode) {
-        this.areaCode = areaCode;
-    }
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
+	}
 
-    public String getAreaCode() {
-        return areaCode;
-    }
+	public String getAreaCode() {
+		return areaCode;
+	}
 
-    @FieldInfo(name = "区域类型")
-    @Column(name = "areaType", length = 10, nullable = true)
-    private String areaType;
+	@FieldInfo(name = "区域类型")
+	@Column(name = "areaType", length = 10, nullable = false)
+	private String areaType;
 
-    public void setAreaType(String areaType) {
-        this.areaType = areaType;
-    }
+	public void setAreaType(String areaType) {
+		this.areaType = areaType;
+	}
 
-    public String getAreaType() {
-        return areaType;
-    }
+	public String getAreaType() {
+		return areaType;
+	}
 
-    @FieldInfo(name = "区域状态")
-    @Column(name = "areaStatu", length = 10, nullable = true)
-    private Integer areaStatu;
+	@FieldInfo(name = "区域状态")
+	@Column(name = "areaStatu", columnDefinition = "varchar(10) default 0", nullable = true)
+	private Integer areaStatu;
 
-    public void setAreaStatu(Integer areaStatu) {
-        this.areaStatu = areaStatu;
-    }
+	public void setAreaStatu(Integer areaStatu) {
+		this.areaStatu = areaStatu;
+	}
 
-    public Integer getAreaStatu() {
-        return areaStatu;
-    }
+	public Integer getAreaStatu() {
+		return areaStatu;
+	}
 
-    @FieldInfo(name = "区域说明")
-    @Column(name = "areaExplains", length = 128, nullable = true)
-    private String areaExplains;
+	@FieldInfo(name = "区域说明")
+	@Column(name = "areaExplains", columnDefinition = "nvarchar(128) default ''", nullable = true)
+	private String areaExplains;
 
-    public void setAreaExplains(String areaExplains) {
-        this.areaExplains = areaExplains;
-    }
+	public void setAreaExplains(String areaExplains) {
+		this.areaExplains = areaExplains;
+	}
 
-    public String getAreaExplains() {
-        return areaExplains;
-    }
+	public String getAreaExplains() {
+		return areaExplains;
+	}
 
-    @FieldInfo(name = "区域地址")
-    @Column(name = "areaAddress", length = 255, nullable = true)
-    private String areaAddress;
+	@FieldInfo(name = "区域地址")
+	@Column(name = "areaAddress", columnDefinition = "nvarchar(128) default ''", nullable = true)
+	private String areaAddress;
 
-    public void setAreaAddress(String areaAddress) {
-        this.areaAddress = areaAddress;
-    }
+	public void setAreaAddress(String areaAddress) {
+		this.areaAddress = areaAddress;
+	}
 
-    public String getAreaAddress() {
-        return areaAddress;
-    }
+	public String getAreaAddress() {
+		return areaAddress;
+	}
 
-    /**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
-    @FieldInfo(name = "区域房间数")
-    @Formula("(SELECT count(a.AREA_ID) FROM BUILD_T_ROOMINFO a WHERE a.AREA_ID=AREA_ID AND a.ISDELETE=0)")
-    private Integer roomCount;
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	@FieldInfo(name = "区域房间数")
+	@Formula("(SELECT count(a.AREA_ID) FROM BUILD_T_ROOMINFO a WHERE a.AREA_ID=AREA_ID AND a.ISDELETE=0)")
+	private Integer roomCount;
 
-    public Integer getRoomCount() {
-        return roomCount;
-    }
+	public Integer getRoomCount() {
+		return roomCount;
+	}
 
-    public void setRoomCount(Integer roomCount) {
-        this.roomCount = roomCount;
-    }
+	public void setRoomCount(Integer roomCount) {
+		this.roomCount = roomCount;
+	}
 
-    @FieldInfo(name = "上级区域名称")
-    @Formula("(SELECT isnull(a.NODE_TEXT,'ROOT') FROM BUILD_T_ROOMAREA a WHERE a.AREA_ID=parent_node)")
-    private String parentName;
+	@FieldInfo(name = "上级区域名称")
+	@Formula("(SELECT isnull(a.NODE_TEXT,'ROOT') FROM BUILD_T_ROOMAREA a WHERE a.AREA_ID=parent_node)")
+	private String parentName;
 
-    public String getParentName() {
-        return parentName;
-    }
+	public String getParentName() {
+		return parentName;
+	}
 
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
 
-    @FieldInfo(name = "上级区域类型")
-    @Transient
-    private String parentType;
+	@FieldInfo(name = "上级区域类型")
+	@Transient
+	private String parentType;
 
-    public String getParentType() {
-        return parentType;
-    }
+	public String getParentType() {
+		return parentType;
+	}
 
-    public void setParentType(String parentType) {
-        this.parentType = parentType;
-    }
+	public void setParentType(String parentType) {
+		this.parentType = parentType;
+	}
 
-    public BuildRoomarea() {
+	public BuildRoomarea() {
 
-        super();
-        // TODO Auto-generated constructor stub
-    }
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public BuildRoomarea(String uuid) {
+	public BuildRoomarea(String uuid) {
 
-        super(uuid);
-        // TODO Auto-generated constructor stub
+		super(uuid);
+		// TODO Auto-generated constructor stub
 
-    }
+	}
 
 }

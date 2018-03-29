@@ -24,12 +24,12 @@ import com.zd.core.util.DateTimeSerializer;
  */
 @Entity
 @Table(name = "T_PT_RoomBagsRule")
-@AttributeOverride(name = "roomBagsRuleId", column = @Column(name = "roomBagsRuleId", length = 36, nullable = false))
+@AttributeOverride(name = "roomBagsRuleId", column = @Column(name = "roomBagsRuleId", length = 20, nullable = false))
 public class PtRoomBagRule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "规则名称")
-	@Column(name = "roomRuleName", length = 255, nullable = true)
+	@Column(name = "roomRuleName", columnDefinition = "nvarchar(40) default ''", nullable = true)
 	private String roomRuleName;
 
 	@FieldInfo(name = "允许关电开始时间")
@@ -46,7 +46,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 
 
 	@FieldInfo(name = "无余额控制方式（1：不许使用，2：继续使用）")
-	@Column(name = "noMoneyMode")
+	@Column(name = "noMoneyMode",columnDefinition = "varchar(2) default ''",nullable=true)
 	private String noMoneyMode;
 
 	@FieldInfo(name = "报警金额（低于此金额后开始尝试扣费）")
@@ -54,7 +54,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	private BigDecimal warnValue;
 
 	@FieldInfo(name = "扣费模式（0：不扣费，1：平均扣费，2：指定扣费）")
-	@Column(name = "deductionMode")
+	@Column(name = "deductionMode",columnDefinition = "varchar(2) default ''",nullable=true)
 	private String deductionMode;
 
 	@FieldInfo(name = "扣费金额（每次扣费的总额）")
@@ -62,7 +62,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	private BigDecimal deductionValue;
 
 	@FieldInfo(name = "是否启用")
-	@Column(name = "isEnable")
+	@Column(name = "isEnable",columnDefinition = "default 0",nullable=true)
 	private BigDecimal isEnable;
 
 	public String getRoomRuleName() {

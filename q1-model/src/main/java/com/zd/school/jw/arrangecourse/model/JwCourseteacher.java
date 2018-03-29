@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_CourseTeacher")
-@AttributeOverride(name = "courseTeacherId", column = @Column(name = "courseTeacherId", length = 36, nullable = false))
+@AttributeOverride(name = "courseTeacherId", column = @Column(name = "courseTeacherId", length = 20, nullable = false))
 public class JwCourseteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = false)
+	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
 	public String getClassId() {
@@ -41,7 +41,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教职工ID")
-	@Column(name = "teacherId", length = 50, nullable = false)
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
 	public String getTeacherId() {
@@ -53,7 +53,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年")
-	@Column(name = "studyYear", length = 10, nullable = false)
+	@Column(name = "studyYear", columnDefinition = "nvarchar(20)", nullable = false)
 	private Integer studyYear;
 
 	public void setStudyYear(Integer studyYear) {
@@ -65,7 +65,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年名称")
-	@Column(name = "studyYearName", length = 64, nullable = true)
+	@Column(name = "studyYearName", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String studyYearName;
 
 	public String getStudyYearName() {
@@ -77,7 +77,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学期")
-	@Column(name = "semester", length = 8, nullable = false)
+	@Column(name = "semester", columnDefinition = "nvarchar(20)", nullable = false)
 	private String semester;
 
 	public void setSemester(String semester) {
@@ -89,7 +89,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "周节数: acs_zjs一周上多少节课")
-	@Column(name = "courseCountWeek", length = 10, nullable = true)
+	@Column(name = "courseCountWeek", columnDefinition = "default 0", nullable = true)
 	private Integer courseCountWeek;
 
 	public Integer getCourseCountWeek() {
@@ -101,7 +101,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "实验室ID") // 暂未用到
-	@Column(name = "laboratoryId", length = 36, nullable = true)
+	@Column(name = "laboratoryId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String laboratoryId;
 
 	public String getLaboratoryId() {
@@ -113,7 +113,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "课程ID")
-	@Column(name = "courseId", length = 36, nullable = true)
+	@Column(name = "courseId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId;
 
 	public String getCourseId() {

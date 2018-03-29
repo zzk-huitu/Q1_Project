@@ -39,12 +39,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_Ip")
-@AttributeOverride(name = "ipId", column = @Column(name = "ipId", length = 50, nullable = false))
+@AttributeOverride(name = "ipId", column = @Column(name = "ipId", length = 20, nullable = false))
 public class SysIp extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "ipName")
-	@Column(name = "ipName", length = 50, nullable = true)
+	@Column(name = "ipName", columnDefinition = "nvarchar(25) default ''", nullable = true)
 	private String ipName;
 
 	public void setIpName(String ipName) {
@@ -56,7 +56,7 @@ public class SysIp extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "ipUrl")
-	@Column(name = "ipUrl", length = 50, nullable = true)
+	@Column(name = "ipUrl", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String ipUrl;
 
 	public void setIpUrl(String ipUrl) {

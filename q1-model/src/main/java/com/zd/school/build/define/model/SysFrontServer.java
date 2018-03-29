@@ -18,32 +18,32 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_FrontServer")
-@AttributeOverride(name = "frontServerId", column = @Column(name = "frontServerId", length = 36, nullable = false) )
+@AttributeOverride(name = "frontServerId", column = @Column(name = "frontServerId", length = 20, nullable = false))
 public class SysFrontServer extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "服务器名称")
-	@Column(name = "frontServerName", length = 200, nullable = true)
+	@Column(name = "frontServerName", columnDefinition = "nvarchar(128)", nullable = false)
 	private String frontServerName;
 
 	@FieldInfo(name = "服务IP")
-	@Column(name = "frontServerIp", length = 200, nullable = true)
+	@Column(name = "frontServerIp", length = 20, nullable = false)
 	private String frontServerIp;
 
 	@FieldInfo(name = "服务端口")
-	@Column(name = "frontServerPort")
+	@Column(name = "frontServerPort", nullable = false)
 	private Integer frontServerPort;
 
 	@FieldInfo(name = "请求任务URL")
-	@Column(name = "frontServerUrl", length = 100, nullable = true)
+	@Column(name = "frontServerUrl", columnDefinition = "varchar(50) default ''", nullable = true)
 	private String frontServerUrl;
 
-	@FieldInfo(name = "是否启用 0启用1禁用")
-	@Column(name = "frontServerStatus")
+	@FieldInfo(name = "是否启用 0禁用，1启用")
+	@Column(name = "frontServerStatus", columnDefinition = "default 0", nullable = true)
 	private Integer frontServerStatus;
 
 	@FieldInfo(name = "备注")
-	@Column(name = "frontServerNotes", length = 500, nullable = true)
+	@Column(name = "frontServerNotes", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String frontServerNotes;
 
 	public String getFrontServerName() {

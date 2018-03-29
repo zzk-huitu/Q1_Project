@@ -29,12 +29,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_ClassTeacher")
-@AttributeOverride(name = "classTeacherId", column = @Column(name = "classTeacherId", length = 36, nullable = false))
+@AttributeOverride(name = "classTeacherId", column = @Column(name = "classTeacherId", length = 20, nullable = false))
 public class JwClassteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = false)
+	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
 	public String getClassId() {
@@ -46,7 +46,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教职工ID")
-	@Column(name = "teacherId", length = 50, nullable = false)
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
 	public String getTeacherId() {
@@ -58,7 +58,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年")
-	@Column(name = "studyYear", length = 10, nullable = true)
+	@Column(name = "studyYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private Integer studyYear;
 
 	public Integer getStudyYear() {
@@ -70,7 +70,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学期")
-	@Column(name = "semester", length = 8, nullable = true)
+	@Column(name = "semester", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String semester;
 
 	public void setSemester(String semester) {
@@ -82,7 +82,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "身份") // 0-正班主任 1-副班主任
-	@Column(name = "category", length = 10, nullable = false)
+	@Column(name = "category", nullable = false)
 	private Integer category;
 
 	public void setCategory(Integer category) {
@@ -94,7 +94,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年名称")
-	@Column(name = "studyYearName", length = 64, nullable = true)
+	@Column(name = "studyYearName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String studyYearName;
 
 	public String getStudyYearName() {

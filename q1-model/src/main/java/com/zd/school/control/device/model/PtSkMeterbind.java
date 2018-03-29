@@ -17,20 +17,20 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_SkMeterBind")
-@AttributeOverride(name = "skMeterBindId", column = @Column(name = "skMeterBindId", length = 36, nullable = false))
+@AttributeOverride(name = "skMeterBindId", column = @Column(name = "skMeterBindId", length = 20, nullable = false))
 public class PtSkMeterbind extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "设备编号")
-    @Column(name = "termId", length = 36, nullable = true)
+    @Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String termId; 
   
     @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", length = 14, nullable = true)
+    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
     private String termSn;
    
     @FieldInfo(name = "水控流量计编号")
-    @Column(name = "meterId", length = 36, nullable = true)
+    @Column(name = "meterId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String meterId;
 
 	public String getTermId() {

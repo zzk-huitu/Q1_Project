@@ -24,16 +24,16 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_ClassRoomAllot")
-@AttributeOverride(name = "classRoomAllotId", column = @Column(name = "classRoomAllotId", length = 36, nullable = false) )
+@AttributeOverride(name = "classRoomAllotId", column = @Column(name = "classRoomAllotId", length = 20, nullable = false) )
 public class JwClassRoomAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级主键")
-	@Column(name = "classId", length = 36, nullable = true)
+	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
 	/**

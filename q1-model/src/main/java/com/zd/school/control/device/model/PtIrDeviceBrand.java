@@ -25,22 +25,22 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_IrDeviceBrand")
-@AttributeOverride(name = "irDeviceBrandId", column = @Column(name = "irDeviceBrandId", length = 36, nullable = false))
+@AttributeOverride(name = "irDeviceBrandId", column = @Column(name = "irDeviceBrandId", length = 20, nullable = false))
 public class PtIrDeviceBrand extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "品牌名称")
-    @Column(name = "brandName", length = 50, nullable = true)
+    @Column(name = "brandName", columnDefinition = "nvarchar(25) default ''", nullable = true)
     private String brandName;
     
     
     @FieldInfo(name = "类型编号")
-    @Column(name = "deviceTypeCode", length = 36, nullable = true)
+    @Column(name = "deviceTypeCode",columnDefinition = "nvarchar(18) default ''", nullable = true)
     private String deviceTypeCode;
     
     
     @FieldInfo(name = "产品型号")
-    @Column(name = "productModel", length = 100, nullable = true)
+    @Column(name = "productModel", columnDefinition = "nvarchar(20) default ''", nullable = true)
     private String productModel;
     
     @FieldInfo(name = "区域等级")
@@ -52,11 +52,11 @@ public class PtIrDeviceBrand extends BaseEntity implements Serializable{
     private Integer isLeaf;
      
     @FieldInfo(name = "上级区域ID")
-    @Column(name = "parentNode", length = 36, nullable = true)
+    @Column(name = "parentNode", columnDefinition = "varchar(20) default ''", nullable = true)
     private String parentNode;
     
     @FieldInfo(name = "备注")
-    @Column(name = "notes", length = 1000, nullable = true)
+    @Column(name = "notes", columnDefinition = "nvarchar(200) default ''", nullable = true)
     private String notes;
 
 	public String getBrandName() {

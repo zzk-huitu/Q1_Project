@@ -18,7 +18,7 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_SKMeter")
-@AttributeOverride(name = "sKMeterId", column = @Column(name = "sKMeterId", length = 36, nullable = false) )
+@AttributeOverride(name = "sKMeterId", column = @Column(name = "sKMeterId", length = 20, nullable = false) )
 public class PtSkMeter extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class PtSkMeter extends BaseEntity implements Serializable {
 	private Integer measure;
 
 	@FieldInfo(name = "备注")
-	@Column(name = "notes", length = 200, nullable = true)
+	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''", nullable = true)
 	private String notes;
 
 	public Integer getMeasure() {

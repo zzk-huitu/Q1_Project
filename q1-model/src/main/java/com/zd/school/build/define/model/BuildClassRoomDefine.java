@@ -24,24 +24,24 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_ClassRoomDefine")
-@AttributeOverride(name = "classRoomId", column = @Column(name = "classRoomId", length = 36, nullable = false) )
+@AttributeOverride(name = "classRoomId", column = @Column(name = "classRoomId", length = 20, nullable = false) )
 public class BuildClassRoomDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
 	@FieldInfo(name = "楼层主键")
-	@Column(name = "areaId", length = 36, nullable = true)
+	@Column(name = "areaId", length = 20, nullable = false)
 	private String areaId;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "roomStatus", length = 8, nullable = true)
-	private String roomStatus = "0";
+	@Column(name = "roomStatus", columnDefinition = "default 0", nullable = true)
+	private Boolean roomStatus;
 	
 	@FieldInfo(name = "班级名称")
-	@Column(name = "className", length = 64, nullable = true)
+	@Column(name = "className", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String className;
 
 	public void setClassName(String className) {
@@ -106,11 +106,11 @@ public class BuildClassRoomDefine extends BaseEntity implements Serializable {
 		return roomName;
 	}
 
-	public String getRoomStatus() {
+	public Boolean getRoomStatus() {
 		return roomStatus;
 	}
 
-	public void setRoomStatus(String roomStatus) {
+	public void setRoomStatus(Boolean roomStatus) {
 		this.roomStatus = roomStatus;
 	}
 

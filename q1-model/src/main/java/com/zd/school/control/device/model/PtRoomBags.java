@@ -18,13 +18,13 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_RoomBag")
-@AttributeOverride(name = "roomBagId", column = @Column(name = "roomBagId", length = 36, nullable = false))
+@AttributeOverride(name = "roomBagId", column = @Column(name = "roomBagId", length = 20, nullable = false))
 public class PtRoomBags extends BaseEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "房间ID")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@Column(name = "roomId",columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 	
 	@FieldInfo(name = "房间余额")
@@ -44,7 +44,7 @@ public class PtRoomBags extends BaseEntity implements Serializable{
 	private BigDecimal waterTotalUsed;
 	
 	@FieldInfo(name = "水改变时间")
-	@Column(name = "waterUpdateTime")
+	@Column(name = "waterUpdateTime",columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date waterUpdateTime;
@@ -54,7 +54,7 @@ public class PtRoomBags extends BaseEntity implements Serializable{
 	private BigDecimal electricityTotalUsed;
 	
 	@FieldInfo(name = "电改变时间")
-	@Column(name = "electricityUpdateTime")
+	@Column(name = "electricityUpdateTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date electricityUpdateTime;

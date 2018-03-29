@@ -20,53 +20,45 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_Term")
-@AttributeOverride(name = "termId", column = @Column(name = "termId", length = 36, nullable = false) )
+@AttributeOverride(name = "termId", column = @Column(name = "termId", length = 20, nullable = false) )
 public class PtTerm extends BaseEntity implements Serializable {
-	public String getRestartTime() {
-		return restartTime;
-	}
-
-	public void setRestartTime(String restartTime) {
-		this.restartTime = restartTime;
-	}
-
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "网关主键")
-	@Column(name = "gatewayId", length = 36, nullable = true)
+	@Column(name = "gatewayId", length =20, nullable = false)
 	private String gatewayId;
 
 	@FieldInfo(name = "机号(1~65536)")
-	@Column(name = "termNo")
+	@Column(name = "termNo",nullable = false)
 	private Integer termNo;
 
 	@FieldInfo(name = "硬件程序版本号")
-	@Column(name = "programVersion", length = 8, nullable = true)
+	@Column(name = "programVersion", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String programVersion;
 	
 	@FieldInfo(name = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
 			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)")
-	@Column(name = "termSn",length = 50, nullable = true)
+	@Column(name = "termSn",length = 50, nullable = false)
 	private String termSn;
 
 	@FieldInfo(name = "设备名称")
-	@Column(name = "termName", length = 50, nullable = true)
+	@Column(name = "termName",  columnDefinition = "nvarchar(25)", nullable = false)
 	private String termName;
 
 	@FieldInfo(name = "设备类型（对应系统参数表）")
-	@Column(name = "termTypeId")
+	@Column(name = "termTypeId", length = 4, nullable = false)
 	private String termTypeId;
 
 	@FieldInfo(name = "设备状态(1是启用 0是禁用)")
-	@Column(name = "termStatus")
-	private Integer termStatus = 1;
+	@Column(name = "termStatus",columnDefinition = "default 1", nullable = true)
+	private Boolean termStatus;
 
 	@FieldInfo(name = "是否允许脱机使用")
-	@Column(name = "offlineUse")
+	@Column(name = "offlineUse",columnDefinition = "default 0", nullable = true)
 	private Integer offlineUse;
 
 	@FieldInfo(name = "基础参数")
@@ -86,11 +78,11 @@ public class PtTerm extends BaseEntity implements Serializable {
 	private byte[] netParam;
 
 	@FieldInfo(name = "备注说明")
-	@Column(name = "notes", length = 200, nullable = true)
+	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''",nullable=true)
 	private String notes;
 
 	@FieldInfo(name = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "statusId")
+	@Column(name = "statusId", columnDefinition = "varchar(20) default ''",nullable=true)
 	private Integer statusId;
 
 	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
@@ -291,6 +283,14 @@ public class PtTerm extends BaseEntity implements Serializable {
 
 	public void setSkmeasure(String skmeasure) {
 		this.skmeasure = skmeasure;
+	}
+	
+	public String getRestartTime() {
+		return restartTime;
+	}
+
+	public void setRestartTime(String restartTime) {
+		this.restartTime = restartTime;
 	}
 
 }

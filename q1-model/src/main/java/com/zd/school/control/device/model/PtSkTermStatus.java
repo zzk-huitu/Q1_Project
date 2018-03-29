@@ -26,16 +26,16 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 @Entity
 @Table(name = "T_PT_SkTermStatus")
-@AttributeOverride(name = "skTermStatusId", column = @Column(name = "skTermStatusId", length = 36, nullable = false))
+@AttributeOverride(name = "skTermStatusId", column = @Column(name = "skTermStatusId", length = 20, nullable = false))
 public class PtSkTermStatus extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", length = 14, nullable = true)
+    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
     private String termSn;
 
     @FieldInfo(name = "房间编号")
-    @Column(name = "roomId", length = 36, nullable = true)
+    @Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String roomId;
    
     @MapperCell(cellName="状态的日期",order=1)
@@ -102,7 +102,7 @@ public class PtSkTermStatus extends BaseEntity implements Serializable{
     
     @MapperCell(cellName="状态的时间",order=13)
     @FieldInfo(name = "状态的时间")
-    @Column(name = "statusTime")
+    @Column(name = "statusTime", columnDefinition = "datetime")
     private Date statusTime;
 
     @MapperCell(cellName="房间名称",order=14)

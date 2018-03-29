@@ -27,7 +27,7 @@ import com.zd.core.util.DateTimeSerializer;
 @Entity
 @Table(name = "PT_CARD_BAGS" ,
 uniqueConstraints = {@UniqueConstraint(columnNames={"BAGID", "USER_ID"})})
-@AttributeOverride(name = "uuid", column = @Column(name = "BAGS_ID", length = 36, nullable = false))
+@AttributeOverride(name = "uuid", column = @Column(name = "BAGS_ID", length = 20, nullable = false))
 public class PtcardBags extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class PtcardBags extends BaseEntity implements Serializable {
 	private String bagCode;
 
 	@FieldInfo(name = "关联SYS_T_USER表")
-	@Column(name = "USER_ID", length = 36, nullable = true)
+	@Column(name = "USER_ID", length = 20, nullable = true)
 	private String userId;
 
 	@FieldInfo(name = "钱包金额")
@@ -65,7 +65,7 @@ public class PtcardBags extends BaseEntity implements Serializable {
 	private Integer czCount;
 
 	@FieldInfo(name = "钱包金额最后更新时间")
-	@Column(name = "BAGUPDATEDATE")
+	@Column(name = "BAGUPDATEDATE",columnDefinition = "datetime", nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date bagUpdateDate = new Date();

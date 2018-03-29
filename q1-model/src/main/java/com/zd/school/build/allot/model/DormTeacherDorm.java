@@ -29,29 +29,29 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_TeacherDorm")
-@AttributeOverride(name = "teacherDormId", column = @Column(name = "teacherDormId", length = 36, nullable = false) )
+@AttributeOverride(name = "teacherDormId", column = @Column(name = "teacherDormId", length = 20, nullable = false) )
 public class DormTeacherDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "宿舍ID")
-	@Column(name = "dormId", length = 36, nullable = false)
+	@Column(name = "dormId", length = 20, nullable = false)
 	private String dormId;
 	
 	@FieldInfo(name = "教师ID")
-	@Column(name = "teacherId", length = 36, nullable = false)
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 	
 	@FieldInfo(name = "房间ID")
-	@Column(name = "roomId", length = 36, nullable = false)
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 	
 	@FieldInfo(name = "柜子编号")
-	@Column(name = "sarkNo", length = 8, nullable = false)
-	private Integer sarkNo=0;
-	
+	@Column(name = "sarkNo", nullable = false)
+	private Byte sarkNo = 0;
+
 	@FieldInfo(name = "床位编号")
-	@Column(name = "bedNo", length = 8, nullable = false)
-	private Integer bedNo=0;
+	@Column(name = "bedNo", nullable = false)
+	private Byte bedNo = 0;
 	
 	@FieldInfo(name = "入/退状态(0:入住,1:退住)")
 	@Column(name = "inOutState", length = 1, nullable = false)
@@ -60,13 +60,13 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 	@FieldInfo(name = "入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "inTime", length = 27, nullable = false)
+	@Column(name = "inTime", columnDefinition = "datetime", nullable = false)
 	private Date inTime;
 	
 	@FieldInfo(name = "退住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "outTime", length = 27, nullable = true)
+	@Column(name = "outTime", columnDefinition = "datetime", nullable = true)
 	private Date outTime;
 	
 	@Formula("(SELECT A.XM FROM SYS_T_USER A  WHERE A.USER_ID=TTEAC_ID)")
@@ -106,19 +106,19 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	public Integer getSarkNo() {
+	public Byte getSarkNo() {
 		return sarkNo;
 	}
 
-	public void setSarkNo(Integer sarkNo) {
+	public void setSarkNo(Byte sarkNo) {
 		this.sarkNo = sarkNo;
 	}
 
-	public Integer getBedNo() {
+	public Byte getBedNo() {
 		return bedNo;
 	}
 
-	public void setBedNo(Integer bedNo) {
+	public void setBedNo(Byte bedNo) {
 		this.bedNo = bedNo;
 	}
 

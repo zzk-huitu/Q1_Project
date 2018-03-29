@@ -29,24 +29,24 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_MJ_UserRight")
-@AttributeOverride(name = "mjUserRightId", column = @Column(name = "mjUserRightId", length = 36, nullable = false))
+@AttributeOverride(name = "mjUserRightId", column = @Column(name = "mjUserRightId", length = 20, nullable = false))
 public class MjUserright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备主键")
-	@Column(name = "termId", length = 36, nullable = false)
+	@Column(name = "termId", length = 20, nullable = false)
 	private String termId;
 
 	@FieldInfo(name = "人员主键")
-	@Column(name = "stuId", length = 36, nullable = false)
+	@Column(name = "stuId", length = 20, nullable = false)
 	private String stuId;
 
 	@FieldInfo(name = "卡流水号")
-	@Column(name = "cardId", length = 36, nullable = true)
+	@Column(name = "cardId", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String cardId;
 
 	@FieldInfo(name = "物理卡号")
-	@Column(name = "cardserNo", length = 36, nullable = true)
+	@Column(name = "cardserNo", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String cardserNo;
 
 	@FieldInfo(name = "时段ID")
@@ -62,11 +62,11 @@ public class MjUserright extends BaseEntity implements Serializable {
 	private Boolean isDownLoad;
 
 	@FieldInfo(name = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "statusId")
-	private Integer statusId = 0;
+	@Column(name = "statusId", columnDefinition = "default 0", nullable = true)
+	private Integer statusId;
 
 	@FieldInfo(name = "卡片状态日期，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
-	@Column(name = "statusChangeTime", length = 23, nullable = true)
+	@Column(name = "statusChangeTime", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date statusChangeTime;
@@ -82,11 +82,11 @@ public class MjUserright extends BaseEntity implements Serializable {
 	@FieldInfo(name = "设备序列号")
 	@Formula("(SELECT A.TERMSN FROM dbo.PT_TERM A WHERE A.TERM_ID=TERM_ID)")
 	private String termSN;
-	
+
 	@FieldInfo(name = "房间名称")
 	@Formula("(select a.ROOM_NAME from BUILD_T_ROOMINFO a where a.ROOM_ID=(select b.ROOM_ID from PT_TERM b where b.TERM_ID=TERM_ID) )")
 	private String roomName;
-	
+
 	public String getStuId() {
 		return stuId;
 	}
@@ -190,8 +190,6 @@ public class MjUserright extends BaseEntity implements Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-	
-	
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加

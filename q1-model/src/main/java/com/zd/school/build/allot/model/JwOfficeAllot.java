@@ -27,16 +27,16 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "JW_T_OfficeAllot")
-@AttributeOverride(name = "officeAllotId", column = @Column(name = "officeAllotId", length = 36, nullable = false))
+@AttributeOverride(name = "officeAllotId", column = @Column(name = "officeAllotId", length = 20, nullable = false))
 public class JwOfficeAllot extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "房间主键")
-    @Column(name = "roomId", length = 36, nullable = true)
+    @Column(name = "roomId", length = 20, nullable = false)
     private String roomId;
 
     @FieldInfo(name = "教师主键")
-    @Column(name = "teacherId", length = 50, nullable = true)
+    @Column(name = "teacherId", length = 20, nullable = false)
     private String teacherId;
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 

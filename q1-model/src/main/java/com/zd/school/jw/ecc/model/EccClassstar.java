@@ -39,12 +39,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_ClassStar")
-@AttributeOverride(name = "classStartId", column = @Column(name = "classStartId", length = 36, nullable = false))
+@AttributeOverride(name = "classStartId", column = @Column(name = "classStartId", length = 20, nullable = false))
 public class EccClassstar extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = true)
+	@Column(name = "classId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String classId;
 
 	public String getClassId() {
@@ -56,7 +56,7 @@ public class EccClassstar extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "班级名称")
-	@Column(name = "className", length = 36, nullable = true)
+	@Column(name = "className", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String className;
 
 	public void setClassName(String className) {
@@ -80,7 +80,7 @@ public class EccClassstar extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "评定日期")
-	@Column(name = "doneDate", length = 23, nullable = false)
+	@Column(name = "doneDate", columnDefinition = "datetime", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date doneDate;
@@ -94,7 +94,7 @@ public class EccClassstar extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "开始日期")
-	@Column(name = "beginDate", length = 23, nullable = true)
+	@Column(name = "beginDate", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginDate;
@@ -108,7 +108,7 @@ public class EccClassstar extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "结束日期")
-	@Column(name = "endDate", length = 23, nullable = true)
+	@Column(name = "endDate", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endDate;

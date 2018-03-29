@@ -29,7 +29,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "年级ID")
-	@Column(name = "gradeId", length = 36, nullable = false)
+	@Column(name = "gradeId", length = 20, nullable = false)
 	private String gradeId;
 
 	public String getGradeId() {
@@ -41,7 +41,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教职工ID")
-	@Column(name = "teacherId", length = 36, nullable = false)
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
 	public String getTeacherId() {
@@ -53,7 +53,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学年")
-	@Column(name = "studyYear", length = 10, nullable = true)
+	@Column(name = "studyYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private Integer studyYear;
 
 	public Integer getStudyYear() {
@@ -65,7 +65,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "studyYearName")
-	@Column(name = "studyYearName", length = 64, nullable = true)
+	@Column(name = "studyYearName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String studyYearName;
 
 	public void setstudyYearName(String studyYearName) {
@@ -77,7 +77,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "学期")
-	@Column(name = "semester", length = 8, nullable = true)
+	@Column(name = "semester", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String semester;
 
 	public void setSemester(String semester) {
@@ -89,7 +89,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "身份 0-正年级组长 1-副年级组长 2-班主任 3-副班主任")
-	@Column(name = "CATEGORY", length = 10, nullable = false)
+	@Column(name = "CATEGORY", nullable = false)
 	private Integer category;
 
 	public void setCategory(Integer category) {
@@ -101,7 +101,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "教师类型 0-年级组长 1-班主任 ")
-	@Column(name = "teacherType", length = 4, nullable = true)
+	@Column(name = "teacherType", columnDefinition = "default '0'", nullable = true)
 	private String teacherType;
 
 	public String getTeacherType() {

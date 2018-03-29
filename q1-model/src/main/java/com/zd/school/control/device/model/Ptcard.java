@@ -24,29 +24,29 @@ import com.zd.core.util.DateTimeSerializer;
  */
 @Entity
 @Table(name = "T_PT_Card")
-@AttributeOverride(name = "cardId", column = @Column(name = "cardId", length = 36, nullable = false))
+@AttributeOverride(name = "cardId", column = @Column(name = "cardId", length = 20, nullable = false))
 public class Ptcard extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "卡流水号")
-	@Column(name = "cardNo")
+	@Column(name = "cardNo", nullable = false)
 	private Long cardNo;
 
 	@FieldInfo(name = "关联SYS_T_USER表")
-	@Column(name = "userId", length = 36, nullable = true)
+	@Column(name = "userId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String userId;
 
 	@FieldInfo(name = "物理卡号")
-	@Column(name = "factoryFixId")
+	@Column(name = "factoryFixId",columnDefinition = "default 0", nullable = true)
 	private Long factoryFixId;
 
 	@FieldInfo(name = "卡类型ID")
-	@Column(name = "cardTypeId")
+	@Column(name = "cardTypeId",nullable = false)
 	private Integer cardTypeId;
 
 	@FieldInfo(name = "有效期")
-	@Column(name = "expiryDate")
+	@Column(name = "expiryDate",columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date expiryDate = new Date();
@@ -60,7 +60,7 @@ public class Ptcard extends BaseEntity implements Serializable {
 	private Integer cardStatusId;
 
 	@FieldInfo(name = "卡状态改变时间")
-	@Column(name = "statusChangeTime")
+	@Column(name = "statusChangeTime",columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date statusChangeTime = new Date();

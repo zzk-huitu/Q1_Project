@@ -18,28 +18,28 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_DK_Price")
-@AttributeOverride(name = "dKPriceId", column = @Column(name = "dKPriceId", length = 36, nullable = false) )
+@AttributeOverride(name = "dKPriceId", column = @Column(name = "dKPriceId", length = 20, nullable = false) )
 public class DkPriceDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "费率名称")
-	@Column(name = "priceName", length = 36, nullable = true)
+	@Column(name = "priceName", columnDefinition = "nvarchar(36)", nullable = false)
 	private String priceName;
 
 	@FieldInfo(name = "费率价格")
-	@Column(name = "priceValue")
+	@Column(name = "priceValue", nullable = false)
 	private double priceValue;
 
-	@FieldInfo(name = "状态,用于标识是否分配：0启动。1禁用")
-	@Column(name = "priceStatus", length = 8, nullable = true)
-	private String priceStatus;
+	@FieldInfo(name = "状态,用于标识是否启用：0禁用。1启用")
+	@Column(name = "priceStatus", columnDefinition = "default 0", nullable = true)
+	private Boolean priceStatus;
 
 	@FieldInfo(name = "货币种类")
-	@Column(name = "currencyType", length = 36, nullable = true)
-	private String currencyType = "RMB(人民币)";
+	@Column(name = "currencyType", columnDefinition = "nvarchar(10) default 'RMB(人民币)'", nullable = true)
+	private String currencyType;
 
 	@FieldInfo(name = "备注")
-	@Column(name = "priceNotes", length = 500, nullable = true)
+	@Column(name = "priceNotes", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String priceNotes;
 
 	public String getPriceName() {
@@ -58,11 +58,11 @@ public class DkPriceDefine extends BaseEntity implements Serializable {
 		this.priceValue = priceValue;
 	}
 
-	public String getPriceStatus() {
+	public Boolean getPriceStatus() {
 		return priceStatus;
 	}
 
-	public void setPriceStatus(String priceStatus) {
+	public void setPriceStatus(Boolean priceStatus) {
 		this.priceStatus = priceStatus;
 	}
 

@@ -18,20 +18,20 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_PriceBind")
-@AttributeOverride(name = "priceBindId", column = @Column(name = "priceBindId", length = 36, nullable = false))
+@AttributeOverride(name = "priceBindId", column = @Column(name = "priceBindId", length = 20, nullable = false))
 public class PtPriceBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "设备编号")
-    @Column(name = "termId", length = 36, nullable = true)
+    @Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String termId; 
   
     @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", length = 14, nullable = true)
+    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
     private String termSn;
    
     @FieldInfo(name = "费率编号")
-    @Column(name = "priceId", length = 36, nullable = true)
+    @Column(name = "priceId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String priceId;
 
 	public String getTermId() {
