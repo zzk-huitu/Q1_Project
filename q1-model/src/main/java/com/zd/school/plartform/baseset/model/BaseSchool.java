@@ -41,13 +41,13 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "BASE_T_SCHOOL")
-@AttributeOverride(name = "uuid", column = @Column(name = "SCHOOL_ID", length = 36, nullable = false))
+@Table(name = "T_PT_School")
+@AttributeOverride(name = "schoolId", column = @Column(name = "schoolId", length = 36, nullable = false))
 public class BaseSchool extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "学校代码")
-    @Column(name = "SCHOOL_CODE", length = 32, nullable = true)
+    @Column(name = "schoolCode", length = 32, nullable = true)
     private String schoolCode;
     public void setSchoolCode(String schoolCode) {
         this.schoolCode = schoolCode;
@@ -57,7 +57,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校名称")
-    @Column(name = "SCHOOL_NAME", length = 64, nullable = true)
+    @Column(name = "schoolName", length = 64, nullable = true)
     private String schoolName;
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
@@ -67,7 +67,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校英文名")
-    @Column(name = "SCHOOL_ENG", length = 32, nullable = true)
+    @Column(name = "schoolEng", length = 32, nullable = true)
     private String schoolEng;
     public void setSchoolEng(String schoolEng) {
         this.schoolEng = schoolEng;
@@ -77,7 +77,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校地址")
-    @Column(name = "SCHOOL_ADDR", length = 512, nullable = true)
+    @Column(name = "schoolAddr", length = 512, nullable = true)
     private String schoolAddr;
     public void setSchoolAddr(String schoolAddr) {
         this.schoolAddr = schoolAddr;
@@ -87,7 +87,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "建校年月")
-    @Column(name = "FOUND_YEAR", length = 32, nullable = true)
+    @Column(name = "foundYear", length = 32, nullable = true)
     private String foundYear;
     public void setFoundYear(String foundYear) {
         this.foundYear = foundYear;
@@ -97,17 +97,19 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "邮政编码")
-    @Column(name = "ZIP_CODE", length = 16, nullable = true)
-    private String zipCode;
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
-    }
-    public String getZipCode() {
-        return zipCode;
+    @Column(name = "mailCode", length = 16, nullable = true)
+    private String mailCode;
+   
+    public String getMailCode() {
+        return mailCode;
     }
         
-    @FieldInfo(name = "行政区划")
-    @Column(name = "ADMINISTRATION", length = 128, nullable = true)
+    public void setMailCode(String mailCode) {
+		this.mailCode = mailCode;
+	}
+
+	@FieldInfo(name = "行政区划")
+    @Column(name = "administration", length = 128, nullable = true)
     private String administration;
     public void setAdministration(String administration) {
         this.administration = administration;
@@ -117,7 +119,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "校庆日")
-    @Column(name = "ANNIVERSARY_DAY", length = 32, nullable = true)
+    @Column(name = "anniversaryDay", length = 32, nullable = true)
     private String anniversaryDay;
     public void setAnniversaryDay(String anniversaryDay) {
         this.anniversaryDay = anniversaryDay;
@@ -127,7 +129,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "办学类型")
-    @Column(name = "OFFICE_TYPE", length = 2, nullable = true)
+    @Column(name = "officeType", length = 2, nullable = true)
     private String officeType;
     public void setOfficeType(String officeType) {
         this.officeType = officeType;
@@ -137,7 +139,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校主管部门")
-    @Column(name = "CHARGE_DEPT", length = 32, nullable = true)
+    @Column(name = "chargeDept", length = 32, nullable = true)
     private String chargeDept;
     public void setChargeDept(String chargeDept) {
         this.chargeDept = chargeDept;
@@ -147,7 +149,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "法定代表人号")
-    @Column(name = "LEGAL_PERSON", length = 64, nullable = true)
+    @Column(name = "legalPerson", length = 64, nullable = true)
     private String legalPerson;
     public void setLegalPerson(String legalPerson) {
         this.legalPerson = legalPerson;
@@ -157,7 +159,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "法人证书号")
-    @Column(name = "LEGAL_CERTIFICATE", length = 64, nullable = true)
+    @Column(name = "legalCertificate", length = 64, nullable = true)
     private String legalCertificate;
     public void setLegalCertificate(String legalCertificate) {
         this.legalCertificate = legalCertificate;
@@ -167,37 +169,40 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "校长工号")
-    @Column(name = "SCHOOLMASTER_ID", length = 32, nullable = true)
-    private String schoolmasterId;
-    public void setSchoolmasterId(String schoolmasterId) {
-        this.schoolmasterId = schoolmasterId;
-    }
-    public String getSchoolmasterId() {
-        return schoolmasterId;
-    }
+    @Column(name = "headMasterNum", length = 32, nullable = true)
+    private String headMasterNum;
+    
+    public String getHeadMasterNum() {
+		return headMasterNum;
+	}
+	public void setHeadMasterNum(String headMasterNum) {
+		this.headMasterNum = headMasterNum;
+	}
+
+	@FieldInfo(name = "校长姓名")
+    @Column(name = "headMasterName", length = 32, nullable = true)
+    private String headMasterName;
+ 
         
-    @FieldInfo(name = "校长姓名")
-    @Column(name = "SCHOOLMASTER_NAME", length = 32, nullable = true)
-    private String schoolmasterName;
-    public void setSchoolmasterName(String schoolmasterName) {
-        this.schoolmasterName = schoolmasterName;
+    public String getHeadMasterName() {
+		return headMasterName;
+	}
+	public void setHeadMasterName(String headMasterName) {
+		this.headMasterName = headMasterName;
+	}
+
+	@FieldInfo(name = "党委负责人号")
+    @Column(name = "partyPersonNo", length = 32, nullable = true)
+    private String partyPersonNo;
+    public void setPartyPersonNo(String partyPersonNo) {
+        this.partyPersonNo = partyPersonNo;
     }
-    public String getSchoolmasterName() {
-        return schoolmasterName;
-    }
-        
-    @FieldInfo(name = "党委负责人号")
-    @Column(name = "PARTY_PERSON_ID", length = 32, nullable = true)
-    private String partyPersonId;
-    public void setPartyPersonId(String partyPersonId) {
-        this.partyPersonId = partyPersonId;
-    }
-    public String getPartyPersonId() {
-        return partyPersonId;
+    public String getPartyPersonNo() {
+        return partyPersonNo;
     }
         
     @FieldInfo(name = "组织机构码")
-    @Column(name = "ORG_CODE", length = 32, nullable = true)
+    @Column(name = "orgCode", length = 32, nullable = true)
     private String orgCode;
     public void setOrgCode(String orgCode) {
         this.orgCode = orgCode;
@@ -207,7 +212,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "联系电话")
-    @Column(name = "TELEPHONE", length = 255, nullable = true)
+    @Column(name = "telephone", length = 255, nullable = true)
     private String telephone;
     public void setTelephone(String telephone) {
         this.telephone = telephone;
@@ -217,7 +222,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "传真电话")
-    @Column(name = "FAX_NUM", length = 32, nullable = true)
+    @Column(name = "faxNum", length = 32, nullable = true)
     private String faxNum;
     public void setFaxNum(String faxNum) {
         this.faxNum = faxNum;
@@ -227,12 +232,12 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "电子邮箱")
-    @Column(name = "E_MAIL", length = 128, nullable = true)
+    @Column(name = "email", length = 128, nullable = true)
     private String email;
    
         
     @FieldInfo(name = "主页地址")
-    @Column(name = "HOMEPAGE", length = 128, nullable = true)
+    @Column(name = "homepage", length = 128, nullable = true)
     private String homepage;
     public void setHomepage(String homepage) {
         this.homepage = homepage;
@@ -242,7 +247,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "历史沿革")
-    @Column(name = "HISTORY_EVOLUTION", length = 2048, nullable = true)
+    @Column(name = "historyEvolution", length = 2048, nullable = true)
     private String historyEvolution;
     public void setHistoryEvolution(String historyEvolution) {
         this.historyEvolution = historyEvolution;
@@ -252,7 +257,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校办别")
-    @Column(name = "SCHOOL_TYPE", length = 2, nullable = true)
+    @Column(name = "schoolType", length = 2, nullable = true)
     private String schoolType;
     public void setSchoolType(String schoolType) {
         this.schoolType = schoolType;
@@ -262,7 +267,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "所属主管单位")
-    @Column(name = "CHARGE_UNIT", length = 64, nullable = true)
+    @Column(name = "chargeUnit", length = 64, nullable = true)
     private String chargeUnit;
     public void setChargeUnit(String chargeUnit) {
         this.chargeUnit = chargeUnit;
@@ -272,17 +277,18 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "所在地城乡类型")
-    @Column(name = "URBAN_RURAL_TYPE", length = 3, nullable = true)
-    private String urbanRuralType;
-    public void setUrbanRuralType(String urbanRuralType) {
-        this.urbanRuralType = urbanRuralType;
-    }
-    public String getUrbanRuralType() {
-        return urbanRuralType;
-    }
-        
-    @FieldInfo(name = "所在地经济属性码")
-    @Column(name = "ECONOMIC_CODE", length = 2, nullable = true)
+    @Column(name = "cityAndCountryType", length = 3, nullable = true)
+    private String cityAndCountryType; 
+      
+    public String getCityAndCountryType() {
+		return cityAndCountryType;
+	}
+	public void setCityAndCountryType(String cityAndCountryType) {
+		this.cityAndCountryType = cityAndCountryType;
+	}
+
+	@FieldInfo(name = "所在地经济属性码")
+    @Column(name = "economicCode", length = 2, nullable = true)
     private String economicCode;
     public void setEconomicCode(String economicCode) {
         this.economicCode = economicCode;
@@ -292,57 +298,59 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "所在地民族属性")
-    @Column(name = "NATION_NATURE", length = 2, nullable = true)
-    private String nationNature;
-    public void setNationNature(String nationNature) {
-        this.nationNature = nationNature;
-    }
-    public String getNationNature() {
-        return nationNature;
-    }
+    @Column(name = "raceProperty", length = 2, nullable = true)
+    private String raceProperty;
+
         
-    @FieldInfo(name = "学制")
-    @Column(name = "PRIMARY_LENGTH", length = 32, nullable = true)
-    private String primaryLength;
-    public void setPrimaryLength(String primaryLength) {
-        this.primaryLength = primaryLength;
+    public String getRaceProperty() {
+		return raceProperty;
+	}
+	public void setRaceProperty(String raceProperty) {
+		this.raceProperty = raceProperty;
+	}
+
+	@FieldInfo(name = "学制")
+    @Column(name = "eductionalSystme", length = 32, nullable = true)
+    private String eductionalSystme;
+    public void setEductionalSystme(String eductionalSystme) {
+        this.eductionalSystme = eductionalSystme;
     }
-    public String getPrimaryLength() {
-        return primaryLength;
+    public String getEductionalSystme() {
+        return eductionalSystme;
     }
         
     @FieldInfo(name = "入学年龄")
-    @Column(name = "PRIMARY_START_AGE", length = 32, nullable = true)
-    private String primaryStartAge;
-    public void setPrimaryStartAge(String primaryStartAge) {
-        this.primaryStartAge = primaryStartAge;
+    @Column(name = "admissionAge", length = 32, nullable = true)
+    private String admissionAge;
+    public String getAdmissionAge() {
+		return admissionAge;
+	}
+	public void setAdmissionAge(String admissionAge) {
+		this.admissionAge = admissionAge;
+	}
+
+	@FieldInfo(name = "主教学语言码")
+    @Column(name = "mainLangueCode", length = 2, nullable = true)
+    private String mainLangueCode;
+    public String getMainLangueCode() {
+		return mainLangueCode;
+	}
+	public void setMainLangueCode(String mainLangueCode) {
+		this.mainLangueCode = mainLangueCode;
+	}
+
+	@FieldInfo(name = "辅教学语言码")
+    @Column(name = "assistedLangueCode", length = 2, nullable = true)
+    private String assistedLangueCode;
+    public void setAssistedLangueCode(String assistedLangueCode) {
+        this.assistedLangueCode = assistedLangueCode;
     }
-    public String getPrimaryStartAge() {
-        return primaryStartAge;
-    }
-        
-    @FieldInfo(name = "主教学语言码")
-    @Column(name = "PRIMARY_LAN_CODE", length = 2, nullable = true)
-    private String primaryLanCode;
-    public void setPrimaryLanCode(String primaryLanCode) {
-        this.primaryLanCode = primaryLanCode;
-    }
-    public String getPrimaryLanCode() {
-        return primaryLanCode;
-    }
-        
-    @FieldInfo(name = "辅教学语言码")
-    @Column(name = "ASSISTED_LAN_CODE", length = 2, nullable = true)
-    private String assistedLanCode;
-    public void setAssistedLanCode(String assistedLanCode) {
-        this.assistedLanCode = assistedLanCode;
-    }
-    public String getAssistedLanCode() {
-        return assistedLanCode;
+    public String getAssistedLangueCode() {
+        return assistedLangueCode;
     }
         
     @FieldInfo(name = "招生半径")
-    @Column(name = "RECRUIT_SCOPE", length = 32, nullable = true)
+    @Column(name = "recruitScope", length = 32, nullable = true)
     private String recruitScope;
     public void setRecruitScope(String recruitScope) {
         this.recruitScope = recruitScope;
@@ -352,7 +360,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "remark")
-    @Column(name = "REMARK", length = 1024, nullable = true)
+    @Column(name = "remark", length = 1024, nullable = true)
     private String remark;
     public void setRemark(String remark) {
         this.remark = remark;

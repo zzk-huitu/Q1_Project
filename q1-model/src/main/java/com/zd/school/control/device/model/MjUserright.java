@@ -28,48 +28,48 @@ import com.zd.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "PT_MJ_USERRIGHT")
-@AttributeOverride(name = "uuid", column = @Column(name = "USERRIGHT_ID", length = 36, nullable = false))
+@Table(name = "T_MJ_UserRight")
+@AttributeOverride(name = "mjUserRightId", column = @Column(name = "mjUserRightId", length = 36, nullable = false))
 public class MjUserright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备主键")
-	@Column(name = "TERM_ID", length = 36, nullable = false)
+	@Column(name = "termId", length = 36, nullable = false)
 	private String termId;
 
 	@FieldInfo(name = "人员主键")
-	@Column(name = "STU_ID", length = 36, nullable = false)
+	@Column(name = "stuId", length = 36, nullable = false)
 	private String stuId;
 
 	@FieldInfo(name = "卡流水号")
-	@Column(name = "CARD_ID", length = 36, nullable = true)
+	@Column(name = "cardId", length = 36, nullable = true)
 	private String cardId;
 
 	@FieldInfo(name = "物理卡号")
-	@Column(name = "CARDSER_NO", length = 36, nullable = true)
+	@Column(name = "cardserNo", length = 36, nullable = true)
 	private String cardserNo;
 
 	@FieldInfo(name = "时段ID")
-	@Column(name = "CONTROLSEG_ID")
+	@Column(name = "controlsegId")
 	private Integer controlsegId;
 
 	@FieldInfo(name = "卡片状态，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
-	@Column(name = "CARDSTATUS_ID")
-	private Integer cardstatusId;
+	@Column(name = "cardStatusId")
+	private Integer cardStatusId;
 
 	@FieldInfo(name = "是否下载（更新CardStatusID的同时更新此字段为False）")
-	@Column(name = "ISDOWN_LOAD")
-	private Boolean isdownLoad;
+	@Column(name = "isDownLoad")
+	private Boolean isDownLoad;
 
 	@FieldInfo(name = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "STATUS_ID")
-	private Integer statusID = 0;
+	@Column(name = "statusId")
+	private Integer statusId = 0;
 
 	@FieldInfo(name = "卡片状态日期，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
-	@Column(name = "STATUSCHANGE_TIME", length = 23, nullable = true)
+	@Column(name = "statusChangeTime", length = 23, nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date statuschangeTime;
+	private Date statusChangeTime;
 
 	@FieldInfo(name = "人员姓名")
 	@Formula("(SELECT A.XM FROM dbo.SYS_T_USER A WHERE A.USER_ID=STU_ID)")
@@ -119,36 +119,36 @@ public class MjUserright extends BaseEntity implements Serializable {
 		this.controlsegId = controlsegId;
 	}
 
-	public Integer getCardstatusId() {
-		return cardstatusId;
+	public Integer getCardStatusId() {
+		return cardStatusId;
 	}
 
-	public void setCardstatusId(Integer cardstatusId) {
-		this.cardstatusId = cardstatusId;
+	public void setCardStatusId(Integer cardStatusId) {
+		this.cardStatusId = cardStatusId;
 	}
 
-	public Boolean getIsdownLoad() {
-		return isdownLoad;
+	public Boolean getIsDownLoad() {
+		return isDownLoad;
 	}
 
-	public void setIsdownLoad(Boolean isdownLoad) {
-		this.isdownLoad = isdownLoad;
+	public void setIsDownLoad(Boolean isDownLoad) {
+		this.isDownLoad = isDownLoad;
 	}
 
-	public Integer getStatusID() {
-		return statusID;
+	public Integer getStatusId() {
+		return statusId;
 	}
 
-	public void setStatusID(Integer statusID) {
-		this.statusID = statusID;
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 
-	public Date getStatuschangeTime() {
-		return statuschangeTime;
+	public Date getStatusChangeTime() {
+		return statusChangeTime;
 	}
 
-	public void setStatuschangeTime(Date statuschangeTime) {
-		this.statuschangeTime = statuschangeTime;
+	public void setStatusChangeTime(Date statusChangeTime) {
+		this.statusChangeTime = statusChangeTime;
 	}
 
 	public String getXm() {

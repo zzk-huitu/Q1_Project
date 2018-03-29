@@ -23,46 +23,46 @@ import com.zd.core.util.DateTimeSerializer;
  *
  */
 @Entity
-@Table(name = "PT_ROOM_BAGSRULE")
-@AttributeOverride(name = "uuid", column = @Column(name = "ROOMRULE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_RoomBagsRule")
+@AttributeOverride(name = "roomBagsRuleId", column = @Column(name = "roomBagsRuleId", length = 36, nullable = false))
 public class PtRoomBagRule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "规则名称")
-	@Column(name = "ROOMRULENAME", length = 255, nullable = true)
+	@Column(name = "roomRuleName", length = 255, nullable = true)
 	private String roomRuleName;
 
 	@FieldInfo(name = "允许关电开始时间")
-	@Column(name = "SHUTDOWNSTART", columnDefinition = "datetime")
+	@Column(name = "allowOffStartTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date shutDownStart;
+	private Date allowOffStartTime;
 
 	@FieldInfo(name = "允许关电结束时间")
-	@Column(name = "SHUTDOWNEND", columnDefinition = "datetime")
+	@Column(name = "allowOffEndTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date shutDownEnd;
+	private Date allowOffEndTime;
 
 
 	@FieldInfo(name = "无余额控制方式（1：不许使用，2：继续使用）")
-	@Column(name = "NOMONEYMODE")
+	@Column(name = "noMoneyMode")
 	private String noMoneyMode;
 
 	@FieldInfo(name = "报警金额（低于此金额后开始尝试扣费）")
-	@Column(name = "WARNVALUE")
-	private BigDecimal warnvalue;
+	@Column(name = "warnValue")
+	private BigDecimal warnValue;
 
 	@FieldInfo(name = "扣费模式（0：不扣费，1：平均扣费，2：指定扣费）")
-	@Column(name = "DEDUCTIONMODE")
-	private String deDuctionMode;
+	@Column(name = "deductionMode")
+	private String deductionMode;
 
 	@FieldInfo(name = "扣费金额（每次扣费的总额）")
-	@Column(name = "DEDUCTIONVALUE")
-	private BigDecimal deDuctionValue;
+	@Column(name = "deductionValue")
+	private BigDecimal deductionValue;
 
 	@FieldInfo(name = "是否启用")
-	@Column(name = "ISENABLE")
+	@Column(name = "isEnable")
 	private BigDecimal isEnable;
 
 	public String getRoomRuleName() {
@@ -73,52 +73,52 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 		this.roomRuleName = roomRuleName;
 	}
 
-	public Date getShutDownStart() {
-		return shutDownStart;
-	}
-
-	public void setShutDownStart(Date shutDownStart) {
-		this.shutDownStart = shutDownStart;
-	}
-
-	public Date getShutDownEnd() {
-		return shutDownEnd;
-	}
-
-	public void setShutDownEnd(Date shutDownEnd) {
-		this.shutDownEnd = shutDownEnd;
-	}
-
 	public String getNoMoneyMode() {
 		return noMoneyMode;
+	}
+	
+	public Date getAllowOffStartTime() {
+		return allowOffStartTime;
+	}
+
+	public void setAllowOffStartTime(Date allowOffStartTime) {
+		this.allowOffStartTime = allowOffStartTime;
+	}
+
+	public Date getAllowOffEndTime() {
+		return allowOffEndTime;
+	}
+
+	public void setAllowOffEndTime(Date allowOffEndTime) {
+		this.allowOffEndTime = allowOffEndTime;
+	}
+
+	public BigDecimal getWarnValue() {
+		return warnValue;
+	}
+
+	public void setWarnValue(BigDecimal warnValue) {
+		this.warnValue = warnValue;
+	}
+
+	public String getDeductionMode() {
+		return deductionMode;
+	}
+
+	public void setDeductionMode(String deductionMode) {
+		this.deductionMode = deductionMode;
+	}
+
+	public BigDecimal getDeductionValue() {
+		return deductionValue;
+	}
+
+	public void setDeductionValue(BigDecimal deductionValue) {
+		this.deductionValue = deductionValue;
 	}
 
 	public void setNoMoneyMode(String noMoneyMode) {
 		this.noMoneyMode = noMoneyMode;
-	}
-
-	public BigDecimal getWarnvalue() {
-		return warnvalue;
-	}
-
-	public void setWarnvalue(BigDecimal warnvalue) {
-		this.warnvalue = warnvalue;
-	}
-
-	public String getDeDuctionMode() {
-		return deDuctionMode;
-	}
-
-	public void setDeDuctionMode(String deDuctionMode) {
-		this.deDuctionMode = deDuctionMode;
-	}
-
-	public BigDecimal getDeDuctionValue() {
-		return deDuctionValue;
-	}
-
-	public void setDeDuctionValue(BigDecimal deDuctionValue) {
-		this.deDuctionValue = deDuctionValue;
 	}
 
 	public BigDecimal getIsEnable() {

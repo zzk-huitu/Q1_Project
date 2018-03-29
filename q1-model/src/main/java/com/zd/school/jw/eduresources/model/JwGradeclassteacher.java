@@ -22,39 +22,40 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "JW_T_GRADECLASSTEACHER")
-//@AttributeOverride(name = "uuid", column = @Column(name = "UUID", length = 36, nullable = false))
+@Table(name = "T_PT_GradeClassTeacher")
+// @AttributeOverride(name = "uuid", column = @Column(name = "UUID", length =
+// 36, nullable = false))
 public class JwGradeclassteacher extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "年级ID")
-    @Column(name = "GRAI_ID", length = 36, nullable = false)
-    private String graiId;
+	@FieldInfo(name = "年级ID")
+	@Column(name = "gradeId", length = 36, nullable = false)
+	private String gradeId;
 
-    public void setGraiId(String graiId) {
-        this.graiId = graiId;
-    }
+	public String getGradeId() {
+		return gradeId;
+	}
 
-    public String getGraiId() {
-        return graiId;
-    }
+	public void setGradeId(String gradeId) {
+		this.gradeId = gradeId;
+	}
 
-    @FieldInfo(name = "教职工ID")
-    @Column(name = "TTEAC_ID", length = 36, nullable = false)
-    private String tteacId;
+	@FieldInfo(name = "教职工ID")
+	@Column(name = "teacherId", length = 36, nullable = false)
+	private String teacherId;
 
-    public void setTteacId(String tteacId) {
-        this.tteacId = tteacId;
-    }
+	public String getTeacherId() {
+		return teacherId;
+	}
 
-    public String getTteacId() {
-        return tteacId;
-    }
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
+	}
 
-    @FieldInfo(name = "学年")
-    @Column(name = "STUDY_YEAR", length = 10, nullable = true)
-    private Integer studyYear;
-    
+	@FieldInfo(name = "学年")
+	@Column(name = "studyYear", length = 10, nullable = true)
+	private Integer studyYear;
+
 	public Integer getStudyYear() {
 		return studyYear;
 	}
@@ -63,134 +64,132 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 		this.studyYear = studyYear;
 	}
 
+	@FieldInfo(name = "studyYearName")
+	@Column(name = "studyYearName", length = 64, nullable = true)
+	private String studyYearName;
 
-    @FieldInfo(name = "studyYearName")
-    @Column(name = "STUDY_YEAHNAME", length = 64, nullable = true)
-    private String studyYearName;
+	public void setstudyYearName(String studyYearName) {
+		this.studyYearName = studyYearName;
+	}
 
-    public void setstudyYearName(String studyYearName) {
-        this.studyYearName = studyYearName;
-    }
+	public String getstudyYearName() {
+		return studyYearName;
+	}
 
-    public String getstudyYearName() {
-        return studyYearName;
-    }
+	@FieldInfo(name = "学期")
+	@Column(name = "semester", length = 8, nullable = true)
+	private String semester;
 
-    @FieldInfo(name = "学期")
-    @Column(name = "SEMESTER", length = 8, nullable = true)
-    private String semester;
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
 
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
+	public String getSemester() {
+		return semester;
+	}
 
-    public String getSemester() {
-        return semester;
-    }
+	@FieldInfo(name = "身份 0-正年级组长 1-副年级组长 2-班主任 3-副班主任")
+	@Column(name = "CATEGORY", length = 10, nullable = false)
+	private Integer category;
 
-    @FieldInfo(name = "身份 0-正年级组长 1-副年级组长 2-班主任 3-副班主任")
-    @Column(name = "CATEGORY", length = 10, nullable = false)
-    private Integer category;
+	public void setCategory(Integer category) {
+		this.category = category;
+	}
 
-    public void setCategory(Integer category) {
-        this.category = category;
-    }
+	public Integer getCategory() {
+		return category;
+	}
 
-    public Integer getCategory() {
-        return category;
-    }
+	@FieldInfo(name = "教师类型 0-年级组长 1-班主任 ")
+	@Column(name = "teacherType", length = 4, nullable = true)
+	private String teacherType;
 
-    @FieldInfo(name = "教师类型 0-年级组长 1-班主任 ")
-    @Column(name = "TEA_TYPE", length = 4, nullable = true)
-    private String teaType;
+	public String getTeacherType() {
+		return teacherType;
+	}
 
-    public String getTeaType() {
-        return teaType;
-    }
+	public void setTeacherType(String teacherType) {
+		this.teacherType = teacherType;
+	}
 
-    public void setTeaType(String teaType) {
-        this.teaType = teaType;
-    }
+	public JwGradeclassteacher() {
 
-    public JwGradeclassteacher() {
+		super();
+		// TODO Auto-generated constructor stub
 
-        super();
-        // TODO Auto-generated constructor stub
+	}
 
-    }
+	public JwGradeclassteacher(String uuid) {
 
-    public JwGradeclassteacher(String uuid) {
+		super(uuid);
+		// TODO Auto-generated constructor stub
 
-        super(uuid);
-        // TODO Auto-generated constructor stub
+	}
 
-    }
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	@FieldInfo(name = "班级名称")
+	@Formula("(SELECT a.NODE_TEXT FROM BASE_T_ORG a WHERE a.DEPT_ID=GRAI_ID)")
+	private String className;
 
-    /**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
-    @FieldInfo(name = "班级名称")
-    @Formula("(SELECT a.NODE_TEXT FROM BASE_T_ORG a WHERE a.DEPT_ID=GRAI_ID)")
-    private String className;
+	public String getClassName() {
+		return className;
+	}
 
-    public String getClassName() {
-        return className;
-    }
+	public void setClassName(String className) {
+		this.className = className;
+	}
 
-    public void setClassName(String className) {
-        this.className = className;
-    }
+	@FieldInfo(name = "老师工号")
+	@Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	private String userNumb;
 
-    @FieldInfo(name = "老师工号")
-    @Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-    private String userNumb;
+	public String getUserNumb() {
+		return userNumb;
+	}
 
-    public String getUserNumb() {
-        return userNumb;
-    }
+	public void setUserNumb(String userNumb) {
+		this.userNumb = userNumb;
+	}
 
-    public void setUserNumb(String userNumb) {
-        this.userNumb = userNumb;
-    }
+	@FieldInfo(name = "老师姓名")
+	@Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	private String xm;
 
-    @FieldInfo(name = "老师姓名")
-    @Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-    private String xm;
+	public String getXm() {
+		return xm;
+	}
 
-    public String getXm() {
-        return xm;
-    }
+	public void setXm(String xm) {
+		this.xm = xm;
+	}
 
-    public void setXm(String xm) {
-        this.xm = xm;
-    }
+	@FieldInfo(name = "老师性别")
+	@Formula("(SELECT a.xbm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	private String xbm;
 
-    @FieldInfo(name = "老师性别")
-    @Formula("(SELECT a.xbm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-    private String xbm;
+	public String getXbm() {
+		return xbm;
+	}
 
-    public String getXbm() {
-        return xbm;
-    }
+	public void setXbm(String xbm) {
+		this.xbm = xbm;
+	}
 
-    public void setXbm(String xbm) {
-        this.xbm = xbm;
-    }
+	@FieldInfo(name = "老师岗位")
+	@Formula("(SELECT a.JOB_NAME FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	private String jobName;
 
-    @FieldInfo(name = "老师岗位")
-    @Formula("(SELECT a.JOB_NAME FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-    private String jobName;
+	public String getJobName() {
+		return jobName;
+	}
 
-    public String getJobName() {
-        return jobName;
-    }
-
-    public void setJobName(String jobName) {
-        this.jobName = jobName;
-    }
-
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
 
 }

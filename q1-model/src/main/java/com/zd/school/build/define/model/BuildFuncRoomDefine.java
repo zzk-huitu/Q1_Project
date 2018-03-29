@@ -23,25 +23,25 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BUILD_T_FUNCROOMDEFINE")
-@AttributeOverride(name = "uuid", column = @Column(name = "FUNCTIONROOM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_FuncRoomDefine")
+@AttributeOverride(name = "funcRoomId", column = @Column(name = "funcRoomId", length = 36, nullable = false) )
 public class BuildFuncRoomDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "areaId")
-	@Column(name = "AREA_ID", length = 36, nullable = true)
+	@Column(name = "areaId", length = 36, nullable = true)
 	private String areaId;
 
 	@FieldInfo(name = "roomId")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "ROOM_STATUS", length = 8, nullable = true)
-	private String roomStatus = "0";
+	@Column(name = "isAllot", length = 8, nullable = true)
+	private String isAllot = "0";
 	
 	@FieldInfo(name = "功能室名称")
-	@Column(name = "FUNC_NAME", length = 64, nullable = true)
+	@Column(name = "funcName", length = 64, nullable = true)
 	private String funcName;
 
 	public String getFuncName() {
@@ -103,12 +103,12 @@ public class BuildFuncRoomDefine extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-	public String getRoomStatus() {
-		return roomStatus;
+	public String getIsAllot() {
+		return isAllot;
 	}
 
-	public void setRoomStatus(String roomStatus) {
-		this.roomStatus = roomStatus;
+	public void setIsAllot(String isAllot) {
+		this.isAllot = isAllot;
 	}
 
 	public String getUpAreaName() {

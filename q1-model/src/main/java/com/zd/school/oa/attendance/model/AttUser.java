@@ -33,7 +33,7 @@ import com.zd.core.util.DateTimeSerializer;
  * ClassName: AttUser 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 考勤人员(ATT_T_USER)实体类.
+ * Description: 考勤人员(T_PT_AttendanceUser)实体类.
  * date: 2017-05-15
  *
  * @author  luoyibo 创建文件
@@ -42,23 +42,22 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "ATT_T_USER")
-@AttributeOverride(name = "uuid", column = @Column(name = "EMP_ID", length = 36, nullable = false))
+@Table(name = "T_PT_AttendanceUser")
+@AttributeOverride(name = "attendanceUserId", column = @Column(name = "attendanceUserId", length = 36, nullable = false))
 public class AttUser extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "主题ID")
-    @Column(name = "TITLE_ID", length = 36, nullable = true)
-    private String titleId;
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
-    }
-    public String getTitleId() {
-        return titleId;
-    }
-        
+    @Column(name = "themeId", length = 36, nullable = true)
+    private String themeId;
+    public String getThemeId() {
+ 		return themeId;
+ 	}
+ 	public void setThemeId(String themeId) {
+ 		this.themeId = themeId;
+ 	} 
     @FieldInfo(name = "主键")
-    @Column(name = "USER_ID", length = 36, nullable = false)
+    @Column(name = "userId", length = 36, nullable = false)
     private String userId;
     public void setUserId(String userId) {
         this.userId = userId;
@@ -70,45 +69,26 @@ public class AttUser extends BaseEntity implements Serializable{
     
     @FieldInfo(name = "姓名")
     @Formula("(SELECT ISNULL(a.XM,'') FROM SYS_T_USER a WHERE a.USER_ID=USER_ID)")
-    private String xm;
-
-    public void setXm(String xm) {
-        this.xm = xm;
-    }
-    public String getXm() {
-        return xm;
-    }
+    private String name;
+    public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+   
     @FieldInfo(name = "学号")
     @Formula("(SELECT ISNULL(a.USER_NUMB,'') FROM SYS_T_USER a WHERE a.USER_ID=USER_ID)")
-    private String xh;
+    private String studentNo;
+	
+	public String getStudentNo() {
+		return studentNo;
+	}
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
+	}
 
-    public void setXh(String xh) {
-        this.xh = xh;
-    }
-    public String getXh() {
-        return xh;
-    }
-    /*
-    @FieldInfo(name = "姓名")
-    @Column(name = "XM", length = 36, nullable = false)
-    private String xm;
-    public void setXm(String xm) {
-        this.xm = xm;
-    }
-    public String getXm() {
-        return xm;
-    }
-        
-    @FieldInfo(name = "学号")
-    @Column(name = "XH", length = 20, nullable = false)
-    private String xh;
-    public void setXh(String xh) {
-        this.xh = xh;
-    }
-    public String getXh() {
-        return xh;
-    }
-    */    
+  
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
     *@Transient

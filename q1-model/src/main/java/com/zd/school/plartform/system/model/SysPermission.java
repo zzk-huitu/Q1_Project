@@ -31,13 +31,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_PERIMISSON")
-@AttributeOverride(name = "uuid", column = @Column(name = "PER_ID", length = 36, nullable = false))
+@Table(name = "T_PT_Permission")
+@AttributeOverride(name = "permissionId", column = @Column(name = "permissionId", length = 36, nullable = false))
 public class SysPermission extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "权限类型")
-    @Column(name = "PER_TYPE", length = 8, nullable = false)
+    @Column(name = "perType", length = 8, nullable = false)
     private String perType;
 
     public void setPerType(String perType) {
@@ -49,7 +49,7 @@ public class SysPermission extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "权限码")
-    @Column(name = "PER_CODE", length = 36, nullable = false)
+    @Column(name = "perCode", length = 36, nullable = false)
     private String perCode;
 
     public void setPerCode(String perCode) {
@@ -87,8 +87,8 @@ public class SysPermission extends BaseEntity implements Serializable {
     @FieldInfo(name = "有权限的角色")
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
-    @JoinTable(name = "SYS_T_ROLEPERM", joinColumns = { @JoinColumn(name = "PER_ID") }, inverseJoinColumns = {
-            @JoinColumn(name = "ROLE_ID") })
+    @JoinTable(name = "T_PT_RolePermission", joinColumns = { @JoinColumn(name = "permissionId") }, inverseJoinColumns = {
+            @JoinColumn(name = "roleId") })
     private Set<SysRole> sysRoles = new HashSet<SysRole>();
 
     public Set<SysRole> getSysRoles() {

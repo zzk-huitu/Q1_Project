@@ -28,37 +28,37 @@ import com.zd.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "ECC_T_CLASSREDFLAG")
-@AttributeOverride(name = "uuid", column = @Column(name = "REDFLAG_ID", length = 36, nullable = false))
+@Table(name = "T_PT_ClassRedFlag")
+@AttributeOverride(name = "classRedFlagId", column = @Column(name = "classRedFlagId", length = 36, nullable = false))
 public class EccClassredflag extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "CLAI_ID", length = 36, nullable = true)
-	private String claiId;
+	@Column(name = "classId", length = 36, nullable = true)
+	private String classId;
 
-	public void setClaiId(String claiId) {
-		this.claiId = claiId;
+	public void setClassId(String classId) {
+		this.classId = classId;
 	}
 
-	public String getClaiId() {
-		return claiId;
+	public String getClassId() {
+		return classId;
 	}
 
 	@FieldInfo(name = "红旗类型")
-	@Column(name = "REDFLAG_TYPE", length = 4, nullable = false)
-	private String redflagType;
+	@Column(name = "redFlagType", length = 4, nullable = false)
+	private String redFlagType;
 
-	public void setRedflagType(String redflagType) {
-		this.redflagType = redflagType;
+	public void setRedFlagType(String redFlagType) {
+		this.redFlagType = redFlagType;
 	}
 
-	public String getRedflagType() {
-		return redflagType;
+	public String getRedFlagType() {
+		return redFlagType;
 	}
 
 	@FieldInfo(name = "班级名称")
-	@Column(name = "CLASS_NAME", length = 36, nullable = true)
+	@Column(name = "className", length = 36, nullable = true)
 	private String className;
 
 	public void setClassName(String className) {
@@ -70,7 +70,7 @@ public class EccClassredflag extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "开始日期")
-	@Column(name = "BEGIN_DATE", length = 23, nullable = true)
+	@Column(name = "beginDate", length = 23, nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginDate;
@@ -84,7 +84,7 @@ public class EccClassredflag extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "结束日期")
-	@Column(name = "END_DATE", length = 23, nullable = true)
+	@Column(name = "endDate", length = 23, nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endDate;
@@ -104,9 +104,9 @@ public class EccClassredflag extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 
-    @FieldInfo(name = "红旗类型名称")
-    @Formula("(SELECT a.ITEM_NAME FROM BASE_T_DICITEM a WHERE a.ITEM_CODE=REDFLAG_TYPE AND a.DIC_ID=(SELECT b.DIC_ID FROM BASE_T_DIC b WHERE b.DIC_CODE='REDFLAG'))")
-    private String redflagTypeName;
+	@FieldInfo(name = "红旗类型名称")
+	@Formula("(SELECT a.ITEM_NAME FROM BASE_T_DICITEM a WHERE a.ITEM_CODE=REDFLAG_TYPE AND a.DIC_ID=(SELECT b.DIC_ID FROM BASE_T_DIC b WHERE b.DIC_CODE='REDFLAG'))")
+	private String redflagTypeName;
 
 	public String getRedflagTypeName() {
 		return redflagTypeName;

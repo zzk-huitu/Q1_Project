@@ -17,17 +17,17 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "PT_SK_METER")
-@AttributeOverride(name = "uuid", column = @Column(name = "METER_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_SKMeter")
+@AttributeOverride(name = "sKMeterId", column = @Column(name = "sKMeterId", length = 36, nullable = false) )
 public class PtSkMeter extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "计量数（脉冲数/升）")
-	@Column(name = "MEASURE")
+	@Column(name = "measure")
 	private Integer measure;
 
 	@FieldInfo(name = "备注")
-	@Column(name = "NOTES", length = 200, nullable = true)
+	@Column(name = "notes", length = 200, nullable = true)
 	private String notes;
 
 	public Integer getMeasure() {

@@ -1,4 +1,5 @@
 package com.zd.school.ykt.model;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -15,219 +16,199 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 import com.zd.school.excel.annotation.MapperCell;
 
-
-
 /**
- *    
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: (PT_TASK)实体类.
- * date: 2017-05-16.
+ * 
+ * Function: TODO ADD FUNCTION. Reason: TODO ADD REASON(可选). Description:
+ * (PT_TASK)实体类. date: 2017-05-16.
+ * 
  * @version 0.1
  * @since JDK 1.8
  */
- 
+
 @Entity
-@Table(name = "PT_TASK")
-@AttributeOverride(name = "uuid", column = @Column(name = "TASK_ID", length =36, nullable =false ))
-public class PtTask  extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-        
+@Table(name = "T_PT_Task")
+@AttributeOverride(name = "taskId", column = @Column(name = "taskId", length = 36, nullable = false) )
+public class PtTask extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-   
-	@Column(name = "TASKNO", length = 8 ,   nullable = false)
-	private String taskno;
-	
-	public String getTaskno() {
-		return taskno;
-	}
-	
-	public void setTaskno(String taskno) {
-		this.taskno = taskno;
-	}
+	@Column(name = "taskNo", length = 8, nullable = false)
+	private String taskNo;
 
-   
-	@Column(name = "TASKDATE", length = 8 ,   nullable = false)
-	private String taskdate;
-	
-	public String getTaskdate() {
-		return taskdate;
-	}
-	
-	public void setTaskdate(String taskdate) {
-		this.taskdate = taskdate;
-	}
+	@Column(name = "taskDate", length = 8, nullable = false)
+	private String taskDate;
 
-   
-	@Column(name = "TASKTYPE",    nullable = false)
-	private Integer tasktype;
-	
-	public Integer getTasktype() {
-		return tasktype;
-	}
-	
-	public void setTasktype(Integer tasktype) {
-		this.tasktype = tasktype;
-	}
+	@Column(name = "taskType", nullable = false)
+	private Integer taskType;
 
-   
-	@Column(name = "DEVICETYPE",    nullable = false)
-	private Integer devicetype;
-	
-	public Integer getDevicetype() {
-		return devicetype;
-	}
-	
-	public void setDevicetype(Integer devicetype) {
-		this.devicetype = devicetype;
-	}
+	@Column(name = "deviceType", nullable = false)
+	private Integer deviceType;
 
-   
-	@Column(name = "TERMSN", length = 14 ,   nullable = false)
-	private String termsn;
-	
-	public String getTermsn() {
-		return termsn;
-	}
-	
-	public void setTermsn(String termsn) {
-		this.termsn = termsn;
-	}
+	@Column(name = "termSn", length = 14, nullable = false)
+	private String termSn;
 
-   
-	@Column(name = "TASKDATA", length = 2147483647 ,   nullable = true)
-	private byte[] taskdata;
-	
-	public byte[] getTaskdata() {
-		return taskdata;
-	}
-	
-	public void setTaskdata(byte[] taskdata) {
-		this.taskdata = taskdata;
-	}
+	@Column(name = "taskData", length = 2147483647, nullable = true)
+	private byte[] taskData;
 
-   
-	@Column(name = "TIMEOUT",    nullable = false)
-	private Integer timeout;
-	
-	public Integer getTimeout() {
-		return timeout;
-	}
-	
-	public void setTimeout(Integer timeout) {
-		this.timeout = timeout;
-	}
+	@Column(name = "timeOut", nullable = false)
+	private Integer timeOut;
 
-   
-	@Column(name = "RETRYCOUNT",    nullable = false)
-	private Integer retrycount;
-	
-	public Integer getRetrycount() {
-		return retrycount;
-	}
-	
-	public void setRetrycount(Integer retrycount) {
-		this.retrycount = retrycount;
-	}
+	@Column(name = "retryCount", nullable = false)
+	private Integer retryCount;
 
-   
-	@Column(name = "TICKSECEND",    nullable = true)
-	private Integer ticksecend;
-	
-	public Integer getTicksecend() {
-		return ticksecend;
-	}
-	
-	public void setTicksecend(Integer ticksecend) {
-		this.ticksecend = ticksecend;
-	}
+	@Column(name = "tickSecend", nullable = true)
+	private Integer tickSecend;
 
-   
-	@Column(name = "EXECUTECOUNT",    nullable = false)
-	private Integer executecount;
-	
-	public Integer getExecutecount() {
-		return executecount;
-	}
-	
-	public void setExecutecount(Integer executecount) {
-		this.executecount = executecount;
-	}
+	@Column(name = "executeCount", nullable = false)
+	private Integer executeCount;
 
-   
-	@Column(name = "EXECUTETIME",    nullable = true)
+	@Column(name = "executeTime", nullable = true)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date executetime;
-	
-	public Date getExecutetime() {
-		return executetime;
-	}
-	
-	public void setExecutetime(Date executetime) {
-		this.executetime = executetime;
-	}
+	private Date executeTime;
 
-   
-	@Column(name = "EXECUTERESULT",    nullable = true)
-	private Boolean executeresult;
-	
-	public Boolean getExecuteresult() {
-		return executeresult;
-	}
-	
-	public void setExecuteresult(Boolean executeresult) {
-		this.executeresult = executeresult;
-	}
+	@Column(name = "executeResult", nullable = true)
+	private Boolean executeResult;
 
-   
-	@Column(name = "EXECUTEIMMEDIATELY",    nullable = true)
-	private Boolean executeimmediately;
-	
-	public Boolean getExecuteimmediately() {
-		return executeimmediately;
-	}
-	
-	public void setExecuteimmediately(Boolean executeimmediately) {
-		this.executeimmediately = executeimmediately;
-	}
+	@Column(name = "executeImmediately", nullable = true)
+	private Boolean executeImmediately;
 
-   
-	@Column(name = "ISTASKOVER",    nullable = true)
-	private Boolean istaskover;
-	
-	public Boolean getIstaskover() {
-		return istaskover;
-	}
-	
-	public void setIstaskover(Boolean istaskover) {
-		this.istaskover = istaskover;
-	}
+	@Column(name = "isTaskOver", nullable = true)
+	private Boolean isTaskOver;
 
-   
-	@Column(name = "RESULTMSG", length = 1000 ,   nullable = true)
-	private String resultmsg;
-	
-	public String getResultmsg() {
-		return resultmsg;
-	}
-	
-	public void setResultmsg(String resultmsg) {
-		this.resultmsg = resultmsg;
-	}
+	@Column(name = "resultMsg", length = 1000, nullable = true)
+	private String resultMsg;
 
-   
-	@Column(name = "USER_ID", length = 36 ,   nullable = true)
+	@Column(name = "userId", length = 36, nullable = true)
 	private String userId;
-	
+
+	public String getTaskNo() {
+		return taskNo;
+	}
+
+	public void setTaskNo(String taskNo) {
+		this.taskNo = taskNo;
+	}
+
+	public String getTaskDate() {
+		return taskDate;
+	}
+
+	public void setTaskDate(String taskDate) {
+		this.taskDate = taskDate;
+	}
+
+	public Integer getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(Integer taskType) {
+		this.taskType = taskType;
+	}
+
+	public Integer getDeviceType() {
+		return deviceType;
+	}
+
+	public void setDeviceType(Integer deviceType) {
+		this.deviceType = deviceType;
+	}
+
+	public String getTermSn() {
+		return termSn;
+	}
+
+	public void setTermSn(String termSn) {
+		this.termSn = termSn;
+	}
+
+	public byte[] getTaskData() {
+		return taskData;
+	}
+
+	public void setTaskData(byte[] taskData) {
+		this.taskData = taskData;
+	}
+
+	public Integer getTimeOut() {
+		return timeOut;
+	}
+
+	public void setTimeOut(Integer timeOut) {
+		this.timeOut = timeOut;
+	}
+
+	public Integer getRetryCount() {
+		return retryCount;
+	}
+
+	public void setRetryCount(Integer retryCount) {
+		this.retryCount = retryCount;
+	}
+
+	public Integer getTickSecend() {
+		return tickSecend;
+	}
+
+	public void setTickSecend(Integer tickSecend) {
+		this.tickSecend = tickSecend;
+	}
+
+	public Integer getExecuteCount() {
+		return executeCount;
+	}
+
+	public void setExecuteCount(Integer executeCount) {
+		this.executeCount = executeCount;
+	}
+
+	public Date getExecuteTime() {
+		return executeTime;
+	}
+
+	public void setExecuteTime(Date executeTime) {
+		this.executeTime = executeTime;
+	}
+
+	public Boolean getExecuteResult() {
+		return executeResult;
+	}
+
+	public void setExecuteResult(Boolean executeResult) {
+		this.executeResult = executeResult;
+	}
+
+	public Boolean getExecuteImmediately() {
+		return executeImmediately;
+	}
+
+	public void setExecuteImmediately(Boolean executeImmediately) {
+		this.executeImmediately = executeImmediately;
+	}
+
+	public Boolean getIsTaskOver() {
+		return isTaskOver;
+	}
+
+	public void setIsTaskOver(Boolean isTaskOver) {
+		this.isTaskOver = isTaskOver;
+	}
+
+	public String getResultMsg() {
+		return resultMsg;
+	}
+
+	public void setResultMsg(String resultMsg) {
+		this.resultMsg = resultMsg;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
-	
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-    @Formula("(SELECT A.TERMNAME FROM dbo.PT_TERM A WHERE A.TERMSN=TERMSN)")
+	@Formula("(SELECT A.TERMNAME FROM dbo.PT_TERM A WHERE A.TERMSN=TERMSN)")
 	@FieldInfo(name = "设备名称")
 	private String termName;
 
@@ -238,11 +219,11 @@ public class PtTask  extends BaseEntity implements Serializable{
 	public void setTermName(String termName) {
 		this.termName = termName;
 	}
-    
-    
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
+
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
 }

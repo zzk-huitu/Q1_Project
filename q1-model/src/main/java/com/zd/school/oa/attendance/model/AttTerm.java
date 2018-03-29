@@ -33,7 +33,7 @@ import com.zd.core.util.DateTimeSerializer;
  * ClassName: AttTerm 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 考勤机具(ATT_T_TERM)实体类.
+ * Description: 考勤设备(T_PT_AttendanceTerm)实体类.
  * date: 2017-05-15
  *
  * @author  luoyibo 创建文件
@@ -42,28 +42,29 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "ATT_T_TERM")
-@AttributeOverride(name = "uuid", column = @Column(name = "TERM_ID", length = 36, nullable = false))
+@Table(name = "T_PT_AttendanceTerm")
+@AttributeOverride(name = "attendanceTermId", column = @Column(name = "attendanceTermId", length = 36, nullable = false))
 public class AttTerm extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "主题ID")
-    @Column(name = "TITLE_ID", length = 36, nullable = true)
-    private String titleId;
-    public void setTitleId(String titleId) {
-        this.titleId = titleId;
-    }
-    public String getTitleId() {
-        return titleId;
-    }
-    @FieldInfo(name = "终端号")
+    @Column(name = "themeId", length = 36, nullable = true)
+    private String themeId;
+    public String getThemeId() {
+		return themeId;
+	}
+	public void setThemeId(String themeId) {
+		this.themeId = themeId;
+	}
+
+	@FieldInfo(name = "终端号")
     @Formula("(SELECT ISNULL(a.TERM_CODE,'') FROM OA_T_INFOTERM a WHERE a.TERM_ID=TERM_ID)")
-    private String termCode;
-    public void setTermCode(String termCode) {
-        this.termCode = termCode;
+    private String termNo;
+    public void setTermNo(String termNo) {
+        this.termNo = termNo;
     }
-    public String getTermCode() {
-        return termCode;
+    public String getTermNo() {
+        return termNo;
     }
         
     @FieldInfo(name = "房间ID")
@@ -85,35 +86,7 @@ public class AttTerm extends BaseEntity implements Serializable{
     public String getRoomName() {
         return roomName;
     }    
-   /* @FieldInfo(name = "终端号")
-    @Column(name = "TERM_CODE", length = 6, nullable = true)
-    private String termCode;
-    public void setTermCode(String termCode) {
-        this.termCode = termCode;
-    }
-    public String getTermCode() {
-        return termCode;
-    }
-        
-    @FieldInfo(name = "房间ID")
-    @Column(name = "ROOM_ID", length = 36, nullable = true)
-    private String roomId;
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-    public String getRoomId() {
-        return roomId;
-    }
-        
-    @FieldInfo(name = "房间名称")
-    @Column(name = "ROOM_NAME", length = 36, nullable = true)
-    private String roomName;
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-    public String getRoomName() {
-        return roomName;
-    }*/
+  
         
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 

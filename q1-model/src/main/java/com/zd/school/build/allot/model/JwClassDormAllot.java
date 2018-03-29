@@ -24,22 +24,22 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "JW_T_CLASSDORMALLOT")
-@AttributeOverride(name = "uuid", column = @Column(name = "CDORM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_ClassDormAllot")
+@AttributeOverride(name = "classDormAllotId", column = @Column(name = "classDormAllotId", length = 36, nullable = false) )
 public class JwClassDormAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "宿舍ID")
-	@Column(name = "DORM_ID", length = 36, nullable = true)
+	@Column(name = "dormId", length = 36, nullable = true)
 	private String dormId;
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "CLAI_ID", length = 36, nullable = true)
-	private String claiId;
+	@Column(name = "classId", length = 36, nullable = true)
+	private String classId;
 
 	@FieldInfo(name = "是否是混班宿舍：0否-1是")
-	@Column(name = "ISMIXED", length = 10, nullable = true)
-	private String ismixed = "0";
+	@Column(name = "isMixed", length = 10, nullable = true)
+	private String isMixed = "0";
 	
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -118,13 +118,6 @@ public class JwClassDormAllot extends BaseEntity implements Serializable {
 		this.dormId = dormId;
 	}
 
-	public String getClaiId() {
-		return claiId;
-	}
-
-	public void setClaiId(String claiId) {
-		this.claiId = claiId;
-	}
 
 	public String getClainame() {
 		return clainame;
@@ -134,12 +127,20 @@ public class JwClassDormAllot extends BaseEntity implements Serializable {
 		this.clainame = clainame;
 	}
 
-	public void setIsmixed(String ismixed) {
-		this.ismixed = ismixed;
+	public String getClassId() {
+		return classId;
 	}
 
-	public String getIsmixed() {
-		return ismixed;
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+
+	public String getIsMixed() {
+		return isMixed;
+	}
+
+	public void setIsMixed(String isMixed) {
+		this.isMixed = isMixed;
 	}
 
 	public String getDormBedCount() {

@@ -26,18 +26,18 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "JW_T_OFFICEALLOT")
-@AttributeOverride(name = "uuid", column = @Column(name = "OFFICEALLOT_ID", length = 36, nullable = false))
+@Table(name = "JW_T_OfficeAllot")
+@AttributeOverride(name = "officeAllotId", column = @Column(name = "officeAllotId", length = 36, nullable = false))
 public class JwOfficeAllot extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "房间主键")
-    @Column(name = "ROOM_ID", length = 36, nullable = true)
+    @Column(name = "roomId", length = 36, nullable = true)
     private String roomId;
 
     @FieldInfo(name = "教师主键")
-    @Column(name = "TTEAC_ID", length = 50, nullable = true)
-    private String tteacId;
+    @Column(name = "teacherId", length = 50, nullable = true)
+    private String teacherId;
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
     *@Transient
@@ -96,13 +96,15 @@ public class JwOfficeAllot extends BaseEntity implements Serializable{
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
-	public String getTteacId() {
-		return tteacId;
+	
+    public String getTeacherId() {
+		return teacherId;
 	}
-	public void setTteacId(String tteacId) {
-		this.tteacId = tteacId;
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
-    public String getGh() {
+	
+	public String getGh() {
         return gh;
     }
     public void setGh(String gh) {

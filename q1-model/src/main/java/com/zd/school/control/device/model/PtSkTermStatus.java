@@ -25,85 +25,85 @@ import com.zd.school.excel.annotation.MapperCell;
  *
  */
 @Entity
-@Table(name = "PT_SK_TERMSTATUS")
-@AttributeOverride(name = "uuid", column = @Column(name = "TERMSTATUS_ID", length = 36, nullable = false))
+@Table(name = "T_PT_SkTermStatus")
+@AttributeOverride(name = "skTermStatusId", column = @Column(name = "skTermStatusId", length = 36, nullable = false))
 public class PtSkTermStatus extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "设备序列号")
-    @Column(name = "TERMSN", length = 14, nullable = true)
+    @Column(name = "termSn", length = 14, nullable = true)
     private String termSn;
 
     @FieldInfo(name = "房间编号")
-    @Column(name = "ROOM_ID", length = 36, nullable = true)
+    @Column(name = "roomId", length = 36, nullable = true)
     private String roomId;
    
     @MapperCell(cellName="状态的日期",order=1)
     @FieldInfo(name = "状态的日期")
     @Temporal(TemporalType.DATE)
   	@JsonSerialize(using = DateTimeSerializer.class)
-    @Column(name = "STATUSDATE", columnDefinition = "date")
+    @Column(name = "statusDate", columnDefinition = "date")
     private Date statusDate;
     
     @MapperCell(cellName="状态的小时",order=2)
     @FieldInfo(name = "状态的小时")
-    @Column(name = "STATUSHOUR")
+    @Column(name = "statusHour")
     private Integer statusHour;
     
     @MapperCell(cellName="测量单位（脉冲/升）",order=3)
     @FieldInfo(name = "测量单位（脉冲/升）")
-    @Column(name = "MEASURE")
+    @Column(name = "measure")
     private Integer measure;
 
     @MapperCell(cellName="费率（元/升）",order=4)
     @FieldInfo(name = "费率（元/升）")
-    @Column(name = "PRICE")
+    @Column(name = "price")
     private BigDecimal price;
     
     @MapperCell(cellName="冷水当前小时使用水量（升）",order=5)
     @FieldInfo(name = "冷水当前小时使用水量（升）")
-    @Column(name = "USELITER")
-    private double useliter;
+    @Column(name = "useLiter")
+    private double useLiter;
     
     @MapperCell(cellName="冷水已使用总水量（升）",order=6)
     @FieldInfo(name = "冷水已使用总水量（升）")
-    @Column(name = "TOTALUSEDLITER")
-    private double totalusedliter;
+    @Column(name = "totalUsedLiter")
+    private double totalUsedLiter;
     
     @MapperCell(cellName="冷水当前小时使用脉冲数",order=7)
     @FieldInfo(name = "冷水当前小时使用脉冲数")
-    @Column(name = "USEPULSE")
-    private long usepulse;
+    @Column(name = "usePulse")
+    private long usePulse;
     
     @MapperCell(cellName="冷水总使用脉冲数",order=8)
     @FieldInfo(name = "冷水总使用脉冲数")
-    @Column(name = "TOTALUSEDPULSE")
-    private long totalusedpulse;
+    @Column(name = "totalUsedPulse")
+    private long totalUsedPulse;
     
     @MapperCell(cellName="热水交易金额",order=9)
     @FieldInfo(name = "热水交易金额")
-    @Column(name = "USEMONEY")
-    private BigDecimal usemoney;
+    @Column(name = "useMoney")
+    private BigDecimal useMoney;
     
     @MapperCell(cellName="热水已交易总额",order=10)
     @FieldInfo(name = "热水已交易总额")
-    @Column(name = "TOTALUSEDMONEY")
-    private BigDecimal totalusedmoney;
+    @Column(name = "totalUsedMoney")
+    private BigDecimal totalUsedMoney;
 
     @MapperCell(cellName="热水已交易流水",order=11)
     @FieldInfo(name = "热水已交易流水")
-    @Column(name = "TOTALRECORD")
-    private long totalrecord;
+    @Column(name = "totalRecord")
+    private long totalRecord;
 
     @MapperCell(cellName="热水已上传流水",order=12)
     @FieldInfo(name = "热水已上传流水")
-    @Column(name = "UPLOADRECORD")
-    private long uploadrecord;
+    @Column(name = "uploadRecord")
+    private long uploadRecord;
     
     @MapperCell(cellName="状态的时间",order=13)
     @FieldInfo(name = "状态的时间")
-    @Column(name = "STATUSTIME")
-    private Date statustime;
+    @Column(name = "statusTime")
+    private Date statusTime;
 
     @MapperCell(cellName="房间名称",order=14)
     @Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
@@ -177,79 +177,78 @@ public class PtSkTermStatus extends BaseEntity implements Serializable{
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-
-	public double getUseliter() {
-		return useliter;
+	
+	public double getUseLiter() {
+		return useLiter;
 	}
 
-	public void setUseliter(double useliter) {
-		this.useliter = useliter;
+	public void setUseLiter(double useLiter) {
+		this.useLiter = useLiter;
 	}
 
-	public double getTotalusedliter() {
-		return totalusedliter;
+	public double getTotalUsedLiter() {
+		return totalUsedLiter;
 	}
 
-	public void setTotalusedliter(double totalusedliter) {
-		this.totalusedliter = totalusedliter;
+	public void setTotalUsedLiter(double totalUsedLiter) {
+		this.totalUsedLiter = totalUsedLiter;
 	}
 
-	public long getUsepulse() {
-		return usepulse;
+	public long getUsePulse() {
+		return usePulse;
 	}
 
-	public void setUsepulse(long usepulse) {
-		this.usepulse = usepulse;
+	public void setUsePulse(long usePulse) {
+		this.usePulse = usePulse;
 	}
 
-	public long getTotalusedpulse() {
-		return totalusedpulse;
+	public long getTotalUsedPulse() {
+		return totalUsedPulse;
 	}
 
-	public void setTotalusedpulse(long totalusedpulse) {
-		this.totalusedpulse = totalusedpulse;
+	public void setTotalUsedPulse(long totalUsedPulse) {
+		this.totalUsedPulse = totalUsedPulse;
 	}
 
-	public BigDecimal getUsemoney() {
-		return usemoney;
+	public BigDecimal getUseMoney() {
+		return useMoney;
 	}
 
-	public void setUsemoney(BigDecimal usemoney) {
-		this.usemoney = usemoney;
+	public void setUseMoney(BigDecimal useMoney) {
+		this.useMoney = useMoney;
 	}
 
-	public BigDecimal getTotalusedmoney() {
-		return totalusedmoney;
+	public BigDecimal getTotalUsedMoney() {
+		return totalUsedMoney;
 	}
 
-	public void setTotalusedmoney(BigDecimal totalusedmoney) {
-		this.totalusedmoney = totalusedmoney;
+	public void setTotalUsedMoney(BigDecimal totalUsedMoney) {
+		this.totalUsedMoney = totalUsedMoney;
 	}
 
-	public long getTotalrecord() {
-		return totalrecord;
+	public long getTotalRecord() {
+		return totalRecord;
 	}
 
-	public void setTotalrecord(long totalrecord) {
-		this.totalrecord = totalrecord;
+	public void setTotalRecord(long totalRecord) {
+		this.totalRecord = totalRecord;
 	}
 
-	public long getUploadrecord() {
-		return uploadrecord;
+	public long getUploadRecord() {
+		return uploadRecord;
 	}
 
-	public void setUploadrecord(long uploadrecord) {
-		this.uploadrecord = uploadrecord;
+	public void setUploadRecord(long uploadRecord) {
+		this.uploadRecord = uploadRecord;
 	}
 
-	public Date getStatustime() {
-		return statustime;
+	public Date getStatusTime() {
+		return statusTime;
 	}
 
-	public void setStatustime(Date statustime) {
-		this.statustime = statustime;
+	public void setStatusTime(Date statusTime) {
+		this.statusTime = statusTime;
 	}
-
 
 	public String getRoomName() {
 		return roomName;

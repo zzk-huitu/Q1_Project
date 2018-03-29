@@ -29,13 +29,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_ROLE")
-@AttributeOverride(name = "uuid", column = @Column(name = "ROLE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_Role")
+@AttributeOverride(name = "roleId", column = @Column(name = "roleId", length = 36, nullable = false))
 public class SysRole extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "角色编码")
-    @Column(name = "ROLE_CODE", length = 12, nullable = false)
+    @Column(name = "roleCode", length = 12, nullable = false)
     private String roleCode;
 
     public void setRoleCode(String roleCode) {
@@ -47,7 +47,7 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "角色名称")
-    @Column(name = "ROLE_NAME", length = 32, nullable = false)
+    @Column(name = "roleName", length = 32, nullable = false)
     private String roleName;
 
     public void setRoleName(String roleName) {
@@ -59,7 +59,7 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否系统角色  1-系统内置 0-非系统内置")
-    @Column(name = "ISSYSTEM", length = 10, nullable = false)
+    @Column(name = "issystem", length = 10, nullable = false)
     private Integer issystem;
 
     public void setIssystem(Integer issystem) {
@@ -71,7 +71,7 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "备注")
-    @Column(name = "REMARK", length = 128, nullable = true)
+    @Column(name = "remark", length = 128, nullable = true)
     private String remark;
 
     public void setRemark(String remark) {
@@ -85,8 +85,8 @@ public class SysRole extends BaseEntity implements Serializable {
     @FieldInfo(name = "有权限的菜单")
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
-    @JoinTable(name = "SYS_T_ROLEPERM", joinColumns = { @JoinColumn(name = "ROLE_ID") }, inverseJoinColumns = {
-            @JoinColumn(name = "PER_ID") })
+    @JoinTable(name = "T_PT_RolePermission", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
+            @JoinColumn(name = "permissionId") })
     private Set<SysPermission> sysPermissions = new HashSet<SysPermission>();
 
     public Set<SysPermission> getSysPermissions() {
@@ -98,7 +98,7 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
-    @Column(name = "ISHIDDEN", length = 10, nullable = true)
+    @Column(name = "isHidden", length = 10, nullable = true)
     private String isHidden;
 
     public String getIsHidden() {
@@ -110,7 +110,7 @@ public class SysRole extends BaseEntity implements Serializable {
     }
     
     @FieldInfo(name = "备注")
-    @Column(name = "SCHOOL_ID", length = 128, nullable = true)
+    @Column(name = "schoolId", length = 128, nullable = true)
     private String schoolId;
     
 	public String getSchoolId() {

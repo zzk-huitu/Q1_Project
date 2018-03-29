@@ -31,43 +31,43 @@ import com.zd.core.util.DateTimeSerializer;
  */
  
 @Entity
-@Table(name = "SYS_T_OPERATE_LOG")
-@AttributeOverride(name = "uuid", column = @Column(name = "OperateLog_ID", length = 36, nullable = false))
+@Table(name = "T_PT_OprateLog")
+@AttributeOverride(name = "oprateLogId", column = @Column(name = "oprateLogId", length = 36, nullable = false))
 public class SysOperateLog extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "用户ID")
-    @Column(name = "USER_ID", length = 36, nullable = true)
+    @Column(name = "userId", length = 36, nullable = true)
     private String userId;
    
     @FieldInfo(name = "IP地址")
-    @Column(name = "IP_HOST", length = 64, nullable = true)
+    @Column(name = "ipHost", length = 64, nullable = true)
     private String ipHost;
    
     
     @FieldInfo(name = "方法名")
-    @Column(name = "METHOD_NAME", length = 500, nullable = true)
+    @Column(name = "methodName", length = 500, nullable = true)
     private String methodName;
     
 
     @FieldInfo(name = "参数")
-    @Column(name = "METHOD_PARAMS", columnDefinition = "varchar(MAX)", nullable = true)
+    @Column(name = "methodParams", columnDefinition = "varchar(MAX)", nullable = true)
     private String methodParams;
     
     @FieldInfo(name = "返回结果")
-    @Column(name = "METHOD_RESULT", columnDefinition = "varchar(MAX)", nullable = true)
+    @Column(name = "methodResult", columnDefinition = "varchar(MAX)", nullable = true)
     private String methodResult;
     
     @FieldInfo(name = "异常类型")
-    @Column(name = "EXCEPTION_CLASS", length = 100, nullable = true)
+    @Column(name = "exceptionClass", length = 100, nullable = true)
     private String exceptionClass;
     
     @FieldInfo(name = "异常信息")
-    @Column(name = "EXCEPTION_Detail", length = 500, nullable = true)
+    @Column(name = "exceptionDetail", length = 500, nullable = true)
     private String exceptionDetail;
     
     @FieldInfo(name = "操作时间")
-    @Column(name = "OPERATE_DATE", length = 23, nullable = true)
+    @Column(name = "operateDate", length = 23, nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date operateDate;

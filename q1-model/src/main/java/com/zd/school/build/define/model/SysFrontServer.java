@@ -17,35 +17,34 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "SYS_FRONTSERVER")
-@AttributeOverride(name = "uuid", column = @Column(name = "FRONTSERVER_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_FrontServer")
+@AttributeOverride(name = "frontServerId", column = @Column(name = "frontServerId", length = 36, nullable = false) )
 public class SysFrontServer extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "服务器名称")
-	@Column(name = "FRONTSERVER_NAME", length = 200, nullable = true)
+	@Column(name = "frontServerName", length = 200, nullable = true)
 	private String frontServerName;
 
 	@FieldInfo(name = "服务IP")
-	@Column(name = "FRONTSERVER_IP", length = 200, nullable = true)
+	@Column(name = "frontServerIp", length = 200, nullable = true)
 	private String frontServerIp;
 
 	@FieldInfo(name = "服务端口")
-	@Column(name = "FRONTSERVER_PORT")
+	@Column(name = "frontServerPort")
 	private Integer frontServerPort;
 
 	@FieldInfo(name = "请求任务URL")
-	@Column(name = "FRONTSERVER_URL", length = 100, nullable = true)
+	@Column(name = "frontServerUrl", length = 100, nullable = true)
 	private String frontServerUrl;
 
 	@FieldInfo(name = "是否启用 0启用1禁用")
-	@Column(name = "FRONTSERVER_STATUS")
+	@Column(name = "frontServerStatus")
 	private Integer frontServerStatus;
 
 	@FieldInfo(name = "备注")
-	@Column(name = "FRONTSERVER_NOTES", length = 500, nullable = true)
-	
-	private String notes;
+	@Column(name = "frontServerNotes", length = 500, nullable = true)
+	private String frontServerNotes;
 
 	public String getFrontServerName() {
 		return frontServerName;
@@ -87,15 +86,13 @@ public class SysFrontServer extends BaseEntity implements Serializable {
 		this.frontServerStatus = frontServerStatus;
 	}
 
-	public String getNotes() {
-		return notes;
+	public String getFrontServerNotes() {
+		return frontServerNotes;
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
+	public void setFrontServerNotes(String frontServerNotes) {
+		this.frontServerNotes = frontServerNotes;
 	}
-
-
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加

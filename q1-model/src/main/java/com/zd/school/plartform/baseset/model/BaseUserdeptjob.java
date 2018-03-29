@@ -23,13 +23,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "BASE_T_USERDEPTJOB")
-@AttributeOverride(name = "uuid", column = @Column(name = "USERDEPTJOB_ID", length = 36, nullable = false))
+@Table(name = "T_PT_UseDeptJob")
+@AttributeOverride(name = "useDeptJobId", column = @Column(name = "useDeptJobId", length = 36, nullable = false))
 public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "用户ID")
-	@Column(name = "USER_ID", length = 36, nullable = false)
+	@Column(name = "userId", length = 36, nullable = false)
 	private String userId;
 
 	public void setUserId(String userId) {
@@ -41,7 +41,7 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "部门岗位ID")
-	@Column(name = "DEPTJOB_ID", length = 36, nullable = false)
+	@Column(name = "deptjobId", length = 36, nullable = false)
 	private String deptjobId;
 
 	public void setDeptjobId(String deptjobId) {
@@ -53,7 +53,7 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "部门ID")
-	@Column(name = "DEPT_ID", length = 36, nullable = false)
+	@Column(name = "deptId", length = 36, nullable = false)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -65,7 +65,7 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "岗位ID")
-	@Column(name = "JOB_ID", length = 36, nullable = false)
+	@Column(name = "jobId", length = 36, nullable = false)
 	private String jobId;
 
 	public void setJobId(String jobId) {
@@ -77,15 +77,15 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否主部门 0-不是 1-是")
-	@Column(name = "MASTER_DEPT", length = 5, nullable = false)
-	private Integer masterDept;
+	@Column(name = "mainDept", length = 5, nullable = false)
+	private Integer mainDept;
 
-	public void setMasterDept(Integer masterDept) {
-		this.masterDept = masterDept;
+	public void setMainDept(Integer mainDept) {
+		this.mainDept = mainDept;
 	}
 
-	public Integer getMasterDept() {
-		return masterDept;
+	public Integer getMainDept() {
+		return mainDept;
 	}
 
 	/**
@@ -168,14 +168,14 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	
 	@FieldInfo(name = "姓名")
 	@Formula("(SELECT a.XM FROM dbo.SYS_T_USER a WHERE a.USER_ID=USER_ID )")
-	private String xm;
+	private String name;
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setname(String name) {
+		this.name = name;
 	}
 	
 	@FieldInfo(name = "用户编号")

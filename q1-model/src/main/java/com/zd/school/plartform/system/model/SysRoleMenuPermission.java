@@ -32,14 +32,14 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_ROLE_MENU_PERIMISSON")
-@AttributeOverride(name = "uuid", column = @Column(name = "RMP_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_RoleMenuPermission")
+@AttributeOverride(name = "roleMenuPermissionId", column = @Column(name = "roleMenuPermissionId", length = 36, nullable = false) )
 public class SysRoleMenuPermission extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
 	@FieldInfo(name = "角色ID")
-	@Column(name = "ROLE_ID", length = 36, nullable = false)
+	@Column(name = "roleId", length = 36, nullable = false)
 	private String roleId;
 	
 	public void setRoleId(String roleId) {
@@ -51,7 +51,7 @@ public class SysRoleMenuPermission extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "角色菜单权限ID")		//角色菜单的权限id
-	@Column(name = "PER_ID", length = 36, nullable = false)
+	@Column(name = "perId", length = 36, nullable = false)
 	private String perId;
 
 	public void setPerId(String perId) {
@@ -63,7 +63,7 @@ public class SysRoleMenuPermission extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "菜单功能权限ID")	//菜单和功能的权限id
-	@Column(name = "MENUPER_ID", length = 36, nullable = false)
+	@Column(name = "menuPerId", length = 36, nullable = false)
 	private String menuPerId;
 
 	public void setMenuPerId(String menuPerId) {

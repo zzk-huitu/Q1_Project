@@ -11,14 +11,14 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "Td_Record_Week")
-@AttributeOverride(name = "uuid", column = @Column(name = "UUID", length = 36, nullable = false))
+@Table(name = "T_PT_RecordWeek")
+@AttributeOverride(name = "recordWeekId", column = @Column(name = "recordWeekId", length = 36, nullable = false))
 public class TdRecordWeek extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "需要刷卡的周几")
-	@Column(name = "BRUSH_WEEK",nullable = true)
+	@Column(name = "brushWeek",nullable = true)
 	private Integer brushWeek;
 
 	public Integer getBrushWeek() {

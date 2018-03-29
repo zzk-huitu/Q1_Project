@@ -27,70 +27,70 @@ import com.zd.school.excel.annotation.MapperCell;
  *
  */
 @Entity
-@Table(name = "PT_EC_TERMSTATUS")
-@AttributeOverride(name = "uuid", column = @Column(name = "TERMSTATUS_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_TermStatus")
+@AttributeOverride(name = "termStatusId", column = @Column(name = "termStatusId", length = 36, nullable = false) )
 public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备序列号")
-	@Column(name = "TERMSN", length = 14, nullable = true)
+	@Column(name = "termSn", length = 14, nullable = true)
 	private String termSn;
 
 	@FieldInfo(name = "房间编号")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@MapperCell(cellName = "状态的日期", order = 1)
 	@FieldInfo(name = "状态的日期")
 	@Temporal(TemporalType.DATE)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "STATUSDATE", columnDefinition = "date")
+	@Column(name = "statusDate", columnDefinition = "date")
 	private Date statusDate;
 
 	@MapperCell(cellName = "状态的小时", order = 2)
 	@FieldInfo(name = "状态的小时")
-	@Column(name = "STATUSHOUR")
+	@Column(name = "statusHour")
 	private Integer statusHour;
 
 	@MapperCell(cellName = "当前小时用电量", order = 3)
 	@FieldInfo(name = "当前小时用电量")
-	@Column(name = "USEKWH")
-	private double usekwh;
+	@Column(name = "useKwh")
+	private double useKwh;
 
 	@MapperCell(cellName = "已购电总量", order = 4)
 	@FieldInfo(name = "已购电总量")
-	@Column(name = "BUYEDKWH")
-	private double buyedkwh;
+	@Column(name = "boughtKwh")
+	private double boughtKwh;
 
 	@MapperCell(cellName = "已使用总电量", order = 5)
 	@FieldInfo(name = "已使用总电量")
-	@Column(name = "TOTALUSEDKWH")
-	private double totalusedkwh;
+	@Column(name = "totalUsedKwh")
+	private double totalUsedKwh;
 
 	@MapperCell(cellName = "剩余总电量", order = 6)
 	@FieldInfo(name = "剩余总电量")
-	@Column(name = "SURPLUSKWH")
-	private double surpluskwh;
+	@Column(name = "surplusKwh")
+	private double surplusKwh;
 
 	@MapperCell(cellName = "电压", order = 7)
 	@FieldInfo(name = "电压")
-	@Column(name = "VOLTAGE")
+	@Column(name = "voltage")
 	private long voltage;
 
 	@MapperCell(cellName = "电流", order = 8)
 	@FieldInfo(name = "电流")
-	@Column(name = "CURRENTS")
+	@Column(name = "currents")
 	private long currents;
 
 	@MapperCell(cellName = "功率", order = 9)
 	@FieldInfo(name = "功率")
-	@Column(name = "POWER")
+	@Column(name = "power")
 	private long power;
 
 	@MapperCell(cellName = "状态的时间", order = 10)
 	@FieldInfo(name = "状态的时间")
-	@Column(name = "STATUSTIME")
-	private Date statustime;
+	@Column(name = "statusTime")
+	private Date statusTime;
 
 	@MapperCell(cellName = "房间名称", order = 11)
 	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
@@ -175,37 +175,6 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.statusHour = statusHour;
 	}
 
-	public double getUsekwh() {
-		return usekwh;
-	}
-
-	public void setUsekwh(double usekwh) {
-		this.usekwh = usekwh;
-	}
-
-	public double getBuyedkwh() {
-		return buyedkwh;
-	}
-
-	public void setBuyedkwh(double buyedkwh) {
-		this.buyedkwh = buyedkwh;
-	}
-
-	public double getTotalusedkwh() {
-		return totalusedkwh;
-	}
-
-	public void setTotalusedkwh(double totalusedkwh) {
-		this.totalusedkwh = totalusedkwh;
-	}
-
-	public double getSurpluskwh() {
-		return surpluskwh;
-	}
-
-	public void setSurpluskwh(double surpluskwh) {
-		this.surpluskwh = surpluskwh;
-	}
 
 	public long getVoltage() {
 		return voltage;
@@ -221,14 +190,6 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 
 	public void setCurrents(long currents) {
 		this.currents = currents;
-	}
-
-	public Date getStatustime() {
-		return statustime;
-	}
-
-	public void setStatustime(Date statustime) {
-		this.statustime = statustime;
 	}
 
 	public String getRoomName() {
@@ -293,6 +254,46 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 
 	public void setStartDl(String startDl) {
 		this.startDl = startDl;
+	}
+	
+	public double getUseKwh() {
+		return useKwh;
+	}
+
+	public void setUseKwh(double useKwh) {
+		this.useKwh = useKwh;
+	}
+
+	public double getBoughtKwh() {
+		return boughtKwh;
+	}
+
+	public void setBoughtKwh(double boughtKwh) {
+		this.boughtKwh = boughtKwh;
+	}
+
+	public double getTotalUsedKwh() {
+		return totalUsedKwh;
+	}
+
+	public void setTotalUsedKwh(double totalUsedKwh) {
+		this.totalUsedKwh = totalUsedKwh;
+	}
+
+	public double getSurplusKwh() {
+		return surplusKwh;
+	}
+
+	public void setSurplusKwh(double surplusKwh) {
+		this.surplusKwh = surplusKwh;
+	}
+
+	public Date getStatusTime() {
+		return statusTime;
+	}
+
+	public void setStatusTime(Date statusTime) {
+		this.statusTime = statusTime;
 	}
 
 	public String getEndDl() {

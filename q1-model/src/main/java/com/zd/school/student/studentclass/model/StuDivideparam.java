@@ -24,33 +24,36 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "STU_T_DIVIDEPARAM")
-@AttributeOverride(name = "uuid", column = @Column(name = "PARAM_ID", length = 36, nullable = false))
+@Table(name = "T_PT_DivideParameter")
+@AttributeOverride(name = "DivideParameterId", column = @Column(name = "DivideParameterId", length = 36, nullable = false))
 public class StuDivideparam extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "班级ID")
-    @Column(name = "CLAI_ID", length = 36, nullable = true)
-    private String claiId;
-    public void setClaiId(String claiId) {
-        this.claiId = claiId;
-    }
-    public String getClaiId() {
-        return claiId;
-    }
+    @Column(name = "classId", length = 36, nullable = true)
+    private String classId;
+  
         
     @FieldInfo(name = "记录ID")
-    @Column(name = "DIVIDE_ID", length = 36, nullable = true)
-    private String divideId;
-    public void setDivideId(String divideId) {
-        this.divideId = divideId;
-    }
-    public String getDivideId() {
-        return divideId;
-    }
+    @Column(name = "divideRecodeId", length = 36, nullable = true)
+    private String divideRecodeId;
+  
         
-    @FieldInfo(name = "分班类型")
-    @Column(name = "DIVIDE_TYPE", length = 4, nullable = false)
+    public String getClassId() {
+		return classId;
+	}
+	public void setClassId(String classId) {
+		this.classId = classId;
+	}
+	public String getDivideRecodeId() {
+		return divideRecodeId;
+	}
+	public void setDivideRecodeId(String divideRecodeId) {
+		this.divideRecodeId = divideRecodeId;
+	}
+
+	@FieldInfo(name = "分班类型")
+    @Column(name = "divideType", length = 4, nullable = false)
     private String divideType;
     public void setDivideType(String divideType) {
         this.divideType = divideType;
@@ -60,7 +63,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "优先级别，1-重点班-2特长班3-普通班")
-    @Column(name = "DIVIDE_LEVEL", length = 10, nullable = false)
+    @Column(name = "divideLevel", length = 10, nullable = false)
     private Integer divideLevel;
     public void setDivideLevel(Integer divideLevel) {
         this.divideLevel = divideLevel;
@@ -70,7 +73,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "分班人数")
-    @Column(name = "DIVIDE_COUNT", length = 10, nullable = false)
+    @Column(name = "divideCount", length = 10, nullable = false)
     private Integer divideCount;
     public void setDivideCount(Integer divideCount) {
         this.divideCount = divideCount;

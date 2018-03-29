@@ -19,8 +19,8 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "PT_TERM")
-@AttributeOverride(name = "uuid", column = @Column(name = "TERM_ID", length = 36, nullable = false) )
+@Table(name = "T_PT_Term")
+@AttributeOverride(name = "termId", column = @Column(name = "termId", length = 36, nullable = false) )
 public class PtTerm extends BaseEntity implements Serializable {
 	public String getRestartTime() {
 		return restartTime;
@@ -33,65 +33,65 @@ public class PtTerm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "网关主键")
-	@Column(name = "GATEWAY_ID", length = 36, nullable = true)
-	private String gatewayID;
+	@Column(name = "gatewayId", length = 36, nullable = true)
+	private String gatewayId;
 
 	@FieldInfo(name = "机号(1~65536)")
-	@Column(name = "TERMNO")
+	@Column(name = "termNo")
 	private Integer termNo;
 
 	@FieldInfo(name = "硬件程序版本号")
-	@Column(name = "PROGRAMVER", length = 8, nullable = true)
-	private String programVer;
+	@Column(name = "programVersion", length = 8, nullable = true)
+	private String programVersion;
 	
 	@FieldInfo(name = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
 			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)")
-	@Column(name = "TERMSN",length = 50, nullable = true)
-	private String termSN;
+	@Column(name = "termSn",length = 50, nullable = true)
+	private String termSn;
 
 	@FieldInfo(name = "设备名称")
-	@Column(name = "TERMNAME", length = 50, nullable = true)
+	@Column(name = "termName", length = 50, nullable = true)
 	private String termName;
 
 	@FieldInfo(name = "设备类型（对应系统参数表）")
-	@Column(name = "TERMTYPEID")
-	private String termTypeID;
+	@Column(name = "termTypeId")
+	private String termTypeId;
 
 	@FieldInfo(name = "设备状态(1是启用 0是禁用)")
-	@Column(name = "TERM_STATUS")
+	@Column(name = "termStatus")
 	private Integer termStatus = 1;
 
 	@FieldInfo(name = "是否允许脱机使用")
-	@Column(name = "OFFLINEUSE")
+	@Column(name = "offlineUse")
 	private Integer offlineUse;
 
 	@FieldInfo(name = "基础参数")
-	@Column(name = "BASEPARAM")
+	@Column(name = "baseParam")
 	private byte[] baseParam;
 
 	@FieldInfo(name = "高级参数")
-	@Column(name = "ADVPARAM")
+	@Column(name = "advParam")
 	private byte[] advParam;
 
 	@FieldInfo(name = "费率参数")
-	@Column(name = "RATEPARAM")
-	private byte[] tateParam;
+	@Column(name = "rateParam")
+	private byte[] rateParam;
 
 	@FieldInfo(name = "网络参数")
-	@Column(name = "NETPARAM")
+	@Column(name = "netParam")
 	private byte[] netParam;
 
 	@FieldInfo(name = "备注说明")
-	@Column(name = "NOTES", length = 200, nullable = true)
+	@Column(name = "notes", length = 200, nullable = true)
 	private String notes;
 
 	@FieldInfo(name = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "STATUSID")
-	private Integer statusID;
+	@Column(name = "statusId")
+	private Integer statusId;
 
 	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
 	@FieldInfo(name = "房间名称")
@@ -139,13 +139,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-	public String getGatewayID() {
-		return gatewayID;
-	}
-
-	public void setGatewayID(String gatewayID) {
-		this.gatewayID = gatewayID;
-	}
 
 	public Integer getTermNo() {
 		return termNo;
@@ -161,14 +154,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 
 	public void setTermName(String termName) {
 		this.termName = termName;
-	}
-
-	public String getTermTypeID() {
-		return termTypeID;
-	}
-
-	public void setTermTypeID(String termTypeID) {
-		this.termTypeID = termTypeID;
 	}
 
 	public Integer getTermStatus() {
@@ -204,14 +189,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.advParam = advParam;
 	}
 
-	public byte[] getTateParam() {
-		return tateParam;
-	}
-
-	public void setTateParam(byte[] tateParam) {
-		this.tateParam = tateParam;
-	}
-
 	public byte[] getNetParam() {
 		return netParam;
 	}
@@ -228,14 +205,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.notes = notes;
 	}
 
-	public Integer getStatusID() {
-		return statusID;
-	}
-
-	public void setStatusID(Integer statusID) {
-		this.statusID = statusID;
-	}
-
 	public String getRoomName() {
 		return roomName;
 	}
@@ -244,20 +213,52 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public String getTermSN() {
-		return termSN;
+	public String getGatewayId() {
+		return gatewayId;
 	}
 
-	public void setTermSN(String termSN) {
-		this.termSN = termSN;
+	public void setGatewayId(String gatewayId) {
+		this.gatewayId = gatewayId;
 	}
 
-	public String getProgramVer() {
-		return programVer;
+	public String getProgramVersion() {
+		return programVersion;
 	}
 
-	public void setProgramVer(String programVer) {
-		this.programVer = programVer;
+	public void setProgramVersion(String programVersion) {
+		this.programVersion = programVersion;
+	}
+
+	public String getTermSn() {
+		return termSn;
+	}
+
+	public void setTermSn(String termSn) {
+		this.termSn = termSn;
+	}
+
+	public String getTermTypeId() {
+		return termTypeId;
+	}
+
+	public void setTermTypeId(String termTypeId) {
+		this.termTypeId = termTypeId;
+	}
+
+	public byte[] getRateParam() {
+		return rateParam;
+	}
+
+	public void setRateParam(byte[] rateParam) {
+		this.rateParam = rateParam;
+	}
+
+	public Integer getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(Integer statusId) {
+		this.statusId = statusId;
 	}
 
 	public String getGatewayName() {

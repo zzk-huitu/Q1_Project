@@ -17,29 +17,29 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "PT_DK_PRICE")
-@AttributeOverride(name = "uuid", column = @Column(name = "DK_PRICEID", length = 36, nullable = false) )
+@Table(name = "T_DK_Price")
+@AttributeOverride(name = "dKPriceId", column = @Column(name = "dKPriceId", length = 36, nullable = false) )
 public class DkPriceDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "费率名称")
-	@Column(name = "PRICE_NAME", length = 36, nullable = true)
+	@Column(name = "priceName", length = 36, nullable = true)
 	private String priceName;
 
 	@FieldInfo(name = "费率价格")
-	@Column(name = "PRICE_VALUE")
+	@Column(name = "priceValue")
 	private double priceValue;
 
 	@FieldInfo(name = "状态,用于标识是否分配：0启动。1禁用")
-	@Column(name = "PRICE_STATUS", length = 8, nullable = true)
+	@Column(name = "priceStatus", length = 8, nullable = true)
 	private String priceStatus;
 
 	@FieldInfo(name = "货币种类")
-	@Column(name = "CURRENCY_TYPE", length = 36, nullable = true)
+	@Column(name = "currencyType", length = 36, nullable = true)
 	private String currencyType = "RMB(人民币)";
 
 	@FieldInfo(name = "备注")
-	@Column(name = "PRICE_NOTES", length = 500, nullable = true)
+	@Column(name = "priceNotes", length = 500, nullable = true)
 	private String priceNotes;
 
 	public String getPriceName() {

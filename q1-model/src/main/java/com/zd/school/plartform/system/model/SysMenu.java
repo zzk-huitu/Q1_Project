@@ -23,13 +23,13 @@ import com.zd.core.model.TreeNodeEntity;
  */
 
 @Entity
-@Table(name = "SYS_T_MENU")
-@AttributeOverride(name = "uuid", column = @Column(name = "MENU_ID", length = 36, nullable = false))
+@Table(name = "T_PT_Menu")
+@AttributeOverride(name = "menuId", column = @Column(name = "menuId", length = 36, nullable = false))
 public class SysMenu extends TreeNodeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "菜单编码")
-    @Column(name = "MENU_CODE", length = 32, nullable = false)
+    @Column(name = "menuCode", length = 32, nullable = false)
     private String menuCode;
 
     public void setMenuCode(String menuCode) {
@@ -41,7 +41,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "菜单图标")
-    @Column(name = "SMALL_ICON", length = 256, nullable = true)
+    @Column(name = "smallIcon", length = 256, nullable = true)
     private String smallIcon;
 
     public void setSmallIcon(String smallIcon) {
@@ -53,7 +53,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "菜单大图标")
-    @Column(name = "BIG_ICON", length = 256, nullable = true)
+    @Column(name = "bigIcon", length = 256, nullable = true)
     private String bigIcon;
 
     public void setBigIcon(String bigIcon) {
@@ -65,7 +65,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "菜单地址")
-    @Column(name = "MENU_TARGET")
+    @Column(name = "menuTarget")
     private String menuTarget;
 
     public String getMenuTarget() {
@@ -77,7 +77,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "菜单类型")
-    @Column(name = "MENU_TYPE")
+    @Column(name = "menuType")
     private String menuType;
 
     public String getMenuType() {
@@ -89,7 +89,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否叶菜单")
-    @Column(name = "MENU_LEAF")
+    @Column(name = "menuLeaf")
     private String menuLeaf;
 
     public String getMenuLeaf() {
@@ -101,7 +101,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否系统菜单")
-    @Column(name = "ISSYSTEM", length = 10, nullable = false)
+    @Column(name = "issystem", length = 10, nullable = false)
     private Integer issystem;
 
     public void setIssystem(Integer issystem) {
@@ -113,7 +113,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
-    @Column(name = "ISHIDDEN", length = 10, nullable = true)
+    @Column(name = "isHidden", length = 10, nullable = true)
     private String isHidden;
 
     public String getIsHidden() {

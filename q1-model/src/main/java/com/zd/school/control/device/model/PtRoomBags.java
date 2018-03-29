@@ -17,47 +17,47 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 @Entity
-@Table(name = "PT_ROOM_BAGS")
-@AttributeOverride(name = "uuid", column = @Column(name = "ROOMBAG_ID", length = 36, nullable = false))
+@Table(name = "T_PT_RoomBag")
+@AttributeOverride(name = "roomBagId", column = @Column(name = "roomBagId", length = 36, nullable = false))
 public class PtRoomBags extends BaseEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "房间ID")
-	@Column(name = "ROOM_ID", length = 36, nullable = true)
+	@Column(name = "roomId", length = 36, nullable = true)
 	private String roomId;
 	
 	@FieldInfo(name = "房间余额")
-	@Column(name = "ROOM_VALUE")
+	@Column(name = "roomValue")
 	private BigDecimal roomValue;
 	
 	@FieldInfo(name = "房间总用")
-	@Column(name = "ROOM_TOTALUSED")
+	@Column(name = "roomTotalUsed")
 	private BigDecimal roomTotalUsed;
 	
 	@FieldInfo(name = "房间总充")
-	@Column(name = "ROOM_TOTALRECHARGE")
+	@Column(name = "roomTotalRecharge")
 	private BigDecimal roomTotalRecharge;
 	
 	@FieldInfo(name = "水总用")
-	@Column(name = "WATER_TOTALUSED")
-	private BigDecimal waterTotalused;
+	@Column(name = "waterTotalUsed")
+	private BigDecimal waterTotalUsed;
 	
 	@FieldInfo(name = "水改变时间")
-	@Column(name = "WATER_UPDATETIME")
+	@Column(name = "waterUpdateTime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date waterUpdateTime;
 	
 	@FieldInfo(name = "电总用")
-	@Column(name = "EC_TOTALUSED")
-	private BigDecimal ecTotalUsed;
+	@Column(name = "electricityTotalUsed")
+	private BigDecimal electricityTotalUsed;
 	
 	@FieldInfo(name = "电改变时间")
-	@Column(name = "EC_UPDATETIME")
+	@Column(name = "electricityUpdateTime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date ecUpdateTime;
+	private Date electricityUpdateTime;
 	
 	public String getRoomId() {
 		return roomId;
@@ -91,14 +91,6 @@ public class PtRoomBags extends BaseEntity implements Serializable{
 		this.roomTotalRecharge = roomTotalRecharge;
 	}
 
-	public BigDecimal getWaterTotalused() {
-		return waterTotalused;
-	}
-
-	public void setWaterTotalused(BigDecimal waterTotalused) {
-		this.waterTotalused = waterTotalused;
-	}
-
 	public Date getWaterUpdateTime() {
 		return waterUpdateTime;
 	}
@@ -107,20 +99,28 @@ public class PtRoomBags extends BaseEntity implements Serializable{
 		this.waterUpdateTime = waterUpdateTime;
 	}
 
-	public BigDecimal getEcTotalUsed() {
-		return ecTotalUsed;
+	public BigDecimal getWaterTotalUsed() {
+		return waterTotalUsed;
 	}
 
-	public void setEcTotalUsed(BigDecimal ecTotalUsed) {
-		this.ecTotalUsed = ecTotalUsed;
+	public void setWaterTotalUsed(BigDecimal waterTotalUsed) {
+		this.waterTotalUsed = waterTotalUsed;
 	}
 
-	public Date getEcUpdateTime() {
-		return ecUpdateTime;
+	public BigDecimal getElectricityTotalUsed() {
+		return electricityTotalUsed;
 	}
 
-	public void setEcUpdateTime(Date ecUpdateTime) {
-		this.ecUpdateTime = ecUpdateTime;
+	public void setElectricityTotalUsed(BigDecimal electricityTotalUsed) {
+		this.electricityTotalUsed = electricityTotalUsed;
+	}
+
+	public Date getElectricityUpdateTime() {
+		return electricityUpdateTime;
+	}
+
+	public void setElectricityUpdateTime(Date electricityUpdateTime) {
+		this.electricityUpdateTime = electricityUpdateTime;
 	}
 
 }

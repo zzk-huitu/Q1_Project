@@ -17,7 +17,7 @@ import com.zd.core.model.BaseEntity;
  * ClassName: OaNoticeauditor 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 公告权限(OA_T_NOTICERIGHT)实体类.
+ * Description: 公告权限(T_PT_NoticeRight)实体类.
  * date: 2016-12-21
  *
  * @author  luoyibo 创建文件
@@ -25,13 +25,13 @@ import com.zd.core.model.BaseEntity;
  * @since JDK 1.8
  */
 @Entity
-@Table(name = "OA_T_NOTICERIGHT")
-@AttributeOverride(name = "uuid", column = @Column(name = "RIGHT_ID", length = 36, nullable = false))
+@Table(name = "T_PT_NoticeRight")
+@AttributeOverride(name = "rightId", column = @Column(name = "rightId", length = 36, nullable = false))
 public class OaNoticeright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "拥有权限的角色ID")
-    @Column(name = "OWN_ROLEID", length = 36, nullable = false)
+    @Column(name = "ownRoleid", length = 36, nullable = false)
     private String ownRoleid;
 
 	public String getOwnRoleid() {
@@ -54,7 +54,7 @@ public class OaNoticeright extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "审核的角色ID")
-    @Column(name = "CHECK_ROLEID", length = 36, nullable = true)
+    @Column(name = "checkRoleid", length = 36, nullable = true)
     private String checkRoleid;
 
 	public String getCheckRoleid() {

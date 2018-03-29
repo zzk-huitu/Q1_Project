@@ -25,69 +25,86 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "STU_T_DIVIDESCORE")
-@AttributeOverride(name = "uuid", column = @Column(name = "SCORE_ID", length = 36, nullable = false))
+@Table(name = "T_PT_DivideScore")
+@AttributeOverride(name = "divideScoreId", column = @Column(name = "divideScoreId", length = 36, nullable = false))
 public class StuDividescore extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "记录ID")
-    @Column(name = "DIVIDE_ID", length = 36, nullable = true)
-    private String divideId;
+    @Column(name = "divideRecodeId", length = 36, nullable = true)
+    private String divideRecodeId;
 
     @FieldInfo(name = "学号")
-    @Column(name = "XH", length = 20, nullable = false)
-    private String xh;
+    @Column(name = "studentNo", length = 20, nullable = false)
+    private String studentNo;
         
     @FieldInfo(name = "姓名")
-    @Column(name = "XM", length = 36, nullable = false)
-    private String xm;
+    @Column(name = "name", length = 36, nullable = false)
+    private String name;
         
     @FieldInfo(name = "性别码")
-    @Column(name = "XBM", length = 10, nullable = true)
-    private String xbm;
+    @Column(name = "genderCode", length = 10, nullable = true)
+    private String genderCode;
         
     @FieldInfo(name = "成绩")
-    @Column(name = "SCORE", length = 8, nullable = false)
+    @Column(name = "score", length = 8, nullable = false)
     private BigDecimal score;
 
     @FieldInfo(name = "考号")
-    @Column(name = "EXAM_NUMB", length = 20, nullable = false)
-    private String  examNumb;
+    @Column(name = "examNo", length = 20, nullable = false)
+    private String  examNo;
     
     @FieldInfo(name = "文理类型")
-    @Column(name = "ARTS_SCIENCES", length = 16, nullable = true)
-    private String artsSciences;
+    @Column(name = "artsSciencesType", length = 16, nullable = true)
+    private String artsSciencesType;
 
-	public String getDivideId() {
-		return divideId;
+
+	public String getDivideRecodeId() {
+		return divideRecodeId;
 	}
 
-	public void setDivideId(String divideId) {
-		this.divideId = divideId;
+	public void setDivideRecodeId(String divideRecodeId) {
+		this.divideRecodeId = divideRecodeId;
 	}
 
-	public String getXh() {
-		return xh;
+	public String getStudentNo() {
+		return studentNo;
 	}
 
-	public void setXh(String xh) {
-		this.xh = xh;
+	public void setStudentNo(String studentNo) {
+		this.studentNo = studentNo;
 	}
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getXbm() {
-		return xbm;
+	public String getGenderCode() {
+		return genderCode;
 	}
 
-	public void setXbm(String xbm) {
-		this.xbm = xbm;
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
+	}
+
+	public String getExamNo() {
+		return examNo;
+	}
+
+	public void setExamNo(String examNo) {
+		this.examNo = examNo;
+	}
+
+	public String getArtsSciencesType() {
+		return artsSciencesType;
+	}
+
+	public void setArtsSciencesType(String artsSciencesType) {
+		this.artsSciencesType = artsSciencesType;
 	}
 
 	public BigDecimal getScore() {
@@ -98,21 +115,7 @@ public class StuDividescore extends BaseEntity implements Serializable{
 		this.score = score;
 	}
 
-	public String getExamNumb() {
-		return examNumb;
-	}
 
-	public void setExamNumb(String examNumb) {
-		this.examNumb = examNumb;
-	}
-
-	public String getArtsSciences() {
-		return artsSciences;
-	}
-
-	public void setArtsSciences(String artsSciences) {
-		this.artsSciences = artsSciences;
-	}
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
     *@Transient
