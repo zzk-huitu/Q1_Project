@@ -9,11 +9,10 @@
 
 package com.zd.school.plartform.baseset.model;
 
+import java.util.List;
+
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNode;
-import com.zd.core.model.extjs.ExtTreeNodeNotChk;
-
-import java.util.List;
 
 /**
  * ClassName:BaseDicTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.

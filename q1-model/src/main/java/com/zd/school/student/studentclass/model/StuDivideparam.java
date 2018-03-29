@@ -25,17 +25,17 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_DivideParameter")
-@AttributeOverride(name = "DivideParameterId", column = @Column(name = "DivideParameterId", length = 36, nullable = false))
+@AttributeOverride(name = "divideParameterId", column = @Column(name = "divideParameterId", length = 20, nullable = false))
 public class StuDivideparam extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "班级ID")
-    @Column(name = "classId", length = 36, nullable = true)
+    @Column(name = "classId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String classId;
   
         
     @FieldInfo(name = "记录ID")
-    @Column(name = "divideRecodeId", length = 36, nullable = true)
+    @Column(name = "divideRecodeId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String divideRecodeId;
   
         
@@ -53,7 +53,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "分班类型")
-    @Column(name = "divideType", length = 4, nullable = false)
+    @Column(name = "divideType", columnDefinition="nvarchar(4) defalut ''", nullable = false)
     private String divideType;
     public void setDivideType(String divideType) {
         this.divideType = divideType;
@@ -63,7 +63,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "优先级别，1-重点班-2特长班3-普通班")
-    @Column(name = "divideLevel", length = 10, nullable = false)
+    @Column(name = "divideLevel", nullable = false)
     private Integer divideLevel;
     public void setDivideLevel(Integer divideLevel) {
         this.divideLevel = divideLevel;
@@ -73,7 +73,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "分班人数")
-    @Column(name = "divideCount", length = 10, nullable = false)
+    @Column(name = "divideCount", nullable = false)
     private Integer divideCount;
     public void setDivideCount(Integer divideCount) {
         this.divideCount = divideCount;

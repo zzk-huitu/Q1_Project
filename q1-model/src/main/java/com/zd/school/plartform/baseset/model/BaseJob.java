@@ -22,12 +22,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Job")
-@AttributeOverride(name = "JobId", column = @Column(name = "JobId", length = 36, nullable = false))
+@AttributeOverride(name = "JobId", column = @Column(name = "JobId", length = 20, nullable = false))
 public class BaseJob extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "岗位名称")
-    @Column(name = "jobName", length = 32, nullable = false)
+    @Column(name = "jobName", columnDefinition="nvarchar(32) ", nullable = false)
     private String jobName;
 
     public void setJobName(String jobName) {
@@ -39,7 +39,7 @@ public class BaseJob extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "岗位编码")
-    @Column(name = "jobCode", length = 64, nullable = true)
+    @Column(name = "jobCode", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String jobCode;
 
     public void setJobCode(String jobCode) {
@@ -51,7 +51,7 @@ public class BaseJob extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "备注")
-    @Column(name = "remark", length = 128, nullable = true)
+    @Column(name = "remark", columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String remark;
 
     public void setRemark(String remark) {

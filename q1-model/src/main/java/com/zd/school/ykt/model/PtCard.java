@@ -29,13 +29,13 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_Card")
-@AttributeOverride(name = "cardId", column = @Column(name = "cardId", length = 36, nullable = false))
+@AttributeOverride(name = "cardId", column = @Column(name = "cardId", length = 20, nullable = false))
 public class PtCard extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
 
 	@FieldInfo(name = "卡流水号")
-    @Column(name = "cardNo", length = 19, nullable = true)
+    @Column(name = "cardNo", columnDefinition="varchar(19) defalut ''", nullable = true)
     private Long cardNo;
     public void setCardNo(Long cardNo) {
         this.cardNo = cardNo;
@@ -45,27 +45,27 @@ public class PtCard extends BaseEntity implements Serializable{
     }
         
 	@FieldInfo(name = "卡状态 1正常 2挂失 3注销 4换卡 7冻结")
-    @Column(name = "cardStatusId", length = 10, nullable = true)
-    private Integer cardStatusId;
+    @Column(name = "cardStatusId", columnDefinition="defalut 0", nullable = true)
+    private byte cardStatusId;
    
         
 
 	@FieldInfo(name = "卡类型ID")
-    @Column(name = "cardTypeId", length = 10, nullable = true)
+    @Column(name = "cardTypeId", columnDefinition="defalut 0", nullable = true)
     private Integer cardTypeId;
    
 	@FieldInfo(name = "当日消费次数")
-    @Column(name = "dayCount", length = 10, nullable = true)
+    @Column(name = "dayCount", columnDefinition="defalut 0", nullable = true)
     private Integer dayCount;
   
         
 	@FieldInfo(name = "当日交易金额")
-    @Column(name = "dayValue", length = 19, nullable = true)
+    @Column(name = "dayValue", columnDefinition="defalut 0", nullable = true)
     private BigDecimal dayValue;
   
         
     @FieldInfo(name = "卡押金")
-    @Column(name = "deposit", length = 19, nullable = true)
+    @Column(name = "deposit", columnDefinition="defalut 0", nullable = true)
     private BigDecimal deposit;
     public void setDeposit(BigDecimal deposit) {
         this.deposit = deposit;
@@ -75,37 +75,37 @@ public class PtCard extends BaseEntity implements Serializable{
     }
         
 	@FieldInfo(name = "有效期")
-    @Column(name = "expiryDate", length = 27, columnDefinition = "datetime", nullable = true)
+    @Column(name = "expiryDate", columnDefinition = "datetime", nullable = true)
     private Date expiryDate= new Date();;
  
 	@FieldInfo(name = "物理卡号")
-    @Column(name = "physicalNo", length = 19, nullable = true)
+    @Column(name = "physicalNo", columnDefinition="defalut 0",nullable = true)
     private Long physicalNo;
      
     @FieldInfo(name = "最后交易时间")
-    @Column(name = "lastPayDate", length = 27, columnDefinition = "datetime", nullable = true)
+    @Column(name = "lastPayDate", columnDefinition = "datetime", nullable = true)
     private Date lastPayDate =new Date();
    
         
 	@FieldInfo(name = "最后交易餐类")
-    @Column(name = "lastPayMealType", length = 10, nullable = true)
+    @Column(name = "lastPayMealType", columnDefinition="defalut 0", nullable = true)
     private Integer lastPayMealType;
   
         
     @FieldInfo(name = "当餐消费次数")
-    @Column(name = "mealCount", length = 10, nullable = true)
+    @Column(name = "mealCount", columnDefinition="defalut 0", nullable = true)
     private Integer mealCount;
   
         
 	@FieldInfo(name = "当日交易金额")
-    @Column(name = "mealValue", length = 19, nullable = true)
+    @Column(name = "mealValue", columnDefinition="defalut 0", nullable = true)
     private BigDecimal mealValue;
   
         
-	public Integer getCardStatusId() {
+	public byte getCardStatusId() {
 		return cardStatusId;
 	}
-	public void setCardStatusId(Integer cardStatusId) {
+	public void setCardStatusId(byte cardStatusId) {
 		this.cardStatusId = cardStatusId;
 	}
 	public Integer getCardTypeId() {

@@ -9,12 +9,10 @@
 
 package com.zd.school.plartform.baseset.model;
 
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.model.extjs.ExtTreeNode;
-
 import java.util.List;
 
-import javax.persistence.Column;
+import com.zd.core.annotation.FieldInfo;
+import com.zd.core.model.extjs.ExtTreeNode;
 
 /**
  * ClassName:BaseOrgTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.

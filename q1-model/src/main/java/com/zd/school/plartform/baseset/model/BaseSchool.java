@@ -1,31 +1,14 @@
 package com.zd.school.plartform.baseset.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
@@ -42,12 +25,12 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_School")
-@AttributeOverride(name = "schoolId", column = @Column(name = "schoolId", length = 36, nullable = false))
+@AttributeOverride(name = "schoolId", column = @Column(name = "schoolId", length = 20, nullable = false))
 public class BaseSchool extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "学校代码")
-    @Column(name = "schoolCode", length = 32, nullable = true)
+    @Column(name = "schoolCode", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String schoolCode;
     public void setSchoolCode(String schoolCode) {
         this.schoolCode = schoolCode;
@@ -57,7 +40,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校名称")
-    @Column(name = "schoolName", length = 64, nullable = true)
+    @Column(name = "schoolName", columnDefinition="nvarchar(64)", nullable = false)
     private String schoolName;
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
@@ -67,7 +50,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校英文名")
-    @Column(name = "schoolEng", length = 32, nullable = true)
+    @Column(name = "schoolEng", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String schoolEng;
     public void setSchoolEng(String schoolEng) {
         this.schoolEng = schoolEng;
@@ -77,7 +60,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校地址")
-    @Column(name = "schoolAddr", length = 512, nullable = true)
+    @Column(name = "schoolAddr", columnDefinition="nvarchar(512) defalut ''", nullable = true)
     private String schoolAddr;
     public void setSchoolAddr(String schoolAddr) {
         this.schoolAddr = schoolAddr;
@@ -87,7 +70,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "建校年月")
-    @Column(name = "foundYear", length = 32, nullable = true)
+    @Column(name = "foundYear", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String foundYear;
     public void setFoundYear(String foundYear) {
         this.foundYear = foundYear;
@@ -97,7 +80,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "邮政编码")
-    @Column(name = "mailCode", length = 16, nullable = true)
+    @Column(name = "mailCode",columnDefinition="nvarchar(16) defalut ''", nullable = true)
     private String mailCode;
    
     public String getMailCode() {
@@ -109,7 +92,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "行政区划")
-    @Column(name = "administration", length = 128, nullable = true)
+    @Column(name = "administration", columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String administration;
     public void setAdministration(String administration) {
         this.administration = administration;
@@ -119,7 +102,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "校庆日")
-    @Column(name = "anniversaryDay", length = 32, nullable = true)
+    @Column(name = "anniversaryDay", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String anniversaryDay;
     public void setAnniversaryDay(String anniversaryDay) {
         this.anniversaryDay = anniversaryDay;
@@ -129,7 +112,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "办学类型")
-    @Column(name = "officeType", length = 2, nullable = true)
+    @Column(name = "officeType", columnDefinition="nvarchar(2) defalut ''", nullable = true)
     private String officeType;
     public void setOfficeType(String officeType) {
         this.officeType = officeType;
@@ -139,7 +122,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校主管部门")
-    @Column(name = "chargeDept", length = 32, nullable = true)
+    @Column(name = "chargeDept", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String chargeDept;
     public void setChargeDept(String chargeDept) {
         this.chargeDept = chargeDept;
@@ -149,7 +132,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "法定代表人号")
-    @Column(name = "legalPerson", length = 64, nullable = true)
+    @Column(name = "legalPerson", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String legalPerson;
     public void setLegalPerson(String legalPerson) {
         this.legalPerson = legalPerson;
@@ -159,7 +142,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "法人证书号")
-    @Column(name = "legalCertificate", length = 64, nullable = true)
+    @Column(name = "legalCertificate", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String legalCertificate;
     public void setLegalCertificate(String legalCertificate) {
         this.legalCertificate = legalCertificate;
@@ -169,7 +152,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "校长工号")
-    @Column(name = "headMasterNum", length = 32, nullable = true)
+    @Column(name = "headMasterNum",columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String headMasterNum;
     
     public String getHeadMasterNum() {
@@ -180,7 +163,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "校长姓名")
-    @Column(name = "headMasterName", length = 32, nullable = true)
+    @Column(name = "headMasterName", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String headMasterName;
  
         
@@ -192,7 +175,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "党委负责人号")
-    @Column(name = "partyPersonNo", length = 32, nullable = true)
+    @Column(name = "partyPersonNo",columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String partyPersonNo;
     public void setPartyPersonNo(String partyPersonNo) {
         this.partyPersonNo = partyPersonNo;
@@ -202,7 +185,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "组织机构码")
-    @Column(name = "orgCode", length = 32, nullable = true)
+    @Column(name = "orgCode", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String orgCode;
     public void setOrgCode(String orgCode) {
         this.orgCode = orgCode;
@@ -212,7 +195,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "联系电话")
-    @Column(name = "telephone", length = 255, nullable = true)
+    @Column(name = "telephone", columnDefinition="nvarchar(255) defalut ''", nullable = true)
     private String telephone;
     public void setTelephone(String telephone) {
         this.telephone = telephone;
@@ -222,7 +205,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "传真电话")
-    @Column(name = "faxNum", length = 32, nullable = true)
+    @Column(name = "faxNum",columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String faxNum;
     public void setFaxNum(String faxNum) {
         this.faxNum = faxNum;
@@ -232,7 +215,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "电子邮箱")
-    @Column(name = "email", length = 128, nullable = true)
+    @Column(name = "email", columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String email;
    
         
@@ -247,7 +230,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "历史沿革")
-    @Column(name = "historyEvolution", length = 2048, nullable = true)
+    @Column(name = "historyEvolution", columnDefinition="nvarchar(MAX) defalut ''", nullable = true)
     private String historyEvolution;
     public void setHistoryEvolution(String historyEvolution) {
         this.historyEvolution = historyEvolution;
@@ -257,7 +240,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "学校办别")
-    @Column(name = "schoolType", length = 2, nullable = true)
+    @Column(name = "schoolType", columnDefinition="nvarchar(2) defalut ''", nullable = true)
     private String schoolType;
     public void setSchoolType(String schoolType) {
         this.schoolType = schoolType;
@@ -267,7 +250,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "所属主管单位")
-    @Column(name = "chargeUnit", length = 64, nullable = true)
+    @Column(name = "chargeUnit",columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String chargeUnit;
     public void setChargeUnit(String chargeUnit) {
         this.chargeUnit = chargeUnit;
@@ -277,7 +260,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "所在地城乡类型")
-    @Column(name = "cityAndCountryType", length = 3, nullable = true)
+    @Column(name = "cityAndCountryType", columnDefinition="nvarchar(3) defalut ''", nullable = true)
     private String cityAndCountryType; 
       
     public String getCityAndCountryType() {
@@ -288,7 +271,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "所在地经济属性码")
-    @Column(name = "economicCode", length = 2, nullable = true)
+    @Column(name = "economicCode", columnDefinition="nvarchar(2) defalut ''", nullable = true)
     private String economicCode;
     public void setEconomicCode(String economicCode) {
         this.economicCode = economicCode;
@@ -298,7 +281,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "所在地民族属性")
-    @Column(name = "raceProperty", length = 2, nullable = true)
+    @Column(name = "raceProperty", columnDefinition="nvarchar(2) defalut ''", nullable = true)
     private String raceProperty;
 
         
@@ -310,7 +293,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "学制")
-    @Column(name = "eductionalSystme", length = 32, nullable = true)
+    @Column(name = "eductionalSystme",columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String eductionalSystme;
     public void setEductionalSystme(String eductionalSystme) {
         this.eductionalSystme = eductionalSystme;
@@ -320,7 +303,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "入学年龄")
-    @Column(name = "admissionAge", length = 32, nullable = true)
+    @Column(name = "admissionAge", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String admissionAge;
     public String getAdmissionAge() {
 		return admissionAge;
@@ -330,7 +313,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "主教学语言码")
-    @Column(name = "mainLangueCode", length = 2, nullable = true)
+    @Column(name = "mainLangueCode", columnDefinition="nvarchar(2) defalut ''", nullable = true)
     private String mainLangueCode;
     public String getMainLangueCode() {
 		return mainLangueCode;
@@ -340,7 +323,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
 	}
 
 	@FieldInfo(name = "辅教学语言码")
-    @Column(name = "assistedLangueCode", length = 2, nullable = true)
+    @Column(name = "assistedLangueCode", columnDefinition="nvarchar(2) defalut ''", nullable = true)
     private String assistedLangueCode;
     public void setAssistedLangueCode(String assistedLangueCode) {
         this.assistedLangueCode = assistedLangueCode;
@@ -350,7 +333,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "招生半径")
-    @Column(name = "recruitScope", length = 32, nullable = true)
+    @Column(name = "recruitScope", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String recruitScope;
     public void setRecruitScope(String recruitScope) {
         this.recruitScope = recruitScope;
@@ -360,7 +343,7 @@ public class BaseSchool extends BaseEntity implements Serializable{
     }
         
     @FieldInfo(name = "remark")
-    @Column(name = "remark", length = 1024, nullable = true)
+    @Column(name = "remark", columnDefinition="nvarchar(1024) defalut ''", nullable = true)
     private String remark;
     public void setRemark(String remark) {
         this.remark = remark;

@@ -5,13 +5,7 @@ import java.io.Serializable;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
 
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
@@ -29,12 +23,12 @@ import com.zd.core.model.BaseEntity;
 @Entity
 @Table(name = "T_PT_AttachmentInfo")
 //@Cache(region = "all", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@AttributeOverride(name = "attachmentInfoId", column = @Column(name = "attachmentInfoId", length = 36, nullable = false))
+@AttributeOverride(name = "attachmentInfoId", column = @Column(name = "attachmentInfoId", length = 20, nullable = false))
 public class BaseAttachment extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "实体名称")
-    @Column(name = "entityName", length = 36, nullable = false)
+    @Column(name = "entityName", columnDefinition="nvarchar(36)", nullable = false)
     private String entityName;
 
     public void setEntityName(String entityName) {
@@ -46,7 +40,7 @@ public class BaseAttachment extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "记录ID")
-    @Column(name = "recordId", length = 36, nullable = false)
+    @Column(name = "recordId", length = 20, nullable = false)
     private String recordId;
 
     public void setRecordId(String recordId) {
@@ -70,7 +64,7 @@ public class BaseAttachment extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "文件名称")
-    @Column(name = "fileName", length = 64, nullable = false)
+    @Column(name = "fileName", columnDefinition="nvarchar(64)", nullable = false)
     private String fileName;
 
     public void setFileName(String fileName) {
@@ -91,7 +85,7 @@ public class BaseAttachment extends BaseEntity implements Serializable {
     }
     
     @FieldInfo(name = "文件类型")
-    @Column(name = "fileType", length = 20, nullable = false)
+    @Column(name = "fileType", columnDefinition="nvarchar(20)", nullable = false)
     private String fileType;
     public void setFileType(String fileType) {
         this.fileType = fileType;

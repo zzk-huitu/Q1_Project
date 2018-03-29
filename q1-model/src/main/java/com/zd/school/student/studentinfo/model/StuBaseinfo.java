@@ -45,7 +45,7 @@ public class StuBaseinfo extends SysUser implements Serializable {
 	 * public String getXm() { return xm; }
 	 */
 	@FieldInfo(name = "英文姓名")
-	@Column(name = "englishName", length = 60, nullable = true)
+	@Column(name = "englishName", columnDefinition="varchar(60) defalut ''", nullable = true)
 	private String englishName;
 
 	public String getEnglishName() {
@@ -57,107 +57,107 @@ public class StuBaseinfo extends SysUser implements Serializable {
 	}
 
 	@FieldInfo(name = "姓名拼音")
-	@Column(name = "spellName", length = 60, nullable = true)
+	@Column(name = "spellName", columnDefinition="varchar(60) defalut ''", nullable = true)
 	private String spellName;
 
 	@FieldInfo(name = "曾用名")
-	@Column(name = "userdName", length = 36, nullable = true)
+	@Column(name = "userdName", columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String userdName;
 
 	@FieldInfo(name = "出生地码")
-	@Column(name = "bornplace", length = 10, nullable = true)
+	@Column(name = "bornplace", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String bornplace;
 
 	@FieldInfo(name = "籍贯")
-	@Column(name = "nativePlace", length = 20, nullable = true)
+	@Column(name = "nativePlace", columnDefinition="nvarchar(20) defalut ''", nullable = true)
 	private String nativePlace;
 
 	@FieldInfo(name = "民族码")
-	@Column(name = "folkCode", length = 10, nullable = true)
+	@Column(name = "folkCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String folkCode;
 
 	@FieldInfo(name = "国籍/地区码")
-	@Column(name = "nationality", length = 10, nullable = true)
+	@Column(name = "nationality", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String nationality;
 
 	@FieldInfo(name = "身份证件类型码")
-	@Column(name = "identityTypeCode", length = 10, nullable = true)
+	@Column(name = "identityTypeCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String identityTypeCode;
 
 	@FieldInfo(name = "身份证件号")
-	@Column(name = "personalIdentityDocument", length = 20, nullable = true)
+	@Column(name = "personalIdentityDocument", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String personalIdentityDocument;
 
 	@FieldInfo(name = "婚姻状况码")
-	@Column(name = "marriageCode", length = 10, nullable = true)
+	@Column(name = "marriageCode",columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String marriageCode;
 
 	@FieldInfo(name = "港澳台侨外码")
-	@Column(name = "foreignCode", length = 10, nullable = true)
+	@Column(name = "foreignCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String foreignCode;
 
 	@FieldInfo(name = "政治面貌码")
-	@Column(name = "politicsCode", length = 10, nullable = true)
+	@Column(name = "politicsCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String politicsCode;
 
 	@FieldInfo(name = "健康状况码")
-	@Column(name = "healthCode", length = 10, nullable = true)
+	@Column(name = "healthCode",columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String healthCode;
 
 	@FieldInfo(name = "信仰宗教码")
-	@Column(name = "religiousCode", length = 10, nullable = true)
+	@Column(name = "religiousCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String religiousCode;
 
 	@FieldInfo(name = "血型码")
-	@Column(name = "bloodType", length = 10, nullable = true)
+	@Column(name = "bloodType",columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String bloodType;
 
 	@FieldInfo(name = "照片")
-	@Column(name = "photo", length = 200, nullable = true)
+	@Column(name = "photo", columnDefinition="nvarchar(200) defalut ''", nullable = true)
 	private String photo;
 
 	@FieldInfo(name = "身份证件有效期")
-	@Column(name = "identityTimeLimit", length = 17, nullable = true)
+	@Column(name = "identityTimeLimit", columnDefinition="nvarchar(17) defalut ''", nullable = true)
 	private String identityTimeLimit;
 
 	@FieldInfo(name = "是否独生子女")
-	@Column(name = "onlyChild", length = 10, nullable = true)
-	private String onlyChild;
+	@Column(name = "onlyChild", nullable = true)
+	private boolean onlyChild;
 
 	@FieldInfo(name = "户口所在地行政区划码")
-	@Column(name = "administrativeAreaCode", length = 10, nullable = true)
+	@Column(name = "administrativeAreaCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String administrativeAreaCode;
 
 	@FieldInfo(name = "户口类别码")
-	@Column(name = "accountTypeCode", length = 10, nullable = true)
+	@Column(name = "accountTypeCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String accountTypeCode;
 
 	@FieldInfo(name = "是否流动人口")
-	@Column(name = "floatpopulation", length = 10, nullable = true)
-	private String floatpopulation;
+	@Column(name = "floatpopulation", columnDefinition="nvarchar(10) defalut ''", nullable = true)
+	private boolean floatpopulation;
 
 	@FieldInfo(name = "特长")
-	@Column(name = "speciality ", length = 128, nullable = true)
+	@Column(name = "speciality ", columnDefinition="nvarchar(128) defalut ''", nullable = true)
 	private String speciality;
 
 	@FieldInfo(name = "学籍号")
-	@Column(name = "studentCode", length = 30, nullable = true)
+	@Column(name = "studentCode", columnDefinition="nvarchar(30) defalut ''", nullable = true)
 	private String studentCode;
 
 	@FieldInfo(name = "目前居住地")
-	@Column(name = "liveLocation", length = 120, nullable = true)
+	@Column(name = "liveLocation", columnDefinition="nvarchar(120) defalut ''", nullable = true)
 	public String liveLocation;
 
 	@FieldInfo(name = "开户银行")
-	@Column(name = "depositBank", length = 128, nullable = true)
+	@Column(name = "depositBank", columnDefinition="nvarchar(128) defalut ''", nullable = true)
 	private String depositBank;
 
 	@FieldInfo(name = "银行账号")
-	@Column(name = "bankAccount", length = 32, nullable = true)
+	@Column(name = "bankAccount", columnDefinition="nvarchar(32) defalut ''", nullable = true)
 	private String bankAccount;
 
 	@FieldInfo(name = "学生状态")
-	@Column(name = "studentState", length = 4, nullable = true)
+	@Column(name = "studentState", columnDefinition="nvarchar(4) defalut ''", nullable = true)
 	private String studentState;
 
 	public void setStudentState(String studentState) {
@@ -172,7 +172,7 @@ public class StuBaseinfo extends SysUser implements Serializable {
 	 * 广州城建导入数据需要，增加如下字段 luoyibo 2016-07-19
 	 */
 	@FieldInfo(name = "年级ID")
-	@Column(name = "gradeId", length = 36, nullable = true)
+	@Column(name = "gradeId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String gradeId;
 
 	public String getGradeId() {
@@ -184,7 +184,7 @@ public class StuBaseinfo extends SysUser implements Serializable {
 	}
 
 	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = true)
+	@Column(name = "classId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String classId;
 
 	public String getClassId() {
@@ -199,11 +199,11 @@ public class StuBaseinfo extends SysUser implements Serializable {
 	 * 00-收费 10-免费 11-全免
 	 */
 	@FieldInfo(name = "学生的缴费类型")
-	@Column(name = "stuPayType", length = 16, nullable = true)
+	@Column(name = "stuPayType", columnDefinition="varchar(2) defalut ''", nullable = true)
 	private String stuPayType;
 
 	@FieldInfo(name = "专业ID")
-	@Column(name = "majorId", length = 36, nullable = true)
+	@Column(name = "majorId", columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String majorId;
 
 	public String getMajorId() {
@@ -215,22 +215,22 @@ public class StuBaseinfo extends SysUser implements Serializable {
 	}
 
 	@FieldInfo(name = "借读方式ID")
-	@Column(name = "transferWayId", length = 36, nullable = true)
+	@Column(name = "transferWayId", columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String transferWayId;
 
 
 	@FieldInfo(name = "是否住校")
-	@Column(name = "onCampus", length = 36, nullable = true)
-	public String onCampus;
+	@Column(name = "onCampus", nullable = true)
+	public boolean onCampus;
 
 	@FieldInfo(name = "毕业学校")
-	@Column(name = "schoolTag", length = 120, nullable = true)
+	@Column(name = "schoolTag", columnDefinition="nvarchar(120) defalut ''", nullable = true)
 	public String schoolTag;
 
 	
 
 	@FieldInfo(name = "片区生")
-	@Column(name = "areaStudent", length = 36, nullable = true)
+	@Column(name = "areaStudent", columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String areaStudent;
 
 
@@ -362,11 +362,11 @@ public class StuBaseinfo extends SysUser implements Serializable {
 		this.identityTimeLimit = identityTimeLimit;
 	}
 
-	public String getOnlyChild() {
+	public boolean getOnlyChild() {
 		return onlyChild;
 	}
 
-	public void setOnlyChild(String onlyChild) {
+	public void setOnlyChild(boolean onlyChild) {
 		this.onlyChild = onlyChild;
 	}
 
@@ -386,11 +386,11 @@ public class StuBaseinfo extends SysUser implements Serializable {
 		this.accountTypeCode = accountTypeCode;
 	}
 
-	public String getFloatpopulation() {
+	public boolean getFloatpopulation() {
 		return floatpopulation;
 	}
 
-	public void setFloatpopulation(String floatpopulation) {
+	public void setFloatpopulation(boolean floatpopulation) {
 		this.floatpopulation = floatpopulation;
 	}
 
@@ -450,11 +450,11 @@ public class StuBaseinfo extends SysUser implements Serializable {
 		this.transferWayId = transferWayId;
 	}
 
-	public String getOnCampus() {
+	public boolean getOnCampus() {
 		return onCampus;
 	}
 
-	public void setOnCampus(String onCampus) {
+	public void setOnCampus(boolean onCampus) {
 		this.onCampus = onCampus;
 	}
 

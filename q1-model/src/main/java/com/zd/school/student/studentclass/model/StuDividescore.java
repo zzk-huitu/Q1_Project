@@ -26,12 +26,12 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_DivideScore")
-@AttributeOverride(name = "divideScoreId", column = @Column(name = "divideScoreId", length = 36, nullable = false))
+@AttributeOverride(name = "divideScoreId", column = @Column(name = "divideScoreId", length = 20, nullable = false))
 public class StuDividescore extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
     @FieldInfo(name = "记录ID")
-    @Column(name = "divideRecodeId", length = 36, nullable = true)
+    @Column(name = "divideRecodeId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String divideRecodeId;
 
     @FieldInfo(name = "学号")
@@ -39,11 +39,11 @@ public class StuDividescore extends BaseEntity implements Serializable{
     private String studentNo;
         
     @FieldInfo(name = "姓名")
-    @Column(name = "name", length = 36, nullable = false)
+    @Column(name = "name", columnDefinition="nvarchar(36)", nullable = false)
     private String name;
         
     @FieldInfo(name = "性别码")
-    @Column(name = "genderCode", length = 10, nullable = true)
+    @Column(name = "genderCode", columnDefinition="nvarchar(10)", nullable = true)
     private String genderCode;
         
     @FieldInfo(name = "成绩")
@@ -55,7 +55,7 @@ public class StuDividescore extends BaseEntity implements Serializable{
     private String  examNo;
     
     @FieldInfo(name = "文理类型")
-    @Column(name = "artsSciencesType", length = 16, nullable = true)
+    @Column(name = "artsSciencesType", columnDefinition="nvarchar(16) defalut ''", nullable = true)
     private String artsSciencesType;
 
 

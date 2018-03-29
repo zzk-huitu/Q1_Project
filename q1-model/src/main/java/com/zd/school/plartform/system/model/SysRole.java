@@ -30,12 +30,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Role")
-@AttributeOverride(name = "roleId", column = @Column(name = "roleId", length = 36, nullable = false))
+@AttributeOverride(name = "roleId", column = @Column(name = "roleId", length = 20, nullable = false))
 public class SysRole extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @FieldInfo(name = "角色编码")
-    @Column(name = "roleCode", length = 12, nullable = false)
+    @Column(name = "roleCode", columnDefinition = "nvarchar(12)", nullable = false)
     private String roleCode;
 
     public void setRoleCode(String roleCode) {
@@ -47,7 +47,7 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "角色名称")
-    @Column(name = "roleName", length = 32, nullable = false)
+    @Column(name = "roleName", columnDefinition = "nvarchar(32)", nullable = false)
     private String roleName;
 
     public void setRoleName(String roleName) {
@@ -59,19 +59,19 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否系统角色  1-系统内置 0-非系统内置")
-    @Column(name = "issystem", length = 10, nullable = false)
-    private Integer issystem;
+    @Column(name = "issystem",nullable = false)
+    private boolean issystem;
 
-    public void setIssystem(Integer issystem) {
+    public void setIssystem(boolean issystem) {
         this.issystem = issystem;
     }
 
-    public Integer getIssystem() {
+    public boolean getIssystem() {
         return issystem;
     }
 
     @FieldInfo(name = "备注")
-    @Column(name = "remark", length = 128, nullable = true)
+    @Column(name = "remark",columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String remark;
 
     public void setRemark(String remark) {
@@ -98,19 +98,19 @@ public class SysRole extends BaseEntity implements Serializable {
     }
 
     @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
-    @Column(name = "isHidden", length = 10, nullable = true)
-    private String isHidden;
+    @Column(name = "isHidden",columnDefinition="defalut 0", nullable = true)
+    private boolean isHidden;
 
-    public String getIsHidden() {
+    public boolean getIsHidden() {
         return isHidden;
     }
 
-    public void setIsHidden(String isHidden) {
+    public void setIsHidden(boolean isHidden) {
         this.isHidden = isHidden;
     }
     
     @FieldInfo(name = "备注")
-    @Column(name = "schoolId", length = 128, nullable = true)
+    @Column(name = "schoolId", columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String schoolId;
     
 	public String getSchoolId() {

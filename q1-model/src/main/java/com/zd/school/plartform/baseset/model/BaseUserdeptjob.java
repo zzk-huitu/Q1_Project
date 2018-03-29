@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_UseDeptJob")
-@AttributeOverride(name = "useDeptJobId", column = @Column(name = "useDeptJobId", length = 36, nullable = false))
+@AttributeOverride(name = "useDeptJobId", column = @Column(name = "useDeptJobId", length = 20, nullable = false))
 public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "用户ID")
-	@Column(name = "userId", length = 36, nullable = false)
+	@Column(name = "userId", length = 20, nullable = false)
 	private String userId;
 
 	public void setUserId(String userId) {
@@ -41,7 +41,7 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "部门岗位ID")
-	@Column(name = "deptjobId", length = 36, nullable = false)
+	@Column(name = "deptjobId", length = 20, nullable = false)
 	private String deptjobId;
 
 	public void setDeptjobId(String deptjobId) {
@@ -53,7 +53,7 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "部门ID")
-	@Column(name = "deptId", length = 36, nullable = false)
+	@Column(name = "deptId", length = 20, nullable = false)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -65,7 +65,7 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "岗位ID")
-	@Column(name = "jobId", length = 36, nullable = false)
+	@Column(name = "jobId", length = 20, nullable = false)
 	private String jobId;
 
 	public void setJobId(String jobId) {
@@ -77,14 +77,14 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否主部门 0-不是 1-是")
-	@Column(name = "mainDept", length = 5, nullable = false)
-	private Integer mainDept;
+	@Column(name = "mainDept",  nullable = false)
+	private boolean mainDept;
 
-	public void setMainDept(Integer mainDept) {
+	public void setMainDept(boolean mainDept) {
 		this.mainDept = mainDept;
 	}
 
-	public Integer getMainDept() {
+	public boolean getMainDept() {
 		return mainDept;
 	}
 

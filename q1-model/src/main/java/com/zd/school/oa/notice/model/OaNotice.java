@@ -18,10 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
@@ -44,12 +40,12 @@ import com.zd.school.plartform.system.model.SysUser;
 
 @Entity
 @Table(name = "T_PT_Notice")
-@AttributeOverride(name = "noticeId", column = @Column(name = "noticeId", length = 36, nullable = false))
+@AttributeOverride(name = "noticeId", column = @Column(name = "noticeId", length = 20, nullable = false))
 public class OaNotice extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "公告标题")
-	@Column(name = "noticeTitle", length = 128, nullable = false)
+	@Column(name = "noticeTitle", columnDefinition = "nvarchar(128)", nullable = false)
 	private String noticeTitle;
 
 	public void setNoticeTitle(String noticeTitle) {
@@ -85,7 +81,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "公告正文")
-	@Column(name = "noticeContent", /* length = 2048, */ nullable = false, columnDefinition = "varchar(MAX)")
+	@Column(name = "noticeContent", nullable = false, columnDefinition = "varchar(MAX)")
 	private String noticeContent;
 
 	public void setNoticeContent(String noticeContent) {
@@ -97,14 +93,13 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "是否微信通知(0-不通知，1-通知)")
-	@Column(name = "sendWx", length = 1, nullable = false)
-	private String sendWx;
+	@Column(name = "sendWx", nullable = false)
+	private Boolean sendWx;
 
-	public void setSendWx(String sendWx) {
+	public void setSendWx(Boolean sendWx) {
 		this.sendWx = sendWx;
 	}
-
-	public String getSendWx() {
+    public Boolean getSendWx() {
 		return sendWx;
 	}
 
@@ -121,7 +116,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "生效日期")
-	@Column(name = "beginDate", length = 23, nullable = false)
+	@Column(name = "beginDate", nullable = false,columnDefinition="datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginDate;
@@ -135,7 +130,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "中止日期")
-	@Column(name = "endDate", length = 23, nullable = true)
+	@Column(name = "endDate", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endDate;
@@ -210,7 +205,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "发布部门id")
-	@Column(name = "publishDeptId", length = 36, nullable = true)
+	@Column(name = "publishDeptId", columnDefinition = "varchar(MAX) defalut ''", nullable = true)
 	private String publishDeptId;
 
 	public String getPublishDeptId() {
@@ -222,7 +217,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "发布部门名称")
-	@Column(name = "publishDeptName", length = 128, nullable = true)
+	@Column(name = "publishDeptName", columnDefinition = "varchar(MAX) defalut ''", nullable = true)
 	private String publishDeptName;
 
 	public String getPublishDeptName() {
@@ -253,8 +248,8 @@ public class OaNotice extends BaseEntity implements Serializable {
 	@JsonIgnore
 	@FieldInfo(name = "公告通知学生")
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(name = "OA_T_NOTICESTUDENT", joinColumns = { @JoinColumn(name = "NOTICE_ID") }, inverseJoinColumns = {
-			@JoinColumn(name = "USER_ID") })
+	@JoinTable(name = "T_PT_NoticeStudent", joinColumns = { @JoinColumn(name = "noticeId") }, inverseJoinColumns = {
+			@JoinColumn(name = "userId") })
 	//@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<SysUser> noticeStus = new HashSet<SysUser>();
 
@@ -268,7 +263,7 @@ public class OaNotice extends BaseEntity implements Serializable {
 	
 	/*特意冗余字段*/
 	@FieldInfo(name = "通知部门方式（1-所有部门、2-指定部门、3-不通知）")
-	@Column(name = "DEPT_RADIO", length = 1, nullable = true)
+	@Column(name = "deptRadio", length = 1, nullable = true)
 	private String deptRadio;
 	public void setDeptRadio(String deptRadio) {
 		this.deptRadio = deptRadio;
@@ -278,17 +273,17 @@ public class OaNotice extends BaseEntity implements Serializable {
 	}
 	
 	@FieldInfo(name = "通知学生方式（1-所有学生、2-指定学生、3-不通知）")
-	@Column(name = "STU_RADIO", length = 1, nullable = true)
-	private String stuRadio;
-	public void setStuRadio(String stuRadio) {
-		this.stuRadio = stuRadio;
+	@Column(name = "studentRadio", length = 1, nullable = true)
+	private String studentRadio;
+	public void setStudentRadio(String studentRadio) {
+		this.studentRadio = studentRadio;
 	}
-	public String getStuRadio() {
-		return stuRadio;
+	public String getStudentRadio() {
+		return studentRadio;
 	}
 	
 	@FieldInfo(name = "通知终端方式（1-所有终端、2-指定终端、3-不通知）")
-	@Column(name = "TERMINAL_RADIO", length = 1, nullable = true)
+	@Column(name = "terminalRadio", length = 1, nullable = true)
 	private String terminalRadio;
 	public void setTerminalRadio(String terminalRadio) {
 		this.terminalRadio = terminalRadio;
@@ -300,23 +295,29 @@ public class OaNotice extends BaseEntity implements Serializable {
 	
 	/*由于界面上显示的终端数据，实际上是房间信息，所以这里特殊的存入*/
 	@FieldInfo(name = "终端的房间名称")
-	@Column(name = "TERM_NAMES", /* length = 2048, */ nullable = true, columnDefinition = "varchar(MAX)")
-	private String termNames;
-	public void setTermNames(String termNames) {
-		this.termNames = termNames;
+	@Column(name = "terminalRoomName",  nullable = true, columnDefinition = "varchar(MAX) defalut ''")
+	private String terminalRoomName;
+
+	public String getTerminalRoomName() {
+		return terminalRoomName;
 	}
-	public String getTermNames() {
-		return termNames;
+
+	public void setTerminalRoomName(String terminalRoomName) {
+		this.terminalRoomName = terminalRoomName;
 	}
+
 	@FieldInfo(name = "终端的房间ID")
-	@Column(name = "TERM_IDS", /* length = 2048, */ nullable = true, columnDefinition = "varchar(MAX)")
-	private String termIds;
-	public void setTermIds(String termIds) {
-		this.termIds = termIds;
+	@Column(name = "terminalRoomId",  nullable = true, columnDefinition = "varchar(MAX) defalut ''")
+	private String terminalRoomId;
+
+	public String getTerminalRoomId() {
+		return terminalRoomId;
 	}
-	public String getTermIds() {
-		return termIds;
+
+	public void setTerminalRoomId(String terminalRoomId) {
+		this.terminalRoomId = terminalRoomId;
 	}
+	
 	
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
