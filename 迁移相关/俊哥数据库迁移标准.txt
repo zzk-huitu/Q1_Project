@@ -77,5 +77,8 @@ UP+Q1数据库结构调整
   com.yc.q1.storage.xf.model	（storage代表数据存储库，xf代表消费子模块）
   com.yc.q1.storage.dk.model
 
-	
-
+主键长度：12位年月日时分秒+2位编码+6位流水号（20位字符串）
+nullable  根据字段的重要性来设定 true或false
+柜子号等数值较小的内容，使用byte类型，其他的使用 short 或 int
+日期类型：@Column(name = "CREATE_TIME", nullable = true, columnDefinition = "datetime")
+可为空是数据，才需要加入默认值； 不可为空的数据，不用加默认值
