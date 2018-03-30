@@ -29,22 +29,22 @@ import com.zd.core.model.BaseEntity;
 public class StuDivideparam extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "班级ID")
-    @Column(name = "classId", columnDefinition="varchar(20) defalut ''", nullable = true)
-    private String classId;
+    @FieldInfo(name = "班级ID",type="varchar(20)",explain="学生分班后的年级班级Id")
+    @Column(name = "gradeClassId", columnDefinition="varchar(20) defalut ''", nullable = true)
+    private String gradeClassId;
   
-        
-    @FieldInfo(name = "记录ID")
+    public String getGradeClassId() {
+		return gradeClassId;
+	}
+	public void setGradeClassId(String gradeClassId) {
+		this.gradeClassId = gradeClassId;
+	}
+
+	@FieldInfo(name = "记录ID",type="varchar(20)",explain="学生分班后的年级班级记录Id")
     @Column(name = "divideRecodeId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String divideRecodeId;
   
-        
-    public String getClassId() {
-		return classId;
-	}
-	public void setClassId(String classId) {
-		this.classId = classId;
-	}
+  
 	public String getDivideRecodeId() {
 		return divideRecodeId;
 	}
@@ -52,7 +52,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
 		this.divideRecodeId = divideRecodeId;
 	}
 
-	@FieldInfo(name = "分班类型")
+	@FieldInfo(name = "分班类型",type="nvarchar(4)",explain="学生的分班类型")
     @Column(name = "divideType", columnDefinition="nvarchar(4) defalut ''", nullable = false)
     private String divideType;
     public void setDivideType(String divideType) {
@@ -62,7 +62,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
         return divideType;
     }
         
-    @FieldInfo(name = "优先级别，1-重点班-2特长班3-普通班")
+    @FieldInfo(name = "优先级别，1-重点班-2特长班3-普通班",type="Integer",explain="学生分班的优先级别")
     @Column(name = "divideLevel", nullable = false)
     private Integer divideLevel;
     public void setDivideLevel(Integer divideLevel) {
@@ -72,7 +72,7 @@ public class StuDivideparam extends BaseEntity implements Serializable{
         return divideLevel;
     }
         
-    @FieldInfo(name = "分班人数")
+    @FieldInfo(name = "分班人数",type="Integer",explain="学生分班的分班人数")
     @Column(name = "divideCount", nullable = false)
     private Integer divideCount;
     public void setDivideCount(Integer divideCount) {

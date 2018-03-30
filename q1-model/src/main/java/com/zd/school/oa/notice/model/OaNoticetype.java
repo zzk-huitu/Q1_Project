@@ -27,7 +27,7 @@ import com.zd.core.model.BaseEntity;
 public class OaNoticetype extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "类型名称")
+    @FieldInfo(name = "类型名称",type="nvarchar(64)",explain="公告类型名称")
     @Column(name = "typeName", columnDefinition="nvarchar(64)", nullable = false)
     private String typeName;
 

@@ -17,7 +17,7 @@ import com.zd.core.model.BaseEntity;
  * ClassName: AttTerm 
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 考勤设备(T_PT_AttendanceTerm)实体类.
+ * Description: 考勤设备(T_PT_AttendanceDevice)实体类.
  * date: 2017-05-15
  *
  * @author  luoyibo 创建文件
@@ -26,33 +26,33 @@ import com.zd.core.model.BaseEntity;
  */
  
 @Entity
-@Table(name = "T_PT_AttendanceTerm")
-@AttributeOverride(name = "attendanceTermId", column = @Column(name = "attendanceTermId", length = 20, nullable = false))
+@Table(name = "T_PT_AttendanceDevice")
+@AttributeOverride(name = "attendanceDeviceId", column = @Column(name = "attendanceDeviceId", length = 20, nullable = false))
 public class AttTerm extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "主题ID")
-    @Column(name = "themeId", length = 20, nullable = false)
-    private String themeId;
-    public String getThemeId() {
-		return themeId;
+    @FieldInfo(name = "考勤主题ID",type="varchar(20)",explain="考勤主题Id")
+    @Column(name = "attendanceThemeId", length = 20, nullable = false)
+    private String attendanceThemeId;
+    public String getAttendanceThemeId() {
+		return attendanceThemeId;
 	}
-	public void setThemeId(String themeId) {
-		this.themeId = themeId;
+	public void setAttendanceThemeId(String attendanceThemeId) {
+		this.attendanceThemeId = attendanceThemeId;
 	}
 
-	@FieldInfo(name = "终端号")
-    @Formula("(SELECT ISNULL(a.TERM_CODE,'') FROM OA_T_INFOTERM a WHERE a.TERM_ID=TERM_ID)")
-    private String termNo;
-    public void setTermNo(String termNo) {
-        this.termNo = termNo;
+	@FieldInfo(name = "终端号",type="varchar(6)",explain="信息终端的终端号")
+    @Formula("(SELECT ISNULL(a.terminalNO,'') FROM T_PT_InfoTerminal a WHERE a.infoTerminalId=attendanceDeviceId)")
+    private String terminalNo;
+    public void setTerminalNo(String terminalNo) {
+        this.terminalNo = terminalNo;
     }
-    public String getTermNo() {
-        return termNo;
+    public String getTerminalNoo() {
+        return terminalNo;
     }
         
-    @FieldInfo(name = "房间ID")
-    @Formula("(SELECT ISNULL(a.ROOM_ID,'') FROM OA_T_INFOTERM a WHERE a.TERM_ID=TERM_ID)")
+    @FieldInfo(name = "房间ID",type="varchar(20)",explain="信息终端的使用房间Id")
+    @Formula("(SELECT ISNULL(a.roomId,'') FROM T_PT_InfoTerminal a WHERE a.infoTerminalId=attendanceDeviceId)")
     private String roomId;
     public void setRoomId(String roomId) {
         this.roomId = roomId;
@@ -61,8 +61,8 @@ public class AttTerm extends BaseEntity implements Serializable{
         return roomId;
     }
         
-    @FieldInfo(name = "房间名称")
-    @Formula("(SELECT ISNULL(a.ROOM_NAME,'') FROM OA_T_INFOTERM a WHERE a.TERM_ID=TERM_ID)")
+    @FieldInfo(name = "房间名称",type="nvarchar(64)",explain="信息终端的使用房间名称")
+    @Formula("(SELECT ISNULL(a.roomName,'') FROM T_PT_InfoTerminal a WHERE a.infoTerminalId=attendanceDeviceId)")
     private String roomName;
     public void setRoomName(String roomName) {
         this.roomName = roomName;

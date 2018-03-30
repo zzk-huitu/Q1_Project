@@ -28,19 +28,20 @@ import com.zd.core.model.BaseEntity;
 public class BaseDicitem extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "字典ID")
-    @Column(name = "dicId",columnDefinition="nvarchar(20) defalut ''", nullable = true)
-    private String dicId;
+    @FieldInfo(name = "字典ID",type="nvarchar(20)",explain="字典编码")
+    @Column(name = "ddicId",columnDefinition="nvarchar(20) defalut ''", nullable = true)
+    private String ddicId;
 
-    public void setDicId(String dicId) {
-        this.dicId = dicId;
-    }
 
-    public String getDicId() {
-        return dicId;
-    }
+    public String getDdicId() {
+		return ddicId;
+	}
 
-    @FieldInfo(name = "字典项编码")
+	public void setDdicId(String ddicId) {
+		this.ddicId = ddicId;
+	}
+
+	@FieldInfo(name = "字典项编码",type="nvarchar(16)",explain="字典项编码")
     @Column(name = "itemCode", columnDefinition="nvarchar(16)", nullable = false)
     private String itemCode;
 
@@ -52,7 +53,7 @@ public class BaseDicitem extends BaseEntity implements Serializable {
         return itemCode;
     }
 
-    @FieldInfo(name = "字典项名称")
+    @FieldInfo(name = "字典项名称",type="nvarchar(128)",explain="字典项名称")
     @Column(name = "itemName", columnDefinition="nvarchar(128)", nullable = false)
     private String itemName;
 
@@ -64,7 +65,7 @@ public class BaseDicitem extends BaseEntity implements Serializable {
         return itemName;
     }
 
-    @FieldInfo(name = "字典项说明")
+    @FieldInfo(name = "字典项说明",type="nvarchar(128)",explain="字典项说明")
     @Column(name = "itemDesc",columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String itemDesc;
 
@@ -82,8 +83,8 @@ public class BaseDicitem extends BaseEntity implements Serializable {
      * @Transient
      * @FieldInfo(name = "") private String field1;
      */
-    @FieldInfo(name = "字典代码")
-    @Formula("(SELECT a.DIC_CODE FROM BASE_T_DIC a WHERE a.DIC_ID=DIC_ID)")
+    @FieldInfo(name = "字典代码",type="nvarchar(128)",explain="字典项说明")
+    @Formula("(SELECT a.dicCode FROM T_PT_Ddic a WHERE a.ddicId=ddicId)")
     private String dicCode;
 
     public String getDicCode() {
@@ -94,8 +95,8 @@ public class BaseDicitem extends BaseEntity implements Serializable {
         this.dicCode = dicCode;
     }
 
-    @FieldInfo(name = "字典名称")
-    @Formula("(SELECT a.NODE_TEXT FROM BASE_T_DIC a WHERE a.DIC_ID=DIC_ID)")
+    @FieldInfo(name = "字典名称",type="nvarchar(128)",explain="字典名称")
+    @Formula("(SELECT a.nodeText FROM T_PT_Ddic a WHERE a.ddicId=ddicId)")
     private String dicName;
 
     public String getDicName() {

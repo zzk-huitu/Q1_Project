@@ -15,7 +15,7 @@ import com.zd.school.excel.annotation.MapperCell;
 /**
  * 
  * ClassName: OaInfoterm Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 信息发布终端(T_PT_InfoTerminal)实体类. date: 2017-01-14
+ * REASON(可选). Description: 信息终端(T_PT_InfoTerminal)实体类. date: 2017-01-14
  *
  * @author luoyibo 创建文件
  * @version 0.1
@@ -30,7 +30,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 
 	@ExportExcelAnnotation(columnName="终端号",columnWidth=15,order = 1)
 	@MapperCell(cellName = "终端号", order = 1)
-	@FieldInfo(name = "终端号")
+	@FieldInfo(name = "终端号",type="varchar(6)",explain="信息终端的终端号")
 	@Column(name = "terminalNO", length = 6, nullable = false)
 	private String terminalNO;
 
@@ -42,7 +42,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 		this.terminalNO = terminalNO;
 	}
 	
-	@FieldInfo(name = "终端类型，数据字典INFOTERTYPE")
+	@FieldInfo(name = "终端类型，数据字典INFOTERTYPE",type="varchar(16)",explain="信息终端的终端类型")
 	@Column(name = "terminalType", length = 16, nullable = false)
 	private String terminalType;
 	public String getTerminalType() {
@@ -54,7 +54,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	}
 
 
-	@FieldInfo(name = "规格")
+	@FieldInfo(name = "规格",type="nvarchar(32)",explain="信息终端的终端规格")
 	@Column(name = "terminalSpec", columnDefinition="nvarchar(32) defalut ''", nullable = true)
 	private String terminalSpec;
 
@@ -66,7 +66,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 		this.terminalSpec = terminalSpec;
 	}
 
-	@FieldInfo(name = "使用状态，0-未使用 1-已使用")
+	@FieldInfo(name = "使用状态，0-未使用 1-已使用",type="boolean",explain="终端的使用状态")
 	@Column(name = "isUse", nullable = false)
 	private boolean isUse;
 
@@ -78,7 +78,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 		return isUse;
 	}
 
-	@FieldInfo(name = "使用房间ID")
+	@FieldInfo(name = "使用房间ID",type="varchar(20)",explain="终端的使用房间ID")
 	@Column(name = "roomId",columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String roomId;
 
@@ -92,7 +92,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 
 	@ExportExcelAnnotation(columnName="使用房间名称",columnWidth=25,order =3)
 	@MapperCell(cellName = "使用房间名称", order = 2)
-	@FieldInfo(name = "使用房间名称")
+	@FieldInfo(name = "使用房间名称",type="nvarchar(64)",explain="终端的使用房间名称")
 	//@Formula("(SELECT a.ROOM_NAME FROM BuildRoominfo a WHERE a.ROOM_ID=ROOM_ID)")
 	@Column(name = "roomName", columnDefinition="nvarchar(64) defalut ''", nullable = true)
 	private String roomName;
@@ -107,7 +107,7 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 
 	@ExportExcelAnnotation(columnName="使用房间门牌号",columnWidth=20,order = 2)
 	@MapperCell(cellName = "使用房间门牌号", order = 3)
-	@FieldInfo(name = "使用房间名称门牌号")
+	@FieldInfo(name = "使用房间名称门牌号",type="nvarchar(64)",explain="终端的使用房间名称门牌号")
 	@Column(name = "houseNo", columnDefinition="nvarchar(64) defalut ''", nullable = true)
 	private String houseNo;
 

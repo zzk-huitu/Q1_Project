@@ -26,19 +26,19 @@ import com.zd.core.model.BaseEntity;
 public class TcCardtype extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "cardTypeNO")
+	@FieldInfo(name = "cardTypeNO",type="nvarchar(50)",explain="卡的类型编号")
 	@Column(name = "cardTypeNO",  updatable = false, insertable = false, columnDefinition = " smallint  IDENTITY(1,1) NOT NULL")
 	private Short cardTypeNO;
 
-	@FieldInfo(name = "cardType")
+	@FieldInfo(name = "卡的类型名称",type="nvarchar(50)",explain="卡的类型名称")
 	@Column(name = "cardType", columnDefinition="nvarchar(50) defalut ''", nullable = true)
 	private String cardType;
 
-	@FieldInfo(name = "commissionCharge")
+	@FieldInfo(name = "/*commissionCharge*/",type="BigDecimal",explain="")
 	@Column(name = "commissionCharge", columnDefinition="defalut 0", nullable = true)
 	private BigDecimal commissionCharge;
 
-	@FieldInfo(name = "deposit")
+	@FieldInfo(name = "卡押金",type="BigDecimal",explain="卡的押金")
 	@Column(name = "deposit", columnDefinition="defalut 0", nullable = true)
 	private BigDecimal deposit;
 
@@ -50,18 +50,19 @@ public class TcCardtype extends BaseEntity implements Serializable {
 		return deposit;
 	}
 
-	@FieldInfo(name = "useFlag")
+	@FieldInfo(name = "卡的使用状态",type="Boolean",explain="卡的使用状态")
 	@Column(name = "useFlag", columnDefinition="defalut 0", nullable = true)
 	private Boolean useFlag;
 
-	@FieldInfo(name = "cardNotes")
+	@FieldInfo(name = "卡说明",type="nvarchar(500) ",explain="卡的使用说明")
 	@Column(name = "cardNotes", columnDefinition="nvarchar(500) defalut ''", nullable = true)
 	private String cardNotes;
-	@FieldInfo(name = "issueFee")
+	
+	@FieldInfo(name = "支出费用",type="BigDecimal",explain="卡的支出费用")
 	@Column(name = "issueFee",columnDefinition="defalut 0", nullable = true)
 	private BigDecimal issueFee;
 
-	@FieldInfo(name = "zheJiuFee")
+	@FieldInfo(name = "/*zheJiuFee*/",type="BigDecimal",explain="")
 	@Column(name = "zheJiuFee", columnDefinition="defalut 0", nullable = true)
 	private BigDecimal zheJiuFee;
 

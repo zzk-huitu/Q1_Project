@@ -34,7 +34,7 @@ public class PtCard extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
 
-	@FieldInfo(name = "卡流水号")
+	@FieldInfo(name = "卡流水号",type="varchar(19)",explain="卡的流水号")
     @Column(name = "cardNo", columnDefinition="varchar(19) defalut ''", nullable = true)
     private Long cardNo;
     public void setCardNo(Long cardNo) {
@@ -44,27 +44,27 @@ public class PtCard extends BaseEntity implements Serializable{
         return cardNo;
     }
         
-	@FieldInfo(name = "卡状态 1正常 2挂失 3注销 4换卡 7冻结")
+	@FieldInfo(name = "卡状态 1正常 2挂失 3注销 4换卡 7冻结",type="byte",explain="卡的状态 ")
     @Column(name = "cardStatusId", columnDefinition="defalut 0", nullable = true)
     private byte cardStatusId;
    
         
 
-	@FieldInfo(name = "卡类型ID")
-    @Column(name = "cardTypeId", columnDefinition="defalut 0", nullable = true)
-    private Integer cardTypeId;
+	@FieldInfo(name = "卡的类型编号",type="Integer",explain="卡的类型编号")
+    @Column(name = "cardTypeNO", columnDefinition="defalut 0", nullable = true)
+    private Integer cardTypeNO;
    
-	@FieldInfo(name = "当日消费次数")
+	@FieldInfo(name = "当日消费次数",type="Integer",explain="卡的当日消费次数")
     @Column(name = "dayCount", columnDefinition="defalut 0", nullable = true)
     private Integer dayCount;
   
         
-	@FieldInfo(name = "当日交易金额")
+	@FieldInfo(name = "当日交易金额",type="Integer",explain="卡的当日交易金额")
     @Column(name = "dayValue", columnDefinition="defalut 0", nullable = true)
     private BigDecimal dayValue;
   
         
-    @FieldInfo(name = "卡押金")
+    @FieldInfo(name = "卡押金",type="BigDecimal",explain="卡的押金")
     @Column(name = "deposit", columnDefinition="defalut 0", nullable = true)
     private BigDecimal deposit;
     public void setDeposit(BigDecimal deposit) {
@@ -74,30 +74,30 @@ public class PtCard extends BaseEntity implements Serializable{
         return deposit;
     }
         
-	@FieldInfo(name = "有效期")
+	@FieldInfo(name = "有效期",type="datetime",explain="卡的有效期")
     @Column(name = "expiryDate", columnDefinition = "datetime", nullable = true)
     private Date expiryDate= new Date();;
  
-	@FieldInfo(name = "物理卡号")
+	@FieldInfo(name = "物理卡号",type="Long",explain="卡的物理卡号")
     @Column(name = "physicalNo", columnDefinition="defalut 0",nullable = true)
     private Long physicalNo;
      
-    @FieldInfo(name = "最后交易时间")
+    @FieldInfo(name = "最后交易时间",type="datetime",explain="卡的最后交易时间")
     @Column(name = "lastPayDate", columnDefinition = "datetime", nullable = true)
     private Date lastPayDate =new Date();
    
         
-	@FieldInfo(name = "最后交易餐类")
+	@FieldInfo(name = "最后交易餐类",type="Integer",explain="卡的最后交易餐类")
     @Column(name = "lastPayMealType", columnDefinition="defalut 0", nullable = true)
     private Integer lastPayMealType;
   
         
-    @FieldInfo(name = "当餐消费次数")
+    @FieldInfo(name = "当餐消费次数",type="Integer",explain="卡的当餐消费次数")
     @Column(name = "mealCount", columnDefinition="defalut 0", nullable = true)
     private Integer mealCount;
   
         
-	@FieldInfo(name = "当日交易金额")
+	@FieldInfo(name = "当餐交易金额",type="BigDecimal",explain="卡的当餐交易金额")
     @Column(name = "mealValue", columnDefinition="defalut 0", nullable = true)
     private BigDecimal mealValue;
   
@@ -108,11 +108,12 @@ public class PtCard extends BaseEntity implements Serializable{
 	public void setCardStatusId(byte cardStatusId) {
 		this.cardStatusId = cardStatusId;
 	}
-	public Integer getCardTypeId() {
-		return cardTypeId;
+
+	public Integer getCardTypeNO() {
+		return cardTypeNO;
 	}
-	public void setCardTypeId(Integer cardTypeId) {
-		this.cardTypeId = cardTypeId;
+	public void setCardTypeNO(Integer cardTypeNO) {
+		this.cardTypeNO = cardTypeNO;
 	}
 	public Integer getDayCount() {
 		return dayCount;
@@ -169,13 +170,13 @@ public class PtCard extends BaseEntity implements Serializable{
 		this.statusChangeTime = statusChangeTime;
 	}
 
-	@FieldInfo(name = "卡状态改变时间")
+	@FieldInfo(name = "卡状态改变时间",type="datetime",explain="卡的状态改变时间")
     @Column(name = "statusChangeTime", length = 27, columnDefinition = "datetime", nullable = true)
     private Date statusChangeTime=new Date();
   
         
-    @FieldInfo(name = "userId")
-    @Column(name = "userId", length = 36, nullable = true)
+    @FieldInfo(name = "用户id",type="varchar(20)",explain="所持卡的用户id")
+    @Column(name = "userId", length = 20, nullable = true)
     private String userId;
     public void setUserId(String userId) {
         this.userId = userId;
@@ -184,8 +185,8 @@ public class PtCard extends BaseEntity implements Serializable{
         return userId;
     }
 
-	@FieldInfo(name = "卡类")
-	@Formula("(select t.CardType from TC_CardType t where t.CardTypeNO= CARDTYPEID)")
+	@FieldInfo(name = "卡类型名称",type="BigDecimal",explain="卡的类型名称")
+	@Formula("(select t.cardType from T_PT_CardType t where t.cardTypeNO= cardTypeNO)")
     private String cardTypeName;
 	public String getCardTypeName() {
 		return cardTypeName;

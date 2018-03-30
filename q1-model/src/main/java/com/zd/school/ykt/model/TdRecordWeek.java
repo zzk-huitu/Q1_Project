@@ -17,7 +17,7 @@ public class TdRecordWeek extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@FieldInfo(name = "需要刷卡的周几")
+	@FieldInfo(name = "需要刷卡的周几",type="Integer",explain="需要刷卡的周几")
 	@Column(name = "brushWeek",columnDefinition="defalut 0",nullable = true)
 	private Integer brushWeek;
 

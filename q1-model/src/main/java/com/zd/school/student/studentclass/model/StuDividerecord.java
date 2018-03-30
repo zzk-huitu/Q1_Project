@@ -29,8 +29,8 @@ import com.zd.core.model.BaseEntity;
 public class StuDividerecord extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "学年")
-    @Column(name = "schoolYear", columnDefinition="nvarchar(36) defalut ''", nullable = true)
+    @FieldInfo(name = "学年",type="nvarchar(10)",explain="当前所属学年")
+    @Column(name = "schoolYear", columnDefinition="nvarchar(10) defalut ''", nullable = true)
     private String schoolYear;
     public void setSchoolYear(String schoolYear) {
         this.schoolYear = schoolYear;
@@ -39,7 +39,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
         return schoolYear;
     }
         
-    @FieldInfo(name = "学期")
+    @FieldInfo(name = "学期",type="nvarchar(8)",explain="当前所属学期")
     @Column(name = "semester", columnDefinition="nvarchar(8)", nullable = false)
     private String semester;
     public void setSemester(String semester) {
@@ -49,7 +49,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
         return semester;
     }
         
-    @FieldInfo(name = "标题")
+    @FieldInfo(name = "标题",type="nvarchar(8)",explain="学生分班的分班标题")
     @Column(name = "divideTitle", columnDefinition="nvarchar(255)", nullable = false)
     private String divideTitle;
     public void setDivideTitle(String divideTitle) {
@@ -59,7 +59,7 @@ public class StuDividerecord extends BaseEntity implements Serializable{
         return divideTitle;
     }
         
-    @FieldInfo(name = "状态")
+    @FieldInfo(name = "状态",type="boolean",explain="当前学生分班的状态")
     @Column(name = "state",nullable = true)
     private boolean state;
     public void setState(boolean state) {
@@ -69,8 +69,8 @@ public class StuDividerecord extends BaseEntity implements Serializable{
         return state;
     }
         
-    @FieldInfo(name = "当前步骤")
-    @Column(name = "justStep",  columnDefinition="nvarchar(10)", nullable = false)
+    @FieldInfo(name = "当前步骤",type="Integer",explain="学生分班的当前步骤")
+    @Column(name = "justStep",nullable = false)
     private Integer justStep;
     public void setJustStep(Integer justStep) {
         this.justStep = justStep;

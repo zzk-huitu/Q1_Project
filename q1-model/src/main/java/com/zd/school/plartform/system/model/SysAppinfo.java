@@ -29,7 +29,7 @@ import com.zd.core.model.BaseEntity;
 public class SysAppinfo extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "appIntro")
+    @FieldInfo(name = "app描述",type="nvarchar(256)",explain="app描述")
     @Column(name = "appIntro",columnDefinition="nvarchar(256) defalut ''", nullable = true)
     private String appIntro;
     public void setAppIntro(String appIntro) {
@@ -39,7 +39,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
         return appIntro;
     }
         
-    @FieldInfo(name = "appIsuse")
+    @FieldInfo(name = "app是否启用",type="boolean",explain="app是否启用")
     @Column(name = "appIsuse",columnDefinition="defalut 0", nullable = true)
     private boolean appIsuse;
     public void setAppIsuse(boolean appIsuse) {
@@ -49,7 +49,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
         return appIsuse;
     }
         
-    @FieldInfo(name = "appTitle")
+    @FieldInfo(name = "app名称",type="nvarchar(128)",explain="app标题名称")
     @Column(name = "appTitle", columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String appTitle;
     public void setAppTitle(String appTitle) {
@@ -59,7 +59,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
         return appTitle;
     }
         
-    @FieldInfo(name = "appType")
+    @FieldInfo(name = "app类型",type="nvarchar(4)",explain="app类型")
     @Column(name = "appType",columnDefinition="nvarchar(4) defalut ''", nullable = true)
     private String appType;
     public void setAppType(String appType) {
@@ -69,7 +69,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
         return appType;
     }
         
-    @FieldInfo(name = "appUrl")
+    @FieldInfo(name = "app上传路径",type="nvarchar(256)",explain="app上传路径")
     @Column(name = "appUrl",columnDefinition="nvarchar(256) defalut ''", nullable = true)
     private String appUrl;
     public void setAppUrl(String appUrl) {
@@ -79,7 +79,7 @@ public class SysAppinfo extends BaseEntity implements Serializable{
         return appUrl;
     }
         
-    @FieldInfo(name = "appVersion")
+    @FieldInfo(name = "app版本号",type="Integer",explain="app版本号")
     @Column(name = "appVersion",columnDefinition="defalut 0", nullable = true)
     private Integer appVersion;
     public void setAppVersion(Integer appVersion) {

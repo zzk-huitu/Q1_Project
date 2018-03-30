@@ -8,7 +8,6 @@ com\zd\school\jw\model\app\PictureApp.class
 com\zd\school\plartform\system\model\SysRole.class
 com\zd\school\oa\terminal\model\OaInfoterm.class
 com\zd\school\jw\eduresources\model\JwTGrade.class
-com\zd\school\control\device\model\ContPerimisson.class
 com\zd\school\control\device\model\PtRoomBagsRuleBind.class
 com\zd\school\jw\arrangecourse\model\JwXyz.class
 com\zd\school\jw\ecc\model\EccClassredflag.class

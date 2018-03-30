@@ -29,7 +29,7 @@ import com.zd.core.model.BaseEntity;
 public class AttTitle extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "主题名称")
+    @FieldInfo(name = "主题名称",type="nvarchar(36)",explain="考勤主题的主题名称")
     @Column(name = "themeName", columnDefinition="nvarchar(36)", nullable = false)
     private String themeName;
 

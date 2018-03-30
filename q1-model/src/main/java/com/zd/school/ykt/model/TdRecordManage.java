@@ -21,50 +21,50 @@ import com.zd.core.util.DateTimeSerializer;
 public class TdRecordManage  extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "上午正常刷卡时间开始")
+    @FieldInfo(name = "上午正常刷卡时间开始",type="datetime",explain="上午正常刷卡开始时间")
 	@Column(name = "morningNormalStart", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date morningNormalStart;
 
-    @FieldInfo(name = "上午正常刷卡时间结束")
+    @FieldInfo(name = "上午正常刷卡时间结束",type="datetime",explain="上午正常刷卡结束时间")
    	@Column(name = "morningNormalEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date morningNormalEnd;
     
-    @FieldInfo(name = "上午迟到刷卡时间开始")
+    @FieldInfo(name = "上午迟到刷卡时间开始",type="datetime",explain="上午迟到刷卡开始时间")
 	@Column(name = "morningLateStart", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date morningLateStart;
 
-    @FieldInfo(name = "上午正常刷卡时间结束")
+    @FieldInfo(name = "上午迟到刷卡时间结束",type="datetime",explain="上午迟到刷卡结束时间")
    	@Column(name = "morningLateEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date morningLateEnd;
     
     
-    @FieldInfo(name = "下午正常刷卡时间开始")
+    @FieldInfo(name = "下午正常刷卡时间开始",type="datetime",explain="下午正常刷卡开始时间")
 	@Column(name = "afternoonNormalStart", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date afternoonNormalStart;
 
-    @FieldInfo(name = "下午正常刷卡时间结束")
+    @FieldInfo(name = "下午正常刷卡时间结束",type="datetime",explain="下午正常刷卡结束时间")
    	@Column(name = "afternoonNormalEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)
    	private Date afternoonNormalEnd;
     
-    @FieldInfo(name = "下午迟到刷卡时间开始")
+    @FieldInfo(name = "下午迟到刷卡时间开始",type="datetime",explain="上午迟到刷卡开始时间")
 	@Column(name = "afternoonLateStart",columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date afternoonLateStart;
 
-    @FieldInfo(name = "下午正常刷卡时间结束")
+    @FieldInfo(name = "下午正常刷卡时间结束",type="datetime",explain="下午迟到刷卡结束时间")
    	@Column(name = "afternoonLateEnd", columnDefinition="datetime", nullable = true)
    	@Temporal(TemporalType.TIMESTAMP)
    	@JsonSerialize(using = DateTimeSerializer.class)

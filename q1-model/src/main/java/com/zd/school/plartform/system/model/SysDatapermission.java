@@ -26,7 +26,7 @@ import com.zd.core.model.BaseEntity;
 public class SysDatapermission extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "主键")
+    @FieldInfo(name = "用户ID",type="varchar(20)",explain="用户ID")
     @Column(name = "userId", columnDefinition="varchar(20)", nullable = false)
     private String userId;
 
@@ -38,7 +38,7 @@ public class SysDatapermission extends BaseEntity implements Serializable {
         return userId;
     }
 
-    @FieldInfo(name = "实体名称")
+    @FieldInfo(name = "实体名称",type="nvarchar(32))",explain="实体名称")
     @Column(name = "entityName", columnDefinition="nvarchar(32)", nullable = false)
     private String entityName;
 
@@ -50,19 +50,19 @@ public class SysDatapermission extends BaseEntity implements Serializable {
         return entityName;
     }
 
-    @FieldInfo(name = "权限控制字段")
-    @Column(name = "rightField",columnDefinition="nvarchar(32)", nullable = false)
-    private String rightField;
+    @FieldInfo(name = "权限控制字段",type="nvarchar(32))",explain="权限控制字段")
+    @Column(name = "permissionField",columnDefinition="nvarchar(32)", nullable = false)
+    private String permissionField;
 
-    public void setRightField(String rightField) {
-        this.rightField = rightField;
+    public void setPermissionField(String permissionField) {
+        this.permissionField = permissionField;
     }
 
-    public String getRightField() {
-        return rightField;
+    public String getPermissionField() {
+        return permissionField;
     }
 
-    @FieldInfo(name = "父节点字段:针对树形数据配置")
+    @FieldInfo(name = "父节点字段:针对树形数据配置",type="nvarchar(36))",explain="父节点字段")
     @Column(name = "parentField", columnDefinition="nvarchar(36) defalut ''", nullable = true)
     private String parentField;
 
@@ -74,19 +74,19 @@ public class SysDatapermission extends BaseEntity implements Serializable {
         return parentField;
     }
 
-    @FieldInfo(name = "权限类型:0-所有数据,1-本单元,2-本单元及下级单元,3-指定数据")
-    @Column(name = "rightType", length = 2, nullable = false)
-    private String rightType;
+    @FieldInfo(name = "权限类型:0-所有数据,1-本单元,2-本单元及下级单元,3-指定数据",type="varchar(2))",explain="权限类型")
+    @Column(name = "permissionType", length = 2, nullable = false)
+	private String permissionType;
 
-    public void setRightType(String rightType) {
-        this.rightType = rightType;
-    }
+	public void setPermissionType(String permissionType) {
+		this.permissionType = permissionType;
+	}
 
-    public String getRightType() {
-        return rightType;
-    }
+	public String getPermissionType() {
+		return permissionType;
+	}
 
-    @FieldInfo(name = "数据展现方式:0-列表,1-树形,默认列表")
+    @FieldInfo(name = "数据展现方式:0-列表,1-树形,默认列表",type="varchar(2))",explain="数据展现方式")
     @Column(name = "displayMode", length = 2, nullable = false)
     private String displayMode;
 

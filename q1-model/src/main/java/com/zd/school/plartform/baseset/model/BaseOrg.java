@@ -25,12 +25,12 @@ import com.zd.core.model.TreeNodeEntity;
  */
 
 @Entity
-@Table(name = "T_PT_Org")
-@AttributeOverride(name = "orgId", column = @Column(name = "orgId", length = 20, nullable = false))
+@Table(name = "T_PT_Department")
+@AttributeOverride(name = "deptId", column = @Column(name = "deptId", length = 20, nullable = false))
 public class BaseOrg extends TreeNodeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "传真")
+    @FieldInfo(name = "传真",type="nvarchar(64)",explain="部门的传真号码")
     @Column(name = "fax", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String fax;
 
@@ -42,7 +42,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return fax;
     }
 
-    @FieldInfo(name = "内线电话")
+    @FieldInfo(name = "内线电话",type="varchar(64)",explain="部门的内线电话")
     @Column(name = "inPhone", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String inPhone;
 
@@ -54,7 +54,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return inPhone;
     }
 
-    @FieldInfo(name = "是否系统内置 1-系统内置 0-非系统内置")
+    @FieldInfo(name = "是否系统内置 1-系统内置 0-非系统内置",type="boolean",explain="部门是否系统内置")
     @Column(name = "issystem", nullable = true)
     private boolean issystem;
 
@@ -66,19 +66,8 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return issystem;
     }
 
-//	@FieldInfo(name = "主负责岗位")
-//	@Column(name = "MAIN_LEADER", length = 64, nullable = true)
-//	private String mainLeader;
-//
-//	public void setMainLeader(String mainLeader) {
-//		this.mainLeader = mainLeader;
-//	}
-//
-//	public String getMainLeader() {
-//		return mainLeader;
-//	}
 
-    @FieldInfo(name = "外线电话")
+    @FieldInfo(name = "外线电话",type="varchar(64)",explain="部门的外线电话")
     @Column(name = "outPhone", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String outPhone;
 
@@ -91,7 +80,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
     }
     
     /*2017-10-20新加入*/
-    @FieldInfo(name = "学段编码")
+    @FieldInfo(name = "学段编码",type="varchar(32)",explain="年级的学段编码")
     @Column(name = "sectionCode", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String sectionCode;
 
@@ -103,7 +92,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return sectionCode;
     }
     /*2017-10-20新加入*/
-    @FieldInfo(name = "年级")
+    @FieldInfo(name = "年级",type="varchar(32)",explain="年级")
     @Column(name = "grade", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String grade;
 
@@ -116,7 +105,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
     }
     
 
-    @FieldInfo(name = "备注")
+    @FieldInfo(name = "备注",type="varchar(255)",explain="备注说明")
     @Column(name = "remark", columnDefinition="nvarchar(255) defalut ''", nullable = true)
     private String remark;
 
@@ -128,7 +117,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return remark;
     }
     
-    @FieldInfo(name = "副负责岗位")
+    @FieldInfo(name = "副负责岗位",type="nvarchar(64)",explain="副负责岗位")
 	@Column(name = "viceLeader",columnDefinition="nvarchar(64) defalut ''", nullable = true)
 	private String viceLeader;
 
@@ -140,7 +129,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
 		return viceLeader;
 	}
 
-    @FieldInfo(name = "部门类型 01-学校 02-校区 03-部门  04-年级  05-班级　06-学科")
+    @FieldInfo(name = "部门类型 01-学校 02-校区 03-部门  04-年级  05-班级　06-学科",type="varchar(2)",explain="部门类型")
     @Column(name = "deptType", length = 2, nullable = true)
     private String deptType;
 
@@ -152,7 +141,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return deptType;
     }
 
-    @FieldInfo(name = "上级主管部门")
+    @FieldInfo(name = "上级主管部门",type="nvarchar(64)",explain="上级主管部门")
     @Column(name = "superDept", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String superDept;
 
@@ -160,7 +149,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         return superDept;
     }
 
-    @FieldInfo(name = "上级主管部门名称")
+    @FieldInfo(name = "上级主管部门名称",type="nvarchar(64)",explain="上级主管部门名称")
     @Column(name = "superdeptName", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String superdeptName;
 
@@ -176,7 +165,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         this.superDept = superDept;
     }
 
-    @FieldInfo(name = "上级主管岗位")
+    @FieldInfo(name = "上级主管岗位",type="nvarchar(64)",explain="上级主管岗位")
     @Column(name = "superJob", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String superJob;
 
@@ -188,7 +177,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         this.superJob = superJob;
     }
 
-    @FieldInfo(name = "上级主管岗位名称")
+    @FieldInfo(name = "上级主管岗位名称",type="nvarchar(64)",explain="上级主管岗位名称")
     @Column(name = "superjobName", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String superjobName;
 
@@ -200,7 +189,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         this.superjobName = superjobName;
     }
 
-    @FieldInfo(name = "部门全称")
+    @FieldInfo(name = "部门全称",type="nvarchar(500)",explain="部门全称")
     @Column(name = "allDeptName", columnDefinition="nvarchar(500) defalut ''", nullable = true)
     //@Formula("(SELECT isnull(a.ALL_DEPTNAME+'/','')+NODE_TEXT FROM BASE_T_ORG a WHERE a.DEPT_ID=PARENT_NODE)")
     private String allDeptName;
@@ -232,8 +221,8 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
      * @Transient
      * @FieldInfo(name = "") private String field1;
      */
-    @FieldInfo(name = "上级部门名称")
-    @Formula("(SELECT isnull(a.NODE_TEXT,'ROOT') FROM BASE_T_ORG a WHERE a.DEPT_ID=PARENT_NODE)")
+    @FieldInfo(name = "上级部门名称",type="nvarchar(36)",explain="上级部门名称")
+    @Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_Department a WHERE a.deptId=parentNode)")
     private String parentName;
 
     public String getParentName() {
@@ -244,8 +233,8 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
         this.parentName = parentName;
     }
 
-    @FieldInfo(name = "上级部门类型")
-    @Formula("(SELECT isnull(a.DEPT_TYPE,'01') FROM BASE_T_ORG a WHERE a.DEPT_ID=parent_node)")
+    @FieldInfo(name = "上级部门类型",type="nvarchar(36)",explain="上级部门类型")
+    @Formula("(SELECT isnull(a.deptType,'01') FROM T_PT_Department a WHERE a.deptId=parentNode)")
     private String parentType;
 
     public String getParentType() {
@@ -257,8 +246,8 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
     }
 
 
-	@FieldInfo(name = "主负责岗位名称")
-	@Formula("(SELECT a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.JOB_TYPE=0 and a.DEPT_ID=DEPT_ID)")
+	@FieldInfo(name = "主负责岗位名称",type="nvarchar(36)",explain="主负责岗位名称")
+	@Formula("(SELECT a.jobName FROM T_PT_DeptJob a WHERE a.jobType=0 and a.deptId=deptId)")
 	private String mainLeaderName;
 
 	public String getMainLeaderName() {

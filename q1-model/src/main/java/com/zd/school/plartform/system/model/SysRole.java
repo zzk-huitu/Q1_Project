@@ -34,7 +34,7 @@ import com.zd.core.model.BaseEntity;
 public class SysRole extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "角色编码")
+    @FieldInfo(name = "角色编码",type="nvarchar(12)",explain="角色的编码")
     @Column(name = "roleCode", columnDefinition = "nvarchar(12)", nullable = false)
     private String roleCode;
 
@@ -46,7 +46,7 @@ public class SysRole extends BaseEntity implements Serializable {
         return roleCode;
     }
 
-    @FieldInfo(name = "角色名称")
+    @FieldInfo(name = "角色名称",type="nvarchar(32)",explain="角色的名称")
     @Column(name = "roleName", columnDefinition = "nvarchar(32)", nullable = false)
     private String roleName;
 
@@ -58,7 +58,7 @@ public class SysRole extends BaseEntity implements Serializable {
         return roleName;
     }
 
-    @FieldInfo(name = "是否系统角色  1-系统内置 0-非系统内置")
+    @FieldInfo(name = "是否系统角色  1-系统内置 0-非系统内置",type="boolean",explain="是否系统角色 ")
     @Column(name = "issystem",nullable = false)
     private boolean issystem;
 
@@ -70,7 +70,7 @@ public class SysRole extends BaseEntity implements Serializable {
         return issystem;
     }
 
-    @FieldInfo(name = "备注")
+    @FieldInfo(name = "备注",type="nvarchar(128)",explain="角色说明 ")
     @Column(name = "remark",columnDefinition="nvarchar(128) defalut ''", nullable = true)
     private String remark;
 
@@ -82,7 +82,7 @@ public class SysRole extends BaseEntity implements Serializable {
         return remark;
     }
 
-    @FieldInfo(name = "有权限的菜单")
+    @FieldInfo(name = "有权限的菜单",type="Set<SysPermission>",explain="多对多的实体对象关联，生成一个中间表T_PT_RolePermission")
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
     @JoinTable(name = "T_PT_RolePermission", joinColumns = { @JoinColumn(name = "roleId") }, inverseJoinColumns = {
@@ -97,7 +97,7 @@ public class SysRole extends BaseEntity implements Serializable {
         this.sysPermissions = sysPermissions;
     }
 
-    @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
+    @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏",type="boolean",explain="当前角色是否隐藏")
     @Column(name = "isHidden",columnDefinition="defalut 0", nullable = true)
     private boolean isHidden;
 
@@ -109,17 +109,7 @@ public class SysRole extends BaseEntity implements Serializable {
         this.isHidden = isHidden;
     }
     
-    @FieldInfo(name = "备注")
-    @Column(name = "schoolId", columnDefinition="nvarchar(128) defalut ''", nullable = true)
-    private String schoolId;
-    
-	public String getSchoolId() {
-		return schoolId;
-	}
-
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
-	}
+   
 
 	public SysRole() {
 		super();

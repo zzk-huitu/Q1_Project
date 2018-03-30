@@ -28,7 +28,7 @@ public class SysRoleMenuPermission extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 
-	@FieldInfo(name = "角色ID")
+	@FieldInfo(name = "角色ID",type="varchar(20)",explain="角色ID")
 	@Column(name = "roleId", columnDefinition="varchar(20)", nullable = false)
 	private String roleId;
 	
@@ -40,29 +40,32 @@ public class SysRoleMenuPermission extends BaseEntity implements Serializable {
 		return roleId;
 	}
 	
-	@FieldInfo(name = "角色菜单权限ID")		//角色菜单的权限id
-	@Column(name = "perId", columnDefinition="varchar(20)", nullable = false)
-	private String perId;
+	@FieldInfo(name = "角色菜单权限ID",type="varchar(20)",explain="角色菜单权限ID")		//角色菜单的权限id
+	@Column(name = "permissionId", columnDefinition="varchar(20)", nullable = false)
+	private String permissionId;
 
-	public void setPerId(String perId) {
-		this.perId = perId;
-	}
-
-	public String getPerId() {
-		return perId;
-	}
 	
-	@FieldInfo(name = "菜单功能权限ID")	//菜单和功能的权限id
-	@Column(name = "menuPerId",columnDefinition="varchar(20)", nullable = false)
-	private String menuPerId;
-
-	public void setMenuPerId(String menuPerId) {
-		this.menuPerId = menuPerId;
+	public String getPermissionId() {
+		return permissionId;
 	}
 
-	public String getMenuPerId() {
-		return menuPerId;
+	public void setPermissionId(String permissionId) {
+		this.permissionId = permissionId;
 	}
+
+	@FieldInfo(name = "菜单功能权限ID",type="varchar(20)",explain="菜单和功能的权限id")	//菜单和功能的权限id
+	@Column(name = "menuPermissionId",columnDefinition="varchar(20)", nullable = false)
+	private String menuPermissionId;
+
+	public String getMenuPermissionId() {
+		return menuPermissionId;
+	}
+
+	public void setMenuPermissionId(String menuPermissionId) {
+		this.menuPermissionId = menuPermissionId;
+	}
+
+
 	
 
 	/**
