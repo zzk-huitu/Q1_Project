@@ -25,7 +25,7 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_RoomInfo")
-@AttributeOverride(name = "roomInfoId", column = @Column(name = "roomInfoId", length = 20, nullable = false) )
+@AttributeOverride(name = "roomId", column = @Column(name = "roomId", length = 20, nullable = false) )
 public class BuildRoominfo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

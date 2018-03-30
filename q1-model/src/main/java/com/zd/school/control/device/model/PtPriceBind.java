@@ -21,18 +21,10 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "priceBindId", column = @Column(name = "priceBindId", length = 20, nullable = false))
 public class PtPriceBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@FieldInfo(name = "设备编号")
-    @Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
-    private String termId; 
-  
-    @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
-    private String termSn;
-   
-    @FieldInfo(name = "费率编号")
-    @Column(name = "priceId", columnDefinition = "varchar(20) default ''", nullable = true)
-    private String priceId;
+
+	@FieldInfo(name = "termId", type = "varchar(20)", explain = "设备编号")
+	@Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String termId;
 
 	public String getTermId() {
 		return termId;
@@ -42,6 +34,10 @@ public class PtPriceBind extends BaseEntity implements Serializable {
 		this.termId = termId;
 	}
 
+	@FieldInfo(name = "termSn", type = "varchar(14)", explain = "设备序列号")
+	@Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
+	private String termSn;
+
 	public String getTermSn() {
 		return termSn;
 	}
@@ -50,6 +46,10 @@ public class PtPriceBind extends BaseEntity implements Serializable {
 		this.termSn = termSn;
 	}
 
+	@FieldInfo(name = "priceId", type = "varchar(20)", explain = "费率编号")
+	@Column(name = "priceId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String priceId;
+
 	public String getPriceId() {
 		return priceId;
 	}
@@ -57,7 +57,7 @@ public class PtPriceBind extends BaseEntity implements Serializable {
 	public void setPriceId(String priceId) {
 		this.priceId = priceId;
 	}
-    
+
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
 	 * 
