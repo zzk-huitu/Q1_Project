@@ -96,7 +96,7 @@ public abstract class BaseEntity {
 	private String extField05;
 
 	@FieldInfo(name = "是否删除",explain = "0-未删除 1-已删除")
-	@Column(name = "ISDELETE",columnDefinition = "smallint DEFAULT 0 ",nullable = false)
+	@Column(name = "isDelete",columnDefinition = "smallint DEFAULT 0 ",nullable = false)
 	private Integer isDelete = 0;
 
 	@FieldInfo(name = "排序字段")

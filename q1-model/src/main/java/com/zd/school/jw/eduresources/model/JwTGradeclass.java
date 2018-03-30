@@ -35,15 +35,15 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "年级ID")
-	@Column(name = "graiId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String graiId;
+	@Column(name = "gradeId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String gradeId;
 
-	public String getGraiId() {
-		return graiId;
+	public String getGradeId() {
+		return gradeId;
 	}
 
-	public void setGraiId(String graiId) {
-		this.graiId = graiId;
+	public void setGraiId(String gradeId) {
+		this.gradeId = gradeId;
 	}
 
 	@FieldInfo(name = "班级类型")

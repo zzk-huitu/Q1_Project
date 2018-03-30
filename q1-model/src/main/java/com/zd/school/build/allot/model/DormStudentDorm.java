@@ -36,29 +36,29 @@ import com.zd.school.excel.annotation.MapperCell;
 public class DormStudentDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "班级宿舍主键")
+	@FieldInfo(name = "classDormId",type="varchar(20)",explain="班级宿舍主键")
 	@Column(name = "classDormId", length = 20, nullable = false)
 	private String classDormId;
 
 	@FieldInfo(name = "班级ID")
-	@Formula("(SELECT a.classId FROM STAND_V_CLASSSTUDENT a where a.userId=STU_ID)")
+	@Formula("(SELECT a.classId FROM V_PT_ClassStudent a where a.userId=studentId)")
 	private String classId;
 
-	@FieldInfo(name = "学生主键")
+	@FieldInfo(name = "studentId",type="varchar(20)",explain="学生主键")
 	@Column(name = "studentId", length = 20, nullable = false)
 	private String studentId;
 
-	@FieldInfo(name = "柜子编号")
+	@FieldInfo(name = "sarkNo",type="byte",explain="柜子编号")
 	@Column(name = "sarkNo", nullable = false)
 	private Byte sarkNo = 0;
 
-	@FieldInfo(name = "床位编号")
+	@FieldInfo(name = "bedNo",type="byte",explain="床位编号")
 	@Column(name = "bedNo", nullable = false)
 	private Byte bedNo = 0;
 
 	@ExportExcelAnnotation(columnName = "入住时间", columnWidth = 20, order = 5)
 	@MapperCell(cellName = "入住时间", order = 3)
-	@FieldInfo(name = "入住时间")
+	@FieldInfo(name = "inTime",type="datetime",explain="入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@Column(name = "inTime", columnDefinition = "datetime", nullable = false)
@@ -72,54 +72,54 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	 */
 	@ExportExcelAnnotation(columnName = "宿舍名称", columnWidth = 25, order = 4)
 	@MapperCell(cellName = "宿舍名称", order = 2)
-	@Formula("(SELECT C.ROOM_NAME FROM dbo.JW_T_CLASSDORMALLOT A"
-			+ " JOIN dbo.BUILD_T_DORMDEFINE B ON A.DORM_ID=B.DORM_ID"
-			+ " JOIN dbo.BUILD_T_ROOMINFO C ON C.ROOM_ID = B.ROOM_ID" + " WHERE A.CDORM_ID =CDORM_ID AND A.ISDELETE=0)")
+	@Formula("(SELECT C.roomName FROM dbo.T_PT_ClassDormAllot A"
+			+ " JOIN dbo.T_PT_DormDefine B ON A.dormId=B.dormId"
+			+ " JOIN dbo.T_PT_RoomInfo C ON C.roomId = B.roomId" + " WHERE A.classDormId =classDormId AND A.isDelete=0)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
 
 	@ExportExcelAnnotation(columnName = "班级名称", columnWidth = 25, order = 1)
 	@MapperCell(cellName = "班级名称", order = 2)
-	@Formula("(SELECT a.className FROM STAND_V_CLASSSTUDENT a where a.userId=STU_ID)")
+	@Formula("(SELECT a.className FROM V_PT_ClassStudent a where a.userId=studentId)")
 	@FieldInfo(name = "班级名称")
-	private String claiName;
+	private String className;
 
 	@ExportExcelAnnotation(columnName = "学号", columnWidth = 25, order = 2)
 	@MapperCell(cellName = "学号", order = 3)
 	@FieldInfo(name = "学号")
-	@Formula("(SELECT A.USER_NUMB FROM dbo.SYS_T_USER A WHERE A.USER_ID=STU_ID)")
+	@Formula("(SELECT A.userNumb FROM dbo.T_PT_User A WHERE A.userId=studentId)")
 	private String userNumb;
 
 	@ExportExcelAnnotation(columnName = "学生姓名", columnWidth = 25, order = 3)
 	@MapperCell(cellName = "学生姓名", order = 1)
-	@Formula("(SELECT A.XM FROM dbo.SYS_T_USER A WHERE A.USER_ID=STU_ID)")
+	@Formula("(SELECT A.xm FROM dbo.T_PT_User A WHERE A.userId=studentId)")
 	@FieldInfo(name = "姓名")
 	private String xm;
 
 	@FieldInfo(name = "性别码GB/T 2261.1")
-	@Formula("(SELECT A.XBM FROM dbo.SYS_T_USER A WHERE A.USER_ID=STU_ID)")
+	@Formula("(SELECT A.xbm FROM dbo.T_PT_User A WHERE A.userId=studentId)")
 	private String xbm;
 
-	@Formula("(SELECT A.ISMIXED FROM JW_T_CLASSDORMALLOT A WHERE A.CDORM_ID=CDORM_ID)")
+	@Formula("(SELECT A.isMixed FROM T_PT_ClassDormAllot A WHERE A.classDormId=classDormId)")
 	@FieldInfo(name = "混合宿舍")
-	private String ismixed;
+	private String isMixed;
 
 	@Transient
 	@FieldInfo(name = "学生人数")
-	private Integer stuCount;
+	private Integer studentCount;
 	@Transient
 	@FieldInfo(name = "有效宿舍")
-	private Integer yxDorm;
+	private Integer validDorm;
 
 	@Transient
 	@FieldInfo(name = "有效男宿舍")
-	private Integer nanDorm;
+	private Integer maleDorm;
 	@Transient
 	@FieldInfo(name = "有效女宿舍")
-	private Integer nvDorm;
+	private Integer femaleDorm;
 	@Transient
 	@FieldInfo(name = "有效混班宿舍")
-	private Integer hunDorm;
+	private Integer mixedDorm;
 
 	/*
 	 * 由于宿舍人数不定，所以，此处由宿舍改为床位数
@@ -138,25 +138,26 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	 */
 	@Transient
 	@FieldInfo(name = "所需宿舍床位")
-	private Integer sxDormBed;
+	private Integer needDormBed;
 
 	@Transient
 	@FieldInfo(name = "男生所需床位")
-	private Integer nanDormBed;
+	private Integer maleNeedBed;
 	@Transient
 	@FieldInfo(name = "女生所需床位")
-	private Integer nvDormBed;
+	private Integer femaleNeedBed;
 
 	@Transient
 	@FieldInfo(name = "男生数量")
-	private Integer nanCount;
+	private Integer maleCount;
 	@Transient
 	@FieldInfo(name = "女生数量")
-	private Integer nvCount;
+	private Integer femaleCount;
 
 	@Transient
 	@FieldInfo(name = "所属楼层")
 	private String areaName;
+	
 	@Transient
 	@FieldInfo(name = "所属楼栋")
 	private String upAreaName;
@@ -200,13 +201,6 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public String getClaiName() {
-		return claiName;
-	}
-
-	public void setClaiName(String claiName) {
-		this.claiName = claiName;
-	}
 
 	public String getXm() {
 		return xm;
@@ -232,92 +226,100 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 		this.inTime = inTime;
 	}
 
-	public String getIsmixed() {
-		return ismixed;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setIsmixed(String ismixed) {
-		this.ismixed = ismixed;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
-	public Integer getStuCount() {
-		return stuCount;
+	public String getIsMixed() {
+		return isMixed;
 	}
 
-	public void setStuCount(Integer stuCount) {
-		this.stuCount = stuCount;
+	public void setIsMixed(String isMixed) {
+		this.isMixed = isMixed;
 	}
 
-	public Integer getYxDorm() {
-		return yxDorm;
+	public Integer getStudentCount() {
+		return studentCount;
 	}
 
-	public void setYxDorm(Integer yxDorm) {
-		this.yxDorm = yxDorm;
+	public void setStudentCount(Integer studentCount) {
+		this.studentCount = studentCount;
 	}
 
-	public Integer getSxDormBed() {
-		return sxDormBed;
+	public Integer getValidDorm() {
+		return validDorm;
 	}
 
-	public void setSxDormBed(Integer sxDormBed) {
-		this.sxDormBed = sxDormBed;
+	public void setValidDorm(Integer validDorm) {
+		this.validDorm = validDorm;
 	}
 
-	public Integer getNanDormBed() {
-		return nanDormBed;
+	public Integer getMaleDorm() {
+		return maleDorm;
 	}
 
-	public void setNanDormBed(Integer nanDormBed) {
-		this.nanDormBed = nanDormBed;
+	public void setMaleDorm(Integer maleDorm) {
+		this.maleDorm = maleDorm;
 	}
 
-	public Integer getNvDormBed() {
-		return nvDormBed;
+	public Integer getFemaleDorm() {
+		return femaleDorm;
 	}
 
-	public void setNvDormBed(Integer nvDormBed) {
-		this.nvDormBed = nvDormBed;
+	public void setFemaleDorm(Integer femaleDorm) {
+		this.femaleDorm = femaleDorm;
 	}
 
-	public Integer getNanCount() {
-		return nanCount;
+	public Integer getMixedDorm() {
+		return mixedDorm;
 	}
 
-	public void setNanCount(Integer nanCount) {
-		this.nanCount = nanCount;
+	public void setMixedDorm(Integer mixedDorm) {
+		this.mixedDorm = mixedDorm;
 	}
 
-	public Integer getNvCount() {
-		return nvCount;
+	public Integer getNeedDormBed() {
+		return needDormBed;
 	}
 
-	public void setNvCount(Integer nvCount) {
-		this.nvCount = nvCount;
+	public void setNeedDormBed(Integer needDormBed) {
+		this.needDormBed = needDormBed;
 	}
 
-	public Integer getNanDorm() {
-		return nanDorm;
+	public Integer getMaleNeedBed() {
+		return maleNeedBed;
 	}
 
-	public void setNanDorm(Integer nanDorm) {
-		this.nanDorm = nanDorm;
+	public void setMaleNeedBed(Integer maleNeedBed) {
+		this.maleNeedBed = maleNeedBed;
 	}
 
-	public Integer getNvDorm() {
-		return nvDorm;
+	public Integer getFemaleNeedBed() {
+		return femaleNeedBed;
 	}
 
-	public void setNvDorm(Integer nvDorm) {
-		this.nvDorm = nvDorm;
+	public void setFemaleNeedBed(Integer femaleNeedBed) {
+		this.femaleNeedBed = femaleNeedBed;
 	}
 
-	public Integer getHunDorm() {
-		return hunDorm;
+	public Integer getMaleCount() {
+		return maleCount;
 	}
 
-	public void setHunDorm(Integer hunDorm) {
-		this.hunDorm = hunDorm;
+	public void setMaleCount(Integer maleCount) {
+		this.maleCount = maleCount;
+	}
+
+	public Integer getFemaleCount() {
+		return femaleCount;
+	}
+
+	public void setFemaleCount(Integer femaleCount) {
+		this.femaleCount = femaleCount;
 	}
 
 	public String getAreaName() {

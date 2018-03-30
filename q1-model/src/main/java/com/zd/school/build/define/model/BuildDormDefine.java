@@ -45,12 +45,12 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	private String dormTypeLb;
 
 	@FieldInfo(name = "床位数")
-	@Column(name = "dormBedCount", nullable = false)
-	private Byte dormBedCount;
+	@Column(name = "bedCount", nullable = false)
+	private Byte bedCount;
 
 	@FieldInfo(name = "柜子数")
-	@Column(name = "dormSarkCount", nullable = false)
-	private Byte dormSarkCount;
+	@Column(name = "sarkCount", nullable = false)
+	private Byte sarkCount;
 
 	@FieldInfo(name = "宿舍管理员(教师ID)")
 	@Column(name = "dormAdmin", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -199,20 +199,20 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.tteacId = tteacId;
 	}
 
-	public Byte getDormBedCount() {
-		return dormBedCount;
+	public Byte getBedCount() {
+		return bedCount;
 	}
 
-	public void setDormBedCount(Byte dormBedCount) {
-		this.dormBedCount = dormBedCount;
+	public void setBedCount(Byte bedCount) {
+		this.bedCount = bedCount;
 	}
 
-	public Byte getDormSarkCount() {
-		return dormSarkCount;
+	public Byte getSarkCount() {
+		return sarkCount;
 	}
 
-	public void setDormSarkCount(Byte dormSarkCount) {
-		this.dormSarkCount = dormSarkCount;
+	public void setSarkCount(Byte sarkCount) {
+		this.sarkCount = sarkCount;
 	}
 
 	public Boolean getIsAllot() {

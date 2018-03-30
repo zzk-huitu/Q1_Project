@@ -25,19 +25,19 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_ClassDormAllot")
-@AttributeOverride(name = "classDormAllotId", column = @Column(name = "classDormAllotId", length = 20, nullable = false))
+@AttributeOverride(name = "classDormId", column = @Column(name = "classDormId", length = 20, nullable = false))
 public class JwClassDormAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "宿舍ID")
+	@FieldInfo(name = "dormId",type="varchar(20)",explain="宿舍Id")
 	@Column(name = "dormId", length = 20, nullable = false)
 	private String dormId;
 
-	@FieldInfo(name = "班级ID")
+	@FieldInfo(name = "classId",type="varchar(20)",explain="班级Id")
 	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
-	@FieldInfo(name = "是否是混班宿舍：0否-1是")
+	@FieldInfo(name = "isMixed",type="Boolean",explain="是否是混班宿舍：0否-1是")
 	@Column(name = "isMixed", columnDefinition = "default 0", nullable = true)
 	private Boolean isMixed;
 
@@ -49,39 +49,39 @@ public class JwClassDormAllot extends BaseEntity implements Serializable {
 	 */
 
 	@FieldInfo(name = "房间编码")
-	@Formula("(SELECT B.ROOM_NAME FROM  dbo.BUILD_T_DORMDEFINE A JOIN dbo.BUILD_T_ROOMINFO B "
-			+ "ON A.ROOM_ID=B.ROOM_ID WHERE  A.ISDELETE=0 AND A.DORM_ID=DORM_ID)")
+	@Formula("(SELECT B.roomName FROM dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "
+			+ "ON A.roomId=B.roomId WHERE A.isDelete=0 AND A.dormId=dormId)")
 	private String dormCode;
 
 	@FieldInfo(name = "房间电话")
-	@Formula("(SELECT B.ROOM_PHONE FROM  dbo.BUILD_T_DORMDEFINE A JOIN dbo.BUILD_T_ROOMINFO B "
-			+ "ON A.ROOM_ID=B.ROOM_ID WHERE  A.ISDELETE=0 AND A.DORM_ID=DORM_ID)")
+	@Formula("(SELECT B.roomPhone FROM  dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "
+			+ "ON A.roomId=B.roomId WHERE  A.isDelete=0 AND A.dormId=dormId)")
 	private String roomPhone;
 
-	@Formula("(SELECT A.DORM_TYPE FROM dbo.BUILD_T_DORMDEFINE A  WHERE A.DORM_ID=DORM_ID AND A.ISDELETE=0)")
+	@Formula("(SELECT A.dormType FROM dbo.T_PT_DormDefine A  WHERE A.dormId=dormId AND A.isDelete=0)")
 	@FieldInfo(name = "宿舍类型")
 	private String dormType;
 
 	// @Transient
 	@FieldInfo(name = "已入住人数")
-	@Formula("(select COUNT(*) from DORM_T_STUDENTDORM A where A.CDORM_ID=CDORM_ID AND A.ISDELETE=0)")
-	private String stuCount;
+	@Formula("(select COUNT(*) from T_PT_StudentDorm A where A.dormId=dormId AND A.isDelete=0)")
+	private String studentCount;
 
-	@Formula("(SELECT A.DORM_BEDCOUNT FROM dbo.BUILD_T_DORMDEFINE A  WHERE A.DORM_ID=DORM_ID AND A.ISDELETE=0)")
+	@Formula("(SELECT A.bedCount FROM dbo.T_PT_DormDefine A WHERE A.dormId=dormId AND A.isDelete=0)")
 	@FieldInfo(name = "床位数")
 	private String dormBedCount;
 
 	@FieldInfo(name = "班级名称")
-	@Formula("(SELECT A.CLASS_NAME FROM dbo.JW_T_GRADECLASS A  WHERE A.CLAI_ID=CLAI_ID)")
+	@Formula("(SELECT A.className FROM dbo.JW_T_GRADECLASS A WHERE A.classId=classId)")
 	private String clainame;
 
-	@Formula("(SELECT B.ROOM_NAME FROM  dbo.BUILD_T_DORMDEFINE A JOIN dbo.BUILD_T_ROOMINFO B "
-			+ "ON A.ROOM_ID=B.ROOM_ID WHERE  A.ISDELETE=0 AND A.DORM_ID=DORM_ID)")
+	@Formula("(SELECT B.roomName FROM  dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "
+			+ "ON A.roomId=B.roomId WHERE  A.isDelete=0 AND A.dormId=dormId)")
 	@FieldInfo(name = "宿舍名称")
 	private String dormName;
 
-	@Formula("(SELECT D.NODE_TEXT FROM dbo.BUILD_T_DORMDEFINE B  JOIN dbo.BUILD_T_ROOMINFO C ON "
-			+ "B.ROOM_ID=C.ROOM_ID JOIN dbo.BUILD_T_ROOMAREA D ON C.AREA_ID=D.AREA_ID WHERE b.DORM_ID=DORM_ID)")
+	@Formula("(SELECT D.nodeText FROM dbo.T_PT_DormDefine B JOIN dbo.T_PT_RoomInfo C ON "
+			+ "B.roomId=C.roomId JOIN dbo.T_PT_RoomArea D ON C.roomAreaId=D.roomAreaId WHERE b.dormId=dormId)")
 	@FieldInfo(name = "所属楼栋")
 	private String areaName;
 
@@ -149,12 +149,12 @@ public class JwClassDormAllot extends BaseEntity implements Serializable {
 		this.dormBedCount = dormBedCount;
 	}
 
-	public String getStuCount() {
-		return stuCount;
+	public String getStudentCount() {
+		return studentCount;
 	}
 
-	public void setStuCount(String stuCount) {
-		this.stuCount = stuCount;
+	public void setStudentCount(String studentCount) {
+		this.studentCount = studentCount;
 	}
 
 	public String getDormCode() {

@@ -12,13 +12,13 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "T_PT_StudentRemove")
-@AttributeOverride(name = "studentRemoveId", column = @Column(name = "studentRemoveId", length = 20, nullable = false))
+@Table(name = "T_PT_DormStudentRemove")
+@AttributeOverride(name = "dormStudentRemoveId", column = @Column(name = "dormStudentRemoveId", length = 20, nullable = false))
 public class DormStudentRemove extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "班级宿舍主键")
+	@FieldInfo(name = "classDormId",type="varchar(20)",explain="班级宿舍主键")
 	@Column(name = "classDormId", length = 20, nullable = false)
 	private String classDormId;
 
@@ -30,7 +30,7 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.classDormId = classDormId;
 	}
 
-	@FieldInfo(name = "房间主键")
+	@FieldInfo(name = "roomId",type="varchar(20)",explain="房间主键")
 	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
@@ -42,7 +42,7 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-	@FieldInfo(name = "学生主键")
+	@FieldInfo(name = "studentId",type="varchar(20)",explain="学生主键")
 	@Column(name = "studentId", length = 20, nullable = false)
 	private String studentId;
 
@@ -54,7 +54,7 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.studentId = studentId;
 	}
 
-	@FieldInfo(name = "操作类型")
+	@FieldInfo(name = "operatingType",type="nvarchar(2)",explain="操作类型")
 	@Column(name = "operatingType", columnDefinition = "nvarchar(2) default ''", nullable = true)
 	private String operatingType;
 
@@ -66,7 +66,7 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.operatingType = operatingType;
 	}
 
-	@FieldInfo(name = "是否处理")
+	@FieldInfo(name = "isHandle",type="Boolean",explain="是否处理")
 	@Column(name = "isHandle", columnDefinition = "default 0", nullable = true)
 	private Boolean isHandle;
 
@@ -78,7 +78,7 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.isHandle = isHandle;
 	}
 
-	@FieldInfo(name = "金额")
+	@FieldInfo(name = "amount",type="numeric",explain="金额")
 	@Column(name = "amount", nullable = true)
 	private BigDecimal amount;
 
