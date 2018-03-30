@@ -45,9 +45,9 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "termSn",length = 50, nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "设备名称", type = "", explain = "")
-	@Column(name = "termName",  columnDefinition = "nvarchar(25)", nullable = false)
-	private String termName;
+	@FieldInfo(name = "设备名称", type = "nvarchar(25)", explain = "设备名称")
+	@Column(name = "deveiceName",  columnDefinition = "nvarchar(25)", nullable = false)
+	private String deveiceName;
 
 	@FieldInfo(name = "设备类型（对应系统参数表）", type = "", explain = "")
 	@Column(name = "termTypeId", length = 4, nullable = false)

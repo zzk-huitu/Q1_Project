@@ -51,69 +51,69 @@ public class PtSkTermStatus extends BaseEntity implements Serializable{
     private Integer statusHour;
     
     @MapperCell(cellName="测量单位（脉冲/升）",order=3)
-    @FieldInfo(name = "测量单位（脉冲/升）")
-    @Column(name = "measure")
+    @FieldInfo(name = "测量单位（脉冲/升）",type="Integer",explain="测量单位（脉冲/升）")
+    @Column(name = "measure",columnDefinition = "defalut 0",nullable=true)
     private Integer measure;
 
     @MapperCell(cellName="费率（元/升）",order=4)
-    @FieldInfo(name = "费率（元/升）")
-    @Column(name = "price")
+    @FieldInfo(name = "费率（元/升）",type="BigDecimal",explain="费率（元/升）")
+    @Column(name = "price",columnDefinition = "defalut 0",nullable=true)
     private BigDecimal price;
     
     @MapperCell(cellName="冷水当前小时使用水量（升）",order=5)
-    @FieldInfo(name = "冷水当前小时使用水量（升）")
-    @Column(name = "useLiter")
+    @FieldInfo(name = "冷水当前小时使用水量（升）",type="double",explain="冷水当前小时使用水量（升）")
+    @Column(name = "useLiter",columnDefinition = "defalut 0",nullable=true)
     private double useLiter;
     
     @MapperCell(cellName="冷水已使用总水量（升）",order=6)
-    @FieldInfo(name = "冷水已使用总水量（升）")
-    @Column(name = "totalUsedLiter")
+    @FieldInfo(name = "冷水已使用总水量（升）",type="double",explain="冷水已使用总水量（升）")
+    @Column(name = "totalUsedLiter",columnDefinition = "defalut 0",nullable=true)
     private double totalUsedLiter;
     
     @MapperCell(cellName="冷水当前小时使用脉冲数",order=7)
-    @FieldInfo(name = "冷水当前小时使用脉冲数")
-    @Column(name = "usePulse")
+    @FieldInfo(name = "冷水当前小时使用脉冲数",type="BigDecimal",explain="冷水当前小时使用脉冲数")
+    @Column(name = "usePulse",columnDefinition = "defalut 0",nullable=true)
     private long usePulse;
     
     @MapperCell(cellName="冷水总使用脉冲数",order=8)
-    @FieldInfo(name = "冷水总使用脉冲数")
-    @Column(name = "totalUsedPulse")
+    @FieldInfo(name = "冷水总使用脉冲数",type="long",explain="冷水总使用脉冲数")
+    @Column(name = "totalUsedPulse",columnDefinition = "defalut 0",nullable=true)
     private long totalUsedPulse;
     
     @MapperCell(cellName="热水交易金额",order=9)
-    @FieldInfo(name = "热水交易金额")
-    @Column(name = "useMoney")
+    @FieldInfo(name = "热水交易金额",type="BigDecimal",explain="热水交易金额")
+    @Column(name = "useMoney",columnDefinition = "defalut 0",nullable=true)
     private BigDecimal useMoney;
     
     @MapperCell(cellName="热水已交易总额",order=10)
-    @FieldInfo(name = "热水已交易总额")
-    @Column(name = "totalUsedMoney")
+    @FieldInfo(name = "热水已交易总额",type="BigDecimal",explain="热水已交易总额")
+    @Column(name = "totalUsedMoney",columnDefinition = "defalut 0",nullable=true)
     private BigDecimal totalUsedMoney;
 
     @MapperCell(cellName="热水已交易流水",order=11)
-    @FieldInfo(name = "热水已交易流水")
-    @Column(name = "totalRecord")
+    @FieldInfo(name = "热水已交易流水",type="long",explain="热水已交易流水")
+    @Column(name = "totalRecord",columnDefinition = "defalut 0",nullable=true)
     private long totalRecord;
 
     @MapperCell(cellName="热水已上传流水",order=12)
-    @FieldInfo(name = "热水已上传流水")
-    @Column(name = "uploadRecord")
+    @FieldInfo(name = "热水已上传流水",type="long",explain="热水已上传流水")
+    @Column(name = "uploadRecord",columnDefinition = "defalut 0",nullable=true)
     private long uploadRecord;
     
     @MapperCell(cellName="状态的时间",order=13)
-    @FieldInfo(name = "状态的时间")
+    @FieldInfo(name = "状态的时间",type="datetime",explain="状态的时间")
     @Column(name = "statusTime", columnDefinition = "datetime")
     private Date statusTime;
 
     @MapperCell(cellName="房间名称",order=14)
-    @Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
-	@FieldInfo(name = "房间名称")
+    @Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
+	@FieldInfo(name = "房间名称",type="varchar(16)",explain="房间名称")
 	private String roomName;
     
     @MapperCell(cellName="设备名称",order=15)
-    @Formula("(SELECT A.TERMNAME FROM dbo.PT_TERM A WHERE A.TERMSN=TERMSN)")
-	@FieldInfo(name = "设备名称")
-	private String termName;
+    @Formula("(SELECT A.deveiceName FROM T_PT_Deveice A WHERE A.deveiceSn=deveiceSn)")
+	@FieldInfo(name = "设备名称",type="varchar(25)",explain="设备名称")
+	private String deveiceName;
     
     
     @MapperCell(cellName="网关名称",order=15)
@@ -121,13 +121,13 @@ public class PtSkTermStatus extends BaseEntity implements Serializable{
 	@FieldInfo(name = "网关名称")
 	private String gatewayName;
     
-	@FieldInfo(name = "区域名称")
-	@Formula("(SELECT isnull(a.NODE_TEXT,'ROOT') FROM BUILD_T_ROOMAREA a ,BUILD_T_ROOMINFO r WHERE a.AREA_ID=r.AREA_ID and r.ROOM_ID=ROOM_ID)")
+	@FieldInfo(name = "区域名称",type="nvarchar()",explain="区域名称")
+	@Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_RoomArea a ,T_PT_RoomInfo r WHERE a.areaId=r.areaId and r.roomId=roomId)")
 	private String areaName;
 
 	/*用于排除未定义的房间 0*/
-	@Formula("(SELECT A.ROOM_TYPE FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
-	@FieldInfo(name = "房间类型")
+	@Formula("(SELECT A.roomType FROM T_PT_RoomInfo A WHERE A.roomId=roomId)")
+	@FieldInfo(name = "房间类型",type="varchar(4)",explain="房间类型")
 	private String roomType;
 	 
 	
