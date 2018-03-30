@@ -31,16 +31,17 @@ import com.zd.core.model.BaseEntity;
 public class AttUser extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "主题ID")
-    @Column(name = "themeId", length = 20, nullable = false)
-    private String themeId;
-    public String getThemeId() {
- 		return themeId;
+    @FieldInfo(name = "考勤主题ID",type="varchar(20)",explain="考勤主题Id")
+    @Column(name = "attendanceThemeId", length = 20, nullable = false)
+    private String attendanceThemeId;
+    public String getAttendanceThemeId() {
+ 		return attendanceThemeId;
  	}
- 	public void setThemeId(String themeId) {
- 		this.themeId = themeId;
- 	} 
-    @FieldInfo(name = "主键")
+ 	public void setAttendanceThemeId(String attendanceThemeId) {
+ 		this.attendanceThemeId = attendanceThemeId;
+ 	}
+       
+    @FieldInfo(name = "用户ID",type="varchar(20)",explain="用户Id")
     @Column(name = "userId", length = 20, nullable = false)
     private String userId;
     public void setUserId(String userId) {
@@ -51,8 +52,8 @@ public class AttUser extends BaseEntity implements Serializable{
     }
     
     
-    @FieldInfo(name = "姓名")
-    @Formula("(SELECT ISNULL(a.XM,'') FROM SYS_T_USER a WHERE a.USER_ID=USER_ID)")
+    @FieldInfo(name = "姓名",type="nvarchar(36)",explain="用户姓名")
+    @Formula("(SELECT ISNULL(a.name,'') FROM T_PT_User a WHERE a.userId=userId)")
     private String name;
     public String getName() {
 		return name;
@@ -61,8 +62,8 @@ public class AttUser extends BaseEntity implements Serializable{
 		this.name = name;
 	}
    
-    @FieldInfo(name = "学号")
-    @Formula("(SELECT ISNULL(a.USER_NUMB,'') FROM SYS_T_USER a WHERE a.USER_ID=USER_ID)")
+    @FieldInfo(name = "学号",type="nvarchar(36)",explain="用户学号")
+    @Formula("(SELECT ISNULL(a.userNumb,'') FROM T_PT_User a WHERE a.userId=userId)")
     private String studentNo;
 	
 	public String getStudentNo() {

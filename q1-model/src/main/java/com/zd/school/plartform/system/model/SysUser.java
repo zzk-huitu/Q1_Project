@@ -42,22 +42,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_User")
-@AttributeOverride(name = "userId", column = @Column(name = "userId", length = 36, nullable = false) )
+@AttributeOverride(name = "userId", column = @Column(name = "userId", length = 20, nullable = false) )
 @Inheritance(strategy = InheritanceType.JOINED)
 public class SysUser extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	/*
-	 * @FieldInfo(name = "部门ID")
-	 * 
-	 * @Column(name = "DEPT_ID", length = 36, nullable = true) private String
-	 * deptId;
-	 * 
-	 * public void setDeptId(String deptId) { this.deptId = deptId; }
-	 * 
-	 * public String getDeptId() { return deptId; }
-	 */
-
-	@FieldInfo(name = "账号")
+	
+	@FieldInfo(name = "账号",type="nvarchar(16)",explain="用户的账号")
 	@Column(name = "userName", columnDefinition="nvarchar(16)", nullable = false)
 	private String userName;
 
@@ -69,7 +59,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return userName;
 	}
 
-	@FieldInfo(name = "密码")
+	@FieldInfo(name = "密码",type="nvarchar(128)",explain="用户的密码（默认是123456）")
 	@Column(name = "userPwd", columnDefinition="nvarchar(128)", nullable = false)
 	private String userPwd;
 
@@ -81,7 +71,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return userPwd;
 	}
 
-	@FieldInfo(name = "状态")
+	@FieldInfo(name = "状态",type="nvarchar(4)",explain="用户的账户状态")
 	@Column(name = "state", columnDefinition="nvarchar(4) defalut ''", nullable = true)
 	private String state;
 
@@ -93,7 +83,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return state;
 	}
 
-	@FieldInfo(name = "是否系统 1=非内置 0=内置")
+	@FieldInfo(name = "是否系统 1=非内置 0=内置",type="boolean",explain="是否是系统用户")
 	@Column(name = "issystem", columnDefinition="defalut 0", nullable = true)
 	private boolean issystem;
 
@@ -105,7 +95,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return issystem;
 	}
 
-	@FieldInfo(name = "身份 0=内部用户 1=老师 2=学生 3=家长 ")
+	@FieldInfo(name = "身份 0=内部用户 1=老师 2=学生 3=家长 ",type="varchar(2)",explain="用户的当前身份")
 	@Column(name = "category", columnDefinition="varchar(2) defalut ''", nullable = true)
 	private String category;
 
@@ -117,7 +107,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return category;
 	}
 
-	@FieldInfo(name = "最后登录时间")
+	@FieldInfo(name = "最后登录时间",type="datetime",explain="用户的最后登录时间")
 	@Column(name = "loginTime", columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
@@ -133,7 +123,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	@JsonIgnore
-	@FieldInfo(name = "用户隶属角色")
+	@FieldInfo(name = "用户隶属角色",type="Set<SysRole>",explain="多对多实体关系映射，生成一个中间表T_PT_RoleUser")
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "T_PT_RoleUser", joinColumns = { @JoinColumn(name = "userId") }, inverseJoinColumns = {
 			@JoinColumn(name = "roleId") })
@@ -147,48 +137,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	public void setSysRoles(Set<SysRole> sysRoles) {
 		this.sysRoles = sysRoles;
 	}
-
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @FieldInfo(name = "用户所属部门")
-	 * 
-	 * @ManyToMany(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinTable(name = "SYS_T_USERDEPT", joinColumns = { @JoinColumn(name =
-	 * "USER_ID") }, inverseJoinColumns = {
-	 * 
-	 * @JoinColumn(name = "DEPT_ID") })
-	 * 
-	 * @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
-	 * private Set<BaseOrg> userDepts = new HashSet<BaseOrg>();
-	 * 
-	 * public Set<BaseOrg> getUserDepts() { return userDepts; }
-	 * 
-	 * public void setUserDepts(Set<BaseOrg> userDepts) { this.userDepts =
-	 * userDepts; }
-	 * 
-	 * @JsonIgnore
-	 * 
-	 * @FieldInfo(name = "用户所在岗位")
-	 * 
-	 * @ManyToMany(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinTable(name = "SYS_T_USERJOB", joinColumns = { @JoinColumn(name =
-	 * "USER_ID") }, inverseJoinColumns = {
-	 * 
-	 * @JoinColumn(name = "JOB_ID") })
-	 * 
-	 * @Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
-	 * private Set<BaseJob> userJobs = new HashSet<BaseJob>();
-	 * 
-	 * public Set<BaseJob> getUserJobs() { return userJobs; }
-	 * 
-	 * public void setUserJobs(Set<BaseJob> userJobs) { this.userJobs =
-	 * userJobs; }
-	 */
-
-	@FieldInfo(name = "学校ID")
+    @FieldInfo(name = "学校ID",type="varchar(20)",explain="用户所在的学校id")
 	@Column(name = "schoolId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String schoolId;
 
@@ -200,7 +149,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.schoolId = schoolId;
 	}
 
-	@FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
+	@FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏",type="boolean",explain="是否隐藏")
 	@Column(name = "isHidden",columnDefinition="defalut 0" , nullable = true)
 	private boolean isHidden;
 
@@ -213,7 +162,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	// 默认设置为本部门
-	@FieldInfo(name = "部门权限类型 0-所有权限 1-指定部门（默认包含了本部门和岗位主管的部门）  2-本部门")
+	@FieldInfo(name = "部门权限类型 0-所有权限 1-指定部门（默认包含了本部门和岗位主管的部门）  2-本部门",type="byte",explain="用户拥有的部门权限类型")
 	@Column(name = "rightType",columnDefinition="defalut 0", nullable = true)
 	private byte rightType;
 
@@ -226,9 +175,9 @@ public class SysUser extends BaseEntity implements Serializable {
 	}
 
 	/**
-	 * CATEGORY=1 对应老师的工号(gh) CATEGORY=2 对应学生的学号(xh)
+	 * CATEGORY=1 对应老师的工号(gh) CATEGORY=2 对应老师的工号(xh)
 	 */
-	@FieldInfo(name = "用户编号")
+	@FieldInfo(name = "用户编号",type="nvarchar(18)",explain="用户编号（对应老师的工号和对应学生的学号）")
 	@Column(name = "userNumb", columnDefinition="nvarchar(18) defalut ''", nullable = true)
 	private String userNumb;
 
@@ -240,7 +189,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.userNumb = userNumb;
 	}
 
-	@FieldInfo(name = "姓名")
+	@FieldInfo(name = "姓名",type="nvarchar(36)",explain="用户的姓名")
 	@Column(name = "name",  columnDefinition="nvarchar(36)", nullable = false)
 	private String name;
 
@@ -252,7 +201,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return name;
 	}
 
-	@FieldInfo(name = "性别码")
+	@FieldInfo(name = "性别码",type="nvarchar(10)",explain="用户的性别码")
 	@Column(name = "genderCode",  columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String genderCode;
 
@@ -264,7 +213,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		return genderCode;
 	}
 
-	@FieldInfo(name = "出生日期")
+	@FieldInfo(name = "出生日期",type="datetime",explain="用户的出生日期")
 	@Column(name = "birthData",  columnDefinition="datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
@@ -279,55 +228,27 @@ public class SysUser extends BaseEntity implements Serializable {
 		return birthData;
 	}
 
-	@FieldInfo(name = "身份证件号")
+	@FieldInfo(name = "身份证件号",type="varchar(20）",explain="用户的身份证件号")
 	@Column(name = "personalIdentityDocument", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String personalIdentityDocument;
 
-	@FieldInfo(name = "政治面貌")
+	@FieldInfo(name = "政治面貌",type="nvarchar(10)",explain="用户的政治面貌")
 	@Column(name = "politicalStatus", columnDefinition="nvarchar(10) defalut ''", nullable = true)
 	private String politicalStatus;
 
-	@FieldInfo(name = "移动电话")
+	@FieldInfo(name = "移动电话",type="varchar(64)",explain="用户的移动电话")
 	@Column(name = "mobilePhone",  columnDefinition="varchar(64) defalut ''", nullable = true)
 	private String mobilePhone;
 
-	@FieldInfo(name = "电子信箱")
+	@FieldInfo(name = "电子信箱",type="varchar(40)",explain="用户的电子信箱")
 	@Column(name = "email",  columnDefinition="varchar(40) defalut ''", nullable = true)
 	private String email;
 
-	@FieldInfo(name = "人员编制类型")
+	@FieldInfo(name = "人员编制类型",type="nvarchar(40)",explain="用户的人员编制类型")
 	@Column(name = "headCountType",  columnDefinition="nvarchar(40) defalut ''", nullable = true)
 	private String headCountType;
 	
 
-	/*
-	 * @FieldInfo(name = "主岗位ID")
-	 * 
-	 * @Column(name = "JOB_ID", length = 36, nullable = true) private String
-	 * jobId;
-	 * 
-	 * public String getJobId() { return jobId; }
-	 * 
-	 * public void setJobId(String jobId) { this.jobId = jobId; }
-	 * 
-	 * @FieldInfo(name = "主岗位编码")
-	 * 
-	 * @Column(name = "JOB_CODE", length = 16, nullable = true) private String
-	 * jobCode;
-	 * 
-	 * public String getJobCode() { return jobCode; }
-	 * 
-	 * public void setJobCode(String jobCode) { this.jobCode = jobCode; }
-	 * 
-	 * @FieldInfo(name = "主岗位名称")
-	 * 
-	 * @Column(name = "JOB_NAME", length = 36, nullable = true) private String
-	 * jobName;
-	 * 
-	 * public String getJobName() { return jobName; }
-	 * 
-	 * public void setJobName(String jobName) { this.jobName = jobName; }
-	 */
 
 	public String getPersonalIdentityDocument() {
 		return personalIdentityDocument;
@@ -387,8 +308,9 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.rememberMe = rememberMe;
 	}
 
-	@FieldInfo(name = "主部门ID")
-	@Formula("(SELECT ISNULL(a.DEPT_ID,'') FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=(SELECT b.DEPTJOB_ID FROM BASE_T_USERDEPTJOB b WHERE b.MASTER_DEPT=1 AND  b.USER_ID=USER_ID AND b.ISDELETE=0))")
+	@FieldInfo(name = "主部门ID",type="varchar(20)",explain="用户的主部门ID")
+	@Formula("(SELECT ISNULL(a.deptId,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
+			+ "(SELECT b.deptjobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -399,8 +321,9 @@ public class SysUser extends BaseEntity implements Serializable {
 		return deptId;
 	}
 
-	@FieldInfo(name = "主部门名称")
-	@Formula("(SELECT ISNULL(a.DEPT_NAME,'') FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=(SELECT b.DEPTJOB_ID FROM BASE_T_USERDEPTJOB b WHERE b.MASTER_DEPT=1 AND  b.USER_ID=USER_ID AND b.ISDELETE=0))")
+	@FieldInfo(name = "主部门名称",type="nvarchar(36)",explain="用户的主部门名称")
+	@Formula("(SELECT ISNULL(a.deptName,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
+			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
 	private String deptName;
 
 	public String getDeptName() {
@@ -411,8 +334,9 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.deptName = deptName;
 	}
 
-	@FieldInfo(name = "主岗位ID")
-	@Formula("(SELECT ISNULL(a.JOB_ID,'') FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=(SELECT b.DEPTJOB_ID FROM BASE_T_USERDEPTJOB b WHERE b.MASTER_DEPT=1 AND  b.USER_ID=USER_ID AND b.ISDELETE=0))")
+	@FieldInfo(name = "主岗位ID",type="varchar(20)",explain="用户的主岗位ID")
+	@Formula("(SELECT ISNULL(a.jobId,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
+			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
 	private String jobId;
 
 	public String getJobId() {
@@ -423,8 +347,9 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.jobId = jobId;
 	}
 
-	@FieldInfo(name = "主岗位名称")
-	@Formula("(SELECT ISNULL(a.JOB_NAME,'') FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=(SELECT b.DEPTJOB_ID FROM BASE_T_USERDEPTJOB b WHERE b.MASTER_DEPT=1 AND  b.USER_ID=USER_ID AND b.ISDELETE=0))")
+	@FieldInfo(name = "主岗位名称",type="nvarchar(36)",explain="用户的主岗位名称")
+	@Formula("(SELECT ISNULL(a.jobName,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
+			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
 	private String jobName;
 
 	public String getJobName() {
@@ -435,8 +360,8 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.jobName = jobName;
 	}
 
-	@FieldInfo(name = "学校名称")
-	@Formula("(SELECT a.NODE_TEXT from BASE_T_ORG a where a.DEPT_ID=SCHOOL_ID)")
+	@FieldInfo(name = "学校名称",type="nvarchar(36)",explain="当前用户所属的学校名称")
+	@Formula("(SELECT a.nodeText from T_PT_Department a where a.deptId=schoolId)")
 	private String schoolName;
 
 	public String getSchoolName() {
@@ -483,8 +408,8 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.studyYearname = studyYearname;
 	}
 
-	@FieldInfo(name = "UP卡流水号")
-	@Formula("(SELECT top 1 a.CARDNO FROM PT_CARD a where a.USER_ID=USER_ID order by a.CREATE_TIME desc)")
+	@FieldInfo(name = "UP卡流水号",type="nvarchar(36)",explain="用户的UP卡流水号")
+	@Formula("(SELECT top 1 a.cardNo FROM T_PT_Card a where a.userId=userId order by a.createTime desc)")
 	private Long upCardId;
 
 	public Long getUpCardId() {
@@ -495,8 +420,8 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.upCardId = upCardId;
 	}
 
-	@FieldInfo(name = "UP卡状态")
-	@Formula("(SELECT top 1 a.CARDSTATUSID FROM PT_CARD a where a.USER_ID=USER_ID order by a.CREATE_TIME desc)")
+	@FieldInfo(name = "UP卡状态",type="nvarchar(36)",explain="用户的UP卡状态(1正常 2挂失 3注销 4换卡 7冻结)")
+	@Formula("(SELECT top 1 a.cardStatusId FROM T_PT_Card a where a.userId=userId order by a.createTime desc)")
 	private Integer useState;
 
 	public Integer getUseState() {
@@ -514,33 +439,5 @@ public class SysUser extends BaseEntity implements Serializable {
 	public SysUser(String uuid) {
 		super(uuid);
 	}
-	/*
-	 * @FieldInfo(name = "所有岗位ID")
-	 * 
-	 * @Transient private String allJobId;
-	 * 
-	 * public String getAllJobId() { return allJobId; }
-	 * 
-	 * public void setAllJobId(String allJobId) { this.allJobId = allJobId; }
-	 * 
-	 * @FieldInfo(name = "所有岗位名称") // @Transient
-	 * 
-	 * @Formula("(SELECT dbo.fn_GetUserJobNames(user_id))") private String
-	 * allJobName;
-	 * 
-	 * public String getAllJobName() { return allJobName; }
-	 * 
-	 * public void setAllJobName(String allJobName) { this.allJobName =
-	 * allJobName; }
-	 * 
-	 * @FieldInfo(name = "所有部门名称")
-	 * 
-	 * @Formula("(SELECT dbo.fn_GetUserDeptNames(user_id))") private String
-	 * allDeptName;
-	 * 
-	 * public String getAllDeptName() { return allDeptName; }
-	 * 
-	 * public void setAllDeptName(String allDeptName) { this.allDeptName =
-	 * allDeptName; }
-	 */
+	
 }

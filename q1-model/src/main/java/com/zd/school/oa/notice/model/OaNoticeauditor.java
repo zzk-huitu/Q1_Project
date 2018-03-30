@@ -48,7 +48,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
 		this.oaNotice = oaNotice;
 	}
 
-	@FieldInfo(name = "人员ID")
+	@FieldInfo(name = "人员ID",type="varchar(20)",explain="公告的审核人员ID")
     @Column(name = "userId", length = 20, nullable = false)
     private String userId;
     public void setUserId(String userId) {
@@ -58,7 +58,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return userId;
     }
         
-    @FieldInfo(name = "姓名(对应员工姓名)")
+    @FieldInfo(name = "姓名(对应员工姓名)",type="nvarchar(32)",explain="公告的审核人员姓名")
     @Column(name = "name",columnDefinition="nvarchar(32)", nullable = false)
     private String name;
     public void setName(String name) {
@@ -68,7 +68,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return name;
     }
         
-    @FieldInfo(name = "审核意见")
+    @FieldInfo(name = "审核意见",type="nvarchar(64)",explain="公告的审核意见")
     @Column(name = "auditOpinion", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String auditOpinion;
     public void setAuditOpinion(String auditOpinion) {
@@ -78,7 +78,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return auditOpinion;
     }
         
-    @FieldInfo(name = "审核状态(0-待审核 1-审核通过 2-审核不通过)")
+    @FieldInfo(name = "审核状态(0-待审核 1-审核通过 2-审核不通过)",type="Integer",explain="公告的审核审核状态")
     @Column(name = "auditState", length = 1, nullable = false)
     private Integer auditState;
     public void setAuditState(Integer auditState) {
@@ -88,7 +88,7 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return auditState;
     }
         
-    @FieldInfo(name = "审核日期")
+    @FieldInfo(name = "审核日期",type="datetime",explain="公告的审核日期")
     @Column(name = "auditDate", columnDefinition="datetime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)

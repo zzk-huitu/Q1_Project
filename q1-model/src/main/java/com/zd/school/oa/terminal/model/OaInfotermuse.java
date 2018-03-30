@@ -29,31 +29,31 @@ import com.zd.core.model.BaseEntity;
 public class OaInfotermuse extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "终端主键ID")
-    @Column(name = "terminalId", length = 20, nullable = false)
-    private String terminalId;
+    @FieldInfo(name = "信息终端主键ID",type="varchar(20)",explain="信息终端的主键ID")
+    @Column(name = "infoTerminalId", length = 20, nullable = false)
+    private String infoTerminalId;
   
         
-    public String getTerminalId() {
-		return terminalId;
+    public String getInfoTerminalId() {
+		return infoTerminalId;
 	}
-	public void setTerminalId(String terminalId) {
-		this.terminalId = terminalId;
-	}
-
-	@FieldInfo(name = "终端号")
-    @Column(name = "terminalIdNo", length = 6, nullable = false)
-    private String terminalIdNo;
-  
-        
-    public String getTerminalIdNo() {
-		return terminalIdNo;
-	}
-	public void setTerminalIdNo(String terminalIdNo) {
-		this.terminalIdNo = terminalIdNo;
+	public void setInfoTerminalId(String infoTerminalId) {
+		this.infoTerminalId = infoTerminalId;
 	}
 
-	@FieldInfo(name = "使用房间ID")
+	@FieldInfo(name = "终端号",type="varchar(6)",explain="信息终端的终端号")
+    @Column(name = "terminalNo", length = 6, nullable = false)
+	private String terminalNO;
+
+	public String getTerminalNO() {
+		return terminalNO;
+	}
+
+	public void setTerminalNO(String terminalNO) {
+		this.terminalNO = terminalNO;
+	}
+
+	@FieldInfo(name = "使用房间ID",type="varchar(20)",explain="终端的使用房间ID")
     @Column(name = "roomId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String roomId;
     public void setRoomId(String roomId) {
@@ -63,7 +63,7 @@ public class OaInfotermuse extends BaseEntity implements Serializable{
         return roomId;
     }
         
-    @FieldInfo(name = "使用房间名称")
+    @FieldInfo(name = "使用房间名称",type="nvarchar(64)",explain="终端的使用房间名称")
     @Column(name = "roomName", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String roomName;
     public void setRoomName(String roomName) {

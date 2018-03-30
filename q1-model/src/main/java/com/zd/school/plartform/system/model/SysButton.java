@@ -26,7 +26,7 @@ import com.zd.core.model.BaseEntity;
 public class SysButton extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "按钮名称")
+    @FieldInfo(name = "按钮名称",type="nvarchar(32)",explain="按钮名称")
     @Column(name = "buttonName", columnDefinition="nvarchar(32)", nullable = false)
     private String buttonName;
 
@@ -38,7 +38,7 @@ public class SysButton extends BaseEntity implements Serializable {
         return buttonName;
     }
 
-    @FieldInfo(name = "提示信息")
+    @FieldInfo(name = "提示信息",type="nvarchar(32)",explain="按钮提示信息")
     @Column(name = "buttonTitle",columnDefinition="nvarchar(32)", nullable = false)
     private String buttonTitle;
 
@@ -50,7 +50,7 @@ public class SysButton extends BaseEntity implements Serializable {
         return buttonTitle;
     }
 
-    @FieldInfo(name = "按钮编码")
+    @FieldInfo(name = "按钮编码",type="nvarchar(8)",explain="按钮编码")
     @Column(name = "buttonCode",columnDefinition="nvarchar(8)", nullable = false)
     private String buttonCode;
 
@@ -62,7 +62,7 @@ public class SysButton extends BaseEntity implements Serializable {
         return buttonCode;
     }
 
-    @FieldInfo(name = "按钮图标")
+    @FieldInfo(name = "按钮图标路径",type="nvarchar(128)",explain="按钮图标路径")
     @Column(name = "iconUrl",columnDefinition="nvarchar(128)", nullable = false)
     private String iconUrl;
 
@@ -74,7 +74,7 @@ public class SysButton extends BaseEntity implements Serializable {
         return iconUrl;
     }
 
-    @FieldInfo(name = "是否系统按钮")
+    @FieldInfo(name = "是否系统按钮",type="boolean",explain="是否系统按钮")
     @Column(name = "issystem",columnDefinition="defalut 0", nullable = false)
     private boolean issystem;
 
