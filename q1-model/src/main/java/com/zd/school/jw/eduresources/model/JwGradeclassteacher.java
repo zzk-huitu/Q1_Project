@@ -28,7 +28,7 @@ import com.zd.core.model.BaseEntity;
 public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "年级ID")
+	@FieldInfo(name = "gradeId", type = "varchar(20)", explain = "年级Id")
 	@Column(name = "gradeId", length = 20, nullable = false)
 	private String gradeId;
 
@@ -40,7 +40,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 		this.gradeId = gradeId;
 	}
 
-	@FieldInfo(name = "教职工ID")
+	@FieldInfo(name = "teacherId", type = "varchar(20)", explain = "教职工Id")
 	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
@@ -52,7 +52,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	@FieldInfo(name = "学年")
+	@FieldInfo(name = "studyYear", type = "nvarchar(20)", explain = "学年")
 	@Column(name = "studyYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private Integer studyYear;
 
@@ -64,19 +64,18 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 		this.studyYear = studyYear;
 	}
 
-	@FieldInfo(name = "studyYearName")
+	@FieldInfo(name = "studyYearName", type = "nvarchar(20)", explain = "学年名")
 	@Column(name = "studyYearName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String studyYearName;
-
-	public void setstudyYearName(String studyYearName) {
-		this.studyYearName = studyYearName;
-	}
-
-	public String getstudyYearName() {
+	public String getStudyYearName() {
 		return studyYearName;
 	}
 
-	@FieldInfo(name = "学期")
+	public void setStudyYearName(String studyYearName) {
+		this.studyYearName = studyYearName;
+	}
+
+	@FieldInfo(name = "semester", type = "nvarchar(20)", explain = "学期")
 	@Column(name = "semester", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String semester;
 
@@ -88,8 +87,8 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 		return semester;
 	}
 
-	@FieldInfo(name = "身份 0-正年级组长 1-副年级组长 2-班主任 3-副班主任")
-	@Column(name = "CATEGORY", nullable = false)
+	@FieldInfo(name = "category", type = "Integer", explain = "身份 :0-正年级组长 1-副年级组长 2-班主任 3-副班主任")
+	@Column(name = "category", nullable = false)
 	private Integer category;
 
 	public void setCategory(Integer category) {
@@ -100,8 +99,8 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 		return category;
 	}
 
-	@FieldInfo(name = "教师类型 0-年级组长 1-班主任 ")
-	@Column(name = "teacherType", columnDefinition = "default '0'", nullable = true)
+	@FieldInfo(name = "teacherType", type = "varchar(2)", explain = "教师类型 :0-年级组长 ;1-班主任")
+	@Column(name = "teacherType", columnDefinition = "varchar(2),default '0'", nullable = true)
 	private String teacherType;
 
 	public String getTeacherType() {
@@ -133,7 +132,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "班级名称")
-	@Formula("(SELECT a.NODE_TEXT FROM BASE_T_ORG a WHERE a.DEPT_ID=GRAI_ID)")
+	@Formula("(SELECT a.nodeText FROM T_PT_Department a WHERE a.deptId=gradeId)")
 	private String className;
 
 	public String getClassName() {
@@ -145,7 +144,7 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "老师工号")
-	@Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	@Formula("(SELECT a.userNumb FROM T_PT_User a WHERE a.userId=teacherId )")
 	private String userNumb;
 
 	public String getUserNumb() {
@@ -157,31 +156,31 @@ public class JwGradeclassteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "老师姓名")
-	@Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-	private String xm;
+	@Formula("(SELECT a.name FROM T_PT_User a WHERE a.userId=teacherId )")
+	private String name;
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@FieldInfo(name = "老师性别")
-	@Formula("(SELECT a.xbm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-	private String xbm;
+	@Formula("(SELECT a.genderCode FROM T_PT_User a WHERE a.userId=teacherId )")
+	private String genderCode;
 
-	public String getXbm() {
-		return xbm;
+	public String getGenderCode() {
+		return genderCode;
 	}
 
-	public void setXbm(String xbm) {
-		this.xbm = xbm;
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
 	}
 
 	@FieldInfo(name = "老师岗位")
-	@Formula("(SELECT a.JOB_NAME FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	@Formula("(SELECT a.jobName FROM T_PT_User a WHERE a.userId=teacherId )")
 	private String jobName;
 
 	public String getJobName() {

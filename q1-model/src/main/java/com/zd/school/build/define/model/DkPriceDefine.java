@@ -22,23 +22,23 @@ import com.zd.core.model.BaseEntity;
 public class DkPriceDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "费率名称")
+	@FieldInfo(name = "priceName", type = "nvarchar(36)", explain = "费率名称")
 	@Column(name = "priceName", columnDefinition = "nvarchar(36)", nullable = false)
 	private String priceName;
 
-	@FieldInfo(name = "费率价格")
+	@FieldInfo(name = "priceValue", type = "double", explain = "费率价格")
 	@Column(name = "priceValue", nullable = false)
 	private double priceValue;
 
-	@FieldInfo(name = "状态,用于标识是否启用：0禁用。1启用")
+	@FieldInfo(name = "priceStatus", type = "Boolean", explain = "状态,用于标识是否启用：0禁用。1启用")
 	@Column(name = "priceStatus", columnDefinition = "default 0", nullable = true)
 	private Boolean priceStatus;
 
-	@FieldInfo(name = "货币种类")
+	@FieldInfo(name = "currencyType", type = "nvarchar(10)", explain = "货币种类")
 	@Column(name = "currencyType", columnDefinition = "nvarchar(10) default 'RMB(人民币)'", nullable = true)
 	private String currencyType;
 
-	@FieldInfo(name = "备注")
+	@FieldInfo(name = "priceNotes", type = "nvarchar(128)", explain = "备注")
 	@Column(name = "priceNotes", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String priceNotes;
 

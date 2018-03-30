@@ -23,32 +23,32 @@ import com.zd.core.model.BaseEntity;
 public class PtGateway extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "机号")
+	@FieldInfo(name = "gatewayNo", type = "Integer", explain = "机号")
 	@Column(name = "gatewayNo")
 	private Integer gatewayNo;
 
-	@FieldInfo(name = "网关名称")
-	@Column(name = "gatewayName", length = 200, nullable = true)
+	@FieldInfo(name = "gatewayName", type = "varchar(200)", explain = "网关名称")
+	@Column(name = "gatewayName", length = 200, nullable = false)
 	private String gatewayName;
 	
-	@FieldInfo(name = "前置表ID")
-	@Column(name = "frontServerId", length = 36, nullable = true)
+	@FieldInfo(name = "frontServerId", type = "varchar(36", explain = "前置表ID")
+	@Column(name = "frontServerId", columnDefinition = "varchar(36) default ''", nullable = true)
 	private String frontServerId;
 	
-	@FieldInfo(name = "序列号")
-	@Column(name = "gatewaySN", length = 200, nullable = true)
+	@FieldInfo(name = "gatewaySN", type = "varchar(200)", explain = "序列号")
+	@Column(name = "gatewaySN", columnDefinition = "varchar(200) default ''", nullable = true)
 	private String gatewaySN;
 
-	@FieldInfo(name = "硬件程序版本号")
-	@Column(name = "programVersion", length = 8, nullable = true)
+	@FieldInfo(name = "programVersion", type = "varchar(8)", explain = "硬件程序版本号")
+	@Column(name = "programVersion", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String programVersion;
 
-	@FieldInfo(name = "网关Ip")
-	@Column(name = "gatewayIp", length = 100, nullable = true)
+	@FieldInfo(name = "gatewayIp", type = "varchar(100)", explain = "网关Ip")
+	@Column(name = "gatewayIp", columnDefinition = "varchar(100) default ''", nullable = true)
 	private String gatewayIP;
 
-	@FieldInfo(name = "设备掩码")
-    @Column(name = "gatewayMask",length = 36,nullable = true)
+	@FieldInfo(name = "gatewayMask", type = "varchar(36)", explain = "设备掩码")
+    @Column(name = "gatewayMask",columnDefinition = "varchar(36) default ''", nullable = true)
     private String gatewayMask;
 
     public String getGatewayMask() {
@@ -58,8 +58,8 @@ public class PtGateway extends BaseEntity implements Serializable {
     public void setGatewayMask(String gatewayMask) {
         this.gatewayMask = gatewayMask;
     }
-    @FieldInfo(name = "设备MAC")
-    @Column(name = "gatewayMac",length = 36,nullable = true)
+    @FieldInfo(name = "gatewayMac", type = "varchar(36)", explain = "设备MAC")
+    @Column(name = "gatewayMac",columnDefinition = "varchar(36) default ''", nullable = true)
     private String gatewayMac;
 
     public String getGatewayMac() {
@@ -69,46 +69,47 @@ public class PtGateway extends BaseEntity implements Serializable {
     public void setGatewayMac(String gatewayMac) {
         this.gatewayMac = gatewayMac;
     }
-    @FieldInfo(name = "接入网关")
-    @Column(name = "netGatewayIp")
+    
+    @FieldInfo(name = "baseParam", type = "varbinary", explain = "基础参数")
+	@Column(name = "baseParam",length=8000)
+	private byte[] baseParam;
+
+	@FieldInfo(name = "advParam", type = "varbinary", explain = "高级参数")
+	@Column(name = "advParam",length=8000)
+	private byte[] advParam;
+
+	@FieldInfo(name = "netParam", type = "varbinary", explain = "网络参数")
+	@Column(name = "netParam",length=8000)
+	private byte[] netParam;
+
+	@FieldInfo(name = "notes", type = "nvarchar(2000)", explain = "备注说明")
+	@Column(name = "notes", columnDefinition = "nvarchar(2000) default ''", nullable = true)
+	private String notes;
+	
+    @FieldInfo(name = "netGatewayIp", type = "varchar(50)", explain = "接入网关")
+    @Column(name = "netGatewayIp",columnDefinition = "varchar(50) default ''", nullable = true)
     private String netGatewayIp;
 	
-	@FieldInfo(name = "网关状态(1是启用 0是禁用)")//修正，数据弄反
-	@Column(name = "gatewayStatus")
+	@FieldInfo(name = "gatewayStatus", type = "Integer", explain = "网关状态(1是启用 0是禁用)")//修正，数据弄反
+	@Column(name = "gatewayStatus",columnDefinition = "default 0", nullable = true)
 	private Integer gatewayStatus;
 
 	@FieldInfo(name = "前置名称")
-	@Formula("(SELECT A.FRONTSERVER_NAME FROM dbo.SYS_FRONTSERVER A WHERE A.FRONTSERVER_ID=FRONTSERVER_ID)")
+	@Formula("(SELECT A.frontServerName FROM dbo.T_PT_FrontServer A WHERE A.frontServerId=frontServerId)")
 	private String frontServerName;
 
 	@FieldInfo(name = "前置IP")
-	@Formula("(SELECT A.FRONTSERVER_IP FROM dbo.SYS_FRONTSERVER A WHERE A.FRONTSERVER_ID=FRONTSERVER_ID)")
+	@Formula("(SELECT A.frontServerIp FROM dbo.T_PT_FrontServer A WHERE A.frontServerId=frontServerId)")
 	private String frontServerIP;
 
 	@FieldInfo(name = "前置端口")
-	@Formula("(SELECT A.FRONTSERVER_PORT FROM dbo.SYS_FRONTSERVER A WHERE A.FRONTSERVER_ID=FRONTSERVER_ID)")
+	@Formula("(SELECT A.frontServerPort FROM dbo.T_PT_FrontServer A WHERE A.frontServerId=frontServerId)")
 	private Integer frontServerPort;
 	
 	@FieldInfo(name = "前置状态(1是启用 0是禁用)")//修正，数据弄反
-	@Formula("(SELECT A.FRONTSERVER_STATUS FROM dbo.SYS_FRONTSERVER A WHERE A.FRONTSERVER_ID=FRONTSERVER_ID)")
+	@Formula("(SELECT A.frontServerStatus FROM dbo.T_PT_FrontServer A WHERE A.frontServerId=frontServerId)")
 	private Integer frontServerStatus;
 	
-	@FieldInfo(name = "基础参数")
-	@Column(name = "BASEPARAM",length=8000)
-	private byte[] baseParam;
-
-	@FieldInfo(name = "高级参数")
-	@Column(name = "ADVPARAM",length=8000)
-	private byte[] advParam;
-
-	@FieldInfo(name = "网络参数")
-	@Column(name = "NETPARAM",length=8000)
-	private byte[] netParam;
-
-	@FieldInfo(name = "备注说明")
-	@Column(name = "NOTES", length = 2000, nullable = true)
-	private String notes;
-
 	public Integer getGatewayNo() {
 		return gatewayNo;
 	}

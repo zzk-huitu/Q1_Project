@@ -44,7 +44,7 @@ import com.zd.core.util.DateTimeSerializer;
 public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "学校主键")
+	@FieldInfo(name = "schoolId",type="varchar(20)",explain="学校Id")
 	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
@@ -56,7 +56,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return schoolId;
 	}
 
-	@FieldInfo(name = "学校名称")
+	@FieldInfo(name = "schoolName",type="nvarchar(20)",explain="学校名称")
 	@Column(name = "schoolName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String schoolName;
 
@@ -68,7 +68,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return schoolName;
 	}
 
-	@FieldInfo(name = "学年")
+	@FieldInfo(name = "schoolYear",type="nvarchar(20)",explain="学年")
 	@Column(name = "schoolYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String schoolYear;
 
@@ -80,7 +80,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return schoolYear;
 	}
 
-	@FieldInfo(name = "学期")
+	@FieldInfo(name = "semester",type="varchar(20)",explain="学期")
 	@Column(name = "semester", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String semester;
 
@@ -92,7 +92,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.semester = semester;
 	}
 
-	@FieldInfo(name = "房间ID")
+	@FieldInfo(name = "funcRoomId",type="varchar(20)",explain="房间Id")
 	@Column(name = "funcRoomId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String funcRoomId;
 
@@ -104,7 +104,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.funcRoomId = funcRoomId;
 	}
 
-	@FieldInfo(name = "节次")
+	@FieldInfo(name = "sections",type="varchar(20)",explain="节次")
 	@Column(name = "sections", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String sections;
 
@@ -116,8 +116,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.sections = sections;
 	}
 
-
-	@FieldInfo(name = "课程ID1")
+	@FieldInfo(name = "courseId01",type="varchar(20)",explain="课程ID1")
 	@Column(name = "courseId01", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId01;
 
@@ -129,7 +128,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId01;
 	}
 
-	@FieldInfo(name = "课程名1")
+	@FieldInfo(name = "courseName01",type="nvarchar(20)",explain="课程名1")
 	@Column(name = "courseName01", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName01;
 
@@ -141,7 +140,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName01;
 	}
 
-	@FieldInfo(name = "任课教师ID1")
+	@FieldInfo(name = "teacherId01",type="varchar(20)",explain="任课教师ID1")
 	@Column(name = "teacherId01", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId01;
 
@@ -153,7 +152,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId01 = teacherId01;
 	}
 
-	@FieldInfo(name = "任课教师工号1")
+	@FieldInfo(name = "teacherNumber01",type="nvarchar(20)",explain="任课教师工号1")
 	@Column(name = "teacherNumber01", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber01;
 
@@ -165,7 +164,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber01 = teacherNumber01;
 	}
 
-	@FieldInfo(name = "任课教师姓名1")
+	@FieldInfo(name = "teacherName01",type="nvarchar(20)",explain="任课教师姓名1")
 	@Column(name = "teacherName01", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName01;
 
@@ -177,7 +176,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return teacherName01;
 	}
 
-	@FieldInfo(name = "课程ID2")
+	@FieldInfo(name = "courseId02",type="varchar(20)",explain="课程ID2")
 	@Column(name = "courseId02", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId02;
 
@@ -189,7 +188,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId02;
 	}
 
-	@FieldInfo(name = "课程名2")
+	@FieldInfo(name = "courseName02",type="nvarchar(20)",explain="课程名2")
 	@Column(name = "courseName02", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName02;
 
@@ -201,7 +200,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName02;
 	}
 
-	@FieldInfo(name = "任课教师ID2")
+	@FieldInfo(name = "teacherId02",type="varchar(20)",explain="任课教师ID2")
 	@Column(name = "teacherId02", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId02;
 
@@ -213,7 +212,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId02 = teacherId02;
 	}
 
-	@FieldInfo(name = "任课教师工号2")
+	@FieldInfo(name = "teacherNumber02",type="nvarchar(20)",explain="任课教师工号2")
 	@Column(name = "teacherNumber02", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber02;
 
@@ -225,7 +224,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber02 = teacherNumber02;
 	}
 
-	@FieldInfo(name = "任课教师姓名2")
+	@FieldInfo(name = "teacherName02",type="nvarchar(20)",explain="任课教师姓名2")
 	@Column(name = "teacherName02", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName02;
 
@@ -237,7 +236,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return teacherName02;
 	}
 
-	@FieldInfo(name = "课程ID3")
+	@FieldInfo(name = "courseId03",type="varchar(20)",explain="课程ID3")
 	@Column(name = "courseId03", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId03;
 
@@ -249,7 +248,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId03;
 	}
 
-	@FieldInfo(name = "课程名3")
+	@FieldInfo(name = "courseName03",type="nvarchar(20)",explain="课程名3")
 	@Column(name = "courseName03", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName03;
 
@@ -261,7 +260,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName03;
 	}
 
-	@FieldInfo(name = "任课教师ID3")
+	@FieldInfo(name = "teacherId03",type="varchar(20)",explain="任课教师ID3")
 	@Column(name = "teacherId03", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId03;
 
@@ -273,7 +272,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId03 = teacherId03;
 	}
 
-	@FieldInfo(name = "任课教师工号3")
+	@FieldInfo(name = "teacherNumber03",type="nvarchar(20)",explain="任课教师工号3")
 	@Column(name = "teacherNumber03", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber03;
 
@@ -285,7 +284,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber03 = teacherNumber03;
 	}
 
-	@FieldInfo(name = "任课教师姓名3")
+	@FieldInfo(name = "teacherName03",type="nvarchar(20)",explain="任课教师姓名3")
 	@Column(name = "teacherName03", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName03;
 
@@ -297,7 +296,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return teacherName03;
 	}
 
-	@FieldInfo(name = "课程ID4")
+	@FieldInfo(name = "courseId04",type="varchar(20)",explain="课程ID4")
 	@Column(name = "courseId04", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId04;
 
@@ -309,7 +308,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId04;
 	}
 
-	@FieldInfo(name = "课程名4")
+	@FieldInfo(name = "courseName04",type="nvarchar(20)",explain="课程名4")
 	@Column(name = "courseName04", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName04;
 
@@ -321,7 +320,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName04;
 	}
 
-	@FieldInfo(name = "任课教师ID4")
+	@FieldInfo(name = "teacherId04",type="varchar(20)",explain="任课教师ID4")
 	@Column(name = "teacherId04", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId04;
 
@@ -333,7 +332,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId04 = teacherId04;
 	}
 
-	@FieldInfo(name = "任课教师工号4")
+	@FieldInfo(name = "teacherNumber04",type="nvarchar(20)",explain="任课教师工号4")
 	@Column(name = "teacherNumber04", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber04;
 
@@ -345,7 +344,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber04 = teacherNumber04;
 	}
 
-	@FieldInfo(name = "任课教师姓名4")
+	@FieldInfo(name = "teacherName04",type="nvarchar(20)",explain="任课教师姓名4")
 	@Column(name = "teacherName04", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName04;
 
@@ -357,7 +356,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return teacherName04;
 	}
 
-	@FieldInfo(name = "课程ID5")
+	@FieldInfo(name = "courseId05",type="varchar(20)",explain="课程ID5")
 	@Column(name = "courseId05", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId05;
 
@@ -369,7 +368,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId05;
 	}
 
-	@FieldInfo(name = "课程名5")
+	@FieldInfo(name = "courseName05",type="nvarchar(20)",explain="课程名5")
 	@Column(name = "courseName05", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName05;
 
@@ -381,7 +380,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName05;
 	}
 
-	@FieldInfo(name = "任课教师ID5")
+	@FieldInfo(name = "teacherId05",type="varchar(20)",explain="任课教师ID5")
 	@Column(name = "teacherId05", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId05;
 
@@ -393,7 +392,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId05 = teacherId05;
 	}
 
-	@FieldInfo(name = "任课教师工号5")
+	@FieldInfo(name = "teacherNumber05",type="nvarchar(20)",explain="任课教师工号5")
 	@Column(name = "teacherNumber05", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber05;
 
@@ -405,7 +404,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber05 = teacherNumber05;
 	}
 
-	@FieldInfo(name = "任课教师姓名5")
+	@FieldInfo(name = "teacherName05",type="nvarchar(20)",explain="任课教师姓名5")
 	@Column(name = "teacherName05", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName05;
 
@@ -417,7 +416,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return teacherName05;
 	}
 
-	@FieldInfo(name = "课程ID6")
+	@FieldInfo(name = "courseId06",type="varchar(20)",explain="课程ID6")
 	@Column(name = "courseId06", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId06;
 
@@ -429,7 +428,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId06;
 	}
 
-	@FieldInfo(name = "课程名6")
+	@FieldInfo(name = "courseName06",type="nvarchar(20)",explain="课程名6")
 	@Column(name = "courseName06", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName06;
 
@@ -441,7 +440,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName06;
 	}
 
-	@FieldInfo(name = "任课教师ID6")
+	@FieldInfo(name = "teacherId06",type="varchar(20)",explain="任课教师ID6")
 	@Column(name = "teacherId06", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId06;
 
@@ -453,7 +452,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId06 = teacherId06;
 	}
 
-	@FieldInfo(name = "任课教师工号6")
+	@FieldInfo(name = "teacherNumber06",type="nvarchar(20)",explain="任课教师工号6")
 	@Column(name = "teacherNumber06", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber06;
 
@@ -465,7 +464,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber06 = teacherNumber06;
 	}
 
-	@FieldInfo(name = "任课教师姓名6")
+	@FieldInfo(name = "teacherName06",type="nvarchar(20)",explain="任课教师姓名6")
 	@Column(name = "teacherName06", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName06;
 
@@ -477,7 +476,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return teacherName06;
 	}
 
-	@FieldInfo(name = "课程ID7")
+	@FieldInfo(name = "courseId07",type="varchar(20)",explain="课程ID7")
 	@Column(name = "courseId07", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId07;
 
@@ -489,7 +488,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseId07;
 	}
 
-	@FieldInfo(name = "课程名7")
+	@FieldInfo(name = "courseName07",type="nvarchar(20)",explain="课程名7")
 	@Column(name = "courseName07", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName07;
 
@@ -501,7 +500,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		return courseName07;
 	}
 
-	@FieldInfo(name = "任课教师ID7")
+	@FieldInfo(name = "teacherId07",type="varchar(20)",explain="任课教师ID7")
 	@Column(name = "teacherId07", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId07;
 
@@ -513,7 +512,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherId07 = teacherId07;
 	}
 
-	@FieldInfo(name = "任课教师工号7")
+	@FieldInfo(name = "teacherNumber07",type="nvarchar(20)",explain="任课教师工号7")
 	@Column(name = "teacherNumber07", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber07;
 
@@ -525,7 +524,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.teacherNumber07 = teacherNumber07;
 	}
 
-	@FieldInfo(name = "任课教师姓名7")
+	@FieldInfo(name = "teacherName07",type="nvarchar(20)",explain="任课教师姓名7")
 	@Column(name = "teacherName07", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName07;
 
@@ -572,7 +571,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 
-	@Formula("(SELECT A.ROOM_ID FROM dbo.BUILD_T_FUNCROOMDEFINE A WHERE A.FUNCTIONROOM_ID=FUNCROOM_ID)")
+	@Formula("(SELECT A.roomId FROM dbo.T_PT_FuncRoomDefine A WHERE A.funcRoomId=funcRoomId)")
 	@FieldInfo(name = "房间ID")
 	private String roomId;
 

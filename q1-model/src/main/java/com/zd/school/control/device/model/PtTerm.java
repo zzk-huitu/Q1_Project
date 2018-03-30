@@ -24,66 +24,68 @@ import com.zd.core.model.BaseEntity;
 public class PtTerm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "房间主键")
+	@FieldInfo(name = "房间主键", type = "", explain = "")
 	@Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 
-	@FieldInfo(name = "网关主键")
+	@FieldInfo(name = "网关主键", type = "", explain = "")
 	@Column(name = "gatewayId", length =20, nullable = false)
 	private String gatewayId;
 
-	@FieldInfo(name = "机号(1~65536)")
+	@FieldInfo(name = "机号(1~65536)", type = "", explain = "")
 	@Column(name = "termNo",nullable = false)
 	private Integer termNo;
 
-	@FieldInfo(name = "硬件程序版本号")
+	@FieldInfo(name = "硬件程序版本号", type = "", explain = "")
 	@Column(name = "programVersion", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String programVersion;
 	
 	@FieldInfo(name = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
-			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)")
+			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)", type = "", explain = "")
 	@Column(name = "termSn",length = 50, nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "设备名称")
+	@FieldInfo(name = "设备名称", type = "", explain = "")
 	@Column(name = "termName",  columnDefinition = "nvarchar(25)", nullable = false)
 	private String termName;
 
-	@FieldInfo(name = "设备类型（对应系统参数表）")
+	@FieldInfo(name = "设备类型（对应系统参数表）", type = "", explain = "")
 	@Column(name = "termTypeId", length = 4, nullable = false)
 	private String termTypeId;
 
-	@FieldInfo(name = "设备状态(1是启用 0是禁用)")
+	@FieldInfo(name = "设备状态(1是启用 0是禁用)", type = "Boolean", explain = "")
 	@Column(name = "termStatus",columnDefinition = "default 1", nullable = true)
 	private Boolean termStatus;
 
-	@FieldInfo(name = "是否允许脱机使用")
+	@FieldInfo(name = "", type = "Integer", explain = "是否允许脱机使用")
 	@Column(name = "offlineUse",columnDefinition = "default 0", nullable = true)
 	private Integer offlineUse;
 
-	@FieldInfo(name = "基础参数")
+	@FieldInfo(name = "baseParam", type = "varbinary", explain = "基础参数")
 	@Column(name = "baseParam")
 	private byte[] baseParam;
 
-	@FieldInfo(name = "高级参数")
+	@FieldInfo(name = "advParam", type = "varbinary", explain = "高级参数")
 	@Column(name = "advParam")
 	private byte[] advParam;
 
-	@FieldInfo(name = "费率参数")
+	@FieldInfo(name = "rateParam", type = "varbinary", explain = "费率参数")
 	@Column(name = "rateParam")
 	private byte[] rateParam;
 
-	@FieldInfo(name = "网络参数")
+	@FieldInfo(name = "netParam", type = "varbinary", explain = "网络参数")
 	@Column(name = "netParam")
 	private byte[] netParam;
 
-	@FieldInfo(name = "备注说明")
+	@FieldInfo(name = "备注说明", type = "nvarchar(100)", explain = "")
 	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''",nullable=true)
 	private String notes;
 
-	@FieldInfo(name = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
+	@FieldInfo(name = "", type = "varchar(20)", explain = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
 	@Column(name = "statusId", columnDefinition = "varchar(20) default ''",nullable=true)
 	private Integer statusId;
+	
+	
 
 	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
 	@FieldInfo(name = "房间名称")
@@ -148,13 +150,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.termName = termName;
 	}
 
-	public Integer getTermStatus() {
-		return termStatus;
-	}
-
-	public void setTermStatus(Integer termStatus) {
-		this.termStatus = termStatus;
-	}
 
 	public Integer getOfflineUse() {
 		return offlineUse;

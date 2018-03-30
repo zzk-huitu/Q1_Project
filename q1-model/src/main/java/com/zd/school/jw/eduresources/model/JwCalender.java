@@ -44,7 +44,7 @@ import com.zd.core.util.DateTimeSerializer;
 public class JwCalender extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "学校主键")
+	@FieldInfo(name = "schoolId",type="varchar(20)",explain="学校Id")
 	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
@@ -56,7 +56,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return schoolId;
 	}
 
-	@FieldInfo(name = "学校名称")
+	@FieldInfo(name = "schoolName",type="nvarchar(20)",explain="学校名称")
 	@Column(name = "schoolName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String schoolName;
 
@@ -68,7 +68,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return schoolName;
 	}
 
-	@FieldInfo(name = "校历名称")
+	@FieldInfo(name = "calenderName",type="nvarchar(20)",explain="校历名称")
 	@Column(name = "calenderName", columnDefinition = "nvarchar(20)" , nullable = false)
 	private String calenderName;
 
@@ -80,7 +80,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.calenderName = calenderName;
 	}
 
-	@FieldInfo(name = "适用校区ID")
+	@FieldInfo(name = "campusId",type="varchar(20)",explain="适用校区Id")
 	@Column(name = "campusId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String campusId;
 
@@ -92,7 +92,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.campusId = campusId;
 	}
 
-	@FieldInfo(name = "校区名称")
+	@FieldInfo(name = "campusName",type="nvarchar(20)",explain="校区名称")
 	@Column(name = "campusName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String campusName;
 
@@ -104,7 +104,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return campusName;
 	}
 
-	@FieldInfo(name = "学段编码")
+	@FieldInfo(name = "stageCode",type="nvarchar(20)",explain="学段编码")
 	@Column(name = "stageCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String stageCode;
 
@@ -116,7 +116,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.stageCode = stageCode;
 	}
 
-	@FieldInfo(name = "生效状态")
+	@FieldInfo(name = "activityState",type="Integer",explain="生效状态")
 	@Column(name = "activityState", columnDefinition = "default 0", nullable = true)
 	private Integer activityState;
 
@@ -128,7 +128,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return activityState;
 	}
 
-	@FieldInfo(name = "生效时间")
+	@FieldInfo(name = "activityTime",type="datetime",explain="生效时间")
 	@Column(name = "activityTime", columnDefinition = "datetime", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
@@ -149,7 +149,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "作息时间明细数")
-	@Formula("(SELECT COUNT(a.CANDER_ID) FROM JW_T_CALENDERDETAIL a WHERE a.CANDER_ID=CANDER_ID )")
+	@Formula("(SELECT COUNT(a.calenderId) FROM T_PT_CalenderDetail a WHERE a.calenderId=calenderId )")
 	private Integer detailCount;
 
 	public Integer getDetailCount() {

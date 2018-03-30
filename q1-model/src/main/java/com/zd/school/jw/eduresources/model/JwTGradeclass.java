@@ -34,7 +34,7 @@ import com.zd.core.util.DateTimeSerializer;
 public class JwTGradeclass extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "年级ID")
+	@FieldInfo(name = "gradeId", type = "varchar(20)", explain = "年级ID")
 	@Column(name = "gradeId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String gradeId;
 
@@ -46,7 +46,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		this.gradeId = gradeId;
 	}
 
-	@FieldInfo(name = "班级类型")
+	@FieldInfo(name = "classType", type = "nvarchar(20)", explain = "班级类型")
 	@Column(name = "classType", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String classType;
 
@@ -58,7 +58,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return classType;
 	}
 
-	@FieldInfo(name = "文理类型")
+	@FieldInfo(name = "artsSciences", type = "varchar(20)", explain = "文理类型")
 	@Column(name = "artsSciences", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String artsSciences;
 
@@ -70,7 +70,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return artsSciences;
 	}
 
-	@FieldInfo(name = "少数民族双语教学班")
+	@FieldInfo(name = "minorityBilingual", type = "varchar(10)", explain = "少数民族双语教学班")
 	@Column(name = "minorityBilingual", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String minorityBilingual;
 
@@ -82,7 +82,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return minorityBilingual;
 	}
 
-	@FieldInfo(name = "双语教学模式")
+	@FieldInfo(name = "bilingualModel", type = "varchar(10)", explain = "双语教学模式")
 	@Column(name = "bilingualModel", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String bilingualModel;
 
@@ -94,8 +94,8 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		this.bilingualModel = bilingualModel;
 	}
 
-	@FieldInfo(name = "班号")
-	@Column(name = "classCode",columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "classCode", type = "nvarchar(20)", explain = "班号")
+	@Column(name = "classCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String classCode;
 
 	public void setClassCode(String classCode) {
@@ -106,7 +106,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return classCode;
 	}
 
-	@FieldInfo(name = "班级名称")
+	@FieldInfo(name = "className", type = "nvarchar(20)", explain = "班级名称")
 	@Column(name = "className", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String className;
 
@@ -118,7 +118,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return className;
 	}
 
-	@FieldInfo(name = "班主任ID")
+	@FieldInfo(name = "teacherId", type = "varchar(20)", explain = "班主任ID")
 	@Column(name = "teacherId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId;
 
@@ -130,7 +130,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return teacherId;
 	}
 
-	@FieldInfo(name = "建班年月")
+	@FieldInfo(name = "foundDate", type = "datetime", explain = "建班年月")
 	@Column(name = "foundDate", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
@@ -144,7 +144,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		this.foundDate = foundDate;
 	}
 
-	@FieldInfo(name = "年度")
+	@FieldInfo(name = "classYear", type = "nvarchar(20)", explain = "年度")
 	@Column(name = "classYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String classYear;
 
@@ -156,7 +156,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		this.classYear = classYear;
 	}
 
-	@FieldInfo(name = "毕业日期")
+	@FieldInfo(name = "graduateDate", type = "nvarchar(20)", explain = "毕业日期")
 	@Column(name = "graduateDate", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
@@ -170,8 +170,8 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return graduateDate;
 	}
 
-	@FieldInfo(name = "年级")
-	@Column(name = "nj", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "nj", type = "varchar(10)", explain = "年级")
+	@Column(name = "nj", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String nj;
 
 	public String getNj() {
@@ -182,7 +182,7 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		this.nj = nj;
 	}
 
-	@FieldInfo(name = "班训")
+	@FieldInfo(name = "classMotto", type = "nvarchar(50)", explain = "班训")
 	@Column(name = "classMotto", nullable = true, columnDefinition = "nvarchar(50)") // 一个汉字占两个字符，所以是50个字
 	private String classMotto;
 
@@ -215,12 +215,8 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "年级名称")
-	@Formula("(SELECT a.GRADE_NAME from JW_T_GRADE a where a.GRAI_ID=GRAI_ID)")
+	@Formula("(SELECT a.gradeName from T_PT_Grade a where a.gradeId=gradeId)")
 	private String gradeName;
-
-	@FieldInfo(name = "学段")
-	@Formula("(SELECT a.SECTION_CODE from JW_T_GRADE a where a.GRAI_ID=GRAI_ID)")
-	private String sectionCode;
 
 	public void setGradeName(String gradeName) {
 		this.gradeName = gradeName;
@@ -230,7 +226,19 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return gradeName;
 	}
 
-	@Formula("(SELECT A.GRADE_CODE FROM dbo.JW_T_GRADE A WHERE A.GRAI_ID=GRAI_ID)")
+	@FieldInfo(name = "学段")
+	@Formula("(SELECT a.sectionCode from T_PT_Grade a where a.gradeId=gradeId)")
+	private String sectionCode;
+
+	public String getSectionCode() {
+		return sectionCode;
+	}
+
+	public void setSectionCode(String sectionCode) {
+		this.sectionCode = sectionCode;
+	}
+
+	@Formula("(SELECT A.gradeCode FROM dbo.T_PT_Grade A WHERE A.gradeId=gradeId)")
 	@FieldInfo(name = "年级编码")
 	private String gradeCode;
 
@@ -242,11 +250,4 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 		return gradeCode;
 	}
 
-	public String getSectionCode() {
-		return sectionCode;
-	}
-
-	public void setSectionCode(String sectionCode) {
-		this.sectionCode = sectionCode;
-	}
 }

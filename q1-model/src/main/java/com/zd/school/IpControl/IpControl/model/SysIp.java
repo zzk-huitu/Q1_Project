@@ -43,7 +43,7 @@ import com.zd.core.util.DateTimeSerializer;
 public class SysIp extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "ipName")
+	@FieldInfo(name = "ipName",type="nvarchar(25)",explain="IP名")
 	@Column(name = "ipName", columnDefinition = "nvarchar(25) default ''", nullable = true)
 	private String ipName;
 
@@ -55,7 +55,7 @@ public class SysIp extends BaseEntity implements Serializable {
 		return ipName;
 	}
 
-	@FieldInfo(name = "ipUrl")
+	@FieldInfo(name = "ipUrl",type="nvarchar(20)",explain="IP地址url")
 	@Column(name = "ipUrl", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String ipUrl;
 

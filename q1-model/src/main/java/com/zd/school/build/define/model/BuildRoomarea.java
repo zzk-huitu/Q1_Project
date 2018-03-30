@@ -25,11 +25,11 @@ import com.zd.core.model.TreeNodeEntity;
 
 @Entity
 @Table(name = "T_PT_RoomArea")
-@AttributeOverride(name = "roomAreaId", column = @Column(name = "roomAreaId", length = 20, nullable = false))
+@AttributeOverride(name = "areaId", column = @Column(name = "areaId", length = 20, nullable = false))
 public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "区域编码")
+	@FieldInfo(name = "areaCode", type = "nvarchar(16)", explain = "区域编码")
 	@Column(name = "areaCode", columnDefinition = "nvarchar(16) default ''", nullable = true)
 	private String areaCode;
 
@@ -41,7 +41,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 		return areaCode;
 	}
 
-	@FieldInfo(name = "区域类型")
+	@FieldInfo(name = "areaType", type = "varchar(20)", explain = "区域类型:5宿舍")
 	@Column(name = "areaType", length = 10, nullable = false)
 	private String areaType;
 
@@ -53,7 +53,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 		return areaType;
 	}
 
-	@FieldInfo(name = "区域状态")
+	@FieldInfo(name = "areaStatu", type = "varchar(10)", explain = "区域状态")
 	@Column(name = "areaStatu", columnDefinition = "varchar(10) default 0", nullable = true)
 	private Integer areaStatu;
 
@@ -65,7 +65,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 		return areaStatu;
 	}
 
-	@FieldInfo(name = "区域说明")
+	@FieldInfo(name = "areaExplains", type = "nvarchar(128)", explain = "区域说明")
 	@Column(name = "areaExplains", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String areaExplains;
 
@@ -77,7 +77,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 		return areaExplains;
 	}
 
-	@FieldInfo(name = "区域地址")
+	@FieldInfo(name = "areaAddress", type = "nvarchar(128))", explain = "区域地址")
 	@Column(name = "areaAddress", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String areaAddress;
 
@@ -96,7 +96,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "区域房间数")
-	@Formula("(SELECT count(a.AREA_ID) FROM BUILD_T_ROOMINFO a WHERE a.AREA_ID=AREA_ID AND a.ISDELETE=0)")
+	@Formula("(SELECT count(a.areaId) FROM T_PT_RoomInfo a WHERE a.areaId=areaId AND a.isDelete=0)")
 	private Integer roomCount;
 
 	public Integer getRoomCount() {
@@ -108,7 +108,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "上级区域名称")
-	@Formula("(SELECT isnull(a.NODE_TEXT,'ROOT') FROM BUILD_T_ROOMAREA a WHERE a.AREA_ID=parent_node)")
+	@Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_RoomArea a WHERE a.areaId=parentNode)")
 	private String parentName;
 
 	public String getParentName() {

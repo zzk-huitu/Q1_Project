@@ -36,7 +36,7 @@ import com.zd.school.excel.annotation.MapperCell;
 public class DormStudentDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "classDormId",type="varchar(20)",explain="班级宿舍主键")
+	@FieldInfo(name = "classDormId", type = "varchar(20)", explain = "班级宿舍Id")
 	@Column(name = "classDormId", length = 20, nullable = false)
 	private String classDormId;
 
@@ -44,21 +44,21 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	@Formula("(SELECT a.classId FROM V_PT_ClassStudent a where a.userId=studentId)")
 	private String classId;
 
-	@FieldInfo(name = "studentId",type="varchar(20)",explain="学生主键")
+	@FieldInfo(name = "studentId", type = "varchar(20)", explain = "学生Id")
 	@Column(name = "studentId", length = 20, nullable = false)
 	private String studentId;
 
-	@FieldInfo(name = "sarkNo",type="byte",explain="柜子编号")
+	@FieldInfo(name = "sarkNo", type = "byte", explain = "柜子编号")
 	@Column(name = "sarkNo", nullable = false)
 	private Byte sarkNo = 0;
 
-	@FieldInfo(name = "bedNo",type="byte",explain="床位编号")
+	@FieldInfo(name = "bedNo", type = "byte", explain = "床位编号")
 	@Column(name = "bedNo", nullable = false)
 	private Byte bedNo = 0;
 
 	@ExportExcelAnnotation(columnName = "入住时间", columnWidth = 20, order = 5)
 	@MapperCell(cellName = "入住时间", order = 3)
-	@FieldInfo(name = "inTime",type="datetime",explain="入住时间")
+	@FieldInfo(name = "inTime", type = "datetime", explain = "入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@Column(name = "inTime", columnDefinition = "datetime", nullable = false)
@@ -72,9 +72,9 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	 */
 	@ExportExcelAnnotation(columnName = "宿舍名称", columnWidth = 25, order = 4)
 	@MapperCell(cellName = "宿舍名称", order = 2)
-	@Formula("(SELECT C.roomName FROM dbo.T_PT_ClassDormAllot A"
-			+ " JOIN dbo.T_PT_DormDefine B ON A.dormId=B.dormId"
-			+ " JOIN dbo.T_PT_RoomInfo C ON C.roomId = B.roomId" + " WHERE A.classDormId =classDormId AND A.isDelete=0)")
+	@Formula("(SELECT C.roomName FROM dbo.T_PT_ClassDormAllot A" + " JOIN dbo.T_PT_DormDefine B ON A.dormId=B.dormId"
+			+ " JOIN dbo.T_PT_RoomInfo C ON C.roomId = B.roomId"
+			+ " WHERE A.classDormId =classDormId AND A.isDelete=0)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
 
@@ -97,8 +97,8 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	private String xm;
 
 	@FieldInfo(name = "性别码GB/T 2261.1")
-	@Formula("(SELECT A.xbm FROM dbo.T_PT_User A WHERE A.userId=studentId)")
-	private String xbm;
+	@Formula("(SELECT A.genderCode FROM dbo.T_PT_User A WHERE A.userId=studentId)")
+	private String genderCode;
 
 	@Formula("(SELECT A.isMixed FROM T_PT_ClassDormAllot A WHERE A.classDormId=classDormId)")
 	@FieldInfo(name = "混合宿舍")
@@ -157,7 +157,7 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	@Transient
 	@FieldInfo(name = "所属楼层")
 	private String areaName;
-	
+
 	@Transient
 	@FieldInfo(name = "所属楼栋")
 	private String upAreaName;
@@ -177,6 +177,7 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
+
 	public Byte getSarkNo() {
 		return sarkNo;
 	}
@@ -200,7 +201,6 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-
 
 	public String getXm() {
 		return xm;
@@ -338,12 +338,12 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 		this.upAreaName = upAreaName;
 	}
 
-	public String getXbm() {
-		return xbm;
+	public String getGenderCode() {
+		return genderCode;
 	}
 
-	public void setXbm(String xbm) {
-		this.xbm = xbm;
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
 	}
 
 	public String getUserNumb() {

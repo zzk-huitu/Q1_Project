@@ -29,7 +29,7 @@ import com.zd.core.model.BaseEntity;
 public class JwTBasecourse extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "学校主键")
+	@FieldInfo(name = "schoolId", type = "varchar(20)", explain = "学校Id")
 	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
@@ -41,7 +41,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return schoolId;
 	}
 
-	@FieldInfo(name = "课程编码")
+	@FieldInfo(name = "courseCode", type = "nvarchar(20)", explain = "课程编码")
 	@Column(name = "courseCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseCode;
 
@@ -53,7 +53,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return courseCode;
 	}
 
-	@FieldInfo(name = "课程名称")
+	@FieldInfo(name = "courseName", type = "nvarchar(20)", explain = "课程名称")
 	@Column(name = "courseName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName;
 
@@ -65,7 +65,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return courseName;
 	}
 
-	@FieldInfo(name = "课程类别码")
+	@FieldInfo(name = "courseType", type = "varchar(10)", explain = "课程类别码")
 	@Column(name = "courseType", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String courseType;
 
@@ -77,7 +77,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return courseType;
 	}
 
-	@FieldInfo(name = "课程等级码")
+	@FieldInfo(name = "courseLevel", type = "varchar(10)", explain = "课程等级码")
 	@Column(name = "courseLevel", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String courseLevel;
 
@@ -89,8 +89,8 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return courseLevel;
 	}
 
-	@FieldInfo(name = "课程别名")
-	@Column(name = "aliasName", columnDefinition = "varchar(20) default ''", nullable = true)
+	@FieldInfo(name = "aliasName", type = "nvarchar(20)", explain = "课程别名")
+	@Column(name = "aliasName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String aliasName;
 
 	public void setAliasName(String aliasName) {
@@ -101,7 +101,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return aliasName;
 	}
 
-	@FieldInfo(name = "总学时")
+	@FieldInfo(name = "totalHour", type = "BigDecimal", explain = "总学时")
 	@Column(name = "totalHour", nullable = true)
 	private BigDecimal totalHour;
 
@@ -113,7 +113,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return totalHour;
 	}
 
-	@FieldInfo(name = "周学时")
+	@FieldInfo(name = "weekHour", type = "BigDecimal", explain = "周学时")
 	@Column(name = "weekHour", nullable = true)
 	private BigDecimal weekHour;
 
@@ -125,7 +125,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return weekHour;
 	}
 
-	@FieldInfo(name = "自学学时")
+	@FieldInfo(name = "selfStudyHour", type = "BigDecimal", explain = "自学学时")
 	@Column(name = "selfStudyHour", nullable = true)
 	private BigDecimal selfStudyHour;
 
@@ -137,7 +137,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		this.selfStudyHour = selfStudyHour;
 	}
 
-	@FieldInfo(name = "授课方式码")
+	@FieldInfo(name = "teachWay", type = "varchar(10)", explain = "授课方式码")
 	@Column(name = "teachWay", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String teachWay;
 
@@ -149,7 +149,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		return teachWay;
 	}
 
-	@FieldInfo(name = "课程简介")
+	@FieldInfo(name = "courseExplain", type = "nvarchar(500)", explain = "课程简介")
 	@Column(name = "courseExplain", columnDefinition = "nvarchar(500) default ''", nullable = true)
 	private String courseExplain;
 
@@ -161,7 +161,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		this.courseExplain = courseExplain;
 	}
 
-	@FieldInfo(name = "课程要求")
+	@FieldInfo(name = "courseRequest", type = "nvarchar(500)", explain = "课程要求")
 	@Column(name = "courseRequest",  columnDefinition = "nvarchar(500) default ''", nullable = true)
 	private String courseRequest;
 
@@ -194,7 +194,7 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "学校名称")
-	@Formula("(SELECT a.NODE_TEXT from BASE_T_ORG a where a.DEPT_ID=SCHOOL_ID)")
+	@Formula("(SELECT a.nodeText from T_PT_Department a where a.deptId=schoolId)")
 	private String schoolName;
 
 	public void setSchoolName(String schoolName) {

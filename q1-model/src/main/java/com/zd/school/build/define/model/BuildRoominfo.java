@@ -29,7 +29,7 @@ import com.zd.core.model.BaseEntity;
 public class BuildRoominfo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "区域ID")
+	@FieldInfo(name = "areaId", type = "varchar(20)", explain = "区域ID")
 	@Column(name = "areaId", length = 20, nullable = false)
 	private String areaId;
 
@@ -41,7 +41,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return areaId;
 	}
 
-	@FieldInfo(name = "教室编码")
+	@FieldInfo(name = "roomCode", type = "varchar(20)", explain = "房间编码")
 	@Column(name = "roomCode", length = 20, nullable = false)
 	private String roomCode;
 
@@ -53,7 +53,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return roomCode;
 	}
 
-	@FieldInfo(name = "房间名称")
+	@FieldInfo(name = "roomName", type = "nvarchar(16)", explain = "房间名称")
 	@Column(name = "roomName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String roomName;
 
@@ -65,7 +65,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return roomName;
 	}
 
-	@FieldInfo(name = "房间类型")//参考数据字典表｛宿舍-1，办公室-2，教室-3，功能室-5｝
+	@FieldInfo(name = "roomType", type = "varchar(4)", explain = "房间类型：宿舍-1，办公室-2，教室-3，功能室-5")//参考数据字典表｛｝
 	@Column(name = "roomType", length = 4, nullable = false)
 	private String roomType = "0";
 
@@ -77,7 +77,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return roomType;
 	}
 
-	@FieldInfo(name = "班额代码")
+	@FieldInfo(name = "roomCapacity", type = "nvarchar(20)", explain = "班额代码")
 	@Column(name = "roomCapacity", columnDefinition = "nvarchar(20)  default ''", nullable = true)
 	private String roomCapacity;
 
@@ -89,7 +89,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return roomCapacity;
 	}
 
-	@FieldInfo(name = "是否多媒体教室-0是,1否")
+	@FieldInfo(name = "isMediaRoom", type = "Boolean", explain = "是否多媒体教室-0是,1否")
 	@Column(name = "isMediaRoom", columnDefinition = "default 1", nullable = true)
 	private Boolean isMediaRoom ;
 
@@ -101,7 +101,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		this.isMediaRoom = isMediaRoom;
 	}
 
-	@FieldInfo(name = "网络状态：0有网络，1无网络")
+	@FieldInfo(name = "roomNet", type = "Boolean", explain = "网络状态：0有网络，1无网络")
 	@Column(name = "roomNet", columnDefinition = "default 0", nullable = true)
 	private Boolean roomNet;
 
@@ -113,7 +113,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return roomNet;
 	}
 
-	@FieldInfo(name = "房间状态")
+	@FieldInfo(name = "areaStatu", type = "varchar(10)", explain = "房间状态")
 	@Column(name = "areaStatu", columnDefinition = "varchar(10)  default ''", nullable = true)
 	private Integer areaStatu;
 
@@ -125,7 +125,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		return areaStatu;
 	}
 
-	@FieldInfo(name = "教室说明")
+	@FieldInfo(name = "roomExplains", type = "nvarchar(128)", explain = "教室说明")
 	@Column(name = "roomExplains", columnDefinition = "nvarchar(128)  default ''", nullable = true)
 	private String roomExplains;
 
@@ -137,7 +137,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		this.roomExplains = roomExplains;
 	}
 
-	@FieldInfo(name = "房间电话")
+	@FieldInfo(name = "roomPhone", type = "varchar(11)", explain = "房间电话")
 	@Column(name = "roomPhone", columnDefinition = "varchar(11)  default ''", nullable = true)
 	private String roomPhone;
 
@@ -156,7 +156,7 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "区域名称")
-	@Formula("(SELECT isnull(a.NODE_TEXT,'ROOT') FROM BUILD_T_ROOMAREA a WHERE a.AREA_ID=AREA_ID)")
+	@Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_RoomArea a WHERE a.areaId=areaId)")
 	private String areaName;
 
 	@Transient
@@ -164,8 +164,8 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	private int roomCount;
 
 	@FieldInfo(name = "上级名称")
-	@Formula("(SELECT R.NODE_TEXT  FROM dbo.BUILD_T_ROOMAREA R WHERE R.AREA_ID="
-			+ "(SELECT A.PARENT_NODE FROM dbo.BUILD_T_ROOMAREA A WHERE A.AREA_ID=AREA_ID))")
+	@Formula("(SELECT R.nodeText  FROM dbo.T_PT_RoomArea R WHERE R.areaId="
+			+ "(SELECT A.parentNode FROM dbo.T_PT_RoomArea A WHERE A.areaId=areaId))")
 	private String areaUpName;
 
 	public String getAreaName() {

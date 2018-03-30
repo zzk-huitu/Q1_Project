@@ -22,27 +22,27 @@ import com.zd.core.model.BaseEntity;
 public class SysFrontServer extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "服务器名称")
+	@FieldInfo(name = "frontServerName", type = "nvarchar(128)", explain = "服务器名称")
 	@Column(name = "frontServerName", columnDefinition = "nvarchar(128)", nullable = false)
 	private String frontServerName;
 
-	@FieldInfo(name = "服务IP")
+	@FieldInfo(name = "frontServerIp", type = "varchar(20)", explain = "服务IP")
 	@Column(name = "frontServerIp", length = 20, nullable = false)
 	private String frontServerIp;
 
-	@FieldInfo(name = "服务端口")
+	@FieldInfo(name = "frontServerPort", type = "Integer", explain = "服务端口")
 	@Column(name = "frontServerPort", nullable = false)
 	private Integer frontServerPort;
 
-	@FieldInfo(name = "请求任务URL")
+	@FieldInfo(name = "frontServerUrl", type = "varchar(50)", explain = "请求任务URL")
 	@Column(name = "frontServerUrl", columnDefinition = "varchar(50) default ''", nullable = true)
 	private String frontServerUrl;
 
-	@FieldInfo(name = "是否启用 0禁用，1启用")
+	@FieldInfo(name = "frontServerStatus", type = "Integer", explain = "是否启用 0禁用，1启用")
 	@Column(name = "frontServerStatus", columnDefinition = "default 0", nullable = true)
 	private Integer frontServerStatus;
 
-	@FieldInfo(name = "备注")
+	@FieldInfo(name = "frontServerNotes", type = "nvarchar(128)", explain = "备注")
 	@Column(name = "frontServerNotes", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String frontServerNotes;
 

@@ -32,7 +32,7 @@ import com.zd.school.plartform.baseset.model.BaseAttachment;
 public class EccClasselegant extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "班级ID")
+	@FieldInfo(name = "classId",type="varchar(20)",explain="班级Id")
 	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
@@ -55,7 +55,7 @@ public class EccClasselegant extends BaseEntity implements Serializable {
 		this.className = className;
 	}
 
-	@FieldInfo(name = "标题")
+	@FieldInfo(name = "title",type="nvarchar(20)",explain="标题")
 	@Column(name = "title", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String title;
 
