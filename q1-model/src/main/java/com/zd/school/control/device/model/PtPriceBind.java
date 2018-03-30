@@ -22,28 +22,28 @@ import com.zd.core.model.BaseEntity;
 public class PtPriceBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "termId", type = "varchar(20)", explain = "设备编号")
-	@Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String termId;
+	@FieldInfo(name = "deviceId", type = "varchar(20)", explain = "设备编号")
+	@Column(name = "deviceId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String deviceId;
 
-	public String getTermId() {
-		return termId;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setTermId(String termId) {
-		this.termId = termId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	@FieldInfo(name = "termSn", type = "varchar(14)", explain = "设备序列号")
-	@Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
-	private String termSn;
+	@FieldInfo(name = "deviceSn", type = "varchar(14)", explain = "设备序列号")
+	@Column(name = "deviceSn", columnDefinition = "varchar(14) default ''", nullable = true)
+	private String deviceSn;
 
-	public String getTermSn() {
-		return termSn;
+	public String getDeviceSn() {
+		return deviceSn;
 	}
 
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
+	public void setDeviceSn(String deviceSn) {
+		this.deviceSn = deviceSn;
 	}
 
 	@FieldInfo(name = "priceId", type = "varchar(20)", explain = "费率编号")

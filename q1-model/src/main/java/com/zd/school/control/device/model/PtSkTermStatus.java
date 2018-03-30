@@ -25,8 +25,8 @@ import com.zd.school.excel.annotation.MapperCell;
  *
  */
 @Entity
-@Table(name = "T_PT_SkTermStatus")
-@AttributeOverride(name = "skTermStatusId", column = @Column(name = "skTermStatusId", length = 20, nullable = false))
+@Table(name = "T_PT_SkDeviceStatus")
+@AttributeOverride(name = "skTermStatusId", column = @Column(name = "skDeviceStatusId", length = 20, nullable = false))
 public class PtSkTermStatus extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     

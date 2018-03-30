@@ -28,9 +28,9 @@ import com.zd.school.excel.annotation.MapperCell;
 @AttributeOverride(name = "mjOpenDoorId", column = @Column(name = "mjOpenDoorId", length = 20, nullable = false))
 public class PtMjOpenDoor extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
-    @FieldInfo(name = "termSn", type = "varchar(14)", explain = "设备序列号")
-    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
-    private String termSn;
+    @FieldInfo(name = "deviceSn", type = "varchar(14)", explain = "设备序列号")
+    @Column(name = "deviceSn", columnDefinition = "varchar(14) default ''", nullable = true)
+    private String deviceSn;
 
     @MapperCell(cellName="设备名称",order=1)
     @FieldInfo(name = "termName", type = "nvarchar(25)", explain = "设备名称")
@@ -73,9 +73,9 @@ public class PtMjOpenDoor extends BaseEntity implements Serializable{
     @Column(name = "openType", columnDefinition = "nvarchar(20) default ''", nullable = true)
     private String openType;
     
-    @FieldInfo(name = "termId", type = "varchar(20)", explain = "设备Id")
-    @Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
-    private String termId;
+    @FieldInfo(name = "deviceId", type = "varchar(20)", explain = "设备Id")
+    @Column(name = "deviceId", columnDefinition = "varchar(20) default ''", nullable = true)
+    private String deviceId;
     
     @FieldInfo(name = "userId", type = "varchar(20)", explain = "用户Id")
     @Column(name = "userId", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -94,13 +94,6 @@ public class PtMjOpenDoor extends BaseEntity implements Serializable{
 	@FieldInfo(name = "房间类型")
 	private String roomType;
 	
-	public String getTermSn() {
-		return termSn;
-	}
-
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
-	}
 
 	public String getTermName() {
 		return termName;
@@ -166,12 +159,20 @@ public class PtMjOpenDoor extends BaseEntity implements Serializable{
 		this.openType = openType;
 	}
 
-	public String getTermId() {
-		return termId;
+	public String getDeviceSn() {
+		return deviceSn;
 	}
 
-	public void setTermId(String termId) {
-		this.termId = termId;
+	public void setDeviceSn(String deviceSn) {
+		this.deviceSn = deviceSn;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
 	public String getUserId() {

@@ -15,12 +15,13 @@ import com.zd.core.model.BaseEntity;
 
 /**
  * 设备表
+ * 
  * @author hucy
  *
  */
 @Entity
 @Table(name = "T_PT_Deveice")
-@AttributeOverride(name = "deveiceId", column = @Column(name = "deveiceId", length = 20, nullable = false) )
+@AttributeOverride(name = "deveiceId", column = @Column(name = "deveiceId", length = 20, nullable = false))
 public class PtTerm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -29,36 +30,36 @@ public class PtTerm extends BaseEntity implements Serializable {
 	private String roomId;
 
 	@FieldInfo(name = "网关主键", type = "varchar(20)", explain = "网关主键")
-	@Column(name = "gatewayId", length =20, nullable = false)
+	@Column(name = "gatewayId", length = 20, nullable = false)
 	private String gatewayId;
 
-	@FieldInfo(name = "机号(1~65536)", type = "Integer", explain = "")
-	@Column(name = "termNo",nullable = false)
-	private Integer termNo;
+	@FieldInfo(name = "deveiceNo", type = "Integer", explain = "机号(1~65536)")
+	@Column(name = "deveiceNo", columnDefinition = "default 0", nullable = false)
+	private Integer deveiceNo;
 
 	@FieldInfo(name = "硬件程序版本号", type = "varchar(8)", explain = "硬件程序版本号")
 	@Column(name = "programVersion", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String programVersion;
-	
-	@FieldInfo(name = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
-			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)", type = "", explain = "")
-	@Column(name = "termSn",length = 50, nullable = false)
-	private String termSn;
 
-	@FieldInfo(name = "设备名称", type = "", explain = "")
-	@Column(name = "termName",  columnDefinition = "nvarchar(25)", nullable = false)
-	private String termName;
+	@FieldInfo(name = "deveiceSn", type = "varchar(50)", explain = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
+			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)")
+	@Column(name = "deveiceSn", length = 50, nullable = false)
+	private String deveiceSn;
 
-	@FieldInfo(name = "设备类型（对应系统参数表）", type = "", explain = "")
-	@Column(name = "termTypeId", length = 4, nullable = false)
-	private String termTypeId;
+	@FieldInfo(name = "deveiceName", type = "nvarchar(25)", explain = "设备名称")
+	@Column(name = "deveiceName", columnDefinition = "nvarchar(25)", nullable = false)
+	private String deveiceName;
 
-	@FieldInfo(name = "设备状态(1是启用 0是禁用)", type = "Boolean", explain = "")
-	@Column(name = "termStatus",columnDefinition = "default 1", nullable = true)
-	private Boolean termStatus;
+	@FieldInfo(name = "deveiceTypeId", type = "varchar(4)", explain = "设备类型（对应系统参数表）")
+	@Column(name = "deveiceTypeId", length = 4, nullable = false)
+	private String deveiceTypeId;
 
-	@FieldInfo(name = "", type = "Integer", explain = "是否允许脱机使用")
-	@Column(name = "offlineUse",columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "deveiceStatus", type = "Boolean", explain = "设备状态(1是启用 0是禁用)")
+	@Column(name = "deveiceStatus", columnDefinition = "default 1", nullable = true)
+	private Boolean deveiceStatus;
+
+	@FieldInfo(name = "offlineUse", type = "Integer", explain = "是否允许脱机使用")
+	@Column(name = "offlineUse", columnDefinition = "default 0", nullable = true)
 	private Integer offlineUse;
 
 	@FieldInfo(name = "baseParam", type = "varbinary", explain = "基础参数")
@@ -77,46 +78,42 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "netParam")
 	private byte[] netParam;
 
-	@FieldInfo(name = "备注说明", type = "nvarchar(100)", explain = "")
-	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''",nullable=true)
+	@FieldInfo(name = "notes", type = "nvarchar(100)", explain = "备注说明")
+	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''", nullable = true)
 	private String notes;
 
-	@FieldInfo(name = "", type = "varchar(20)", explain = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "statusId", columnDefinition = "varchar(20) default ''",nullable=true)
+	@FieldInfo(name = "statusId", type = "varchar(20)", explain = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
+	@Column(name = "statusId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private Integer statusId;
-	
-	
 
-	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
-	
-	@Formula("(SELECT A.GATEWAYNAME FROM dbo.PT_GATEWAY A WHERE A.GATEWAY_ID=GATEWAY_ID)")
+
+	@Formula("(SELECT A.gatewayName FROM dbo.T_PT_Gateway A WHERE A.gatewayId=gatewayId)")
 	@FieldInfo(name = "网关名称")
 	private String gatewayName;
-	
+
 	@Transient
 	@FieldInfo(name = "设置设备重启时间")
 	private String restartTime;
-	
+
 	@Transient
 	@FieldInfo(name = "用于接收来自于前台的组合数据")
 	private String baseParamUi;
-	
-	
 
-	@Formula("(select  cast((s.PRICE_NAME+':'+cast(s.PRICE_VALUE as varchar(10))) as varchar(100)  ) from dbo.PT_PRICEBIND b,dbo.PT_SK_PRICE s where s.SK_PRICEID=b.PRICEID and b.TERM_ID=TERM_ID) ")
+	@Formula("(select  cast((s.priceName+':'+cast(s.priceValue as varchar(10))) as varchar(100)  ) from dbo.T_PT_PriceBind b,dbo.T_SK_Price s where s.sKPriceId=b.priceId and b.deveiceId=deveiceId) ")
 	@FieldInfo(name = "水控费率")
 	private String skprice;
-	
-	@Formula("(select  cast((s.PRICE_NAME+':'+cast(s.PRICE_VALUE as varchar(10))) as varchar(100)  ) from dbo.PT_PRICEBIND b,dbo.PT_DK_PRICE s where s.DK_PRICEID=b.PRICEID and b.TERM_ID=TERM_ID) ")
+
+	@Formula("(select  cast((s.priceName+':'+cast(s.priceValue as varchar(10))) as varchar(100)  ) from dbo.T_PT_PriceBind b,dbo.PT_DK_PRICE s where s.dKPriceId=b.priceId and b.deveiceId=deveiceId) ")
 	@FieldInfo(name = "电控费率")
 	private String dkprice;
-	
-	@Formula("(select  cast(s.MEASURE as varchar(100)  ) from dbo.PT_SK_METER s,dbo.PT_SK_METERBIND b where s.METER_ID=b.METER_ID and b.TERM_ID=TERM_ID)")
+
+	@Formula("(select  cast(s.measure as varchar(100)  ) from dbo.T_PT_SKMeter s,dbo.T_PT_SkMeterBind b where s.sKMeterId=b.skMeterBindId and b.deveiceId=deveiceId)")
 	@FieldInfo(name = "水控计量")
 	private String skmeasure;
-	
+
 	public String getBaseParamUi() {
 		return baseParamUi;
 	}
@@ -133,24 +130,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-
-	public Integer getTermNo() {
-		return termNo;
-	}
-
-	public void setTermNo(Integer termNo) {
-		this.termNo = termNo;
-	}
-
-	public String getTermName() {
-		return termName;
-	}
-
-	public void setTermName(String termName) {
-		this.termName = termName;
-	}
-
-
 	public Integer getOfflineUse() {
 		return offlineUse;
 	}
@@ -158,7 +137,6 @@ public class PtTerm extends BaseEntity implements Serializable {
 	public void setOfflineUse(Integer offlineUse) {
 		this.offlineUse = offlineUse;
 	}
-
 
 	public byte[] getBaseParam() {
 		return baseParam;
@@ -216,20 +194,44 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.programVersion = programVersion;
 	}
 
-	public String getTermSn() {
-		return termSn;
+	public Integer getDeveiceNo() {
+		return deveiceNo;
 	}
 
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
+	public void setDeveiceNo(Integer deveiceNo) {
+		this.deveiceNo = deveiceNo;
 	}
 
-	public String getTermTypeId() {
-		return termTypeId;
+	public String getDeveiceSn() {
+		return deveiceSn;
 	}
 
-	public void setTermTypeId(String termTypeId) {
-		this.termTypeId = termTypeId;
+	public void setDeveiceSn(String deveiceSn) {
+		this.deveiceSn = deveiceSn;
+	}
+
+	public String getDeveiceName() {
+		return deveiceName;
+	}
+
+	public void setDeveiceName(String deveiceName) {
+		this.deveiceName = deveiceName;
+	}
+
+	public String getDeveiceTypeId() {
+		return deveiceTypeId;
+	}
+
+	public void setDeveiceTypeId(String deveiceTypeId) {
+		this.deveiceTypeId = deveiceTypeId;
+	}
+
+	public Boolean getDeveiceStatus() {
+		return deveiceStatus;
+	}
+
+	public void setDeveiceStatus(Boolean deveiceStatus) {
+		this.deveiceStatus = deveiceStatus;
 	}
 
 	public byte[] getRateParam() {
@@ -279,7 +281,7 @@ public class PtTerm extends BaseEntity implements Serializable {
 	public void setSkmeasure(String skmeasure) {
 		this.skmeasure = skmeasure;
 	}
-	
+
 	public String getRestartTime() {
 		return restartTime;
 	}

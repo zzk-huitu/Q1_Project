@@ -33,9 +33,9 @@ import com.zd.core.util.DateTimeSerializer;
 public class MjUserright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "termId",type="varchar(20)",explain="设备主键Id")
-	@Column(name = "termId", length = 20, nullable = false)
-	private String termId;
+	@FieldInfo(name = "deviceId",type="varchar(20)",explain="设备主键Id")
+	@Column(name = "deviceId", length = 20, nullable = false)
+	private String deviceId;
 
 	@FieldInfo(name = "userId",type="varchar(20)",explain="人员主键Id")
 	@Column(name = "userId", length = 20, nullable = false)
@@ -76,15 +76,15 @@ public class MjUserright extends BaseEntity implements Serializable {
 	private String name;
 
 	@FieldInfo(name = "设备名称")
-	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termId=termId)")
-	private String termName;
+	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.deviceId=deviceId)")
+	private String deviceName;
 
 	@FieldInfo(name = "设备序列号")
-	@Formula("(SELECT A.termSn FROM dbo.T_PT_Term A WHERE A.termId=termId)")
-	private String termSN;
+	@Formula("(SELECT A.deviceSn FROM dbo.T_PT_Term A WHERE A.deviceId=deviceId)")
+	private String deviceSN;
 
 	@FieldInfo(name = "房间名称")
-	@Formula("(select a.roomName from T_PT_RoomInfo a where a.roomId=(select b.roomId from T_PT_Term b where b.termId=termId) )")
+	@Formula("(select a.roomName from T_PT_RoomInfo a where a.roomId=(select b.roomId from T_PT_Term b where b.deviceId=deviceId) )")
 	private String roomName;
 
 
@@ -104,13 +104,6 @@ public class MjUserright extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 
-	public String getTermName() {
-		return termName;
-	}
-
-	public void setTermName(String termName) {
-		this.termName = termName;
-	}
 
 	public String getCardId() {
 		return cardId;
@@ -168,28 +161,28 @@ public class MjUserright extends BaseEntity implements Serializable {
 		this.statusChangeTime = statusChangeTime;
 	}
 
-	public String getTermId() {
-		return termId;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public String gettermName() {
-		return termName;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	public String getTermSN() {
-		return termSN;
+	public String getDeviceName() {
+		return deviceName;
 	}
 
-	public void setTermId(String termId) {
-		this.termId = termId;
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
-	public void settermName(String termName) {
-		this.termName = termName;
+	public String getDeviceSN() {
+		return deviceSN;
 	}
 
-	public void setTermSN(String termSN) {
-		this.termSN = termSN;
+	public void setDeviceSN(String deviceSN) {
+		this.deviceSN = deviceSN;
 	}
 
 	public String getRoomName() {

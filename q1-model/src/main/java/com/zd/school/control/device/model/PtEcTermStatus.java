@@ -27,17 +27,17 @@ import com.zd.school.excel.annotation.MapperCell;
  *
  */
 @Entity
-@Table(name = "T_PT_TermStatus")
-@AttributeOverride(name = "termStatusId", column = @Column(name = "termStatusId", length = 20, nullable = false) )
+@Table(name = "T_PT_DeviceStatus")
+@AttributeOverride(name = "deviceStatusId", column = @Column(name = "deviceStatusId", length = 20, nullable = false))
 public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "termSn", type = "varchar(14)", explain = "设备序列号")
-	@Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
-	private String termSn;
+	@FieldInfo(name = "deviceSn", type = "varchar(14)", explain = "设备序列号")
+	@Column(name = "deviceSn", columnDefinition = "varchar(14) default ''", nullable = true)
+	private String deviceSn;
 
 	@FieldInfo(name = "roomId", type = "nvarchar(20)", explain = "房间编号")
-	@Column(name = "roomId",columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@Column(name = "roomId", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String roomId;
 
 	@MapperCell(cellName = "状态的日期", order = 1)
@@ -89,7 +89,7 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 
 	@MapperCell(cellName = "状态的时间", order = 10)
 	@FieldInfo(name = "statusTime", type = "datetime", explain = "状态的时间")
-	@Column(name = "statusTime",columnDefinition = "datetime")
+	@Column(name = "statusTime", columnDefinition = "datetime")
 	private Date statusTime;
 
 	@MapperCell(cellName = "房间名称", order = 11)
@@ -104,11 +104,11 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 
 	@Transient
 	@FieldInfo(name = "设备机号")
-	private String termNo;
+	private String deviceNo;
 
 	@Transient
 	@FieldInfo(name = "设备类型")
-	private String termTypeId;
+	private String deviceTypeId;
 
 	@Transient
 	@FieldInfo(name = "网关名称")
@@ -139,17 +139,9 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private String wheresql2;
 
 	@MapperCell(cellName = "设备名称", order = 12)
-	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
+	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.deviceSn=deviceSn)")
 	@FieldInfo(name = "设备名称")
 	private String termName;
-
-	public String getTermSn() {
-		return termSn;
-	}
-
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
-	}
 
 	public String getRoomId() {
 		return roomId;
@@ -174,7 +166,6 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 	public void setStatusHour(Integer statusHour) {
 		this.statusHour = statusHour;
 	}
-
 
 	public long getVoltage() {
 		return voltage;
@@ -216,20 +207,28 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.termName = termName;
 	}
 
-	public String getTermNo() {
-		return termNo;
+	public String getDeviceSn() {
+		return deviceSn;
 	}
 
-	public void setTermNo(String termNo) {
-		this.termNo = termNo;
+	public void setDeviceSn(String deviceSn) {
+		this.deviceSn = deviceSn;
 	}
 
-	public String getTermTypeId() {
-		return termTypeId;
+	public String getDeviceNo() {
+		return deviceNo;
 	}
 
-	public void setTermTypeId(String termTypeId) {
-		this.termTypeId = termTypeId;
+	public void setDeviceNo(String deviceNo) {
+		this.deviceNo = deviceNo;
+	}
+
+	public String getDeviceTypeId() {
+		return deviceTypeId;
+	}
+
+	public void setDeviceTypeId(String deviceTypeId) {
+		this.deviceTypeId = deviceTypeId;
 	}
 
 	public String getGatewayName() {
@@ -255,7 +254,7 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 	public void setStartDl(String startDl) {
 		this.startDl = startDl;
 	}
-	
+
 	public double getUseKwh() {
 		return useKwh;
 	}
