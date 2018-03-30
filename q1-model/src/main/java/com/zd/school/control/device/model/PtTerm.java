@@ -19,24 +19,24 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "T_PT_Term")
-@AttributeOverride(name = "termId", column = @Column(name = "termId", length = 20, nullable = false) )
+@Table(name = "T_PT_Deveice")
+@AttributeOverride(name = "deveiceId", column = @Column(name = "deveiceId", length = 20, nullable = false) )
 public class PtTerm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "房间主键", type = "", explain = "")
+	@FieldInfo(name = "房间主键", type = "varchar(20)", explain = "房间主键")
 	@Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 
-	@FieldInfo(name = "网关主键", type = "", explain = "")
+	@FieldInfo(name = "网关主键", type = "varchar(20)", explain = "网关主键")
 	@Column(name = "gatewayId", length =20, nullable = false)
 	private String gatewayId;
 
-	@FieldInfo(name = "机号(1~65536)", type = "", explain = "")
+	@FieldInfo(name = "机号(1~65536)", type = "Integer", explain = "")
 	@Column(name = "termNo",nullable = false)
 	private Integer termNo;
 
-	@FieldInfo(name = "硬件程序版本号", type = "", explain = "")
+	@FieldInfo(name = "硬件程序版本号", type = "varchar(8)", explain = "硬件程序版本号")
 	@Column(name = "programVersion", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String programVersion;
 	

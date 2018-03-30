@@ -21,36 +21,36 @@ public class PtTermBags extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备序列号")
+	@FieldInfo(name = "设备序列号",type="varchar(14)",explain="设备序列号")
 	@Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
 	private String termSn;
 	
-	@FieldInfo(name = "设备类型")
+	@FieldInfo(name = "设备类型",type="Integer",explain="设备序列号")
 	@Column(name = "termTypeId")
 	private Integer termTypeId;
 	
-	@FieldInfo(name = "设备余额")
+	@FieldInfo(name = "设备余额",type="varchar(14)",explain="设备序列号")
 	@Column(name = "bagValue")
 	private BigDecimal bagValue;
 	
-	@FieldInfo(name = "总买量")
+	@FieldInfo(name = "总买量",type="varchar(14)",explain="设备序列号")
 	@Column(name = "totalBoughtValue")
 	private BigDecimal totalBoughtValue;
 	
-	@FieldInfo(name = "总用量")
+	@FieldInfo(name = "总用量",type="varchar(14)",explain="设备序列号")
 	@Column(name = "totalUsedValue")
 	private BigDecimal totalUsedValue;
 	
-	@FieldInfo(name = "总计清除补助量")
+	@FieldInfo(name = "总计清除补助量",type="varchar(14)",explain="设备序列号")
 	@Column(name = "totalClearValue")
 	private BigDecimal totalClearValue;
 	
-	@FieldInfo(name = "补助剩余量")
+	@FieldInfo(name = "补助剩余量",type="varchar(14)",explain="设备序列号")
 	@Column(name = "surplusValue")
 	private BigDecimal surplusValue;
 	
 	@Transient
-	@FieldInfo(name = "绑定费率规则")
+	@FieldInfo(name = "绑定费率规则",type="varchar(14)",explain="设备序列号")
 	protected String bdrole = "";
 
 	public String getTermSn() {

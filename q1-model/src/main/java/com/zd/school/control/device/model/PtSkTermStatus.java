@@ -30,24 +30,24 @@ import com.zd.school.excel.annotation.MapperCell;
 public class PtSkTermStatus extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
-    private String termSn;
+    @FieldInfo(name = "设备序列号",type="varchar(14)",explain="设备序列号")
+    @Column(name = "deveiceSn", columnDefinition = "varchar(14) default ''", nullable = true)
+    private String deveiceSn;
 
-    @FieldInfo(name = "房间编号")
+    @FieldInfo(name = "房间编号",type="varchar(20)",explain="房间ID")
     @Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String roomId;
    
     @MapperCell(cellName="状态的日期",order=1)
-    @FieldInfo(name = "状态的日期")
+    @FieldInfo(name = "状态的日期",type="datetime",explain="状态的日期")
     @Temporal(TemporalType.DATE)
   	@JsonSerialize(using = DateTimeSerializer.class)
-    @Column(name = "statusDate", columnDefinition = "date")
+    @Column(name = "statusDate", columnDefinition = "datetime")
     private Date statusDate;
     
     @MapperCell(cellName="状态的小时",order=2)
-    @FieldInfo(name = "状态的小时")
-    @Column(name = "statusHour")
+    @FieldInfo(name = "状态的小时",type="datetime",explain="状态的日期")
+    @Column(name = "statusHour",columnDefinition = "defalut 0",nullable=true)
     private Integer statusHour;
     
     @MapperCell(cellName="测量单位（脉冲/升）",order=3)
@@ -130,12 +130,13 @@ public class PtSkTermStatus extends BaseEntity implements Serializable{
 	@FieldInfo(name = "房间类型")
 	private String roomType;
 	 
-	public String getTermSn() {
-		return termSn;
+	
+	public String getDeveiceSn() {
+		return deveiceSn;
 	}
 
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
+	public void setDeveiceSn(String deveiceSn) {
+		this.deveiceSn = deveiceSn;
 	}
 
 	public String getRoomId() {

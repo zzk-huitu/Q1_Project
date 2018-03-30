@@ -21,33 +21,17 @@ import com.zd.core.model.BaseEntity;
 public class PtSkMeterbind extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "设备编号")
-    @Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
-    private String termId; 
+    @FieldInfo(name = "设备编号",type="varchar(20)",explain="设备编号")
+    @Column(name = "deveiceId", columnDefinition = "varchar(20) default ''", nullable = true)
+    private String deveiceId; 
   
-    @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
-    private String termSn;
+    @FieldInfo(name = "设备序列号",type="varchar(14)",explain="设备序列号")
+    @Column(name = "deveiceSn", columnDefinition = "varchar(14) default ''", nullable = true)
+    private String deveiceSn;
    
-    @FieldInfo(name = "水控流量计编号")
+    @FieldInfo(name = "水控流量计编号",type="varchar(20)",explain="设备序列号")
     @Column(name = "meterId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String meterId;
-
-	public String getTermId() {
-		return termId;
-	}
-
-	public void setTermId(String termId) {
-		this.termId = termId;
-	}
-
-	public String getTermSn() {
-		return termSn;
-	}
-
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
-	}
 
 	public String getMeterId() {
 		return meterId;
@@ -55,6 +39,22 @@ public class PtSkMeterbind extends BaseEntity implements Serializable{
 
 	public void setMeterId(String meterId) {
 		this.meterId = meterId;
+	}
+
+	public String getDeveiceId() {
+		return deveiceId;
+	}
+
+	public void setDeveiceId(String deveiceId) {
+		this.deveiceId = deveiceId;
+	}
+
+	public String getDeveiceSn() {
+		return deveiceSn;
+	}
+
+	public void setDeveiceSn(String deveiceSn) {
+		this.deveiceSn = deveiceSn;
 	}
 
     /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
