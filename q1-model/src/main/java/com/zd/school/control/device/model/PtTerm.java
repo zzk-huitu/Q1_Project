@@ -58,6 +58,10 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "deveiceStatus", columnDefinition = "default 1", nullable = true)
 	private Boolean deveiceStatus;
 
+	@FieldInfo(name = "设备状态(1是启用 0是禁用)", type = "Boolean", explain = "")
+	@Column(name = "termStatus", columnDefinition = "default 1", nullable = true)
+	private Boolean termStatus;
+
 	@FieldInfo(name = "offlineUse", type = "Integer", explain = "是否允许脱机使用")
 	@Column(name = "offlineUse", columnDefinition = "default 0", nullable = true)
 	private Integer offlineUse;
