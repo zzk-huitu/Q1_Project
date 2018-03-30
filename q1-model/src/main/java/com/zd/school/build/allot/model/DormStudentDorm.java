@@ -40,6 +40,14 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	@Column(name = "classDormId", length = 20, nullable = false)
 	private String classDormId;
 
+	public String getClassDormId() {
+		return classDormId;
+	}
+
+	public void setClassDormId(String classDormId) {
+		this.classDormId = classDormId;
+	}
+
 	@FieldInfo(name = "班级ID")
 	@Formula("(SELECT a.classId FROM V_PT_ClassStudent a where a.userId=studentId)")
 	private String classId;
@@ -161,14 +169,6 @@ public class DormStudentDorm extends BaseEntity implements Serializable {
 	@Transient
 	@FieldInfo(name = "所属楼栋")
 	private String upAreaName;
-
-	public String getClassDormId() {
-		return classDormId;
-	}
-
-	public void setClassDormId(String classDormId) {
-		this.classDormId = classDormId;
-	}
 
 	public String getStudentId() {
 		return studentId;

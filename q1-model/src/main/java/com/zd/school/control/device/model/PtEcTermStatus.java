@@ -32,73 +32,73 @@ import com.zd.school.excel.annotation.MapperCell;
 public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备序列号")
+	@FieldInfo(name = "termSn", type = "varchar(14)", explain = "设备序列号")
 	@Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
 	private String termSn;
 
-	@FieldInfo(name = "房间编号")
-	@Column(name = "roomId",columnDefinition = "varchar(20) default ''", nullable = true)
+	@FieldInfo(name = "roomId", type = "nvarchar(20)", explain = "房间编号")
+	@Column(name = "roomId",columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String roomId;
 
 	@MapperCell(cellName = "状态的日期", order = 1)
-	@FieldInfo(name = "状态的日期")
+	@FieldInfo(name = "statusDate", type = "date", explain = "状态的日期")
 	@Temporal(TemporalType.DATE)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@Column(name = "statusDate", columnDefinition = "date")
 	private Date statusDate;
 
 	@MapperCell(cellName = "状态的小时", order = 2)
-	@FieldInfo(name = "状态的小时")
+	@FieldInfo(name = "statusHour", type = "Integer", explain = "状态的小时")
 	@Column(name = "statusHour")
 	private Integer statusHour;
 
 	@MapperCell(cellName = "当前小时用电量", order = 3)
-	@FieldInfo(name = "当前小时用电量")
+	@FieldInfo(name = "useKwh", type = "double", explain = "当前小时用电量")
 	@Column(name = "useKwh")
 	private double useKwh;
 
 	@MapperCell(cellName = "已购电总量", order = 4)
-	@FieldInfo(name = "已购电总量")
+	@FieldInfo(name = "boughtKwh", type = "double", explain = "已购电总量")
 	@Column(name = "boughtKwh")
 	private double boughtKwh;
 
 	@MapperCell(cellName = "已使用总电量", order = 5)
-	@FieldInfo(name = "已使用总电量")
+	@FieldInfo(name = "totalUsedKwh", type = "double", explain = "已使用总电量")
 	@Column(name = "totalUsedKwh")
 	private double totalUsedKwh;
 
 	@MapperCell(cellName = "剩余总电量", order = 6)
-	@FieldInfo(name = "剩余总电量")
+	@FieldInfo(name = "surplusKwh", type = "double", explain = "剩余总电量")
 	@Column(name = "surplusKwh")
 	private double surplusKwh;
 
 	@MapperCell(cellName = "电压", order = 7)
-	@FieldInfo(name = "电压")
+	@FieldInfo(name = "voltage", type = "Bigint", explain = "电压")
 	@Column(name = "voltage")
 	private long voltage;
 
 	@MapperCell(cellName = "电流", order = 8)
-	@FieldInfo(name = "电流")
+	@FieldInfo(name = "currents", type = "Bigint", explain = "电流")
 	@Column(name = "currents")
 	private long currents;
 
 	@MapperCell(cellName = "功率", order = 9)
-	@FieldInfo(name = "功率")
+	@FieldInfo(name = "power", type = "Bigint", explain = "功率")
 	@Column(name = "power")
 	private long power;
 
 	@MapperCell(cellName = "状态的时间", order = 10)
-	@FieldInfo(name = "状态的时间")
-	@Column(name = "statusTime")
+	@FieldInfo(name = "statusTime", type = "datetime", explain = "状态的时间")
+	@Column(name = "statusTime",columnDefinition = "datetime")
 	private Date statusTime;
 
 	@MapperCell(cellName = "房间名称", order = 11)
-	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
 
 	/* 用于排除未定义的房间 0 */
-	@Formula("(SELECT A.ROOM_TYPE FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@Formula("(SELECT A.roomType FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间类型")
 	private String roomType;
 
@@ -139,7 +139,7 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private String wheresql2;
 
 	@MapperCell(cellName = "设备名称", order = 12)
-	@Formula("(SELECT A.TERMNAME FROM dbo.PT_TERM A WHERE A.TERMSN=TERMSN)")
+	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
 	@FieldInfo(name = "设备名称")
 	private String termName;
 

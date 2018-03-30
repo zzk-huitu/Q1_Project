@@ -28,69 +28,69 @@ import com.zd.school.excel.annotation.MapperCell;
 @AttributeOverride(name = "mjOpenDoorId", column = @Column(name = "mjOpenDoorId", length = 20, nullable = false))
 public class PtMjOpenDoor extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
-    @FieldInfo(name = "设备序列号")
+    @FieldInfo(name = "termSn", type = "varchar(14)", explain = "设备序列号")
     @Column(name = "termSn", columnDefinition = "varchar(14) default ''", nullable = true)
     private String termSn;
 
     @MapperCell(cellName="设备名称",order=1)
-    @FieldInfo(name = "设备名称")
+    @FieldInfo(name = "termName", type = "nvarchar(25)", explain = "设备名称")
     @Column(name = "termName", columnDefinition = "nvarchar(25) default ''", nullable = true)
     private String termName;
     
-    @FieldInfo(name = "房间编号")
+    @FieldInfo(name = "roomId", type = "varchar(20)", explain = "房间编号")
     @Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String roomId;
    
     @MapperCell(cellName="开门人员姓名",order=2)
-    @FieldInfo(name = "开门人员姓名")
+    @FieldInfo(name = "userName", type = "nvarchar(18)", explain = "开门人员姓名")
     @Column(name = "userName", columnDefinition = "nvarchar(18) default ''", nullable = true)
     private String userName;
     
     @MapperCell(cellName="开门时间",order=3)
-    @FieldInfo(name = "开门时间")
+    @FieldInfo(name = "openDate", type = "datetime", explain = "开门时间")
     @Column(name = "openDate", columnDefinition = "datetime")
     @Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
     private Date openDate;
     
     @MapperCell(cellName="房间名称",order=4)
-    @FieldInfo(name = "房间名称")
+    @FieldInfo(name = "roomName", type = "nvarchar(18)", explain = "房间名称")
     @Column(name = "roomName", columnDefinition = "nvarchar(18) default ''", nullable = true)
     private String roomName;
     
     @MapperCell(cellName="房间所在区域",order=5)
-    @FieldInfo(name = "房间所在区域")
+    @FieldInfo(name = "roomArea", type = "nvarchar(50)", explain = "房间所在区域")
     @Column(name = "roomArea", columnDefinition = "nvarchar(50) default ''", nullable = true)
     private String roomArea;
     
     @MapperCell(cellName="进出标识",order=6)
-    @FieldInfo(name = "进出标识")
+    @FieldInfo(name = "inOutType", type = "nvarchar(20)", explain = "进出标识")
     @Column(name = "inOutType", columnDefinition = "nvarchar(20) default ''", nullable = true)
     private String inOutType;
     
     @MapperCell(cellName="开门类型",order=7)
-    @FieldInfo(name = "开门类型")
+    @FieldInfo(name = "openType", type = "nvarchar(20)", explain = "开门类型")
     @Column(name = "openType", columnDefinition = "nvarchar(20) default ''", nullable = true)
     private String openType;
     
-    @FieldInfo(name = "设备Id")
+    @FieldInfo(name = "termId", type = "varchar(20)", explain = "设备Id")
     @Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String termId;
     
-    @FieldInfo(name = "用户Id")
+    @FieldInfo(name = "userId", type = "varchar(20)", explain = "用户Id")
     @Column(name = "userId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String userId;
     
-    @FieldInfo(name = "区域Id")
+    @FieldInfo(name = "areaId", type = "varchar(20)", explain = "区域Id")
     @Column(name = "areaId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String areaId;
     
-    @FieldInfo(name = "记录编号")
+    @FieldInfo(name = "recordId", type = "varchar(20)", explain = "记录编号")
     @Column(name = "recordId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String recordId;
     
     /* 用于排除未定义的房间 0 */
-	@Formula("(SELECT A.ROOM_TYPE FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@Formula("(SELECT A.roomType FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间类型")
 	private String roomType;
 	
