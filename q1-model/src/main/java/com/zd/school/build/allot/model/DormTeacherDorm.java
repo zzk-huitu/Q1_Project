@@ -29,56 +29,56 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_TeacherDorm")
-@AttributeOverride(name = "teacherDormId", column = @Column(name = "teacherDormId", length = 36, nullable = false) )
+@AttributeOverride(name = "teacherDormId", column = @Column(name = "teacherDormId", length = 20, nullable = false))
 public class DormTeacherDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@FieldInfo(name = "宿舍ID")
-	@Column(name = "dormId", length = 36, nullable = false)
+
+	@FieldInfo(name = "dormId", type = "varchar(20)", explain = "宿舍Id")
+	@Column(name = "dormId", length = 20, nullable = false)
 	private String dormId;
-	
-	@FieldInfo(name = "教师ID")
-	@Column(name = "teacherId", length = 36, nullable = false)
+
+	@FieldInfo(name = "教师ID", type = "varchar(20)", explain = "教师Id")
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
-	
-	@FieldInfo(name = "房间ID")
-	@Column(name = "roomId", length = 36, nullable = false)
+
+	@FieldInfo(name = "", type = "varchar(20)", explain = "房间Id")
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
-	
-	@FieldInfo(name = "柜子编号")
-	@Column(name = "sarkNo", length = 8, nullable = false)
-	private Integer sarkNo=0;
-	
-	@FieldInfo(name = "床位编号")
-	@Column(name = "bedNo", length = 8, nullable = false)
-	private Integer bedNo=0;
-	
-	@FieldInfo(name = "入/退状态(0:入住,1:退住)")
+
+	@FieldInfo(name = "sarkNo", type = "Byte", explain = "柜子编号")
+	@Column(name = "sarkNo", nullable = false)
+	private Byte sarkNo = 0;
+
+	@FieldInfo(name = "bedNo", type = "Byte", explain = "床位编号")
+	@Column(name = "bedNo", nullable = false)
+	private Byte bedNo = 0;
+
+	@FieldInfo(name = "inOutState", type = "int", explain = "入/退状态(0:入住,1:退住)")
 	@Column(name = "inOutState", length = 1, nullable = false)
-	private Integer inOutState=0;
-	
-	@FieldInfo(name = "入住时间")
+	private Integer inOutState = 0;
+
+	@FieldInfo(name = "", type = "datetime", explain = "入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "inTime", length = 27, nullable = false)
+	@Column(name = "inTime", columnDefinition = "datetime", nullable = false)
 	private Date inTime;
-	
-	@FieldInfo(name = "退住时间")
+
+	@FieldInfo(name = "outTime", type = "datetime", explain = "退住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "outTime", length = 27, nullable = true)
+	@Column(name = "outTime", columnDefinition = "datetime", nullable = true)
 	private Date outTime;
-	
-	@Formula("(SELECT A.XM FROM SYS_T_USER A  WHERE A.USER_ID=TTEAC_ID)")
-    @FieldInfo(name = "用于选择框显示教师姓名")
-    private String xm;
-	
-	@Formula("(SELECT A.USER_NUMB FROM SYS_T_USER A  WHERE A.USER_ID=TTEAC_ID)")
-    @FieldInfo(name = "教师工号")
-    private String gh;
-	
-	@Formula("(SELECT B.ROOM_NAME FROM  dbo.BUILD_T_DORMDEFINE A JOIN dbo.BUILD_T_ROOMINFO B "
-			+ "ON A.ROOM_ID=B.ROOM_ID WHERE  A.ISDELETE=0 AND A.DORM_ID=DORM_ID)")
+
+	@Formula("(SELECT A.name FROM T_PT_User A  WHERE A.userId=teacherId)")
+	@FieldInfo(name = "用于选择框显示教师姓名")
+	private String name;
+
+	@Formula("(SELECT A.userNumb FROM T_PT_User A  WHERE A.userId=teacherId)")
+	@FieldInfo(name = "教师工号")
+	private String userNumb;
+
+	@Formula("(SELECT B.roomName FROM dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "
+			+ "ON A.roomId=B.roomId WHERE A.isDelete=0 AND A.dormId=dormId)")
 	@FieldInfo(name = "房间名称")
 	private String dormName;
 
@@ -106,19 +106,19 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	public Integer getSarkNo() {
+	public Byte getSarkNo() {
 		return sarkNo;
 	}
 
-	public void setSarkNo(Integer sarkNo) {
+	public void setSarkNo(Byte sarkNo) {
 		this.sarkNo = sarkNo;
 	}
 
-	public Integer getBedNo() {
+	public Byte getBedNo() {
 		return bedNo;
 	}
 
-	public void setBedNo(Integer bedNo) {
+	public void setBedNo(Byte bedNo) {
 		this.bedNo = bedNo;
 	}
 
@@ -129,7 +129,7 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 	public void setInOutState(Integer inOutState) {
 		this.inOutState = inOutState;
 	}
-	
+
 	public Date getInTime() {
 		return inTime;
 	}
@@ -146,20 +146,20 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.outTime = outTime;
 	}
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getGh() {
-		return gh;
+	public String getUserNumb() {
+		return userNumb;
 	}
 
-	public void setGh(String gh) {
-		this.gh = gh;
+	public void setUserNumb(String userNumb) {
+		this.userNumb = userNumb;
 	}
 
 	public String getDormName() {

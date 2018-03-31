@@ -39,12 +39,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_CourseArrange")
-@AttributeOverride(name = "courseArrangeId", column = @Column(name = "courseArrangeId", length = 36, nullable = false))
+@AttributeOverride(name = "courseArrangeId", column = @Column(name = "courseArrangeId", length = 20, nullable = false))
 public class JwCourseArrange extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "学校主键")
-	@Column(name = "schoolId", length = 36, nullable = true)
+	@FieldInfo(name = "schoolId",type="varchar(20)",explain="学校Id")
+	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
 	public void setSchoolId(String schoolId) {
@@ -55,8 +55,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return schoolId;
 	}
 
-	@FieldInfo(name = "学校名称")
-	@Column(name = "schoolName", length = 64, nullable = true)
+	@FieldInfo(name = "schoolName",type="nvarchar(20)",explain="学校名称")
+	@Column(name = "schoolName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String schoolName;
 
 	public void setSchoolName(String schoolName) {
@@ -67,8 +67,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return schoolName;
 	}
 
-	@FieldInfo(name = "学年") // 暂时不需要
-	@Column(name = "schoolYear", length = 32, nullable = true)
+	@FieldInfo(name = "schoolYear",type="nvarchar(20)",explain="学年")
+	@Column(name = "schoolYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String schoolYear;
 
 	public void setSchoolYear(String schoolYear) {
@@ -79,8 +79,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return schoolYear;
 	}
 
-	@FieldInfo(name = "学期") // 暂时不需要
-	@Column(name = "semester", length = 32, nullable = true)
+	@FieldInfo(name = "semester",type="nvarchar(20)",explain="学期")
+	@Column(name = "semester", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String semester;
 
 	public String getSemester() {
@@ -91,8 +91,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.semester = semester;
 	}
 
-	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = true)
+	@FieldInfo(name = "classId",type="varchar(20)",explain="班级ID")
+	@Column(name = "classId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String classId;
 
 	public String getClassId() {
@@ -103,8 +103,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.classId = classId;
 	}
 
-	@FieldInfo(name = "班号")
-	@Column(name = "classCode", length = 36, nullable = true)
+	@FieldInfo(name = "classCode",type="nvarchar(20)",explain="班号")
+	@Column(name = "classCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String classCode;
 
 	public void setClassCode(String classCode) {
@@ -115,8 +115,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return classCode;
 	}
 
-	@FieldInfo(name = "班级名称")
-	@Column(name = "className", length = 36, nullable = true)
+	@FieldInfo(name = "className",type="nvarchar(20)",explain="班级名称")
+	@Column(name = "className", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String className;
 
 	public void setClassName(String className) {
@@ -127,8 +127,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return className;
 	}
 
-	@FieldInfo(name = "节次")
-	@Column(name = "sections", length = 64, nullable = true)
+	@FieldInfo(name = "sections",type="nvarchar(20)",explain="节次")
+	@Column(name = "sections", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String sections;
 
 	public String getSections() {
@@ -139,8 +139,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.sections = sections;
 	}
 
-	@FieldInfo(name = "课程ID1")
-	@Column(name = "courseId01", length = 36, nullable = true)
+	@FieldInfo(name = "courseId01",type="varchar(20)",explain="课程ID1")
+	@Column(name = "courseId01", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId01;
 
 	public void setCourseId01(String courseId01) {
@@ -151,8 +151,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId01;
 	}
 
-	@FieldInfo(name = "课程名1")
-	@Column(name = "courseName01", length = 64, nullable = true)
+	@FieldInfo(name = "courseName01",type="nvarchar(20)",explain="课程名1")
+	@Column(name = "courseName01", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName01;
 
 	public void setCourseName01(String courseName01) {
@@ -163,8 +163,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName01;
 	}
 
-	@FieldInfo(name = "任课教师ID1")
-	@Column(name = "teacherId01", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId01",type="varchar(20)",explain="任课教师ID1")
+	@Column(name = "teacherId01", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId01;
 
 	public String getTeacherId01() {
@@ -175,8 +175,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId01 = teacherId01;
 	}
 
-	@FieldInfo(name = "任课教师工号1")
-	@Column(name = "teacherNumber01", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber01",type="nvarchar(20)",explain="任课教师工号1")
+	@Column(name = "teacherNumber01", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber01;
 
 	public String getTeacherNumber01() {
@@ -187,8 +187,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber01 = teacherNumber01;
 	}
 
-	@FieldInfo(name = "任课教师姓名1")
-	@Column(name = "teacherName01", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName01",type="nvarchar(20)",explain="任课教师姓名1")
+	@Column(name = "teacherName01", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName01;
 
 	public void setTeacherName01(String teacherName01) {
@@ -199,8 +199,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return teacherName01;
 	}
 
-	@FieldInfo(name = "课程ID2")
-	@Column(name = "courseId02", length = 36, nullable = true)
+	@FieldInfo(name = "courseId02",type="varchar(20)",explain="课程ID2")
+	@Column(name = "courseId02", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId02;
 
 	public void setCourseId02(String courseId02) {
@@ -211,8 +211,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId02;
 	}
 
-	@FieldInfo(name = "课程名2")
-	@Column(name = "courseName02", length = 64, nullable = true)
+	@FieldInfo(name = "courseName02",type="nvarchar(20)",explain="课程名2")
+	@Column(name = "courseName02", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName02;
 
 	public void setCourseName02(String courseName02) {
@@ -223,8 +223,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName02;
 	}
 
-	@FieldInfo(name = "任课教师ID2")
-	@Column(name = "teacherId02", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId02",type="varchar(20)",explain="任课教师ID2")
+	@Column(name = "teacherId02", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId02;
 
 	public String getTeacherId02() {
@@ -235,8 +235,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId02 = teacherId02;
 	}
 
-	@FieldInfo(name = "任课教师工号2")
-	@Column(name = "teacherNumber02", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber02",type="nvarchar(20)",explain="任课教师工号2")
+	@Column(name = "teacherNumber02", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber02;
 
 	public String getTeacherNumber02() {
@@ -247,8 +247,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber02 = teacherNumber02;
 	}
 
-	@FieldInfo(name = "任课教师姓名2")
-	@Column(name = "teacherName02", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName02",type="nvarchar(20)",explain="任课教师姓名2")
+	@Column(name = "teacherName02", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName02;
 
 	public void setTeacherName02(String teacherName02) {
@@ -259,8 +259,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return teacherName02;
 	}
 
-	@FieldInfo(name = "课程ID3")
-	@Column(name = "courseId03", length = 36, nullable = true)
+	@FieldInfo(name = "courseId03",type="varchar(20)",explain="课程ID3")
+	@Column(name = "courseId03", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId03;
 
 	public void setCourseId03(String courseId03) {
@@ -271,8 +271,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId03;
 	}
 
-	@FieldInfo(name = "课程名3")
-	@Column(name = "courseName03", length = 64, nullable = true)
+	@FieldInfo(name = "courseName03",type="nvarchar(20)",explain="课程名3")
+	@Column(name = "courseName03", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName03;
 
 	public void setCourseName03(String courseName03) {
@@ -283,8 +283,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName03;
 	}
 
-	@FieldInfo(name = "任课教师ID3")
-	@Column(name = "teacherId03", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId03",type="varchar(20)",explain="任课教师ID3")
+	@Column(name = "teacherId03", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId03;
 
 	public String getTeacherId03() {
@@ -295,8 +295,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId03 = teacherId03;
 	}
 
-	@FieldInfo(name = "任课教师工号3")
-	@Column(name = "teacherNumber03", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber03",type="nvarchar(20)",explain="任课教师工号3")
+	@Column(name = "teacherNumber03", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber03;
 
 	public String getTeacherNumber03() {
@@ -307,8 +307,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber03 = teacherNumber03;
 	}
 
-	@FieldInfo(name = "任课教师姓名3")
-	@Column(name = "teacherName03", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName03",type="nvarchar(20)",explain="任课教师姓名3")
+	@Column(name = "teacherName03", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName03;
 
 	public void setTeacherName03(String teacherName03) {
@@ -319,8 +319,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return teacherName03;
 	}
 
-	@FieldInfo(name = "课程ID4")
-	@Column(name = "courseId04", length = 36, nullable = true)
+	@FieldInfo(name = "courseId04",type="varchar(20)",explain="课程ID4")
+	@Column(name = "courseId04", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId04;
 
 	public void setCourseId04(String courseId04) {
@@ -331,8 +331,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId04;
 	}
 
-	@FieldInfo(name = "课程名4")
-	@Column(name = "courseName04", length = 64, nullable = true)
+	@FieldInfo(name = "courseName04",type="nvarchar(20)",explain="课程名4")
+	@Column(name = "courseName04", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName04;
 
 	public void setCourseName04(String courseName04) {
@@ -343,8 +343,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName04;
 	}
 
-	@FieldInfo(name = "任课教师ID4")
-	@Column(name = "teacherId04", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId04",type="varchar(20)",explain="任课教师ID4")
+	@Column(name = "teacherId04", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId04;
 
 	public String getTeacherId04() {
@@ -355,8 +355,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId04 = teacherId04;
 	}
 
-	@FieldInfo(name = "任课教师工号4")
-	@Column(name = "teacherNumber04", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber04",type="nvarchar(20)",explain="任课教师工号4")
+	@Column(name = "teacherNumber04", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber04;
 
 	public String getTeacherNumber04() {
@@ -367,8 +367,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber04 = teacherNumber04;
 	}
 
-	@FieldInfo(name = "任课教师姓名4")
-	@Column(name = "teacherName04", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName04",type="nvarchar(20)",explain="任课教师姓名4")
+	@Column(name = "teacherName04", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName04;
 
 	public void setTeacherName04(String teacherName04) {
@@ -379,8 +379,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return teacherName04;
 	}
 
-	@FieldInfo(name = "课程ID5")
-	@Column(name = "courseId05", length = 36, nullable = true)
+	@FieldInfo(name = "courseId05",type="varchar(20)",explain="课程ID5")
+	@Column(name = "courseId05", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId05;
 
 	public void setCourseId05(String courseId05) {
@@ -391,8 +391,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId05;
 	}
 
-	@FieldInfo(name = "课程名5")
-	@Column(name = "courseName05", length = 64, nullable = true)
+	@FieldInfo(name = "courseName05",type="nvarchar(20)",explain="课程名5")
+	@Column(name = "courseName05", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName05;
 
 	public void setCourseName05(String courseName05) {
@@ -403,8 +403,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName05;
 	}
 
-	@FieldInfo(name = "任课教师ID5")
-	@Column(name = "teacherId05", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId05",type="varchar(20)",explain="任课教师ID5")
+	@Column(name = "teacherId05", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId05;
 
 	public String getTeacherId05() {
@@ -415,8 +415,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId05 = teacherId05;
 	}
 
-	@FieldInfo(name = "任课教师工号5")
-	@Column(name = "teacherNumber05", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber05",type="nvarchar(20)",explain="任课教师工号5")
+	@Column(name = "teacherNumber05", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber05;
 
 	public String getTeacherNumber05() {
@@ -427,8 +427,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber05 = teacherNumber05;
 	}
 
-	@FieldInfo(name = "任课教师姓名5")
-	@Column(name = "teacherName05", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName05",type="nvarchar(20)",explain="任课教师姓名5")
+	@Column(name = "teacherName05", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName05;
 
 	public void setTeacherName05(String teacherName05) {
@@ -439,8 +439,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return teacherName05;
 	}
 
-	@FieldInfo(name = "课程ID6")
-	@Column(name = "courseId06", length = 36, nullable = true)
+	@FieldInfo(name = "courseId06",type="varchar(20)",explain="课程ID6")
+	@Column(name = "courseId06", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId06;
 
 	public void setCourseId06(String courseId06) {
@@ -451,8 +451,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId06;
 	}
 
-	@FieldInfo(name = "课程名6")
-	@Column(name = "courseName06", length = 64, nullable = true)
+	@FieldInfo(name = "courseName06",type="nvarchar(20)",explain="课程名6")
+	@Column(name = "courseName06", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName06;
 
 	public void setCourseName06(String courseName06) {
@@ -463,8 +463,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName06;
 	}
 
-	@FieldInfo(name = "任课教师ID6")
-	@Column(name = "teacherId06", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId06",type="varchar(20)",explain="任课教师ID6")
+	@Column(name = "teacherId06", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId06;
 
 	public String getTeacherId06() {
@@ -475,8 +475,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId06 = teacherId06;
 	}
 
-	@FieldInfo(name = "任课教师工号6")
-	@Column(name = "teacherNumber06", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber06",type="nvarchar(20)",explain="任课教师工号6")
+	@Column(name = "teacherNumber06", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber06;
 
 	public String getTeacherNumber06() {
@@ -487,8 +487,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber06 = teacherNumber06;
 	}
 
-	@FieldInfo(name = "任课教师姓名6")
-	@Column(name = "teacherName06", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName06",type="nvarchar(20)",explain="任课教师姓名6")
+	@Column(name = "teacherName06", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName06;
 
 	public void setTeacherName06(String teacherName06) {
@@ -499,8 +499,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return teacherName06;
 	}
 
-	@FieldInfo(name = "课程ID7")
-	@Column(name = "courseId07", length = 36, nullable = true)
+	@FieldInfo(name = "courseId07",type="varchar(20)",explain="课程ID7")
+	@Column(name = "courseId07", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId07;
 
 	public void setCourseId07(String courseId07) {
@@ -511,8 +511,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseId07;
 	}
 
-	@FieldInfo(name = "课程名7")
-	@Column(name = "courseName07", length = 64, nullable = true)
+	@FieldInfo(name = "courseName07",type="nvarchar(20)",explain="课程名7")
+	@Column(name = "courseName07", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String courseName07;
 
 	public void setCourseName07(String courseName07) {
@@ -523,8 +523,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		return courseName07;
 	}
 
-	@FieldInfo(name = "任课教师ID7")
-	@Column(name = "teacherId07", length = 36, nullable = true)
+	@FieldInfo(name = "teacherId07",type="varchar(20)",explain="任课教师ID7")
+	@Column(name = "teacherId07", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String teacherId07;
 
 	public String getTeacherId07() {
@@ -535,8 +535,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherId07 = teacherId07;
 	}
 
-	@FieldInfo(name = "任课教师工号7")
-	@Column(name = "teacherNumber07", length = 32, nullable = true)
+	@FieldInfo(name = "teacherNumber07",type="nvarchar(20)",explain="任课教师工号7")
+	@Column(name = "teacherNumber07", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherNumber07;
 
 	public String getTeacherNumber07() {
@@ -547,8 +547,8 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 		this.teacherNumber07 = teacherNumber07;
 	}
 
-	@FieldInfo(name = "任课教师姓名7")
-	@Column(name = "teacherName07", length = 64, nullable = true)
+	@FieldInfo(name = "teacherName07",type="nvarchar(20)",explain="任课教师姓名7")
+	@Column(name = "teacherName07", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String teacherName07;
 
 	public void setTeacherName07(String teacherName07) {

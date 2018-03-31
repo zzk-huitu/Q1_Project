@@ -24,46 +24,46 @@ import com.zd.core.util.DateTimeSerializer;
  */
 @Entity
 @Table(name = "T_PT_RoomBagsRule")
-@AttributeOverride(name = "roomBagsRuleId", column = @Column(name = "roomBagsRuleId", length = 36, nullable = false))
+@AttributeOverride(name = "roomBagsRuleId", column = @Column(name = "roomBagsRuleId", length = 20, nullable = false))
 public class PtRoomBagRule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "规则名称")
-	@Column(name = "roomRuleName", length = 255, nullable = true)
+	@FieldInfo(name = "规则名称",type="nvarchar(40)",explain="房间钱包的规则名称")
+	@Column(name = "roomRuleName", columnDefinition = "nvarchar(40) default ''", nullable = true)
 	private String roomRuleName;
 
-	@FieldInfo(name = "允许关电开始时间")
+	@FieldInfo(name = "允许关电开始时间",type="datetime",explain="允许关电开始时间")
 	@Column(name = "allowOffStartTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date allowOffStartTime;
 
-	@FieldInfo(name = "允许关电结束时间")
+	@FieldInfo(name = "允许关电结束时间",type="datetime",explain="允许关电结束时间")
 	@Column(name = "allowOffEndTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date allowOffEndTime;
 
 
-	@FieldInfo(name = "无余额控制方式（1：不许使用，2：继续使用）")
-	@Column(name = "noMoneyMode")
+	@FieldInfo(name = "无余额控制方式（1：不许使用，2：继续使用）",type="varchar(2)",explain="无余额控制方式")
+	@Column(name = "noMoneyMode",columnDefinition = "varchar(2) default ''",nullable=true)
 	private String noMoneyMode;
 
-	@FieldInfo(name = "报警金额（低于此金额后开始尝试扣费）")
+	@FieldInfo(name = "报警金额（低于此金额后开始尝试扣费）",type="BigDecimal",explain="报警金额")
 	@Column(name = "warnValue")
 	private BigDecimal warnValue;
 
-	@FieldInfo(name = "扣费模式（0：不扣费，1：平均扣费，2：指定扣费）")
-	@Column(name = "deductionMode")
+	@FieldInfo(name = "扣费模式（0：不扣费，1：平均扣费，2：指定扣费）",type="varchar(2)",explain="扣费模式")
+	@Column(name = "deductionMode",columnDefinition = "varchar(2) default ''",nullable=true)
 	private String deductionMode;
 
-	@FieldInfo(name = "扣费金额（每次扣费的总额）")
+	@FieldInfo(name = "扣费金额（每次扣费的总额）",type="BigDecimal",explain="扣费金额")
 	@Column(name = "deductionValue")
 	private BigDecimal deductionValue;
 
-	@FieldInfo(name = "是否启用")
-	@Column(name = "isEnable")
-	private BigDecimal isEnable;
+	@FieldInfo(name = "是否启用",type="boolean",explain="是否启用")
+	@Column(name = "isEnable",columnDefinition = "default 0",nullable=true)
+	private boolean isEnable;
 
 	public String getRoomRuleName() {
 		return roomRuleName;
@@ -121,11 +121,11 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 		this.noMoneyMode = noMoneyMode;
 	}
 
-	public BigDecimal getIsEnable() {
+	public boolean getIsEnable() {
 		return isEnable;
 	}
 
-	public void setIsEnable(BigDecimal isEnable) {
+	public void setIsEnable(boolean isEnable) {
 		this.isEnable = isEnable;
 	}
 

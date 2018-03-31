@@ -39,12 +39,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_AttenceRule")
-@AttributeOverride(name = "attenceRuleId", column = @Column(name = "attenceRuleId", length = 36, nullable = false))
+@AttributeOverride(name = "attenceRuleId", column = @Column(name = "attenceRuleId", length = 20, nullable = false))
 public class JwCheckrule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "规则名称")
-	@Column(name = "ruleName", length = 36, nullable = false)
+	@FieldInfo(name = "ruleName",type="nvarchar(20)",explain="规则名称")
+	@Column(name = "ruleName",  columnDefinition = "nvarchar(20)", nullable = false)
 	private String ruleName;
 
 	public void setRuleName(String ruleName) {
@@ -55,8 +55,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		return ruleName;
 	}
 
-	@FieldInfo(name = "考勤模式 1-按半天考勤 2-按全天考勤 3-按节次考勤")
-	@Column(name = "attenceMode", length = 5, nullable = false)
+	@FieldInfo(name = "attenceMode",type="Integer",explain="考勤模式:1-按半天考勤 ;2-按全天考勤; 3-按节次考勤")
+	@Column(name = "attenceMode", nullable = false)
 	private Integer attenceMode;
 
 	public Integer getAttenceMode() {
@@ -67,8 +67,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.attenceMode = attenceMode;
 	}
 
-	@FieldInfo(name = "签到提前分钟")
-	@Column(name = "inAdvance", length = 5, nullable = false)
+	@FieldInfo(name = "inAdvance",type="Integer",explain="签到提前分钟")
+	@Column(name = "inAdvance", nullable = false)
 	private Integer inAdvance;
 
 	public Integer getInAdvance() {
@@ -79,8 +79,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.inAdvance = inAdvance;
 	}
 
-	@FieldInfo(name = "迟到分钟")
-	@Column(name = "beLate", length = 5, nullable = false)
+	@FieldInfo(name = "beLate",type="Integer",explain="迟到分钟")
+	@Column(name = "beLate", nullable = false)
 	private Integer beLate;
 
 	public Integer getBeLate() {
@@ -91,8 +91,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.beLate = beLate;
 	}
 
-	@FieldInfo(name = "缺勤分钟")
-	@Column(name = "absenceMinute", length = 5, nullable = false)
+	@FieldInfo(name = "absenceMinute",type="Integer",explain="缺勤分钟")
+	@Column(name = "absenceMinute", nullable = false)
 	private Integer absenceMinute;
 
 	public Integer getAbsenceMinute() {
@@ -103,8 +103,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.absenceMinute = absenceMinute;
 	}
 
-	@FieldInfo(name = "是否需要签退 0-不需要 1-需要")
-	@Column(name = "needSignOut", length = 5, nullable = false)
+	@FieldInfo(name = "needSignOut",type="Integer",explain="是否需要签退 :0-不需要; 1-需要")
+	@Column(name = "needSignOut", nullable = false)
 	private Integer needSignOut;
 
 	public Integer getNeedSignOut() {
@@ -115,8 +115,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.needSignOut = needSignOut;
 	}
 
-	@FieldInfo(name = "签退提前分钟")
-	@Column(name = "signOutAdvanceMin", length = 5, nullable = true)
+	@FieldInfo(name = "signOutAdvanceMin",type="Integer",explain="签退提前分钟")
+	@Column(name = "signOutAdvanceMin",columnDefinition = "default 0", nullable = true)
 	private Integer signOutAdvanceMin;
 
 	public Integer getSignOutAdvanceMin() {
@@ -127,8 +127,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.signOutAdvanceMin = signOutAdvanceMin;
 	}
 
-	@FieldInfo(name = "早退分钟")
-	@Column(name = "leaveEarlyMinute", length = 5, nullable = true)
+	@FieldInfo(name = "leaveEarlyMinute",type="Integer",explain="早退分钟")
+	@Column(name = "leaveEarlyMinute", columnDefinition = "default 0", nullable = true)
 	private Integer leaveEarlyMinute;
 
 	public Integer getLeaveEarlyMinute() {
@@ -139,8 +139,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.leaveEarlyMinute = leaveEarlyMinute;
 	}
 
-	@FieldInfo(name = "签退延迟分钟")
-	@Column(name = "leaveDelayMinute", length = 5, nullable = true)
+	@FieldInfo(name = "leaveDelayMinute",type="Integer",explain="签退延迟分钟")
+	@Column(name = "leaveDelayMinute", columnDefinition = "default 0", nullable = true)
 	private Integer leaveDelayMinute;
 
 	public Integer getLeaveDelayMinute() {
@@ -151,8 +151,8 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.leaveDelayMinute = leaveDelayMinute;
 	}
 
-	@FieldInfo(name = "规则说明")
-	@Column(name = "ruleExplain", length = 255, nullable = true)
+	@FieldInfo(name = "ruleExplain",type="nvarchar(128)",explain="规则说明")
+	@Column(name = "ruleExplain", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String ruleExplain;
 
 	public String getRuleExplain() {
@@ -163,15 +163,15 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.ruleExplain = ruleExplain;
 	}
 
-	@FieldInfo(name = "启用标识 0-不启用 1-启用")
-	@Column(name = "START_USING", length = 5, nullable = false)
-	private Integer startUsing;
+	@FieldInfo(name = "startUsing",type="Boolean",explain="启用标识:0-不启用 ;1-启用")
+	@Column(name = "startUsing", nullable = false)
+	private Boolean startUsing;
 
-	public Integer getStartUsing() {
+	public Boolean getStartUsing() {
 		return startUsing;
 	}
 
-	public void setStartUsing(Integer startUsing) {
+	public void setStartUsing(Boolean startUsing) {
 		this.startUsing = startUsing;
 	}
 	/**

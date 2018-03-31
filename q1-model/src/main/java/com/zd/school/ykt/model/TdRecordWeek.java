@@ -12,13 +12,13 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_RecordWeek")
-@AttributeOverride(name = "recordWeekId", column = @Column(name = "recordWeekId", length = 36, nullable = false))
+@AttributeOverride(name = "recordWeekId", column = @Column(name = "recordWeekId", length = 20, nullable = false))
 public class TdRecordWeek extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	@FieldInfo(name = "需要刷卡的周几")
-	@Column(name = "brushWeek",nullable = true)
+	@FieldInfo(name = "需要刷卡的周几",type="Integer",explain="需要刷卡的周几")
+	@Column(name = "brushWeek",columnDefinition="defalut 0",nullable = true)
 	private Integer brushWeek;
 
 	public Integer getBrushWeek() {

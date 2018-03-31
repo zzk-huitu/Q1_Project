@@ -18,43 +18,43 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_RoomBag")
-@AttributeOverride(name = "roomBagId", column = @Column(name = "roomBagId", length = 36, nullable = false))
+@AttributeOverride(name = "roomBagId", column = @Column(name = "roomBagId", length = 20, nullable = false))
 public class PtRoomBags extends BaseEntity implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@FieldInfo(name = "房间ID")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@FieldInfo(name = "房间ID",type="varchar(20)",explain="房间ID")
+	@Column(name = "roomId",columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 	
-	@FieldInfo(name = "房间余额")
-	@Column(name = "roomValue")
+	@FieldInfo(name = "房间余额",type="BigDecimal",explain="房间余额")
+	@Column(name = "roomValue",columnDefinition = "default 0",nullable = true)
 	private BigDecimal roomValue;
 	
-	@FieldInfo(name = "房间总用")
-	@Column(name = "roomTotalUsed")
+	@FieldInfo(name = "房间总用",type="BigDecimal",explain="房间总使用金额")
+	@Column(name = "roomTotalUsed",columnDefinition = "default 0",nullable = true)
 	private BigDecimal roomTotalUsed;
 	
-	@FieldInfo(name = "房间总充")
-	@Column(name = "roomTotalRecharge")
+	@FieldInfo(name = "房间总充",type="BigDecimal",explain="房间总充值金额")
+	@Column(name = "roomTotalRecharge",columnDefinition = "default 0",nullable = true)
 	private BigDecimal roomTotalRecharge;
 	
-	@FieldInfo(name = "水总用")
-	@Column(name = "waterTotalUsed")
+	@FieldInfo(name = "水总用",type="BigDecimal",explain="房间总用水金额")
+	@Column(name = "waterTotalUsed",columnDefinition = "default 0",nullable = true)
 	private BigDecimal waterTotalUsed;
 	
-	@FieldInfo(name = "水改变时间")
-	@Column(name = "waterUpdateTime")
+	@FieldInfo(name = "水改变时间",type="datetime",explain="房间最后用水时间")
+	@Column(name = "waterUpdateTime",columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date waterUpdateTime;
 	
-	@FieldInfo(name = "电总用")
-	@Column(name = "electricityTotalUsed")
+	@FieldInfo(name = "电总用",type="BigDecimal",explain="房间的总用电金额")
+	@Column(name = "electricityTotalUsed",columnDefinition = "default 0",nullable = true)
 	private BigDecimal electricityTotalUsed;
 	
-	@FieldInfo(name = "电改变时间")
-	@Column(name = "electricityUpdateTime")
+	@FieldInfo(name = "电改变时间",type="datetime",explain="房间的最后用电时间")
+	@Column(name = "electricityUpdateTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date electricityUpdateTime;

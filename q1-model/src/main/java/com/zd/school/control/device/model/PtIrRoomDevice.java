@@ -27,12 +27,12 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_IrRoomDevice")
-@AttributeOverride(name = "irRoomDeviceId", column = @Column(name = "irRoomDeviceId", length = 36, nullable = false))
+@AttributeOverride(name = "irRoomDeviceId", column = @Column(name = "irRoomDeviceId", length = 20, nullable = false))
 public class PtIrRoomDevice extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "房间编号")
-    @Column(name = "roomId", length = 36, nullable = false)
+    @FieldInfo(name = "roomId", type = "varchar(20)", explain = "房间编号")
+    @Column(name = "roomId", length = 20, nullable = false)
     private String roomId;
     public void setRoomId(String roomId) {
         this.roomId = roomId;
@@ -41,28 +41,28 @@ public class PtIrRoomDevice extends BaseEntity implements Serializable{
         return roomId;
     }
         
-    @FieldInfo(name = "型号编号")
-    @Column(name = "brandId", length = 36, nullable = false)
+    @FieldInfo(name = "brandId", type = "nvarchar(18)", explain = "型号编号")
+    @Column(name = "brandId", columnDefinition = "nvarchar(18)", nullable = false)
     private String brandId;
     
-    @FieldInfo(name = "备注")
-    @Column(name = "notes", length = 1000, nullable = true)
+    @FieldInfo(name = "notes", type = "nvarchar(200) ", explain = "备注")
+    @Column(name = "notes", columnDefinition = "nvarchar(200) default ''", nullable = true)
     private String notes;
     
-    @Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+    @Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
     
-    @Formula("(SELECT A.PRODUCTMODEL FROM dbo.PT_IR_DEVICE_BRAND A WHERE A.BRAND_ID=BRAND_ID)")
+    @Formula("(SELECT A.productModel FROM dbo.T_PT_IrDeviceBrand A WHERE A.brandId=brandId)")
    	@FieldInfo(name = "型号名称")
    	private String deviceTypeCode;
     
-    @Formula("(SELECT A.BRANDNAME FROM dbo.PT_IR_DEVICE_BRAND A WHERE A.BRAND_ID=BRAND_ID)")
+    @Formula("(SELECT A.brandName FROM dbo.T_PT_IrDeviceBrand A WHERE A.brandId=brandId)")
    	@FieldInfo(name = "品牌名称")
    	private String deviceBrandName;	//zzk新加入
     
-    @Formula("(select B.BRANDNAME from dbo.PT_IR_DEVICE_BRAND B where B.BRAND_ID=("
-    		+ "	SELECT A.DEVICETYPECODE FROM dbo.PT_IR_DEVICE_BRAND A WHERE A.BRAND_ID=BRAND_ID"
+    @Formula("(select B.brandName from dbo.T_PT_IrDeviceBrand B where B.brandId=("
+    		+ "	SELECT A.deviceTypeCode FROM dbo.T_PT_IrDeviceBrand A WHERE A.brandId=brandId"
     		+ "))")
    	@FieldInfo(name = "产品类型名称")
    	private String deviceTypeName;	//zzk新加入

@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_UseDeptJob")
-@AttributeOverride(name = "useDeptJobId", column = @Column(name = "useDeptJobId", length = 36, nullable = false))
+@AttributeOverride(name = "useDeptJobId", column = @Column(name = "useDeptJobId", length = 20, nullable = false))
 public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "用户ID")
-	@Column(name = "userId", length = 36, nullable = false)
+	@FieldInfo(name = "用户ID",type="varchar(20)",explain="用户ID")
+	@Column(name = "userId", length = 20, nullable = false)
 	private String userId;
 
 	public void setUserId(String userId) {
@@ -40,8 +40,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		return userId;
 	}
 
-	@FieldInfo(name = "部门岗位ID")
-	@Column(name = "deptjobId", length = 36, nullable = false)
+	@FieldInfo(name = "部门岗位ID",type="varchar(20)",explain="用户的部门岗位ID")
+	@Column(name = "deptjobId", length = 20, nullable = false)
 	private String deptjobId;
 
 	public void setDeptjobId(String deptjobId) {
@@ -52,8 +52,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		return deptjobId;
 	}
 
-	@FieldInfo(name = "部门ID")
-	@Column(name = "deptId", length = 36, nullable = false)
+	@FieldInfo(name = "部门ID",type="varchar(20)",explain="用户的部门ID")
+	@Column(name = "deptId", length = 20, nullable = false)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -64,8 +64,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		return deptId;
 	}
 
-	@FieldInfo(name = "岗位ID")
-	@Column(name = "jobId", length = 36, nullable = false)
+	@FieldInfo(name = "岗位ID",type="varchar(20)",explain="用户的岗位ID")
+	@Column(name = "jobId", length = 20, nullable = false)
 	private String jobId;
 
 	public void setJobId(String jobId) {
@@ -76,15 +76,15 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		return jobId;
 	}
 
-	@FieldInfo(name = "是否主部门 0-不是 1-是")
-	@Column(name = "mainDept", length = 5, nullable = false)
-	private Integer mainDept;
+	@FieldInfo(name = "是否主部门 0-不是 1-是",type="boolean",explain="是否主部门")
+	@Column(name = "mainDept",  nullable = false)
+	private boolean mainDept;
 
-	public void setMainDept(Integer mainDept) {
+	public void setMainDept(boolean mainDept) {
 		this.mainDept = mainDept;
 	}
 
-	public Integer getMainDept() {
+	public boolean getMainDept() {
 		return mainDept;
 	}
 
@@ -94,8 +94,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	 * @Transient
 	 * @FieldInfo(name = "") private String field1;
 	 */
-	@FieldInfo(name = "部门名称")
-	@Formula("(SELECT a.NODE_TEXT FROM dbo.BASE_T_ORG a WHERE a.DEPT_ID=DEPT_ID )")
+	@FieldInfo(name = "部门名称",type="nvarchar",explain="用户的部门名称")
+	@Formula("(SELECT a.nodeText FROM T_PT_Department a WHERE a.deptId=deptId )")
 	private String deptName;
 
 	public String getDeptName() {
@@ -105,8 +105,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
-	@FieldInfo(name = "部门类型")
-	@Formula("(SELECT a.DEPT_TYPE FROM dbo.BASE_T_ORG a WHERE a.DEPT_ID=DEPT_ID )")
+	@FieldInfo(name = "部门类型",type="varchar(2)",explain="用户的部门类型")
+	@Formula("(SELECT a.deptType FROM T_PT_Department a WHERE a.deptId=deptId )")
 	private String deptType;
 
 	public String getDeptType() {
@@ -118,8 +118,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 	}
 	
 
-	@FieldInfo(name = "岗位名称")
-	@Formula("(SELECT a.JOB_NAME FROM dbo.BASE_T_JOB a WHERE a.JOB_ID=JOB_ID )")
+	@FieldInfo(name = "岗位名称",type="nvarchar(32)",explain="用户的岗位名称")
+	@Formula("(SELECT a.jobName FROM T_PT_Job a WHERE a.jobId=jobId )")
 	private String jobName;
 
 	public String getJobName() {
@@ -130,8 +130,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		this.jobName = jobName;
 	}
 
-	@FieldInfo(name = "岗位级别")
-	@Formula("(SELECT a.ORDER_INDEX FROM dbo.BASE_T_JOB a WHERE a.JOB_ID=JOB_ID )")
+	@FieldInfo(name = "岗位级别",type="varchar(2)",explain="用户的岗位级别")
+	@Formula("(SELECT a.orderIndex FROM T_PT_Job a WHERE a.jobId=jobId )")
 	private Integer jobLevel;
 
 	public Integer getJobLevel() {
@@ -142,8 +142,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		this.jobLevel = jobLevel;
 	}
 
-	@FieldInfo(name = "部门全称")
-	@Formula("(SELECT a.ALL_DEPTNAME FROM dbo.BASE_T_ORG a WHERE a.DEPT_ID=DEPT_ID )")
+	@FieldInfo(name = "部门全称",type="nvarchar(500)",explain="用户的部门全称")
+	@Formula("(SELECT a.allDeptName FROM dbo.T_PT_Department a WHERE a.deptId=deptId )")
 	private String allDeptName;
 
 	public String getAllDeptName() {
@@ -154,8 +154,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		this.allDeptName = allDeptName;
 	}
 	
-	@FieldInfo(name = "部门全称")
-	@Formula("(SELECT a.TREE_IDS FROM dbo.BASE_T_ORG a WHERE a.DEPT_ID=DEPT_ID )")
+	@FieldInfo(name = "部门全称id",type="varchar(MAX)",explain="用户的部门全称id")
+	@Formula("(SELECT a.treeIds FROM dbo.T_PT_Department a WHERE a.deptId=deptId )")
 	private String treeIds;
 
 	public String getTreeIds() {
@@ -166,8 +166,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		this.treeIds = treeIds;
 	}
 	
-	@FieldInfo(name = "姓名")
-	@Formula("(SELECT a.XM FROM dbo.SYS_T_USER a WHERE a.USER_ID=USER_ID )")
+	@FieldInfo(name = "姓名",type="varchar(36)",explain="用户的姓名")
+	@Formula("(SELECT a.name FROM dbo.T_PT_User a WHERE a.userId=userId )")
 	private String name;
 
 	public String getName() {
@@ -178,8 +178,8 @@ public class BaseUserdeptjob extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 	
-	@FieldInfo(name = "用户编号")
-	@Formula("(SELECT a.USER_NUMB FROM dbo.SYS_T_USER a WHERE a.USER_ID=USER_ID )")
+	@FieldInfo(name = "用户编号",type="varchar(18)",explain="用户编号")
+	@Formula("(SELECT a.userNumb FROM dbo.T_PT_User a WHERE a.userId=userId )")
 	private String userNumb;
 
 	public String getUserNumb() {

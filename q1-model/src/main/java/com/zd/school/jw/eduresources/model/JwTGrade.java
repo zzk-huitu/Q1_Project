@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Grade")
-@AttributeOverride(name = "gradeId", column = @Column(name = "gradeId", length = 36, nullable = false))
+@AttributeOverride(name = "gradeId", column = @Column(name = "gradeId", length = 20, nullable = false))
 public class JwTGrade extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "学校主键")
-	@Column(name = "schoolId", length = 36, nullable = true)
+	@FieldInfo(name = "schoolId", type = "varchar(20)", explain = "学校Id")
+	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
 	public void setSchoolId(String schoolId) {
@@ -40,8 +40,8 @@ public class JwTGrade extends BaseEntity implements Serializable {
 		return schoolId;
 	}
 
-	@FieldInfo(name = "学段编码")
-	@Column(name = "sectionCode", length = 32, nullable = true)
+	@FieldInfo(name = "sectionCode", type = "nvarchar(20)", explain = "学段编码")
+	@Column(name = "sectionCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String sectionCode;
 
 	public void setSectionCode(String sectionCode) {
@@ -52,8 +52,8 @@ public class JwTGrade extends BaseEntity implements Serializable {
 		return sectionCode;
 	}
 
-	@FieldInfo(name = "年级编码")
-	@Column(name = "gradeCode", length = 32, nullable = true)
+	@FieldInfo(name = "gradeCode", type = "nvarchar(20)", explain = "年级编码")
+	@Column(name = "gradeCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String gradeCode;
 
 	public void setGradeCode(String gradeCode) {
@@ -64,8 +64,8 @@ public class JwTGrade extends BaseEntity implements Serializable {
 		return gradeCode;
 	}
 
-	@FieldInfo(name = "年级名称")
-	@Column(name = "gradeName", length = 32, nullable = true)
+	@FieldInfo(name = "gradeName", type = "nvarchar(20)", explain = "年级名称")
+	@Column(name = "gradeName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String gradeName;
 
 	public void setGradeName(String gradeName) {
@@ -76,8 +76,8 @@ public class JwTGrade extends BaseEntity implements Serializable {
 		return gradeName;
 	}
 
-	@FieldInfo(name = "年级")
-	@Column(name = "nj", length = 32, nullable = true)
+	@FieldInfo(name = "nj", type = "varchar(10)", explain = "年级")
+	@Column(name = "nj", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String nj;
 
 	public String getNj() {
@@ -96,15 +96,15 @@ public class JwTGrade extends BaseEntity implements Serializable {
 	 */
 
 	@FieldInfo(name = "学校名称")
-	@Formula("(SELECT a.NODE_TEXT from BASE_T_ORG a where a.DEPT_ID=SCHOOL_ID)")
+	@Formula("(SELECT a.nodeText from T_PT_Department a where a.deptId=schoolId)")
 	private String schoolName;
-
-	public String getSchoolName() {
-		return schoolName;
-	}
 
 	public void setSchoolName(String schoolName) {
 		this.schoolName = schoolName;
+	}
+
+	public String getSchoolName() {
+		return schoolName;
 	}
 
 	public JwTGrade() {

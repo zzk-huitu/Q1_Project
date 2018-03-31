@@ -1,31 +1,15 @@
 package com.zd.school.jw.ecc.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
@@ -39,12 +23,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_ClassParam")
-@AttributeOverride(name = "classParamId", column = @Column(name = "classParamId", length = 36, nullable = false))
+@AttributeOverride(name = "classParamId", column = @Column(name = "classParamId", length = 20, nullable = false))
 public class EccClassparam extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "签到模式")
-	@Column(name = "signMode", length = 4, nullable = true)
+	@FieldInfo(name = "signMode",type="varchar(4)",explain="签到模式")
+	@Column(name = "signMode", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String signMode;
 
 	public void setSignMode(String signMode) {
@@ -55,8 +39,8 @@ public class EccClassparam extends BaseEntity implements Serializable {
 		return signMode;
 	}
 
-	@FieldInfo(name = "作息节次标识")
-	@Column(name = "sectionsId", length = 36, nullable = true)
+	@FieldInfo(name = "sectionsId",type="varchar(20)",explain="作息节次标识")
+	@Column(name = "sectionsId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String sectionsId;
 
 	public String getSectionsId() {
@@ -67,8 +51,8 @@ public class EccClassparam extends BaseEntity implements Serializable {
 		this.sectionsId = sectionsId;
 	}
 
-	@FieldInfo(name = "签到提前时间")
-	@Column(name = "signBefore", length = 10, nullable = true)
+	@FieldInfo(name = "signBefore",type="Integer",explain="签到提前时间")
+	@Column(name = "signBefore", columnDefinition = "default 0", nullable = true)
 	private Integer signBefore;
 
 	public void setSignBefore(Integer signBefore) {
@@ -79,8 +63,8 @@ public class EccClassparam extends BaseEntity implements Serializable {
 		return signBefore;
 	}
 
-	@FieldInfo(name = "自动切换考试模式时间")
-	@Column(name = "examBefore", length = 10, nullable = true)
+	@FieldInfo(name = "examBefore",type="Integer",explain="自动切换考试模式时间")
+	@Column(name = "examBefore", columnDefinition = "default 0", nullable = true)
 	private Integer examBefore;
 
 	public void setExamBefore(Integer examBefore) {

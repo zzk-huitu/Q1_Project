@@ -1,32 +1,16 @@
 package com.zd.school.oa.attendance.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
@@ -43,21 +27,22 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_AttendanceUser")
-@AttributeOverride(name = "attendanceUserId", column = @Column(name = "attendanceUserId", length = 36, nullable = false))
+@AttributeOverride(name = "attendanceUserId", column = @Column(name = "attendanceUserId", length = 20, nullable = false))
 public class AttUser extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "主题ID")
-    @Column(name = "themeId", length = 36, nullable = true)
-    private String themeId;
-    public String getThemeId() {
- 		return themeId;
+    @FieldInfo(name = "考勤主题ID",type="varchar(20)",explain="考勤主题Id")
+    @Column(name = "attendanceThemeId", length = 20, nullable = false)
+    private String attendanceThemeId;
+    public String getAttendanceThemeId() {
+ 		return attendanceThemeId;
  	}
- 	public void setThemeId(String themeId) {
- 		this.themeId = themeId;
- 	} 
-    @FieldInfo(name = "主键")
-    @Column(name = "userId", length = 36, nullable = false)
+ 	public void setAttendanceThemeId(String attendanceThemeId) {
+ 		this.attendanceThemeId = attendanceThemeId;
+ 	}
+       
+    @FieldInfo(name = "用户ID",type="varchar(20)",explain="用户Id")
+    @Column(name = "userId", length = 20, nullable = false)
     private String userId;
     public void setUserId(String userId) {
         this.userId = userId;
@@ -67,8 +52,8 @@ public class AttUser extends BaseEntity implements Serializable{
     }
     
     
-    @FieldInfo(name = "姓名")
-    @Formula("(SELECT ISNULL(a.XM,'') FROM SYS_T_USER a WHERE a.USER_ID=USER_ID)")
+    @FieldInfo(name = "姓名",type="nvarchar(36)",explain="用户姓名")
+    @Formula("(SELECT ISNULL(a.name,'') FROM T_PT_User a WHERE a.userId=userId)")
     private String name;
     public String getName() {
 		return name;
@@ -77,8 +62,8 @@ public class AttUser extends BaseEntity implements Serializable{
 		this.name = name;
 	}
    
-    @FieldInfo(name = "学号")
-    @Formula("(SELECT ISNULL(a.USER_NUMB,'') FROM SYS_T_USER a WHERE a.USER_ID=USER_ID)")
+    @FieldInfo(name = "学号",type="nvarchar(36)",explain="用户学号")
+    @Formula("(SELECT ISNULL(a.userNumb,'') FROM T_PT_User a WHERE a.userId=userId)")
     private String studentNo;
 	
 	public String getStudentNo() {

@@ -2,28 +2,17 @@ package com.zd.school.oa.notice.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
@@ -44,7 +33,7 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_NoticeAuditor")
-@AttributeOverride(name = "noticeAuditorId", column = @Column(name = "noticeAuditorId", length = 36, nullable = false))
+@AttributeOverride(name = "noticeAuditorId", column = @Column(name = "noticeAuditorId", length = 20, nullable = false))
 public class OaNoticeauditor extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -59,8 +48,8 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
 		this.oaNotice = oaNotice;
 	}
 
-	@FieldInfo(name = "人员ID")
-    @Column(name = "userId", length = 36, nullable = false)
+	@FieldInfo(name = "人员ID",type="varchar(20)",explain="公告的审核人员ID")
+    @Column(name = "userId", length = 20, nullable = false)
     private String userId;
     public void setUserId(String userId) {
         this.userId = userId;
@@ -69,8 +58,8 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return userId;
     }
         
-    @FieldInfo(name = "姓名(对应员工姓名)")
-    @Column(name = "name", length = 32, nullable = false)
+    @FieldInfo(name = "姓名(对应员工姓名)",type="nvarchar(32)",explain="公告的审核人员姓名")
+    @Column(name = "name",columnDefinition="nvarchar(32)", nullable = false)
     private String name;
     public void setName(String name) {
         this.name = name;
@@ -79,8 +68,8 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return name;
     }
         
-    @FieldInfo(name = "审核意见")
-    @Column(name = "auditOpinion", length = 64, nullable = true)
+    @FieldInfo(name = "审核意见",type="nvarchar(64)",explain="公告的审核意见")
+    @Column(name = "auditOpinion", columnDefinition="nvarchar(64) defalut ''", nullable = true)
     private String auditOpinion;
     public void setAuditOpinion(String auditOpinion) {
         this.auditOpinion = auditOpinion;
@@ -89,8 +78,8 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return auditOpinion;
     }
         
-    @FieldInfo(name = "审核状态(0-待审核 1-审核通过 2-审核不通过)")
-    @Column(name = "auditState", length = 10, nullable = false)
+    @FieldInfo(name = "审核状态(0-待审核 1-审核通过 2-审核不通过)",type="Integer",explain="公告的审核审核状态")
+    @Column(name = "auditState", length = 1, nullable = false)
     private Integer auditState;
     public void setAuditState(Integer auditState) {
         this.auditState = auditState;
@@ -99,8 +88,8 @@ public class OaNoticeauditor extends BaseEntity implements Serializable{
         return auditState;
     }
         
-    @FieldInfo(name = "审核日期")
-    @Column(name = "auditDate", length = 23, nullable = true)
+    @FieldInfo(name = "审核日期",type="datetime",explain="公告的审核日期")
+    @Column(name = "auditDate", columnDefinition="datetime", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using=DateTimeSerializer.class)
     private Date auditDate;

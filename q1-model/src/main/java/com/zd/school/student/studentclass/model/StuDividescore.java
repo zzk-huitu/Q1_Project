@@ -26,36 +26,36 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_DivideScore")
-@AttributeOverride(name = "divideScoreId", column = @Column(name = "divideScoreId", length = 36, nullable = false))
+@AttributeOverride(name = "divideScoreId", column = @Column(name = "divideScoreId", length = 20, nullable = false))
 public class StuDividescore extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "记录ID")
-    @Column(name = "divideRecodeId", length = 36, nullable = true)
+    @FieldInfo(name = "记录ID",type="varchar(20)",explain="学生分班后的年级班级记录Id")
+    @Column(name = "divideRecodeId", columnDefinition="varchar(20) defalut ''", nullable = true)
     private String divideRecodeId;
 
-    @FieldInfo(name = "学号")
+    @FieldInfo(name = "学号",type="varchar(20)",explain="班级学生的学号")
     @Column(name = "studentNo", length = 20, nullable = false)
     private String studentNo;
         
-    @FieldInfo(name = "姓名")
-    @Column(name = "name", length = 36, nullable = false)
+    @FieldInfo(name = "姓名",type="nvarchar(36)",explain="班级学生的姓名")
+    @Column(name = "name", columnDefinition="nvarchar(36)", nullable = false)
     private String name;
         
-    @FieldInfo(name = "性别码")
-    @Column(name = "genderCode", length = 10, nullable = true)
+    @FieldInfo(name = "性别码",type="varchar(10)",explain="班级学生的性别码")
+    @Column(name = "genderCode", columnDefinition="nvarchar(10)", nullable = true)
     private String genderCode;
         
-    @FieldInfo(name = "成绩")
-    @Column(name = "score", length = 8, nullable = false)
+    @FieldInfo(name = "成绩",type="BigDecimal",explain="班级学生的成绩")
+    @Column(name = "score", nullable = false)
     private BigDecimal score;
 
-    @FieldInfo(name = "考号")
+    @FieldInfo(name = "考号",type="varchar(20)",explain="班级学生的考号")
     @Column(name = "examNo", length = 20, nullable = false)
     private String  examNo;
     
-    @FieldInfo(name = "文理类型")
-    @Column(name = "artsSciencesType", length = 16, nullable = true)
+    @FieldInfo(name = "文理类型",type="nvarchar(16)",explain="班级信学生的文理类型")
+    @Column(name = "artsSciencesType", columnDefinition="nvarchar(16) defalut ''", nullable = true)
     private String artsSciencesType;
 
 

@@ -14,72 +14,69 @@ import com.zd.core.model.BaseEntity;
 
 /**
  * 
- * ClassName: JwOfficeallot 
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: JW_T_OFFICEALLOT实体类.
- * date: 2016-08-23
+ * ClassName: JwOfficeallot Function: TODO ADD FUNCTION. Reason: TODO ADD
+ * REASON(可选). Description: JW_T_OFFICEALLOT实体类. date: 2016-08-23
  *
- * @author  luoyibo 创建文件
+ * @author luoyibo 创建文件
  * @version 0.1
  * @since JDK 1.8
  */
- 
+
 @Entity
 @Table(name = "JW_T_OfficeAllot")
-@AttributeOverride(name = "officeAllotId", column = @Column(name = "officeAllotId", length = 36, nullable = false))
-public class JwOfficeAllot extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
-    @FieldInfo(name = "房间主键")
-    @Column(name = "roomId", length = 36, nullable = true)
-    private String roomId;
+@AttributeOverride(name = "officeId", column = @Column(name = "officeId", length = 20, nullable = false))
+public class JwOfficeAllot extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "教师主键")
-    @Column(name = "teacherId", length = 50, nullable = true)
-    private String teacherId;
+	@FieldInfo(name = "roomId", type = "varchar(20)", explain = "房间Id")
+	@Column(name = "roomId", length = 20, nullable = false)
+	private String roomId;
 
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
-    @Formula("(SELECT A.XM FROM SYS_T_USER A  WHERE A.USER_ID=TTEAC_ID)")
-    @FieldInfo(name = "用于选择框显示教师姓名")
-    private String xm;
-    
-    @Formula("(SELECT A.NODE_TEXT FROM dbo.BUILD_T_ROOMAREA A "
-    		+ " WHERE A.AREA_ID=(SELECT B.AREA_ID FROM dbo.BUILD_T_ROOMINFO B"
-    		+ " WHERE B.ROOM_ID=ROOM_ID))")
+	@FieldInfo(name = "teacherId", type = "varchar(20)", explain = "老师Id")
+	@Column(name = "teacherId", length = 20, nullable = false)
+	private String teacherId;
+
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	@Formula("(SELECT A.name FROM T_PT_User A WHERE A.userId=teacherId)")
+	@FieldInfo(name = "用于选择框显示教师姓名")
+	private String name;
+
+	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A "
+			+ " WHERE A.areaId=(SELECT B.areaId FROM dbo.T_PT_RoomInfo B" + " WHERE B.roomId=roomId))")
 	@FieldInfo(name = "楼层名称")
 	private String areaName;
 
-    @Formula("(SELECT A.NODE_TEXT FROM dbo.BUILD_T_ROOMAREA A"
-    		+ " WHERE A.AREA_ID=(SELECT B.PARENT_NODE"
-    		+ " FROM dbo.BUILD_T_ROOMAREA B WHERE B.AREA_ID="
-    		+ " (SELECT C.AREA_ID FROM dbo.BUILD_T_ROOMINFO C"
-    		+ " WHERE C.ROOM_ID=ROOM_ID)))")
+	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A" + " WHERE A.areaId=(SELECT B.parentNode"
+			+ " FROM dbo.T_PT_RoomArea B WHERE B.areaId=" + " (SELECT C.areaId FROM dbo.T_PT_RoomInfo C"
+			+ " WHERE C.roomId=roomId)))")
 	@FieldInfo(name = "楼栋名称")
 	private String upAreaName;
-    
-    @Formula("(SELECT A.USER_NUMB FROM SYS_T_USER A  WHERE A.USER_ID=TTEAC_ID)")
-    @FieldInfo(name = "教师工号")
-    private String gh;
-    
-    @Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
-    @FieldInfo(name = "房间名")
-    private String roomName;
-    
-    
-	public String getXm() {
-		return xm;
+
+	@Formula("(SELECT A.userNumb FROM T_PT_User A  WHERE A.userId=teacherId)")
+	@FieldInfo(name = "教师工号")
+	private String userNumb;
+
+	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
+	@FieldInfo(name = "房间名")
+	private String roomName;
+
+	public String getName() {
+		return name;
 	}
-	public void setXm(String xm) {
-		this.xm = xm;
+
+	public void setName(String name) {
+		this.name = name;
 	}
+
 	public String getAreaName() {
 		return areaName;
 	}
+
 	public void setAreaName(String areaName) {
 		this.areaName = areaName;
 	}
@@ -87,33 +84,39 @@ public class JwOfficeAllot extends BaseEntity implements Serializable{
 	public String getRoomName() {
 		return roomName;
 	}
+
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
+
 	public String getRoomId() {
 		return roomId;
 	}
+
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
-	
-    public String getTeacherId() {
+
+	public String getTeacherId() {
 		return teacherId;
 	}
+
 	public void setTeacherId(String teacherId) {
 		this.teacherId = teacherId;
 	}
-	
-	public String getGh() {
-        return gh;
-    }
-    public void setGh(String gh) {
-        this.gh = gh;
-    }
+
+	public String getUserNumb() {
+		return userNumb;
+	}
+
+	public void setUserNumb(String userNumb) {
+		this.userNumb = userNumb;
+	}
 
 	public String getUpAreaName() {
 		return upAreaName;
 	}
+
 	public void setUpAreaName(String upAreaName) {
 		this.upAreaName = upAreaName;
 	}

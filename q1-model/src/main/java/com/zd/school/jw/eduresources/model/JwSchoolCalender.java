@@ -12,46 +12,46 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_SchoolClander")
-@AttributeOverride(name = "uuid", column = @Column(name = "schoolClanderId", length = 36, nullable = false))
+@AttributeOverride(name = "uuid", column = @Column(name = "schoolClanderId", length = 20, nullable = false))
 public class JwSchoolCalender extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "等同UUID")
-	@Column(name = "id", length = 36, nullable = true)
+	@FieldInfo(name = "id", type = "varchar(20)", explain = "等同UUID")
+	@Column(name = "id", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String id;
 
-	@FieldInfo(name = "标题")
-	@Column(name = "title", length = 200, nullable = true)
+	@FieldInfo(name = "title", type = "nvarchar(20)", explain = "标题")
+	@Column(name = "title", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String title;
 
-	@FieldInfo(name = "开始时间")
-	@Column(name = "beginDate", length = 36, nullable = true)
+	@FieldInfo(name = "beginDate", type = "datetime", explain = "开始时间")
+	@Column(name = "beginDate", columnDefinition = "datetime", nullable = true)
 	private String beginDate;
 
-	@FieldInfo(name = "结束时间")
-	@Column(name = "endDate", length = 36, nullable = true)
+	@FieldInfo(name = "endDate", type = "datetime", explain = "结束时间")
+	@Column(name = "endDate", columnDefinition = "datetime", nullable = true)
 	private String endDate;
 
-	@FieldInfo(name = "位置")
-	@Column(name = "location", length = 200, nullable = true)
+	@FieldInfo(name = "location", type = "nvarchar(25)", explain = "位置")
+	@Column(name = "location", columnDefinition = "nvarchar(25) default ''", nullable = true)
 	private String location;
 
-	@FieldInfo(name = "WEB链接")
-	@Column(name = "url", length = 1000, nullable = true)
+	@FieldInfo(name = "url", type = "varchar(200)", explain = "WEB链接")
+	@Column(name = "url", columnDefinition = "varchar(200) default ''", nullable = true)
 	private String url;
 
-	@FieldInfo(name = "便签")
-	@Column(name = "notes", length = 1000, nullable = true)
+	@FieldInfo(name = "notes", type = "nvarchar(500)", explain = "便签")
+	@Column(name = "notes", columnDefinition = "nvarchar(500) default ''", nullable = true)
 	private String notes;
 
-	@FieldInfo(name = "提醒器")
-	@Column(name = "remind", length = 36, nullable = true)
+	@FieldInfo(name = "remind", type = "nvarchar(30)", explain = "提醒器")
+	@Column(name = "remind", columnDefinition = "nvarchar(30) default ''", nullable = true)
 	private String remind;
 
-	@FieldInfo(name = "是否全天")
-	@Column(name = "allDay", length = 36, nullable = true)
-	private String allDay;
+	@FieldInfo(name = "allDay", type = "Boolean", explain = "是否全天")
+	@Column(name = "allDay", columnDefinition = "default 0", nullable = true)
+	private Boolean allDay;
 
 	public String getId() {
 		return id;
@@ -117,11 +117,11 @@ public class JwSchoolCalender extends BaseEntity implements Serializable {
 		this.remind = remind;
 	}
 
-	public String getAllDay() {
+	public Boolean getAllDay() {
 		return allDay;
 	}
 
-	public void setAllDay(String allDay) {
+	public void setAllDay(Boolean allDay) {
 		this.allDay = allDay;
 	}
 

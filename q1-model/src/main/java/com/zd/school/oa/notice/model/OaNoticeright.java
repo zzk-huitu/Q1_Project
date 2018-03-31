@@ -25,13 +25,13 @@ import com.zd.core.model.BaseEntity;
  * @since JDK 1.8
  */
 @Entity
-@Table(name = "T_PT_NoticeRight")
-@AttributeOverride(name = "rightId", column = @Column(name = "rightId", length = 36, nullable = false))
+@Table(name = "T_PT_NoticePermission")
+@AttributeOverride(name = "noticePermissionId", column = @Column(name = "noticePermissionId", length = 20, nullable = false))
 public class OaNoticeright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@FieldInfo(name = "拥有权限的角色ID")
-    @Column(name = "ownRoleid", length = 36, nullable = false)
+	@FieldInfo(name = "拥有权限的角色ID",type="varchar(20)",explain="拥有公告权限的角色ID")
+    @Column(name = "ownRoleid", length = 20, nullable = false)
     private String ownRoleid;
 
 	public String getOwnRoleid() {
@@ -42,8 +42,8 @@ public class OaNoticeright extends BaseEntity implements Serializable {
 		this.ownRoleid = ownRoleid;
 	}
 	
-	@FieldInfo(name = "拥有权限的角色名称")
-    @Formula("(SELECT a.ROLE_NAME FROM SYS_T_ROLE a WHERE a.ROLE_ID=OWN_ROLEID)")
+	@FieldInfo(name = "拥有权限的角色名称",type="varchar(32)",explain="拥有公告权限的角色名称")
+    @Formula("(SELECT a.roleName FROM T_PT_Role a WHERE a.roleId=ownRoleid)")
 	private String ownRoleName;
 	public String getOwnRoleName() {
 		return ownRoleName;
@@ -53,8 +53,8 @@ public class OaNoticeright extends BaseEntity implements Serializable {
 		this.ownRoleName = ownRoleName;
 	}
 	
-	@FieldInfo(name = "审核的角色ID")
-    @Column(name = "checkRoleid", length = 36, nullable = true)
+	@FieldInfo(name = "审核的角色ID",type="varchar(20)",explain="公告的审核的角色ID")
+    @Column(name = "checkRoleid", length =20, nullable = true)
     private String checkRoleid;
 
 	public String getCheckRoleid() {
@@ -65,8 +65,8 @@ public class OaNoticeright extends BaseEntity implements Serializable {
 		this.checkRoleid = checkRoleid;
 	}
 	
-	@FieldInfo(name = "审核角色的名称")
-    @Formula("(SELECT a.ROLE_NAME FROM SYS_T_ROLE a WHERE a.ROLE_ID=CHECK_ROLEID)")
+	@FieldInfo(name = "审核角色的名称",type="varchar(32)",explain="公告的审核人员ID")
+    @Formula("(SELECT a.roleName FROM T_PT_Role a WHERE a.roleId=checkRoleid)")
 	private String checkRoleName;
 	public String getCheckRoleName() {
 		return checkRoleName;

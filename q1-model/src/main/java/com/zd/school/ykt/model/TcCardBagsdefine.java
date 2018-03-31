@@ -21,20 +21,20 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_CardBagsDefine")
-@AttributeOverride(name = "cardBagsDefineId", column = @Column(name = "cardBagsDefineId", length = 36, nullable = false) )
+@AttributeOverride(name = "cardBagsDefineId", column = @Column(name = "cardBagsDefineId", length = 20, nullable = false) )
 public class TcCardBagsdefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "bagNo")
-	@Column(name = "bagNo", length = 5, nullable = false)
+	@FieldInfo(name = "钱包编号",type="Short",explain="钱包编号")
+	@Column(name = "bagNo", nullable = false)
 	private Short bagNo;
 
-	@FieldInfo(name = "钱包名称")
-	@Column(name = "bagName", length = 50, nullable = false)
+	@FieldInfo(name = "钱包名称",type="nvarchar(50)",explain="钱包的名称")
+	@Column(name = "bagName", columnDefinition="nvarchar(50)", nullable = false)
 	private String bagName;
 
-	@FieldInfo(name = "是否启用")
-	@Column(name = "status", length = 1, nullable = true)
+	@FieldInfo(name = "是否启用",type="Boolean",explain="钱包是否启用")
+	@Column(name = "status", columnDefinition="defalut 0",nullable = true)
 	private Boolean status;
 
 	public void setStatus(Boolean status) {
@@ -45,8 +45,8 @@ public class TcCardBagsdefine extends BaseEntity implements Serializable {
 		return status;
 	}
 
-	@FieldInfo(name = "钱包描述")
-	@Column(name = "bagNotes", length = 500, nullable = true)
+	@FieldInfo(name = "钱包描述",type="nvarchar(500)",explain="钱包的描述")
+	@Column(name = "bagNotes", columnDefinition="nvarchar(500) defalut ''", nullable = true)
 	private String bagNotes;
 
 	public Short getBagNo() {

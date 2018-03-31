@@ -42,12 +42,12 @@ import com.zd.core.util.DateTimeSerializer;
  
 @Entity
 @Table(name = "T_PT_IrData")
-@AttributeOverride(name = "irDataId", column = @Column(name = "irDataId", length = 36, nullable = false))
+@AttributeOverride(name = "irDataId", column = @Column(name = "irDataId", length = 20, nullable = false))
 public class PtIrData extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "红外数据所属品牌")
-    @Column(name = "brandId", length = 36, nullable = true)
+    @FieldInfo(name = "brandId", type = "varchar(20)", explain = "红外数据所属品牌")
+    @Column(name = "brandId", columnDefinition = "varchar(20) default ''", nullable = true)
     private String brandId;
     public void setBrandId(String brandId) {
         this.brandId = brandId;
@@ -56,8 +56,8 @@ public class PtIrData extends BaseEntity implements Serializable{
         return brandId;
     }
         
-    @FieldInfo(name = "红外数据编码")
-    @Column(name = "irDataNo", length = 19, nullable = true)
+    @FieldInfo(name = "irDataNo", type = "varchar(19)", explain = "红外数据编码")
+    @Column(name = "irDataNo", columnDefinition = "varchar(19) default ''", nullable = true)
     private Long irDataNo;
     public void setIrDataNo(Long irDataNo) {
         this.irDataNo = irDataNo;
@@ -66,8 +66,8 @@ public class PtIrData extends BaseEntity implements Serializable{
         return irDataNo;
     }
         
-    @FieldInfo(name = "红外数据名称")
-    @Column(name = "irDataName", length = 50, nullable = true)
+    @FieldInfo(name = "irDataName", type = "nvarchar(25)", explain = "红外数据名称")
+    @Column(name = "irDataName", columnDefinition = "nvarchar(25) default ''", nullable = true)
     private String irDataName;
     public void setIrDataName(String irDataName) {
         this.irDataName = irDataName;
@@ -76,7 +76,7 @@ public class PtIrData extends BaseEntity implements Serializable{
         return irDataName;
     }
         
-    @FieldInfo(name = "红外数据")
+    @FieldInfo(name = "irActionData", type = "varbinary", explain = "红外数据")
     @Column(name = "irActionData"  ,length=8000, nullable = false)
     private byte[] irActionData;
     public void setIrActionData(byte[] irActionData) {
@@ -86,7 +86,7 @@ public class PtIrData extends BaseEntity implements Serializable{
         return irActionData;
     }
         
-    @FieldInfo(name = "红外数据")
+    @FieldInfo(name = "irConvertedData", type = "varbinary", explain = "红外数据")
     @Column(name = "irConvertedData" ,length=8000, nullable = true)
     private byte[] irConvertedData;
     public void setIrConvertedData(byte[] irConvertedData) {

@@ -23,12 +23,12 @@ import com.zd.core.model.TreeNodeEntity;
 
 @Entity
 @Table(name = "T_PT_Ddic")
-@AttributeOverride(name = "ddicId", column = @Column(name = "ddicId", length = 36, nullable = false))
+@AttributeOverride(name = "ddicId", column = @Column(name = "ddicId", length = 20, nullable = false))
 public class BaseDic extends TreeNodeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "字典编码")
-    @Column(name = "dicCode", length = 16, nullable = false)
+    @FieldInfo(name = "字典编码",type="nvarchar(16)",explain="字典编码")
+    @Column(name = "dicCode",columnDefinition="nvarchar(16)", nullable = false)
     private String dicCode;
 
     public void setDicCode(String dicCode) {
@@ -39,8 +39,8 @@ public class BaseDic extends TreeNodeEntity implements Serializable {
         return dicCode;
     }
 
-    @FieldInfo(name = "字典类型，目前就LIST与TREE两类")
-    @Column(name = "dicType", length = 8, nullable = false)
+    @FieldInfo(name = "字典类型，目前就LIST与TREE两类",type="nvarchar(255)",explain="字典类型")
+    @Column(name = "dicType", columnDefinition="nvarchar(8)", nullable = false)
     private String dicType;
 
     public void setDicType(String dicType) {
@@ -51,8 +51,8 @@ public class BaseDic extends TreeNodeEntity implements Serializable {
         return dicType;
     }
 
-    @FieldInfo(name = "引用实体路径")  
-    @Column(name = "physicalPath", length = 256, nullable = true)
+    @FieldInfo(name = "引用实体路径",type="nvarchar(255)",explain="引用实体路径")  
+    @Column(name = "physicalPath",columnDefinition="nvarchar(256)", nullable = true)
     private String physicalPath;
 
     public void setPhysicalPath(String physicalPath) {

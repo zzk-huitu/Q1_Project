@@ -32,59 +32,59 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Permission")
-@AttributeOverride(name = "permissionId", column = @Column(name = "permissionId", length = 36, nullable = false))
+@AttributeOverride(name = "permissionId", column = @Column(name = "permissionId", length = 20, nullable = false))
 public class SysPermission extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "权限类型")
-    @Column(name = "perType", length = 8, nullable = false)
-    private String perType;
+    @FieldInfo(name = "权限类型",type="nvarchar(8)",explain="权限类型")
+    @Column(name = "permissionType",columnDefinition = "nvarchar(8)", nullable = false)
+    private String permissionType;
 
-    public void setPerType(String perType) {
-        this.perType = perType;
+    public void setPermissionType(String permissionType) {
+        this.permissionType = permissionType;
     }
 
-    public String getPerType() {
-        return perType;
+    public String getPermissionType() {
+        return permissionType;
     }
 
-    @FieldInfo(name = "权限码")
-    @Column(name = "perCode", length = 36, nullable = false)
-    private String perCode;
+    @FieldInfo(name = "权限码",type="nvarchar(36)",explain="权限码")
+    @Column(name = "permissionCode", columnDefinition = "nvarchar(36)", nullable = false)
+    private String permissionCode;
 
-    public void setPerCode(String perCode) {
-        this.perCode = perCode;
-    }
-
-    public String getPerCode() {
-        return perCode;
-    }
-    
-    @FieldInfo(name = "权限名称")
-    @Formula("(SELECT a.NODE_TEXT FROM SYS_T_MENU a WHERE a.MENU_ID=PER_CODE)")
-    private String perText;
-    
-    public String getPerText() {
-		return perText;
+  
+    public String getPermissionCode() {
+		return permissionCode;
 	}
 
-	public void setPerText(String perText) {
-		this.perText = perText;
+	public void setPermissionCode(String permissionCode) {
+		this.permissionCode = permissionCode;
+	}
+ 
+	@FieldInfo(name = "权限名称",type="nvarchar(36)",explain="权限名称")
+    @Formula("(SELECT a.nodeText FROM T_PT_Menu a WHERE a.menuId=permissionCode)")
+    private String permissionName;
+	public String getPermissionName() {
+		return permissionName;
 	}
 
-    @FieldInfo(name = "权限路径")
-    @Column(name = "PER_PATH")
-    private String perPath;
+	public void setPermissionName(String permissionName) {
+		this.permissionName = permissionName;
+	}
 
-    public String getPerPath() {
-        return perPath;
+    @FieldInfo(name = "权限路径",type="nvarchar(128)",explain="权限路径")
+    @Column(name = "permissionUrl", columnDefinition = "nvarchar(128)", nullable = true)
+    private String permissionUrl;
+
+    public String getPermissionUrl() {
+        return permissionUrl;
     }
 
-    public void setPerPath(String perPath) {
-        this.perPath = perPath;
+    public void setPermissionUrl(String permissionUrl) {
+        this.permissionUrl = permissionUrl;
     }
 
-    @FieldInfo(name = "有权限的角色")
+    @FieldInfo(name = "有权限的角色",type="Set<SysRole>",explain="多对多实体关联。生成一个中间表T_PT_RolePermission")
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })
     @JoinTable(name = "T_PT_RolePermission", joinColumns = { @JoinColumn(name = "permissionId") }, inverseJoinColumns = {

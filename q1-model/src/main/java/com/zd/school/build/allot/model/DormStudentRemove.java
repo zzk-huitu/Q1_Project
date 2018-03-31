@@ -12,35 +12,15 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "T_PT_StudentRemove")
-@AttributeOverride(name = "studentRemoveId", column = @Column(name = "studentRemoveId", length = 36, nullable = false) )
+@Table(name = "T_PT_DormStudentRemove")
+@AttributeOverride(name = "dormStudentRemoveId", column = @Column(name = "dormStudentRemoveId", length = 20, nullable = false))
 public class DormStudentRemove extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	@FieldInfo(name = "班级宿舍主键")
-	@Column(name = "classDormId", length = 36, nullable = true)
+
+	@FieldInfo(name = "classDormId",type="varchar(20)",explain="班级宿舍主键")
+	@Column(name = "classDormId", length = 20, nullable = false)
 	private String classDormId;
-	
-	@FieldInfo(name = "房间主键")
-	@Column(name = "roomId", length = 36, nullable = true)
-	private String roomId;
-	
-	@FieldInfo(name = "学生主键")
-	@Column(name = "studentId", length = 50, nullable = true)
-	private String studentId;
-	
-	@FieldInfo(name = "操作类型")
-	@Column(name = "operatingType", length = 36, nullable = true)
-	private String operatingType;
-	
-	@FieldInfo(name = "是否处理")
-	@Column(name = "isHandle", length = 36, nullable = true)
-	private String isHandle;
-	
-	@FieldInfo(name = "金额")
-    @Column(name = "amount", length = 18, nullable = true)
-    private BigDecimal amount;
 
 	public String getClassDormId() {
 		return classDormId;
@@ -50,21 +30,9 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.classDormId = classDormId;
 	}
 
-	public String getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
-	}
-
-	public String getOperatingType() {
-		return operatingType;
-	}
-
-	public void setOperatingType(String operatingType) {
-		this.operatingType = operatingType;
-	}
+	@FieldInfo(name = "roomId",type="varchar(20)",explain="房间主键")
+	@Column(name = "roomId", length = 20, nullable = false)
+	private String roomId;
 
 	public String getRoomId() {
 		return roomId;
@@ -74,13 +42,45 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-	public String getIsHandle() {
+	@FieldInfo(name = "studentId",type="varchar(20)",explain="学生主键")
+	@Column(name = "studentId", length = 20, nullable = false)
+	private String studentId;
+
+	public String getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	@FieldInfo(name = "operatingType",type="nvarchar(2)",explain="操作类型")
+	@Column(name = "operatingType", columnDefinition = "nvarchar(2) default ''", nullable = true)
+	private String operatingType;
+
+	public String getOperatingType() {
+		return operatingType;
+	}
+
+	public void setOperatingType(String operatingType) {
+		this.operatingType = operatingType;
+	}
+
+	@FieldInfo(name = "isHandle",type="Boolean",explain="是否处理")
+	@Column(name = "isHandle", columnDefinition = "default 0", nullable = true)
+	private Boolean isHandle;
+
+	public Boolean getIsHandle() {
 		return isHandle;
 	}
 
-	public void setIsHandle(String isHandle) {
+	public void setIsHandle(Boolean isHandle) {
 		this.isHandle = isHandle;
 	}
+
+	@FieldInfo(name = "amount",type="numeric",explain="金额")
+	@Column(name = "amount", nullable = true)
+	private BigDecimal amount;
 
 	public BigDecimal getAmount() {
 		return amount;
@@ -89,4 +89,5 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
+
 }

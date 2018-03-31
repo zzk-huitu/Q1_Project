@@ -25,38 +25,38 @@ import com.zd.core.model.BaseEntity;
  
 @Entity
 @Table(name = "T_PT_IrDeviceBrand")
-@AttributeOverride(name = "irDeviceBrandId", column = @Column(name = "irDeviceBrandId", length = 36, nullable = false))
+@AttributeOverride(name = "irDeviceBrandId", column = @Column(name = "irDeviceBrandId", length = 20, nullable = false))
 public class PtIrDeviceBrand extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "品牌名称")
-    @Column(name = "brandName", length = 50, nullable = true)
+    @FieldInfo(name = "brandName", type = "nvarchar(25)", explain = "品牌名称")
+    @Column(name = "brandName", columnDefinition = "nvarchar(25) default ''", nullable = true)
     private String brandName;
     
     
-    @FieldInfo(name = "类型编号")
-    @Column(name = "deviceTypeCode", length = 36, nullable = true)
+    @FieldInfo(name = "deviceTypeCode", type = "nvarchar(18)", explain = "类型编号")
+    @Column(name = "deviceTypeCode",columnDefinition = "nvarchar(18) default ''", nullable = true)
     private String deviceTypeCode;
     
     
-    @FieldInfo(name = "产品型号")
-    @Column(name = "productModel", length = 100, nullable = true)
+    @FieldInfo(name = "productModel", type = "nvarchar(20)", explain = "产品型号")
+    @Column(name = "productModel", columnDefinition = "nvarchar(20) default ''", nullable = true)
     private String productModel;
     
-    @FieldInfo(name = "区域等级")
+    @FieldInfo(name = "level", type = "Integer", explain = "区域等级")
     @Column(name = "level")
     private Integer level;
     
-    @FieldInfo(name = "是否有下级")
+    @FieldInfo(name = "isLeaf", type = "Integer", explain = "是否有下级")
     @Column(name = "isLeaf")
     private Integer isLeaf;
      
-    @FieldInfo(name = "上级区域ID")
-    @Column(name = "parentNode", length = 36, nullable = true)
+    @FieldInfo(name = "parentNode", type = "varchar(20)", explain = "上级区域ID")
+    @Column(name = "parentNode", columnDefinition = "varchar(20) default ''", nullable = true)
     private String parentNode;
     
-    @FieldInfo(name = "备注")
-    @Column(name = "notes", length = 1000, nullable = true)
+    @FieldInfo(name = "notes", type = "nvarchar(200)", explain = "备注")
+    @Column(name = "notes", columnDefinition = "nvarchar(200) default ''", nullable = true)
     private String notes;
 
 	public String getBrandName() {

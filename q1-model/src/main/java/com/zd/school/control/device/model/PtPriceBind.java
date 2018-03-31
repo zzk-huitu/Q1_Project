@@ -18,37 +18,37 @@ import com.zd.core.model.BaseEntity;
  */
 @Entity
 @Table(name = "T_PT_PriceBind")
-@AttributeOverride(name = "priceBindId", column = @Column(name = "priceBindId", length = 36, nullable = false))
+@AttributeOverride(name = "priceBindId", column = @Column(name = "priceBindId", length = 20, nullable = false))
 public class PtPriceBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	@FieldInfo(name = "设备编号")
-    @Column(name = "termId", length = 36, nullable = true)
-    private String termId; 
-  
-    @FieldInfo(name = "设备序列号")
-    @Column(name = "termSn", length = 14, nullable = true)
-    private String termSn;
-   
-    @FieldInfo(name = "费率编号")
-    @Column(name = "priceId", length = 36, nullable = true)
-    private String priceId;
 
-	public String getTermId() {
-		return termId;
+	@FieldInfo(name = "deviceId", type = "varchar(20)", explain = "设备编号")
+	@Column(name = "deviceId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String deviceId;
+
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setTermId(String termId) {
-		this.termId = termId;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	public String getTermSn() {
-		return termSn;
+	@FieldInfo(name = "deviceSn", type = "varchar(14)", explain = "设备序列号")
+	@Column(name = "deviceSn", columnDefinition = "varchar(14) default ''", nullable = true)
+	private String deviceSn;
+
+	public String getDeviceSn() {
+		return deviceSn;
 	}
 
-	public void setTermSn(String termSn) {
-		this.termSn = termSn;
+	public void setDeviceSn(String deviceSn) {
+		this.deviceSn = deviceSn;
 	}
+
+	@FieldInfo(name = "priceId", type = "varchar(20)", explain = "费率编号")
+	@Column(name = "priceId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String priceId;
 
 	public String getPriceId() {
 		return priceId;
@@ -57,7 +57,7 @@ public class PtPriceBind extends BaseEntity implements Serializable {
 	public void setPriceId(String priceId) {
 		this.priceId = priceId;
 	}
-    
+
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
 	 * 

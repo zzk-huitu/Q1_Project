@@ -23,13 +23,13 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "T_PT_DeptRight")
-@AttributeOverride(name = "deptRightId", column = @Column(name = "deptRightId", length = 36, nullable = false))
+@Table(name = "T_PT_DeptPermission")
+@AttributeOverride(name = "deptPermissionId", column = @Column(name = "deptPermissionId", length = 20, nullable = false))
 public class SysDeptRight extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = " 部门ID")
-	@Column(name = "deptId", length = 36, nullable = true)
+	@FieldInfo(name = "部门ID",type="varchar(20)",explain="部门ID")
+	@Column(name = "deptId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -40,8 +40,8 @@ public class SysDeptRight extends BaseEntity implements Serializable {
 		return deptId;
 	}
 
-	@FieldInfo(name = "用户ID")
-	@Column(name = "userId", length = 36, nullable = true)
+	@FieldInfo(name = "用户ID",type="varchar(20)",explain="用户ID")
+	@Column(name = "userId",columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String userId;
 
 	public void setUserId(String userId) {
@@ -52,20 +52,20 @@ public class SysDeptRight extends BaseEntity implements Serializable {
 		return userId;
 	}
 
-	@FieldInfo(name = "权限来源 0-自动生成 1-手工设置")
-	@Column(name = "rightSource", nullable = false)
-	private Integer rightSource;
+	@FieldInfo(name = "权限来源 0-自动生成 1-手工设置",type="Integer",explain="部门的权限来源")
+	@Column(name = "permissionSource", nullable = false)
+	private Integer permissionSource;
 
-	public Integer getRightSource() {
-		return rightSource;
+	public Integer getPermission() {
+		return permissionSource;
 	}
 
-	public void setRightSource(Integer rightSource) {
-		this.rightSource = rightSource;
+	public void setPermission(Integer permissionSource) {
+		this.permissionSource = permissionSource;
 	}
 
-	@FieldInfo(name = "主部门名称")
-    @Formula("(SELECT ISNULL(a.NODE_TEXT,'') FROM BASE_T_ORG a WHERE a.DEPT_ID = DEPT_ID)")
+	@FieldInfo(name = "主部门名称",type="varchar",explain="主部门名称")
+    @Formula("(SELECT ISNULL(a.nodeText,'') FROM T_PT_Department a WHERE a.deptId = deptId)")
     private String deptName;
 
     public String getDeptName() {

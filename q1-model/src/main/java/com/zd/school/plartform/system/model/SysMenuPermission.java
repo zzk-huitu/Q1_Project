@@ -26,12 +26,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_MenuPermission")
-@AttributeOverride(name = "menuPermissionuId", column = @Column(name = "menuPermissionuId", length = 36, nullable = false) )
+@AttributeOverride(name = "menuPermissionId", column = @Column(name = "menuPermissionId", length = 20, nullable = false) )
 public class SysMenuPermission extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "菜单ID")
-	@Column(name = "menuId", length = 36, nullable = false)
+	@FieldInfo(name = "菜单ID",type="varchar(20)",explain="菜单权限管理菜单ID")
+	@Column(name = "menuId", columnDefinition="varchar(20)", nullable = false)
 	private String menuId;
 
 	public void setMenuId(String menuId) {
@@ -42,37 +42,37 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 		return menuId;
 	}
 
-	@FieldInfo(name = "权限名称")
-	@Column(name = "perName", length = 36, nullable = false)
-	private String perName;
+	@FieldInfo(name = "权限名称",type="nvarchar(36)",explain="菜单权限管理的权限名称")
+	@Column(name = "permissionName", columnDefinition="nvarchar(36)", nullable = false)
+	private String permissionName;
 
-	public String getPerName() {
-		return perName;
+	public String getPermissionName() {
+		return permissionName;
 	}
 
-	public void setPerName(String perName) {
-		this.perName = perName;
+	public void setPermissionName(String permissionName) {
+		this.permissionName = permissionName;
 	}
 
-	@FieldInfo(name = "按钮别名")
-	@Column(name = "perBtnName", length = 36, nullable = false)
-	private String perBtnName;
+	@FieldInfo(name = "按钮别名",type="nvarchar(36)",explain="菜单权限管理的按钮别名")
+	@Column(name = "buttonName", columnDefinition="nvarchar(36)", nullable = false)
+	private String buttonName;
 
-	public String getPerBtnName() {
-		return perBtnName;
+	public String getButtonName() {
+		return buttonName;
 	}
 
-	public void setPerBtnName(String perBtnName) {
-		this.perBtnName = perBtnName;
+	public void setButtonName(String buttonName) {
+		this.buttonName = buttonName;
 	}
 	
-	@FieldInfo(name = "权限接口前缀")
-	@Column(name = "interfacePrefix", length = 36, nullable = false)
+	@FieldInfo(name = "权限接口前缀",type="nvarchar(36)",explain="菜单权限管理的权限接口前缀")
+	@Column(name = "interfacePrefix", columnDefinition="nvarchar(36)", nullable = false)
 	private String interfacePrefix;
 
 	
-	@FieldInfo(name = "权限接口后缀")
-	@Column(name = "interfacePostfix", length = 36, nullable = false)
+	@FieldInfo(name = "权限接口后缀",type="nvarchar(36)",explain="菜单权限管理的权限接口后缀")
+	@Column(name = "interfacePostfix",columnDefinition="nvarchar(36)", nullable = false)
 	private String interfacePostfix;
 
 
@@ -93,20 +93,21 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 		this.interfacePostfix = interfacePostfix;
 	}
 
-	@FieldInfo(name = "权限备注")
-	@Column(name = "perRemark", length = 100, nullable = false)
-	private String perRemark;
+	@FieldInfo(name = "权限备注",type="nvarchar(100)",explain="菜单权限管理的权限备注")
+	@Column(name = "permissionuRemark", columnDefinition="nvarchar(100)", nullable = false)
+	private String permissionuRemark;
 
-	public String getPerRemark() {
-		return perRemark;
-	}
-
-	public void setPerRemark(String perRemark) {
-		this.perRemark = perRemark;
-	}
 	
-	@FieldInfo(name = "菜单名称")
-	@Formula("(SELECT a.NODE_TEXT FROM SYS_T_MENU a WHERE a.MENU_ID=MENU_ID)")
+	public String getPermissionuRemark() {
+		return permissionuRemark;
+	}
+
+	public void setPermissionuRemark(String permissionuRemark) {
+		this.permissionuRemark = permissionuRemark;
+	}
+
+	@FieldInfo(name = "菜单名称",type="nvarchar(36)",explain="菜单权限管理的菜单名称")
+	@Formula("(SELECT a.nodeText FROM T_PT_Menu a WHERE a.menuId=menuId)")
 	private String menuText;
 
 	public String getMenuText() {
@@ -117,8 +118,8 @@ public class SysMenuPermission extends BaseEntity implements Serializable {
 		this.menuText = menuText;
 	}
 	
-	@FieldInfo(name = "菜单编码")
-	@Formula("(SELECT a.MENU_CODE FROM SYS_T_MENU a WHERE a.MENU_ID=MENU_ID)")
+	@FieldInfo(name = "菜单编码",type="nvarchar(36)",explain="菜单权限管理的菜单编码")
+	@Formula("(SELECT a.menuCode FROM T_PT_Menu a WHERE a.menuId=menuId)")
 	private String menuCode;
 
 	public String getMenuCode() {

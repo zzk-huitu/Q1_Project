@@ -27,27 +27,27 @@ import javax.persistence.MappedSuperclass;
 public abstract class TreeNodeEntity extends BaseEntity {
 
     @FieldInfo(name = "节点编码")
-    @Column(name = "NODE_CODE")
+    @Column(name = "nodeCode")
     private String nodeCode;
 
     @FieldInfo(name = "节点名称")
-    @Column(name = "NODE_TEXT")
+    @Column(name = "nodeText")
     private String nodeText;
 
     @FieldInfo(name = "父节点")
-    @Column(name = "PARENT_NODE")
+    @Column(name = "parentNode")
     private String parentNode;
 
     @FieldInfo(name = "是否 叶节点")
-    @Column(name = "ISLEAF")
+    @Column(name = "isLeaf")
     private Boolean isLeaf;
 
     @FieldInfo(name = "节点层级")
-    @Column(name = "NODE_LEVEL")
+    @Column(name = "nodeLevel")
     private Integer nodeLevel;
 
     @FieldInfo(name = "节点标识层次")
-    @Column(name = "TREE_IDS", length = 1024)
+    @Column(name = "treeIds", length = 1024)
     private String treeIds;
 
     public String getNodeCode() {

@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_CourseTeacher")
-@AttributeOverride(name = "courseTeacherId", column = @Column(name = "courseTeacherId", length = 36, nullable = false))
+@AttributeOverride(name = "courseTeacherId", column = @Column(name = "courseTeacherId", length = 20, nullable = false))
 public class JwCourseteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "班级ID")
-	@Column(name = "classId", length = 36, nullable = false)
+	@FieldInfo(name = "classId",type="varchar(20)",explain="班级Id")
+	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
 	public String getClassId() {
@@ -40,8 +40,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		this.classId = classId;
 	}
 
-	@FieldInfo(name = "教职工ID")
-	@Column(name = "teacherId", length = 50, nullable = false)
+	@FieldInfo(name = "teacherId",type="varchar(20)",explain="教职工Id")
+	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
 	public String getTeacherId() {
@@ -52,8 +52,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	@FieldInfo(name = "学年")
-	@Column(name = "studyYear", length = 10, nullable = false)
+	@FieldInfo(name = "studyYear",type="nvarchar(20)",explain="学年")
+	@Column(name = "studyYear", columnDefinition = "nvarchar(20)", nullable = false)
 	private Integer studyYear;
 
 	public void setStudyYear(Integer studyYear) {
@@ -64,8 +64,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		return studyYear;
 	}
 
-	@FieldInfo(name = "学年名称")
-	@Column(name = "studyYearName", length = 64, nullable = true)
+	@FieldInfo(name = "studyYearName",type="nvarchar(20)",explain="学年名称")
+	@Column(name = "studyYearName", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String studyYearName;
 
 	public String getStudyYearName() {
@@ -76,8 +76,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		this.studyYearName = studyYearName;
 	}
 
-	@FieldInfo(name = "学期")
-	@Column(name = "semester", length = 8, nullable = false)
+	@FieldInfo(name = "semester",type="nvarchar(20)",explain="学期")
+	@Column(name = "semester", columnDefinition = "nvarchar(20)", nullable = false)
 	private String semester;
 
 	public void setSemester(String semester) {
@@ -88,8 +88,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		return semester;
 	}
 
-	@FieldInfo(name = "周节数: acs_zjs一周上多少节课")
-	@Column(name = "courseCountWeek", length = 10, nullable = true)
+	@FieldInfo(name = "courseCountWeek",type="Integer",explain="周节数: acs_zjs一周上多少节课")
+	@Column(name = "courseCountWeek", columnDefinition = "default 0", nullable = true)
 	private Integer courseCountWeek;
 
 	public Integer getCourseCountWeek() {
@@ -100,8 +100,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		this.courseCountWeek = courseCountWeek;
 	}
 
-	@FieldInfo(name = "实验室ID") // 暂未用到
-	@Column(name = "laboratoryId", length = 36, nullable = true)
+	@FieldInfo(name = "laboratoryId",type="varchar(20)",explain="实验室Id") // 暂未用到
+	@Column(name = "laboratoryId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String laboratoryId;
 
 	public String getLaboratoryId() {
@@ -112,8 +112,8 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 		this.laboratoryId = laboratoryId;
 	}
 
-	@FieldInfo(name = "课程ID")
-	@Column(name = "courseId", length = 36, nullable = true)
+	@FieldInfo(name = "courseId",type="varchar(20)",explain="课程Id")
+	@Column(name = "courseId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId;
 
 	public String getCourseId() {
@@ -132,7 +132,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	 */
 
 	@FieldInfo(name = "班级名称")
-	@Formula("(SELECT a.CLASS_NAME FROM JW_T_GRADECLASS a WHERE a.CLAI_ID=CLAI_ID )")
+	@Formula("(SELECT a.className FROM T_PT_GradeClass a WHERE a.classId=classId )")
 	private String className;
 
 	public String getClassName() {
@@ -144,7 +144,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "课程名称")
-	@Formula("(SELECT a.COURSE_NAME FROM JW_T_BASECOURSE a WHERE a.BASECOURSE_ID=BASECOURSE_ID )")
+	@Formula("(SELECT a.courseName FROM T_PT_BaseCourse a WHERE a.baseCourseId=courseId )")
 	private String courseName;
 
 	public String getCourseName() {
@@ -156,7 +156,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "老师工号")
-	@Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
+	@Formula("(SELECT a.userNumb FROM T_PT_User a WHERE a.userId=teacherId )")
 	private String userNumb;
 
 	public String getUserNumb() {
@@ -168,27 +168,27 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	}
 
 	@FieldInfo(name = "老师姓名")
-	@Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-	private String xm;
+	@Formula("(SELECT a.name FROM T_PT_User a WHERE a.userId=teacherId )")
+	private String name;
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@FieldInfo(name = "老师性别")
-	@Formula("(SELECT a.xbm FROM SYS_T_USER a WHERE a.USER_ID=TTEAC_ID )")
-	private String xbm;
+	@Formula("(SELECT a.genderCode FROM T_PT_User a WHERE a.userId=teacherId )")
+	private String genderCode;
 
-	public String getXbm() {
-		return xbm;
+	public String getGenderCode() {
+		return genderCode;
 	}
 
-	public void setXbm(String xbm) {
-		this.xbm = xbm;
+	public void setGenderCode(String genderCode) {
+		this.genderCode = genderCode;
 	}
 
 	public JwCourseteacher() {

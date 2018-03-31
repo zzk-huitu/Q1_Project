@@ -5,13 +5,7 @@ import java.io.Serializable;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.GenericGenerator;
 
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
@@ -29,12 +23,12 @@ import com.zd.core.model.BaseEntity;
 @Entity
 @Table(name = "T_PT_AttachmentInfo")
 //@Cache(region = "all", usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@AttributeOverride(name = "attachmentInfoId", column = @Column(name = "attachmentInfoId", length = 36, nullable = false))
+@AttributeOverride(name = "attachmentInfoId", column = @Column(name = "attachmentInfoId", length = 20, nullable = false))
 public class BaseAttachment extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "实体名称")
-    @Column(name = "entityName", length = 36, nullable = false)
+    @FieldInfo(name = "实体名称",type="nvarchar(36)",explain="文件的实体名称")
+    @Column(name = "entityName", columnDefinition="nvarchar(36)", nullable = false)
     private String entityName;
 
     public void setEntityName(String entityName) {
@@ -45,8 +39,8 @@ public class BaseAttachment extends BaseEntity implements Serializable {
         return entityName;
     }
 
-    @FieldInfo(name = "记录ID")
-    @Column(name = "recordId", length = 36, nullable = false)
+    @FieldInfo(name = "记录ID",type="varchar(20)",explain="文件存放的记录ID")
+    @Column(name = "recordId", length = 20, nullable = false)
     private String recordId;
 
     public void setRecordId(String recordId) {
@@ -57,7 +51,7 @@ public class BaseAttachment extends BaseEntity implements Serializable {
         return recordId;
     }
 
-    @FieldInfo(name = "存放路径")
+    @FieldInfo(name = "存放路径",type="varchar(128)",explain="文件存放的路径")
     @Column(name = "storeUrl", length = 128, nullable = false)
     private String storeUrl;
 
@@ -69,8 +63,8 @@ public class BaseAttachment extends BaseEntity implements Serializable {
         return storeUrl;
     }
 
-    @FieldInfo(name = "文件名称")
-    @Column(name = "fileName", length = 64, nullable = false)
+    @FieldInfo(name = "文件名称",type="nvarchar(64)",explain="文件的名称")
+    @Column(name = "fileName", columnDefinition="nvarchar(64)", nullable = false)
     private String fileName;
 
     public void setFileName(String fileName) {
@@ -80,7 +74,7 @@ public class BaseAttachment extends BaseEntity implements Serializable {
         return fileName;
     }
     
-    @FieldInfo(name = "文件大小")
+    @FieldInfo(name = "文件大小",type="Long",explain="文件的大小")
     @Column(name = "fileSize", nullable = false)
     private Long fileSize;
     public void setFileSize(Long fileSize) {
@@ -90,8 +84,8 @@ public class BaseAttachment extends BaseEntity implements Serializable {
         return fileSize;
     }
     
-    @FieldInfo(name = "文件类型")
-    @Column(name = "fileType", length = 20, nullable = false)
+    @FieldInfo(name = "文件类型",type="nvarchar(20)",explain="文件的类型")
+    @Column(name = "fileType", columnDefinition="nvarchar(20)", nullable = false)
     private String fileType;
     public void setFileType(String fileType) {
         this.fileType = fileType;
@@ -100,13 +94,13 @@ public class BaseAttachment extends BaseEntity implements Serializable {
         return fileType;
     }
     
-    @FieldInfo(name = "是否是正文文件")
-    @Column(name = "fileIsMain", nullable = true,columnDefinition="INT default 0")
-    private int fileIsMain;
-    public void setFileIsMain(int fileIsMain) {
+    @FieldInfo(name = "是否是正文文件",type="boolean",explain="是否是正文文件")
+    @Column(name = "fileIsMain", nullable = true,columnDefinition="default 0")
+    private boolean fileIsMain;
+    public void setFileIsMain(boolean fileIsMain) {
         this.fileIsMain = fileIsMain;
     }
-    public int getFileIsMain() {
+    public boolean getFileIsMain() {
         return fileIsMain;
     }
     

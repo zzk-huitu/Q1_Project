@@ -40,12 +40,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_Calender")
-@AttributeOverride(name = "calenderId", column = @Column(name = "calenderId", length = 36, nullable = false))
+@AttributeOverride(name = "calenderId", column = @Column(name = "calenderId", length = 20, nullable = false))
 public class JwCalender extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "学校主键")
-	@Column(name = "schoolId", length = 36, nullable = true)
+	@FieldInfo(name = "schoolId",type="varchar(20)",explain="学校Id")
+	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String schoolId;
 
 	public void setSchoolId(String schoolId) {
@@ -56,8 +56,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return schoolId;
 	}
 
-	@FieldInfo(name = "学校名称")
-	@Column(name = "schoolName", length = 64, nullable = true)
+	@FieldInfo(name = "schoolName",type="nvarchar(20)",explain="学校名称")
+	@Column(name = "schoolName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String schoolName;
 
 	public void setSchoolName(String schoolName) {
@@ -68,8 +68,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return schoolName;
 	}
 
-	@FieldInfo(name = "校历名称")
-	@Column(name = "calenderName", length = 64, nullable = false)
+	@FieldInfo(name = "calenderName",type="nvarchar(20)",explain="校历名称")
+	@Column(name = "calenderName", columnDefinition = "nvarchar(20)" , nullable = false)
 	private String calenderName;
 
 	public String getCalenderName() {
@@ -80,8 +80,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.calenderName = calenderName;
 	}
 
-	@FieldInfo(name = "适用校区ID")
-	@Column(name = "campusId", length = 36, nullable = true)
+	@FieldInfo(name = "campusId",type="varchar(20)",explain="适用校区Id")
+	@Column(name = "campusId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String campusId;
 
 	public String getCampusId() {
@@ -92,8 +92,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.campusId = campusId;
 	}
 
-	@FieldInfo(name = "校区名称")
-	@Column(name = "campusName", length = 64, nullable = true)
+	@FieldInfo(name = "campusName",type="nvarchar(20)",explain="校区名称")
+	@Column(name = "campusName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String campusName;
 
 	public void setCampusName(String campusName) {
@@ -104,8 +104,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return campusName;
 	}
 
-	@FieldInfo(name = "学段编码")
-	@Column(name = "stageCode", length = 32, nullable = true)
+	@FieldInfo(name = "stageCode",type="nvarchar(20)",explain="学段编码")
+	@Column(name = "stageCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String stageCode;
 
 	public String getStageCode() {
@@ -116,8 +116,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.stageCode = stageCode;
 	}
 
-	@FieldInfo(name = "生效状态")
-	@Column(name = "activityState", length = 10, nullable = true)
+	@FieldInfo(name = "activityState",type="Integer",explain="生效状态")
+	@Column(name = "activityState", columnDefinition = "default 0", nullable = true)
 	private Integer activityState;
 
 	public void setActivityState(Integer activityState) {
@@ -128,8 +128,8 @@ public class JwCalender extends BaseEntity implements Serializable {
 		return activityState;
 	}
 
-	@FieldInfo(name = "生效时间")
-	@Column(name = "activityTime", length = 23, nullable = false)
+	@FieldInfo(name = "activityTime",type="datetime",explain="生效时间")
+	@Column(name = "activityTime", columnDefinition = "datetime", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date activityTime;
@@ -149,7 +149,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "作息时间明细数")
-	@Formula("(SELECT COUNT(a.CANDER_ID) FROM JW_T_CALENDERDETAIL a WHERE a.CANDER_ID=CANDER_ID )")
+	@Formula("(SELECT COUNT(a.calenderId) FROM T_PT_CalenderDetail a WHERE a.calenderId=calenderId )")
 	private Integer detailCount;
 
 	public Integer getDetailCount() {

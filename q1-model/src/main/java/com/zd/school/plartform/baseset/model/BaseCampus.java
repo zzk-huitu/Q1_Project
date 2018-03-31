@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_Campus")
-@AttributeOverride(name = "campusId", column = @Column(name = "campusId", length = 36, nullable = false))
+@AttributeOverride(name = "campusId", column = @Column(name = "campusId", length = 20, nullable = false))
 public class BaseCampus extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "学校主键")
-    @Column(name = "schoolId", length = 36, nullable = true)
+    @FieldInfo(name = "学校主键",type="varchar(20)",explain="学校主键")
+    @Column(name = "schoolId", length = 20, nullable = false)
     private String schoolId;
 
 
@@ -41,8 +41,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return schoolId;
     }
 
-    @FieldInfo(name = "校区编码")
-    @Column(name = "campusCode", length = 32, nullable = true)
+    @FieldInfo(name = "校区编码",type="nvarchar(32)",explain="校区的编码")
+    @Column(name = "campusCode", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String campusCode;
 
     public void setCampusCode(String campusCode) {
@@ -53,8 +53,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return campusCode;
     }
 
-    @FieldInfo(name = "校区名称")
-    @Column(name = "campusName", length = 64, nullable = false)
+    @FieldInfo(name = "校区名称",type="nvarchar(64)",explain="校区的名称")
+    @Column(name = "campusName", columnDefinition="nvarchar(64)", nullable = false)
     private String campusName;
 
     public void setCampusName(String campusName) {
@@ -65,8 +65,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return campusName;
     }
 
-    @FieldInfo(name = "校区地址")
-    @Column(name = "campusAddr", length = 180, nullable = true)
+    @FieldInfo(name = "校区地址",type="nvarchar(180)",explain="校区的地址")
+    @Column(name = "campusAddr", columnDefinition="nvarchar(180) defalut ''", nullable = true)
     private String campusAddr;
 
     public void setCampusAddr(String campusAddr) {
@@ -77,8 +77,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return campusAddr;
     }
 
-    @FieldInfo(name = "邮政编码")
-    @Column(name = "mailCode", length = 16, nullable = true)
+    @FieldInfo(name = "邮政编码",type="nvarchar(16)",explain="校区的邮政编码")
+    @Column(name = "mailCode", columnDefinition="nvarchar(16) defalut ''", nullable = true)
     private String mailCode;
 
     public void setMailCode(String mailCode) {
@@ -89,8 +89,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return mailCode;
     }
 
-    @FieldInfo(name = "校区联系电话")
-    @Column(name = "campusPhone", length = 30, nullable = true)
+    @FieldInfo(name = "校区联系电话",type="nvarchar(30)",explain="校区的联系电话")
+    @Column(name = "campusPhone", columnDefinition="nvarchar(30) defalut ''", nullable = true)
     private String campusPhone;
 
     public void setCampusPhone(String campusPhone) {
@@ -101,8 +101,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return campusPhone;
     }
 
-    @FieldInfo(name = "校区传真电话")
-    @Column(name = "campusFax", length = 30, nullable = true)
+    @FieldInfo(name = "校区传真电话",type="nvarchar(30)",explain="校区的传真电话")
+    @Column(name = "campusFax", columnDefinition="nvarchar(30) defalut ''", nullable = true)
     private String campusFax;
 
     public void setCampusFax(String campusFax) {
@@ -113,8 +113,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
         return campusFax;
     }
 
-    @FieldInfo(name = "校区负责人号")
-    @Column(name = "campusPrincipal", length = 32, nullable = true)
+    @FieldInfo(name = "校区负责人号",type="nvarchar(30)",explain="校区的负责人号")
+    @Column(name = "campusPrincipal", columnDefinition="nvarchar(32) defalut ''", nullable = true)
     private String campusPrincipal;
 
     public void setCampusPrincipal(String campusPrincipal) {
@@ -131,8 +131,8 @@ public class BaseCampus extends BaseEntity implements Serializable {
      * @Transient
      * @FieldInfo(name = "") private String field1;
      */
-    @FieldInfo(name = "schoolName")
-    @Formula("(SELECT a.SCHOOL_NAME FROM BASE_T_SCHOOL a WHERE a.SCHOOL_ID=SCHOOL_ID )")
+    @FieldInfo(name = "学校名称",type="nvarchar(64)",explain="学校名称")
+    @Formula("(SELECT a.schoolName FROM T_PT_School a WHERE a.schoolId=schoolId )")
     private String schoolName;
 
     public String getSchoolName() {

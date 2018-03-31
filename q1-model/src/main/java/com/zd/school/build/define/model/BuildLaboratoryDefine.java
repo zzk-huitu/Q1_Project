@@ -24,33 +24,33 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_LaboratoryDefine")
-@AttributeOverride(name = "laboratoryId", column = @Column(name = "laboratoryId", length = 36, nullable = false) )
+@AttributeOverride(name = "laboratoryId", column = @Column(name = "laboratoryId", length = 20, nullable = false))
 public class BuildLaboratoryDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "楼层主键")
-	@Column(name = "areaId", length = 36, nullable = true)
+	@FieldInfo(name = "areaId", type = "varchar(20)", explain = "区域Id")
+	@Column(name = "areaId", length = 20, nullable = false)
 	private String areaId;
 
-	@FieldInfo(name = "房间主键")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@FieldInfo(name = "roomId", type = "varchar(20)", explain = "房间Id")
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "isAllot", length = 8, nullable = true)
-	private String isAllot = "0";
-	
-	@FieldInfo(name = "实验室名称")
-	@Column(name = "laboratoryName", length = 64, nullable = true)
+	@FieldInfo(name = "isAllot", type = "varchar(20)", explain = "状态,用于标识是否分配：0未分配。1已分配")
+	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
+	private Boolean isAllot;
+
+	@FieldInfo(name = "laboratoryName", type = "varchar(20)", explain = "实验室名称")
+	@Column(name = "laboratoryName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String laboratoryName;
-	
+
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
 	 * 
 	 * @Transient
 	 * @FieldInfo(name = "") private String field1;
 	 */
-	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
 
@@ -58,13 +58,12 @@ public class BuildLaboratoryDefine extends BaseEntity implements Serializable {
 		return roomName;
 	}
 
-	@Formula("(SELECT A.NODE_TEXT FROM dbo.BUILD_T_ROOMAREA A WHERE A.AREA_ID=AREA_ID)")
+	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A WHERE A.areaId=areaId)")
 	@FieldInfo(name = "楼层名称")
 	private String areaName;
-	
-	@Formula("(SELECT A.NODE_TEXT FROM dbo.BUILD_T_ROOMAREA A"
-			+ " WHERE A.AREA_ID=(SELECT B.PARENT_NODE "
-			+ " FROM dbo.BUILD_T_ROOMAREA B WHERE B.AREA_ID=AREA_ID))")
+
+	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A" + " WHERE A.areaId=(SELECT B.parentNode "
+			+ " FROM dbo.T_PT_RoomArea B WHERE B.areaId=areaId))")
 	@FieldInfo(name = "楼栋名称")
 	private String upAreaName;
 
@@ -96,11 +95,11 @@ public class BuildLaboratoryDefine extends BaseEntity implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public String getIsAllot() {
+	public Boolean getIsAllot() {
 		return isAllot;
 	}
 
-	public void setIsAllot(String isAllot) {
+	public void setIsAllot(Boolean isAllot) {
 		this.isAllot = isAllot;
 	}
 

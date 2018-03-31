@@ -39,12 +39,12 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_CalenderDetail")
-@AttributeOverride(name = "calenderDetailId", column = @Column(name = "calenderDetailId", length = 36, nullable = false))
+@AttributeOverride(name = "calenderDetailId", column = @Column(name = "calenderDetailId", length = 20, nullable = false))
 public class JwCalenderdetail extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "校历ID")
-	@Column(name = "calenderId", length = 36, nullable = true)
+	@FieldInfo(name = "calenderId",type="varchar(20)",explain="校历Id")
+	@Column(name = "calenderId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String calenderId;
 
 	public String getCalenderId() {
@@ -55,8 +55,8 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		this.calenderId = calenderId;
 	}
 
-	@FieldInfo(name = "节次名称")
-	@Column(name = "senctionsName", length = 36, nullable = false)
+	@FieldInfo(name = "senctionsName",type="nvarchar(20)",explain="节次名称")
+	@Column(name = "senctionsName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String senctionsName;
 
 	public String getSenctionsName() {
@@ -67,8 +67,8 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		this.senctionsName = senctionsName;
 	}
 
-	@FieldInfo(name = "上/下午标识,0-上午 1-下午")
-	@Column(name = "amOrPm", length = 10, nullable = false)
+	@FieldInfo(name = "amOrPm",type="Integer",explain="上/下午标识:0-上午 ;1-下午")
+	@Column(name = "amOrPm", nullable = false)
 	private Integer amOrPm;
 
 	public Integer getAmOrPm() {
@@ -79,8 +79,8 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		this.amOrPm = amOrPm;
 	}
 
-	@FieldInfo(name = "jcCode")
-	@Column(name = "senctionsCode", length = 10, nullable = true)
+	@FieldInfo(name = "senctionsCode",type="nvarchar(10)",explain="节次")
+	@Column(name = "senctionsCode",columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String senctionsCode;
 
 	public String getSenctionsCode() {
@@ -91,8 +91,8 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		this.senctionsCode = senctionsCode;
 	}
 
-	@FieldInfo(name = "开始时间")
-	@Column(name = "beginTime", length = 23, nullable = false)
+	@FieldInfo(name = "beginTime",type="datetime",explain="开始时间")
+	@Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginTime;
@@ -105,8 +105,8 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		return beginTime;
 	}
 
-	@FieldInfo(name = "结束时间")
-	@Column(name = "endTime", length = 23, nullable = true)
+	@FieldInfo(name = "endTime",type="datetime",explain="结束时间")
+	@Column(name = "endTime", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endTime;
@@ -119,15 +119,15 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		return endTime;
 	}
 
-	@FieldInfo(name = "需要考勤 0否 1是")
-	@Column(name = "needSignIn", length = 10, nullable = true)
-	private Integer needSignIn;
+	@FieldInfo(name = "needSignIn",type="Boolean",explain="需要考勤 :0-否; 1-是")
+	@Column(name = "needSignIn", columnDefinition = "default 0", nullable = true)
+	private Boolean needSignIn;
 
-	public Integer getNeedSignIn() {
+	public Boolean getNeedSignIn() {
 		return needSignIn;
 	}
 
-	public void setNeedSignIn(Integer needSignIn) {
+	public void setNeedSignIn(Boolean needSignIn) {
 		this.needSignIn = needSignIn;
 
 	}

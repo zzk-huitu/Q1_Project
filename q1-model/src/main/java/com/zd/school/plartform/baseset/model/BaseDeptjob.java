@@ -24,12 +24,12 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_DeptJob")
-@AttributeOverride(name = "deptJobId", column = @Column(name = "deptJobId", length = 36, nullable = false))
+@AttributeOverride(name = "deptJobId", column = @Column(name = "deptJobId", length = 20, nullable = false))
 public class BaseDeptjob extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "部门ID")
-	@Column(name = "deptId", length = 36, nullable = false)
+	@FieldInfo(name = "部门ID",type="varchar(20)",explain="部门ID")
+	@Column(name = "deptId", length = 20, nullable = false)
 	private String deptId;
 
 	public void setDeptId(String deptId) {
@@ -40,8 +40,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		return deptId;
 	}
 
-	@FieldInfo(name = "岗位ID")
-	@Column(name = "jobId", length = 36, nullable = false)
+	@FieldInfo(name = "岗位ID",type="varchar(20)",explain="岗位ID")
+	@Column(name = "jobId", length = 20, nullable = false)
 	private String jobId;
 
 	public void setJobId(String jobId) {
@@ -52,8 +52,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		return jobId;
 	}
 
-	@FieldInfo(name = "岗位类型 2-普通岗位 -1副负责岗位  0-主负责岗位")
-	@Column(name = "jobType", length = 5, nullable = false)
+	@FieldInfo(name = "岗位类型 2-普通岗位 -1副负责岗位  0-主负责岗位",type="Integer",explain="岗位类型 ")
+	@Column(name = "jobType",nullable = false)
 	private Integer jobType;
 
 	public void setJobType(Integer jobType) {
@@ -64,8 +64,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		return jobType;
 	}
 
-	@FieldInfo(name = "上级部门ID")
-	@Column(name = "parentdeptId", length = 36, nullable = true)
+	@FieldInfo(name = "上级部门ID",type="varchar(20)",explain="上级部门ID")
+	@Column(name = "parentdeptId",columnDefinition="varchar(20) defalut ''" , nullable = true)
 	private String parentdeptId;
 
 	public String getParentdeptId() {
@@ -76,8 +76,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.parentdeptId = parentdeptId;
 	}
 
-	@FieldInfo(name = "上级岗位ID")
-	@Column(name = "parentjobId", length = 36, nullable = true)
+	@FieldInfo(name = "上级岗位ID",type="varchar(20)",explain="上级岗位ID")
+	@Column(name = "parentjobId", columnDefinition="varchar(20) defalut ''", nullable = true)
 	private String parentjobId;
 
 	public String getParentjobId() {
@@ -88,8 +88,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.parentjobId = parentjobId;
 	}
 
-	@FieldInfo(name = "部门名称")
-	@Column(name = "deptName", length = 36, nullable = true)
+	@FieldInfo(name = "部门名称",type="nvarchar(36)",explain="部门名称")
+	@Column(name = "deptName", columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String deptName;
 
 	public String getDeptName() {
@@ -99,9 +99,9 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
-
-	@FieldInfo(name = "岗位名称")
-	@Column(name = "jobName", length = 36, nullable = true)
+	
+	@FieldInfo(name = "岗位名称",type="nvarchar(36)",explain="岗位名称")
+	@Column(name = "jobName",  columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String jobName;
 
 	public String getJobName() {
@@ -112,8 +112,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.jobName = jobName;
 	}
 
-	@FieldInfo(name = "上级部门名称")
-	@Column(name = "parentdeptName", length = 36, nullable = true)
+	@FieldInfo(name = "上级部门名称",type="nvarchar(36)",explain="上级部门名称")
+	@Column(name = "parentdeptName",  columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String parentdeptName;
 
 	public String getParentdeptName() {
@@ -124,8 +124,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.parentdeptName = parentdeptName;
 	}
 
-	@FieldInfo(name = "上级岗位名称")
-	@Column(name = "parentjobName", length = 36, nullable = true)
+	@FieldInfo(name = "上级岗位名称",type="nvarchar(36)",explain="上级岗位名称")
+	@Column(name = "parentjobName",  columnDefinition="nvarchar(36) defalut ''", nullable = true)
 	private String parentjobName;
 
 	public String getParentjobName() {
@@ -136,8 +136,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.parentjobName = parentjobName;
 	}
 
-	@FieldInfo(name = "部门全称")
-	@Column(name = "allDeptName", length = 500, nullable = true)
+	@FieldInfo(name = "部门全称",type="nvarchar(500)",explain="部门全称")
+	@Column(name = "allDeptName",  columnDefinition="nvarchar(500) defalut ''", nullable = true)
 	private String allDeptName;
 
 	public String getAllDeptName() {
@@ -154,8 +154,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 	 * @Transient
 	 * @FieldInfo(name = "") private String field1;
 	 */
-	@FieldInfo(name = "部门岗位名称")
-	@Formula("(SELECT a.DEPT_NAME+a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=DEPTJOB_ID)")
+	@FieldInfo(name = "部门岗位名称",type="nvarchar(36)",explain="部门岗位名称")
+	@Formula("(SELECT a.deptName+a.jobName FROM T_PT_DeptJob a WHERE a.deptJobId=deptJobId)")
 	private String deptjobName;
 
 	public String getDeptjobName() {
@@ -166,8 +166,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.deptjobName = deptjobName;
 	}
 
-	@FieldInfo(name = "部门岗位全称")
-	@Formula("(SELECT a.ALL_DEPTNAME+a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=DEPTJOB_ID)")
+	@FieldInfo(name = "部门岗位全称",type="nvarchar(36)",explain="部门岗位全称")
+	@Formula("(SELECT a.allDeptName+a.jobName FROM T_PT_DeptJob a WHERE a.deptJobId=deptJobId)")
 	private String alldeptjobName;
 
 	public String getAlldeptjobName() {
@@ -178,8 +178,8 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 		this.alldeptjobName = alldeptjobName;
 	}
 
-	@FieldInfo(name = "岗位级别")
-	@Formula("(SELECT a.ORDER_INDEX FROM dbo.BASE_T_JOB a WHERE a.JOB_ID=JOB_ID )")
+	@FieldInfo(name = "岗位级别",type="nvarchar(36)",explain="岗位级别")
+	@Formula("(SELECT a.orderIndex FROMT_PT_Job a WHERE a.jobId=jobId )")
 	private Integer jobLevel;
 
 	public Integer getJobLevel() {

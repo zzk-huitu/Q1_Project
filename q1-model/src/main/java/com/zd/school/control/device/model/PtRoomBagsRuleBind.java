@@ -21,36 +21,36 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 @Entity
 @Table(name = "T_PT_RoomBagRuleBind")
-@AttributeOverride(name = "boomBagRuleBindId", column = @Column(name = "boomBagRuleBindId", length = 36, nullable = false))
+@AttributeOverride(name = "boomBagRuleBindId", column = @Column(name = "boomBagRuleBindId", length = 20, nullable = false))
 public class PtRoomBagsRuleBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "房间ID")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@FieldInfo(name = "房间ID",type="varchar(20)",explain="房间钱包规则绑定的房间ID")
+	@Column(name = "roomId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomId;
 
-	@FieldInfo(name = "钱包规则费率绑定ID")
-	@Column(name = "roomRuleId", length = 36, nullable = true)
+	@FieldInfo(name = "钱包规则费率绑定ID",type="varchar(20)",explain="钱包规则费率绑定ID")
+	@Column(name = "roomRuleId",columnDefinition = "varchar(20) default ''", nullable = true)
 	private String roomRuleId;
 
-	@FieldInfo(name = "指定扣费模式下扣费的用户ID")
-	@Column(name = "deductionUserId", length = 36, nullable = true)
+	@FieldInfo(name = "指定扣费模式下扣费的用户ID",type="varchar(20)",explain="指定扣费模式下扣费的用户ID")
+	@Column(name = "deductionUserId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String deductionUserId;
 
 	
 	@MapperCell(cellName="学号")
-	@FieldInfo(name = "学号")
-	@Formula("(SELECT A.USER_NUMB FROM dbo.SYS_T_USER A WHERE A.USER_ID=DEDUCTION_USER_ID)")
+	@FieldInfo(name = "学号",type="varchar(20)",explain="指定扣费模式下扣费的用户ID")
+	@Formula("(SELECT A.userNumb FROM T_PT_User A WHERE A.userId=deductionUserId)")
 	private String userNumb;
 
 	@MapperCell(cellName="学生姓名")
-	@Formula("(SELECT A.XM FROM dbo.SYS_T_USER A WHERE A.USER_ID=DEDUCTION_USER_ID)")
-	@FieldInfo(name = "姓名")
-	private String xm;
+	@FieldInfo(name = "姓名",type="varchar(20)",explain="学生姓名")
+	@Formula("(SELECT A.name FROM T_PT_User A WHERE A.userId=deductionUserId)")
+	private String name;
 	
 	@MapperCell(cellName="房间名称")
-	@FieldInfo(name = "房间名称")
-	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@FieldInfo(name = "房间名称",type="varchar(20)",explain="房间名称")
+	@Formula("(SELECT A.roomName FROM T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	private String roomName;
 	
 	
@@ -86,12 +86,12 @@ public class PtRoomBagsRuleBind extends BaseEntity implements Serializable {
 		this.userNumb = userNumb;
 	}
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getRoomName() {

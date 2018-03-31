@@ -29,71 +29,81 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_MJ_UserRight")
-@AttributeOverride(name = "mjUserRightId", column = @Column(name = "mjUserRightId", length = 36, nullable = false))
+@AttributeOverride(name = "mjUserRightId", column = @Column(name = "mjUserRightId", length = 20, nullable = false))
 public class MjUserright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备主键")
-	@Column(name = "termId", length = 36, nullable = false)
-	private String termId;
+	@FieldInfo(name = "deviceId",type="varchar(20)",explain="设备主键Id")
+	@Column(name = "deviceId", length = 20, nullable = false)
+	private String deviceId;
 
-	@FieldInfo(name = "人员主键")
-	@Column(name = "stuId", length = 36, nullable = false)
-	private String stuId;
+	@FieldInfo(name = "userId",type="varchar(20)",explain="人员主键Id")
+	@Column(name = "userId", length = 20, nullable = false)
+	private String userId;
 
-	@FieldInfo(name = "卡流水号")
-	@Column(name = "cardId", length = 36, nullable = true)
+	@FieldInfo(name = "cardId",type="varchar(8)",explain="卡流水号")
+	@Column(name = "cardId", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String cardId;
 
-	@FieldInfo(name = "物理卡号")
-	@Column(name = "cardserNo", length = 36, nullable = true)
+	@FieldInfo(name = "cardserNo",type="varchar(8)",explain="物理卡号")
+	@Column(name = "cardserNo", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String cardserNo;
 
-	@FieldInfo(name = "时段ID")
+	@FieldInfo(name = "controlsegId",type="Integer",explain="时段ID")
 	@Column(name = "controlsegId")
 	private Integer controlsegId;
 
-	@FieldInfo(name = "卡片状态，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
+	@FieldInfo(name = "cardStatusId",type="Integer",explain="卡片状态，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
 	@Column(name = "cardStatusId")
 	private Integer cardStatusId;
 
-	@FieldInfo(name = "是否下载（更新CardStatusID的同时更新此字段为False）")
+	@FieldInfo(name = "isDownLoad",type="Boolean",explain="是否下载（更新CardStatusID的同时更新此字段为False）d")
 	@Column(name = "isDownLoad")
 	private Boolean isDownLoad;
 
-	@FieldInfo(name = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "statusId")
-	private Integer statusId = 0;
+	@FieldInfo(name = "statusId",type="Integer",explain="数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
+	@Column(name = "statusId", columnDefinition = "default 0", nullable = true)
+	private Integer statusId;
 
-	@FieldInfo(name = "卡片状态日期，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
-	@Column(name = "statusChangeTime", length = 23, nullable = true)
+	@FieldInfo(name = "statusChangeTime",type="varchar(20)",explain="卡片状态日期，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
+	@Column(name = "statusChangeTime", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date statusChangeTime;
 
 	@FieldInfo(name = "人员姓名")
-	@Formula("(SELECT A.XM FROM dbo.SYS_T_USER A WHERE A.USER_ID=STU_ID)")
-	private String xm;
+	@Formula("(SELECT A.name FROM dbo.T_PT_User A WHERE A.userId=userId)")
+	private String name;
 
 	@FieldInfo(name = "设备名称")
-	@Formula("(SELECT A.TERMNAME FROM dbo.PT_TERM A WHERE A.TERM_ID=TERM_ID)")
-	private String termName;
+	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.deviceId=deviceId)")
+	private String deviceName;
 
 	@FieldInfo(name = "设备序列号")
-	@Formula("(SELECT A.TERMSN FROM dbo.PT_TERM A WHERE A.TERM_ID=TERM_ID)")
-	private String termSN;
-	
+	@Formula("(SELECT A.deviceSn FROM dbo.T_PT_Term A WHERE A.deviceId=deviceId)")
+	private String deviceSN;
+
 	@FieldInfo(name = "房间名称")
-	@Formula("(select a.ROOM_NAME from BUILD_T_ROOMINFO a where a.ROOM_ID=(select b.ROOM_ID from PT_TERM b where b.TERM_ID=TERM_ID) )")
+	@Formula("(select a.roomName from T_PT_RoomInfo a where a.roomId=(select b.roomId from T_PT_Term b where b.deviceId=deviceId) )")
 	private String roomName;
-	
-	public String getStuId() {
-		return stuId;
+
+
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setStuId(String stuId) {
-		this.stuId = stuId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	public String getCardId() {
 		return cardId;
@@ -151,36 +161,28 @@ public class MjUserright extends BaseEntity implements Serializable {
 		this.statusChangeTime = statusChangeTime;
 	}
 
-	public String getXm() {
-		return xm;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 
-	public String getTermId() {
-		return termId;
+	public String getDeviceName() {
+		return deviceName;
 	}
 
-	public String getTermName() {
-		return termName;
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
-	public String getTermSN() {
-		return termSN;
+	public String getDeviceSN() {
+		return deviceSN;
 	}
 
-	public void setTermId(String termId) {
-		this.termId = termId;
-	}
-
-	public void setTermName(String termName) {
-		this.termName = termName;
-	}
-
-	public void setTermSN(String termSN) {
-		this.termSN = termSN;
+	public void setDeviceSN(String deviceSN) {
+		this.deviceSN = deviceSN;
 	}
 
 	public String getRoomName() {
@@ -190,8 +192,6 @@ public class MjUserright extends BaseEntity implements Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-	
-	
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加

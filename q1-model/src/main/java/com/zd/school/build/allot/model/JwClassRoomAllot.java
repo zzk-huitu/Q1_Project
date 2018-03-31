@@ -24,16 +24,16 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_ClassRoomAllot")
-@AttributeOverride(name = "classRoomAllotId", column = @Column(name = "classRoomAllotId", length = 36, nullable = false) )
+@AttributeOverride(name = "classRoomId", column = @Column(name = "classRoomId", length = 20, nullable = false) )
 public class JwClassRoomAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "班级主键")
-	@Column(name = "classId", length = 36, nullable = true)
+	@FieldInfo(name = "classId",type="varchar(20)",explain="班级Id")
+	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 
-	@FieldInfo(name = "房间主键")
-	@Column(name = "roomId", length = 36, nullable = true)
+	@FieldInfo(name = "roomId",type="varchar(20)",explain="房间Id")
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
 	/**
@@ -43,17 +43,17 @@ public class JwClassRoomAllot extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 
-	@Formula("(SELECT A.ROOM_NAME FROM dbo.BUILD_T_ROOMINFO A WHERE A.ROOM_ID=ROOM_ID)")
+	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
 	@FieldInfo(name = "房间名称")
 	private String roomName;
 
-	@Formula("(SELECT B.NODE_TEXT FROM dbo.BUILD_T_ROOMINFO A"
-			+ " JOIN dbo.BUILD_T_ROOMAREA B ON A.AREA_ID=B.AREA_ID"
-			+ " WHERE A.ROOM_ID=ROOM_ID AND A.ISDELETE=0)")
+	@Formula("(SELECT B.nodeText FROM dbo.T_PT_RoomInfo A"
+			+ " JOIN dbo.T_PT_RoomArea B ON A.areaId=B.areaId"
+			+ " WHERE A.roomId=roomId AND A.isDelete=0)")
 	@FieldInfo(name = "楼层名称")
 	private String areaName;
 
-	@Formula("(SELECT A.CLASS_NAME FROM dbo.JW_T_GRADECLASS A WHERE A.CLAI_ID=CLAI_ID)")
+	@Formula("(SELECT A.className FROM dbo.T_PT_GradeClass A WHERE A.classId=classId)")
 	@FieldInfo(name = "班级名称")
 	private String className;
 
