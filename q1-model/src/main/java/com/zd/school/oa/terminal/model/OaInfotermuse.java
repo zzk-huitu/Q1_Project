@@ -11,39 +11,41 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 /**
+ * 终端使用历史
  * 
- * ClassName: OaInfotermuse 
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: 终端使用历史(T_PT_InfoTerminalHistory)实体类.
- * date: 2017-01-14
+ * @author ZZK
  *
- * @author  luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
- 
+
 @Entity
 @Table(name = "T_PT_InfoTerminalHistory")
-@AttributeOverride(name = "infoTerminalHistoryId", column = @Column(name = "infoTerminalHistoryId", length = 20, nullable = false))
-public class OaInfotermuse extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
-    @FieldInfo(name = "信息终端主键ID",type="varchar(20)",explain="信息终端的主键ID")
-    @Column(name = "infoTerminalId", length = 20, nullable = false)
-    private String infoTerminalId;
-  
-        
-    public String getInfoTerminalId() {
-		return infoTerminalId;
-	}
-	public void setInfoTerminalId(String infoTerminalId) {
-		this.infoTerminalId = infoTerminalId;
+@AttributeOverride(name = "id", column = @Column(name = "terminalHistoryId", length = 20, nullable = false) )
+public class OaInfotermuse extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@FieldInfo(name = "信息终端主键ID", type = "varchar(20) NOT NULL", explain = "信息终端的主键ID")
+	@Column(name = "terminalId", length = 20, nullable = false)
+	private String terminalId;
+
+	@FieldInfo(name = "终端号", type = "varchar(6) NOT NULL", explain = "信息终端的终端号")
+	@Column(name = "terminalNo", length = 6, nullable = false)
+	private String terminalNO;
+
+	@FieldInfo(name = "使用房间ID", type = "varchar(20) defalut ''", explain = "终端的使用房间ID")
+	@Column(name = "roomId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	private String roomId;
+
+	@FieldInfo(name = "使用房间名称", type = "nvarchar(20)  defalut ''", explain = "终端的使用房间名称")
+	@Column(name = "roomName", columnDefinition = "nvarchar(20) defalut ''", nullable = true)
+	private String roomName;
+
+	public String getTerminalId() {
+		return terminalId;
 	}
 
-	@FieldInfo(name = "终端号",type="varchar(6)",explain="信息终端的终端号")
-    @Column(name = "terminalNo", length = 6, nullable = false)
-	private String terminalNO;
+	public void setTerminalId(String terminalId) {
+		this.terminalId = terminalId;
+	}
 
 	public String getTerminalNO() {
 		return terminalNO;
@@ -53,30 +55,27 @@ public class OaInfotermuse extends BaseEntity implements Serializable{
 		this.terminalNO = terminalNO;
 	}
 
-	@FieldInfo(name = "使用房间ID",type="varchar(20)",explain="终端的使用房间ID")
-    @Column(name = "roomId", columnDefinition="varchar(20) defalut ''", nullable = true)
-    private String roomId;
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-    public String getRoomId() {
-        return roomId;
-    }
-        
-    @FieldInfo(name = "使用房间名称",type="nvarchar(64)",explain="终端的使用房间名称")
-    @Column(name = "roomName", columnDefinition="nvarchar(64) defalut ''", nullable = true)
-    private String roomName;
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
-    }
-    public String getRoomName() {
-        return roomName;
-    }
-        
+	public String getRoomId() {
+		return roomId;
+	}
 
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
+	public void setRoomId(String roomId) {
+		this.roomId = roomId;
+	}
+
+	public String getRoomName() {
+		return roomName;
+	}
+
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+
+	public OaInfotermuse() {
+		super();
+	}
+
+	public OaInfotermuse(String id) {
+		super(id);
+	}
 }

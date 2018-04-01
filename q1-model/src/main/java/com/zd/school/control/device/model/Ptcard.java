@@ -17,78 +17,78 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 /**
- * 发卡表
+ * 卡片信息表
  * 
- * @author hucy
+ * @author ZZK
  *
  */
 @Entity
 @Table(name = "T_PT_Card")
-@AttributeOverride(name = "cardId", column = @Column(name = "cardId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "cardId", length = 20, nullable = false) )
 public class Ptcard extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "cardNo",type="Bigint",explain="卡流水号")
+	@FieldInfo(name = "卡流水号", type = "bigint NOT NULL", explain = "卡流水号")
 	@Column(name = "cardNo", nullable = false)
 	private Long cardNo;
 
-	@FieldInfo(name = "userId",type="varchar(20)",explain="关联user表")
+	@FieldInfo(name = "cardTypeId", type = "int NOT NULL", explain = "卡类型")
+	@Column(name = "cardTypeId", nullable = false)
+	private Integer cardTypeId;
+
+	@FieldInfo(name = "factoryFixId", type = "bigint default 0", explain = "物理卡号")
+	@Column(name = "factoryFixId", columnDefinition = "default 0", nullable = true)
+	private Long factoryFixId;
+
+	@FieldInfo(name = "用户ID", type = "varchar(20) default ''", explain = "关联user表")
 	@Column(name = "userId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String userId;
 
-	@FieldInfo(name = "factoryFixId",type="Bigint",explain="物理卡号")
-	@Column(name = "factoryFixId",columnDefinition = "default 0", nullable = true)
-	private Long factoryFixId;
-
-	@FieldInfo(name = "cardTypeId",type="Integer",explain="卡类型")
-	@Column(name = "cardTypeId",nullable = false)
-	private Integer cardTypeId;
-
-	@FieldInfo(name = "expiryDate",type="datetime",explain="有效期")
-	@Column(name = "expiryDate",columnDefinition = "datetime", nullable = true)
+	@FieldInfo(name = "有效期", type = "datetime", explain = "有效期")
+	@Column(name = "expiryDate", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date expiryDate = new Date();
+	private Date expiryDate;
 
-	@FieldInfo(name = "deposit",type="BigDecimal",explain="卡押金")
-	@Column(name = "deposit")
+	@FieldInfo(name = "卡押金", type = "numeric default 0", explain = "卡押金")
+	@Column(name = "deposit", columnDefinition = "default 0", nullable = true)
 	private BigDecimal deposit;
 
-	@FieldInfo(name = "cardStatusId",type="Integer",explain="卡状态 1正常 2挂失 3注销 4换卡 7冻结")
-	@Column(name = "cardStatusId")
+	@FieldInfo(name = "卡状态", type = "int default 0", explain = "卡状态 1正常 2挂失 3注销 4换卡 7冻结")
+	@Column(name = "cardStatusId", columnDefinition = "default 0", nullable = true)
 	private Integer cardStatusId;
 
-	@FieldInfo(name = "statusChangeTime",type="datetime",explain="卡状态改变时间")
-	@Column(name = "statusChangeTime",columnDefinition = "datetime", nullable = true)
+	@FieldInfo(name = "卡状态改变时间", type = "datetime", explain = "卡状态改变时间")
+	@Column(name = "statusChangeTime", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date statusChangeTime = new Date();
 
-	@FieldInfo(name = "dayCount",type="Integer",explain="当日消费次数")
-	@Column(name = "dayCount")
+	@FieldInfo(name = "当日消费次数", type = "int default 0", explain = "当日消费次数")
+	@Column(name = "dayCount", columnDefinition = "default 0", nullable = true)
 	private Integer dayCount;
 
-	@FieldInfo(name = "mealCount",type="Integer",explain="当餐消费次数")
-	@Column(name = "mealCount")
+	@FieldInfo(name = "当餐消费次数", type = "int default 0", explain = "当餐消费次数")
+	@Column(name = "mealCount", columnDefinition = "default 0", nullable = true)
 	private Integer mealCount;
 
-	@FieldInfo(name = "dayValue",type="BigDecimal",explain="当日交易金额")
-	@Column(name = "dayValue")
+	@FieldInfo(name = "当日交易金额", type = "numeric default 0", explain = "当日交易金额")
+	@Column(name = "dayValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal dayValue;
-	
-	@FieldInfo(name = "mealValue",type="BigDecimal",explain="当餐交易金额")
-	@Column(name = "mealValue")
+
+	@FieldInfo(name = "当餐交易金额", type = "numeric default 0", explain = "当餐交易金额")
+	@Column(name = "mealValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal mealValue;
 
-	@FieldInfo(name = "lastPayDate",type="datetime",explain="最后交易时间")
-	@Column(name = "lastPayDate",columnDefinition = "datetime", nullable = true)
+	@FieldInfo(name = "最后交易时间", type = "datetime", explain = "最后交易时间")
+	@Column(name = "lastPayDate", columnDefinition = "datetime", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date lastPayDate = new Date();
+	private Date lastPayDate;
 
-	@FieldInfo(name = "lastPayMealType",type="Integer",explain="最后交易餐类")
-	@Column(name = "lastPayMealType")
+	@FieldInfo(name = "最后交易餐类", type = "int default 0", explain = "最后交易餐类")
+	@Column(name = "lastPayMealType", columnDefinition = "default 0", nullable = true)
 	private Integer lastPayMealType;
 
 	public Long getCardNo() {
@@ -99,21 +99,28 @@ public class Ptcard extends BaseEntity implements Serializable {
 		this.cardNo = cardNo;
 	}
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-
 	public Integer getCardTypeId() {
 		return cardTypeId;
 	}
 
 	public void setCardTypeId(Integer cardTypeId) {
 		this.cardTypeId = cardTypeId;
+	}
+
+	public Long getFactoryFixId() {
+		return factoryFixId;
+	}
+
+	public void setFactoryFixId(Long factoryFixId) {
+		this.factoryFixId = factoryFixId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public Date getExpiryDate() {
@@ -130,14 +137,6 @@ public class Ptcard extends BaseEntity implements Serializable {
 
 	public void setDeposit(BigDecimal deposit) {
 		this.deposit = deposit;
-	}
-
-	public Long getFactoryFixId() {
-		return factoryFixId;
-	}
-
-	public void setFactoryFixId(Long factoryFixId) {
-		this.factoryFixId = factoryFixId;
 	}
 
 	public Integer getCardStatusId() {
@@ -204,6 +203,12 @@ public class Ptcard extends BaseEntity implements Serializable {
 		this.lastPayMealType = lastPayMealType;
 	}
 
-	
+	public Ptcard() {
+		super();
+	}
+
+	public Ptcard(String id) {
+		super(id);
+	}
 
 }

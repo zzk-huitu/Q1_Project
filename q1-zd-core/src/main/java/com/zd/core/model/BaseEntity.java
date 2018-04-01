@@ -34,18 +34,18 @@ import java.util.UUID;
 public abstract class BaseEntity {
 		
 	@Id
-	@FieldInfo(name = "UUID", type = "ID")
+	@FieldInfo(name = "ID", type = "ID")
     //@GeneratedValue(generator = "uuid")
     //@GenericGenerator(name = "uuid", strategy = "uuid")
-    @Column(name = "UUID", length = 36, nullable = false)
-	private String uuid;
+    @Column(name = "ID", length = 20, nullable = false)
+	private String id;
 
-	public String getUuid() {
-		return uuid;
+	public String getId() {
+		return id;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	@FieldInfo(name = "创建时间")
@@ -200,12 +200,11 @@ public abstract class BaseEntity {
     }
 
     public BaseEntity() {
-		super();
-		this.uuid = UUID.randomUUID().toString();
+		super();		
 	}
 
-	public BaseEntity(String uuid) {
+	public BaseEntity(String id) {
 		super();
-		this.uuid = uuid;
+		this.id = id;
 	}
 }

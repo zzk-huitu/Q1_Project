@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 import com.zd.core.annotation.FieldInfo;
 
+/**
+ * POJO
+ * @author ZZK
+ *
+ */
 public class OaRoomTerm implements Serializable {
 
 	/**

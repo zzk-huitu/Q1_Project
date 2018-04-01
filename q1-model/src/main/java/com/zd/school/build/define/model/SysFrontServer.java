@@ -13,36 +13,36 @@ import com.zd.core.model.BaseEntity;
 /**
  * 综合前置服务器
  * 
- * @author hucy
+ * @author ZZK
  *
  */
 @Entity
 @Table(name = "T_PT_FrontServer")
-@AttributeOverride(name = "frontServerId", column = @Column(name = "frontServerId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "frontServerId", length = 20, nullable = false) )
 public class SysFrontServer extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "frontServerName", type = "nvarchar(128)", explain = "服务器名称")
-	@Column(name = "frontServerName", columnDefinition = "nvarchar(128)", nullable = false)
+	@FieldInfo(name = "服务器名称", type = "nvarchar(20) NOT NULL", explain = "服务器名称")
+	@Column(name = "frontServerName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String frontServerName;
 
-	@FieldInfo(name = "frontServerIp", type = "varchar(20)", explain = "服务IP")
+	@FieldInfo(name = "服务IP", type = "varchar(20) NOT NULL", explain = "服务IP")
 	@Column(name = "frontServerIp", length = 20, nullable = false)
 	private String frontServerIp;
 
-	@FieldInfo(name = "frontServerPort", type = "Integer", explain = "服务端口")
+	@FieldInfo(name = "服务端口", type = "int NOT NULL", explain = "服务端口")
 	@Column(name = "frontServerPort", nullable = false)
 	private Integer frontServerPort;
 
-	@FieldInfo(name = "frontServerUrl", type = "varchar(50)", explain = "请求任务URL")
-	@Column(name = "frontServerUrl", columnDefinition = "varchar(50) default ''", nullable = true)
+	@FieldInfo(name = "是否启用", type = "bit NOT NULL default 0", explain = "是否启用 0禁用，1启用")
+	@Column(name = "frontServerStatus", columnDefinition = "default 0", nullable = false)
+	private Boolean frontServerStatus;
+
+	@FieldInfo(name = "请求任务URL", type = "varchar(50) default ''", explain = "请求任务URL")
+	@Column(name = "frontServerUrl", length = 50, columnDefinition = "default ''", nullable = true)
 	private String frontServerUrl;
 
-	@FieldInfo(name = "frontServerStatus", type = "Integer", explain = "是否启用 0禁用，1启用")
-	@Column(name = "frontServerStatus", columnDefinition = "default 0", nullable = true)
-	private Integer frontServerStatus;
-
-	@FieldInfo(name = "frontServerNotes", type = "nvarchar(128)", explain = "备注")
+	@FieldInfo(name = "备注", type = "nvarchar(128) default ''", explain = "备注")
 	@Column(name = "frontServerNotes", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String frontServerNotes;
 
@@ -70,20 +70,20 @@ public class SysFrontServer extends BaseEntity implements Serializable {
 		this.frontServerPort = frontServerPort;
 	}
 
+	public Boolean getFrontServerStatus() {
+		return frontServerStatus;
+	}
+
+	public void setFrontServerStatus(Boolean frontServerStatus) {
+		this.frontServerStatus = frontServerStatus;
+	}
+
 	public String getFrontServerUrl() {
 		return frontServerUrl;
 	}
 
 	public void setFrontServerUrl(String frontServerUrl) {
 		this.frontServerUrl = frontServerUrl;
-	}
-
-	public Integer getFrontServerStatus() {
-		return frontServerStatus;
-	}
-
-	public void setFrontServerStatus(Integer frontServerStatus) {
-		this.frontServerStatus = frontServerStatus;
 	}
 
 	public String getFrontServerNotes() {
@@ -94,10 +94,12 @@ public class SysFrontServer extends BaseEntity implements Serializable {
 		this.frontServerNotes = frontServerNotes;
 	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
+	public SysFrontServer() {
+		super();
+	}
+
+	public SysFrontServer(String id) {
+		super(id);
+	}
+
 }

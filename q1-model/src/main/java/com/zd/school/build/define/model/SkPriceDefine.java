@@ -13,32 +13,32 @@ import com.zd.core.model.BaseEntity;
 /**
  * 水控费率定义
  * 
- * @author hucy
+ * @author ZZK
  *
  */
 @Entity
-@Table(name = "T_SK_Price")
-@AttributeOverride(name = "sKPriceId", column = @Column(name = "sKPriceId", length = 20, nullable = false) )
+@Table(name = "T_SK_PriceDefine")
+@AttributeOverride(name = "id", column = @Column(name = "priceId", length = 20, nullable = false) )
 public class SkPriceDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "priceName", type = "nvarchar(36)", explain = "费率名称")
-	@Column(name = "priceName", columnDefinition = "nvarchar(36)", nullable = false)
+	@FieldInfo(name = "费率名称", type = "nvarchar(20) NOT NULL", explain = "费率名称")
+	@Column(name = "priceName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String priceName;
 
-	@FieldInfo(name = "priceValue", type = "double", explain = "费率价格")
+	@FieldInfo(name = "费率价格", type = "double NOT NULL", explain = "费率价格")
 	@Column(name = "priceValue", nullable = false)
-	private double priceValue;
+	private Double priceValue;
 
-	@FieldInfo(name = "priceStatus", type = "Boolean", explain = "状态,用于标识是否启用：0禁用。1启用")
-	@Column(name = "priceStatus", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "费率状态", type = "bit NOT NULL default 0", explain = "状态,用于标识是否启用：0禁用。1启用")
+	@Column(name = "priceStatus", columnDefinition = "default 0", nullable = false)
 	private Boolean priceStatus;
 
-	@FieldInfo(name = "currencyType", type = "nvarchar(10)", explain = "货币种类")
+	@FieldInfo(name = "货币种类", type = "nvarchar(10) default 'RMB(人民币)'", explain = "货币种类")
 	@Column(name = "currencyType", columnDefinition = "nvarchar(10) default 'RMB(人民币)'", nullable = true)
 	private String currencyType;
 
-	@FieldInfo(name = "priceNotes", type = "nvarchar(128)", explain = "备注")
+	@FieldInfo(name = "备注", type = "nvarchar(128) default ''", explain = "备注")
 	@Column(name = "priceNotes", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String priceNotes;
 
@@ -50,11 +50,11 @@ public class SkPriceDefine extends BaseEntity implements Serializable {
 		this.priceName = priceName;
 	}
 
-	public double getPriceValue() {
+	public Double getPriceValue() {
 		return priceValue;
 	}
 
-	public void setPriceValue(double priceValue) {
+	public void setPriceValue(Double priceValue) {
 		this.priceValue = priceValue;
 	}
 
@@ -82,11 +82,12 @@ public class SkPriceDefine extends BaseEntity implements Serializable {
 		this.priceNotes = priceNotes;
 	}
 
+	public SkPriceDefine() {
+		super();
+	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
+	public SkPriceDefine(String id) {
+		super(id);
+	}
+
 }

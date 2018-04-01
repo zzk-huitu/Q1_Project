@@ -18,46 +18,43 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 /**
+ * 教师宿舍
  * 
- * ClassName: DormStudentdorm Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: (教师分配宿舍)实体类. date: 2016-08-26
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "T_PT_TeacherDorm")
-@AttributeOverride(name = "teacherDormId", column = @Column(name = "teacherDormId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "teacherDormId", length = 20, nullable = false) )
 public class DormTeacherDorm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "dormId", type = "varchar(20)", explain = "宿舍Id")
+	@FieldInfo(name = "宿舍Id", type = "varchar(20) NOT NULL", explain = "宿舍Id")
 	@Column(name = "dormId", length = 20, nullable = false)
 	private String dormId;
 
-	@FieldInfo(name = "教师ID", type = "varchar(20)", explain = "教师Id")
+	@FieldInfo(name = "教师ID", type = "varchar(20) NOT NULL", explain = "教师Id")
 	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
-	@FieldInfo(name = "", type = "varchar(20)", explain = "房间Id")
+	@FieldInfo(name = "房间Id", type = "varchar(20) NOT NULL", explain = "房间Id")
 	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "sarkNo", type = "Byte", explain = "柜子编号")
-	@Column(name = "sarkNo", nullable = false)
-	private Byte sarkNo = 0;
+	@FieldInfo(name = "柜子编号", type = "tinyint NOT NULL", explain = "柜子编号")
+	@Column(name = "sarkNo", columnDefinition = "tinyint", nullable = false)
+	private Integer sarkNo;
 
-	@FieldInfo(name = "bedNo", type = "Byte", explain = "床位编号")
-	@Column(name = "bedNo", nullable = false)
-	private Byte bedNo = 0;
+	@FieldInfo(name = "床位编号", type = "tinyint NOT NULL", explain = "床位编号")
+	@Column(name = "bedNo", columnDefinition = "tinyint", nullable = false)
+	private Integer bedNo;
 
-	@FieldInfo(name = "inOutState", type = "int", explain = "入/退状态(0:入住,1:退住)")
+	@FieldInfo(name = "入/退状态", type = "varchar(1) NOT NULL", explain = "入/退状态(0:入住,1:退住)")
 	@Column(name = "inOutState", length = 1, nullable = false)
-	private Integer inOutState = 0;
+	private String inOutState;
 
-	@FieldInfo(name = "", type = "datetime", explain = "入住时间")
+	@FieldInfo(name = "入住时间", type = "datetime NOT NULL", explain = "入住时间")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@Column(name = "inTime", columnDefinition = "datetime", nullable = false)
@@ -70,16 +67,16 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 	private Date outTime;
 
 	@Formula("(SELECT A.name FROM T_PT_User A  WHERE A.userId=teacherId)")
-	@FieldInfo(name = "用于选择框显示教师姓名")
+	//@FieldInfo(name = "用于选择框显示教师姓名")
 	private String name;
 
 	@Formula("(SELECT A.userNumb FROM T_PT_User A  WHERE A.userId=teacherId)")
-	@FieldInfo(name = "教师工号")
+	//@FieldInfo(name = "教师工号")
 	private String userNumb;
 
 	@Formula("(SELECT B.roomName FROM dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "
 			+ "ON A.roomId=B.roomId WHERE A.isDelete=0 AND A.dormId=dormId)")
-	@FieldInfo(name = "房间名称")
+	//@FieldInfo(name = "房间名称")
 	private String dormName;
 
 	public String getDormId() {
@@ -90,14 +87,6 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.dormId = dormId;
 	}
 
-	public String getRoomId() {
-		return roomId;
-	}
-
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
-	}
-
 	public String getTeacherId() {
 		return teacherId;
 	}
@@ -106,27 +95,35 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 		this.teacherId = teacherId;
 	}
 
-	public Byte getSarkNo() {
+	public String getRoomId() {
+		return roomId;
+	}
+
+	public void setRoomId(String roomId) {
+		this.roomId = roomId;
+	}
+
+	public Integer getSarkNo() {
 		return sarkNo;
 	}
 
-	public void setSarkNo(Byte sarkNo) {
+	public void setSarkNo(Integer sarkNo) {
 		this.sarkNo = sarkNo;
 	}
 
-	public Byte getBedNo() {
+	public Integer getBedNo() {
 		return bedNo;
 	}
 
-	public void setBedNo(Byte bedNo) {
+	public void setBedNo(Integer bedNo) {
 		this.bedNo = bedNo;
 	}
 
-	public Integer getInOutState() {
+	public String getInOutState() {
 		return inOutState;
 	}
 
-	public void setInOutState(Integer inOutState) {
+	public void setInOutState(String inOutState) {
 		this.inOutState = inOutState;
 	}
 
@@ -169,4 +166,13 @@ public class DormTeacherDorm extends BaseEntity implements Serializable {
 	public void setDormName(String dormName) {
 		this.dormName = dormName;
 	}
+
+	public DormTeacherDorm() {
+		super();
+	}
+
+	public DormTeacherDorm(String id) {
+		super(id);
+	}
+
 }

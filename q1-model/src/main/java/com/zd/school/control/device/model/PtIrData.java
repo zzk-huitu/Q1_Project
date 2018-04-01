@@ -1,105 +1,94 @@
 package com.zd.school.control.device.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
+ * 红外设备数据
  * 
- * ClassName: PtIrData 
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: 红外设备数据(PT_IR_DATA)实体类.
- * date: 2017-01-12
+ * @author ZZK
  *
- * @author  luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
- 
+
 @Entity
 @Table(name = "T_PT_IrData")
-@AttributeOverride(name = "irDataId", column = @Column(name = "irDataId", length = 20, nullable = false))
-public class PtIrData extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
-    @FieldInfo(name = "brandId", type = "varchar(20)", explain = "红外数据所属品牌")
-    @Column(name = "brandId", columnDefinition = "varchar(20) default ''", nullable = true)
-    private String brandId;
-    public void setBrandId(String brandId) {
-        this.brandId = brandId;
-    }
-    public String getBrandId() {
-        return brandId;
-    }
-        
-    @FieldInfo(name = "irDataNo", type = "varchar(19)", explain = "红外数据编码")
-    @Column(name = "irDataNo", columnDefinition = "varchar(19) default ''", nullable = true)
-    private Long irDataNo;
-    public void setIrDataNo(Long irDataNo) {
-        this.irDataNo = irDataNo;
-    }
-    public Long getIrDataNo() {
-        return irDataNo;
-    }
-        
-    @FieldInfo(name = "irDataName", type = "nvarchar(25)", explain = "红外数据名称")
-    @Column(name = "irDataName", columnDefinition = "nvarchar(25) default ''", nullable = true)
-    private String irDataName;
-    public void setIrDataName(String irDataName) {
-        this.irDataName = irDataName;
-    }
-    public String getIrDataName() {
-        return irDataName;
-    }
-        
-    @FieldInfo(name = "irActionData", type = "varbinary", explain = "红外数据")
-    @Column(name = "irActionData"  ,length=8000, nullable = false)
-    private byte[] irActionData;
-    public void setIrActionData(byte[] irActionData) {
-        this.irActionData = irActionData;
-    }
-    public byte[] getIrActionData() {
-        return irActionData;
-    }
-        
-    @FieldInfo(name = "irConvertedData", type = "varbinary", explain = "红外数据")
-    @Column(name = "irConvertedData" ,length=8000, nullable = true)
-    private byte[] irConvertedData;
-    public void setIrConvertedData(byte[] irConvertedData) {
-        this.irConvertedData = irConvertedData;
-    }
-    public byte[] getIrConvertedData() {
-        return irConvertedData;
-    }
-        
+@AttributeOverride(name = "id", column = @Column(name = "irDataId", length = 20, nullable = false) )
+public class PtIrData extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
+	@FieldInfo(name = "红外数据所属品牌ID", type = "varchar(20) default ''", explain = "红外数据所属品牌")
+	@Column(name = "brandId", length = 20, columnDefinition = " default ''", nullable = true)
+	private String brandId;
+
+	@FieldInfo(name = "红外数据编码", type = "varchar(10) default ''", explain = "红外数据编码")
+	@Column(name = "irDataNo", length = 10, columnDefinition = "default ''", nullable = true)
+	private Long irDataNo;
+
+	@FieldInfo(name = "红外数据名称", type = "nvarchar(20) default ''", explain = "红外数据名称")
+	@Column(name = "irDataName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	private String irDataName;
+
+	@FieldInfo(name = "红外动作数据", type = "varbinary(255) NOT NULL", explain = "红外动作数据")
+	@Column(name = "irActionData", length = 255, nullable = false)
+	private Byte[] irActionData;
+
+	@FieldInfo(name = "红外转换数据", type = "varbinary(255)", explain = "红外转换数据")
+	@Column(name = "irConvertedData", length = 255, nullable = true)
+	private byte[] irConvertedData;
+
+	public String getBrandId() {
+		return brandId;
+	}
+
+	public void setBrandId(String brandId) {
+		this.brandId = brandId;
+	}
+
+	public Long getIrDataNo() {
+		return irDataNo;
+	}
+
+	public void setIrDataNo(Long irDataNo) {
+		this.irDataNo = irDataNo;
+	}
+
+	public String getIrDataName() {
+		return irDataName;
+	}
+
+	public void setIrDataName(String irDataName) {
+		this.irDataName = irDataName;
+	}
+
+	public Byte[] getIrActionData() {
+		return irActionData;
+	}
+
+	public void setIrActionData(Byte[] irActionData) {
+		this.irActionData = irActionData;
+	}
+
+	public byte[] getIrConvertedData() {
+		return irConvertedData;
+	}
+
+	public void setIrConvertedData(byte[] irConvertedData) {
+		this.irConvertedData = irConvertedData;
+	}
+
+	public PtIrData() {
+		super();
+	}
+
+	public PtIrData(String id) {
+		super(id);
+	}
+
 }

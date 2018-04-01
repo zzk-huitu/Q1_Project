@@ -13,26 +13,23 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 /**
+ * 办公室分配
  * 
- * ClassName: JwOfficeallot Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: JW_T_OFFICEALLOT实体类. date: 2016-08-23
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "JW_T_OfficeAllot")
-@AttributeOverride(name = "officeId", column = @Column(name = "officeId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "officeId", length = 20, nullable = false) )
 public class JwOfficeAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "roomId", type = "varchar(20)", explain = "房间Id")
+	@FieldInfo(name = "房间Id", type = "varchar(20) NOT NULL", explain = "房间Id")
 	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "teacherId", type = "varchar(20)", explain = "老师Id")
+	@FieldInfo(name = "老师Id", type = "varchar(20) NOT NULL", explain = "老师Id")
 	@Column(name = "teacherId", length = 20, nullable = false)
 	private String teacherId;
 
@@ -43,26 +40,26 @@ public class JwOfficeAllot extends BaseEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@Formula("(SELECT A.name FROM T_PT_User A WHERE A.userId=teacherId)")
-	@FieldInfo(name = "用于选择框显示教师姓名")
+	// @FieldInfo(name = "用于选择框显示教师姓名")
 	private String name;
 
 	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A "
 			+ " WHERE A.areaId=(SELECT B.areaId FROM dbo.T_PT_RoomInfo B" + " WHERE B.roomId=roomId))")
-	@FieldInfo(name = "楼层名称")
+	// @FieldInfo(name = "楼层名称")
 	private String areaName;
 
 	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A" + " WHERE A.areaId=(SELECT B.parentNode"
 			+ " FROM dbo.T_PT_RoomArea B WHERE B.areaId=" + " (SELECT C.areaId FROM dbo.T_PT_RoomInfo C"
 			+ " WHERE C.roomId=roomId)))")
-	@FieldInfo(name = "楼栋名称")
+	// @FieldInfo(name = "楼栋名称")
 	private String upAreaName;
 
 	@Formula("(SELECT A.userNumb FROM T_PT_User A  WHERE A.userId=teacherId)")
-	@FieldInfo(name = "教师工号")
+	// @FieldInfo(name = "教师工号")
 	private String userNumb;
 
 	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
-	@FieldInfo(name = "房间名")
+	// @FieldInfo(name = "房间名")
 	private String roomName;
 
 	public String getName() {
@@ -120,4 +117,13 @@ public class JwOfficeAllot extends BaseEntity implements Serializable {
 	public void setUpAreaName(String upAreaName) {
 		this.upAreaName = upAreaName;
 	}
+
+	public JwOfficeAllot() {
+		super();
+	}
+
+	public JwOfficeAllot(String id) {
+		super(id);
+	}
+
 }

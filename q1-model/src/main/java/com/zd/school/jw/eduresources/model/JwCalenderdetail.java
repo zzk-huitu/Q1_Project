@@ -29,23 +29,47 @@ import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
- * ClassName: JwCalenderdetail Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 校历节次信息表(JW_T_CALENDERDETAIL)实体类. date: 2016-08-30
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "T_PT_CalenderDetail")
-@AttributeOverride(name = "calenderDetailId", column = @Column(name = "calenderDetailId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "calenderDetailId", length = 20, nullable = false) )
 public class JwCalenderdetail extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "calenderId",type="varchar(20)",explain="校历Id")
-	@Column(name = "calenderId", columnDefinition = "varchar(20) default ''", nullable = true)
+	@FieldInfo(name = "calenderId", type = "varchar(20) NOT NULL", explain = "校历Id")
+	@Column(name = "calenderId", length = 20, nullable = false)
 	private String calenderId;
+
+	@FieldInfo(name = "senctionsName", type = "nvarchar(20)  NOT NULL", explain = "节次名称")
+	@Column(name = "senctionsName", columnDefinition = "nvarchar(20)", nullable = false)
+	private String senctionsName;
+
+	@FieldInfo(name = "时段", type = "int NOT NULL", explain = "时段标识:0-上午 ;1-下午;2-晚上")
+	@Column(name = "timeInterval", length = 1, nullable = false)
+	private String timeInterval;
+
+	@FieldInfo(name = "senctionCode", type = "nvarchar(10)  default ''", explain = "节次")
+	@Column(name = "senctionCode", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	private String senctionCode;
+
+	@FieldInfo(name = "beginTime", type = "datetime NOT NULL", explain = "开始时间")
+	@Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date beginTime;
+
+	@FieldInfo(name = "endTime", type = "datetime", explain = "结束时间")
+	@Column(name = "endTime", columnDefinition = "datetime", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date endTime;
+
+	@FieldInfo(name = "needSignIn", type = "bit default 0", explain = "需要考勤 :0-否; 1-是")
+	@Column(name = "needSignIn", columnDefinition = "default 0", nullable = true)
+	private Boolean needSignIn;
 
 	public String getCalenderId() {
 		return calenderId;
@@ -55,10 +79,6 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		this.calenderId = calenderId;
 	}
 
-	@FieldInfo(name = "senctionsName",type="nvarchar(20)",explain="节次名称")
-	@Column(name = "senctionsName", columnDefinition = "nvarchar(20)", nullable = false)
-	private String senctionsName;
-
 	public String getSenctionsName() {
 		return senctionsName;
 	}
@@ -67,61 +87,37 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 		this.senctionsName = senctionsName;
 	}
 
-	@FieldInfo(name = "amOrPm",type="Integer",explain="上/下午标识:0-上午 ;1-下午")
-	@Column(name = "amOrPm", nullable = false)
-	private Integer amOrPm;
-
-	public Integer getAmOrPm() {
-		return amOrPm;
+	public String getTimeInterval() {
+		return timeInterval;
 	}
 
-	public void setAmOrPm(Integer amOrPm) {
-		this.amOrPm = amOrPm;
+	public void setTimeInterval(String timeInterval) {
+		this.timeInterval = timeInterval;
 	}
 
-	@FieldInfo(name = "senctionsCode",type="nvarchar(10)",explain="节次")
-	@Column(name = "senctionsCode",columnDefinition = "nvarchar(10) default ''", nullable = true)
-	private String senctionsCode;
-
-	public String getSenctionsCode() {
-		return senctionsCode;
+	public String getSenctionCode() {
+		return senctionCode;
 	}
 
-	public void setSenctionsCode(String senctionsCode) {
-		this.senctionsCode = senctionsCode;
-	}
-
-	@FieldInfo(name = "beginTime",type="datetime",explain="开始时间")
-	@Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date beginTime;
-
-	public void setBeginTime(Date beginTime) {
-		this.beginTime = beginTime;
+	public void setSenctionCode(String senctionCode) {
+		this.senctionCode = senctionCode;
 	}
 
 	public Date getBeginTime() {
 		return beginTime;
 	}
 
-	@FieldInfo(name = "endTime",type="datetime",explain="结束时间")
-	@Column(name = "endTime", columnDefinition = "datetime", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date endTime;
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
 	}
 
 	public Date getEndTime() {
 		return endTime;
 	}
 
-	@FieldInfo(name = "needSignIn",type="Boolean",explain="需要考勤 :0-否; 1-是")
-	@Column(name = "needSignIn", columnDefinition = "default 0", nullable = true)
-	private Boolean needSignIn;
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
 
 	public Boolean getNeedSignIn() {
 		return needSignIn;
@@ -129,13 +125,14 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 
 	public void setNeedSignIn(Boolean needSignIn) {
 		this.needSignIn = needSignIn;
-
 	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
+	public JwCalenderdetail() {
+		super();
+	}
+
+	public JwCalenderdetail(String id) {
+		super(id);
+	}
+
 }

@@ -7,78 +7,76 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 /**
+ * 班牌参数设置
  * 
- * ClassName: EccClassparam Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 班牌参数设置表(ECC_T_CLASSPARAM)实体类. date: 2016-11-28
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "T_PT_ClassParam")
-@AttributeOverride(name = "classParamId", column = @Column(name = "classParamId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "classParamId", length = 20, nullable = false) )
 public class EccClassparam extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "signMode",type="varchar(4)",explain="签到模式")
-	@Column(name = "signMode", columnDefinition = "varchar(4) default ''", nullable = true)
+	@FieldInfo(name = "签到模式", type = "varchar(4) NOT NULL", explain = "签到模式")
+	@Column(name = "signMode", length=4, nullable = false)
 	private String signMode;
 
-	public void setSignMode(String signMode) {
-		this.signMode = signMode;
-	}
+	@FieldInfo(name = "作息", type = "varchar(20)  NOT NULL", explain = "作息节次标识")
+	@Column(name = "sectionId", length=20, nullable = false)
+	private String sectionId;
+
+	@FieldInfo(name = "签到提前时间", type = "int  NOT NULL", explain = "签到提前时间")
+	@Column(name = "signBefore", nullable = false)
+	private Integer signBefore;
+
+	@FieldInfo(name = "自动切换考试模式时间", type = "int NOT NULL", explain = "自动切换考试模式时间")
+	@Column(name = "examBefore", nullable = false)
+	private Integer examBefore;
 
 	public String getSignMode() {
 		return signMode;
 	}
 
-	@FieldInfo(name = "sectionsId",type="varchar(20)",explain="作息节次标识")
-	@Column(name = "sectionsId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String sectionsId;
-
-	public String getSectionsId() {
-		return sectionsId;
+	public void setSignMode(String signMode) {
+		this.signMode = signMode;
 	}
 
-	public void setSectionsId(String sectionsId) {
-		this.sectionsId = sectionsId;
+	public String getSectionId() {
+		return sectionId;
 	}
 
-	@FieldInfo(name = "signBefore",type="Integer",explain="签到提前时间")
-	@Column(name = "signBefore", columnDefinition = "default 0", nullable = true)
-	private Integer signBefore;
-
-	public void setSignBefore(Integer signBefore) {
-		this.signBefore = signBefore;
+	public void setSectionId(String sectionId) {
+		this.sectionId = sectionId;
 	}
 
 	public Integer getSignBefore() {
 		return signBefore;
 	}
 
-	@FieldInfo(name = "examBefore",type="Integer",explain="自动切换考试模式时间")
-	@Column(name = "examBefore", columnDefinition = "default 0", nullable = true)
-	private Integer examBefore;
-
-	public void setExamBefore(Integer examBefore) {
-		this.examBefore = examBefore;
+	public void setSignBefore(Integer signBefore) {
+		this.signBefore = signBefore;
 	}
 
 	public Integer getExamBefore() {
 		return examBefore;
 	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
+	public void setExamBefore(Integer examBefore) {
+		this.examBefore = examBefore;
+	}
+
+	public EccClassparam() {
+		super();
+	}
+
+	public EccClassparam(String id) {
+		super(id);
+	}
+
 }
