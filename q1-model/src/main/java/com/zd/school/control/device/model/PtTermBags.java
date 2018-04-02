@@ -7,7 +7,6 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
 
@@ -15,61 +14,58 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 @Entity
-@Table(name = "T_PT_DeviceBag")
-@AttributeOverride(name = "deviceBagId", column = @Column(name = "deviceBagId", length = 20, nullable = false))
+@Table(name = "T_PT_TermBag")
+@AttributeOverride(name = "id", column = @Column(name = "termBagId", length = 20, nullable = false) )
 public class PtTermBags extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "deviceSn", type = "varchar(14)", explain = "设备序列号")
-	@Column(name = "deviceSn", columnDefinition = "varchar(14) default ''", nullable = true)
-	private String deviceSn;
+	@FieldInfo(name = "termSn", type = "varchar(14) default ''", explain = "设备序列号")
+	@Column(name = "termSn", length = 14, columnDefinition = "default ''", nullable = true)
+	private String termSn;
 
-	@FieldInfo(name = "deviceTypeId", type = "Integer", explain = "设备类型")
-	@Column(name = "deviceTypeId")
-	private Integer deviceTypeId;
+	@FieldInfo(name = "设备类型", type = "varchar(4) NOT NULL", explain = "设备类型（对应系统参数表）")
+	@Column(name = "termTypeId", length = 4, nullable = false)
+	private String termTypeId;
 
-	@FieldInfo(name = "bagValue", type = "BigDecimal", explain = "设备余额")
-	@Column(name = "bagValue")
+	@FieldInfo(name = "bagValue", type = "decimal default 0", explain = "设备余额")
+	@Column(name = "bagValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal bagValue;
 
-	@FieldInfo(name = "totalBoughtValue", type = "BigDecimal", explain = "总买量")
-	@Column(name = "totalBoughtValue")
+	@FieldInfo(name = "totalBoughtValue", type = "decimal default 0", explain = "总买量")
+	@Column(name = "totalBoughtValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal totalBoughtValue;
 
-	@FieldInfo(name = "totalUsedValue", type = "BigDecimal", explain = "总用量")
-	@Column(name = "totalUsedValue")
+	@FieldInfo(name = "totalUsedValue", type = "decimal default 0", explain = "总用量")
+	@Column(name = "totalUsedValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal totalUsedValue;
 
-	@FieldInfo(name = "totalClearValue", type = "BigDecimal", explain = "总计清除补助量")
-	@Column(name = "totalClearValue")
+	@FieldInfo(name = "totalClearValue", type = "decimal default 0", explain = "总计清除补助量")
+	@Column(name = "totalClearValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal totalClearValue;
 
-	@FieldInfo(name = "surplusValue", type = "BigDecimal", explain = "补助剩余量")
-	@Column(name = "surplusValue")
+	@FieldInfo(name = "surplusValue", type = "decimal default 0", explain = "补助剩余量")
+	@Column(name = "surplusValue", columnDefinition = "default 0", nullable = true)
 	private BigDecimal surplusValue;
 
-	@Transient
-	@FieldInfo(name = "绑定费率规则")
-	protected String bdrole = "";
+	// @FieldInfo(name="设备名称")
+	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
+	private String termName;
 
-	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Deveice A WHERE A.deviceSn=deviceSn)")
-	public String deviceName;
-
-	public String getDeviceSn() {
-		return deviceSn;
+	public String getTermSn() {
+		return termSn;
 	}
 
-	public void setDeviceSn(String deviceSn) {
-		this.deviceSn = deviceSn;
+	public void setTermSn(String termSn) {
+		this.termSn = termSn;
 	}
 
-	public Integer getDeviceTypeId() {
-		return deviceTypeId;
+	public String getTermTypeId() {
+		return termTypeId;
 	}
 
-	public void setDeviceTypeId(Integer deviceTypeId) {
-		this.deviceTypeId = deviceTypeId;
+	public void setTermTypeId(String termTypeId) {
+		this.termTypeId = termTypeId;
 	}
 
 	public BigDecimal getBagValue() {
@@ -78,6 +74,14 @@ public class PtTermBags extends BaseEntity implements Serializable {
 
 	public void setBagValue(BigDecimal bagValue) {
 		this.bagValue = bagValue;
+	}
+
+	public BigDecimal getTotalBoughtValue() {
+		return totalBoughtValue;
+	}
+
+	public void setTotalBoughtValue(BigDecimal totalBoughtValue) {
+		this.totalBoughtValue = totalBoughtValue;
 	}
 
 	public BigDecimal getTotalUsedValue() {
@@ -96,14 +100,6 @@ public class PtTermBags extends BaseEntity implements Serializable {
 		this.totalClearValue = totalClearValue;
 	}
 
-	public BigDecimal getTotalBoughtValue() {
-		return totalBoughtValue;
-	}
-
-	public void setTotalBoughtValue(BigDecimal totalBoughtValue) {
-		this.totalBoughtValue = totalBoughtValue;
-	}
-
 	public BigDecimal getSurplusValue() {
 		return surplusValue;
 	}
@@ -112,20 +108,19 @@ public class PtTermBags extends BaseEntity implements Serializable {
 		this.surplusValue = surplusValue;
 	}
 
-	public String getDeviceName() {
-		return deviceName;
+	public String getTermName() {
+		return termName;
 	}
 
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
+	public void setTermName(String termName) {
+		this.termName = termName;
 	}
 
-	public String getBdrole() {
-		return bdrole;
+	public PtTermBags() {
+		super();
 	}
 
-	public void setBdrole(String bdrole) {
-		this.bdrole = bdrole;
+	public PtTermBags(String id) {
+		super(id);
 	}
-
 }

@@ -14,80 +14,33 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.TreeNodeEntity;
 
 /**
+ * 房间区域
  * 
- * ClassName: BuildRoomarea Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 教室区域实体类. date: 2016-08-23
- * 
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
+ * @author ZZK
+ *
  */
 
 @Entity
 @Table(name = "T_PT_RoomArea")
-@AttributeOverride(name = "areaId", column = @Column(name = "areaId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "areaId", length = 20, nullable = false) )
 public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "areaCode", type = "nvarchar(16)", explain = "区域编码")
-	@Column(name = "areaCode", columnDefinition = "nvarchar(16) default ''", nullable = true)
-	private String areaCode;
-
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-	}
-
-	public String getAreaCode() {
-		return areaCode;
-	}
-
-	@FieldInfo(name = "areaType", type = "varchar(20)", explain = "区域类型:5宿舍")
+	@FieldInfo(name = "区域类型", type = "varchar(10) NOT NULL", explain = "区域类型（01-学校 02-校区 03-楼栋 04-楼层）")
 	@Column(name = "areaType", length = 10, nullable = false)
 	private String areaType;
 
-	public void setAreaType(String areaType) {
-		this.areaType = areaType;
-	}
+	@FieldInfo(name = "区域编码", type = "varchar(10) default ''", explain = "区域编码")
+	@Column(name = "areaCode", length = 10, columnDefinition = "default ''", nullable = true)
+	private String areaCode;
 
-	public String getAreaType() {
-		return areaType;
-	}
+	@FieldInfo(name = "区域说明", type = "nvarchar(128) default ''", explain = "区域说明")
+	@Column(name = "areaExplain", columnDefinition = "nvarchar(128) default ''", nullable = true)
+	private String areaExplain;
 
-	@FieldInfo(name = "areaStatu", type = "varchar(10)", explain = "区域状态")
-	@Column(name = "areaStatu", columnDefinition = "varchar(10) default 0", nullable = true)
-	private Integer areaStatu;
-
-	public void setAreaStatu(Integer areaStatu) {
-		this.areaStatu = areaStatu;
-	}
-
-	public Integer getAreaStatu() {
-		return areaStatu;
-	}
-
-	@FieldInfo(name = "areaExplains", type = "nvarchar(128)", explain = "区域说明")
-	@Column(name = "areaExplains", columnDefinition = "nvarchar(128) default ''", nullable = true)
-	private String areaExplains;
-
-	public void setAreaExplains(String areaExplains) {
-		this.areaExplains = areaExplains;
-	}
-
-	public String getAreaExplains() {
-		return areaExplains;
-	}
-
-	@FieldInfo(name = "areaAddress", type = "nvarchar(128))", explain = "区域地址")
+	@FieldInfo(name = "区域地址", type = "nvarchar(128) default ''", explain = "区域地址")
 	@Column(name = "areaAddress", columnDefinition = "nvarchar(128) default ''", nullable = true)
 	private String areaAddress;
-
-	public void setAreaAddress(String areaAddress) {
-		this.areaAddress = areaAddress;
-	}
-
-	public String getAreaAddress() {
-		return areaAddress;
-	}
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -96,8 +49,52 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	 * @FieldInfo(name = "") private String field1;
 	 */
 	@FieldInfo(name = "区域房间数")
-	@Formula("(SELECT count(a.areaId) FROM T_PT_RoomInfo a WHERE a.areaId=areaId AND a.isDelete=0)")
+	// @Formula("(SELECT count(a.areaId) FROM T_PT_RoomInfo a WHERE
+	// a.areaId=areaId AND a.isDelete=0)")
 	private Integer roomCount;
+
+	// @FieldInfo(name = "上级区域名称")
+	@Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_RoomArea a WHERE a.areaId=parentNode)")
+	private String parentName;
+
+	//@FieldInfo(name = "上级区域类型")
+	@Transient
+	private String parentType;
+
+	
+	
+	
+	public String getAreaType() {
+		return areaType;
+	}
+
+	public void setAreaType(String areaType) {
+		this.areaType = areaType;
+	}
+
+	public String getAreaCode() {
+		return areaCode;
+	}
+
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
+	}
+
+	public String getAreaExplain() {
+		return areaExplain;
+	}
+
+	public void setAreaExplain(String areaExplain) {
+		this.areaExplain = areaExplain;
+	}
+
+	public String getAreaAddress() {
+		return areaAddress;
+	}
+
+	public void setAreaAddress(String areaAddress) {
+		this.areaAddress = areaAddress;
+	}
 
 	public Integer getRoomCount() {
 		return roomCount;
@@ -107,10 +104,6 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 		this.roomCount = roomCount;
 	}
 
-	@FieldInfo(name = "上级区域名称")
-	@Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_RoomArea a WHERE a.areaId=parentNode)")
-	private String parentName;
-
 	public String getParentName() {
 		return parentName;
 	}
@@ -118,10 +111,6 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	public void setParentName(String parentName) {
 		this.parentName = parentName;
 	}
-
-	@FieldInfo(name = "上级区域类型")
-	@Transient
-	private String parentType;
 
 	public String getParentType() {
 		return parentType;
@@ -137,9 +126,9 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BuildRoomarea(String uuid) {
+	public BuildRoomarea(String id) {
 
-		super(uuid);
+		super(id);
 		// TODO Auto-generated constructor stub
 
 	}

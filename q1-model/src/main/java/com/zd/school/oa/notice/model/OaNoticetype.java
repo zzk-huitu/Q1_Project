@@ -12,59 +12,64 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 /**
+ * 公告类型
  * 
- * ClassName: OaNoticetype Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 公告类型(T_PT_NoticeType)实体类. date: 2016-09-19
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "T_PT_NoticeType")
-@AttributeOverride(name = "noticeTypeId", column = @Column(name = "noticeTypeId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "noticeTypeId", length = 20, nullable = false) )
 public class OaNoticetype extends BaseEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "类型名称",type="nvarchar(64)",explain="公告类型名称")
-    @Column(name = "typeName", columnDefinition="nvarchar(64)", nullable = false)
-    private String typeName;
+	@FieldInfo(name = "类型名称", type = "nvarchar(10) NOT NULL", explain = "公告类型名称")
+	@Column(name = "typeName", columnDefinition = "nvarchar(10)", nullable = false)
+	private String typeName;
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
 
-    public String getTypeName() {
-        return typeName;
-    }
+	public String getTypeName() {
+		return typeName;
+	}
 
-    /**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
 
-    @Transient
-    private String failed;
-    @Transient
-    private boolean success;
+	@Transient
+	private String failed;
+	@Transient
+	private boolean success;
 
-    public String getFailed() {
-        return failed;
-    }
+	public String getFailed() {
+		return failed;
+	}
 
-    public void setFailed(String failed) {
-        this.failed = failed;
-    }
+	public void setFailed(String failed) {
+		this.failed = failed;
+	}
 
-    public boolean isSuccess() {
-        return success;
-    }
+	public boolean isSuccess() {
+		return success;
+	}
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
+
+	public OaNoticetype() {
+		super();
+	}
+
+	public OaNoticetype(String id) {
+		super(id);
+	}
 
 }

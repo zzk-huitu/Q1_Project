@@ -1,157 +1,130 @@
 package com.zd.school.jw.eduresources.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Formula;
-
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 /**
+ * 基础课程
  * 
- * ClassName: JwTBasecourse Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 基础课程信息实体类. date: 2016-03-13
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
-
 @Entity
 @Table(name = "T_PT_BaseCourse")
-@AttributeOverride(name = "baseCourseId", column = @Column(name = "baseCourseId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "baseCourseId", length = 20, nullable = false) )
 public class JwTBasecourse extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "schoolId", type = "varchar(20)", explain = "学校Id")
-	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String schoolId;
-
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
-	}
-
-	public String getSchoolId() {
-		return schoolId;
-	}
-
-	@FieldInfo(name = "courseCode", type = "nvarchar(20)", explain = "课程编码")
-	@Column(name = "courseCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String courseCode;
-
-	public void setCourseCode(String courseCode) {
-		this.courseCode = courseCode;
-	}
-
-	public String getCourseCode() {
-		return courseCode;
-	}
-
-	@FieldInfo(name = "courseName", type = "nvarchar(20)", explain = "课程名称")
-	@Column(name = "courseName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "课程名称", type = "nvarchar(20) NOT NULL", explain = "课程名称")
+	@Column(name = "courseName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String courseName;
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
-	}
+	@FieldInfo(name = "课程类别码", type = "varchar(10) NOT NULL", explain = "课程类别码")
+	@Column(name = "courseType", length = 10, nullable = false)
+	private String courseType;
+
+	@FieldInfo(name = "课程编码", type = "varchar(20) default ''", explain = "课程编码")
+	@Column(name = "courseCode", length = 20, columnDefinition = "default ''", nullable = true)
+	private String courseCode;
+
+	@FieldInfo(name = "课程等级码", type = "varchar(10) default ''", explain = "课程等级码")
+	@Column(name = "courseLevel", length = 10, columnDefinition = " default ''", nullable = true)
+	private String courseLevel;
+
+	@FieldInfo(name = "课程别名", type = "nvarchar(20) default ''", explain = "课程别名")
+	@Column(name = "aliasName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	private String aliasName;
+
+	@FieldInfo(name = "总学时", type = "int default 0", explain = "总学时")
+	@Column(name = "totalHour", columnDefinition = "default 0", nullable = true)
+	private Integer totalHour;
+
+	@FieldInfo(name = "周学时", type = "int default 0", explain = "周学时")
+	@Column(name = "weekHour", columnDefinition = "default 0", nullable = true)
+	private Integer weekHour;
+
+	@FieldInfo(name = "授课方式码", type = "varchar(10)  default ''", explain = "授课方式码")
+	@Column(name = "teachWay", columnDefinition = "varchar(10) default ''", nullable = true)
+	private String teachWay;
+
+	@FieldInfo(name = "课程简介", type = "nvarchar(500) default ''", explain = "课程简介")
+	@Column(name = "courseExplain", columnDefinition = "nvarchar(500) default ''", nullable = true)
+	private String courseExplain;
+
+	@FieldInfo(name = "课程要求", type = "nvarchar(500) default ''", explain = "课程要求")
+	@Column(name = "courseRequire", columnDefinition = "nvarchar(500) default ''", nullable = true)
+	private String courseRequire;
 
 	public String getCourseName() {
 		return courseName;
 	}
 
-	@FieldInfo(name = "courseType", type = "varchar(10)", explain = "课程类别码")
-	@Column(name = "courseType", columnDefinition = "varchar(10) default ''", nullable = true)
-	private String courseType;
-
-	public void setCourseType(String courseType) {
-		this.courseType = courseType;
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 
 	public String getCourseType() {
 		return courseType;
 	}
 
-	@FieldInfo(name = "courseLevel", type = "varchar(10)", explain = "课程等级码")
-	@Column(name = "courseLevel", columnDefinition = "varchar(10) default ''", nullable = true)
-	private String courseLevel;
+	public void setCourseType(String courseType) {
+		this.courseType = courseType;
+	}
 
-	public void setCourseLevel(String courseLevel) {
-		this.courseLevel = courseLevel;
+	public String getCourseCode() {
+		return courseCode;
+	}
+
+	public void setCourseCode(String courseCode) {
+		this.courseCode = courseCode;
 	}
 
 	public String getCourseLevel() {
 		return courseLevel;
 	}
 
-	@FieldInfo(name = "aliasName", type = "nvarchar(20)", explain = "课程别名")
-	@Column(name = "aliasName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String aliasName;
-
-	public void setAliasName(String aliasName) {
-		this.aliasName = aliasName;
+	public void setCourseLevel(String courseLevel) {
+		this.courseLevel = courseLevel;
 	}
 
 	public String getAliasName() {
 		return aliasName;
 	}
 
-	@FieldInfo(name = "totalHour", type = "BigDecimal", explain = "总学时")
-	@Column(name = "totalHour", nullable = true)
-	private BigDecimal totalHour;
-
-	public void setTotalHour(BigDecimal totalHour) {
-		this.totalHour = totalHour;
+	public void setAliasName(String aliasName) {
+		this.aliasName = aliasName;
 	}
 
-	public BigDecimal getTotalHour() {
+	public Integer getTotalHour() {
 		return totalHour;
 	}
 
-	@FieldInfo(name = "weekHour", type = "BigDecimal", explain = "周学时")
-	@Column(name = "weekHour", nullable = true)
-	private BigDecimal weekHour;
-
-	public void setWeekHour(BigDecimal weekHour) {
-		this.weekHour = weekHour;
+	public void setTotalHour(Integer totalHour) {
+		this.totalHour = totalHour;
 	}
 
-	public BigDecimal getWeekHour() {
+	public Integer getWeekHour() {
 		return weekHour;
 	}
 
-	@FieldInfo(name = "selfStudyHour", type = "BigDecimal", explain = "自学学时")
-	@Column(name = "selfStudyHour", nullable = true)
-	private BigDecimal selfStudyHour;
-
-	public BigDecimal getSelfStudyHour() {
-		return selfStudyHour;
-	}
-
-	public void setSelfStudyHour(BigDecimal selfStudyHour) {
-		this.selfStudyHour = selfStudyHour;
-	}
-
-	@FieldInfo(name = "teachWay", type = "varchar(10)", explain = "授课方式码")
-	@Column(name = "teachWay", columnDefinition = "varchar(10) default ''", nullable = true)
-	private String teachWay;
-
-	public void setTeachWay(String teachWay) {
-		this.teachWay = teachWay;
+	public void setWeekHour(Integer weekHour) {
+		this.weekHour = weekHour;
 	}
 
 	public String getTeachWay() {
 		return teachWay;
 	}
 
-	@FieldInfo(name = "courseExplain", type = "nvarchar(500)", explain = "课程简介")
-	@Column(name = "courseExplain", columnDefinition = "nvarchar(500) default ''", nullable = true)
-	private String courseExplain;
+	public void setTeachWay(String teachWay) {
+		this.teachWay = teachWay;
+	}
 
 	public String getCourseExplain() {
 		return courseExplain;
@@ -161,48 +134,22 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 		this.courseExplain = courseExplain;
 	}
 
-	@FieldInfo(name = "courseRequest", type = "nvarchar(500)", explain = "课程要求")
-	@Column(name = "courseRequest",  columnDefinition = "nvarchar(500) default ''", nullable = true)
-	private String courseRequest;
-
-	public void setCourseRequest(String courseRequest) {
-		this.courseRequest = courseRequest;
+	public String getCourseRequire() {
+		return courseRequire;
 	}
 
-	public String getCourseRequest() {
-		return courseRequest;
+	public void setCourseRequire(String courseRequire) {
+		this.courseRequire = courseRequire;
 	}
 
 	public JwTBasecourse() {
-
 		super();
 		// TODO Auto-generated constructor stub
-
 	}
 
-	public JwTBasecourse(String uuid) {
-
-		super(uuid);
+	public JwTBasecourse(String id) {
+		super(id);
 		// TODO Auto-generated constructor stub
-
-	}
-
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
-	@FieldInfo(name = "学校名称")
-	@Formula("(SELECT a.nodeText from T_PT_Department a where a.deptId=schoolId)")
-	private String schoolName;
-
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	public String getSchoolName() {
-		return schoolName;
 	}
 
 }

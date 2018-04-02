@@ -3,8 +3,8 @@ package com.zd.school.control.device.model;
 import com.zd.core.annotation.FieldInfo;
 
 /**
- * 电量剩余查询
- * @author hucy
+ * POJO实体类
+ * @author ZZK
  *
  */
 public class PtPowerResidue {

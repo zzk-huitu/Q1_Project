@@ -15,13 +15,9 @@ import com.zd.core.model.extjs.ExtTreeNode;
 import java.util.List;
 
 /**
- * ClassName:BuildRoomAreaTree Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON. Date: 2016年8月24日 上午9:55:33
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO 实体类（待修改）
+ * @author ZZK
+ *
  */
 public class BuildRoomAreaTree extends ExtTreeNode<BuildRoomAreaTree> {
 	@FieldInfo(name = "区域编码")
@@ -116,8 +112,8 @@ public class BuildRoomAreaTree extends ExtTreeNode<BuildRoomAreaTree> {
 		this.areaCode = areaCode;
 		this.areaType = areaType;
 		this.areaStatu = areaStatu;
-		this.areaExplains = areaExplains;
-		this.areaAddress = areaAddress;
+		this.areaExplains = areaDesc;
+		this.areaAddress = areaAddr;
 		this.parentNode = parentNode;
 		// this.orderIndex = orderIndex;
 		this.roomCount = roomCount;

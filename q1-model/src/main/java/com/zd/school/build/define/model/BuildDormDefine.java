@@ -16,21 +16,89 @@ import com.zd.core.model.BaseEntity;
 /**
  * 宿舍定义
  * 
- * @ClassName: BuildDormDefine
- * @Description: TODO
- * @author: hucy
- * @date: 2016年4月20日 下午3:45:12
+ * @author ZZK
  *
  */
 @Entity
 @Table(name = "T_PT_DormDefine")
-@AttributeOverride(name = "dormId", column = @Column(name = "dormId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "dormId", length = 20, nullable = false) )
 public class BuildDormDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "roomId", type = "varchar(20)", explain = "房间Id")
+	@FieldInfo(name = "房间Id", type = "varchar(20) NOT NULL", explain = "房间Id")
 	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
+
+	@FieldInfo(name = "区域Id", type = "varchar(20) NOT NULL", explain = "区域Id")
+	@Column(name = "areaId", length = 20, nullable = false)
+	private String areaId;
+
+	@FieldInfo(name = "宿舍类型", type = "varchar(1) NOT NULL default '3'", explain = "宿舍类型:1男、2女、3不限")
+	@Column(name = "dormType", length = 1, columnDefinition = "default '3'", nullable = false)
+	private String dormType;
+
+	@FieldInfo(name = "宿舍类别", type = "varchar(1) NOT NULL default '1'", explain = "宿舍类别:1学生宿舍、2教师宿舍")
+	@Column(name = "dormCategory", length = 1, columnDefinition = "default '1'", nullable = false)
+	private String dormCategory;
+
+	@FieldInfo(name = "床位数", type = "tinyint NOT NULL", explain = "床位数")
+	@Column(name = "bedCount", columnDefinition = "tinyint", nullable = false)
+	private Byte bedCount;
+
+	@FieldInfo(name = "柜子数", type = "tinyint NOT NULL", explain = "柜子数")
+	@Column(name = "sarkCount", columnDefinition = "tinyint", nullable = false)
+	private Byte sarkCount;
+
+	@FieldInfo(name = "宿舍管理员", type = "varchar(20) default ''", explain = "宿舍管理员(教师ID)")
+	@Column(name = "dormAdminId", length = 20, columnDefinition = "default ''", nullable = true)
+	private String dormAdminId;
+
+	@FieldInfo(name = "宿舍管理员姓名", type = "nvarchar(10)  default ''", explain = "宿舍管理员姓名")
+	@Column(name = "dormAdminName", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	private String dormAdminName;
+
+	@FieldInfo(name = "宿舍电话", type = "varchar(20)", explain = "电话")
+	@Column(name = "dormPhone", length = 20, columnDefinition = "default ''", nullable = true)
+	private String dormPhone;
+
+	@FieldInfo(name = "传真", type = "varchar(20)", explain = "传真")
+	@Column(name = "dormFax", length = 20, columnDefinition = "default ''", nullable = true)
+	private String dormFax;
+
+	@FieldInfo(name = "分配状态", type = "bit default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
+	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
+	private Boolean isAllot;
+
+	@FieldInfo(name = "是否混班宿舍", type = "bit default 0", explain = "是否混班宿舍：0否,1是")
+	@Column(name = "isMixed", columnDefinition = "default 0", nullable = true)
+	private Boolean isMixed;
+
+	@FieldInfo(name = "宿舍名称", type = "nvarchar(20)  default ''", explain = "宿舍名称")
+	@Column(name = "dormName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	private String dormName;
+
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 8
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
+	// @FieldInfo(name = "房间名称")
+	private String roomName;
+
+	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A WHERE A.areaId=areaId)")
+	// @FieldInfo(name = "楼层名称")
+	private String areaName;
+
+	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A" + " WHERE A.areaId=(SELECT B.parentNode "
+			+ " FROM dbo.T_PT_RoomArea B WHERE B.areaId=areaId))")
+	// @FieldInfo(name = "楼栋名称")
+	private String upAreaName;
+
+	@Transient
+	// @FieldInfo(name = "用于教师id标识")
+	private String teacherId;
 
 	public String getRoomId() {
 		return roomId;
@@ -40,10 +108,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.roomId = roomId;
 	}
 
-	@FieldInfo(name = "areaId", type = "varchar(20)", explain = "区域Id")
-	@Column(name = "areaId", length = 20, nullable = false)
-	private String areaId;
-
 	public String getAreaId() {
 		return areaId;
 	}
@@ -51,10 +115,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	public void setAreaId(String areaId) {
 		this.areaId = areaId;
 	}
-
-	@FieldInfo(name = "dormType", type = "varchar(2)", explain = "宿舍类型:1男、2女、3不限")
-	@Column(name = "dormType", columnDefinition = "varchar(2) default '3'", nullable = true)
-	private String dormType;
 
 	public String getDormType() {
 		return dormType;
@@ -64,21 +124,13 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormType = dormType;
 	}
 
-	@FieldInfo(name = "dormTypeLb", type = "varchar(2)", explain = "宿舍类别:1学生宿舍、2教师宿舍")
-	@Column(name = "dormTypeLb", columnDefinition = "varchar(2) default ''", nullable = true)
-	private String dormTypeLb;
-
-	public String getDormTypeLb() {
-		return dormTypeLb;
+	public String getDormCategory() {
+		return dormCategory;
 	}
 
-	public void setDormTypeLb(String dormTypeLb) {
-		this.dormTypeLb = dormTypeLb;
+	public void setDormCategory(String dormCategory) {
+		this.dormCategory = dormCategory;
 	}
-
-	@FieldInfo(name = "bedCount", type = "Byte", explain = "床位数")
-	@Column(name = "bedCount", nullable = false)
-	private Byte bedCount;
 
 	public Byte getBedCount() {
 		return bedCount;
@@ -88,10 +140,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.bedCount = bedCount;
 	}
 
-	@FieldInfo(name = "sarkCount", type = "Byte", explain = "柜子数")
-	@Column(name = "sarkCount", nullable = false)
-	private Byte sarkCount;
-
 	public Byte getSarkCount() {
 		return sarkCount;
 	}
@@ -99,10 +147,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	public void setSarkCount(Byte sarkCount) {
 		this.sarkCount = sarkCount;
 	}
-
-	@FieldInfo(name = "dormAdminId", type = "varchar(20)", explain = "宿舍管理员(教师ID)")
-	@Column(name = "dormAdminId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String dormAdminId;
 
 	public String getDormAdminId() {
 		return dormAdminId;
@@ -112,10 +156,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormAdminId = dormAdminId;
 	}
 
-	@FieldInfo(name = "dormAdminName", type = "nvarchar(10)", explain = "宿舍管理员姓名")
-	@Column(name = "dormAdminName", columnDefinition = "nvarchar(10) default ''", nullable = true)
-	private String dormAdminName;
-
 	public String getDormAdminName() {
 		return dormAdminName;
 	}
@@ -123,10 +163,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	public void setDormAdminName(String dormAdminName) {
 		this.dormAdminName = dormAdminName;
 	}
-
-	@FieldInfo(name = "电话", type = "varchar(20)", explain = "区域Id")
-	@Column(name = "dormPhone", columnDefinition = "varchar(11) default ''", nullable = true)
-	private String dormPhone;
 
 	public String getDormPhone() {
 		return dormPhone;
@@ -136,21 +172,13 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormPhone = dormPhone;
 	}
 
-	@FieldInfo(name = "dormFax", type = "varchar(20)", explain = "传真")
-	@Column(name = "dormFax", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String dormFax;
-
-	public void setDormFax(String dormFax) {
-		this.dormFax = dormFax;
-	}
-
 	public String getDormFax() {
 		return dormFax;
 	}
 
-	@FieldInfo(name = "isAllot", type = "Boolean", explain = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
-	private Boolean isAllot;
+	public void setDormFax(String dormFax) {
+		this.dormFax = dormFax;
+	}
 
 	public Boolean getIsAllot() {
 		return isAllot;
@@ -160,10 +188,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.isAllot = isAllot;
 	}
 
-	@FieldInfo(name = "isMixed", type = "Boolean", explain = "是否混班宿舍：0否,1是")
-	@Column(name = "isMixed", columnDefinition = "default 0", nullable = true)
-	private Boolean isMixed;
-
 	public Boolean getIsMixed() {
 		return isMixed;
 	}
@@ -171,10 +195,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	public void setIsMixed(Boolean isMixed) {
 		this.isMixed = isMixed;
 	}
-
-	@FieldInfo(name = "dormName", type = "varchar(20)", explain = "宿舍名称")
-	@Column(name = "dormName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String dormName;
 
 	public String getDormName() {
 		return dormName;
@@ -184,16 +204,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormName = dormName;
 	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 8
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
-	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
-	@FieldInfo(name = "房间名称")
-	private String roomName;
-
 	public String getRoomName() {
 		return roomName;
 	}
@@ -201,10 +211,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	public void setRoomName(String roomName) {
 		this.roomName = roomName;
 	}
-
-	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A WHERE A.areaId=areaId)")
-	@FieldInfo(name = "楼层名称")
-	private String areaName;
 
 	public String getAreaName() {
 		return areaName;
@@ -214,11 +220,6 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.areaName = areaName;
 	}
 
-	@Formula("(SELECT A.nodeText FROM dbo.T_PT_RoomArea A" + " WHERE A.areaId=(SELECT B.parentNode "
-			+ " FROM dbo.T_PT_RoomArea B WHERE B.areaId=areaId))")
-	@FieldInfo(name = "楼栋名称")
-	private String upAreaName;
-
 	public String getUpAreaName() {
 		return upAreaName;
 	}
@@ -227,16 +228,20 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.upAreaName = upAreaName;
 	}
 
-	@Transient
-	@FieldInfo(name = "用于教师id标识")
-	private String teacherId;
-
 	public String getTeacherId() {
 		return teacherId;
 	}
 
 	public void setTeacherId(String teacherId) {
 		this.teacherId = teacherId;
+	}
+
+	public BuildDormDefine() {
+		super();
+	}
+
+	public BuildDormDefine(String id) {
+		super(id);
 	}
 
 }

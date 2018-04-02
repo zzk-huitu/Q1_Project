@@ -20,90 +20,100 @@ import com.zd.core.util.DateTimeSerializer;
 
 /**
  * 
- * ClassName: OaNoticeauditor 
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: 公告审核人(T_PT_NoticeAuditor)实体类.
- * date: 2016-12-21
+ * ClassName: OaNoticeauditor Function: TODO ADD FUNCTION. Reason: TODO ADD
+ * REASON(可选). Description: 公告审核人(T_PT_NoticeAuditor)实体类. date: 2016-12-21
  *
- * @author  luoyibo 创建文件
+ * @author luoyibo 创建文件
  * @version 0.1
  * @since JDK 1.8
  */
- 
+
 @Entity
 @Table(name = "T_PT_NoticeAuditor")
-@AttributeOverride(name = "noticeAuditorId", column = @Column(name = "noticeAuditorId", length = 20, nullable = false))
-public class OaNoticeauditor extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
+@AttributeOverride(name = "id", column = @Column(name = "noticeAuditorId", length = 20, nullable = false) )
+public class OaNoticeauditor extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name="noticeId")
-    private OaNotice oaNotice;
-    
-    public OaNotice getOaNotice() {
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(name = "noticeId")
+	private OaNotice oaNotice;
+
+	@FieldInfo(name = "人员ID", type = "varchar(20) NOT NULL", explain = "公告的审核人员ID")
+	@Column(name = "userId", length = 20, nullable = false)
+	private String userId;
+
+	@FieldInfo(name = "姓名(对应员工姓名)", type = "nvarchar(10) NOT NULL", explain = "公告的审核人员姓名")
+	@Column(name = "name", columnDefinition = "nvarchar(10)", nullable = false)
+	private String name;
+
+	@FieldInfo(name = "审核意见", type = "nvarchar(64)  defalut ''", explain = "公告的审核意见")
+	@Column(name = "auditOpinion", columnDefinition = "nvarchar(64) defalut ''", nullable = true)
+	private String auditOpinion;
+
+	@FieldInfo(name = "审核状态", type = "varchar(1) NOT NULL", explain = "公告的审核审核状态(0-待审核 1-审核通过 2-审核不通过)")
+	@Column(name = "auditState", length = 1, nullable = false)
+	private String auditState;
+
+	@FieldInfo(name = "审核日期", type = "datetime", explain = "公告的审核日期")
+	@Column(name = "auditDate", columnDefinition = "datetime", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date auditDate;
+
+	public OaNotice getOaNotice() {
 		return oaNotice;
 	}
+
 	public void setOaNotice(OaNotice oaNotice) {
 		this.oaNotice = oaNotice;
 	}
 
-	@FieldInfo(name = "人员ID",type="varchar(20)",explain="公告的审核人员ID")
-    @Column(name = "userId", length = 20, nullable = false)
-    private String userId;
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-    public String getUserId() {
-        return userId;
-    }
-        
-    @FieldInfo(name = "姓名(对应员工姓名)",type="nvarchar(32)",explain="公告的审核人员姓名")
-    @Column(name = "name",columnDefinition="nvarchar(32)", nullable = false)
-    private String name;
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-        
-    @FieldInfo(name = "审核意见",type="nvarchar(64)",explain="公告的审核意见")
-    @Column(name = "auditOpinion", columnDefinition="nvarchar(64) defalut ''", nullable = true)
-    private String auditOpinion;
-    public void setAuditOpinion(String auditOpinion) {
-        this.auditOpinion = auditOpinion;
-    }
-    public String getAuditOpinion() {
-        return auditOpinion;
-    }
-        
-    @FieldInfo(name = "审核状态(0-待审核 1-审核通过 2-审核不通过)",type="Integer",explain="公告的审核审核状态")
-    @Column(name = "auditState", length = 1, nullable = false)
-    private Integer auditState;
-    public void setAuditState(Integer auditState) {
-        this.auditState = auditState;
-    }
-    public Integer getAuditState() {
-        return auditState;
-    }
-        
-    @FieldInfo(name = "审核日期",type="datetime",explain="公告的审核日期")
-    @Column(name = "auditDate", columnDefinition="datetime", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    @JsonSerialize(using=DateTimeSerializer.class)
-    private Date auditDate;
-    public void setAuditDate(Date auditDate) {
-        this.auditDate = auditDate;
-    }
-    public Date getAuditDate() {
-        return auditDate;
-    }
-        
+	public String getUserId() {
+		return userId;
+	}
 
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAuditOpinion() {
+		return auditOpinion;
+	}
+
+	public void setAuditOpinion(String auditOpinion) {
+		this.auditOpinion = auditOpinion;
+	}
+
+	public String getAuditState() {
+		return auditState;
+	}
+
+	public void setAuditState(String auditState) {
+		this.auditState = auditState;
+	}
+
+	public Date getAuditDate() {
+		return auditDate;
+	}
+
+	public void setAuditDate(Date auditDate) {
+		this.auditDate = auditDate;
+	}
+
+	public OaNoticeauditor() {
+		super();
+	}
+
+	public OaNoticeauditor(String id) {
+		super(id);
+	}
+
 }

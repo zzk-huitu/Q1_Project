@@ -6,6 +6,7 @@ import java.util.List;
 import com.zd.core.util.TagLenVal;
 
 /**
+ * POJO类
  * @author  zenglj 创建文件
  * @version 0.1
  * @since JDK 1.8

@@ -1,159 +1,143 @@
 package com.zd.school.jw.ecc.model;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
-import com.zd.core.util.DateTimeSerializer;
 
 /**
+ * 课程考勤规则
  * 
- * ClassName: JwCheckrule Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 课程考勤规则(JW_T_CHECKRULE)实体类. date: 2017-05-10
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "T_PT_AttenceRule")
-@AttributeOverride(name = "attenceRuleId", column = @Column(name = "attenceRuleId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "attenceRuleId", length = 20, nullable = false) )
 public class JwCheckrule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "ruleName",type="nvarchar(20)",explain="规则名称")
-	@Column(name = "ruleName",  columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "规则名称", type = "nvarchar(20) NOT NULL", explain = "规则名称")
+	@Column(name = "ruleName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String ruleName;
 
-	public void setRuleName(String ruleName) {
-		this.ruleName = ruleName;
-	}
+	@FieldInfo(name = "考勤模式", type = "varchar(1) NOT NULL", explain = "考勤模式:1-按半天考勤 ;2-按全天考勤; 3-按节次考勤")
+	@Column(name = "attenceMode", length = 1, nullable = false)
+	private String attenceMode;
+
+	@FieldInfo(name = "签到提前分钟", type = "int NOT NULL", explain = "签到提前分钟")
+	@Column(name = "inAdvanceTime", nullable = false)
+	private Integer inAdvanceTime;
+
+	@FieldInfo(name = "迟到分钟", type = "int NOT NULL", explain = "迟到分钟")
+	@Column(name = "beLateTime", nullable = false)
+	private Integer beLateTime;
+
+	@FieldInfo(name = "缺勤分钟", type = "int NOT NULL", explain = "缺勤分钟")
+	@Column(name = "absenceTime", nullable = false)
+	private Integer absenceTime;
+
+	@FieldInfo(name = "是否需要签退", type = "bit NOT NULL", explain = "是否需要签退 :0-不需要; 1-需要")
+	@Column(name = "needSignOut", nullable = false)
+	private Boolean needSignOut;
+
+	@FieldInfo(name = "签退提前分钟", type = "int default 0", explain = "签退提前分钟")
+	@Column(name = "outAdvanceTimme", columnDefinition = "default 0", nullable = true)
+	private Integer outAdvanceTimme;
+
+	@FieldInfo(name = "早退分钟", type = "int default 0", explain = "早退分钟")
+	@Column(name = "leaveEarlyTime", columnDefinition = "default 0", nullable = true)
+	private Integer leaveEarlyTime;
+
+	@FieldInfo(name = "签退延迟分钟", type = "int default 0", explain = "签退延迟分钟")
+	@Column(name = "leaveDelayTime", columnDefinition = "default 0", nullable = true)
+	private Integer leaveDelayTime;
+
+	@FieldInfo(name = "规则说明", type = "nvarchar(128)  default ''", explain = "规则说明")
+	@Column(name = "ruleExplain", columnDefinition = "nvarchar(128) default ''", nullable = true)
+	private String ruleExplain;
+
+	@FieldInfo(name = "启用标识", type = "bit NOT NULL", explain = "启用标识:0-不启用 ;1-启用")
+	@Column(name = "startUsing", nullable = false)
+	private Boolean startUsing;
 
 	public String getRuleName() {
 		return ruleName;
 	}
 
-	@FieldInfo(name = "attenceMode",type="Integer",explain="考勤模式:1-按半天考勤 ;2-按全天考勤; 3-按节次考勤")
-	@Column(name = "attenceMode", nullable = false)
-	private Integer attenceMode;
+	public void setRuleName(String ruleName) {
+		this.ruleName = ruleName;
+	}
 
-	public Integer getAttenceMode() {
+	public String getAttenceMode() {
 		return attenceMode;
 	}
 
-	public void setAttenceMode(Integer attenceMode) {
+	public void setAttenceMode(String attenceMode) {
 		this.attenceMode = attenceMode;
 	}
 
-	@FieldInfo(name = "inAdvance",type="Integer",explain="签到提前分钟")
-	@Column(name = "inAdvance", nullable = false)
-	private Integer inAdvance;
-
-	public Integer getInAdvance() {
-		return inAdvance;
+	public Integer getInAdvanceTime() {
+		return inAdvanceTime;
 	}
 
-	public void setInAdvance(Integer inAdvance) {
-		this.inAdvance = inAdvance;
+	public void setInAdvanceTime(Integer inAdvanceTime) {
+		this.inAdvanceTime = inAdvanceTime;
 	}
 
-	@FieldInfo(name = "beLate",type="Integer",explain="迟到分钟")
-	@Column(name = "beLate", nullable = false)
-	private Integer beLate;
-
-	public Integer getBeLate() {
-		return beLate;
+	public Integer getBeLateTime() {
+		return beLateTime;
 	}
 
-	public void setBeLate(Integer beLate) {
-		this.beLate = beLate;
+	public void setBeLateTime(Integer beLateTime) {
+		this.beLateTime = beLateTime;
 	}
 
-	@FieldInfo(name = "absenceMinute",type="Integer",explain="缺勤分钟")
-	@Column(name = "absenceMinute", nullable = false)
-	private Integer absenceMinute;
-
-	public Integer getAbsenceMinute() {
-		return absenceMinute;
+	public Integer getAbsenceTime() {
+		return absenceTime;
 	}
 
-	public void setAbsenceMinute(Integer absenceMinute) {
-		this.absenceMinute = absenceMinute;
+	public void setAbsenceTime(Integer absenceTime) {
+		this.absenceTime = absenceTime;
 	}
 
-	@FieldInfo(name = "needSignOut",type="Integer",explain="是否需要签退 :0-不需要; 1-需要")
-	@Column(name = "needSignOut", nullable = false)
-	private Integer needSignOut;
-
-	public Integer getNeedSignOut() {
+	public Boolean getNeedSignOut() {
 		return needSignOut;
 	}
 
-	public void setNeedSignOut(Integer needSignOut) {
+	public void setNeedSignOut(Boolean needSignOut) {
 		this.needSignOut = needSignOut;
 	}
 
-	@FieldInfo(name = "signOutAdvanceMin",type="Integer",explain="签退提前分钟")
-	@Column(name = "signOutAdvanceMin",columnDefinition = "default 0", nullable = true)
-	private Integer signOutAdvanceMin;
-
-	public Integer getSignOutAdvanceMin() {
-		return signOutAdvanceMin;
+	public Integer getOutAdvanceTimme() {
+		return outAdvanceTimme;
 	}
 
-	public void setSignOutAdvanceMin(Integer signOutAdvanceMin) {
-		this.signOutAdvanceMin = signOutAdvanceMin;
+	public void setOutAdvanceTimme(Integer outAdvanceTimme) {
+		this.outAdvanceTimme = outAdvanceTimme;
 	}
 
-	@FieldInfo(name = "leaveEarlyMinute",type="Integer",explain="早退分钟")
-	@Column(name = "leaveEarlyMinute", columnDefinition = "default 0", nullable = true)
-	private Integer leaveEarlyMinute;
-
-	public Integer getLeaveEarlyMinute() {
-		return leaveEarlyMinute;
+	public Integer getLeaveEarlyTime() {
+		return leaveEarlyTime;
 	}
 
-	public void setLeaveEarlyMinute(Integer leaveEarlyMinute) {
-		this.leaveEarlyMinute = leaveEarlyMinute;
+	public void setLeaveEarlyTime(Integer leaveEarlyTime) {
+		this.leaveEarlyTime = leaveEarlyTime;
 	}
 
-	@FieldInfo(name = "leaveDelayMinute",type="Integer",explain="签退延迟分钟")
-	@Column(name = "leaveDelayMinute", columnDefinition = "default 0", nullable = true)
-	private Integer leaveDelayMinute;
-
-	public Integer getLeaveDelayMinute() {
-		return leaveDelayMinute;
+	public Integer getLeaveDelayTime() {
+		return leaveDelayTime;
 	}
 
-	public void setLeaveDelayMinute(Integer leaveDelayMinute) {
-		this.leaveDelayMinute = leaveDelayMinute;
+	public void setLeaveDelayTime(Integer leaveDelayTime) {
+		this.leaveDelayTime = leaveDelayTime;
 	}
-
-	@FieldInfo(name = "ruleExplain",type="nvarchar(128)",explain="规则说明")
-	@Column(name = "ruleExplain", columnDefinition = "nvarchar(128) default ''", nullable = true)
-	private String ruleExplain;
 
 	public String getRuleExplain() {
 		return ruleExplain;
@@ -163,10 +147,6 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 		this.ruleExplain = ruleExplain;
 	}
 
-	@FieldInfo(name = "startUsing",type="Boolean",explain="启用标识:0-不启用 ;1-启用")
-	@Column(name = "startUsing", nullable = false)
-	private Boolean startUsing;
-
 	public Boolean getStartUsing() {
 		return startUsing;
 	}
@@ -174,10 +154,13 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 	public void setStartUsing(Boolean startUsing) {
 		this.startUsing = startUsing;
 	}
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
+
+	public JwCheckrule() {
+		super();
+	}
+
+	public JwCheckrule(String id) {
+		super();
+	}
+
 }

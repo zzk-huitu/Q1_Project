@@ -13,7 +13,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
@@ -23,125 +22,113 @@ import com.zd.school.excel.annotation.MapperCell;
 /**
  * 电控使用状态
  * 
- * @author hucy
- *
+ * @author ZZK Term：terminal 终端机
  */
 @Entity
-@Table(name = "T_PT_DeviceStatus")
-@AttributeOverride(name = "deviceStatusId", column = @Column(name = "deviceStatusId", length = 20, nullable = false))
+@Table(name = "T_DK_TermStatus")
+@AttributeOverride(name = "id", column = @Column(name = "termStatusId", length = 20, nullable = false) )
 public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "deviceSn", type = "varchar(14)", explain = "设备序列号")
-	@Column(name = "deviceSn", columnDefinition = "varchar(14) default ''", nullable = true)
-	private String deviceSn;
+	@FieldInfo(name = "设备序列号", type = "varchar(14) default ''", explain = "设备序列号")
+	@Column(name = "termSn", length = 14, columnDefinition = "default ''", nullable = true)
+	private String termSn;
 
-	@FieldInfo(name = "roomId", type = "nvarchar(20)", explain = "房间编号")
-	@Column(name = "roomId", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "房间ID", type = "varchar(20) default ''", explain = "房间编号")
+	@Column(name = "roomId", length = 20, columnDefinition = "default ''", nullable = true)
 	private String roomId;
 
-	@MapperCell(cellName = "状态的日期", order = 1)
-	@FieldInfo(name = "statusDate", type = "date", explain = "状态的日期")
+	@FieldInfo(name = "状态的日期", type = "date", explain = "状态的日期")
 	@Temporal(TemporalType.DATE)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "statusDate", columnDefinition = "date")
+	@Column(name = "statusDate", columnDefinition = "date", nullable = true)
 	private Date statusDate;
 
-	@MapperCell(cellName = "状态的小时", order = 2)
-	@FieldInfo(name = "statusHour", type = "Integer", explain = "状态的小时")
-	@Column(name = "statusHour")
+	@FieldInfo(name = "状态的小时", type = "int default 0", explain = "状态的小时")
+	@Column(name = "statusHour", columnDefinition = "default 0", nullable = true)
 	private Integer statusHour;
 
-	@MapperCell(cellName = "当前小时用电量", order = 3)
-	@FieldInfo(name = "useKwh", type = "double", explain = "当前小时用电量")
-	@Column(name = "useKwh")
-	private double useKwh;
+	@FieldInfo(name = "当前小时用电量", type = "float default 0", explain = "当前小时用电量")
+	@Column(name = "useKwh", columnDefinition = "default 0", nullable = true)
+	private Float useKwh;
 
-	@MapperCell(cellName = "已购电总量", order = 4)
-	@FieldInfo(name = "boughtKwh", type = "double", explain = "已购电总量")
-	@Column(name = "boughtKwh")
-	private double boughtKwh;
+	@FieldInfo(name = "已购电总量", type = "float default 0", explain = "已购电总量")
+	@Column(name = "buyedKwh", columnDefinition = "default 0", nullable = true)
+	private Float buyedKwh;
 
-	@MapperCell(cellName = "已使用总电量", order = 5)
-	@FieldInfo(name = "totalUsedKwh", type = "double", explain = "已使用总电量")
-	@Column(name = "totalUsedKwh")
-	private double totalUsedKwh;
+	@FieldInfo(name = "已使用总电量", type = "float default 0", explain = "已使用总电量")
+	@Column(name = "totalUsedKwh", columnDefinition = "default 0", nullable = true)
+	private Float totalUsedKwh;
 
-	@MapperCell(cellName = "剩余总电量", order = 6)
-	@FieldInfo(name = "surplusKwh", type = "double", explain = "剩余总电量")
-	@Column(name = "surplusKwh")
-	private double surplusKwh;
+	@FieldInfo(name = "剩余总电量", type = "float default 0", explain = "剩余总电量")
+	@Column(name = "surplusKwh", columnDefinition = "default 0", nullable = true)
+	private Float surplusKwh;
 
-	@MapperCell(cellName = "电压", order = 7)
-	@FieldInfo(name = "voltage", type = "Bigint", explain = "电压")
-	@Column(name = "voltage")
-	private long voltage;
+	@FieldInfo(name = "电压", type = "Bigint default 0", explain = "电压")
+	@Column(name = "voltage", columnDefinition = "default 0", nullable = true)
+	private Long voltage;
 
-	@MapperCell(cellName = "电流", order = 8)
-	@FieldInfo(name = "currents", type = "Bigint", explain = "电流")
-	@Column(name = "currents")
-	private long currents;
+	@FieldInfo(name = "电流", type = "Bigint default 0", explain = "电流")
+	@Column(name = "currents", columnDefinition = "default 0", nullable = true)
+	private Long currents;
 
-	@MapperCell(cellName = "功率", order = 9)
-	@FieldInfo(name = "power", type = "Bigint", explain = "功率")
-	@Column(name = "power")
-	private long power;
+	@FieldInfo(name = "功率", type = "Bigint default 0", explain = "功率")
+	@Column(name = "power", columnDefinition = "default 0", nullable = true)
+	private Long power;
 
 	@MapperCell(cellName = "状态的时间", order = 10)
 	@FieldInfo(name = "statusTime", type = "datetime", explain = "状态的时间")
 	@Column(name = "statusTime", columnDefinition = "datetime")
 	private Date statusTime;
 
-	@MapperCell(cellName = "房间名称", order = 11)
 	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
-	@FieldInfo(name = "房间名称")
+	// @FieldInfo(name = "房间名称")
 	private String roomName;
 
 	/* 用于排除未定义的房间 0 */
 	@Formula("(SELECT A.roomType FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")
-	@FieldInfo(name = "房间类型")
+	// @FieldInfo(name = "房间类型")
 	private String roomType;
 
 	@Transient
-	@FieldInfo(name = "设备机号")
+	// @FieldInfo(name = "设备机号")
 	private String deviceNo;
 
 	@Transient
-	@FieldInfo(name = "设备类型")
+	// @FieldInfo(name = "设备类型")
 	private String deviceTypeId;
 
 	@Transient
-	@FieldInfo(name = "网关名称")
+	// @FieldInfo(name = "网关名称")
 	private String gatewayName;
 
 	@Transient
-	@FieldInfo(name = "楼层名称")
+	// @FieldInfo(name = "楼层名称")
 	private String areaName;
 
 	@Transient
-	@FieldInfo(name = "起始电量")
+	// @FieldInfo(name = "起始电量")
 	private String startDl;
 
 	@Transient
-	@FieldInfo(name = "结束电量")
+	// @FieldInfo(name = "结束电量")
 	private String endDl;
 
 	@Transient
-	@FieldInfo(name = "总电量")
+	// @FieldInfo(name = "总电量")
 	private String sumDl;
-	@JsonIgnore
-	@Transient
-	@FieldInfo(name = "条件一")
-	private String wheresql1;
-	@JsonIgnore
-	@Transient
-	@FieldInfo(name = "条件二")
-	private String wheresql2;
 
-	@MapperCell(cellName = "设备名称", order = 12)
-	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.deviceSn=deviceSn)")
-	@FieldInfo(name = "设备名称")
+	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
+	// @FieldInfo(name = "设备名称")
 	private String termName;
+
+	public String getTermSn() {
+		return termSn;
+	}
+
+	public void setTermSn(String termSn) {
+		this.termSn = termSn;
+	}
 
 	public String getRoomId() {
 		return roomId;
@@ -167,20 +154,68 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.statusHour = statusHour;
 	}
 
-	public long getVoltage() {
+	public Float getUseKwh() {
+		return useKwh;
+	}
+
+	public void setUseKwh(Float useKwh) {
+		this.useKwh = useKwh;
+	}
+
+	public Float getBuyedKwh() {
+		return buyedKwh;
+	}
+
+	public void setBuyedKwh(Float buyedKwh) {
+		this.buyedKwh = buyedKwh;
+	}
+
+	public Float getTotalUsedKwh() {
+		return totalUsedKwh;
+	}
+
+	public void setTotalUsedKwh(Float totalUsedKwh) {
+		this.totalUsedKwh = totalUsedKwh;
+	}
+
+	public Float getSurplusKwh() {
+		return surplusKwh;
+	}
+
+	public void setSurplusKwh(Float surplusKwh) {
+		this.surplusKwh = surplusKwh;
+	}
+
+	public Long getVoltage() {
 		return voltage;
 	}
 
-	public void setVoltage(long voltage) {
+	public void setVoltage(Long voltage) {
 		this.voltage = voltage;
 	}
 
-	public long getCurrents() {
+	public Long getCurrents() {
 		return currents;
 	}
 
-	public void setCurrents(long currents) {
+	public void setCurrents(Long currents) {
 		this.currents = currents;
+	}
+
+	public Long getPower() {
+		return power;
+	}
+
+	public void setPower(Long power) {
+		this.power = power;
+	}
+
+	public Date getStatusTime() {
+		return statusTime;
+	}
+
+	public void setStatusTime(Date statusTime) {
+		this.statusTime = statusTime;
 	}
 
 	public String getRoomName() {
@@ -191,28 +226,12 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public long getPower() {
-		return power;
+	public String getRoomType() {
+		return roomType;
 	}
 
-	public void setPower(long power) {
-		this.power = power;
-	}
-
-	public String getTermName() {
-		return termName;
-	}
-
-	public void setTermName(String termName) {
-		this.termName = termName;
-	}
-
-	public String getDeviceSn() {
-		return deviceSn;
-	}
-
-	public void setDeviceSn(String deviceSn) {
-		this.deviceSn = deviceSn;
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
 	}
 
 	public String getDeviceNo() {
@@ -255,46 +274,6 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.startDl = startDl;
 	}
 
-	public double getUseKwh() {
-		return useKwh;
-	}
-
-	public void setUseKwh(double useKwh) {
-		this.useKwh = useKwh;
-	}
-
-	public double getBoughtKwh() {
-		return boughtKwh;
-	}
-
-	public void setBoughtKwh(double boughtKwh) {
-		this.boughtKwh = boughtKwh;
-	}
-
-	public double getTotalUsedKwh() {
-		return totalUsedKwh;
-	}
-
-	public void setTotalUsedKwh(double totalUsedKwh) {
-		this.totalUsedKwh = totalUsedKwh;
-	}
-
-	public double getSurplusKwh() {
-		return surplusKwh;
-	}
-
-	public void setSurplusKwh(double surplusKwh) {
-		this.surplusKwh = surplusKwh;
-	}
-
-	public Date getStatusTime() {
-		return statusTime;
-	}
-
-	public void setStatusTime(Date statusTime) {
-		this.statusTime = statusTime;
-	}
-
 	public String getEndDl() {
 		return endDl;
 	}
@@ -311,34 +290,20 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.sumDl = sumDl;
 	}
 
-	public String getWheresql1() {
-		return wheresql1;
+	public String getTermName() {
+		return termName;
 	}
 
-	public void setWheresql1(String wheresql1) {
-		this.wheresql1 = wheresql1;
+	public void setTermName(String termName) {
+		this.termName = termName;
 	}
 
-	public String getWheresql2() {
-		return wheresql2;
+	public PtEcTermStatus() {
+		super();
 	}
 
-	public void setWheresql2(String wheresql2) {
-		this.wheresql2 = wheresql2;
+	public PtEcTermStatus(String id) {
+		super(id);
 	}
 
-	public String getRoomType() {
-		return roomType;
-	}
-
-	public void setRoomType(String roomType) {
-		this.roomType = roomType;
-	}
-
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
 }

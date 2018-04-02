@@ -100,10 +100,10 @@ public abstract class TreeNodeEntity extends BaseEntity {
 
     public void BuildNode(TreeNodeEntity parentNode) {
         if (parentNode == null) {
-            treeIds = super.getUuid();
+            treeIds = super.getId();
             nodeLevel = 1;
         } else {
-            treeIds = parentNode.treeIds + "," + super.getUuid();
+            treeIds = parentNode.treeIds + "," + super.getId();
             nodeLevel = parentNode.nodeLevel + 1;
         }
     }
@@ -115,9 +115,9 @@ public abstract class TreeNodeEntity extends BaseEntity {
 
     }
 
-    public TreeNodeEntity(String uuid) {
+    public TreeNodeEntity(String id) {
 
-        super(uuid);
+        super(id);
         // TODO Auto-generated constructor stub
 
     }

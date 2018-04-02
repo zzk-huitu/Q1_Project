@@ -2,75 +2,69 @@ package com.zd.school.jw.eduresources.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Formula;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 /**
+ * 作息时间目录
  * 
- * ClassName: JwCalender Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 校历信息(JW_T_CALENDER)实体类. date: 2016-08-30
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
 @Table(name = "T_PT_Calender")
-@AttributeOverride(name = "calenderId", column = @Column(name = "calenderId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "calenderId", length = 20, nullable = false) )
 public class JwCalender extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "schoolId",type="varchar(20)",explain="学校Id")
-	@Column(name = "schoolId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String schoolId;
-
-	public void setSchoolId(String schoolId) {
-		this.schoolId = schoolId;
-	}
-
-	public String getSchoolId() {
-		return schoolId;
-	}
-
-	@FieldInfo(name = "schoolName",type="nvarchar(20)",explain="学校名称")
-	@Column(name = "schoolName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String schoolName;
-
-	public void setSchoolName(String schoolName) {
-		this.schoolName = schoolName;
-	}
-
-	public String getSchoolName() {
-		return schoolName;
-	}
-
-	@FieldInfo(name = "calenderName",type="nvarchar(20)",explain="校历名称")
-	@Column(name = "calenderName", columnDefinition = "nvarchar(20)" , nullable = false)
+	@FieldInfo(name = "校历名称", type = "nvarchar(20) NOT NULL", explain = "校历名称")
+	@Column(name = "calenderName", columnDefinition = "nvarchar(20)", nullable = false)
 	private String calenderName;
+
+	@FieldInfo(name = "适用校区Id", type = "varchar(20) NOT NULL", explain = "适用校区Id")
+	@Column(name = "campusId", length = 20, nullable = false)
+	private String campusId;
+
+	// @FieldInfo(name = "班级名称")
+	@Formula("(SELECT a.campusName FROM T_PT_Campus a WHERE a.campusId=campusId )")
+	private String campusName;
+
+	@FieldInfo(name = "学段编码", type = "nvarchar(20)  NOT NULL", explain = "学段编码")
+	@Column(name = "stageCode", columnDefinition = "nvarchar(20)", nullable = false)
+	private String stageCode;
+
+	@FieldInfo(name = "生效状态", type = "bit NOT NULL default 0", explain = "生效状态")
+	@Column(name = "activityState", columnDefinition = "default 0", nullable = false)
+	private Boolean activityState;
+
+	@FieldInfo(name = "生效时间", type = "datetime NOT NULL", explain = "生效时间")
+	@Column(name = "activityTime", columnDefinition = "datetime", nullable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date activityTime;
+
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	// @FieldInfo(name = "作息时间明细数")
+	@Formula("(SELECT COUNT(a.calenderId) FROM T_PT_CalenderDetail a WHERE a.calenderId=calenderId )")
+	private Integer detailCount;
 
 	public String getCalenderName() {
 		return calenderName;
@@ -80,10 +74,6 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.calenderName = calenderName;
 	}
 
-	@FieldInfo(name = "campusId",type="varchar(20)",explain="适用校区Id")
-	@Column(name = "campusId", columnDefinition = "varchar(20) default ''", nullable = true)
-	private String campusId;
-
 	public String getCampusId() {
 		return campusId;
 	}
@@ -92,21 +82,13 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.campusId = campusId;
 	}
 
-	@FieldInfo(name = "campusName",type="nvarchar(20)",explain="校区名称")
-	@Column(name = "campusName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String campusName;
-
-	public void setCampusName(String campusName) {
-		this.campusName = campusName;
-	}
-
 	public String getCampusName() {
 		return campusName;
 	}
 
-	@FieldInfo(name = "stageCode",type="nvarchar(20)",explain="学段编码")
-	@Column(name = "stageCode", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String stageCode;
+	public void setCampusName(String campusName) {
+		this.campusName = campusName;
+	}
 
 	public String getStageCode() {
 		return stageCode;
@@ -116,41 +98,21 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.stageCode = stageCode;
 	}
 
-	@FieldInfo(name = "activityState",type="Integer",explain="生效状态")
-	@Column(name = "activityState", columnDefinition = "default 0", nullable = true)
-	private Integer activityState;
-
-	public void setActivityState(Integer activityState) {
-		this.activityState = activityState;
-	}
-
-	public Integer getActivityState() {
+	public Boolean getActivityState() {
 		return activityState;
 	}
 
-	@FieldInfo(name = "activityTime",type="datetime",explain="生效时间")
-	@Column(name = "activityTime", columnDefinition = "datetime", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date activityTime;
-
-	public void setActivityTime(Date activityTime) {
-		this.activityTime = activityTime;
+	public void setActivityState(Boolean activityState) {
+		this.activityState = activityState;
 	}
 
 	public Date getActivityTime() {
 		return activityTime;
 	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
-	@FieldInfo(name = "作息时间明细数")
-	@Formula("(SELECT COUNT(a.calenderId) FROM T_PT_CalenderDetail a WHERE a.calenderId=calenderId )")
-	private Integer detailCount;
+	public void setActivityTime(Date activityTime) {
+		this.activityTime = activityTime;
+	}
 
 	public Integer getDetailCount() {
 		return detailCount;
@@ -158,6 +120,14 @@ public class JwCalender extends BaseEntity implements Serializable {
 
 	public void setDetailCount(Integer detailCount) {
 		this.detailCount = detailCount;
+	}
+
+	public JwCalender() {
+		super();
+	}
+
+	public JwCalender(String id) {
+		super(id);
 	}
 
 }
