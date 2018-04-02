@@ -40,10 +40,10 @@ public class DeviceListInClassForApp {
 		}
 		Map<String, Object> map=new HashMap<String, Object>();
 		map.put("roomId",term.getRoomId() );
-		map.put("termId", term.getUuid());
-		map.put("termSN", term.getTermSN());
+		map.put("termId", term.getId());
+		map.put("termSN", term.getTermSn());
 		map.put("termName", term.getTermName());
-		map.put("termTypeId", term.getTermTypeID());
+		map.put("termTypeId", term.getTermTypeId());
 		map.put("note", term.getNotes());
 		deviceInfo.add(map);
 	}

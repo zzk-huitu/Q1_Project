@@ -15,13 +15,9 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNode;
 
 /**
- * ClassName:BaseDicTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
- * Date: 2016年7月19日 下午4:13:01
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO 数据字典树
+ * @author ZZK
+ *
  */
 public class BaseDicTree extends ExtTreeNode<BaseDicTree> {
 

@@ -1,7 +1,11 @@
 package com.zd.school.teacher.teacherinfo.model;
 
 
-
+/**
+ * POJO
+ * @author ZZK
+ *
+ */
 public class ViewUserRoom {
 		 private String USER_ID;  
 		    private String XM;  

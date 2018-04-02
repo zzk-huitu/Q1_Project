@@ -32,12 +32,10 @@ import com.zd.core.util.DateTimeDeserializer;
 import com.zd.core.util.DateTimeSerializer;
 
 /**
- * ClassName: BaseTUser Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 用户管理实体类. date: 2016-07-17
+ * 用户信息
+ * 
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
 
 @Entity
@@ -65,11 +63,11 @@ public class SysUser extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "状态", type = "bit NOT NULL defalut 0", explain = "用户的账户状态（0-锁定，1-解锁）")
 	@Column(name = "state", columnDefinition = "defalut 0", nullable = false)
-	private boolean state;
+	private Boolean state;
 
 	@FieldInfo(name = "是否系统账户", type = "bit NOT NULL defalut 0", explain = "是否是系统用户( 0=非内置，1=内置 )")
 	@Column(name = "isSystem", columnDefinition = "defalut 0", nullable = false)
-	private boolean isSystem;
+	private Boolean isSystem;
 
 	@FieldInfo(name = "身份", type = "varchar(1) NOT NULL defalut '0'", explain = "用户的当前身份（ 0=内部用户 1=老师 2=学生 3=家长 ）")
 	@Column(name = "category", length = 1, columnDefinition = "defalut '0'", nullable = false)
@@ -85,7 +83,7 @@ public class SysUser extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "是否隐藏", type = "bit defalut 0", explain = "是否隐藏（0-不隐藏 1-隐藏）")
 	@Column(name = "isHidden", columnDefinition = "defalut 0", nullable = true)
-	private boolean isHidden;
+	private Boolean isHidden;
 
 	@FieldInfo(name = "出生日期", type = "datetime", explain = "用户的出生日期")
 	@Column(name = "birthDate", columnDefinition = "datetime", nullable = true)
@@ -142,7 +140,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	 */
 	// @FieldInfo(name = "下次自动登录")
 	@Transient
-	private boolean rememberMe;
+	private Boolean rememberMe;
 
 	// @FieldInfo(name = "主部门ID",type="varchar(20)",explain="用户的主部门ID")
 	@Formula("(SELECT ISNULL(a.deptId,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
@@ -188,10 +186,7 @@ public class SysUser extends BaseEntity implements Serializable {
 	// 3注销 4换卡 7冻结)")
 	@Formula("(SELECT top 1 a.cardStatusId FROM T_PT_Card a where a.userId=userId order by a.createTime desc)")
 	private Integer useState;
-	
-	
-	
-	
+
 	public String getUserName() {
 		return userName;
 	}
@@ -224,19 +219,19 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.userPwd = userPwd;
 	}
 
-	public boolean isState() {
+	public Boolean isState() {
 		return state;
 	}
 
-	public void setState(boolean state) {
+	public void setState(Boolean state) {
 		this.state = state;
 	}
 
-	public boolean isSystem() {
+	public Boolean isSystem() {
 		return isSystem;
 	}
 
-	public void setSystem(boolean isSystem) {
+	public void setSystem(Boolean isSystem) {
 		this.isSystem = isSystem;
 	}
 
@@ -264,11 +259,11 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.schoolId = schoolId;
 	}
 
-	public boolean isHidden() {
+	public Boolean isHidden() {
 		return isHidden;
 	}
 
-	public void setHidden(boolean isHidden) {
+	public void setHidden(Boolean isHidden) {
 		this.isHidden = isHidden;
 	}
 
@@ -344,11 +339,11 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.headCountType = headCountType;
 	}
 
-	public boolean isRememberMe() {
+	public Boolean isRememberMe() {
 		return rememberMe;
 	}
 
-	public void setRememberMe(boolean rememberMe) {
+	public void setRememberMe(Boolean rememberMe) {
 		this.rememberMe = rememberMe;
 	}
 

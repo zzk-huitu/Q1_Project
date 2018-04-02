@@ -13,16 +13,10 @@ import java.util.List;
 
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNodeChk;
-
 /**
- * ClassName:SysMenuChkTree 
- * Function: TODO ADD FUNCTION. 
- * Reason:	 TODO ADD REASON. 
- * Date:     2016年7月31日 上午12:09:14 
- * @author   luoyibo
- * @version  
- * @since    JDK 1.8
- * @see 	 
+ * POJO类
+ * @author ZZK
+ *
  */
 public class SysMenuChkTree extends ExtTreeNodeChk<SysMenuChkTree>{
     @FieldInfo(name = "菜单编码")

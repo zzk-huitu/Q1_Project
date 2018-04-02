@@ -12,72 +12,71 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.TreeNodeEntity;
 
 /**
+ * 数据字典
  * 
- * ClassName: BaseDic Function: TODO ADD FUNCTION. Reason: TODO ADD REASON(可选).
- * Description: 数据字典实体类. date: 2016-07-19
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
-
 @Entity
-@Table(name = "T_PT_Ddic")
-@AttributeOverride(name = "ddicId", column = @Column(name = "ddicId", length = 20, nullable = false))
+@Table(name = "T_PT_DataDict")
+@AttributeOverride(name = "id", column = @Column(name = "dictId", length = 20, nullable = false) )
 public class BaseDic extends TreeNodeEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "字典编码",type="nvarchar(16)",explain="字典编码")
-    @Column(name = "dicCode",columnDefinition="nvarchar(16)", nullable = false)
-    private String dicCode;
+	@FieldInfo(name = "字典编码", type = "varchar(16) NOT NULL", explain = "字典编码")
+	@Column(name = "dicCode", columnDefinition = "varchar(16)", nullable = false)
+	private String dicCode;
 
-    public void setDicCode(String dicCode) {
-        this.dicCode = dicCode;
-    }
+	@FieldInfo(name = "字典类型", type = "varchar(8) NOT NULL", explain = "字典类型(LIST、TREE、OTHER类型，目前LIST为主)")
+	@Column(name = "dicType", columnDefinition = "varchar(8)", nullable = false)
+	private String dicType;
 
-    public String getDicCode() {
-        return dicCode;
-    }
+	@FieldInfo(name = "引用实体路径", type = "varchar(256)", explain = "引用实体路径（暂未使用到）")
+	@Column(name = "physicalPath", columnDefinition = "varchar(256)", nullable = true)
+	private String physicalPath;
 
-    @FieldInfo(name = "字典类型，目前就LIST与TREE两类",type="nvarchar(255)",explain="字典类型")
-    @Column(name = "dicType", columnDefinition="nvarchar(8)", nullable = false)
-    private String dicType;
+	// @FieldInfo(name = "上级字典名称")
+	@Transient
+	private String parentName;
 
-    public void setDicType(String dicType) {
-        this.dicType = dicType;
-    }
+	public String getDicCode() {
+		return dicCode;
+	}
 
-    public String getDicType() {
-        return dicType;
-    }
+	public void setDicCode(String dicCode) {
+		this.dicCode = dicCode;
+	}
 
-    @FieldInfo(name = "引用实体路径",type="nvarchar(255)",explain="引用实体路径")  
-    @Column(name = "physicalPath",columnDefinition="nvarchar(256)", nullable = true)
-    private String physicalPath;
+	public String getDicType() {
+		return dicType;
+	}
 
-    public void setPhysicalPath(String physicalPath) {
-        this.physicalPath = physicalPath;
-    }
+	public void setDicType(String dicType) {
+		this.dicType = dicType;
+	}
 
-    public String getPhysicalPath() {
-        return physicalPath;
-    }
+	public String getPhysicalPath() {
+		return physicalPath;
+	}
 
-    /**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
-    @FieldInfo(name = "上级字典名称")
-    @Transient
-    private String parentName;
+	public void setPhysicalPath(String physicalPath) {
+		this.physicalPath = physicalPath;
+	}
 
-    public String getParentName() {
-        return parentName;
-    }
+	public String getParentName() {
+		return parentName;
+	}
 
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
-    }    
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public BaseDic() {
+		super();
+	}
+
+	public BaseDic(String id) {
+		super(id);
+	}
+
 }

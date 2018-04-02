@@ -15,39 +15,35 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 /**
- * ClassName:TreeNodeEntity Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON. Date: 2016年5月11日 下午4:33:08
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * 树节点实体
+ * @author ZZK
+ *
  */
 @MappedSuperclass
 public abstract class TreeNodeEntity extends BaseEntity {
 
-    @FieldInfo(name = "节点编码")
-    @Column(name = "nodeCode")
+    @FieldInfo(name = "节点编码",type="varchar(20) default ''",explain="节点编码")
+    @Column(name = "nodeCode",columnDefinition="default ''",length=20 )
     private String nodeCode;
 
-    @FieldInfo(name = "节点名称")
-    @Column(name = "nodeText")
+    @FieldInfo(name = "节点名称",type="nvarchar(16) default ''",explain="节点名称")
+    @Column(name = "nodeText",columnDefinition="nvarchar(16) default ''" )
     private String nodeText;
 
-    @FieldInfo(name = "父节点")
-    @Column(name = "parentNode")
+    @FieldInfo(name = "父节点",type="varchar(20) default ''",explain="父节点")
+    @Column(name = "parentNode",columnDefinition="default ''",length=20 )
     private String parentNode;
 
-    @FieldInfo(name = "是否 叶节点")
-    @Column(name = "isLeaf")
+    @FieldInfo(name = "是否 叶节点",type="bit default 0",explain="是否 叶节点")
+    @Column(name = "isLeaf",columnDefinition="default 0")
     private Boolean isLeaf;
 
-    @FieldInfo(name = "节点层级")
-    @Column(name = "nodeLevel")
+    @FieldInfo(name = "节点层级",type="int default 0",explain="节点层级")
+    @Column(name = "nodeLevel",columnDefinition="default 0" )
     private Integer nodeLevel;
 
-    @FieldInfo(name = "节点标识层次")
-    @Column(name = "treeIds", length = 1024)
+    @FieldInfo(name = "节点标识层次",type="varchar(1024) default ''",explain="节点层级")
+    @Column(name = "treeIds", columnDefinition="default ''",length=1024 )
     private String treeIds;
 
     public String getNodeCode() {

@@ -37,9 +37,9 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "termNo", columnDefinition = "default 0", nullable = false)
 	private Integer termNo;
 
-	@FieldInfo(name = "设备序列号", type = "varchar(50) NOT NULL", explain = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
+	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
 			+ "-140226(6位日期 最大631231)-001(3位批次号 最大255)-00001(5位流水 最大65535)")
-	@Column(name = "termSn", length = 50, nullable = false)
+	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
 	@FieldInfo(name = "设备名称", type = "nvarchar(20) NOT NULL", explain = "设备名称")

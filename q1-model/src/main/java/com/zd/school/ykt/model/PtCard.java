@@ -8,198 +8,207 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Formula;
-
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
+import com.zd.core.util.DateTimeSerializer;
 
 /**
+ * 卡片信息表
  * 
- * ClassName: PtCard 
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: (PT_CARD)实体类.
- * date: 2017-04-20
+ * @author ZZK
  *
- * @author  luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
- 
 @Entity
 @Table(name = "T_PT_Card")
-@AttributeOverride(name = "cardId", column = @Column(name = "cardId", length = 20, nullable = false))
-public class PtCard extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
+@AttributeOverride(name = "id", column = @Column(name = "cardId", length = 20, nullable = false) )
+public class PtCard extends BaseEntity implements Serializable {
 
-	@FieldInfo(name = "卡流水号",type="varchar(19)",explain="卡的流水号")
-    @Column(name = "cardNo", columnDefinition="varchar(19) defalut ''", nullable = true)
-    private Long cardNo;
-    public void setCardNo(Long cardNo) {
-        this.cardNo = cardNo;
-    }
-    public Long getCardNo() {
-        return cardNo;
-    }
-        
-	@FieldInfo(name = "卡状态 1正常 2挂失 3注销 4换卡 7冻结",type="byte",explain="卡的状态 ")
-    @Column(name = "cardStatusId", columnDefinition="defalut 0", nullable = true)
-    private byte cardStatusId;
-   
-        
+	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "卡的类型编号",type="Integer",explain="卡的类型编号")
-    @Column(name = "cardTypeNO", columnDefinition="defalut 0", nullable = true)
-    private Integer cardTypeNO;
-   
-	@FieldInfo(name = "当日消费次数",type="Integer",explain="卡的当日消费次数")
-    @Column(name = "dayCount", columnDefinition="defalut 0", nullable = true)
-    private Integer dayCount;
-  
-        
-	@FieldInfo(name = "当日交易金额",type="Integer",explain="卡的当日交易金额")
-    @Column(name = "dayValue", columnDefinition="defalut 0", nullable = true)
-    private BigDecimal dayValue;
-  
-        
-    @FieldInfo(name = "卡押金",type="BigDecimal",explain="卡的押金")
-    @Column(name = "deposit", columnDefinition="defalut 0", nullable = true)
-    private BigDecimal deposit;
-    public void setDeposit(BigDecimal deposit) {
-        this.deposit = deposit;
-    }
-    public BigDecimal getDeposit() {
-        return deposit;
-    }
-        
-	@FieldInfo(name = "有效期",type="datetime",explain="卡的有效期")
-    @Column(name = "expiryDate", columnDefinition = "datetime", nullable = true)
-    private Date expiryDate= new Date();;
- 
-	@FieldInfo(name = "物理卡号",type="Long",explain="卡的物理卡号")
-    @Column(name = "physicalNo", columnDefinition="defalut 0",nullable = true)
-    private Long physicalNo;
-     
-    @FieldInfo(name = "最后交易时间",type="datetime",explain="卡的最后交易时间")
-    @Column(name = "lastPayDate", columnDefinition = "datetime", nullable = true)
-    private Date lastPayDate =new Date();
-   
-        
-	@FieldInfo(name = "最后交易餐类",type="Integer",explain="卡的最后交易餐类")
-    @Column(name = "lastPayMealType", columnDefinition="defalut 0", nullable = true)
-    private Integer lastPayMealType;
-  
-        
-    @FieldInfo(name = "当餐消费次数",type="Integer",explain="卡的当餐消费次数")
-    @Column(name = "mealCount", columnDefinition="defalut 0", nullable = true)
-    private Integer mealCount;
-  
-        
-	@FieldInfo(name = "当餐交易金额",type="BigDecimal",explain="卡的当餐交易金额")
-    @Column(name = "mealValue", columnDefinition="defalut 0", nullable = true)
-    private BigDecimal mealValue;
-  
-        
-	public byte getCardStatusId() {
-		return cardStatusId;
-	}
-	public void setCardStatusId(byte cardStatusId) {
-		this.cardStatusId = cardStatusId;
+	@FieldInfo(name = "卡流水号", type = "bigint NOT NULL", explain = "卡流水号")
+	@Column(name = "cardNo", nullable = false)
+	private Long cardNo;
+
+	@FieldInfo(name = "卡类型", type = "int NOT NULL", explain = "卡类型")
+	@Column(name = "cardTypeId", nullable = false)
+	private Integer cardTypeId;
+
+	@FieldInfo(name = "物理卡号", type = "bigint default 0", explain = "物理卡号")
+	@Column(name = "factoryFixId", columnDefinition = "default 0", nullable = true)
+	private Long factoryFixId;
+
+	@FieldInfo(name = "用户ID", type = "varchar(20) default ''", explain = "关联user表")
+	@Column(name = "userId", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String userId;
+
+	@FieldInfo(name = "有效期", type = "datetime", explain = "有效期")
+	@Column(name = "expiryDate", columnDefinition = "datetime", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date expiryDate;
+
+	@FieldInfo(name = "卡押金", type = "numeric default 0", explain = "卡押金")
+	@Column(name = "deposit", columnDefinition = "default 0", nullable = true)
+	private BigDecimal deposit;
+
+	@FieldInfo(name = "卡状态", type = "int default 0", explain = "卡状态 1正常 2挂失 3注销 4换卡 7冻结")
+	@Column(name = "cardStatusId", columnDefinition = "default 0", nullable = true)
+	private Integer cardStatusId;
+
+	@FieldInfo(name = "卡状态改变时间", type = "datetime", explain = "卡状态改变时间")
+	@Column(name = "statusChangeTime", columnDefinition = "datetime", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date statusChangeTime = new Date();
+
+	@FieldInfo(name = "当日消费次数", type = "int default 0", explain = "当日消费次数")
+	@Column(name = "dayCount", columnDefinition = "default 0", nullable = true)
+	private Integer dayCount;
+
+	@FieldInfo(name = "当餐消费次数", type = "int default 0", explain = "当餐消费次数")
+	@Column(name = "mealCount", columnDefinition = "default 0", nullable = true)
+	private Integer mealCount;
+
+	@FieldInfo(name = "当日交易金额", type = "numeric default 0", explain = "当日交易金额")
+	@Column(name = "dayValue", columnDefinition = "default 0", nullable = true)
+	private BigDecimal dayValue;
+
+	@FieldInfo(name = "当餐交易金额", type = "numeric default 0", explain = "当餐交易金额")
+	@Column(name = "mealValue", columnDefinition = "default 0", nullable = true)
+	private BigDecimal mealValue;
+
+	@FieldInfo(name = "最后交易时间", type = "datetime", explain = "最后交易时间")
+	@Column(name = "lastPayDate", columnDefinition = "datetime", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP)
+	@JsonSerialize(using = DateTimeSerializer.class)
+	private Date lastPayDate;
+
+	@FieldInfo(name = "最后交易餐类", type = "int default 0", explain = "最后交易餐类")
+	@Column(name = "lastPayMealType", columnDefinition = "default 0", nullable = true)
+	private Integer lastPayMealType;
+
+	public Long getCardNo() {
+		return cardNo;
 	}
 
-	public Integer getCardTypeNO() {
-		return cardTypeNO;
+	public void setCardNo(Long cardNo) {
+		this.cardNo = cardNo;
 	}
-	public void setCardTypeNO(Integer cardTypeNO) {
-		this.cardTypeNO = cardTypeNO;
+
+	public Integer getCardTypeId() {
+		return cardTypeId;
 	}
-	public Integer getDayCount() {
-		return dayCount;
+
+	public void setCardTypeId(Integer cardTypeId) {
+		this.cardTypeId = cardTypeId;
 	}
-	public void setDayCount(Integer dayCount) {
-		this.dayCount = dayCount;
+
+	public Long getFactoryFixId() {
+		return factoryFixId;
 	}
-	public BigDecimal getDayValue() {
-		return dayValue;
+
+	public void setFactoryFixId(Long factoryFixId) {
+		this.factoryFixId = factoryFixId;
 	}
-	public void setDayValue(BigDecimal dayValue) {
-		this.dayValue = dayValue;
+
+	public String getUserId() {
+		return userId;
 	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	public Date getExpiryDate() {
 		return expiryDate;
 	}
+
 	public void setExpiryDate(Date expiryDate) {
 		this.expiryDate = expiryDate;
 	}
-	public Long getPhysicalNo() {
-		return physicalNo;
+
+	public BigDecimal getDeposit() {
+		return deposit;
 	}
-	public void setPhysicalNo(Long physicalNo) {
-		this.physicalNo = physicalNo;
+
+	public void setDeposit(BigDecimal deposit) {
+		this.deposit = deposit;
 	}
-	public Date getLastPayDate() {
-		return lastPayDate;
+
+	public Integer getCardStatusId() {
+		return cardStatusId;
 	}
-	public void setLastPayDate(Date lastPayDate) {
-		this.lastPayDate = lastPayDate;
+
+	public void setCardStatusId(Integer cardStatusId) {
+		this.cardStatusId = cardStatusId;
 	}
-	public Integer getLastPayMealType() {
-		return lastPayMealType;
-	}
-	public void setLastPayMealType(Integer lastPayMealType) {
-		this.lastPayMealType = lastPayMealType;
-	}
-	public Integer getMealCount() {
-		return mealCount;
-	}
-	public void setMealCount(Integer mealCount) {
-		this.mealCount = mealCount;
-	}
-	public BigDecimal getMealValue() {
-		return mealValue;
-	}
-	public void setMealValue(BigDecimal mealValue) {
-		this.mealValue = mealValue;
-	}
+
 	public Date getStatusChangeTime() {
 		return statusChangeTime;
 	}
+
 	public void setStatusChangeTime(Date statusChangeTime) {
 		this.statusChangeTime = statusChangeTime;
 	}
 
-	@FieldInfo(name = "卡状态改变时间",type="datetime",explain="卡的状态改变时间")
-    @Column(name = "statusChangeTime", length = 27, columnDefinition = "datetime", nullable = true)
-    private Date statusChangeTime=new Date();
-  
-        
-    @FieldInfo(name = "用户id",type="varchar(20)",explain="所持卡的用户id")
-    @Column(name = "userId", length = 20, nullable = true)
-    private String userId;
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-    public String getUserId() {
-        return userId;
-    }
-
-	@FieldInfo(name = "卡类型名称",type="BigDecimal",explain="卡的类型名称")
-	@Formula("(select t.cardType from T_PT_CardType t where t.cardTypeNO= cardTypeNO)")
-    private String cardTypeName;
-	public String getCardTypeName() {
-		return cardTypeName;
+	public Integer getDayCount() {
+		return dayCount;
 	}
-	public void setCardTypeName(String cardTypeName) {
-		this.cardTypeName = cardTypeName;
-	}
-    
-    
 
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
+	public void setDayCount(Integer dayCount) {
+		this.dayCount = dayCount;
+	}
+
+	public Integer getMealCount() {
+		return mealCount;
+	}
+
+	public void setMealCount(Integer mealCount) {
+		this.mealCount = mealCount;
+	}
+
+	public BigDecimal getDayValue() {
+		return dayValue;
+	}
+
+	public void setDayValue(BigDecimal dayValue) {
+		this.dayValue = dayValue;
+	}
+
+	public BigDecimal getMealValue() {
+		return mealValue;
+	}
+
+	public void setMealValue(BigDecimal mealValue) {
+		this.mealValue = mealValue;
+	}
+
+	public Date getLastPayDate() {
+		return lastPayDate;
+	}
+
+	public void setLastPayDate(Date lastPayDate) {
+		this.lastPayDate = lastPayDate;
+	}
+
+	public Integer getLastPayMealType() {
+		return lastPayMealType;
+	}
+
+	public void setLastPayMealType(Integer lastPayMealType) {
+		this.lastPayMealType = lastPayMealType;
+	}
+
+	public PtCard() {
+		super();
+	}
+
+	public PtCard(String id) {
+		super(id);
+	}
+
 }

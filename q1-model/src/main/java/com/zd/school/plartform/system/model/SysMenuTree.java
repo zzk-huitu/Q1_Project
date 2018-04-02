@@ -15,13 +15,9 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNode;
 
 /**
- * ClassName:SysMenuTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
- * Date: 2016年6月2日 上午11:58:26
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO类
+ * @author ZZK
+ *
  */
 public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
     @FieldInfo(name = "菜单编码")

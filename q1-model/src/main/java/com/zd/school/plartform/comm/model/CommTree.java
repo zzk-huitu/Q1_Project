@@ -13,15 +13,10 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNode;
 
 import java.util.List;
-
 /**
- * ClassName:GradeTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
- * Date: 2016年8月23日 下午1:53:51
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO （保留这个类，并开放checked字段；而通过排除字段的方式去排除checked字段）
+ * @author ZZK
+ *
  */
 public class CommTree extends ExtTreeNode<CommTree> {
 	

@@ -15,13 +15,9 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNode;
 
 /**
- * ClassName:BaseOrgTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
- * Date: 2016年5月11日 下午5:45:31
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO类待修改
+ * @author ZZK
+ *
  */
 public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
 

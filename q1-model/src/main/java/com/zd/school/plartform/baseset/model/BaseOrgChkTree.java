@@ -15,15 +15,16 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNodeChk;
 
 /**
- * ClassName:BaseOrgChkTree Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON. Date: 2016年10月10日 下午7:33:16
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO 待修改
+ * @author ZZK
+ *
  */
 public class BaseOrgChkTree extends ExtTreeNodeChk<BaseOrgChkTree> {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	@FieldInfo(name = "部门编码")
 	private String code;
@@ -146,36 +147,39 @@ public class BaseOrgChkTree extends ExtTreeNodeChk<BaseOrgChkTree> {
 		this.mainLeaderName = mainLeaderName;
 	}
 
-	@FieldInfo(name = "部门全称")  
-    private String allDeptName;
+	@FieldInfo(name = "部门全称")
+	private String allDeptName;
 
-    public String getAllDeptName() {
-        return allDeptName;
-    }
-    public void setAllDeptName(String allDeptName) {
-        this.allDeptName = allDeptName;
-    }
-    
-    @FieldInfo(name = "上级主管部门") 
-    private String superDept;
+	public String getAllDeptName() {
+		return allDeptName;
+	}
 
-    public String getSuperDept() {
-        return superDept;
-    }
-    public void setSuperDept(String superDept) {
-        this.superDept = superDept;
-    }
+	public void setAllDeptName(String allDeptName) {
+		this.allDeptName = allDeptName;
+	}
 
-    @FieldInfo(name = "上级主管部门名称")
-    private String superdeptName;
+	@FieldInfo(name = "上级主管部门")
+	private String superDept;
 
-    public String getSuperdeptName() {
-        return superdeptName;
-    }
-    public void setSuperdeptName(String superdeptName) {
-        this.superdeptName = superdeptName;
-    }
-    
+	public String getSuperDept() {
+		return superDept;
+	}
+
+	public void setSuperDept(String superDept) {
+		this.superDept = superDept;
+	}
+
+	@FieldInfo(name = "上级主管部门名称")
+	private String superdeptName;
+
+	public String getSuperdeptName() {
+		return superdeptName;
+	}
+
+	public void setSuperdeptName(String superdeptName) {
+		this.superdeptName = superdeptName;
+	}
+
 	@FieldInfo(name = "上级主管岗位")
 	private String superJob;
 
@@ -208,35 +212,35 @@ public class BaseOrgChkTree extends ExtTreeNodeChk<BaseOrgChkTree> {
 	public void setIsRight(String isRight) {
 		this.isRight = isRight;
 	}
-	
-	 /*2017-10-20新加入*/
-    @FieldInfo(name = "学段编码")  
-    private String sectionCode;
 
-    public void setSectionCode(String sectionCode) {
-        this.sectionCode = sectionCode;
-    }
+	/* 2017-10-20新加入 */
+	@FieldInfo(name = "学段编码")
+	private String sectionCode;
 
-    public String getSectionCode() {
-        return sectionCode;
-    }
-    /*2017-10-20新加入*/
-    @FieldInfo(name = "年级")
-    private String nj;
-
-    public String getNj() {
-        return nj;
-    }
-
-    public void setNj(String nj) {
-        this.nj = nj;
-    }
-    
-    
-    public BaseOrgChkTree() {
-    	super();
+	public void setSectionCode(String sectionCode) {
+		this.sectionCode = sectionCode;
 	}
-    
+
+	public String getSectionCode() {
+		return sectionCode;
+	}
+
+	/* 2017-10-20新加入 */
+	@FieldInfo(name = "年级")
+	private String nj;
+
+	public String getNj() {
+		return nj;
+	}
+
+	public void setNj(String nj) {
+		this.nj = nj;
+	}
+
+	public BaseOrgChkTree() {
+		super();
+	}
+
 	public BaseOrgChkTree(String id, List<BaseOrgChkTree> children) {
 
 		super(id, children);
@@ -247,9 +251,9 @@ public class BaseOrgChkTree extends ExtTreeNodeChk<BaseOrgChkTree> {
 	public BaseOrgChkTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,
 			List<BaseOrgChkTree> children, String outPhone, String inPhone, String fax, Integer isSystem, String remark,
 			String code, String parent, Integer orderIndex, String deptType, String parentType, String mainLeaderName,
-			String superJob, String superjobName, String isRight,Boolean checked) {
+			String superJob, String superjobName, String isRight, Boolean checked) {
 
-		super(id, text, iconCls, leaf, level, treeid, children,checked);
+		super(id, text, iconCls, leaf, level, treeid, children, checked);
 		// TODO Auto-generated constructor stub
 
 		this.outPhone = outPhone;
@@ -271,9 +275,9 @@ public class BaseOrgChkTree extends ExtTreeNodeChk<BaseOrgChkTree> {
 	public BaseOrgChkTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,
 			List<BaseOrgChkTree> children, String outPhone, String inPhone, String fax, Integer isSystem, String remark,
 			String code, String parent, Integer orderIndex, String deptType, String parentType, String mainLeaderName,
-			String superJob, String superjobName, String isRight,String nj, String sectionCode,Boolean checked) {
+			String superJob, String superjobName, String isRight, String nj, String sectionCode, Boolean checked) {
 
-		super(id, text, iconCls, leaf, level, treeid, children,checked);
+		super(id, text, iconCls, leaf, level, treeid, children, checked);
 		// TODO Auto-generated constructor stub
 
 		this.outPhone = outPhone;
@@ -290,7 +294,7 @@ public class BaseOrgChkTree extends ExtTreeNodeChk<BaseOrgChkTree> {
 		this.superJob = superJob;
 		this.superjobName = superjobName;
 		this.isRight = isRight;
-		this.nj=nj;
-		this.sectionCode=sectionCode;
+		this.nj = nj;
+		this.sectionCode = sectionCode;
 	}
 }

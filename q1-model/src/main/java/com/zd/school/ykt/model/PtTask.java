@@ -16,68 +16,86 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
 /**
+ * 任务明细
  * 
- * Function: TODO ADD FUNCTION. Reason: TODO ADD REASON(可选). Description:
- * (PT_TASK)实体类. date: 2017-05-16.
- * 
- * @version 0.1
- * @since JDK 1.8
+ * @author ZZK
+ *
  */
 
 @Entity
 @Table(name = "T_PT_Task")
-@AttributeOverride(name = "taskId", column = @Column(name = "taskId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "taskId", length = 20, nullable = false) )
 public class PtTask extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@FieldInfo(name = "任务编号", type = "varchar(8) NOT NULL", explain = "任务编号")
 	@Column(name = "taskNo", length = 8, nullable = false)
 	private String taskNo;
 
+	@FieldInfo(name = "任务年月日", type = "varchar(8) NOT NULL", explain = "任务年月日")
 	@Column(name = "taskDate", length = 8, nullable = false)
 	private String taskDate;
 
+	@FieldInfo(name = "任务类型", type = "varchar(4) NOT NULL", explain = "任务类型")
 	@Column(name = "taskType", nullable = false)
-	private Integer taskType;
+	private String taskType;
 
-	@Column(name = "deviceType", nullable = false)
-	private Integer deviceType;
+	@FieldInfo(name = "设备类型", type = "varchar(4) NOT NULL", explain = "设备类型")
+	@Column(name = "termType", nullable = false)
+	private String termType;
 
+	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "任务编号")
 	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
+	@FieldInfo(name = "任务数据", type = "varbinary(255)", explain = "任务数据")
 	@Column(name = "taskData", nullable = true)
-	private byte[] taskData;
+	private Byte[] taskData;
 
+	@FieldInfo(name = "超时时间", type = "int NOT NULL", explain = "超时时间")
 	@Column(name = "timeOut", nullable = false)
 	private Integer timeOut;
 
+	@FieldInfo(name = "重试次数", type = "int NOT NULL", explain = "重试次数")
 	@Column(name = "retryCount", nullable = false)
 	private Integer retryCount;
 
-	@Column(name = "tickSecend", columnDefinition="defalut 0",nullable = true)
-	private Integer tickSecend;
+	@FieldInfo(name = "应答间隔", type = "int defalut 0", explain = "应答间隔")
+	@Column(name = "tickSecend", columnDefinition = "defalut 0", nullable = true)
+	private Integer tickSecond;
 
+	@FieldInfo(name = "执行次数", type = "int NOT NULL", explain = "执行次数")
 	@Column(name = "executeCount", nullable = false)
 	private Integer executeCount;
 
-	@Column(name = "executeTime", columnDefinition="datetime",nullable = true)
+	@FieldInfo(name = "执行时间", type = "datetime", explain = "执行时间")
+	@Column(name = "executeTime", columnDefinition = "datetime", nullable = true)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date executeTime;
 
-	@Column(name = "executeResult", columnDefinition="defalut 0",nullable = true)
+	@FieldInfo(name = "执行结果", type = "bit defalut 0", explain = "执行结果")
+	@Column(name = "executeResult", columnDefinition = "defalut 0", nullable = true)
 	private Boolean executeResult;
 
-	@Column(name = "executeImmediately",columnDefinition="defalut 0", nullable = true)
+	@FieldInfo(name = "立刻执行", type = "bit defalut 0", explain = "立刻执行")
+	@Column(name = "executeImmediately", columnDefinition = "defalut 0", nullable = true)
 	private Boolean executeImmediately;
 
-	@Column(name = "isTaskOver",columnDefinition="defalut 0", nullable = true)
+	@FieldInfo(name = "任务是否结束", type = "bit defalut 0", explain = "任务是否结束")
+	@Column(name = "isTaskOver", columnDefinition = "defalut 0", nullable = true)
 	private Boolean isTaskOver;
 
-	@Column(name = "resultMsg", columnDefinition="varchar(1000) defalut ''", nullable = true)
+	@FieldInfo(name = "结果信息", type = "varchar(1000) defalut ''", explain = "结果信息")
+	@Column(name = "resultMsg", columnDefinition = "varchar(1000) defalut ''", nullable = true)
 	private String resultMsg;
 
-	@Column(name = "userId", columnDefinition="varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "用户id", type = "varchar(20) defalut ''", explain = "用户id")
+	@Column(name = "userId", columnDefinition = "varchar(20) defalut ''", nullable = true)
 	private String userId;
+
+	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
+	@FieldInfo(name = "设备名称")
+	private String termName;
 
 	public String getTaskNo() {
 		return taskNo;
@@ -95,20 +113,20 @@ public class PtTask extends BaseEntity implements Serializable {
 		this.taskDate = taskDate;
 	}
 
-	public Integer getTaskType() {
+	public String getTaskType() {
 		return taskType;
 	}
 
-	public void setTaskType(Integer taskType) {
+	public void setTaskType(String taskType) {
 		this.taskType = taskType;
 	}
 
-	public Integer getDeviceType() {
-		return deviceType;
+	public String getTermType() {
+		return termType;
 	}
 
-	public void setDeviceType(Integer deviceType) {
-		this.deviceType = deviceType;
+	public void setTermType(String termType) {
+		this.termType = termType;
 	}
 
 	public String getTermSn() {
@@ -119,11 +137,11 @@ public class PtTask extends BaseEntity implements Serializable {
 		this.termSn = termSn;
 	}
 
-	public byte[] getTaskData() {
+	public Byte[] getTaskData() {
 		return taskData;
 	}
 
-	public void setTaskData(byte[] taskData) {
+	public void setTaskData(Byte[] taskData) {
 		this.taskData = taskData;
 	}
 
@@ -143,12 +161,12 @@ public class PtTask extends BaseEntity implements Serializable {
 		this.retryCount = retryCount;
 	}
 
-	public Integer getTickSecend() {
-		return tickSecend;
+	public Integer getTickSecond() {
+		return tickSecond;
 	}
 
-	public void setTickSecend(Integer tickSecend) {
-		this.tickSecend = tickSecend;
+	public void setTickSecond(Integer tickSecond) {
+		this.tickSecond = tickSecond;
 	}
 
 	public Integer getExecuteCount() {
@@ -207,10 +225,6 @@ public class PtTask extends BaseEntity implements Serializable {
 		this.userId = userId;
 	}
 
-	@Formula("(SELECT A.TERMNAME FROM dbo.PT_TERM A WHERE A.TERMSN=TERMSN)")
-	@FieldInfo(name = "设备名称")
-	private String termName;
-
 	public String getTermName() {
 		return termName;
 	}
@@ -219,10 +233,12 @@ public class PtTask extends BaseEntity implements Serializable {
 		this.termName = termName;
 	}
 
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
+	public PtTask() {
+		super();
+	}
+
+	public PtTask(String id) {
+		super(id);
+	}
+
 }

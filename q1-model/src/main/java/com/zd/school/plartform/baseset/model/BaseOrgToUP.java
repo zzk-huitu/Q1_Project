@@ -2,6 +2,11 @@ package com.zd.school.plartform.baseset.model;
 
 import java.io.Serializable;
 
+/**
+ * POJO 类
+ * @author ZZK
+ *
+ */
 public class BaseOrgToUP implements Serializable {
 
 	private static final long serialVersionUID = 1L;

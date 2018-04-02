@@ -10,13 +10,9 @@
 package com.zd.school.plartform.comm.model;
 
 /**
- * ClassName:CommBase Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
- * Date: 2016年8月23日 下午1:57:02
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO
+ * @author ZZK
+ *
  */
 public class CommBase {
     /** 节点ID */

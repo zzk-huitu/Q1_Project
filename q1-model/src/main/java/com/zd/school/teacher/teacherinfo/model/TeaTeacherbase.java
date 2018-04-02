@@ -1,43 +1,152 @@
 package com.zd.school.teacher.teacherinfo.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.Formula;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
-import com.zd.core.util.DateTimeSerializer;
 import com.zd.school.plartform.system.model.SysUser;
 
 /**
+ * 教职工基本信息
  * 
- * ClassName: TeaTeacherbase Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 教职工基本数据实体类. date: 2016-07-19
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
-
 @Entity
 @Table(name = "T_PT_TeacherBaseInfo")
-// @AttributeOverride(name = "teacherBaseInfoId", column = @Column(name =
-// "teacherBaseInfoId", length = 20, nullable = false))
 public class TeaTeacherbase extends SysUser implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	
-	@FieldInfo(name = "英文姓名", type = "varchar(60)", explain = "教师的英文姓名")
-	@Column(name = "englishName", columnDefinition="nvarchar(60) defalut ''", nullable = true)
+	@FieldInfo(name = "英文姓名", type = "varchar(32) defalut ''", explain = "教师的英文姓名")
+	@Column(name = "englishName", columnDefinition = "nvarchar(32) defalut ''", nullable = true)
 	private String englishName;
+
+	@FieldInfo(name = "姓名拼音", type = "varchar(32) defalut ''", explain = "教师的姓名拼音")
+	@Column(name = "spellName", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	private String spellName;
+
+	@FieldInfo(name = "曾用名", type = "nvarchar(16) defalut ''", explain = "教师的曾用名")
+	@Column(name = "userdName", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	private String userdName;
+
+	@FieldInfo(name = "出生地码", type = "varchar(10) defalut ''", explain = "教师的出生地码（字典码）")
+	@Column(name = "bornplace", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String bornplace;
+
+	@FieldInfo(name = "国籍/地区码", type = "varchar(10) defalut ''", explain = "教师的国籍/地区码（字典码）")
+	@Column(name = "nationality", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String nationality;
+
+	@FieldInfo(name = "籍贯", type = "varchar(10) defalut ''", explain = "教师的籍贯（字典码）")
+	@Column(name = "nativePlace", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String nativePlace;
+
+	@FieldInfo(name = "户口所在地", type = "nvarchar(128) defalut ''", explain = "教师的户口所在地")
+	@Column(name = "hkadr", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	private String hkadr;
+
+	@FieldInfo(name = "户口性质码", type = "varchar(10) defalut ''", explain = "教师的户口性质码（字典码）")
+	@Column(name = "AccountPropertyCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String AccountPropertyCode;
+
+	@FieldInfo(name = "民族码", type = "varchar(10) defalut ''", explain = "教师的民族码（字典码）")
+	@Column(name = "folkCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String folkCode;
+
+	@FieldInfo(name = "身份证件类型码", type = "varchar(10) defalut ''", explain = "教师的身份证件类型码（字典码）")
+	@Column(name = "identityTypeCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String identityTypeCode;
+
+	@FieldInfo(name = "婚姻状况码", type = "varchar(10) defalut ''", explain = "教师婚姻状况码（字典码）")
+	@Column(name = "marriageCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String marriageCode;
+
+	@FieldInfo(name = "港澳台侨外码", type = "varchar(10) defalut ''", explain = "教师的港澳台侨外码（字典码）")
+	@Column(name = "foreignCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String foreignCode;
+
+	@FieldInfo(name = "健康状况码", type = "varchar(10) defalut ''", explain = "教师的健康状况码（字典码）")
+	@Column(name = "healthCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String healthCode;
+
+	@FieldInfo(name = "信仰宗教码", type = "varchar(10) defalut ''", explain = "教师的信仰宗教码（字典码）")
+	@Column(name = "religiousCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String religiousCode;
+
+	@FieldInfo(name = "血型码", type = "varchar(10) defalut ''", explain = "教师的血型码（字典码）")
+	@Column(name = "bloodType", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String bloodType;
+
+	@FieldInfo(name = "照片", type = "varchar(220) defalut ''", explain = "学生的照片")
+	@Column(name = "photo", columnDefinition = "varchar(200) defalut ''", nullable = true)
+	private String photo;
+
+	@FieldInfo(name = "身份证件有效期", type = "nvarchar(16) defalut ''", explain = "教师的身份证件有效期")
+	@Column(name = "identityTimeLimit", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	private String identityTimeLimit;
+
+	@FieldInfo(name = "家庭住址", type = "nvarchar(128) defalut ''", explain = "教师的家庭住址")
+	@Column(name = "homeAddress", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	private String homeAddress;
+
+	@FieldInfo(name = "目前居住地", type = "nvarchar(128) defalut ''", explain = "教师的目前居住地")
+	@Column(name = "liveLocation", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	private String liveLocation;
+
+	@FieldInfo(name = "学历码", type = "varchar(10) defalut ''", explain = "教师的学历码（字典码）")
+	@Column(name = "degreeCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String degreeCode;
+
+	@FieldInfo(name = "参加工作年月", type = "nvarchar(16) defalut ''", explain = "教师的参加工作年月")
+	@Column(name = "takeJobYears", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	private String takeJobYears;
+
+	@FieldInfo(name = "来校年月", type = "nvarchar(16) defalut ''", explain = "教师的来校年月")
+	@Column(name = "comeSchoolYears", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	private String comeSchoolYears;
+
+	@FieldInfo(name = "从教年月", type = "nvarchar(16) defalut ''", explain = "教师的从教年月")
+	@Column(name = "teachYears", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	private String teachYears;
+
+	@FieldInfo(name = "编制类别码", type = "varchar(10) defalut ''", explain = "教师的编制类别码（字典码）")
+	@Column(name = "BZLBM", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String compileTypeCode;
+
+	@FieldInfo(name = "档案编号", type = "nvarchar(10) defalut ''", explain = "教师的档案编号")
+	@Column(name = "fileNumber", columnDefinition = "nvarchar(10) defalut ''", nullable = true)
+	private String fileNumber;
+
+	@FieldInfo(name = "档案文本", type = "nvarchar(1024) defalut ''", explain = "教师的档案文本")
+	@Column(name = "textFiles", columnDefinition = "nvarchar(1024) defalut ''", nullable = true)
+	private String textFiles;
+
+	@FieldInfo(name = "通信地址", type = "nvarchar(128) defalut ''", explain = "教师的通信地址")
+	@Column(name = "mailingAddress", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	private String mailingAddress;
+
+	@FieldInfo(name = "联系电话", type = "varchar(16) defalut ''", explain = "教师的联系电话")
+	@Column(name = "telePhone", columnDefinition = "varchar(16) defalut ''", nullable = true)
+	private String telePhone;
+
+	@FieldInfo(name = "邮政编码", type = "varchar(6) defalut ''", explain = "教师的邮政编码（字典码）")
+	@Column(name = "postCode", columnDefinition = "varchar(6) defalut ''", nullable = true)
+	private String postCode;
+
+	@FieldInfo(name = "主页地址", type = "varchar(64) defalut ''", explain = "教师的主页地址")
+	@Column(name = "homePage", columnDefinition = "varchar(64) defalut ''", nullable = true)
+	private String homePage;
+
+	@FieldInfo(name = "特长", type = "nvarchar(128) defalut ''", explain = "教师的特长")
+	@Column(name = "speciality ", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	private String speciality;
+
+	@FieldInfo(name = "岗位职业码", type = "varchar(10) defalut ''", explain = "教师的岗位职业码（字典码）")
+	@Column(name = "postJobCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	private String postJobCode;
 
 	public String getEnglishName() {
 		return englishName;
@@ -47,10 +156,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.englishName = englishName;
 	}
 
-	@FieldInfo(name = "姓名拼音", type = "varchar(60)", explain = "教师的姓名拼音")
-	@Column(name = "spellName", columnDefinition="nvarchar(60) defalut ''", nullable = true)
-	private String spellName;
-
 	public String getSpellName() {
 		return spellName;
 	}
@@ -58,10 +163,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 	public void setSpellName(String spellName) {
 		this.spellName = spellName;
 	}
-
-	@FieldInfo(name = "曾用名", type = "nvarchar(36)", explain = "教师的曾用名")
-	@Column(name = "userdName", columnDefinition="nvarchar(32) defalut ''", nullable = true)
-	private String userdName;
 
 	public String getUserdName() {
 		return userdName;
@@ -71,10 +172,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.userdName = userdName;
 	}
 
-	@FieldInfo(name = "出生地码", type = "nvarchar(10)", explain = "教师的出生地码")
-	@Column(name = "bornplace", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String bornplace;
-
 	public String getBornplace() {
 		return bornplace;
 	}
@@ -82,10 +179,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 	public void setBornplace(String bornplace) {
 		this.bornplace = bornplace;
 	}
-
-	@FieldInfo(name = "国籍/地区码", type = "nvarchar(10)", explain = "教师的国籍/地区码")
-	@Column(name = "nationality", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String nationality;
 
 	public String getNationality() {
 		return nationality;
@@ -95,10 +188,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.nationality = nationality;
 	}
 
-	@FieldInfo(name = "籍贯", type = "nvarchar(20)", explain = "教师的籍贯")
-	@Column(name = "nativePlace", columnDefinition="nvarchar(20) defalut ''", nullable = true)
-	private String nativePlace;
-
 	public String getNativePlace() {
 		return nativePlace;
 	}
@@ -106,10 +195,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 	public void setNativePlace(String nativePlace) {
 		this.nativePlace = nativePlace;
 	}
-
-	@FieldInfo(name = "户口所在地", type = "nvarchar(180)", explain = "教师的户口所在地")
-	@Column(name = "hkadr", columnDefinition="nvarchar(180) defalut ''", nullable = true)
-	private String hkadr;
 
 	public String getHkadr() {
 		return hkadr;
@@ -119,10 +204,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.hkadr = hkadr;
 	}
 
-	@FieldInfo(name = "户口性质码", type = "nvarchar(10)", explain = "教师的户口性质码")
-	@Column(name = "AccountPropertyCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String AccountPropertyCode;
-
 	public String getAccountPropertyCode() {
 		return AccountPropertyCode;
 	}
@@ -130,10 +211,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 	public void setAccountPropertyCode(String accountPropertyCode) {
 		AccountPropertyCode = accountPropertyCode;
 	}
-
-	@FieldInfo(name = "民族码", type = "nvarchar(10)", explain = "教师的民族码")
-	@Column(name = "folkCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String folkCode;
 
 	public String getFolkCode() {
 		return folkCode;
@@ -143,10 +220,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.folkCode = folkCode;
 	}
 
-	@FieldInfo(name = "身份证件类型码", type = "nvarchar(10)", explain = "教师的身份证件类型码")
-	@Column(name = "identityTypeCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String identityTypeCode;
-
 	public String getIdentityTypeCode() {
 		return identityTypeCode;
 	}
@@ -155,33 +228,13 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.identityTypeCode = identityTypeCode;
 	}
 
-	@FieldInfo(name = "身份证件号", type = "varchar(20)", explain = "教师的身份证件号")
-	@Column(name = "personalIdentityDocument", columnDefinition="varchar(20) defalut ''", nullable = true)
-	private String personalIdentityDocument;
-
-	public String getPersonalIdentityDocument() {
-		return personalIdentityDocument;
-	}
-
-	public void setPersonalIdentityDocument(String personalIdentityDocument) {
-		this.personalIdentityDocument = personalIdentityDocument;
-	}
-
-	@FieldInfo(name = "婚姻状况码", type = "nvarchar(10)", explain = "教师婚姻状况码")
-	@Column(name = "marriageCode",columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String marriageCode;
-
-	public void setMarriageCode(String marriageCode) {
-		this.marriageCode = marriageCode;
-	}
-
 	public String getMarriageCode() {
 		return marriageCode;
 	}
 
-	@FieldInfo(name = "港澳台侨外码", type = "nvarchar(10)", explain = "教师的港澳台侨外码")
-	@Column(name = "foreignCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String foreignCode;
+	public void setMarriageCode(String marriageCode) {
+		this.marriageCode = marriageCode;
+	}
 
 	public String getForeignCode() {
 		return foreignCode;
@@ -190,21 +243,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 	public void setForeignCode(String foreignCode) {
 		this.foreignCode = foreignCode;
 	}
-	@FieldInfo(name = "政治面貌码GB/T 4762", type = "nvarchar(10))", explain = "教师的政治面貌码")
-	@Column(name = "politicsCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String politicsCode;
-
-	public void setPoliticsCode(String politicsCode) {
-		this.politicsCode = politicsCode;
-	}
-
-	public String getPoliticsCode() {
-		return politicsCode;
-	}
-
-	@FieldInfo(name = "健康状况码", type = "nvarchar(10)", explain = "教师的健康状况码")
-	@Column(name = "healthCode",columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String healthCode;
 
 	public String getHealthCode() {
 		return healthCode;
@@ -214,10 +252,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.healthCode = healthCode;
 	}
 
-	@FieldInfo(name = "信仰宗教码", type = "nvarchar(10)", explain = "教师的信仰宗教码")
-	@Column(name = "religiousCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String religiousCode;
-
 	public String getReligiousCode() {
 		return religiousCode;
 	}
@@ -226,101 +260,21 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.religiousCode = religiousCode;
 	}
 
-	@FieldInfo(name = "血型码", type = "nvarchar(10)", explain = "教师的血型码")
-	@Column(name = "bloodType", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String bloodType;
-
-	public void setBloodType(String bloodType) {
-		this.bloodType = bloodType;
-	}
-
-	public String getbloodType() {
+	public String getBloodType() {
 		return bloodType;
 	}
 
-	@FieldInfo(name = "照片", type = "nvarchar(220)", explain = "学生的照片")
-	@Column(name = "photo",columnDefinition="nvarchar(200) defalut ''", nullable = true)
-	private String photo;
-
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setBloodType(String bloodType) {
+		this.bloodType = bloodType;
 	}
 
 	public String getPhoto() {
 		return photo;
 	}
 
-	@FieldInfo(name = "身份证件有效期", type = "nvarchar(17)", explain = "教师的身份证件有效期")
-	@Column(name = "identityTimeLimit", columnDefinition="nvarchar(17) defalut ''", nullable = true)
-	private String identityTimeLimit;
-
-	@FieldInfo(name = "家庭住址", type = "nvarchar(180)", explain = "教师的家庭住址")
-	@Column(name = "homeAddress", columnDefinition="nvarchar(180) defalut ''", nullable = true)
-	private String homeAddress;
-
-	@FieldInfo(name = "目前居住地", type = "nvarchar(120)", explain = "教师的目前居住地")
-	@Column(name = "liveLocation", columnDefinition="nvarchar(180) defalut ''", nullable = true)
-	private String liveLocation;
-
-	@FieldInfo(name = "学历码", type = "nvarchar(10)", explain = "教师的学历码")
-	@Column(name = "degreeCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String degreeCode;
-
-	@FieldInfo(name = "参加工作年月",type = "nvarchar(16)", explain = "教师的参加工作年月")
-	@Column(name = "takeJobYears", columnDefinition="nvarchar(16) defalut ''", nullable = true)
-	private String takeJobYears;
-
-	@FieldInfo(name = "来校年月",type = "nvarchar(16)", explain = "教师的来校年月")
-	@Column(name = "comeSchoolYears", columnDefinition="nvarchar(16) defalut ''", nullable = true)
-	private String comeSchoolYears;
-
-	@FieldInfo(name = "从教年月",type = "nvarchar(16)", explain = "教师的从教年月")
-	@Column(name = "teachYears", columnDefinition="nvarchar(16) defalut ''", nullable = true)
-	private String teachYears;
-
-	@FieldInfo(name = "编制类别码",type = "nvarchar(10)", explain = "教师的编制类别码")
-	@Column(name = "BZLBM", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String compileTypeCode;
-
-	@FieldInfo(name = "档案编号",type = "nvarchar(10)", explain = "教师的档案编号")
-	@Column(name = "fileNumber",columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String fileNumber;
-
-	@FieldInfo(name = "档案文本",type = "nvarchar(128)", explain = "教师的档案文本")
-	@Column(name = "textFiles", columnDefinition="nvarchar(128) defalut ''", nullable = true)
-	private String textFiles;
-
-	@FieldInfo(name = "通信地址",type = "nvarchar(180)", explain = "教师的通信地址")
-	@Column(name = "mailingAddress", columnDefinition="nvarchar(180) defalut ''", nullable = true)
-	private String mailingAddress;
-
-	@FieldInfo(name = "联系电话",type = "nvarchar(30)", explain = "教师的联系电话")
-	@Column(name = "telePhone", columnDefinition="nvarchar(30) defalut ''", nullable = true)
-	private String telePhone;
-
-	@FieldInfo(name = "邮政编码",type = "nvarchar(6)", explain = "教师的邮政编码")
-	@Column(name = "postCode", columnDefinition="nvarchar(6) defalut ''", nullable = true)
-	private String postCode;
-
-	@FieldInfo(name = "电子信箱",type = "nvarchar(40)", explain = "教师的电子信箱")
-	@Column(name = "email", columnDefinition="nvarchar(40) defalut ''", nullable = true)
-	private String email;
-
-	@FieldInfo(name = "主页地址",type = "nvarchar(60)", explain = "教师的主页地址")
-	@Column(name = "homePage", columnDefinition="nvarchar(60) defalut ''", nullable = true)
-	private String homePage;
-
-	@FieldInfo(name = "特长", type = "nvarchar(128)", explain = "教师的特长")
-	@Column(name = "speciality ", columnDefinition="nvarchar(128) defalut ''", nullable = true)
-	private String speciality;
-
-	@FieldInfo(name = "岗位职业码", type = "nvarchar(10)", explain = "教师的岗位职业码")
-	@Column(name = "postJobCode", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String postJobCode;
-
-	@FieldInfo(name = "主要任课学段", type = "nvarchar(10)", explain = "教师的主要任课学段")
-	@Column(name = "mianCourseSection", columnDefinition="nvarchar(10) defalut ''", nullable = true)
-	private String mianCourseSection;
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
 
 	public String getIdentityTimeLimit() {
 		return identityTimeLimit;
@@ -426,14 +380,6 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.postCode = postCode;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
 	public String getHomePage() {
 		return homePage;
 	}
@@ -458,84 +404,12 @@ public class TeaTeacherbase extends SysUser implements Serializable {
 		this.postJobCode = postJobCode;
 	}
 
-	public String getMianCourseSection() {
-		return mianCourseSection;
+	public TeaTeacherbase() {
+		super();
 	}
 
-	public void setMianCourseSection(String mianCourseSection) {
-		this.mianCourseSection = mianCourseSection;
+	public TeaTeacherbase(String id) {
+		super(id);
 	}
-
-	public Date getBirthdDate() {
-		return birthdDate;
-	}
-
-	public void setBirthdDate(Date birthdDate) {
-		this.birthdDate = birthdDate;
-	}
-
-	public String getTeacherNum() {
-		return teacherNum;
-	}
-
-	public void setTeacherNum(String teacherNum) {
-		this.teacherNum = teacherNum;
-	}
-
-	public String getTeacherName() {
-		return teacherName;
-	}
-
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
-	}
-
-	public String getBloodType() {
-		return bloodType;
-	}
-
-	@FieldInfo(name = "主讲课程")
-	@Column(name = "mainCourse", length = 36, nullable = true)
-	private String mainCourse;
-
-	public void setMainCourse(String mainCourse) {
-		this.mainCourse = mainCourse;
-	}
-
-	public String getMainCourse() {
-		return mainCourse;
-	}
-
-	@Formula("(SELECT a.COURSE_NAME FROM  JW_T_BASECOURSE a WHERE a.BASECOURSE_ID=MAIN_COURSE )")
-	private String mainCourseName;
-
-	public void setMainCourseName(String mainCourse) {
-		this.mainCourseName = mainCourse;
-	}
-
-	public String getMainCourseName() {
-		return mainCourseName;
-	}
-
-	@FieldInfo(name = "出生日期")
-	@Column(name = "birthdDate", columnDefinition="datetime", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
-	@JsonSerialize(using = DateTimeSerializer.class)
-	private Date birthdDate;
-
-	/**
-	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-	 * 
-	 * @Transient
-	 * @FieldInfo(name = "") private String field1;
-	 */
-	@FieldInfo(name = "老师工号")
-	@Formula("(SELECT a.USER_NUMB FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
-	private String teacherNum;
-
-	@Transient
-	@FieldInfo(name = "老师姓名")
-	// @Formula("(SELECT a.xm FROM SYS_T_USER a WHERE a.USER_ID=USER_ID )")
-	private String teacherName;
 
 }

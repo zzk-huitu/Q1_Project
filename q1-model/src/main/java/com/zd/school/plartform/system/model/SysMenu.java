@@ -13,146 +13,149 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.TreeNodeEntity;
 
 /**
+ * 系统菜单表
  * 
- * ClassName: BaseTMenu Function: TODO ADD FUNCTION. Reason: TODO ADD
- * REASON(可选). Description: 系统菜单表实体类. date: 2016-07-17
+ * @author ZZK
  *
- * @author luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
  */
-
 @Entity
 @Table(name = "T_PT_Menu")
-@AttributeOverride(name = "menuId", column = @Column(name = "menuId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "menuId", length = 20, nullable = false) )
 public class SysMenu extends TreeNodeEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @FieldInfo(name = "菜单编码",type="nvarchar(32)",explain="菜单编码")
-    @Column(name = "menuCode", columnDefinition="nvarchar(32)", nullable = false)
-    private String menuCode;
+	@FieldInfo(name = "菜单编码", type = "varchar(16) NOT NULL", explain = "菜单编码")
+	@Column(name = "menuCode", columnDefinition = "varchar(16)", nullable = false)
+	private String menuCode;
 
-    public void setMenuCode(String menuCode) {
-        this.menuCode = menuCode;
-    }
+	@FieldInfo(name = "菜单类型", type = "varchar(10) NOT NULL", explain = "菜单类型")
+	@Column(name = "menuType", columnDefinition = "varchar(10)", nullable = false)
+	private String menuType;
 
-    public String getMenuCode() {
-        return menuCode;
-    }
+	@FieldInfo(name = "是否系统菜单", type = "bit NOT NULL defalut 0", explain = "是否系统菜单（0-非 1-是）")
+	@Column(name = "isSystem", nullable = false)
+	private Boolean issystem;
 
-    @FieldInfo(name = "菜单小图标",type="nvarchar(256)",explain="菜单的小图标")
-    @Column(name = "smallIcon", columnDefinition="nvarchar(256) defalut ''", nullable = true)
-    private String smallIcon;
+	@FieldInfo(name = "菜单小图标", type = "varchar(256)  defalut ''", explain = "菜单的小图标")
+	@Column(name = "smallIcon", columnDefinition = "varchar(256) defalut ''", nullable = true)
+	private String smallIcon;
 
-    public void setSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
-    }
+	@FieldInfo(name = "菜单大图标", type = "varchar(256) defalut ''", explain = "菜单的大图标")
+	@Column(name = "bigIcon", columnDefinition = "varchar(256) defalut ''", nullable = true)
+	private String bigIcon;
 
-    public String getSmallIcon() {
-        return smallIcon;
-    }
+	@FieldInfo(name = "菜单目标值", type = "varchar(128)", explain = "菜单的前端模块值（例：smartcontrol.userauthority.mainlayout,core.smartcontrol.userauthority.controller.MainController）")
+	@Column(name = "menuTarget", columnDefinition = "varchar(128) defalut ''", nullable = true)
+	private String menuTarget;
 
-    @FieldInfo(name = "菜单大图标",type="nvarchar(256)",explain="菜单的大图标")
-    @Column(name = "bigIcon", columnDefinition="nvarchar(256) defalut ''", nullable = true)
-    private String bigIcon;
+	@FieldInfo(name = "是否叶子菜单", type = "bit defalut 0", explain = "是否叶菜单（0-非 1-是）")
+	@Column(name = "isMenuLeaf", columnDefinition = "defalut 0", nullable = true)
+	private Boolean isMenuLeaf;
 
-    public void setBigIcon(String bigIcon) {
-        this.bigIcon = bigIcon;
-    }
+	@FieldInfo(name = "是否隐藏", type = "bit defalut 0", explain = "是否隐藏菜单（0-不隐藏 1-隐藏）")
+	@Column(name = "isHidden", columnDefinition = "defalut 0", nullable = true)
+	private Boolean isHidden;
 
-    public String getBigIcon() {
-        return bigIcon;
-    }
+	/**
+	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
+	 * 
+	 * @Transient
+	 * @FieldInfo(name = "") private String field1;
+	 */
+	// @FieldInfo(name = "上级菜单名称",type="nvarchar",explain="上级菜单名称")
+	@Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_Menu a WHERE a.menuId=parentNode)")
+	private String parentMenuName;
 
-    @FieldInfo(name = "菜单地址",type="nvarchar(128)",explain="菜单的url")
-    @Column(name = "menuTarget", columnDefinition="varchar(128) defalut ''",nullable=true)
-    private String menuTarget;
+	// @FieldInfo(name = "角色菜单权限ID",type="boolean",explain="角色的菜单权限ID")
+	@Formula("(SELECT top 1 a.permissionId FROM T_PT_Permission a WHERE a.permissionCode=menuId)")
+	private String permissionId;
 
-    public String getMenuTarget() {
-        return menuTarget;
-    }
+	public String getMenuCode() {
+		return menuCode;
+	}
 
-    public void setMenuTarget(String menuTarget) {
-        this.menuTarget = menuTarget;
-    }
+	public void setMenuCode(String menuCode) {
+		this.menuCode = menuCode;
+	}
 
-    @FieldInfo(name = "菜单类型",type="nvarchar(10)",explain="菜单类型")
-    @Column(name = "menuType",columnDefinition="nvarchar(10)", nullable=false)
-    private String menuType;
+	public String getMenuType() {
+		return menuType;
+	}
 
-    public String getMenuType() {
-        return menuType;
-    }
+	public void setMenuType(String menuType) {
+		this.menuType = menuType;
+	}
 
-    public void setMenuType(String menuType) {
-        this.menuType = menuType;
-    }
+	public Boolean getIssystem() {
+		return issystem;
+	}
 
-    @FieldInfo(name = "是否叶菜单",type="boolean",explain="是否叶菜单")
-    @Column(name = "menuLeaf",columnDefinition="defalut 0",nullable=true)
-    private boolean menuLeaf;
+	public void setIssystem(Boolean issystem) {
+		this.issystem = issystem;
+	}
 
-    public boolean getMenuLeaf() {
-        return menuLeaf;
-    }
+	public String getSmallIcon() {
+		return smallIcon;
+	}
 
-    public void setMenuLeaf(boolean menuLeaf) {
-        this.menuLeaf = menuLeaf;
-    }
+	public void setSmallIcon(String smallIcon) {
+		this.smallIcon = smallIcon;
+	}
 
-    @FieldInfo(name = "是否系统菜单",type="boolean",explain="是否系统菜单")
-    @Column(name = "issystem", nullable = false)
-    private boolean issystem;
+	public String getBigIcon() {
+		return bigIcon;
+	}
 
-    public void setIssystem(boolean issystem) {
-        this.issystem = issystem;
-    }
+	public void setBigIcon(String bigIcon) {
+		this.bigIcon = bigIcon;
+	}
 
-    public boolean getIssystem() {
-        return issystem;
-    }
+	public String getMenuTarget() {
+		return menuTarget;
+	}
 
-    @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏",type="boolean",explain="是否隐藏菜单")
-    @Column(name = "isHidden",columnDefinition="defalut 0" , nullable = true)
-    private boolean isHidden;
+	public void setMenuTarget(String menuTarget) {
+		this.menuTarget = menuTarget;
+	}
 
-    public boolean getIsHidden() {
-        return isHidden;
-    }
+	public Boolean getIsMenuLeaf() {
+		return isMenuLeaf;
+	}
 
-    public void setIsHidden(boolean isHidden) {
-        this.isHidden = isHidden;
-    }
+	public void setIsMenuLeaf(Boolean isMenuLeaf) {
+		this.isMenuLeaf = isMenuLeaf;
+	}
 
-    /**
-     * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
-     * 
-     * @Transient
-     * @FieldInfo(name = "") private String field1;
-     */
-    @FieldInfo(name = "上级菜单名称",type="nvarchar",explain="上级菜单名称")
-    @Formula("(SELECT isnull(a.nodeText,'ROOT') FROM T_PT_Menu a WHERE a.menuId=parentNode)")
-    private String parentMenuName;
+	public Boolean getIsHidden() {
+		return isHidden;
+	}
 
-    public String getParentMenuName() {
-        return parentMenuName;
-    }
+	public void setIsHidden(Boolean isHidden) {
+		this.isHidden = isHidden;
+	}
 
-    public void setParentMenuName(String parentMenuName) {
-        this.parentMenuName = parentMenuName;
-    }
-    
-  
-    @FieldInfo(name = "角色菜单权限ID",type="boolean",explain="角色菜单权限ID")
-    @Formula("(SELECT top 1 a.permissionId FROM T_PT_Permission a WHERE a.permissionCode=menuId)")
-    private String perId;
+	public String getParentMenuName() {
+		return parentMenuName;
+	}
 
-    public String getPerId() {
-        return perId;
-    }
+	public void setParentMenuName(String parentMenuName) {
+		this.parentMenuName = parentMenuName;
+	}
 
-    public void setPerId(String perId) {
-        this.perId = perId;
-    }
+	public String getPermissionId() {
+		return permissionId;
+	}
+
+	public void setPermissionId(String permissionId) {
+		this.permissionId = permissionId;
+	}
+
+	public SysMenu() {
+		super();
+	}
+
+	public SysMenu(String id) {
+		super(id);
+	}
 
 }

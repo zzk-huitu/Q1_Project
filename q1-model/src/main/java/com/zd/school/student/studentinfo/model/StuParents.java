@@ -11,118 +11,116 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
 /**
- * 
- * ClassName: StuParents 
- * Function: TODO ADD FUNCTION. 
- * Reason: TODO ADD REASON(可选). 
- * Description: 学生家长信息实体类.
- * date: 2016-08-05
- *
- * @author  luoyibo 创建文件
- * @version 0.1
- * @since JDK 1.8
+ * /** 学生家长信息
  */
- 
 @Entity
-@Table(name = "STU_T_PARENTS")
-@AttributeOverride(name = "uuid", column = @Column(name = "PARENT_ID", length = 36, nullable = false))
-public class StuParents extends BaseEntity implements Serializable{
-    private static final long serialVersionUID = 1L;
-    
-    @FieldInfo(name = "学生ID")
-    @Column(name = "STU_ID", length = 36, nullable = true)
-    private String stuId;
-    public void setStuId(String stuId) {
-        this.stuId = stuId;
-    }
-    public String getStuId() {
-        return stuId;
-    }
-        
-    @FieldInfo(name = "姓名")
-    @Column(name = "XM", length = 36, nullable = false)
-    private String xm;
-    public void setXm(String xm) {
-        this.xm = xm;
-    }
-    public String getXm() {
-        return xm;
-    }
-        
-    @FieldInfo(name = "性别码")
-    @Column(name = "XBM", length = 10, nullable = true)
-    private String xbm;
-    public void setXbm(String xbm) {
-        this.xbm = xbm;
-    }
-    public String getXbm() {
-        return xbm;
-    }
-        
-    @FieldInfo(name = "身份证件类型码")
-    @Column(name = "SFZJLXM", length = 10, nullable = true)
-    private String sfzjlxm;
-    public void setSfzjlxm(String sfzjlxm) {
-        this.sfzjlxm = sfzjlxm;
-    }
-    public String getSfzjlxm() {
-        return sfzjlxm;
-    }
-        
-    @FieldInfo(name = "身份证件号")
-    @Column(name = "SFZJH", length = 20, nullable = true)
-    private String sfzjh;
-    public void setSfzjh(String sfzjh) {
-        this.sfzjh = sfzjh;
-    }
-    public String getSfzjh() {
-        return sfzjh;
-    }
-        
-    @FieldInfo(name = "与学生关系")
-    @Column(name = "XSGXM", length = 16, nullable = false)
-    private String xsgxm;
-    public void setXsgxm(String xsgxm) {
-        this.xsgxm = xsgxm;
-    }
-    public String getXsgxm() {
-        return xsgxm;
-    }
-        
-    @FieldInfo(name = "电子邮箱")
-    @Column(name = "E_MAIL", length = 128, nullable = true)
-    private String eMail;
-    public void setEMail(String eMail) {
-        this.eMail = eMail;
-    }
-    public String getEMail() {
-        return eMail;
-    }
-        
-    @FieldInfo(name = "移动电话")
-    @Column(name = "MOBILE", length = 64, nullable = true)
-    private String mobile;
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-    public String getMobile() {
-        return mobile;
-    }
-        
-    @FieldInfo(name = "固定电话")
-    @Column(name = "TELPHONE", length = 64, nullable = true)
-    private String telphone;
-    public void setTelphone(String telphone) {
-        this.telphone = telphone;
-    }
-    public String getTelphone() {
-        return telphone;
-    }
-        
+@Table(name = "T_PT_Parents")
+@AttributeOverride(name = "uuid", column = @Column(name = "parentsId", length = 20, nullable = false) )
+public class StuParents extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    /** 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 
-    *@Transient
-    *@FieldInfo(name = "")
-    *private String field1;
-    */
+	@FieldInfo(name = "学生ID", type = "varchar(20) NOT NULL", explain = "学生id")
+	@Column(name = "stuId", length = 20, nullable = false)
+	private String stuId;
+
+	@FieldInfo(name = "家长姓名", type = "nvarchar(10) NOT NULL", explain = "家长姓名")
+	@Column(name = "name", columnDefinition = "nvarchar(10)", nullable = false)
+	private String name;
+
+	@FieldInfo(name = "家长的类型", type = "varchar(10) NOT NULL", explain = "家长的类型,与学生关系（字典码）")
+	@Column(name = "parentsType", length = 10, nullable = false)
+	private String parentsType;
+
+	@FieldInfo(name = "性别码", type = "varchar(1) NOT NULL", explain = "性别码")
+	@Column(name = "sex", length = 1, nullable = false)
+	private String sex;
+
+	@FieldInfo(name = "身份证件类型码", type = "varchar(10) default ''", explain = "身份证件类型码（字典码）")
+	@Column(name = "identityType", length = 10, columnDefinition = "default ''", nullable = true)
+	private String identityType;
+
+	@FieldInfo(name = "身份证件号", type = "varchar(18) default ''", explain = "身份证件号")
+	@Column(name = "identityNo", length = 18, columnDefinition = "default ''", nullable = true)
+	private String identityNo;
+
+	@FieldInfo(name = "电子邮箱", type = "varchar(128) default ''", explain = "学生id")
+	@Column(name = "email", length = 128, columnDefinition = "default ''", nullable = true)
+	private String email;
+
+	@FieldInfo(name = "移动电话号码", type = "varchar(20) default ''", explain = "移动电话号码")
+	@Column(name = "mobile", length = 20, columnDefinition = "default ''", nullable = true)
+	private String mobile;
+
+	public String getStuId() {
+		return stuId;
+	}
+
+	public void setStuId(String stuId) {
+		this.stuId = stuId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getParentsType() {
+		return parentsType;
+	}
+
+	public void setParentsType(String parentsType) {
+		this.parentsType = parentsType;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getIdentityType() {
+		return identityType;
+	}
+
+	public void setIdentityType(String identityType) {
+		this.identityType = identityType;
+	}
+
+	public String getIdentityNo() {
+		return identityNo;
+	}
+
+	public void setIdentityNo(String identityNo) {
+		this.identityNo = identityNo;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public StuParents() {
+		super();
+	}
+
+	public StuParents(String id) {
+		super(id);
+	}
+
 }

@@ -1,5 +1,10 @@
 package com.zd.school.student.studentclass.model;
 
+/**
+ * POJO
+ * @author ZZK
+ *
+ */
 public class StandVClassStudent {
 
 	public String userId;

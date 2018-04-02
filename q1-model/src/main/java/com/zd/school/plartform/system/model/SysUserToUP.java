@@ -2,6 +2,11 @@ package com.zd.school.plartform.system.model;
 
 import java.io.Serializable;
 
+/**
+ * POJO 待删除
+ * @author ZZK
+ *
+ */
 public class SysUserToUP implements Serializable {
 
 	private static final long serialVersionUID = 1L;

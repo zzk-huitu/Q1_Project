@@ -6,13 +6,9 @@ import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.extjs.ExtTreeNodeChk;
 
 /**
- * ClassName:GradeTree Function: TODO ADD FUNCTION. Reason: TODO ADD REASON.
- * Date: 2016年8月23日 下午1:53:51
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO
+ * @author ZZK
+ *
  */
 public class CommTreeChk extends ExtTreeNodeChk<CommTreeChk> {
     /** 上级层次 */
