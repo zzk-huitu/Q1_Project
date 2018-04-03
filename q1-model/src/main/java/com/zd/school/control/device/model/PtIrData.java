@@ -23,25 +23,25 @@ import com.zd.core.model.BaseEntity;
 public class PtIrData extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "红外数据所属品牌ID", type = "varchar(20) default ''", explain = "红外数据所属品牌")
-	@Column(name = "brandId", length = 20, columnDefinition = " default ''", nullable = true)
+	@FieldInfo(name = "红外数据所属品牌ID", type = "varchar(20) NOT NULL", explain = "红外数据所属品牌")
+	@Column(name = "brandId", length = 20, nullable = false)
 	private String brandId;
 
-	@FieldInfo(name = "红外数据编码", type = "varchar(10) default ''", explain = "红外数据编码")
-	@Column(name = "irDataNo", length = 10, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "红外数据编码", type = "varchar(10) NOT NULL", explain = "红外数据编码")
+	@Column(name = "irDataNo", length = 10,  nullable = false)
 	private Long irDataNo;
 
-	@FieldInfo(name = "红外数据名称", type = "nvarchar(20) default ''", explain = "红外数据名称")
-	@Column(name = "irDataName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "红外数据名称", type = "nvarchar(20) NOT NULL", explain = "红外数据名称")
+	@Column(name = "irDataName", columnDefinition = "nvarchar(20) ", nullable = false)
 	private String irDataName;
 
 	@FieldInfo(name = "红外动作数据", type = "varbinary(255) NOT NULL", explain = "红外动作数据")
 	@Column(name = "irActionData", length = 255, nullable = false)
 	private Byte[] irActionData;
 
-	@FieldInfo(name = "红外转换数据", type = "varbinary(255)", explain = "红外转换数据")
-	@Column(name = "irConvertedData", length = 255, nullable = true)
-	private byte[] irConvertedData;
+	@FieldInfo(name = "红外转换数据", type = "varbinary(255) NOT NULL", explain = "红外转换数据")
+	@Column(name = "irConvertedData", length = 255, nullable = false)
+	private Byte[] irConvertedData;
 
 	public String getBrandId() {
 		return brandId;
@@ -75,11 +75,11 @@ public class PtIrData extends BaseEntity implements Serializable {
 		this.irActionData = irActionData;
 	}
 
-	public byte[] getIrConvertedData() {
+	public Byte[] getIrConvertedData() {
 		return irConvertedData;
 	}
 
-	public void setIrConvertedData(byte[] irConvertedData) {
+	public void setIrConvertedData(Byte[] irConvertedData) {
 		this.irConvertedData = irConvertedData;
 	}
 

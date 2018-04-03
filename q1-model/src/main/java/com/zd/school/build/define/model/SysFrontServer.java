@@ -22,12 +22,12 @@ import com.zd.core.model.BaseEntity;
 public class SysFrontServer extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "服务器名称", type = "nvarchar(20) NOT NULL", explain = "服务器名称")
-	@Column(name = "frontServerName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "服务器名称", type = "nvarchar(16) NOT NULL", explain = "服务器名称")
+	@Column(name = "frontServerName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String frontServerName;
 
-	@FieldInfo(name = "服务IP", type = "varchar(20) NOT NULL", explain = "服务IP")
-	@Column(name = "frontServerIp", length = 20, nullable = false)
+	@FieldInfo(name = "服务IP", type = "varchar(16) NOT NULL", explain = "服务IP")
+	@Column(name = "frontServerIp", length = 16, nullable = false)
 	private String frontServerIp;
 
 	@FieldInfo(name = "服务端口", type = "int NOT NULL", explain = "服务端口")
@@ -38,8 +38,8 @@ public class SysFrontServer extends BaseEntity implements Serializable {
 	@Column(name = "frontServerStatus", columnDefinition = "default 0", nullable = false)
 	private Boolean frontServerStatus;
 
-	@FieldInfo(name = "请求任务URL", type = "varchar(50) default ''", explain = "请求任务URL")
-	@Column(name = "frontServerUrl", length = 50, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "请求任务URL", type = "varchar(64) default ''", explain = "请求任务URL")
+	@Column(name = "frontServerUrl", length = 64, columnDefinition = "default ''", nullable = true)
 	private String frontServerUrl;
 
 	@FieldInfo(name = "备注", type = "nvarchar(128) default ''", explain = "备注")

@@ -28,58 +28,58 @@ import com.zd.core.util.DateTimeSerializer;
 public class PtMjOpenDoor extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备序列号", type = "varchar(14) default ''", explain = "设备序列号")
-	@Column(name = "termSn", length = 14, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号")
+	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "设备名称", type = "nvarchar(20) default ''", explain = "设备名称")
-	@Column(name = "termName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "设备名称", type = "nvarchar(16)  NOT NULL", explain = "设备名称")
+	@Column(name = "termName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String termName;
 
-	@FieldInfo(name = "房间编号", type = "varchar(20) default ''", explain = "房间编号")
-	@Column(name = "roomId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "房间编号", type = "varchar(20)  NOT NULL", explain = "房间编号")
+	@Column(name = "roomId", length = 20,  nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "开门人员姓名", type = "nvarchar(10) default ''", explain = "开门人员姓名")
-	@Column(name = "userName", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	@FieldInfo(name = "开门人员姓名", type = "nvarchar(10)  NOT NULL", explain = "开门人员姓名")
+	@Column(name = "userName", columnDefinition = "nvarchar(10)", nullable = false)
 	private String userName;
 
-	@FieldInfo(name = "开门时间", type = "datetime", explain = "开门时间")
-	@Column(name = "openDate", columnDefinition = "datetime", nullable = true)
+	@FieldInfo(name = "开门时间", type = "datetime  NOT NULL", explain = "开门时间")
+	@Column(name = "openDate", columnDefinition = "datetime", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date openDate;
 
-	@FieldInfo(name = "房间名称", type = "nvarchar(20) default ''", explain = "房间名称")
-	@Column(name = "roomName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "房间名称", type = "nvarchar(16)  NOT NULL", explain = "房间名称")
+	@Column(name = "roomName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String roomName;
 
-	@FieldInfo(name = "房间所在区域", type = "nvarchar(10) default ''", explain = "房间所在区域")
-	@Column(name = "roomArea", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	@FieldInfo(name = "房间所在区域", type = "nvarchar(64)  NOT NULL", explain = "房间所在区域")
+	@Column(name = "roomArea", columnDefinition = "nvarchar(64)'", nullable = false)
 	private String roomArea;
 
-	@FieldInfo(name = "进出标识", type = "nvarchar(10) default ''", explain = "进出标识")
-	@Column(name = "inOutType", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	@FieldInfo(name = "进出标识", type = "nvarchar(16)  NOT NULL", explain = "进出标识")
+	@Column(name = "inOutType", columnDefinition = "nvarchar(16)", nullable = false)
 	private String inOutType;
 
-	@FieldInfo(name = "开门类型", type = "nvarchar(10) default ''", explain = "开门类型")
-	@Column(name = "openType", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	@FieldInfo(name = "开门类型", type = "nvarchar(16)  NOT NULL", explain = "开门类型")
+	@Column(name = "openType", columnDefinition = "nvarchar(16)", nullable = false)
 	private String openType;
 
-	@FieldInfo(name = "设备Id", type = "varchar(20) default ''", explain = "设备Id")
-	@Column(name = "termId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "设备Id", type = "varchar(20) NOT NULL", explain = "设备Id")
+	@Column(name = "termId", length = 20,  nullable = false)
 	private String termId;
 
-	@FieldInfo(name = "用户Id", type = "varchar(20) default ''", explain = "用户Id")
-	@Column(name = "userId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "用户Id", type = "varchar(20) NOT NULL", explain = "用户Id")
+	@Column(name = "userId", length = 20,  nullable = false)
 	private String userId;
 
-	@FieldInfo(name = "区域Id", type = "varchar(20) default ''", explain = "区域Id")
-	@Column(name = "areaId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "区域Id", type = "varchar(20) NOT NULL", explain = "区域Id")
+	@Column(name = "areaId", length = 20,  nullable = false)
 	private String areaId;
 
-	@FieldInfo(name = "记录编号", type = "varchar(20) default ''", explain = "记录编号")
-	@Column(name = "recordId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "记录编号", type = "varchar(20)  NOT NULL", explain = "记录编号")
+	@Column(name = "recordId", length = 20, nullable = false)
 	private String recordId;
 
 	/* 用于排除未定义的房间 0 */

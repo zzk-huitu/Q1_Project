@@ -37,9 +37,10 @@ public class BuildOfficeDefine extends BaseEntity implements Serializable {
 	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
 	private Boolean isAllot;
 
-	@FieldInfo(name = "officeName", type = "nvarchar(20) default ''", explain = "办公室名称")
-	@Column(name = "officeName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String officeName;
+	/*使用下面的房间名称*/
+//	@FieldInfo(name = "officeName", type = "nvarchar(20) default ''", explain = "办公室名称")
+//	@Column(name = "officeName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+//	private String officeName;
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -82,14 +83,6 @@ public class BuildOfficeDefine extends BaseEntity implements Serializable {
 
 	public void setIsAllot(Boolean isAllot) {
 		this.isAllot = isAllot;
-	}
-
-	public String getOfficeName() {
-		return officeName;
-	}
-
-	public void setOfficeName(String officeName) {
-		this.officeName = officeName;
 	}
 
 	public String getRoomName() {

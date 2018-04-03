@@ -14,12 +14,16 @@ com\zd\school\plartform\baseset\model\BaseCampus.class
 com\zd\school\jw\model\app\ClassStudentApp.class
 com\zd\school\control\device\model\PtTerm.class
 com\zd\school\jw\ecc\model\EccClassredflag.class
+com\zd\school\plartform\baseset\model\BaseJob.class
 com\zd\school\oa\notice\model\OaNoticetype.class
 com\zd\school\excel\FastExcel.class
 com\zd\school\plartform\system\model\SysRoleMenuPermission.class
 com\zd\school\plartform\system\model\SysMenuPermission.class
+com\zd\school\control\device\model\PtRoomBags.class
 com\zd\school\oa\attendance\model\AttTitle.class
 com\zd\school\control\device\model\PtIrRoomDevice.class
+com\zd\school\oa\attendance\model\AttTerm.class
+com\zd\school\plartform\baseset\model\BaseDic.class
 com\zd\school\oa\notice\model\OaNoticeauditor.class
 com\zd\school\jw\ecc\model\EccClasselegant.class
 com\zd\school\jw\eduresources\model\JwCalender.class
@@ -33,13 +37,16 @@ com\zd\school\plartform\baseset\model\BaseSchool.class
 com\zd\school\teacher\teacherinfo\model\TeaTeacherbase.class
 com\zd\school\control\device\model\PtTermBags.class
 com\zd\school\jw\model\app\JwTGradeclassForApp.class
+com\zd\school\jw\model\app\DeviceListInClassForApp.class
 com\zd\school\jw\model\app\PictureApp.class
+com\zd\school\jw\model\app\JwCheckrulestudent.class
 com\zd\school\oa\terminal\model\OaInfoterm.class
 com\zd\school\jw\model\app\CommonApp.class
 com\zd\school\control\device\model\PtRoomBagsRuleBind.class
 com\zd\school\plartform\system\model\SysAppinfo.class
 com\zd\school\excel\annotation\MapperCell.class
 com\zd\school\build\define\model\BuildRoominfo.class
+com\zd\school\jw\model\app\VideoApp.class
 com\zd\school\oa\notice\model\OaNoticeOther.class
 com\zd\school\control\device\model\TLVModel.class
 com\zd\school\plartform\system\model\SysUserToUP.class
@@ -66,6 +73,7 @@ com\zd\school\plartform\baseset\model\BaseOrg.class
 com\zd\school\plartform\system\model\SysOperateLog.class
 com\zd\school\plartform\system\model\SysPermission.class
 com\zd\school\control\device\model\PtPriceBind.class
+com\zd\school\plartform\baseset\model\BaseUserdeptjob.class
 com\zd\school\oa\terminal\model\OaInfotermuse.class
 com\zd\school\build\allot\model\DormTeacherDorm.class
 com\zd\school\jw\eduresources\model\JwClassteacher.class
@@ -81,6 +89,7 @@ com\zd\school\control\device\model\PtIrDeviceBrand.class
 com\zd\school\oa\terminal\model\OaRoomTerm.class
 com\zd\school\control\device\model\PtPowerResidue.class
 com\zd\school\build\allot\model\JwOfficeAllot.class
+com\zd\school\jw\model\app\BuildRoominfoApp.class
 com\zd\school\ykt\model\PtCard.class
 com\zd\school\plartform\system\model\SysUserLoginLog.class
 com\zd\school\build\define\model\DkPriceDefine.class
@@ -104,6 +113,7 @@ com\zd\school\control\device\model\PtSkTermStatus.class
 com\zd\school\build\define\model\BuildDormDefine.class
 com\zd\school\jw\model\app\JwTcourseArrangeForApp.class
 com\zd\school\control\device\model\PtSkMeterbind.class
+com\zd\school\plartform\system\model\SysMenuTree.class
 com\zd\school\control\device\model\PtRoomBagRule.class
 com\zd\school\student\studentclass\model\StandVClassStudent.class
 com\zd\school\control\device\model\PtSkMeter.class

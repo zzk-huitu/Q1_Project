@@ -37,9 +37,10 @@ public class BuildFuncRoomDefine extends BaseEntity implements Serializable {
 	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
 	private Boolean isAllot;
 
-	@FieldInfo(name = "功能室名称", type = "nvarchar(20)  default ''", explain = "功能室名称")
-	@Column(name = "funcName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String funcName;
+	/*使用下面的房间名称*/
+//	@FieldInfo(name = "功能室名称", type = "nvarchar(20)  default ''", explain = "功能室名称")
+//	@Column(name = "funcName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+//	private String funcName;
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -84,13 +85,6 @@ public class BuildFuncRoomDefine extends BaseEntity implements Serializable {
 		this.isAllot = isAllot;
 	}
 
-	public String getFuncName() {
-		return funcName;
-	}
-
-	public void setFuncName(String funcName) {
-		this.funcName = funcName;
-	}
 
 	public String getRoomName() {
 		return roomName;

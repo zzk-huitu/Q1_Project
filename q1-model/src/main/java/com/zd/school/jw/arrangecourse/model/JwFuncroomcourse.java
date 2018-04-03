@@ -33,17 +33,10 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@Column(name = "funcRoomId", nullable = false)
 	private String funcRoomId;
 
-	@FieldInfo(name = "sections", type = "nvarchar(10) default ''", explain = "节次")
+	@FieldInfo(name = "节次", type = "nvarchar(10) default ''", explain = "节次")
 	@Column(name = "sections", columnDefinition = "nvarchar(10) default ''", nullable = false)
 	private String sections;
 
-	@FieldInfo(name = "学年", type = "nvarchar(20)  default ''", explain = "学年(暂不需要)")
-	@Column(name = "schoolYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String schoolYear;
-
-	@FieldInfo(name = "学期", type = "nvarchar(10) default ''", explain = "学期(暂不需要)")
-	@Column(name = "semester", columnDefinition = "nvarchar(10) default ''", nullable = true)
-	private String semester;
 
 	@FieldInfo(name = "课程ID1", type = "varchar(20) default ''", explain = "课程ID1")
 	@Column(name = "courseId01", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -224,21 +217,7 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 		this.sections = sections;
 	}
 
-	public String getSchoolYear() {
-		return schoolYear;
-	}
-
-	public void setSchoolYear(String schoolYear) {
-		this.schoolYear = schoolYear;
-	}
-
-	public String getSemester() {
-		return semester;
-	}
-
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
+	
 
 	public String getCourseId01() {
 		return courseId01;

@@ -23,20 +23,20 @@ import com.zd.core.model.BaseEntity;
 public class JwTGrade extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "年级名称", type = "nvarchar(20) NOT NULL", explain = "年级名称")
-	@Column(name = "gradeName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "年级名称", type = "nvarchar(16) NOT NULL", explain = "年级名称")
+	@Column(name = "gradeName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String gradeName;
 
-	@FieldInfo(name = "学段编码", type = "varchar(10) NOT NULL", explain = "学段编码（数据字典）")
-	@Column(name = "sectionCode", columnDefinition = "varchar(10)", nullable = false)
+	@FieldInfo(name = "学段编码", type = "varchar(4 NOT NULL", explain = "学段编码（数据字典）")
+	@Column(name = "sectionCode", columnDefinition = "varchar(4)", nullable = false)
 	private String sectionCode;
 
-	@FieldInfo(name = "年级", type = "varchar(10) NOT NULL", explain = "年级（数据字典）")
-	@Column(name = "nj", length = 10, nullable = false)
+	@FieldInfo(name = "年级", type = "varchar(4) NOT NULL", explain = "年级（数据字典）")
+	@Column(name = "nj", length = 4, nullable = false)
 	private String nj;
 
-	@FieldInfo(name = "gradeCode", type = "varchar(20) default ''", explain = "年级编码")
-	@Column(name = "gradeCode", columnDefinition = "varchar(20) default ''", nullable = true)
+	@FieldInfo(name = "gradeCode", type = "varchar(8) default ''", explain = "年级编码(学段+年级)")
+	@Column(name = "gradeCode", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String gradeCode;
 
 	public String getGradeName() {

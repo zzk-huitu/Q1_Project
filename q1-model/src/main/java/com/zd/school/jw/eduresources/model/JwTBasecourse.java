@@ -22,24 +22,24 @@ import com.zd.core.model.BaseEntity;
 public class JwTBasecourse extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "课程名称", type = "nvarchar(20) NOT NULL", explain = "课程名称")
-	@Column(name = "courseName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "课程名称", type = "nvarchar(16) NOT NULL", explain = "课程名称")
+	@Column(name = "courseName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String courseName;
 
-	@FieldInfo(name = "课程类别码", type = "varchar(10) NOT NULL", explain = "课程类别码")
-	@Column(name = "courseType", length = 10, nullable = false)
+	@FieldInfo(name = "课程类别码", type = "varchar(4) NOT NULL", explain = "课程类别码")
+	@Column(name = "courseType", length = 4, nullable = false)
 	private String courseType;
 
-	@FieldInfo(name = "课程编码", type = "varchar(20) default ''", explain = "课程编码")
-	@Column(name = "courseCode", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "课程编码", type = "varchar(10) default ''", explain = "课程编码")
+	@Column(name = "courseCode", length = 10, columnDefinition = "default ''", nullable = true)
 	private String courseCode;
 
 	@FieldInfo(name = "课程等级码", type = "varchar(10) default ''", explain = "课程等级码")
 	@Column(name = "courseLevel", length = 10, columnDefinition = " default ''", nullable = true)
 	private String courseLevel;
 
-	@FieldInfo(name = "课程别名", type = "nvarchar(20) default ''", explain = "课程别名")
-	@Column(name = "aliasName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "课程别名", type = "nvarchar(16) default ''", explain = "课程别名")
+	@Column(name = "aliasName", columnDefinition = "nvarchar(16) default ''", nullable = true)
 	private String aliasName;
 
 	@FieldInfo(name = "总学时", type = "int default 0", explain = "总学时")
@@ -50,16 +50,16 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 	@Column(name = "weekHour", columnDefinition = "default 0", nullable = true)
 	private Integer weekHour;
 
-	@FieldInfo(name = "授课方式码", type = "varchar(10)  default ''", explain = "授课方式码")
-	@Column(name = "teachWay", columnDefinition = "varchar(10) default ''", nullable = true)
+	@FieldInfo(name = "授课方式码", type = "varchar(4)  default ''", explain = "授课方式码")
+	@Column(name = "teachWay", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String teachWay;
 
-	@FieldInfo(name = "课程简介", type = "nvarchar(500) default ''", explain = "课程简介")
-	@Column(name = "courseExplain", columnDefinition = "nvarchar(500) default ''", nullable = true)
+	@FieldInfo(name = "课程简介", type = "nvarchar(256) default ''", explain = "课程简介")
+	@Column(name = "courseExplain", columnDefinition = "nvarchar(256) default ''", nullable = true)
 	private String courseExplain;
 
-	@FieldInfo(name = "课程要求", type = "nvarchar(500) default ''", explain = "课程要求")
-	@Column(name = "courseRequire", columnDefinition = "nvarchar(500) default ''", nullable = true)
+	@FieldInfo(name = "课程要求", type = "nvarchar(256) default ''", explain = "课程要求")
+	@Column(name = "courseRequire", columnDefinition = "nvarchar(256) default ''", nullable = true)
 	private String courseRequire;
 
 	public String getCourseName() {

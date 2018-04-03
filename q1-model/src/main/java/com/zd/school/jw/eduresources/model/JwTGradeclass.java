@@ -34,24 +34,24 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 	@Column(name = "gradeId", length = 20, nullable = false)
 	private String gradeId;
 
-	@FieldInfo(name = "班级名称", type = "nvarchar(20) NOT NULL", explain = "班级名称")
-	@Column(name = "className", columnDefinition = "nvarchar(20) ", nullable = false)
+	@FieldInfo(name = "班级名称", type = "nvarchar(16) NOT NULL", explain = "班级名称")
+	@Column(name = "className", columnDefinition = "nvarchar(16) ", nullable = false)
 	private String className;
 
-	@FieldInfo(name = "班级类型", type = "varchar(10) default ''", explain = "班级类型（数据字典）")
-	@Column(name = "classType", columnDefinition = "varchar(10) default ''", nullable = true)
+	@FieldInfo(name = "班级类型", type = "varchar(4) default ''", explain = "班级类型（数据字典）")
+	@Column(name = "classType", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String classType;
 
-	@FieldInfo(name = "文理类型", type = "varchar(20)  default ''", explain = "文理类型")
-	@Column(name = "artsSciencesType", columnDefinition = "varchar(20) default ''", nullable = true)
+	@FieldInfo(name = "文理类型", type = "varchar(4)  default ''", explain = "文理类型")
+	@Column(name = "artsSciencesType", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String artsSciencesType;
 
-	@FieldInfo(name = "双语教学模式", type = "varchar(10)  default ''", explain = "双语教学模式")
-	@Column(name = "bilingualModel", columnDefinition = "varchar(10) default ''", nullable = true)
+	@FieldInfo(name = "双语教学模式", type = "varchar(4)  default ''", explain = "双语教学模式")
+	@Column(name = "bilingualModel", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String bilingualModel;
 
-	@FieldInfo(name = "班号", type = "varchar(20) default ''", explain = "班号")
-	@Column(name = "classCode", columnDefinition = "varchar(20) default ''", nullable = true)
+	@FieldInfo(name = "班号", type = "varchar(16) default ''", explain = "班号")
+	@Column(name = "classCode", columnDefinition = "varchar(16) default ''", nullable = true)
 	private String classCode;
 
 	@FieldInfo(name = "班主任ID", type = "varchar(20) default ''", explain = "班主任ID")
@@ -64,8 +64,8 @@ public class JwTGradeclass extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date graduateDate;
 
-	@FieldInfo(name = "班训", type = "nvarchar(100) default ''", explain = "班训")
-	@Column(name = "classMotto", nullable = true, columnDefinition = "nvarchar(100) default ''")
+	@FieldInfo(name = "班训", type = "nvarchar(128) default ''", explain = "班训")
+	@Column(name = "classMotto", nullable = true, columnDefinition = "nvarchar(128) default ''")
 	private String classMotto;
 
 	/**

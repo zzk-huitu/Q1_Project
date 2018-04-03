@@ -34,8 +34,8 @@ public class BuildClassRoomDefine extends BaseEntity implements Serializable {
 	@Column(name = "roomStatus", columnDefinition = "default 0", nullable = false)
 	private Boolean roomStatus;
 
-	@FieldInfo(name = "班级名称", type = "nvarchar(20) default ''", explain = "班级名称")
-	@Column(name = "className", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "班级名称", type = "nvarchar(16) default ''", explain = "班级名称")
+	@Column(name = "className", columnDefinition = "nvarchar(16) default ''", nullable = true)
 	private String className;
 
 	/**

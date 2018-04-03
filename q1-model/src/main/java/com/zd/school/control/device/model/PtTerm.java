@@ -42,8 +42,8 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "设备名称", type = "nvarchar(20) NOT NULL", explain = "设备名称")
-	@Column(name = "termName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "设备名称", type = "nvarchar(16) NOT NULL", explain = "设备名称")
+	@Column(name = "termName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String termName;
 
 	@FieldInfo(name = "设备类型", type = "varchar(4) NOT NULL", explain = "设备类型（对应系统参数表）")
@@ -78,12 +78,12 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "netParam")
 	private Byte[] netParam;
 
-	@FieldInfo(name = "备注说明", type = "nvarchar(100) default ''", explain = "备注说明")
-	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''", nullable = true)
+	@FieldInfo(name = "备注说明", type = "nvarchar(256) default ''", explain = "备注说明")
+	@Column(name = "notes", columnDefinition = "nvarchar(256) default ''", nullable = true)
 	private String notes;
 
-	@FieldInfo(name = "statusId", type = "varchar(1)", explain = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "statusId", columnDefinition = "varchar(1) default ''", nullable = true)
+	@FieldInfo(name = "statusId", type = "varchar(4)", explain = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
+	@Column(name = "statusId", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String statusId;
 
 	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")

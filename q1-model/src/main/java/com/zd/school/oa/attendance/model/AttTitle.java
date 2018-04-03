@@ -22,8 +22,8 @@ import com.zd.core.model.BaseEntity;
 public class AttTitle extends BaseEntity implements Serializable{
     private static final long serialVersionUID = 1L;
     
-    @FieldInfo(name = "主题名称",type="nvarchar(20) NOT NULL",explain="考勤主题的主题名称")
-    @Column(name = "themeName", columnDefinition="nvarchar(20)", nullable = false)
+    @FieldInfo(name = "主题名称",type="nvarchar(16) NOT NULL",explain="考勤主题的主题名称")
+    @Column(name = "themeName", columnDefinition="nvarchar(16)", nullable = false)
     private String themeName;
 
 	public String getThemeName() {

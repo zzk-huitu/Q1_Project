@@ -36,8 +36,8 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 	@Column(name = "studentId", length = 20, nullable = false)
 	private String studentId;
 
-	@FieldInfo(name = "操作类型", type = "nvarchar(10)  default ''", explain = "操作类型")
-	@Column(name = "operateType", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	@FieldInfo(name = "操作类型", type = "nvarchar(8)  default ''", explain = "操作类型")
+	@Column(name = "operateType", columnDefinition = "nvarchar(8) default ''", nullable = true)
 	private String operateType;
 
 	@FieldInfo(name = "是否处理", type = "bit default 0", explain = "是否处理")

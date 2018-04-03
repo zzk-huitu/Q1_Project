@@ -38,12 +38,12 @@ public class MjUserright extends BaseEntity implements Serializable {
 	@Column(name = "userId", length = 20, nullable = false)
 	private String userId;
 
-	@FieldInfo(name = "卡流水号", type = "varchar(36) default ''", explain = "卡流水号")
-	@Column(name = "cardId", length = 36, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "卡流水号", type = "varchar(16) default ''", explain = "卡流水号")
+	@Column(name = "cardId", length = 16, columnDefinition = "default ''", nullable = true)
 	private String cardId;
 
-	@FieldInfo(name = "物理卡号", type = "varchar(36) default ''", explain = "物理卡号")
-	@Column(name = "cardNo", length = 36, columnDefinition = "varchar(36) default ''", nullable = true)
+	@FieldInfo(name = "物理卡号", type = "varchar(16) default ''", explain = "物理卡号")
+	@Column(name = "cardNo", length = 16, columnDefinition = " default ''", nullable = true)
 	private String cardNo;
 
 	@FieldInfo(name = "时段ID", type = "int default 0", explain = "时段ID")

@@ -22,8 +22,8 @@ import com.zd.core.model.BaseEntity;
 public class SkPriceDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "费率名称", type = "nvarchar(20) NOT NULL", explain = "费率名称")
-	@Column(name = "priceName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "费率名称", type = "nvarchar(16) NOT NULL", explain = "费率名称")
+	@Column(name = "priceName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String priceName;
 
 	@FieldInfo(name = "费率价格", type = "double NOT NULL", explain = "费率价格")
@@ -34,8 +34,8 @@ public class SkPriceDefine extends BaseEntity implements Serializable {
 	@Column(name = "priceStatus", columnDefinition = "default 0", nullable = false)
 	private Boolean priceStatus;
 
-	@FieldInfo(name = "货币种类", type = "nvarchar(10) default 'RMB(人民币)'", explain = "货币种类")
-	@Column(name = "currencyType", columnDefinition = "nvarchar(10) default 'RMB(人民币)'", nullable = true)
+	@FieldInfo(name = "货币种类", type = "nvarchar(16) default 'RMB(人民币)'", explain = "货币种类")
+	@Column(name = "currencyType", columnDefinition = "nvarchar(16) default 'RMB(人民币)'", nullable = true)
 	private String currencyType;
 
 	@FieldInfo(name = "备注", type = "nvarchar(128) default ''", explain = "备注")

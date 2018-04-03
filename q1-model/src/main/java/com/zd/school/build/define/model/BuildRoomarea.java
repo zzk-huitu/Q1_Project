@@ -26,12 +26,12 @@ import com.zd.core.model.TreeNodeEntity;
 public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "区域类型", type = "varchar(10) NOT NULL", explain = "区域类型（01-学校 02-校区 03-楼栋 04-楼层）")
-	@Column(name = "areaType", length = 10, nullable = false)
+	@FieldInfo(name = "区域类型", type = "varchar(4) NOT NULL", explain = "区域类型（01-学校 02-校区 03-楼栋 04-楼层）")
+	@Column(name = "areaType", length = 4, nullable = false)
 	private String areaType;
 
-	@FieldInfo(name = "区域编码", type = "varchar(10) default ''", explain = "区域编码")
-	@Column(name = "areaCode", length = 10, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "区域编码", type = "varchar(16) default ''", explain = "区域编码")
+	@Column(name = "areaCode", length = 16, columnDefinition = "default ''", nullable = true)
 	private String areaCode;
 
 	@FieldInfo(name = "区域说明", type = "nvarchar(128) default ''", explain = "区域说明")

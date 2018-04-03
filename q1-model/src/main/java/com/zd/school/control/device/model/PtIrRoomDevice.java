@@ -29,12 +29,12 @@ public class PtIrRoomDevice extends BaseEntity implements Serializable {
 	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "型号编号", type = "nvarchar(20) NOT NULL", explain = "型号编号")
-	@Column(name = "brandId", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "型号编号", type = "varchar(20) NOT NULL", explain = "型号编号")
+	@Column(name = "brandId", length=20, nullable = false)
 	private String brandId;
 
-	@FieldInfo(name = "备注", type = "nvarchar(200) default ''", explain = "备注")
-	@Column(name = "notes", columnDefinition = "nvarchar(200) default ''", nullable = true)
+	@FieldInfo(name = "备注", type = "nvarchar(256) default ''", explain = "备注")
+	@Column(name = "notes", columnDefinition = "nvarchar(256) default ''", nullable = true)
 	private String notes;
 
 	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")

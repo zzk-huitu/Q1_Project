@@ -57,12 +57,12 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	@Column(name = "dormAdminName", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String dormAdminName;
 
-	@FieldInfo(name = "宿舍电话", type = "varchar(20)", explain = "电话")
+	@FieldInfo(name = "宿舍电话", type = "varchar(16) default ''", explain = "电话")
 	@Column(name = "dormPhone", length = 20, columnDefinition = "default ''", nullable = true)
 	private String dormPhone;
 
-	@FieldInfo(name = "传真", type = "varchar(20)", explain = "传真")
-	@Column(name = "dormFax", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "传真", type = "varchar(16) default ''", explain = "传真")
+	@Column(name = "dormFax", length = 16, columnDefinition = "default ''", nullable = true)
 	private String dormFax;
 
 	@FieldInfo(name = "分配状态", type = "bit default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
@@ -72,10 +72,11 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	@FieldInfo(name = "是否混班宿舍", type = "bit default 0", explain = "是否混班宿舍：0否,1是")
 	@Column(name = "isMixed", columnDefinition = "default 0", nullable = true)
 	private Boolean isMixed;
-
-	@FieldInfo(name = "宿舍名称", type = "nvarchar(20)  default ''", explain = "宿舍名称")
-	@Column(name = "dormName", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String dormName;
+	
+	/*使用下面的房间名称*/
+//	@FieldInfo(name = "宿舍名称", type = "nvarchar(20)  default ''", explain = "宿舍名称")
+//	@Column(name = "dormName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+//	private String dormName;
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加 8
@@ -196,13 +197,7 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.isMixed = isMixed;
 	}
 
-	public String getDormName() {
-		return dormName;
-	}
-
-	public void setDormName(String dormName) {
-		this.dormName = dormName;
-	}
+	
 
 	public String getRoomName() {
 		return roomName;

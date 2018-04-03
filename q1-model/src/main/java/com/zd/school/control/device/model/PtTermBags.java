@@ -20,32 +20,32 @@ public class PtTermBags extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "termSn", type = "varchar(14) default ''", explain = "设备序列号")
-	@Column(name = "termSn", length = 14, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "termSn", type = "varchar(14) NOT NULL", explain = "设备序列号")
+	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
 	@FieldInfo(name = "设备类型", type = "varchar(4) NOT NULL", explain = "设备类型（对应系统参数表）")
 	@Column(name = "termTypeId", length = 4, nullable = false)
 	private String termTypeId;
 
-	@FieldInfo(name = "bagValue", type = "decimal default 0", explain = "设备余额")
-	@Column(name = "bagValue", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "bagValue", type = "decimal NOT NULL default 0", explain = "设备余额")
+	@Column(name = "bagValue", columnDefinition = "default 0", nullable = false)
 	private BigDecimal bagValue;
 
-	@FieldInfo(name = "totalBoughtValue", type = "decimal default 0", explain = "总买量")
-	@Column(name = "totalBoughtValue", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "totalBoughtValue", type = "decimal NOT NULL default 0", explain = "总买量")
+	@Column(name = "totalBoughtValue", columnDefinition = "default 0", nullable = false)
 	private BigDecimal totalBoughtValue;
 
-	@FieldInfo(name = "totalUsedValue", type = "decimal default 0", explain = "总用量")
-	@Column(name = "totalUsedValue", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "totalUsedValue", type = "decimal NOT NULL default 0", explain = "总用量")
+	@Column(name = "totalUsedValue", columnDefinition = "default 0", nullable = false)
 	private BigDecimal totalUsedValue;
 
-	@FieldInfo(name = "totalClearValue", type = "decimal default 0", explain = "总计清除补助量")
-	@Column(name = "totalClearValue", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "totalClearValue", type = "decimal NOT NULL default 0", explain = "总计清除补助量")
+	@Column(name = "totalClearValue", columnDefinition = "default 0", nullable = false)
 	private BigDecimal totalClearValue;
 
-	@FieldInfo(name = "surplusValue", type = "decimal default 0", explain = "补助剩余量")
-	@Column(name = "surplusValue", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "surplusValue", type = "decimal NOT NULL default 0", explain = "补助剩余量")
+	@Column(name = "surplusValue", columnDefinition = "default 0", nullable = false)
 	private BigDecimal surplusValue;
 
 	// @FieldInfo(name="设备名称")

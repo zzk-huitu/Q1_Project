@@ -35,7 +35,6 @@ import com.zd.school.plartform.baseset.model.BaseDicitem;
 import com.zd.school.plartform.baseset.model.BaseOrg;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.system.dao.SysUserDao;
-import com.zd.school.plartform.system.model.CardUserInfoToUP;
 import com.zd.school.plartform.system.model.SysMenuPermission;
 import com.zd.school.plartform.system.model.SysPermission;
 import com.zd.school.plartform.system.model.SysRole;

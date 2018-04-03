@@ -39,15 +39,15 @@ public class AttTime extends BaseEntity implements Serializable {
 	@Column(name = "period", length = 2, nullable = false)
 	private String period;
 
-	@FieldInfo(name = "开始时间", type = "datetime NOT NULL", explain = "考勤时间的结束日期")
-	@Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@FieldInfo(name = "开始时间", type = "time(0) NOT NULL", explain = "考勤时间的结束日期")
+	@Column(name = "beginTime", columnDefinition = "time(0)", nullable = false)
+	@Temporal(TemporalType.TIME)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginTime;
 
-	@FieldInfo(name = "结束时间", type = "datetime NOT NULL", explain = "考勤时间的结束日期")
-	@Column(name = "endTime", columnDefinition = "datetime", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@FieldInfo(name = "结束时间", type = "time(0) NOT NULL", explain = "考勤时间的结束日期")
+	@Column(name = "endTime", columnDefinition = "time(0)", nullable = false)
+	@Temporal(TemporalType.TIME)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endTime;
 

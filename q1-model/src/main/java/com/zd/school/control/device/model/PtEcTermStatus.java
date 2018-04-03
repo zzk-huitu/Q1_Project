@@ -30,55 +30,55 @@ import com.zd.school.excel.annotation.MapperCell;
 public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备序列号", type = "varchar(14) default ''", explain = "设备序列号")
-	@Column(name = "termSn", length = 14, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号")
+	@Column(name = "termSn", length = 14,  nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "房间ID", type = "varchar(20) default ''", explain = "房间编号")
-	@Column(name = "roomId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "房间ID", type = "varchar(20) NOT NULL", explain = "房间编号")
+	@Column(name = "roomId", length = 20,  nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "状态的日期", type = "date", explain = "状态的日期")
+	@FieldInfo(name = "状态的日期", type = "date  NOT NULL", explain = "状态的日期")
 	@Temporal(TemporalType.DATE)
 	@JsonSerialize(using = DateTimeSerializer.class)
-	@Column(name = "statusDate", columnDefinition = "date", nullable = true)
+	@Column(name = "statusDate", columnDefinition = "date", nullable = false)
 	private Date statusDate;
 
-	@FieldInfo(name = "状态的小时", type = "int default 0", explain = "状态的小时")
-	@Column(name = "statusHour", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "状态的小时", type = "int NOT NULL default 0", explain = "状态的小时")
+	@Column(name = "statusHour", columnDefinition = "default 0", nullable = false)
 	private Integer statusHour;
 
-	@FieldInfo(name = "当前小时用电量", type = "float default 0", explain = "当前小时用电量")
-	@Column(name = "useKwh", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "当前小时用电量", type = "float NOT NULL default 0", explain = "当前小时用电量")
+	@Column(name = "useKwh", columnDefinition = "default 0", nullable = false)
 	private Float useKwh;
 
-	@FieldInfo(name = "已购电总量", type = "float default 0", explain = "已购电总量")
-	@Column(name = "buyedKwh", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "已购电总量", type = "float NOT NULL default 0", explain = "已购电总量")
+	@Column(name = "buyedKwh", columnDefinition = "default 0", nullable = false)
 	private Float buyedKwh;
 
-	@FieldInfo(name = "已使用总电量", type = "float default 0", explain = "已使用总电量")
-	@Column(name = "totalUsedKwh", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "已使用总电量", type = "float NOT NULL default 0", explain = "已使用总电量")
+	@Column(name = "totalUsedKwh", columnDefinition = "default 0", nullable = false)
 	private Float totalUsedKwh;
 
-	@FieldInfo(name = "剩余总电量", type = "float default 0", explain = "剩余总电量")
-	@Column(name = "surplusKwh", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "剩余总电量", type = "float NOT NULL default 0", explain = "剩余总电量")
+	@Column(name = "surplusKwh", columnDefinition = "default 0", nullable = false)
 	private Float surplusKwh;
 
-	@FieldInfo(name = "电压", type = "Bigint default 0", explain = "电压")
-	@Column(name = "voltage", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "电压", type = "Bigint NOT NULL default 0", explain = "电压")
+	@Column(name = "voltage", columnDefinition = "default 0", nullable = false)
 	private Long voltage;
 
-	@FieldInfo(name = "电流", type = "Bigint default 0", explain = "电流")
-	@Column(name = "currents", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "电流", type = "Bigint NOT NULL default 0", explain = "电流")
+	@Column(name = "currents", columnDefinition = "default 0", nullable = false)
 	private Long currents;
 
-	@FieldInfo(name = "功率", type = "Bigint default 0", explain = "功率")
-	@Column(name = "power", columnDefinition = "default 0", nullable = true)
+	@FieldInfo(name = "功率", type = "Bigint NOT NULL default 0", explain = "功率")
+	@Column(name = "power", columnDefinition = "default 0", nullable = false)
 	private Long power;
 
 	@MapperCell(cellName = "状态的时间", order = 10)
-	@FieldInfo(name = "statusTime", type = "datetime", explain = "状态的时间")
-	@Column(name = "statusTime", columnDefinition = "datetime")
+	@FieldInfo(name = "statusTime", type = "datetime NOT NULL", explain = "状态的时间")
+	@Column(name = "statusTime", columnDefinition = "datetime", nullable = false)
 	private Date statusTime;
 
 	@Formula("(SELECT A.roomName FROM dbo.T_PT_RoomInfo A WHERE A.roomId=roomId)")

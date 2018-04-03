@@ -22,16 +22,16 @@ import com.zd.core.model.BaseEntity;
 public class PtPriceBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备编号", type = "varchar(20) default ''", explain = "设备编号")
-	@Column(name = "termId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "设备编号", type = "varchar(20) NOT NULL", explain = "设备编号")
+	@Column(name = "termId", length = 20, nullable = false)
 	private String termId;
 
-	@FieldInfo(name = "设备序列号", type = "varchar(14) default ''", explain = "设备序列号")
-	@Column(name = "termSn", length = 14, columnDefinition = " default ''", nullable = true)
+	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号")
+	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "费率编号", type = "varchar(20) default ''", explain = "费率编号")
-	@Column(name = "priceId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "费率编号", type = "varchar(20) NOT NULL", explain = "费率编号")
+	@Column(name = "priceId", length = 20,  nullable = false)
 	private String priceId;
 
 	public String getTermId() {

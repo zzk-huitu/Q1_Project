@@ -28,23 +28,14 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
 	
-	@FieldInfo(name = "班级名称", type = "nvarchar(20) default ''", explain = "班级名称")
-	@Column(name = "className", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "班级名称", type = "nvarchar(16) NOT NULL", explain = "班级名称")
+	@Column(name = "className", columnDefinition = "nvarchar(16)", nullable = false)
 	private String className;
 
 	@FieldInfo(name = "节次", type = "nvarchar(10) NOT NULL", explain = "节次")
 	@Column(name = "sections", columnDefinition = "nvarchar(10) default ''", nullable = false)
 	private String sections;
 	
-
-	@FieldInfo(name = "学年", type = "nvarchar(20)  default ''", explain = "学年(暂不需要)")
-	@Column(name = "schoolYear", columnDefinition = "nvarchar(20) default ''", nullable = true)
-	private String schoolYear;
-
-	@FieldInfo(name = "学期", type = "nvarchar(10)  default ''", explain = "学期(暂不需要)")
-	@Column(name = "semester", columnDefinition = "nvarchar(10) default ''", nullable = true)
-	private String semester;
-
 
 
 	@FieldInfo(name = "课程ID1", type = "varchar(20) default ''", explain = "课程ID1")
@@ -220,23 +211,6 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 	@Transient
 	// @FieldInfo(name = "周日课程")
 	private String weekSeven;
-
-
-	public String getSchoolYear() {
-		return schoolYear;
-	}
-
-	public void setSchoolYear(String schoolYear) {
-		this.schoolYear = schoolYear;
-	}
-
-	public String getSemester() {
-		return semester;
-	}
-
-	public void setSemester(String semester) {
-		this.semester = semester;
-	}
 
 	public String getClassId() {
 		return classId;

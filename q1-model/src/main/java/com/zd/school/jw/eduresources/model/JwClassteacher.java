@@ -50,7 +50,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	@Column(name = "semester", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String semester;
 
-	@FieldInfo(name = "身份", type = "Integer NOT NULL", explain = "身份(0-正班主任/1-副班主任)")
+	@FieldInfo(name = "身份", type = "int NOT NULL", explain = "身份(0-正班主任/1-副班主任)")
 	@Column(name = "category", nullable = false)
 	private Integer category;
 

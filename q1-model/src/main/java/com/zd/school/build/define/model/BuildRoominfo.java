@@ -30,16 +30,16 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	@Column(name = "areaId", length = 20, nullable = false)
 	private String areaId;
 
-	@FieldInfo(name = "房间编码", type = "varchar(20) NOT NULL", explain = "房间编码")
-	@Column(name = "roomCode", length = 20, nullable = false)
+	@FieldInfo(name = "房间编码", type = "varchar(16) NOT NULL", explain = "房间编码")
+	@Column(name = "roomCode", length = 16, nullable = false)
 	private String roomCode;
 
-	@FieldInfo(name = "房间名称", type = "nvarchar(20) NOT NULL", explain = "房间名称")
-	@Column(name = "roomName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "房间名称", type = "nvarchar(16) NOT NULL", explain = "房间名称")
+	@Column(name = "roomName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String roomName;
 
-	@FieldInfo(name = "房间类型", type = "varchar(2) NOT NULL", explain = "房间类型：宿舍-1，办公室-2，教室-3，功能室-5") // 参考数据字典表｛｝
-	@Column(name = "roomType", length = 2, nullable = false)
+	@FieldInfo(name = "房间类型", type = "varchar(4) NOT NULL", explain = "房间类型：宿舍-1，办公室-2，教室-3，功能室-5") // 参考数据字典表｛｝
+	@Column(name = "roomType", length = 4, nullable = false)
 	private String roomType;
 
 	@FieldInfo(name = "是否多媒体教室", type = "bit default 0", explain = "是否多媒体教室：0-否,1-是")
@@ -50,16 +50,16 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	@Column(name = "roomNet", columnDefinition = "default 0", nullable = true)
 	private Boolean roomNet;
 
-	@FieldInfo(name = "房间状态", type = "varchar(10) default ''", explain = "房间状态")
-	@Column(name = "areaStatu", length = 10, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "房间状态", type = "varchar(4) default ''", explain = "房间状态")
+	@Column(name = "areaStatu", length = 4, columnDefinition = "default ''", nullable = true)
 	private String areaStatu;
 
 	@FieldInfo(name = "教室说明", type = "nvarchar(128) default ''", explain = "教室说明")
 	@Column(name = "roomExplain", columnDefinition = "nvarchar(128)  default ''", nullable = true)
 	private String roomExplain;
 
-	@FieldInfo(name = "房间电话", type = "varchar(20)  default ''", explain = "房间电话")
-	@Column(name = "roomPhone", columnDefinition = "varchar(20)  default ''", nullable = true)
+	@FieldInfo(name = "房间电话", type = "varchar(16)  default ''", explain = "房间电话")
+	@Column(name = "roomPhone", columnDefinition = "varchar(16)  default ''", nullable = true)
 	private String roomPhone;
 
 	/**

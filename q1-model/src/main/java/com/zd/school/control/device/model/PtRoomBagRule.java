@@ -49,15 +49,15 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	@Column(name = "warnValue", nullable = false)
 	private BigDecimal warnValue;
 
-	@FieldInfo(name = "允许关电开始时间", type = "datetime", explain = "允许关电开始时间")
-	@Column(name = "allowOffStartTime", columnDefinition = "datetime")
-	@Temporal(TemporalType.TIMESTAMP)
+	@FieldInfo(name = "允许关电开始时间", type = "time(0) NOT NULL", explain = "允许关电开始时间")
+	@Column(name = "allowOffStartTime", columnDefinition = "time(0)",nullable = false)
+	@Temporal(TemporalType.TIME)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date allowOffStartTime;
 
-	@FieldInfo(name = "允许关电结束时间", type = "datetime", explain = "允许关电结束时间")
-	@Column(name = "allowOffEndTime", columnDefinition = "datetime")
-	@Temporal(TemporalType.TIMESTAMP)
+	@FieldInfo(name = "允许关电结束时间", type = "time(0) NOT NULL", explain = "允许关电结束时间")
+	@Column(name = "allowOffEndTime", columnDefinition = "time(0)" ,nullable = false)
+	@Temporal(TemporalType.TIME)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date allowOffEndTime;
 

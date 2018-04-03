@@ -23,16 +23,16 @@ import com.zd.core.model.BaseEntity;
 public class PtIrDeviceBrand extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "品牌名称", type = "nvarchar(20)  default ''", explain = "品牌名称")
-	@Column(name = "brandName", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "品牌名称", type = "nvarchar(16)  NOT NULL", explain = "品牌名称")
+	@Column(name = "brandName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String brandName;
 
-	@FieldInfo(name = "类型编号", type = "nvarchar(20)  default ''", explain = "类型编号")
-	@Column(name = "deviceTypeCode", columnDefinition = "nvarchar(18) default ''", nullable = true)
+	@FieldInfo(name = "类型编号id", type = "varchar(20)  default ''", explain = "类型编号id")
+	@Column(name = "deviceTypeCode", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String deviceTypeCode;
 
-	@FieldInfo(name = "产品型号", type = "nvarchar(20)  default ''", explain = "产品型号")
-	@Column(name = "productModel", columnDefinition = "nvarchar(20) default ''", nullable = true)
+	@FieldInfo(name = "产品型号", type = "nvarchar(16)  default ''", explain = "产品型号")
+	@Column(name = "productModel", columnDefinition = "nvarchar(16) default ''", nullable = true)
 	private String productModel;
 
 	@FieldInfo(name = "区域等级", type = "int default 0", explain = "区域等级")
@@ -47,8 +47,8 @@ public class PtIrDeviceBrand extends BaseEntity implements Serializable {
 	@Column(name = "parentNode", length = 20, columnDefinition = "default ''", nullable = true)
 	private String parentNode;
 
-	@FieldInfo(name = "备注", type = "nvarchar(200) default ''", explain = "备注")
-	@Column(name = "notes", columnDefinition = "nvarchar(200) default ''", nullable = true)
+	@FieldInfo(name = "备注", type = "nvarchar(256) default ''", explain = "备注")
+	@Column(name = "notes", columnDefinition = "nvarchar(256) default ''", nullable = true)
 	private String notes;
 
 	public String getBrandName() {

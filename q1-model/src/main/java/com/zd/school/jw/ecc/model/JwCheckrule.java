@@ -23,8 +23,8 @@ import com.zd.core.model.BaseEntity;
 public class JwCheckrule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "规则名称", type = "nvarchar(20) NOT NULL", explain = "规则名称")
-	@Column(name = "ruleName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "规则名称", type = "nvarchar(16) NOT NULL", explain = "规则名称")
+	@Column(name = "ruleName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String ruleName;
 
 	@FieldInfo(name = "考勤模式", type = "varchar(1) NOT NULL", explain = "考勤模式:1-按半天考勤 ;2-按全天考勤; 3-按节次考勤")

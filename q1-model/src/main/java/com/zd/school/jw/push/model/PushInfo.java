@@ -48,12 +48,12 @@ public class PushInfo extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date regTime;
 
-	@FieldInfo(name = "推送编号", type = "varchar(20) NOT NULL", explain = "推送编号：手机号、微信号")
-	@Column(name = "empleeNo", length = 20, nullable = false)
+	@FieldInfo(name = "推送编号", type = "varchar(16) NOT NULL", explain = "推送编号：手机号、微信号")
+	@Column(name = "empleeNo", length = 16, nullable = false)
 	private String empleeNo;
 
-	@FieldInfo(name = "推送姓名", type = "varchar(20) NOT NULL", explain = "推送")
-	@Column(name = "empleeName", length = 20, nullable = false)
+	@FieldInfo(name = "推送姓名", type = "varchar(16) NOT NULL", explain = "推送")
+	@Column(name = "empleeName", length = 16, nullable = false)
 	private String empleeName;
 
 	@FieldInfo(name = "推送状态", type = "int NOT NULL", explain = "推送状态：0未发送 1正在发送 2发送成功 -1发送失败")

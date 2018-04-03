@@ -22,16 +22,16 @@ import com.zd.core.model.BaseEntity;
 public class PtSkMeterbind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "设备编号", type = "varchar(20)  default ''", explain = "设备编号")
-	@Column(name = "termId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "设备编号", type = "varchar(20) NOT NULL", explain = "设备编号")
+	@Column(name = "termId", length = 20, nullable = false)
 	private String termId;
 
-	@FieldInfo(name = "设备序列号", type = "varchar(14) default ''", explain = "设备序列号")
-	@Column(name = "termSn", length = 14, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号")
+	@Column(name = "termSn", length = 14,  nullable = false)
 	private String termSn;
 
-	@FieldInfo(name = "水控流量计编号", type = "varchar(20) default ''", explain = "设备序列号")
-	@Column(name = "meterId", length = 20, columnDefinition = "default ''", nullable = true)
+	@FieldInfo(name = "水控流量计编号", type = "varchar(20) NOT NULL", explain = "设备序列号")
+	@Column(name = "meterId", length = 20, nullable = false)
 	private String meterId;
 
 	public String getTermId() {

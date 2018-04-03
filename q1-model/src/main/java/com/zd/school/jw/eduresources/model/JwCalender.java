@@ -30,8 +30,8 @@ import com.zd.core.util.DateTimeSerializer;
 public class JwCalender extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "校历名称", type = "nvarchar(20) NOT NULL", explain = "校历名称")
-	@Column(name = "calenderName", columnDefinition = "nvarchar(20)", nullable = false)
+	@FieldInfo(name = "校历名称", type = "nvarchar(16) NOT NULL", explain = "校历名称")
+	@Column(name = "calenderName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String calenderName;
 
 	@FieldInfo(name = "适用校区Id", type = "varchar(20) NOT NULL", explain = "适用校区Id")
@@ -42,9 +42,9 @@ public class JwCalender extends BaseEntity implements Serializable {
 	@Formula("(SELECT a.campusName FROM T_PT_Campus a WHERE a.campusId=campusId )")
 	private String campusName;
 
-	@FieldInfo(name = "学段编码", type = "nvarchar(20)  NOT NULL", explain = "学段编码")
-	@Column(name = "stageCode", columnDefinition = "nvarchar(20)", nullable = false)
-	private String stageCode;
+	@FieldInfo(name = "学段编码", type = "varchar(4)  NOT NULL", explain = "学段编码")
+	@Column(name = "sectionCode", columnDefinition = "varchar(4)", nullable = false)
+	private String sectionCode;
 
 	@FieldInfo(name = "生效状态", type = "bit NOT NULL default 0", explain = "生效状态")
 	@Column(name = "activityState", columnDefinition = "default 0", nullable = false)
@@ -90,12 +90,12 @@ public class JwCalender extends BaseEntity implements Serializable {
 		this.campusName = campusName;
 	}
 
-	public String getStageCode() {
-		return stageCode;
+	public String getSectionCode() {
+		return sectionCode;
 	}
 
-	public void setStageCode(String stageCode) {
-		this.stageCode = stageCode;
+	public void setSectionCode(String sectionCode) {
+		this.sectionCode = sectionCode;
 	}
 
 	public Boolean getActivityState() {
