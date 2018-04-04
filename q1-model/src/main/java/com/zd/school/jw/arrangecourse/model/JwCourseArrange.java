@@ -20,14 +20,14 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_CourseArrange")
-@AttributeOverride(name = "id", column = @Column(name = "courseArrangeId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "courseArrangeId", length = 20, nullable = false))
 public class JwCourseArrange extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "班级ID", type = "varchar(20) NOT NULL", explain = "班级ID")
 	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;
-	
+
 	@FieldInfo(name = "班级名称", type = "nvarchar(16) NOT NULL", explain = "班级名称")
 	@Column(name = "className", columnDefinition = "nvarchar(16)", nullable = false)
 	private String className;
@@ -35,8 +35,6 @@ public class JwCourseArrange extends BaseEntity implements Serializable {
 	@FieldInfo(name = "节次", type = "nvarchar(10) NOT NULL", explain = "节次")
 	@Column(name = "sections", columnDefinition = "nvarchar(10) default ''", nullable = false)
 	private String sections;
-	
-
 
 	@FieldInfo(name = "课程ID1", type = "varchar(20) default ''", explain = "课程ID1")
 	@Column(name = "courseId01", columnDefinition = "varchar(20) default ''", nullable = true)
