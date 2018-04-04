@@ -43,7 +43,7 @@ public class StuParents extends BaseEntity implements Serializable {
 	@Column(name = "identityNo", length = 18, columnDefinition = "default ''", nullable = true)
 	private String identityNo;
 
-	@FieldInfo(name = "电子邮箱", type = "varchar(128) default ''", explain = "学生id")
+	@FieldInfo(name = "电子邮箱", type = "varchar(128) default ''", explain = "电子邮箱")
 	@Column(name = "email", length = 128, columnDefinition = "default ''", nullable = true)
 	private String email;
 
