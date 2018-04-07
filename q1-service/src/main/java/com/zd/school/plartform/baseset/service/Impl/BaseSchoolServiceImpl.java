@@ -44,7 +44,7 @@ public class BaseSchoolServiceImpl extends BaseServiceImpl<BaseSchool> implement
 	public BaseSchool doUpdate(BaseSchool entity, String xm) {
 		// TODO Auto-generated method stub	
 		
-		BaseSchool saveEntity = this.get(entity.getUuid());
+		BaseSchool saveEntity = this.get(entity.getId());
 		String oldSchoolName=saveEntity.getSchoolName();
 		try {
 			BeanUtils.copyPropertiesExceptNull(saveEntity, entity);
@@ -59,14 +59,14 @@ public class BaseSchoolServiceImpl extends BaseServiceImpl<BaseSchool> implement
 		
 		if(!oldSchoolName.equals(entity.getSchoolName())){
 			//再更新使用到的名称
-			String updateHql1="update BuildRoomarea a set a.nodeText='"+entity.getSchoolName()+"' where a.uuid='"+entity.getUuid()+"'";
-			String updateHql2="update BaseOrg a set a.nodeText='"+entity.getSchoolName()+"' where a.uuid='"+entity.getUuid()+"'";	
+			String updateHql1="update BuildRoomarea a set a.nodeText='"+entity.getSchoolName()+"' where a.uuid='"+entity.getId()+"'";
+			String updateHql2="update BaseOrg a set a.nodeText='"+entity.getSchoolName()+"' where a.uuid='"+entity.getId()+"'";	
 			this.doExecuteCountByHql(updateHql1);
 			this.doExecuteCountByHql(updateHql2);
 			
-			sysOrgService.setDeptName(entity.getSchoolName(), entity.getUuid());	
+			sysOrgService.setDeptName(entity.getSchoolName(), entity.getId());	
 			
-			BaseOrg deptOrg = sysOrgService.get(entity.getUuid());
+			BaseOrg deptOrg = sysOrgService.get(entity.getId());
 			BaseOrg parentOrg = sysOrgService.get(deptOrg.getParentNode());
 			if(parentOrg!=null&&!deptOrg.getParentNode().equals("ROOT"))
 				sysOrgService.setChildAllDeptName(deptOrg, parentOrg.getAllDeptName());

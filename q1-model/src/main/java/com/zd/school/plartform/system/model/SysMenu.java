@@ -15,6 +15,8 @@ import com.zd.core.model.TreeNodeEntity;
 /**
  * 系统菜单表
  * 
+ * zzk：去除isMenuLeaf字段，使用意义不大
+ * 
  * @author ZZK
  *
  */
@@ -34,7 +36,7 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
 
 	@FieldInfo(name = "是否系统菜单", type = "bit NOT NULL defalut 0", explain = "是否系统菜单（0-非 1-是）")
 	@Column(name = "isSystem", nullable = false)
-	private Boolean issystem;
+	private Boolean isSystem;
 
 	@FieldInfo(name = "菜单小图标", type = "varchar(256)  defalut ''", explain = "菜单的小图标")
 	@Column(name = "smallIcon", columnDefinition = "varchar(256) defalut ''", nullable = true)
@@ -48,9 +50,10 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
 	@Column(name = "menuTarget", columnDefinition = "varchar(128) defalut ''", nullable = true)
 	private String menuTarget;
 
-	@FieldInfo(name = "是否叶子菜单", type = "bit defalut 0", explain = "是否叶菜单（0-非 1-是）")
-	@Column(name = "isMenuLeaf", columnDefinition = "defalut 0", nullable = true)
-	private Boolean isMenuLeaf;
+	/*zzk：去除此字段，使用意义不大*/
+//	@FieldInfo(name = "是否叶子菜单", type = "bit defalut 0", explain = "是否菜单（原值：GENERAL、LEAF）")
+//	@Column(name = "isMenuLeaf", columnDefinition = "defalut 0", nullable = true)
+//	private Boolean isMenuLeaf;
 
 	@FieldInfo(name = "是否隐藏", type = "bit defalut 0", explain = "是否隐藏菜单（0-不隐藏 1-隐藏）")
 	@Column(name = "isHidden", columnDefinition = "defalut 0", nullable = true)
@@ -86,12 +89,12 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
 		this.menuType = menuType;
 	}
 
-	public Boolean getIssystem() {
-		return issystem;
+	public Boolean getIsSystem() {
+		return isSystem;
 	}
 
-	public void setIssystem(Boolean issystem) {
-		this.issystem = issystem;
+	public void setIsSystem(Boolean isSystem) {
+		this.isSystem = isSystem;
 	}
 
 	public String getSmallIcon() {
@@ -116,14 +119,6 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
 
 	public void setMenuTarget(String menuTarget) {
 		this.menuTarget = menuTarget;
-	}
-
-	public Boolean getIsMenuLeaf() {
-		return isMenuLeaf;
-	}
-
-	public void setIsMenuLeaf(Boolean isMenuLeaf) {
-		this.isMenuLeaf = isMenuLeaf;
 	}
 
 	public Boolean getIsHidden() {

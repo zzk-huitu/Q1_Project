@@ -37,7 +37,7 @@ public class SysJobServiceImpl extends BaseServiceImpl<BaseJob> implements SysJo
 	@Override
 	public BaseJob doUpdate(BaseJob entity, String xm) {
 		// TODO Auto-generated method stub		
-		BaseJob saveEntity = this.get(entity.getUuid());
+		BaseJob saveEntity = this.get(entity.getId());
 		String oldJobName=saveEntity.getJobName();
 		try {
 			BeanUtils.copyPropertiesExceptNull(saveEntity, entity);
@@ -52,8 +52,8 @@ public class SysJobServiceImpl extends BaseServiceImpl<BaseJob> implements SysJo
 		
 		if(!oldJobName.equals(entity.getJobName())){
 			//在更新部门岗位表的岗位名称数据
-			String updateHql1="update BaseDeptjob a set a.jobName='"+entity.getJobName()+"' where a.jobId='"+entity.getUuid()+"'";
-			String updateHql2="update BaseDeptjob a set a.parentjobName='"+entity.getJobName()+"' where a.parentjobId='"+entity.getUuid()+"'";
+			String updateHql1="update BaseDeptjob a set a.jobName='"+entity.getJobName()+"' where a.jobId='"+entity.getId()+"'";
+			String updateHql2="update BaseDeptjob a set a.parentjobName='"+entity.getJobName()+"' where a.parentjobId='"+entity.getId()+"'";
 			this.doExecuteCountByHql(updateHql1);
 			this.doExecuteCountByHql(updateHql2);
 		}

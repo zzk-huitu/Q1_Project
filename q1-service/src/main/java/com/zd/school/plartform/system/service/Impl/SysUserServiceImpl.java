@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -28,7 +27,6 @@ import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.core.util.DateUtil;
 import com.zd.core.util.SortListUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.baseset.model.BaseDicitem;
@@ -132,7 +130,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 			saveEntity = new SysUser();
 		}
 
-		entity.setUuid(null);
+		entity.setId(null);
 		BeanUtils.copyPropertiesExceptNull(saveEntity, entity);
 
 		// 处理用户所属的角色
@@ -146,13 +144,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		 */
 		saveEntity.setSchoolId(AdminType.ADMIN_ORG_ID);
 		saveEntity.setUserPwd(userPwd);
-		saveEntity.setIssystem(1);
-		saveEntity.setIsHidden("0");
-		saveEntity.setCreateUser(currentUser.getXm()); // 创建人
-		saveEntity.setRightType(2);
+		saveEntity.setIsSystem(true);
+		saveEntity.setIsHidden(false);
+		saveEntity.setCreateUser(currentUser.getId()); // 创建人
+		saveEntity.setRightType("2");
 		entity = this.merge(saveEntity);
 		
-		String userIds = entity.getUuid();
+		String userIds = entity.getId();
 		String deptJobId = entity.getDeptId();
 		userDeptJobService.doAddUserToDeptJob( deptJobId, userIds, currentUser);
 
@@ -163,7 +161,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	public SysUser doUpdateUser(SysUser entity, SysUser currentUser) throws Exception, InvocationTargetException {
 
 		// 先拿到已持久化的实体
-		SysUser perEntity = this.get(entity.getUuid());
+		SysUser perEntity = this.get(entity.getId());
 
 		Set<SysRole> isUserRoles = perEntity.getSysRoles();
 		/* Set<BaseOrg> userDept = perEntity.getUserDepts(); */
@@ -172,7 +170,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 
 		perEntity.setUpdateTime(new Date()); // 设置修改时间
-		perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+		perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 		perEntity.setSysRoles(isUserRoles);
 		/* perEntity.setUserDepts(userDept); */
 		// entity = thisService.merge(perEntity);// 执行修改方法
@@ -195,8 +193,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		// String sqlInsert = "insert into
 		// Tc_Employee(UserId,DepartmentID,EmployeeName,EmployeeStrID,SID,EmployeePWD,SexID,identifier,cardid,CardTypeID,EmployeeStatusID,PositionId)
 		// "
-		// + "values('" + entity.getUuid() + "','1','"
-		// + currentUser.getXm() + "'," + "'" + currentUser.getJobId() +
+		// + "values('" + entity.getId() + "','1','"
+		// + currentUser.getId() + "'," + "'" + currentUser.getJobId() +
 		// "','','','"
 		// + currentUser.getXbm() + "','" + currentUser.getSfzjh() +
 		// "',0,1,24,19)";
@@ -316,7 +314,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	//
 	// sysUser.setUserDepts(userDept);
 	// sysUser.setUpdateTime(new Date());
-	// sysUser.setUpdateUser(cuurentUser.getXm());
+	// sysUser.setUpdateUser(cuurentUser.getId());
 	//
 	// this.merge(sysUser);
 	// reResult = true;
@@ -349,7 +347,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		 * userDept.remove(org);
 		 * 
 		 * user.setUpdateTime(new Date());
-		 * user.setUpdateUser(currentUser.getXm()); user.setUserDepts(userDept);
+		 * user.setUpdateUser(currentUser.getId()); user.setUserDepts(userDept);
 		 * 
 		 * this.merge(user);
 		 * 
@@ -376,7 +374,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		// if (list.size() > 0) {
 		// StringBuffer sbJobName = new StringBuffer();
 		// for (SysUser user : list) {
-		// TeaTeacherbase teacherbase = teacherService.get(user.getUuid());
+		// TeaTeacherbase teacherbase = teacherService.get(user.getId());
 		// String jobInfo = teacherService.getTeacherJobs(teacherbase);
 		// String[] strings = jobInfo.split(",");
 		// user.setJobId(strings[0]);
@@ -650,114 +648,6 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		return row;
 	}
 
-	@Override
-	public int syncAllCardInfoFromUp(List<CardUserInfoToUP> upCardUserInfos) {
-		int row = 0;
-		try {
-			// 1.查询web平台的发卡信息
-			String sql = "select CARD_ID as uuid,convert(varchar,FACT_NUMB) as factNumb,USE_STATE as useState,"
-					+ " USER_ID as userId,convert(varchar,UP_CARD_ID) as upCardId "
-					+ " from CARD_T_USEINFO where ISDELETE=0" + " order by upCardId asc";
-
-			List<CardUserInfoToUP> webCardUserInfos = this.queryEntityBySql(sql, CardUserInfoToUP.class);
-
-			String updateTime = null;
-
-			// 循环对比
-			CardUserInfoToUP webCardUser = null;
-			CardUserInfoToUP upCardUser = null;
-			boolean isExist = false;
-			StringBuffer sqlSb = new StringBuffer();
-			String sqlStr = "";
-			// 当参数为null或内容为空，则直接删除发卡信息
-			if (upCardUserInfos == null || upCardUserInfos.size() == 0) {
-				sqlStr = "	delete from CARD_T_USEINFO ";
-				this.doExecuteCountBySql(sqlSb.toString());
-			} else {
-				for (int i = 0; i < upCardUserInfos.size(); i++) {
-					upCardUser = upCardUserInfos.get(i);
-					sqlStr = "";
-					isExist = false;
-
-					for (int j = 0; j < webCardUserInfos.size(); j++) {
-						webCardUser = webCardUserInfos.get(j);
-						// 若web库中存在此发卡信息
-						if (upCardUser.getUserId().equals(webCardUser.getUserId())) {
-							// 执行代码
-							isExist = true;
-							if (!upCardUser.equals(webCardUser)) { // 对比数据（一部分需要判断的数据）是否一致
-								// 若发卡ID为null，表明没有发卡，所以物理删除卡片信息
-								if (upCardUser.getUpCardId() == null) {
-									sqlStr = "delete from CARD_T_USEINFO where USER_ID='" + upCardUser.getUserId()
-											+ "';";
-									sqlSb.append(sqlStr + "  ");
-								} else { // 否则更新数据
-									updateTime = DateUtil.formatDateTime(new Date());
-
-									sqlStr = "update CARD_T_USEINFO set " + "	FACT_NUMB='" + upCardUser.getFactNumb()
-											+ "',USE_STATE='" + upCardUser.getUseState() + "'," + "	UP_CARD_ID='"
-											+ upCardUser.getUpCardId() + "',UPDATE_TIME=CONVERT(datetime,'" + updateTime
-											+ "')" + " where USER_ID='" + upCardUser.getUserId() + "'";
-
-									sqlSb.append(sqlStr + "  ");
-								}
-							}
-
-							webCardUserInfos.remove(j);
-							break; // 跳出
-						}
-					}
-
-					// 若上面的循环无法找到对应的卡片信息，表明UP中不存在此卡片信息
-					if (!isExist && upCardUser.getUpCardId() != null) {
-						updateTime = DateUtil.formatDateTime(new Date());
-
-						sqlStr = "insert into CARD_T_USEINFO(CARD_ID,CREATE_TIME,CREATE_USER,"
-								+ "ISDELETE,FACT_NUMB,USE_STATE,USER_ID,UP_CARD_ID)" + " values ('"
-								+ UUID.randomUUID().toString() + "',CONVERT(datetime,'" + updateTime + "'),'超级管理员',"
-								+ "0,'" + upCardUser.getFactNumb() + "'," + upCardUser.getUseState() + "," + "'"
-								+ upCardUser.getUserId() + "','" + upCardUser.getUpCardId() + "')";
-
-						sqlSb.append(sqlStr + "  ");
-
-					}
-
-					// 若积累的语句长度大于3000（大约50条语句左右），则执行
-					if (sqlSb.length() > 3000) {
-						row += this.doExecuteCountBySql(sqlSb.toString());
-						sqlSb.setLength(0); // 清空
-					}
-				}
-
-				// 最后执行一次
-				if (sqlSb.length() > 0)
-					row += this.doExecuteCountBySql(sqlSb.toString());
-
-				// 如果还有没执行到的发卡数据，则进行循环删除
-				if (webCardUserInfos.size() > 0) {
-					sqlSb.setLength(0); // 清空
-					for (int k = 0; k < webCardUserInfos.size(); k++) {
-						webCardUser = webCardUserInfos.get(k);
-						sqlStr = "delete from CARD_T_USEINFO where CARD_ID='" + webCardUser.getUuid() + "';";
-						sqlSb.append(sqlStr + "  ");
-					}
-					this.doExecuteCountBySql(sqlSb.toString());
-					// 若web库中存在此发卡信息
-				}
-			}
-
-		} catch (Exception e) {
-			// 捕获了异常后，要手动进行回滚；
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-
-			row = -1;
-
-			logger.error(e.getMessage());
-			logger.error("同步UP发卡数据到Q1失败！错误信息：->" + Arrays.toString(e.getStackTrace()));
-		}
-
-		return row;
-	}
 
 	@Override
 	public HashMap<String, Set<String>> getUserRoleMenuPermission(SysUser sysUser, Session session) {
@@ -765,8 +655,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		HashMap<String, Set<String>> map = new HashMap<>();
 
 		// 若redis中不存在此人员的数据，就去查库（redis的相关数据，在用户被修改角色的时候，会删除）		
-		Object userAuth = userRedisService.getAuthByUser(sysUser.getUuid());
-		Object userBtn = userRedisService.getBtnByUser(sysUser.getUuid());
+		Object userAuth = userRedisService.getAuthByUser(sysUser.getId());
+		Object userBtn = userRedisService.getBtnByUser(sysUser.getId());
 				
 		if (userAuth != null && userBtn != null) { // 若存在，表明，没有更新更新redis，则不需要设置
 			// 如果session为空，表明是初次登录进来，所以设置
@@ -786,13 +676,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		while (iterator.hasNext()) {
 			SysRole sysRole = iterator.next();
 			if (sysRole.getIsDelete() == 0) { // 只加入正常状态的角色数据
-				List<SysMenuPermission> menuPerLists = menuPermissionService.getRoleMenuPerlist(sysRole.getUuid(),
+				List<SysMenuPermission> menuPerLists = menuPermissionService.getRoleMenuPerlist(sysRole.getId(),
 						null);
 
 				for (int i = 0; i < menuPerLists.size(); i++) {
 					SysMenuPermission smp = menuPerLists.get(i);
-					userRMP_AUTH.add(smp.getPerAuthCode() + "_" + smp.getPerAuth()); // 前缀+后缀
-					userRMP_BTN.add(smp.getMenuCode() + "_" + smp.getPerBtnName()); // 菜单编码+按钮ref名称
+					userRMP_AUTH.add(smp.getAuthPrefix() + "_" + smp.getAuthPostfix()); // 前缀+后缀
+					userRMP_BTN.add(smp.getMenuCode() + "_" + smp.getButtonName()); // 菜单编码+按钮ref名称
 				}
 			}
 		}
@@ -801,14 +691,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
 		// 设置登录用户的功能权限（使用redis hash类型存储）
 		if(userRMP_AUTH.size()==0)
-			userRedisService.setAuthByUser(sysUser.getUuid(), null);
+			userRedisService.setAuthByUser(sysUser.getId(), null);
 		else
-			userRedisService.setAuthByUser(sysUser.getUuid(), userRMP_AUTH);
+			userRedisService.setAuthByUser(sysUser.getId(), userRMP_AUTH);
 		
 		if(userRMP_BTN.size()==0)
-			userRedisService.setBtnByUser(sysUser.getUuid(), null);
+			userRedisService.setBtnByUser(sysUser.getId(), null);
 		else
-			userRedisService.setBtnByUser(sysUser.getUuid(), userRMP_BTN);
+			userRedisService.setBtnByUser(sysUser.getId(), userRMP_BTN);
 
 		return map;
 
@@ -823,9 +713,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		Set<SysRole> sysRoleSet = sysPermission.getSysRoles();
 		Set<String> setUserId = new HashSet<>();
 		for (SysRole sysRole : sysRoleSet) {
-			List<SysUser> listUser = this.getUserByRoleId(sysRole.getUuid()).getResultList();
+			List<SysUser> listUser = this.getUserByRoleId(sysRole.getId()).getResultList();
 			for (int j = 0; j < listUser.size(); j++) {
-				setUserId.add(listUser.get(j).getUuid());
+				setUserId.add(listUser.get(j).getId());
 			}
 		}
 
@@ -842,7 +732,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		for (int i = 0; i < roleIds.length; i++) {
 			List<SysUser> listUser = this.getUserByRoleId(roleIds[i]).getResultList();
 			for (int j = 0; j < listUser.size(); j++) {
-				setUserId.add(listUser.get(j).getUuid());
+				setUserId.add(listUser.get(j).getId());
 			}
 		}
 
@@ -870,7 +760,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 			if (tempList.size() > 0) {
 				StringBuilder sb = new StringBuilder();
 				for (SysUser sysUser : tempList) {
-					sb.append(sysUser.getUuid());
+					sb.append(sysUser.getId());
 					sb.append(",");
 				}
 				sb = sb.deleteCharAt(sb.length() - 1);
@@ -980,16 +870,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 				}else{
 					user = new SysUser();
 					user.setUserName(String.valueOf(lo.get(0)));
-					user.setXm(String.valueOf(lo.get(1)));
-					user.setXbm(mapXbm.get(lo.get(2)));
+					user.setName(String.valueOf(lo.get(1)));
+					user.setSex(mapXbm.get(lo.get(2)));
 					user.setCategory(mapCategory.get(lo.get(3)));
 					user.setUserNumb(String.valueOf(lo.get(4)));
-					user.setSfzjh(String.valueOf(lo.get(5)));
-					user.setMobile(String.valueOf(lo.get(6)));
-					user.setCsrq(dateSdf.parse(String.valueOf(lo.get(7))));
-					user.setDzxx(String.valueOf(lo.get(8)));
-					user.setZzmmm(mapZzmmm.get(lo.get(9)));
-					user.setUserPwd("123456");
+					user.setIdentityNumber(String.valueOf(lo.get(5)));
+					user.setMobilePhone(String.valueOf(lo.get(6)));
+					user.setBirthDate(dateSdf.parse(String.valueOf(lo.get(7))));
+					user.setEmail(String.valueOf(lo.get(8)));
+					user.setPoliticalStatus(mapZzmmm.get(lo.get(9)));
+					user.setUserPwd(new Sha256Hash("123456").toHex());
 					this.doAddUser(user,currentUser);
 				}				
 
@@ -1021,7 +911,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		StringBuffer orgids = new StringBuffer();
 		if (rightOrg.size() > 0) {
 			for (BaseOrg baseOrg : rightOrg) {
-				orgids.append("'" + baseOrg.getUuid() + "',");
+				orgids.append("'" + baseOrg.getId() + "',");
 			}
 		}
 		if (orgids.length() > 0) {
@@ -1030,4 +920,5 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		} else
 			return "";
 	}
+
 }

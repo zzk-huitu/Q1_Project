@@ -56,7 +56,7 @@ public class BaseOrg extends TreeNodeEntity implements Serializable {
 	@Column(name = "courseId", columnDefinition = "nvarchar(20) defalut ''", nullable = true)
 	private String courseId;
 
-	@FieldInfo(name = "备注", type = "varchar(255)", explain = "备注说明")
+	@FieldInfo(name = "备注", type = "nvarchar(255)", explain = "备注说明")
 	@Column(name = "remark", columnDefinition = "nvarchar(255) defalut ''", nullable = true)
 	private String remark;
 

@@ -5,9 +5,6 @@ import java.util.List;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.service.BaseService;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
-import com.zd.school.plartform.comm.model.FacultyClassTree;
-import com.zd.school.plartform.comm.model.UpGradeRule;
 
 /**
  * 
@@ -21,29 +18,13 @@ import com.zd.school.plartform.comm.model.UpGradeRule;
 
 public interface CommTreeService extends BaseService<BaseEntity> {
 
-    /**
-     * 
-     * getFacultyClassTree:获取系别-专业-班级的树.
-     *
-     * @author luoyibo
-     * @param whereSql
-     *            过滤条件
-     * @return List<FacultyClassTree>
-     * @throws @since
-     *             JDK 1.8
-     */
-    public List<FacultyClassTree> getFacultyClassTree(String whereSql);
 
     public List<CommTree> getCommTree(String treeView, String whereSql);
 
-    public List<UpGradeRule> getUpGradeRuleList();
-
+   
 	public CommTree getGradeCommTree(String sql, String rootId);
 
 	public List<CommTree> getCommTreeList(String sql);
 
-	public List<CommTreeChk> getCommTreeChk(String treeView, String whereSql);
-	
-	List<CommTreeChk> getCommTreeChk_CoustomRoot(String treeView, String root, String whereSql);
 	
 }

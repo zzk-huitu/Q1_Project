@@ -52,7 +52,7 @@ public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand>
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+		saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 		entity = this.merge(saveEntity);// 执行修改方法
 
 		return entity;
@@ -62,17 +62,17 @@ public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand>
 	@Override
 	public PtIrDeviceBrand doUpdateEntity(PtIrDeviceBrand entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		PtIrDeviceBrand perEntity = this.get(entity.getUuid());
+		PtIrDeviceBrand perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 			
 			/*若修改的是第三层的品牌名称，则一并把第四层的品牌名称修改*/
 			if(entity.getLevel()==3){
-				String hql="update PtIrDeviceBrand set brandname='"+entity.getBrandname()+"'"
-						+ " where isDelete=0 and level=4 and parentNode='"+entity.getUuid()+"'";
+				String hql="update PtIrDeviceBrand set brandName='"+entity.getBrandName()+"'"
+						+ " where isDelete=0 and level=4 and parentNode='"+entity.getId()+"'";
 				this.doExecuteCountByHql(hql);
 			}
 			return entity;

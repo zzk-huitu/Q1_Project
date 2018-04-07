@@ -29,7 +29,7 @@ public class OaInfotermuse extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "终端号", type = "varchar(6) NOT NULL", explain = "信息终端的终端号")
 	@Column(name = "terminalNo", length = 6, nullable = false)
-	private String terminalNO;
+	private String terminalNo;
 
 	@FieldInfo(name = "使用房间ID", type = "varchar(20) defalut ''", explain = "终端的使用房间ID")
 	@Column(name = "roomId", columnDefinition = "varchar(20) defalut ''", nullable = true)
@@ -47,12 +47,12 @@ public class OaInfotermuse extends BaseEntity implements Serializable {
 		this.terminalId = terminalId;
 	}
 
-	public String getTerminalNO() {
-		return terminalNO;
+	public String getTerminalNo() {
+		return terminalNo;
 	}
 
-	public void setTerminalNO(String terminalNO) {
-		this.terminalNO = terminalNO;
+	public void setTerminalNo(String terminalNo) {
+		this.terminalNo = terminalNo;
 	}
 
 	public String getRoomId() {

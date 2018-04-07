@@ -66,7 +66,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -87,11 +87,11 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 	@Override
 	public EccClassstar doUpdateEntity(EccClassstar entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		EccClassstar saveEntity = this.get(entity.getUuid());
+		EccClassstar saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -120,14 +120,14 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 		excludedProp.add("claiId");
 		excludedProp.add("className");
 		try {
-			String [] claiIds = entity.getClaiId().split(",");
+			String [] claiIds = entity.getClassId().split(",");
 			String [] classNames = entity.getClassName().split(",");
 			for (int i = 0; i < claiIds.length; i++) {
 				EccClassstar saveEntity = new EccClassstar();
 
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
-				saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
-				saveEntity.setClaiId(claiIds[i]);
+				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
+				saveEntity.setClassId(claiIds[i]);
 				saveEntity.setClassName(classNames[i]);
 				entity = this.merge(saveEntity);// 执行修改方法
 			}
@@ -150,7 +150,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 		hql.append(whereSql);
 		hql.append(filterSql);
 		String rightDeptIds = "";
-		if (currentUser.getRightType() != 0) {
+		if ("0".equals(currentUser.getRightType()) ) {
 			// 如果当前用户不是所有的部门权限，则取有权限的部门
 			//rightDeptIds = userService.getUserOwnDeptids(currentUser);(zzk 2017/12/22 暂不存在此方法
 		}

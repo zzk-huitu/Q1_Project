@@ -9,19 +9,18 @@
 
 package com.zd.core.model.extjs;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ClassName:ExtTreeNode Function: TODO ADD FUNCTION. Reason: 不带Ext树节点 数据结构.
- * Date: 2016年5月11日 下午4:10:59
- * 
- * @author luoyibo
- * @version
- * @since JDK 1.8
- * @see
+ * POJO Extjs树列表的模型类（若树不需要显示多选框，就在结果集中排除checked字段）
+ * @author ZZK
+ *
+ * @param <T>
  */
-public class ExtTreeNode<T> {
+public class ExtTreeNode<T> implements Serializable{
+	private static final long serialVersionUID = 1L;
 
     /** 节点ID */
     public String id;
@@ -51,7 +50,7 @@ public class ExtTreeNode<T> {
 	private Integer orderIndex;
 
 	/** 是否选中 */
-	//private Boolean checked;
+	private Boolean checked;
 
 	public String getId() {
 		return id;
@@ -125,13 +124,13 @@ public class ExtTreeNode<T> {
 		this.orderIndex = orderIndex;
 	}
 
-//	public Boolean getChecked() {
-//		return checked;
-//	}
-//
-//	public void setChecked(Boolean checked) {
-//		this.checked = checked;
-//	}
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
 
 	public ExtTreeNode() {
 		super();

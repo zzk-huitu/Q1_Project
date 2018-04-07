@@ -60,7 +60,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			PtTerm perEntity = new PtTerm();
-			perEntity.setCreateUser(currentUser.getXm());
+			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			// 持久化到数据库
@@ -78,11 +78,11 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 	@Override
 	public PtTerm doUpdateEntity(PtTerm entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		PtTerm perEntity = this.get(entity.getUuid());
+		PtTerm perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -105,7 +105,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		// TODO Auto-generated method stub
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs());
-		PtTerm perEntity = this.get(tlvs.getUuid());
+		PtTerm perEntity = this.get(tlvs.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
@@ -117,7 +117,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 	@Override
 	public void doBatchUpdateHighParam(TLVModel tlvs, String termTypeID, String areaType, String xm) {
 		// TODO Auto-generated method stub
-		String uuid = tlvs.getUuid();
+		String uuid = tlvs.getId();
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs());
 
@@ -176,12 +176,12 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		byte[] baseResult = null;
 		baseResult = TLVUtils.encode(tlvs.getTlvs());
 		
-		PtTerm perEntity = this.get(tlvs.getUuid());
+		PtTerm perEntity = this.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
 		perEntity.setUpdateTime(new Date());
 		perEntity.setBaseParam(baseResult);
-		if("11".equals(perEntity.getTermTypeID())||"17".equals(perEntity.getTermTypeID())){
+		if("11".equals(perEntity.getTermTypeId())||"17".equals(perEntity.getTermTypeId())){
 			perEntity.setNotes(notes);
 		}
 		this.merge(perEntity);// 执行修改方法		
@@ -190,7 +190,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 	@Override
 	public void doBatchUpdateBaseParam(TLVModel tlvs, String termTypeID, String notes, String areaType, String xm) {
 		// TODO Auto-generated method stub
-		String uuid = tlvs.getUuid();
+		String uuid = tlvs.getId();
 		byte[] baseResult = null;
 		baseResult = TLVUtils.encode(tlvs.getTlvs());
 
@@ -244,7 +244,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		for (int i = 0; i < uuids.length; i++) {
 			entity = this.get(uuids[i]);
 			entity.setRoomId(roomIds[i]);
-			entity.setCreateUser(currentUser.getXm());
+			entity.setCreateUser(currentUser.getId());
 			entity.setUpdateTime(new Date());
 			this.merge(entity);
 			//thisService.updateByProperties("uuid", uuids[i], "roomId", roomId);

@@ -39,7 +39,7 @@ public class BaseSkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine>
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			double priceValue = entity.getPriceValue();
 			SkPriceDefine perEntity = new SkPriceDefine();
-			perEntity.setCreateUser(currentUser.getXm());
+			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			// 持久化到数据库
@@ -58,11 +58,11 @@ public class BaseSkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine>
     @Override
 	public SkPriceDefine doUpdateEntity(SkPriceDefine entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-    	SkPriceDefine perEntity = this.get(entity.getUuid());
+    	SkPriceDefine perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 
 			return entity;

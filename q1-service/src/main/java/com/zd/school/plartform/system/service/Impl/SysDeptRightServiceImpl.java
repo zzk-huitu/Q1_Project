@@ -51,7 +51,7 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 		String[] userIds = userId.split(",");
 		String[] deptIds = deptId.split(",");
 		String[] propertyName = { "updateUser", "updateTime", "rightType" };
-		Object[] propertyValue = { currentUser.getUuid(), date, 1 };
+		Object[] propertyValue = { currentUser.getId(), date, 1 };
 		
 		String hql="select deptId from SysDeptRight where isDelete=0 and userId=?";
 		SysDeptRight deptright = null;
@@ -63,9 +63,9 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 					deptright = new SysDeptRight();
 					deptright.setUserId(ui);
 					deptright.setDeptId(di);
-					deptright.setRightSource(1);
+					//deptright.setRightSource(1);取消了此字段
 					deptright.setCreateTime(date);
-					deptright.setCreateUser(currentUser.getUuid());
+					deptright.setCreateUser(currentUser.getId());
 					this.merge(deptright);
 				}
 			}

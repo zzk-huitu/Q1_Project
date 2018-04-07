@@ -69,7 +69,7 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isUse", "updateUser", "updateTime", "roomId", "roomName", "houseNumb" };
-			Object[] propertyValue = { 0, currentUser.getXm(), new Date(), "", "", "" };
+			Object[] propertyValue = { 0, currentUser.getId(), new Date(), "", "", "" };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -91,11 +91,11 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 	@Override
 	public OaInfoterm doUpdateEntity(OaInfoterm entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		OaInfoterm saveEntity = this.get(entity.getUuid());
+		OaInfoterm saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -136,10 +136,10 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			saveEntity.setIsUse(0);
+			saveEntity.setIsUse(false);
 			saveEntity.setOrderIndex(newNumber);
-			saveEntity.setTermCode(StringUtils.addString(newNumber.toString(), "0", 6, "L"));
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setTerminalNo(StringUtils.addString(newNumber.toString(), "0", 6, "L"));
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 
 			entity = this.merge(saveEntity);// 执行修改方法
 			newNumber++;
@@ -152,7 +152,7 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 		 * excludedProp = new ArrayList<>();
 		 * 
 		 * BeanUtils.copyProperties(saveEntity, entity,excludedProp);
-		 * saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名 entity =
+		 * saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名 entity =
 		 * this.merge(saveEntity);// 执行修改方法
 		 * 
 		 * return entity; } catch (IllegalAccessException e) {
@@ -168,42 +168,42 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 		String[] propName = { "roomId", "houseNumb" };
 
 		for (OaInfoterm oaInfoterm : terminals) {
-			String houseNumb = oaInfoterm.getHouseNumb();
-			String termId = oaInfoterm.getUuid();
+			String houseNumb = oaInfoterm.getHouseNo();
+			String termId = oaInfoterm.getId();
 			Object[] propValue = { roomId, houseNumb };
 			OaInfoterm saveEntity = this.getByProerties(propName, propValue);
 			if (ModelUtil.isNotNull(saveEntity)) {
 				// 原来给此门牌分配过终端
-				if (!saveEntity.getUuid().equals(termId)) {
+				if (!saveEntity.getId().equals(termId)) {
 					// 当前设置的和原来的不一致，需要清除原来的，再更新
-					String conditionValue = saveEntity.getUuid();
+					String conditionValue = saveEntity.getId();
 					String[] propertyName = { "isUse", "updateUser", "updateTime", "roomId", "roomName",
 							"houseNumb" };
-					Object[] propertyValue = { 0, currentUser.getXm(), new Date(), "", "", "" };
+					Object[] propertyValue = { 0, currentUser.getId(), new Date(), "", "", "" };
 					this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
-					saveEntity = this.get(oaInfoterm.getUuid());
+					saveEntity = this.get(oaInfoterm.getId());
 				}
 			} else {
 				// 原来没有分配，取当前设置的
-				saveEntity = this.get(oaInfoterm.getUuid());
+				saveEntity = this.get(oaInfoterm.getId());
 			}
-			// OaInfoterm saveEntity = this.get(oaInfoterm.getUuid());
+			// OaInfoterm saveEntity = this.get(oaInfoterm.());
 			saveEntity.setRoomId(roomId);
 			saveEntity.setRoomName(roomName);
-			saveEntity.setIsUse(1);
-			saveEntity.setHouseNumb(houseNumb);
+			saveEntity.setIsUse(true);
+			saveEntity.setHouseNo(houseNumb);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 
 			this.merge(saveEntity);// 执行修改方法
 
 			// 写入分配历史记录
 			OaInfotermuse useHistory = new OaInfotermuse();
-			useHistory.setTermId(oaInfoterm.getUuid());
-			useHistory.setTermCode(oaInfoterm.getTermCode());
+			useHistory.setTerminalId(oaInfoterm.getId());
+			useHistory.setTerminalNo(oaInfoterm.getTerminalNo());
 			useHistory.setRoomId(roomId);
 			useHistory.setRoomName(roomName);
-			useHistory.setCreateUser(currentUser.getXm());
+			useHistory.setCreateUser(currentUser.getId());
 
 			useHistoryService.persist(useHistory);
 		}

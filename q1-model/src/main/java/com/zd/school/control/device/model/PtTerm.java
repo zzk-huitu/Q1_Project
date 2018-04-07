@@ -64,19 +64,19 @@ public class PtTerm extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "基础参数", type = "varbinary(255)", explain = "基础参数")
 	@Column(name = "baseParam")
-	private Byte[] baseParam;
+	private byte[] baseParam;
 
 	@FieldInfo(name = "高级参数", type = "varbinary(255)", explain = "高级参数")
 	@Column(name = "advParam")
-	private Byte[] advParam;
+	private byte[] advParam;
 
 	@FieldInfo(name = "费率参数", type = "varbinary(255)", explain = "费率参数")
 	@Column(name = "rateParam")
-	private Byte[] rateParam;
+	private byte[] rateParam;
 
 	@FieldInfo(name = "网络参数", type = "varbinary(255)", explain = "网络参数")
 	@Column(name = "netParam")
-	private Byte[] netParam;
+	private byte[] netParam;
 
 	@FieldInfo(name = "备注说明", type = "nvarchar(256) default ''", explain = "备注说明")
 	@Column(name = "notes", columnDefinition = "nvarchar(256) default ''", nullable = true)
@@ -186,35 +186,35 @@ public class PtTerm extends BaseEntity implements Serializable {
 		this.offlineUse = offlineUse;
 	}
 
-	public Byte[] getBaseParam() {
+	public byte[] getBaseParam() {
 		return baseParam;
 	}
 
-	public void setBaseParam(Byte[] baseParam) {
+	public void setBaseParam(byte[] baseParam) {
 		this.baseParam = baseParam;
 	}
 
-	public Byte[] getAdvParam() {
+	public byte[] getAdvParam() {
 		return advParam;
 	}
 
-	public void setAdvParam(Byte[] advParam) {
+	public void setAdvParam(byte[] advParam) {
 		this.advParam = advParam;
 	}
 
-	public Byte[] getRateParam() {
+	public byte[] getRateParam() {
 		return rateParam;
 	}
 
-	public void setRateParam(Byte[] rateParam) {
+	public void setRateParam(byte[] rateParam) {
 		this.rateParam = rateParam;
 	}
 
-	public Byte[] getNetParam() {
+	public byte[] getNetParam() {
 		return netParam;
 	}
 
-	public void setNetParam(Byte[] netParam) {
+	public void setNetParam(byte[] netParam) {
 		this.netParam = netParam;
 	}
 

@@ -13,7 +13,7 @@ import com.zd.core.util.TagLenVal;
  */
 public class TLVModel {
 	 private List<TagLenVal> tlvs;
-	 private String uuid;
+	 private String id;
 	 private String notes;
 	public List<TagLenVal> getTlvs() {
 		return tlvs;
@@ -29,12 +29,12 @@ public class TLVModel {
 		this.tlvs = tlvs;
 	}
 
-	public String getUuid() {
-		return uuid;
+	public String getId() {
+		return id;
 	}
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNotes() {

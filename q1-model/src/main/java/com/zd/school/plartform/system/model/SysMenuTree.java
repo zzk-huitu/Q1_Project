@@ -9,6 +9,7 @@
 
 package com.zd.school.plartform.system.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.zd.core.annotation.FieldInfo;
@@ -35,15 +36,9 @@ public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
     @FieldInfo(name = "菜单类型")
     private String menuType;
 
-    @FieldInfo(name = "是否叶菜单")
-    private String menuLeaf;
+//    @FieldInfo(name = "是否叶菜单")  原值为：GENERAL、LEAF 使用意义不大
+//    private String menuLeaf;
 
-    /*@FieldInfo(name = "上级菜单")
-    private String parent;
-
-    @FieldInfo(name = "排序字段")
-    private Integer orderIndex;
-*/
     @FieldInfo(name = "节点编码")
     private String nodeCode;
     
@@ -55,21 +50,25 @@ public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
     private String roleMenuPerName;
     
     @FieldInfo(name = "是否系统菜单")
-    private Integer issystem;
+    private Boolean isSystem;
 
     @FieldInfo(name = "是否隐藏,0-不隐藏 1-隐藏")
-    private String isHidden;
+    private Boolean isHidden;
 
-    public String getIsHidden() {
+    public void setIsHidden(Boolean isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public Boolean getIsHidden() {
         return isHidden;
     }
 
-    public void setIssystem(Integer issystem) {
-        this.issystem = issystem;
+    public void setIsSystem(Boolean isSystem) {
+        this.isSystem = isSystem;
     }
 
-    public Integer getIssystem() {
-        return issystem;
+    public Boolean getIsSystem() {
+        return isSystem;
     }
 
     public String getMenuCode() {
@@ -112,31 +111,7 @@ public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
         this.menuType = menuType;
     }
 
-    public String getMenuLeaf() {
-        return menuLeaf;
-    }
 
-    public void setMenuLeaf(String menuLeaf) {
-        this.menuLeaf = menuLeaf;
-    }
-/*
-    public String getParent() {
-        return parent;
-    }
-
-    public void setParent(String parent) {
-        this.parent = parent;
-    }
-*/
-    /*
-    public Integer getOrderIndex() {
-        return orderIndex;
-    }
-
-    public void setOrderIndex(Integer orderIndex) {
-        this.orderIndex = orderIndex;
-    }
-*/
     public String getNodeCode() {
         return nodeCode;
     }
@@ -171,7 +146,7 @@ public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
 
     public SysMenuTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,String parent,Integer orderIndex,
             List<SysMenuTree> children, String menuCode, String smallIcon, String bigIcon, String menuTarget,
-            String menuType, String menuLeaf, String nodeCode, Integer issystem,String isHidden) {
+            String menuType,  String nodeCode, Boolean issystem,Boolean isHidden) {
 
         super(id, text, iconCls, leaf, level, treeid,parent,orderIndex, children);
         this.menuCode = menuCode;
@@ -179,16 +154,15 @@ public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
         this.bigIcon = bigIcon;
         this.menuTarget = menuTarget;
         this.menuType = menuType;
-        this.menuLeaf = menuLeaf;
         this.nodeCode = nodeCode;
-        this.issystem = issystem;
+        this.isSystem = issystem;
         this.isHidden = isHidden;    
         // TODO Auto-generated constructor stub
 
     }
     public SysMenuTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,String parent,Integer orderIndex,
             List<SysMenuTree> children, String menuCode, String smallIcon, String bigIcon, String menuTarget,
-            String menuType, String menuLeaf, String nodeCode, Integer issystem,String isHidden,String perId) {
+            String menuType, String nodeCode, Boolean issystem,Boolean isHidden,String perId) {
 
         super(id, text, iconCls, leaf, level, treeid,parent,orderIndex, children);
         this.menuCode = menuCode;
@@ -196,13 +170,15 @@ public class SysMenuTree extends ExtTreeNode<SysMenuTree> {
         this.bigIcon = bigIcon;
         this.menuTarget = menuTarget;
         this.menuType = menuType;
-        this.menuLeaf = menuLeaf;
         this.nodeCode = nodeCode;
-        this.issystem = issystem;
+        this.isSystem = issystem;
         this.isHidden = isHidden;    
         this.perId = perId;  
         // TODO Auto-generated constructor stub
 
     }
+
+
+	
         
 }

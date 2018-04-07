@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.zd.core.service.BaseService;
 import com.zd.school.plartform.system.model.SysMenu;
-import com.zd.school.plartform.system.model.SysMenuChkTree;
 import com.zd.school.plartform.system.model.SysMenuTree;
 import com.zd.school.plartform.system.model.SysUser;
 
@@ -105,7 +104,7 @@ public interface SysMenuService extends BaseService<SysMenu> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<SysMenuChkTree> getUserPermissionToRole(String roleId, String userId);
+    public List<SysMenuTree> getUserPermissionToRole(String roleId, String userId);
 
     public SysMenu addMenu(SysMenu menu, SysUser currentUser) throws IllegalAccessException, InvocationTargetException;
 

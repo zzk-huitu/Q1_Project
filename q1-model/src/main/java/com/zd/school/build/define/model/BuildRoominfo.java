@@ -16,8 +16,11 @@ import com.zd.core.model.BaseEntity;
 /**
  * 房间信息表
  * 
+ * 注：使用备用字段1-5，作为房间的门牌号1-5
+ * 
+ * 注：删除areaStatu字段，目前而言没什么意义（roomType不为0，则代表已经分配）
+ * 
  * @author ZZK
- *
  */
 
 @Entity
@@ -49,10 +52,6 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	@FieldInfo(name = "网络状态", type = "bit default 0", explain = "网络状态：0-无网络，1-有网络")
 	@Column(name = "roomNet", columnDefinition = "default 0", nullable = true)
 	private Boolean roomNet;
-
-	@FieldInfo(name = "房间状态", type = "varchar(4) default ''", explain = "房间状态")
-	@Column(name = "areaStatu", length = 4, columnDefinition = "default ''", nullable = true)
-	private String areaStatu;
 
 	@FieldInfo(name = "教室说明", type = "nvarchar(128) default ''", explain = "教室说明")
 	@Column(name = "roomExplain", columnDefinition = "nvarchar(128)  default ''", nullable = true)
@@ -127,14 +126,6 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 
 	public void setRoomNet(Boolean roomNet) {
 		this.roomNet = roomNet;
-	}
-
-	public String getAreaStatu() {
-		return areaStatu;
-	}
-
-	public void setAreaStatu(String areaStatu) {
-		this.areaStatu = areaStatu;
 	}
 
 	public String getRoomExplain() {

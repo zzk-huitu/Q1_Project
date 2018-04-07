@@ -63,15 +63,13 @@ com\zd\school\jw\model\app\ClassInfoForApp.class
 com\zd\school\jw\model\app\VideoForApp.class
 com\zd\school\plartform\baseset\model\BaseDicTree.class
 com\zd\school\build\allot\model\JwClassDormAllot.class
-com\zd\school\plartform\baseset\model\BaseOrgChkTree.class
 com\zd\school\build\define\model\BuildRoomAreaTree.class
 com\zd\school\control\device\model\PtGateway.class
-com\zd\school\plartform\system\model\SysMenuChkTree.class
 com\zd\school\jw\eduresources\model\JwTGradeclass.class
-com\zd\school\plartform\comm\model\CommTreeChk.class
 com\zd\school\plartform\baseset\model\BaseOrg.class
 com\zd\school\plartform\system\model\SysOperateLog.class
 com\zd\school\plartform\system\model\SysPermission.class
+com\zd\school\plartform\baseset\model\BaseDpetJobTree.class
 com\zd\school\control\device\model\PtPriceBind.class
 com\zd\school\plartform\baseset\model\BaseUserdeptjob.class
 com\zd\school\oa\terminal\model\OaInfotermuse.class

@@ -66,12 +66,12 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
 	@Override
 	public JwCalender doUpdateEntity(JwCalender entity, SysUser currentUser) {
 
-		JwCalender perEntity = this.get(entity.getUuid());
+		JwCalender perEntity = this.get(entity.getId());
 
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -95,9 +95,9 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
 			entity.setOrderIndex(orderIndex);// 排序
 
 			// 增加时要设置创建人
-			entity.setCreateUser(currentUser.getXm()); // 创建人
+			entity.setCreateUser(currentUser.getId()); // 创建人
 
-			entity.setActivityState(0);
+			entity.setActivityState(false);
 
 			// 持久化到数据库
 			entity = this.merge(entity);

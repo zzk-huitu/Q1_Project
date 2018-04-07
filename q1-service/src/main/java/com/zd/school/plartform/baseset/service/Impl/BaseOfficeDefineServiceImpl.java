@@ -66,7 +66,7 @@ public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<BuildOfficeDefi
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(userCh);
 		roomInfo.setRoomType("2");// 设置房间类型 2.办公室
-		roomInfo.setAreaStatu(1);// 设置为已分配
+
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -77,11 +77,10 @@ public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<BuildOfficeDefi
 		Boolean flag=false;
 		BuildOfficeDefine offRoom = null;// 办公室定义
 		offRoom = this.getByRoomId(delId);
-		if(!offRoom.getRoomStatus().equals("1")){
+		if(!offRoom.getIsAllot()==true){
 			roomInfo.setUpdateTime(new Date());
 			roomInfo.setUpdateUser(xm);
 			roomInfo.setRoomType("0");// 设置房间类型为空
-			roomInfo.setAreaStatu(0);// 设置房间状态为未分配
 			roomInfo.setRoomName(roomInfo.getRoomCode());
 			thisService.merge(roomInfo);// 执行更新方法
 			

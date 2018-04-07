@@ -77,8 +77,8 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 					continue;
 				SysRoleMenuPermission rmp = new SysRoleMenuPermission();
 				rmp.setRoleId(roleId); // 角色id
-				rmp.setPerId(perId); // 角色菜单id
-				rmp.setMenuPerId(menuPerId); // 菜单功能id			
+				rmp.setPermissionId(perId); // 角色菜单id
+				rmp.setMenuPermissionId(menuPerId); // 菜单功能id			
 				this.merge(rmp);
 				isUpdate=true;
 			}
@@ -105,7 +105,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 		List<SysUser> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
 		Object[] userIds=new String[roleUsers.size()];
 		for(int i=0;i<roleUsers.size();i++){
-			userIds[i]=roleUsers.get(i).getUuid();			
+			userIds[i]=roleUsers.get(i).getId();			
 		}		
 		if(userIds.length>0){
 			//若更新了功能权限，就删除它们
@@ -125,7 +125,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 		int row=0;
 		for(int i=0;i< cancelPerimission.size();i++){
 			// 删除角色菜单所有功能
-			String deleteHql = "delete from SysRoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + cancelPerimission.get(i).getUuid() + "'";
+			String deleteHql = "delete from SysRoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + cancelPerimission.get(i).getId() + "'";
 			row+=this.doExecuteCountByHql(deleteHql);
 		}
 		
@@ -134,7 +134,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 		List<SysUser> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
 		Object[] userIds=new String[roleUsers.size()];
 		for(int i=0;i<roleUsers.size();i++){
-			userIds[i]=roleUsers.get(i).getUuid();			
+			userIds[i]=roleUsers.get(i).getId();			
 		}		
 		if(userIds.length>0){
 			if(row>0){

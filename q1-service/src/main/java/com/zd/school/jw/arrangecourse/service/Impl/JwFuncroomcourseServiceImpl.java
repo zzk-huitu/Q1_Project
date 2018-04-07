@@ -61,7 +61,7 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -83,11 +83,11 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 	@Override
 	public JwFuncroomcourse doUpdateEntity(JwFuncroomcourse entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		JwFuncroomcourse saveEntity = this.get(entity.getUuid());
+		JwFuncroomcourse saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -116,17 +116,17 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 			// List<String> excludedProp = new ArrayList<>();
 			// excludedProp.add("uuid");
 			// BeanUtils.copyProperties(saveEntity, entity,excludedProp);
-			// saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			// saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			// entity = this.merge(saveEntity);// 执行修改方法
-			String[] propName = { "funcRoomId", "teachTime", "isDelete" };
-			Object[] propValue = { entity.getFuncRoomId(), entity.getTeachTime(), 0 };
+			String[] propName = { "funcRoomId", "sections", "isDelete" };
+			Object[] propValue = { entity.getFuncRoomId(), entity.getSections(), 0 };
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
 				saveEntity = new JwFuncroomcourse();
 			}
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -147,17 +147,17 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 			
 			JwFuncroomcourse entity=funcRoomCourseList.get(i);
 			
-			String[] propName = { "funcRoomId", "teachTime", "isDelete" };
-			Object[] propValue = { entity.getFuncRoomId(), entity.getTeachTime(), 0 };
+			String[] propName = { "funcRoomId", "sections", "isDelete" };
+			Object[] propValue = { entity.getFuncRoomId(), entity.getSections(), 0 };
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
 				saveEntity = new JwFuncroomcourse();
 			}else{
-				entity.setUuid(null);
+				entity.setId(null);
 			}			
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 			
 			count++;

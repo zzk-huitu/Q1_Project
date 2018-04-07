@@ -19,7 +19,7 @@ import java.util.List;
  *
  */
 public class CommTree extends ExtTreeNode<CommTree> {
-	
+	private static final long serialVersionUID = 1L;
 	@FieldInfo(name = "节点类型")
 	private String nodeType;
 

@@ -187,6 +187,8 @@ public class SysUser extends BaseEntity implements Serializable {
 	@Formula("(SELECT top 1 a.cardStatusId FROM T_PT_Card a where a.userId=userId order by a.createTime desc)")
 	private Integer useState;
 
+	
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -219,7 +221,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.userPwd = userPwd;
 	}
 
-	public Boolean isState() {
+	public Boolean getState() {
 		return state;
 	}
 
@@ -227,11 +229,11 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.state = state;
 	}
 
-	public Boolean isSystem() {
+	public Boolean getIsSystem() {
 		return isSystem;
 	}
 
-	public void setSystem(Boolean isSystem) {
+	public void setIsSystem(Boolean isSystem) {
 		this.isSystem = isSystem;
 	}
 
@@ -259,11 +261,11 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.schoolId = schoolId;
 	}
 
-	public Boolean isHidden() {
+	public Boolean getIsHidden() {
 		return isHidden;
 	}
 
-	public void setHidden(Boolean isHidden) {
+	public void setIsHidden(Boolean isHidden) {
 		this.isHidden = isHidden;
 	}
 
@@ -339,7 +341,7 @@ public class SysUser extends BaseEntity implements Serializable {
 		this.headCountType = headCountType;
 	}
 
-	public Boolean isRememberMe() {
+	public Boolean getRememberMe() {
 		return rememberMe;
 	}
 

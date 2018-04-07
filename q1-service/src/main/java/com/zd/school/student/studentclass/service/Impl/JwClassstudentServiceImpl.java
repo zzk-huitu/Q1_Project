@@ -56,7 +56,7 @@ public class JwClassstudentServiceImpl extends BaseServiceImpl<JwClassstudent> i
         StringBuffer sb = new StringBuffer();
         if (jgClass.size() > 0) {
             for (JwTGradeclass jwTGrade : jgClass) {
-                sb.append(jwTGrade.getUuid() + ",");
+                sb.append(jwTGrade.getId() + ",");
             }
             sb.deleteCharAt(sb.length() - 1);
         }

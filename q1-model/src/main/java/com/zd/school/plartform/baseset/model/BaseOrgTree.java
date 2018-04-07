@@ -21,6 +21,8 @@ import com.zd.core.model.extjs.ExtTreeNode;
  */
 public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
 
+	private static final long serialVersionUID = 1L;
+	
     @FieldInfo(name = "部门编码")
     private String code;
 
@@ -67,13 +69,13 @@ public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
     }
 
     @FieldInfo(name = "是否系统内置")
-    private Integer isSystem;
+    private Boolean isSystem;
 
-    public Integer getIsSystem() {
+    public Boolean getIsSystem() {
         return isSystem;
     }
 
-    public void setIsSystem(Integer isSystem) {
+    public void setIsSystem(Boolean isSystem) {
         this.isSystem = isSystem;
     }
 
@@ -173,7 +175,7 @@ public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
         this.superdeptName = superdeptName;
     }
 
-    
+  
     
     @FieldInfo(name = "上级主管岗位")
     private String superJob;
@@ -210,6 +212,31 @@ public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
         this.isRight = isRight;
     }
     
+    /* 2017-10-20新加入 */
+	@FieldInfo(name = "学段编码")
+	private String sectionCode;
+
+	public void setSectionCode(String sectionCode) {
+		this.sectionCode = sectionCode;
+	}
+
+	public String getSectionCode() {
+		return sectionCode;
+	}
+
+	/* 2017-10-20新加入 */
+	@FieldInfo(name = "年级")
+	private String nj;
+
+	public String getNj() {
+		return nj;
+	}
+
+	public void setNj(String nj) {
+		this.nj = nj;
+	}
+
+    
     public BaseOrgTree() {
 		// TODO Auto-generated constructor stub
 	}
@@ -223,8 +250,9 @@ public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
 
     public BaseOrgTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,String parent,Integer orderIndex,
             List<BaseOrgTree> children, String outPhone, String inPhone,
-            String fax, Integer isSystem, String remark, String code,
-            String deptType, String parentType, String mainLeaderName,String superJob, String superjobName, String isRight) {
+            String fax, Boolean isSystem, String remark, String code,
+            String deptType, String parentType, String mainLeaderName,String superJob, String superjobName,
+            String isRight,String nj, String sectionCode) {
         super(id, text, iconCls, leaf, level, treeid,parent,orderIndex, children);
       
         this.outPhone = outPhone;
@@ -239,6 +267,8 @@ public class BaseOrgTree extends ExtTreeNode<BaseOrgTree> {
         this.superJob = superJob;
         this.superjobName = superjobName;
         this.isRight = isRight;
+        this.nj = nj;
+		this.sectionCode = sectionCode;
     }
 
 }

@@ -44,10 +44,10 @@ public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdet
 	public List<JwCalenderdetail> queryJwTCanderdetailByJwTCander(JwCalender jtc) {
 		if(jtc == null)
     		return null;
-    	if(jtc.getUuid() == null || jtc.getUuid().trim().equals(""))
+    	if(jtc.getId() == null || jtc.getId().trim().equals(""))
     		return null;
     	StringBuffer hql = new StringBuffer(" from JwCalenderdetail where isDelete=0 and canderId='");
-    	hql.append(jtc.getUuid()).append("'");
+    	hql.append(jtc.getId()).append("'");
     	return this.dao.queryByHql(hql.toString());
 	}
 
@@ -55,13 +55,13 @@ public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdet
 	public JwCalenderdetail doUpdateEntity(JwCalenderdetail entity, SysUser currentUser) {
 
 		
-		JwCalenderdetail perEntity = this.get(entity.getUuid());
+		JwCalenderdetail perEntity = this.get(entity.getId());
 
 		
 		try{
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
         perEntity.setUpdateTime(new Date()); // 设置修改时间
-		perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+		perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 		entity = this.merge(perEntity);// 执行修改方法
 		return entity;
 	} catch (IllegalAccessException e) {
@@ -84,7 +84,7 @@ public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdet
 			entity.setOrderIndex(orderIndex);// 排序
 
 			// 增加时要设置创建人
-			entity.setCreateUser(currentUser.getXm()); // 创建人
+			entity.setCreateUser(currentUser.getId()); // 创建人
 
 			// 持久化到数据库
 			entity = this.merge(entity);

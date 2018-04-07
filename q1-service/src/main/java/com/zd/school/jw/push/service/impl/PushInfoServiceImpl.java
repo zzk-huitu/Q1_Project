@@ -32,14 +32,14 @@ public class PushInfoServiceImpl extends BaseServiceImpl<PushInfo> implements Pu
 	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus, String pushUrl,SysUser currentUser) {
 		Boolean br = false;
 		PushInfo pushInfo = new PushInfo();
-		pushInfo.setEmplName(empName);
-		pushInfo.setEmplNo(empNo);
+		pushInfo.setEmpleeName(empName);
+		pushInfo.setEmpleeNo(empNo);
 		pushInfo.setRegTime(new Date());
 		pushInfo.setEventType(eventType);
 		pushInfo.setPushStatus(0);
 		pushInfo.setPushWay(1);
 		pushInfo.setRegStatus(regStatus);
-		pushInfo.setCreateUser(currentUser.getUuid());
+		pushInfo.setCreateUser(currentUser.getId());
 		if (StringUtils.isEmpty(pushUrl))
 			pushInfo.setPushUrl("");
 		else

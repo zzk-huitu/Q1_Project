@@ -11,7 +11,6 @@ import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 import com.zd.school.plartform.baseset.model.BaseOrg;
-import com.zd.school.plartform.system.model.CardUserInfoToUP;
 import com.zd.school.plartform.system.model.SysPermission;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.model.SysUserToUP;
@@ -154,7 +153,6 @@ public interface SysUserService extends BaseService<SysUser> {
 
 	public int syncUserInfoToAllUP(List<SysUserToUP> userInfos, String departmentId);
 
-	public int syncAllCardInfoFromUp(List<CardUserInfoToUP> cardUserInfos);
 
 	public HashMap<String, Set<String>> getUserRoleMenuPermission(SysUser sysUser, Session session);
 

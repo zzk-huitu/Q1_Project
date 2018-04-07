@@ -1,6 +1,7 @@
 package com.zd.school.plartform.basedevice.service.Impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -20,6 +21,8 @@ import com.zd.school.control.device.model.TLVModel;
 import com.zd.school.plartform.basedevice.dao.BaseGatewayDao;
 import com.zd.school.plartform.basedevice.service.BaseGatewayService;
 import com.zd.school.plartform.system.model.SysUser;
+
+import javassist.bytecode.ByteArray;
 
 /**
  * 网关表
@@ -41,11 +44,11 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	@Override
 	public PtGateway doUpdateEntity(PtGateway entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		PtGateway perEntity = this.get(entity.getUuid());
+		PtGateway perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 
 			return entity;
@@ -63,7 +66,7 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			PtGateway perEntity = new PtGateway();
-			perEntity.setCreateUser(currentUser.getXm());
+			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			// perEntity.setPriceValue(entity.getPriceValue());
 			// perEntity.setPriceStatus(entity.getPriceStatus());
@@ -88,11 +91,11 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	public void doSetGatewayParam(HttpServletRequest request, TLVModel tlvs, String userCh) {
 		// TODO Auto-generated method stub
 		byte[] result = null;
-		PtGateway perEntity = this.get(tlvs.getUuid());
+		PtGateway perEntity = this.get(tlvs.getId());
 		result = TLVUtils.encode(tlvs.getTlvs());
 		perEntity.setNetParam(result);
 		perEntity.setGatewayIP(request.getParameter("gatewayIP"));
-		perEntity.setNetgatewayIp(request.getParameter("netGatewayIp"));
+		perEntity.setNetGatewayIp(request.getParameter("netGatewayIp"));
 		perEntity.setGatewayMask(request.getParameter("gatewayMask"));
 		perEntity.setGatewayMac(request.getParameter("gatewayMac"));
 		
@@ -117,7 +120,7 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 
-		PtGateway perEntity = this.get(tlvs.getUuid());
+		PtGateway perEntity = this.get(tlvs.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
@@ -132,9 +135,9 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	@Override
 	public void doUpdateBaseHighParamToIds(TLVModel tlvs, String gatewayIds, String xm) {
 		if(StringUtils.isEmpty(gatewayIds)){
-			gatewayIds=tlvs.getUuid();
-		}else if(!gatewayIds.contains(tlvs.getUuid())){
-			gatewayIds=tlvs.getUuid()+","+gatewayIds;
+			gatewayIds=tlvs.getId();
+		}else if(!gatewayIds.contains(tlvs.getId())){
+			gatewayIds=tlvs.getId()+","+gatewayIds;
 		}
 		
 		byte[] baseResult =TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
@@ -150,7 +153,7 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 		
 //		for(int ){
 //		// TODO Auto-generated method stub
-//			PtGateway perEntity = this.get(tlvs.getUuid());
+//			PtGateway perEntity = this.get(tlvs.getId());
 //			
 //			// 将entity中不为空的字段动态加入到perEntity中去。
 //			perEntity.setUpdateUser(xm);
@@ -170,8 +173,8 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	@Override
 	public void doUpdateBaseHighParamToAll(TLVModel tlvs, String xm) {
 		// TODO Auto-generated method stub
-		PtGateway perEntity = this.get(tlvs.getUuid());
-		String frontServerId=perEntity.getFrontserverId();
+		PtGateway perEntity = this.get(tlvs.getId());
+		String frontServerId=perEntity.getFrontServerId();
 		
 		byte[] baseResult =TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
 		byte[] advResult =TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
@@ -192,11 +195,11 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	@Override
 	public void doUpdateBatchFront(PtGateway entity, String xm) {
 		// TODO Auto-generated method stub
-		String uuids[] =entity.getUuid().split(",");
+		String uuids[] =entity.getId().split(",");
 		
 		String hql="update PtGateway a set a.frontserverId = ?,a.updateTime=?,a.updateUser=? where a.uuid in (:ids)";
 		Query query = this.getSession().createQuery(hql);
-		query.setString(0, entity.getFrontserverId());
+		query.setString(0, entity.getFrontServerId());
 		query.setDate(1, new Date());
 		query.setString(2, xm);
 		query.setParameterList("ids", uuids);

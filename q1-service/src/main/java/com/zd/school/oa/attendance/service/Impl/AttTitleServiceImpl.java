@@ -72,7 +72,7 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			attTermService.updateByProperties("titleId", conditionValue, propertyName, propertyValue);
 			attTermService.updateByProperties("titleId", conditionValue, propertyName, propertyValue);
@@ -96,11 +96,11 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 	@Override
 	public AttTitle doUpdateEntity(AttTitle entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		AttTitle saveEntity = this.get(entity.getUuid());
+		AttTitle saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -129,7 +129,7 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("uuid");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -147,10 +147,10 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 	
 		for (int i = 0; i < userIds.length; i++) {
 			AttUser attUser = new AttUser();
-			attUser.setTitleId(titleId);
+			attUser.setAttendThemeId(titleId);
 			attUser.setUserId(userIds[i]);
-			attUser.setXm(userNames[i]);
-			attUser.setXh(userNumbs[i]);
+			attUser.setName(userNames[i]);
+			attUser.setUserNumb(userNumbs[i]);
 
 			attUser.setCreateUser(xm);
 			attUser.setCreateTime(new Date());
@@ -168,8 +168,8 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 		
 		for (int i = 0; i < termCodes.length; i++) {
 			AttTerm attTerm = new AttTerm();
-			attTerm.setTitleId(titleId);
-			attTerm.setTermCode(termCodes[i]);
+			attTerm.setAttendThemeId(titleId);
+			attTerm.setTerminalNo(termCodes[i]);
 			attTerm.setRoomId(roomIds[i]);
 			attTerm.setRoomName(roomNames[i]);
 

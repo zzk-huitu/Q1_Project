@@ -1,18 +1,21 @@
 package com.zd.school.plartform.comm.service.Impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.comm.dao.CommTreeDao;
-import com.zd.school.plartform.comm.model.*;
+import com.zd.school.plartform.comm.model.CommBase;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
@@ -32,47 +35,6 @@ public class CommTreeServiceImpl extends BaseServiceImpl<BaseEntity> implements 
         this.dao = dao;
     }
 
-    @Override
-    public List<FacultyClassTree> getFacultyClassTree(String whereSql) {
-
-        String sql = "select id,text,iconCls,leaf,level,parent from EDU_V_FACULTYCLASS_TREE where 1=1 " + whereSql;
-        List<FacultyClass> lists = this.queryEntityBySql(sql, FacultyClass.class);
-
-        List<FacultyClassTree> result = new ArrayList<FacultyClassTree>();
-
-        // 构建Tree数据
-        createFacultyClassChild(new FacultyClassTree(TreeVeriable.ROOT, new ArrayList<FacultyClassTree>()), result,
-                lists);
-
-        return result;
-    }
-
-    private void createFacultyClassChild(FacultyClassTree parentNode, List<FacultyClassTree> result,
-            List<FacultyClass> list) {
-        List<FacultyClass> childs = new ArrayList<FacultyClass>();
-        for (FacultyClass dic : list) {
-            if (dic.getParent().equals(parentNode.getId())) {
-                childs.add(dic);
-            }
-        }
-        // public FacultyClassTree(String id, String text, String iconCls,
-        // Boolean leaf, Integer level, String treeid,
-        // List<FacultyClassTree> children, String parent) {
-        for (FacultyClass fc : childs) {
-            FacultyClassTree child = new FacultyClassTree(fc.getId(), fc.getText(), fc.getIconCls(),
-                    Boolean.parseBoolean(fc.getLeaf().toString()), fc.getLevel(), "", fc.getParent(),0,new ArrayList()
-                    );
-
-            if (fc.getParent().equals(TreeVeriable.ROOT)) {
-                result.add(child);
-            } else {
-                List<FacultyClassTree> trees = parentNode.getChildren();
-                trees.add(child);
-                parentNode.setChildren(trees);
-            }
-            createFacultyClassChild(child, result, list);
-        }
-    }
 
     @Override
     public List<CommTree> getCommTree(String treeView, String whereSql) {
@@ -112,13 +74,7 @@ public class CommTreeServiceImpl extends BaseServiceImpl<BaseEntity> implements 
         }
     }
 
-    @Override
-    public List<UpGradeRule> getUpGradeRuleList() {
-
-        String sql = "select beforeName,afterName,upDirect from base_t_upgraderule";
-        List<UpGradeRule> lists = this.queryEntityBySql(sql, UpGradeRule.class);
-        return lists;
-    }
+  
     
 	@Override
 	public CommTree getGradeCommTree(String sql, String rootId) {
@@ -180,94 +136,4 @@ public class CommTreeServiceImpl extends BaseServiceImpl<BaseEntity> implements 
 		}
 	}
 	
-	@Override
-	public List<CommTreeChk> getCommTreeChk(String treeView, String whereSql) {
-
-		String sql = "select id,text,iconCls,leaf,level,parent from " + treeView + " where 1=1 " + whereSql;
-
-		List<CommBase> lists = this.queryEntityBySql(sql, CommBase.class);
-
-		List<CommTreeChk> result = new ArrayList<CommTreeChk>();
-
-		// 构建Tree数据
-		createTreeChildChk(new CommTreeChk(TreeVeriable.ROOT, new ArrayList<CommTreeChk>()), result, lists);
-
-		return result;
-	}
-
-	public void createTreeChildChk(CommTreeChk parentNode, List<CommTreeChk> result, List<CommBase> list) {
-		List<CommBase> childs = new ArrayList<CommBase>();
-		for (CommBase dic : list) {
-			if (dic.getParent().equals(parentNode.getId())) {
-				childs.add(dic);
-			}
-		}
-
-		for (CommBase fc : childs) {
-			CommTreeChk child = new CommTreeChk(fc.getId(), fc.getText(), fc.getIconCls(),
-					Boolean.parseBoolean(fc.getLeaf()), fc.getLevel(), "", new ArrayList<CommTreeChk>(), fc.getParent(),
-					false);
-
-			if (fc.getParent().equals(TreeVeriable.ROOT)) {
-				result.add(child);
-			} else {
-				List<CommTreeChk> trees = parentNode.getChildren();
-				trees.add(child);
-				parentNode.setChildren(trees);
-			}
-			createTreeChildChk(child, result, list);
-		}
-	}
-	
-	/**指定根节点**/
-	@Override
-	public List<CommTreeChk> getCommTreeChk_CoustomRoot(String treeView, String root, String whereSql) {
-
-		String sql = "select id,text,iconCls,leaf,level,parent from " + treeView + " where 1=1 " + whereSql;
-
-		List<CommBase> lists = this.queryEntityBySql(sql, CommBase.class);
-
-		CommTreeChk result =null;
-		for (CommBase dic : lists) {
-			if(dic.getId().equals(root)){
-				result = new CommTreeChk(dic.getId(), dic.getText(), dic.getIconCls(),
-						Boolean.parseBoolean(dic.getLeaf()), dic.getLevel(), "", new ArrayList<CommTreeChk>(), dic.getParent(),
-						false);
-			}
-		}
-		// 构建Tree数据
-		createTreeChildChk_CoustomRoot(new CommTreeChk(root, new ArrayList<CommTreeChk>()),root, result.getChildren(), lists);
-		List list= new ArrayList();
-				list.add(result);
-		return list;
-	}
-	
-	private void createTreeChildChk_CoustomRoot(CommTreeChk parentNode, String root,List<CommTreeChk> result, List<CommBase> list) {
-		List<CommBase> childs = new ArrayList<CommBase>();
-		for (CommBase dic : list) {
-			if(dic.getId().equals(root)){
-				CommTreeChk child = new CommTreeChk(dic.getId(), dic.getText(), dic.getIconCls(),
-						Boolean.parseBoolean(dic.getLeaf()), dic.getLevel(), "", new ArrayList<CommTreeChk>(), dic.getParent(),
-						false);
-			}
-			if (dic.getParent().equals(parentNode.getId())) {
-				childs.add(dic);
-			}
-		}
-
-		for (CommBase fc : childs) {
-			CommTreeChk child = new CommTreeChk(fc.getId(), fc.getText(), fc.getIconCls(),
-					Boolean.parseBoolean(fc.getLeaf()), fc.getLevel(), "", new ArrayList<CommTreeChk>(), fc.getParent(),
-					false);
-
-			if (fc.getParent().equals(root)) {
-				result.add(child);
-			} else {
-				List<CommTreeChk> trees = parentNode.getChildren();
-				trees.add(child);
-				parentNode.setChildren(trees);
-			}
-			createTreeChildChk(child, result, list);
-		}
-	}
 }

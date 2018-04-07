@@ -46,7 +46,7 @@ public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserright> impleme
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			MjUserright perEntity = new MjUserright();
-			perEntity.setCreateUser(currentUser.getXm());
+			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			// 持久化到数据库
@@ -80,13 +80,13 @@ public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserright> impleme
 				mjUserright = this.getByProerties(new String[]{"stuId","termId"}, new Object[]{userIds[i],termIds[j]});
 				if(mjUserright!=null){			
 					mjUserright.setIsDelete(0);
-					mjUserright.setUpdateUser(currentUser.getXm());
+					mjUserright.setUpdateUser(currentUser.getId());
 					mjUserright.setUpdateTime(new Date());
 				}else{
 					mjUserright=new MjUserright();
-					mjUserright.setStuId(userIds[i]);
-					mjUserright.setTermId(termIds[j]);
-					mjUserright.setCreateUser(currentUser.getXm());				
+					mjUserright.setUserId(userIds[i]);
+					mjUserright.setDeviceId(termIds[j]);
+					mjUserright.setCreateUser(currentUser.getId());				
 					mjUserright.setCreateTime(new Date());
 				}					
 				this.merge(mjUserright);

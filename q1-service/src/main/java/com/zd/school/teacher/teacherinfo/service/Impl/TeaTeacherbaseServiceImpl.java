@@ -120,14 +120,14 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		StringBuilder countHql = new StringBuilder();
 		String filterHql = "";
 		String rightDeptIds = "";
-		if (currentUser.getRightType() != 0) {
+		if ("0".equals(currentUser.getRightType())) {
 			// 如果当前用户不是所有的部门权限，则取有权限的部门
 			rightDeptIds = userService.getUserOwnDeptids(currentUser);
 		}
 		String queryFilterSql = StringUtils.convertFilterToSql(qureyFilter);
 		// 当前是进行组合查询
 		if (StringUtils.isNotEmpty(qureyFilter)) {
-			if (currentUser.getRightType() == 0) {
+			if ("0".equals(currentUser.getRightType())) {
 				// 当前用户有所有部门权限
 				hql.append(
 						"select o,k.jobName from TeaTeacherbase as o left join BaseUserdeptjob as r on o.uuid=r.userId and r.isDelete=0 ");
@@ -152,7 +152,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 			}
 		} else {
 			// 指定部门显示
-			if (currentUser.getRightType() == 0) {
+			if ("0".equals(currentUser.getRightType())) {
 				if ("2851655E-3390-4B80-B00C-52C7CA62CB39".equals(deptId)) {
 					// 点击的是根部门，取有权限的部门的数据
 					if (StringUtils.isNotEmpty(rightDeptIds)) {
@@ -228,7 +228,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		 * userDept.remove(tempOrg); userDept.add(org);
 		 * 
 		 * teacher.setUserDepts(userDept); teacher.setUpdateTime(new Date());
-		 * teacher.setUpdateUser(currentUser.getXm());
+		 * teacher.setUpdateUser(currentUser.getId());
 		 * 
 		 * this.merge(teacher); reResult = true; }
 		 */
@@ -249,7 +249,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		 * Set<BaseOrg> userDept = teahcher.getUserDepts();
 		 * userDept.removeAll(all); teahcher.setUserDepts(userDept);
 		 * teahcher.setUpdateTime(new Date());
-		 * teahcher.setUpdateUser(currentUser.getXm()); this.merge(teahcher);
+		 * teahcher.setUpdateUser(currentUser.getId()); this.merge(teahcher);
 		 * reResult = true; }
 		 */
 		return reResult;
@@ -268,10 +268,10 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		 * this.queryByProerties("uuid", delId); for (TeaTeacherbase teacher :
 		 * list) { Set<BaseJob> userJob = teacher.getUserJobs(); for (BaseJob
 		 * job : listJob) { userJob.add(job); }
-		 * teacher.setJobId(listJob.get(0).getUuid());
+		 * teacher.setJobId(listJob.get(0).getId());
 		 * teacher.setJobCode(listJob.get(0).getJobCode());
 		 * teacher.setUserJobs(userJob); teacher.setUpdateTime(new Date());
-		 * teacher.setUpdateUser(currentUser.getXm());
+		 * teacher.setUpdateUser(currentUser.getId());
 		 * 
 		 * this.merge(teacher); reResult = true; }
 		 */
@@ -298,11 +298,11 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		 * //将剩下的岗位按jobCode排序后将第一个设置为主岗位 List<BaseJob> listTemp = new
 		 * ArrayList<BaseJob>(); listTemp.addAll(userJob); SortListUtil<BaseJob>
 		 * sortJob = new SortListUtil<BaseJob>(); sortJob.Sort(listTemp,
-		 * "jobCode", ""); teahcher.setJobId(listTemp.get(0).getUuid());
+		 * "jobCode", ""); teahcher.setJobId(listTemp.get(0).getId());
 		 * teahcher.setJobCode(listTemp.get(0).getJobCode());
 		 * 
 		 * teahcher.setUserJobs(userJob); teahcher.setUpdateTime(new Date());
-		 * teahcher.setUpdateUser(currentUser.getXm()); this.merge(teahcher);
+		 * teahcher.setUpdateUser(currentUser.getId()); this.merge(teahcher);
 		 * reResult = true; }
 		 */
 		return reResult;
@@ -313,7 +313,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		/*
 		 * String hql =
 		 * "from SysUser as u inner join fetch u.userJobs as r where u.uuid='" +
-		 * teahcher.getUuid() + "' and r.isDelete=0 "; List<TeaTeacherbase> list
+		 * teahcher.getId() + "' and r.isDelete=0 "; List<TeaTeacherbase> list
 		 * = this.queryByHql(hql); Set<BaseJob> userJobs =
 		 * list.get(0).getUserJobs(); // Set<BaseJob> userJobs =
 		 * teahcher.getUserJobs(); if (userJobs.size() > 0) { List<BaseJob>
@@ -333,7 +333,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		/*
 		 * String hql =
 		 * "from SysUser as u inner join fetch u.userJobs as r where u.uuid='" +
-		 * teacher.getUuid() + "' and r.isDelete=0 "; List<TeaTeacherbase>
+		 * teacher.getId() + "' and r.isDelete=0 "; List<TeaTeacherbase>
 		 * listTeachar = this.queryByHql(hql); Set<BaseJob> userJobs =
 		 * listTeachar.get(0).getUserJobs(); // Set<BaseJob> userJobs =
 		 * teahcher.getUserJobs(); List<BaseJob> list = new ArrayList<>();
@@ -341,7 +341,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		 * SortListUtil<BaseJob>(); sortJob.Sort(list, "jobCode", "");
 		 * StringBuffer sbJobId = new StringBuffer(); StringBuffer sbJobName =
 		 * new StringBuffer(); for (BaseJob baseJob : list) {
-		 * sbJobId.append(baseJob.getUuid() + "|");
+		 * sbJobId.append(baseJob.getId() + "|");
 		 * sbJobName.append(baseJob.getJobName() + "|"); } String jobIds =
 		 * StringUtils.trimLast(sbJobId.toString()); String jobNames =
 		 * StringUtils.trimLast(sbJobName.toString()); if (jobIds.length() > 0)
@@ -358,7 +358,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		 * sortJob = new SortListUtil<BaseOrg>(); sortJob.Sort(list, "jobCode",
 		 * ""); StringBuffer sbDeptId = new StringBuffer(); StringBuffer
 		 * sbDeptName = new StringBuffer(); for (BaseOrg baseOrg : list) {
-		 * sbDeptId.append(baseOrg.getUuid() + "|");
+		 * sbDeptId.append(baseOrg.getId() + "|");
 		 * sbDeptName.append(baseOrg.getNodeText() + "|"); } String deptIds =
 		 * StringUtils.trimLast(sbDeptId.toString()); String deptNames =
 		 * StringUtils.trimLast(sbDeptName.toString()); if (deptNames.length() >
@@ -409,11 +409,11 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		Integer orderIndex = this.getDefaultOrderIndex(entity);
 		saveEntity.setOrderIndex(orderIndex);// 排序
 		saveEntity.setCategory("1");
-		saveEntity.setState("1");
+		saveEntity.setState(true);
 		saveEntity.setIsDelete(0);
-		saveEntity.setIsHidden("0");
-		saveEntity.setIssystem(1);
-		saveEntity.setRightType(2);
+		saveEntity.setIsHidden(false);
+		saveEntity.setIsSystem(true);
+		saveEntity.setRightType("2");
 		saveEntity.setUserPwd(new Sha256Hash("123456").toHex());
 		saveEntity.setSchoolId(AdminType.ADMIN_ORG_ID);
 		
@@ -426,12 +426,12 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 		}
 		
 		// 增加时要设置创建人
-		saveEntity.setCreateUser(currentUser.getXm()); // 创建人
+		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 		
 		// 持久化到数据库
 		entity = this.merge(saveEntity);
 		
-		String userIds = entity.getUuid();
+		String userIds = entity.getId();
 		String deptJobId = entity.getDeptId();
 		userDeptJobService.doAddUserToDeptJob( deptJobId, userIds, currentUser);
 		return entity;

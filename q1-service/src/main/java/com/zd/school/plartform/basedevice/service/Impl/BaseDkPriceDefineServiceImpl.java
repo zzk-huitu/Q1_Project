@@ -36,9 +36,9 @@ private static Logger logger = Logger.getLogger(BaseDkPriceDefineServiceImpl.cla
 	public DkPriceDefine doAddEntity(DkPriceDefine entity, SysUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			double priceValue = entity.getPriceValue();
+			float priceValue = entity.getPriceValue();
 			DkPriceDefine perEntity = new DkPriceDefine();
-			perEntity.setCreateUser(currentUser.getXm());
+			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			// 持久化到数据库
@@ -57,11 +57,11 @@ private static Logger logger = Logger.getLogger(BaseDkPriceDefineServiceImpl.cla
     @Override
 	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-    	DkPriceDefine perEntity = this.get(entity.getUuid());
+    	DkPriceDefine perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {

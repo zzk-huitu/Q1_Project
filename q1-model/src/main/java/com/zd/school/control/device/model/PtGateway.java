@@ -60,15 +60,15 @@ public class PtGateway extends BaseEntity implements Serializable {
   
     @FieldInfo(name = "基础参数", type = "varbinary(255)", explain = "基础参数")
 	@Column(name = "baseParam",length=255,nullable = true)
-	private Byte[] baseParam;
+	private byte[] baseParam;
 
 	@FieldInfo(name = "高级参数", type = "varbinary(255)", explain = "高级参数")
 	@Column(name = "advParam",length=255,nullable = true)
-	private Byte[] advParam;
+	private byte[] advParam;
 
 	@FieldInfo(name = "网络参数", type = "varbinary(255)", explain = "网络参数")
 	@Column(name = "netParam",length=255,nullable = true)
-	private Byte[] netParam;
+	private byte[] netParam;
 
 	@FieldInfo(name = "notes", type = "nvarchar(500) default ''", explain = "备注说明")
 	@Column(name = "notes", columnDefinition = "nvarchar(500) default ''", nullable = true)
@@ -162,28 +162,28 @@ public class PtGateway extends BaseEntity implements Serializable {
 		this.gatewayMac = gatewayMac;
 	}
 
-	public Byte[] getBaseParam() {
+	public byte[] getBaseParam() {
 		return baseParam;
 	}
 
-	public void setBaseParam(Byte[] baseParam) {
+	public void setBaseParam(byte[] baseParam) {
 		this.baseParam = baseParam;
 	}
 
-	public Byte[] getAdvParam() {
+	public byte[] getAdvParam() {
 		return advParam;
 	}
 
-	public void setAdvParam(Byte[] advParam) {
+	public void setAdvParam(byte[] advParam) {
 		this.advParam = advParam;
 	}
 
-	public Byte[] getNetParam() {
+	public byte[] getNetParam() {
 		return netParam;
 	}
 
-	public void setNetParam(Byte[] netParam) {
-		this.netParam = netParam;
+	public void setNetParam(byte[] result) {
+		this.netParam = result;
 	}
 
 	public String getNotes() {

@@ -33,8 +33,8 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 	private String studentId;
 
 	@FieldInfo(name = "学年", type = "varchar(8)", explain = "当前所属学年")
-	@Column(name = "schoolYear", length = 8, nullable = true)
-	private String schoolYear;
+	@Column(name = "studyYear", length = 8, nullable = true)
+	private String studyYear;
 
 	@FieldInfo(name = "学期", type = "varchar(8)", explain = "当前所属学期")
 	@Column(name = "semester", length = 8, nullable = true)
@@ -91,12 +91,12 @@ public class JwClassstudent extends BaseEntity implements Serializable {
 		this.studentId = studentId;
 	}
 
-	public String getSchoolYear() {
-		return schoolYear;
+	public String getStudyYear() {
+		return studyYear;
 	}
 
-	public void setSchoolYear(String schoolYear) {
-		this.schoolYear = schoolYear;
+	public void setStudyYear(String studyYear) {
+		this.studyYear = studyYear;
 	}
 
 	public String getSemester() {

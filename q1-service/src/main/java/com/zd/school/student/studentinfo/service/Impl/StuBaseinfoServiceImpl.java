@@ -68,7 +68,7 @@ public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> impleme
         StringBuffer sb = new StringBuffer();
         if (jgClass.size() > 0) {
             for (JwTGradeclass jwTGrade : jgClass) {
-                sb.append(jwTGrade.getUuid() + ",");
+                sb.append(jwTGrade.getId() + ",");
             }
             sb.deleteCharAt(sb.length() - 1);
         }
@@ -109,10 +109,10 @@ public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> impleme
 		Integer orderIndex = this.getDefaultOrderIndex(entity);
 		saveEntity.setOrderIndex(orderIndex);
 		saveEntity.setCategory("2");
-		saveEntity.setIsHidden("0");
-		saveEntity.setIssystem(1);
-		saveEntity.setRightType(2);
-		saveEntity.setState("1");
+		saveEntity.setIsHidden(false);
+		saveEntity.setIsSystem(true);
+		saveEntity.setRightType("2");
+		saveEntity.setState(true);
 		saveEntity.setUserPwd(new Sha256Hash("123456").toHex());
 		saveEntity.setSchoolId(AdminType.ADMIN_ORG_ID);
 		
@@ -126,12 +126,12 @@ public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> impleme
 		}
 		
 		// 增加时要设置创建人
-		saveEntity.setCreateUser(currentUser.getXm()); // 创建人
+		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 		
 		// 持久化到数据库
 		entity = this.merge(saveEntity);
 		
-		String userIds = entity.getUuid();
+		String userIds = entity.getId();
 		String deptJobId = entity.getDeptId();
 		userDeptJobService.doAddUserToDeptJob( deptJobId, userIds, currentUser);
 		return entity;

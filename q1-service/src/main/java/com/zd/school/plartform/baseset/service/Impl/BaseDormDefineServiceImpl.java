@@ -51,23 +51,21 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> 
 	public BuildDormDefine doUpdateEntity(BuildDormDefine entity, SysUser currentUser) throws Exception {
 		BuildRoominfo roomInfo = null;
 		// 先拿到已持久化的实体
-		BuildDormDefine perEntity = this.getByRoomId(entity.getUuid());
-		// 获取当前的操作用户
-		String userCh = "超级管理员";
-		if (currentUser != null)
-			userCh = currentUser.getXm();
+		BuildDormDefine perEntity = this.getByRoomId(entity.getId());
+		
+	
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
-		if (entity.getTteacId() != null && !entity.getTteacId().equals(""))
-			perEntity.setDormAdmin(entity.getTteacId()); // 设置教师id
+		if (entity.getTeacherId() != null && !entity.getTeacherId().equals(""))
+			perEntity.setDormAdminId(entity.getTeacherId()); // 设置教师id
 		perEntity.setUpdateTime(new Date()); // 设置修改时间
-		perEntity.setUpdateUser(userCh); // 设置修改人的中文名
+		perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 		entity = this.merge(perEntity);// 执行修改方法
 		
-		roomInfo=thisService.get(entity.getUuid());
+		roomInfo=thisService.get(entity.getId());
 		roomInfo.setRoomName(entity.getRoomName());
 		roomInfo.setUpdateTime(new Date());
-		roomInfo.setUpdateUser(userCh);
+		roomInfo.setUpdateUser(currentUser.getId());
 		// 执行更新方法
 		thisService.merge(roomInfo);
 		return entity;
@@ -82,7 +80,7 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> 
 		roomInfo.setUpdateUser(userCh);
 		roomInfo.setRoomName(entity.getRoomName());
 		roomInfo.setRoomType("1");// 设置房间类型 1.宿舍
-		roomInfo.setAreaStatu(1);// 设置为已分配
+//		roomInfo.setAreaStatu(1);// 设置为已分配
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -105,11 +103,11 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> 
 		Boolean flag=false;
 		BuildDormDefine dormRoom = null;// 宿舍定义
 		dormRoom = this.getByRoomId(delId);// roomId
-		if (!dormRoom.getRoomStatus().equals("1")) {// 0：未分配 1:已分配
+		if (!dormRoom.getIsAllot()==true) {// 0：未分配 1:已分配
 			roomInfo.setUpdateTime(new Date());
 			roomInfo.setUpdateUser(xm);
 			roomInfo.setRoomType("0");// 设置房间类型为空
-			roomInfo.setAreaStatu(0);// 设置房间状态为未分配
+//			roomInfo.setAreaStatu(0);// 设置房间状态为未分配
 			roomInfo.setRoomName(roomInfo.getRoomCode());
 			thisService.merge(roomInfo);// 执行更新方法
 

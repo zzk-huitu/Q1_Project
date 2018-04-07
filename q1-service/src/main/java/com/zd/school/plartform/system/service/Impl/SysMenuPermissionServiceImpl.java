@@ -68,7 +68,7 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
 		saveEntity.setOrderIndex(orderIndex);// 排序
 
 		// 增加时要设置创建人
-		saveEntity.setCreateUser(currentUser.getXm()); // 创建人
+		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 		
 		// 持久化到数据库
 		entity = this.merge(saveEntity);
@@ -80,7 +80,7 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
 	public SysMenuPermission doUpdateEntity(SysMenuPermission entity, SysUser currentUser) {
 		// TODO Auto-generated method stub	
 		// 先拿到已持久化的实体	
-		SysMenuPermission perEntity = this.get(entity.getUuid());
+		SysMenuPermission perEntity = this.get(entity.getId());
 	
 		try {
 			// 将entity中不为空的字段动态加入到perEntity中去。
@@ -91,7 +91,7 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
 		}
 
 		perEntity.setUpdateTime(new Date()); // 设置修改时间
-		perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+		perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 		entity = this.merge(perEntity);// 执行修改方法
 
 		return entity;

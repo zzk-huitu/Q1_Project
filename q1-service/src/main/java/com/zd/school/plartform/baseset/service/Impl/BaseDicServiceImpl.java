@@ -56,9 +56,8 @@ public class BaseDicServiceImpl extends BaseServiceImpl<BaseDic> implements Base
         }
 
         for (BaseDic dic : childs) {
-            BaseDicTree child = new BaseDicTree(dic.getUuid(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
-                    dic.getTreeIds(), new ArrayList<BaseDicTree>(), dic.getDicCode(), dic.getDicType(),
-                    dic.getRefModel(), dic.getParentNode(), dic.getOrderIndex());
+            BaseDicTree child = new BaseDicTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
+                    dic.getTreeIds(), new ArrayList<BaseDicTree>(), dic.getDicCode(), dic.getDicType(), dic.getParentNode(), dic.getOrderIndex());
 
             if (dic.getParentNode().equals(TreeVeriable.ROOT)) {
                 result.add(child);

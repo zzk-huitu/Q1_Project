@@ -62,7 +62,7 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -83,11 +83,11 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 	@Override
 	public SysAppinfo doUpdateEntity(SysAppinfo entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		SysAppinfo saveEntity = this.get(entity.getUuid());
+		SysAppinfo saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -116,7 +116,7 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("uuid");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;

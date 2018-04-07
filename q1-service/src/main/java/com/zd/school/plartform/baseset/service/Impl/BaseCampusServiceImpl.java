@@ -64,31 +64,31 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		excludedProp.add("uuid");
 		BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 
-		saveEntity.setCreateUser(currentUser.getXm());
+		saveEntity.setCreateUser(currentUser.getId());
 		this.merge(saveEntity);
 		
 		// 增加到建筑物的区域
-		BuildRoomarea roomarea = new BuildRoomarea(saveEntity.getUuid());			
+		BuildRoomarea roomarea = new BuildRoomarea(saveEntity.getId());			
 		roomarea.setNodeText(saveEntity.getCampusName());
 		roomarea.setOrderIndex(saveEntity.getOrderIndex());
 		roomarea.setCreateTime(new Date());
-		roomarea.setCreateUser(currentUser.getXm());
+		roomarea.setCreateUser(currentUser.getId());
 		roomarea.setAreaType("02");
 		roomarea.setParentNode(saveEntity.getSchoolId());
 		roomarea.setLeaf(true);
 		roomarea.setNodeLevel(2);
-		roomarea.setTreeIds(saveEntity.getSchoolId() + "," + saveEntity.getUuid());
+		roomarea.setTreeIds(saveEntity.getSchoolId() + "," + saveEntity.getId());
 		areaService.merge(roomarea);
 
 		// 增加到部门的第二级
-		BaseOrg orgSave = new BaseOrg(saveEntity.getUuid());
+		BaseOrg orgSave = new BaseOrg(saveEntity.getId());
 		orgSave.setNodeText(saveEntity.getCampusName()); // 部门名称
 		orgSave.setOrderIndex(saveEntity.getOrderIndex());
 		orgSave.setParentNode(saveEntity.getSchoolId()); // 上级节点
-		orgSave.setCreateUser(currentUser.getXm()); // 创建人
+		orgSave.setCreateUser(currentUser.getId()); // 创建人
 		orgSave.setDeptType("02"); // 默认类型为校区
 		orgSave.setLeaf(true);
-		orgSave.setIssystem(1);
+		orgSave.setIsSystem(true);
 		orgSave.setAllDeptName(saveEntity.getSchoolName()+"/"+saveEntity.getCampusName());
 
 		BaseOrg parEntity = orgService.get(saveEntity.getSchoolId());
@@ -109,37 +109,37 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 			throws IllegalAccessException, InvocationTargetException {
 		
 		// 先拿到已持久化的实体
-		BaseCampus perEntity = this.get(entity.getUuid());
+		BaseCampus perEntity = this.get(entity.getId());
 		String oldCampusName=perEntity.getCampusName();
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 
 		perEntity.setUpdateTime(new Date()); // 设置修改时间
-		perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+		perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 		entity = this.merge(perEntity);// 执行修改方法
 
 		
 		if(!oldCampusName.equals(entity.getCampusName())){			
 			// 更新建筑物区域中对应的名称
-			BuildRoomarea roomarea = areaService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,entity.getUuid()});
+			BuildRoomarea roomarea = areaService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,entity.getId()});
 			if (roomarea != null) {
 				roomarea.setNodeText(entity.getCampusName());
 				roomarea.setUpdateTime(new Date());
-				roomarea.setUpdateUser(currentUser.getXm());
+				roomarea.setUpdateUser(currentUser.getId());
 				areaService.merge(roomarea);
 			}
 	
 			// 更新部门名称
-			BaseOrg orgSave = orgService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,entity.getUuid()});
+			BaseOrg orgSave = orgService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,entity.getId()});
 			if(orgSave!=null){
 				orgSave.setNodeText(entity.getCampusName());
 				orgSave.setOrderIndex(entity.getOrderIndex());
 				orgSave.setUpdateTime(new Date());
-				orgSave.setUpdateUser(currentUser.getXm());
+				orgSave.setUpdateUser(currentUser.getId());
 				orgService.merge(orgSave);
 				
 				//更新其他部门岗位之类的数据				
-				orgService.setDeptName(entity.getCampusName(), orgSave.getUuid());						
+				orgService.setDeptName(entity.getCampusName(), orgSave.getId());						
 				BaseOrg parentOrg = orgService.get(orgSave.getParentNode());
 				if(parentOrg!=null&&!orgSave.getParentNode().equals("ROOT"))
 					orgService.setChildAllDeptName(orgSave, parentOrg.getAllDeptName());
@@ -172,25 +172,25 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 			// 检查当前校区是否配置了下属的部门
 			BaseOrg orgSave = orgService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,uuid});		
 			if(orgSave!=null){
-				childOrg = orgService.getChildCount(orgSave.getUuid());		
+				childOrg = orgService.getChildCount(orgSave.getId());		
 				//检查是否此部门分配了岗位，或是其他部门岗位的上级部门岗位
-				childDeptJob=orgService.getDeptJobCount(orgSave.getUuid());
+				childDeptJob=orgService.getDeptJobCount(orgSave.getId());
 			}
 			
 			// 检查当前校区是否配置了下属的建筑物区域
 			BuildRoomarea roomarea = areaService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,uuid});		
 			if(roomarea!=null)
-				childArea = areaService.getChildCount(roomarea.getUuid());
+				childArea = areaService.getChildCount(roomarea.getId());
 
 			// 如果都没有配置下级，则可以删除
 			if (childArea.equals(0) && childOrg.equals(0) && childDeptJob.equals(0)) {
 				canSb.append(uuid + ",");
 				
 				if(orgSave!=null)
-					orgSb.append(orgSave.getUuid() + ",");
+					orgSb.append(orgSave.getId() + ",");
 				
 				if(roomarea!=null)
-					areaSb.append(roomarea.getUuid() + ",");			
+					areaSb.append(roomarea.getId() + ",");			
 			}else{//当校区信息关联了部门管理或者建筑物时 ，不能删除
 				BaseCampus baseCampus=this.get(uuid);
 				notSb.append(baseCampus.getCampusName()+",");
@@ -200,16 +200,16 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		if (canSb.length() > 0) {		
 			if (orgSb.length() > 0) {
 				String s1 = StringUtils.trimLast(orgSb.toString());
-				rs = orgService.doLogicDelOrRestore(s1, StatuVeriable.ISDELETE, currentUser.getXm());
+				rs = orgService.doLogicDelOrRestore(s1, StatuVeriable.ISDELETE, currentUser.getId());
 			}
 			
 			if (areaSb.length() > 0) {
 				String s2 = StringUtils.trimLast(areaSb.toString());
-				rs = areaService.doLogicDelOrRestore(s2, StatuVeriable.ISDELETE, currentUser.getXm());
+				rs = areaService.doLogicDelOrRestore(s2, StatuVeriable.ISDELETE, currentUser.getId());
 			}
 					
 			String s3 = StringUtils.trimLast(canSb.toString());
-			rs = this.doLogicDelOrRestore(s3, StatuVeriable.ISDELETE, currentUser.getXm());
+			rs = this.doLogicDelOrRestore(s3, StatuVeriable.ISDELETE, currentUser.getId());
 			
 			//删除所有redis部门缓存数据，以免产生误会
 			deptRedisService.deleteDeptTreeAll();
@@ -230,13 +230,13 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		List<BaseCampus> campus = this.queryByHql("from BaseCampus where isDelete=0");
 		List<String> campusids = new ArrayList<String>();
 		for (BaseCampus baseCampus : campus) {
-			campusids.add(baseCampus.getUuid());
+			campusids.add(baseCampus.getId());
 		}
 		String parentId = roominfo.getAreaId();
 		while (true) {
 			BuildRoomarea roomarea = areaService.get(parentId);
-			if (campusids.contains(roomarea.getUuid())) {
-				return roomarea.getUuid();
+			if (campusids.contains(roomarea.getId())) {
+				return roomarea.getId();
 			}
 			parentId = roomarea.getParentNode();
 			if(parentId.equals("ROOT"))

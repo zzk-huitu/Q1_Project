@@ -43,16 +43,6 @@ public class BaseDicTree extends ExtTreeNode<BaseDicTree> {
         return dicType;
     }
 
-    @FieldInfo(name = "引用实体路径")
-    private String refModel;
-
-    public void setRefModel(String refModel) {
-        this.refModel = refModel;
-    }
-
-    public String getRefModel() {
-        return refModel;
-    }
 
     @FieldInfo(name = "上级字典")
     private String parent;
@@ -82,12 +72,11 @@ public class BaseDicTree extends ExtTreeNode<BaseDicTree> {
     }
 
     public BaseDicTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,
-            List<BaseDicTree> children, String dicCode, String dicType, String refModel, String parent,
+            List<BaseDicTree> children, String dicCode, String dicType,  String parent,
             Integer orderIndex) {
         super(id, text, iconCls, leaf, level, treeid,parent,orderIndex, children);
         this.dicCode = dicCode;
         this.dicType = dicType;
-        this.refModel = refModel;
         this.parent = parent;
         this.orderIndex = orderIndex;
     }

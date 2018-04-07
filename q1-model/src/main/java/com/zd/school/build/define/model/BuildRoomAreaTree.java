@@ -16,6 +16,9 @@ import java.util.List;
 
 /**
  * POJO 实体类（待修改）
+ * 
+ * 注：移除areaStatu区域状态字段
+ * 
  * @author ZZK
  *
  */
@@ -42,16 +45,7 @@ public class BuildRoomAreaTree extends ExtTreeNode<BuildRoomAreaTree> {
 		return areaType;
 	}
 
-	@FieldInfo(name = "区域状态")
-	private Integer areaStatu;
 
-	public void setAreaStatu(Integer areaStatu) {
-		this.areaStatu = areaStatu;
-	}
-
-	public Integer getAreaStatu() {
-		return areaStatu;
-	}
 
 	@FieldInfo(name = "区域说明")
 	private String areaExplains;
@@ -104,14 +98,13 @@ public class BuildRoomAreaTree extends ExtTreeNode<BuildRoomAreaTree> {
 	}
 
 	public BuildRoomAreaTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,
-			List<BuildRoomAreaTree> children, String areaCode, String areaType, Integer areaStatu, String areaDesc,
+			List<BuildRoomAreaTree> children, String areaCode, String areaType,String areaDesc,
 			String areaAddr, String parentNode, Integer orderIndex, Integer roomCount) {
 
 		//super(id, text, iconCls, leaf, level, treeid, children, parentNode, orderIndex);
 		super(id,text,iconCls,leaf,level,treeid,parentNode,orderIndex,children);
 		this.areaCode = areaCode;
 		this.areaType = areaType;
-		this.areaStatu = areaStatu;
 		this.areaExplains = areaDesc;
 		this.areaAddress = areaAddr;
 		this.parentNode = parentNode;

@@ -66,9 +66,9 @@ public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> impl
 		// String parentArea, Integer orderIndex, Integer roomCount) {
 
 		for (BuildRoomarea dic : childs) {
-			BuildRoomAreaTree child = new BuildRoomAreaTree(dic.getUuid(), dic.getNodeText(), "", dic.getLeaf(),
+			BuildRoomAreaTree child = new BuildRoomAreaTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(),
 					dic.getNodeLevel(), dic.getTreeIds(), new ArrayList<BuildRoomAreaTree>(), dic.getAreaCode(),
-					dic.getAreaType(), dic.getAreaStatu(), dic.getAreaDesc(), dic.getAreaAddr(), dic.getParentNode(),
+					dic.getAreaType(),  dic.getAreaExplain(), dic.getAreaAddress(), dic.getParentNode(),
 					dic.getOrderIndex(), dic.getRoomCount());
 
 			if (dic.getParentNode().equals(TreeVeriable.ROOT)) {
@@ -130,7 +130,7 @@ public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> impl
 
         //先拿到已持久化的实体
         //entity.getSchoolId()要自己修改成对应的获取主键的方法
-        BuildRoomarea perEntity = this.get(entity.getUuid());
+        BuildRoomarea perEntity = this.get(entity.getId());
         Boolean isLeaf = perEntity.getLeaf();
         //将entity中不为空的字段动态加入到perEntity中去。
         try {

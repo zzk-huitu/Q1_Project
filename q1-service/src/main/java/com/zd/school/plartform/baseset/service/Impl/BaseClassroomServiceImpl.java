@@ -57,7 +57,7 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<BuildClassRoomDefi
 		roomInfo.setUpdateUser(userCh);
 		roomInfo.setRoomName(entity.getRoomName());
 		roomInfo.setRoomType("3");// 设置房间类型 3.教室
-		roomInfo.setAreaStatu(1);// 设置为已分配
+//		roomInfo.setAreaStatu("1");// 设置为已分配
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -83,7 +83,7 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<BuildClassRoomDefi
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(xm);
 		roomInfo.setRoomType("0");// 设置房间类型为空
-		roomInfo.setAreaStatu(0);// 设置房间状态为未分配
+//		roomInfo.setAreaStatu("0");// 设置房间状态为未分配
 		roomInfo.setRoomName(roomInfo.getRoomCode());
 		thisService.merge(roomInfo);
 

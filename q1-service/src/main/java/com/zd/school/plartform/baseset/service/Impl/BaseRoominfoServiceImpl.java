@@ -59,7 +59,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
         Integer roomCount = roominfo.getRoomCount();
         String areaId = roominfo.getAreaId();
         String roomType = "0";	//默认为 未定义房间
-        String createUser = currentUser.getXm();
+        String createUser = currentUser.getId();
         BuildRoominfo saveRoom = null;
         String roomName = "";   
         int orderIndex=1;
@@ -144,7 +144,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 		String id = ""; // BuildRoominfo的主键
 		
 		roomType = entity.getRoomType();
-		id = entity.getUuid();// BuildRoominfo的uuid
+		id = entity.getId();// BuildRoominfo的uuid
 		
 		if (id != null) {
 			if (roomType.equals("1")) {// 宿舍
@@ -160,9 +160,9 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 
 					BuildDormDefine dormRoom = new BuildDormDefine();
 					dormRoom.setDormType(dormType);
-					dormRoom.setDormTypeLb(dormTypeLb);
-					dormRoom.setDormBedCount(Integer.valueOf(dormBedCount));
-					dormRoom.setDormChestCount(Integer.valueOf(dormChestCount));
+					dormRoom.setDormCategory(dormTypeLb);
+					dormRoom.setBedCount(Integer.valueOf(dormBedCount));
+					dormRoom.setSarkCount(Integer.valueOf(dormChestCount));
 					dormRoom.setDormPhone(dormPhone);
 					dormRoom.setDormFax(dormFax);
 

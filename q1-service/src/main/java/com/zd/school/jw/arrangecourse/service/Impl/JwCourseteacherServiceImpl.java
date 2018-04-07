@@ -4,7 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -13,13 +12,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.zd.core.constant.StatuVeriable;
-import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.JsonBuilder;
-import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.arrangecourse.dao.JwCourseteacherDao;
 import com.zd.school.jw.arrangecourse.model.JwCourseArrange;
@@ -27,13 +23,12 @@ import com.zd.school.jw.arrangecourse.model.JwCourseteacher;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
 import com.zd.school.jw.arrangecourse.service.JwCourseteacherService;
 import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
 import com.zd.school.plartform.baseset.model.BaseDeptjob;
 import com.zd.school.plartform.baseset.model.BaseJob;
 import com.zd.school.plartform.baseset.model.BaseOrg;
 import com.zd.school.plartform.baseset.model.BaseUserdeptjob;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysDeptjobService;
 import com.zd.school.plartform.system.service.SysJobService;
@@ -123,41 +118,41 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 			BeanUtils.copyPropertiesExceptNull(addTeacher, saveEntity);				
             addTeacher.setOrderIndex(0);//排序
             //增加时要设置创建人
-            addTeacher.setCreateUser(currentUser.getXm()); //创建人
+            addTeacher.setCreateUser(currentUser.getId()); //创建人
             //持久化到数据库
             this.merge(addTeacher);
 
             
             //根据设置的班级和课程来处理教师所在的部门
-            SysUser user = userService.get(addTeacher.getTteacId());			
+            SysUser user = userService.get(addTeacher.getTeacherId());			
 			String[] propName = new String[] { "jobName", "isDelete" };
 			Object[] propValue = new Object[] { "教师", 0 };
 			BaseJob job = jobService.getByProerties(propName, propValue);
 			if(job!=null){
 				propName = new String[] { "jobId", "deptId", "isDelete" };
-				propValue = new Object[] { job.getUuid(), addTeacher.getClaiId(), 0 };
+				propValue = new Object[] { job.getId(), addTeacher.getClassId(), 0 };
 				BaseDeptjob deptjob = deptJobService.getByProerties(propName, propValue);
 				if(deptjob!=null){
 					propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
-					propValue = new Object[] { user.getUuid(), addTeacher.getClaiId(), job.getUuid(), 0 };
+					propValue = new Object[] { user.getId(), addTeacher.getClassId(), job.getId(), 0 };
 					BaseUserdeptjob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 					if(userdeptjob==null){
 						userdeptjob = new BaseUserdeptjob();
-						userdeptjob.setCreateUser(currentUser.getXm());
+						userdeptjob.setCreateUser(currentUser.getId());
 						userdeptjob.setCreateTime(new Date());
-						userdeptjob.setUserId(user.getUuid());
-						userdeptjob.setDeptId(addTeacher.getClaiId());
-						userdeptjob.setJobId(job.getUuid());
-						userdeptjob.setDeptjobId(deptjob.getUuid());
-						userdeptjob.setMasterDept(0);
+						userdeptjob.setUserId(user.getId());
+						userdeptjob.setDeptId(addTeacher.getClassId());
+						userdeptjob.setJobId(job.getId());
+						userdeptjob.setDeptjobId(deptjob.getId());
+						userdeptjob.setIsMainDept(false);
 						userDeptJobService.merge(userdeptjob);
 						
 						user.setUpdateTime(new Date());
-						user.setUpdateUser(currentUser.getXm());
+						user.setUpdateUser(currentUser.getId());
 						userService.merge(user);
 						
 						//清除这个用户的部门树缓存，以至于下次读取时更新缓存
-				     	this.delDeptTreeByUsers(user.getUuid());
+				     	this.delDeptTreeByUsers(user.getId());
 						
 					}
 				}			
@@ -166,7 +161,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 			//更新课表的教师信息
 			StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(UUID),'null') FROM JW_T_COURSE_ARRANGE");
 			sql.append(" WHERE ISDELETE=0 AND EXT_FIELD05=1");
-			sql.append(" AND CLAI_ID='" + addTeacher.getClaiId() + "'");
+			sql.append(" AND CLAI_ID='" + addTeacher.getClassId() + "'");
 			for (int i = 1; i <= 7; i++) {
 				StringBuffer sBuffer = new StringBuffer(
 						" AND COURSE_ID0" + i + "='" + addTeacher.getCourseId() + "'");
@@ -185,11 +180,11 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 					method = clazz.getDeclaredMethod(methodName);
 					String teacherName=method.invoke(courseArrange)+"";
 					if (StringUtils.isNotEmpty(tteacId)) {
-						tteacId+=","+addTeacher.getTteacId();
-						teacherName+=","+addTeacher.getXm();
+						tteacId+=","+addTeacher.getTeacherId();
+						teacherName+=","+addTeacher.getName();
 					}else{
-						tteacId=addTeacher.getTteacId();
-						teacherName=addTeacher.getXm();
+						tteacId=addTeacher.getTeacherId();
+						teacherName=addTeacher.getName();
 					}
 					methodName = "setTteacId0" + i;
 					method = clazz.getDeclaredMethod(methodName, String.class);
@@ -235,19 +230,19 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 			BaseJob job = jobService.getByProerties(propName, propValue);
 			if(job!=null){
 				propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
-				propValue = new Object[] { jwCourseteacher.getTteacId(), jwCourseteacher.getClaiId(), job.getUuid(), 0 };
+				propValue = new Object[] { jwCourseteacher.getTeacherId(), jwCourseteacher.getClassId(), job.getId(), 0 };
 				BaseUserdeptjob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 				if(userdeptjob!=null){	//在事务中，若第一次循环设置为了isdelete=1，那么第二次同样的条件查询是查不到该数据，即会预先执行。
 					//查询此人员是否在此班级任课多门
 					String hql="select count(*) from JwCourseteacher a where a.isDelete=0 "
-							+ " and a.claiId='"+jwCourseteacher.getClaiId()+"' and tteacId='"+jwCourseteacher.getTteacId()+"'";
+							+ " and a.claiId='"+jwCourseteacher.getName()+"' and tteacId='"+jwCourseteacher.getTeacherId()+"'";
 					Integer num=this.getQueryCountByHql(hql);
 					boolean del=false;
 					if(num>1){
 						//当num大于1时，就查询当前删除的数据列表中，是否是存在这些多门课程
 						long num2=relaceList.stream()
-								.filter(x->x.getTteacId().equals(jwCourseteacher.getTteacId()))
-								.filter(x->x.getClaiId().equals(jwCourseteacher.getClaiId()))
+								.filter(x->x.getTeacherId().equals(jwCourseteacher.getTeacherId()))
+								.filter(x->x.getClassId().equals(jwCourseteacher.getClassId()))
 								.count();
 						if(num==num2){
 							del=true;
@@ -258,11 +253,11 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 					if(del==true){
 						userdeptjob.setIsDelete(1);
 						userdeptjob.setUpdateTime(new Date());
-						userdeptjob.setUpdateUser(currentUser.getXm());
+						userdeptjob.setUpdateUser(currentUser.getId());
 						userDeptJobService.merge(userdeptjob);
 						
 						// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
-				     	this.delDeptTreeByUsers(jwCourseteacher.getTteacId());
+				     	this.delDeptTreeByUsers(jwCourseteacher.getTeacherId());
 					}									
 				}			
 			}
@@ -270,7 +265,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 			//删除课表（修改课表中的教师信息）
 			StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(UUID),'null') FROM JW_T_COURSE_ARRANGE");
 			sql.append(" WHERE  ISDELETE=0 AND EXT_FIELD05=1");
-			sql.append(" AND CLAI_ID='" + jwCourseteacher.getClaiId() + "'");
+			sql.append(" AND CLAI_ID='" + jwCourseteacher.getClassId() + "'");
 			for (int i = 1; i <= 7; i++) {
 				StringBuffer sBuffer = new StringBuffer(
 						" AND COURSE_ID0" + i + "='" + jwCourseteacher.getCourseId() + "'");
@@ -288,12 +283,12 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 					method = clazz.getDeclaredMethod(methodName);
 					String teacherName=method.invoke(courseArrange)+"";
 					if (StringUtils.isNotEmpty(tteacId)) {
-						if (tteacId.indexOf(jwCourseteacher.getTteacId())==0) {
-							tteacId=tteacId.replace(jwCourseteacher.getTteacId()+",", "");
-							teacherName=teacherName.replace(jwCourseteacher.getXm()+",", "");
+						if (tteacId.indexOf(jwCourseteacher.getTeacherId())==0) {
+							tteacId=tteacId.replace(jwCourseteacher.getTeacherId()+",", "");
+							teacherName=teacherName.replace(jwCourseteacher.getName()+",", "");
 						} else {
-							tteacId=tteacId.replace(","+jwCourseteacher.getTteacId(), "").replace(jwCourseteacher.getTteacId(), "");
-							teacherName=teacherName.replace(","+jwCourseteacher.getXm(), "").replace(jwCourseteacher.getXm(), "");
+							tteacId=tteacId.replace(","+jwCourseteacher.getTeacherId(), "").replace(jwCourseteacher.getTeacherId(), "");
+							teacherName=teacherName.replace(","+jwCourseteacher.getName(), "").replace(jwCourseteacher.getName(), "");
 						}
 					}
 					methodName = "setTteacId0" + i;
@@ -308,7 +303,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 			
 			//删除任课教师表
 			jwCourseteacher.setUpdateTime(new Date());
-			jwCourseteacher.setUpdateUser(currentUser.getXm());
+			jwCourseteacher.setUpdateUser(currentUser.getId());
 			jwCourseteacher.setIsDelete(1);
 			this.merge(jwCourseteacher);
 			reResult=true;
@@ -336,19 +331,19 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 		JwTGrade grade = gradeClassService.findJwTGradeByClaiId(courseId);
 		String hql = "update JwCourseteacher  ct set ct.publicclassid='" + publicClassid + "'  where ct.uuid in ("
 				+ " select c.uuid from JwTGradeclass g, JwCourseteacher c where" + " c.claiId=g.uuid  and c.courseId='"
-				+ courseId + "'  and   g.graiId   ='" + grade.getUuid() + "' ) ";
+				+ courseId + "'  and   g.graiId   ='" + grade.getId() + "' ) ";
 
 		doExecuteCountByHql(hql);
 	}
 
 	@Override
-	public CommTreeChk getUserRightDeptDisciplineTree(String rootId, SysUser currentUser) {
+	public CommTree getUserRightDeptDisciplineTree(String rootId, SysUser currentUser) {
 		//1.查询部门的数据，并封装到实体类中
-		List<CommTreeChk> list = orgService.getUserRightDeptDisciplineTreeList(currentUser);
+		List<CommTree> list = orgService.getUserRightDeptDisciplineTreeList(currentUser);
 		
 		//2.找到根节点
-		CommTreeChk root = new CommTreeChk();
-		for (CommTreeChk node : list) {			
+		CommTree root = new CommTree();
+		for (CommTree node : list) {			
 			//if (!(StringUtils.isNotEmpty(node.getParent()) && !node.getId().equals(rootId))) {
 			if ( StringUtils.isEmpty(node.getParent()) || node.getId().equals(rootId)) {
 				root = node;
@@ -362,10 +357,10 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 		
 		return root;
 	}
-	private void createTreeChildren(List<CommTreeChk> childrens, CommTreeChk root) {
+	private void createTreeChildren(List<CommTree> childrens, CommTree root) {
 		String parentId = root.getId();
 		for (int i = 0; i < childrens.size(); i++) {
-			CommTreeChk node = childrens.get(i);
+			CommTree node = childrens.get(i);
 			if (StringUtils.isNotEmpty(node.getParent()) && node.getParent().equals(parentId)) {
 				root.getChildren().add(node);
 				createTreeChildren(childrens, node);
@@ -410,7 +405,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 		
 		//1.判断新教师，是否有在此班级上任课
 		String[] propName = new String[] { "claiId", "tteacId","studyYear","semester","courseId","isDelete" };
-		Object[] propValue = new Object[] { jct.getClaiId(),teaId,jct.getStudyYear(),jct.getSemester(),jct.getCourseId(), 0 };
+		Object[] propValue = new Object[] { jct.getClassId(),teaId,jct.getStudyYear(),jct.getSemester(),jct.getCourseId(), 0 };
 		JwCourseteacher tempJct = this.getByProerties(propName, propValue);
 		if(tempJct!=null)
 			return -1;
@@ -422,12 +417,12 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 		BaseJob job = jobService.getByProerties(propName, propValue);
 		if(job!=null){
 			propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
-			propValue = new Object[] { jct.getTteacId(), jct.getClaiId(), job.getUuid(), 0 };
+			propValue = new Object[] { jct.getTeacherId(), jct.getClassId(), job.getId(), 0 };
 			BaseUserdeptjob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 			if(userdeptjob!=null){
 				//查询此人员是否在此班级任课多门
 				String hql="select count(*) from JwCourseteacher a where a.isDelete=0 "
-						+ " and a.claiId='"+jct.getClaiId()+"' and tteacId='"+jct.getTteacId()+"'";
+						+ " and a.claiId='"+jct.getClassId()+"' and tteacId='"+jct.getTeacherId()+"'";
 				Integer num=this.getQueryCountByHql(hql);
 				boolean del=false;
 				if(num==1)
@@ -436,28 +431,28 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 				if(del==true){
 					userdeptjob.setIsDelete(1);
 					userdeptjob.setUpdateTime(new Date());
-					userdeptjob.setUpdateUser(sysUser.getXm());
+					userdeptjob.setUpdateUser(sysUser.getId());
 					userDeptJobService.merge(userdeptjob);
 					
 					// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
-			     	this.delDeptTreeByUsers(jct.getTteacId());
+			     	this.delDeptTreeByUsers(jct.getTeacherId());
 				}									
 			}			
 		}
 		
 		//3.判断新教师是否已有此部门岗位，并确定是否加入部门岗位，
 		propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
-		propValue = new Object[] { teaId, jct.getClaiId(), job.getUuid(), 0 };
+		propValue = new Object[] { teaId, jct.getClassId(), job.getId(), 0 };
 		BaseUserdeptjob userdeptjob2=userDeptJobService.getByProerties(propName, propValue);
 		if(userdeptjob2==null){
 			userdeptjob2 = new BaseUserdeptjob();
-			userdeptjob2.setCreateUser(sysUser.getXm());
+			userdeptjob2.setCreateUser(sysUser.getId());
 			userdeptjob2.setCreateTime(new Date());
 			userdeptjob2.setUserId(teaId);
-			userdeptjob2.setDeptId(jct.getClaiId());
-			userdeptjob2.setJobId(job.getUuid());
-			userdeptjob2.setDeptjobId(jct.getUuid());
-			userdeptjob2.setMasterDept(0);
+			userdeptjob2.setDeptId(jct.getClassId());
+			userdeptjob2.setJobId(job.getId());
+			userdeptjob2.setDeptjobId(jct.getId());
+			userdeptjob2.setIsMainDept(false);
 			userDeptJobService.merge(userdeptjob2);
 		
 			//清除这个用户的部门树缓存，以至于下次读取时更新缓存
@@ -468,7 +463,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 		//4.更新课表上的教师信息，采用relace的方式
 		StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(UUID),'null') FROM JW_T_COURSE_ARRANGE");
 		sql.append(" WHERE  ISDELETE=0 AND  EXT_FIELD05=1");
-		sql.append(" AND CLAI_ID='" + jct.getClaiId() + "'");
+		sql.append(" AND CLAI_ID='" + jct.getClassId() + "'");
 		for (int i = 1; i <= 7; i++) {
 			StringBuffer sBuffer = new StringBuffer(
 					" AND COURSE_ID0" + i + "='" + jct.getCourseId() + "'");
@@ -487,11 +482,11 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 				String teacherName=method.invoke(courseArrange)+"";
 				
 				if(StringUtils.isNotEmpty(tteacId)){
-					tteacId=tteacId.replace(jct.getTteacId(), teaInfo.getUuid());
-					teacherName=teacherName.replace(jct.getXm(), teaInfo.getXm());
+					tteacId=tteacId.replace(jct.getTeacherId(), teaInfo.getId());
+					teacherName=teacherName.replace(jct.getName(), teaInfo.getName());
 				}else{
-					tteacId = teaInfo.getUuid();
-					teacherName = teaInfo.getXm();
+					tteacId = teaInfo.getId();
+					teacherName = teaInfo.getName();
 				}
 							
 				methodName = "setTteacId0" + i;
@@ -506,8 +501,8 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<JwCourseteacher>
 		
 		//5.更新courseTeacher的teacherId值
 		jct.setUpdateTime(new Date());
-		jct.setUpdateUser(sysUser.getXm());
-		jct.setTteacId(teaInfo.getUuid());
+		jct.setUpdateUser(sysUser.getId());
+		jct.setTeacherId(teaInfo.getId());
 		this.merge(jct);
 		
 		return 1;

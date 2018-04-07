@@ -24,8 +24,8 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "终端号", type = "varchar(6) NOT NULL", explain = "信息终端的终端号")
-	@Column(name = "terminalNO", length = 6, nullable = false)
-	private String terminalNO;
+	@Column(name = "terminalNo", length = 6, nullable = false)
+	private String terminalNo;
 
 	@FieldInfo(name = "终端类型", type = "varchar(10) NOT NULL", explain = "信息终端的终端类型，数据字典INFOTERTYPE")
 	@Column(name = "terminalType", length = 10, nullable = false)
@@ -53,12 +53,12 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	@Column(name = "houseNo", columnDefinition = "nvarchar(20) defalut ''", nullable = true)
 	private String houseNo;
 
-	public String getTerminalNO() {
-		return terminalNO;
+	public String getTerminalNo() {
+		return terminalNo;
 	}
 
-	public void setTerminalNO(String terminalNO) {
-		this.terminalNO = terminalNO;
+	public void setTerminalNo(String terminalNo) {
+		this.terminalNo = terminalNo;
 	}
 
 	public String getTerminalType() {

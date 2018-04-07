@@ -34,7 +34,7 @@ public class BasePtSkMeterServiceImpl extends BaseServiceImpl<PtSkMeter> impleme
 			try {
 				Integer orderIndex = this.getDefaultOrderIndex(entity);
 				PtSkMeter perEntity = new PtSkMeter();
-				perEntity.setCreateUser(currentUser.getXm());
+				perEntity.setCreateUser(currentUser.getId());
 				perEntity.setOrderIndex(orderIndex);
 				BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 				// 持久化到数据库
@@ -52,11 +52,11 @@ public class BasePtSkMeterServiceImpl extends BaseServiceImpl<PtSkMeter> impleme
 	@Override
 	public PtSkMeter doUpdateEntity(PtSkMeter entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		PtSkMeter perEntity = this.get(entity.getUuid());
+		PtSkMeter perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
-			perEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {

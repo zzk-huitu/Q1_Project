@@ -17,10 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseService;
 import com.zd.school.plartform.baseset.model.BaseOrg;
-import com.zd.school.plartform.baseset.model.BaseOrgChkTree;
 import com.zd.school.plartform.baseset.model.BaseOrgToUP;
 import com.zd.school.plartform.baseset.model.BaseOrgTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.model.SysUserToUP;
 
@@ -133,7 +132,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<BaseOrgChkTree> getOrgChkTreeList(String whereSql, String orderSql, String deptId, SysUser currentUser);
+    public List<BaseOrgTree> getOrgTreeList(String whereSql, String orderSql, String deptId, SysUser currentUser);
 
     /**
      * 
@@ -188,25 +187,25 @@ public interface SysOrgService extends BaseService<BaseOrg> {
 	 */
 	public List<BaseOrg> getUserRightDeptList(SysUser currentUser);
 
-	public BaseOrgChkTree getUserRightDeptTree(SysUser currentUser, String node);
+	public BaseOrgTree getUserRightDeptTree(SysUser currentUser, String node);
 	
 	/**
 	 * 用户有权限的部门列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<BaseOrgChkTree> getUserRightDeptTreeList(SysUser currentUser);
+	public List<BaseOrgTree> getUserRightDeptTreeList(SysUser currentUser);
 	/**
 	 * 用户有权限的班级列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<CommTreeChk> getUserRightDeptClassTreeList(SysUser currentUser);
+	public List<CommTree> getUserRightDeptClassTreeList(SysUser currentUser);
 	/**
 	 * 用户有权限的学科列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<CommTreeChk> getUserRightDeptDisciplineTreeList(SysUser currentUser);
+	public List<CommTree> getUserRightDeptDisciplineTreeList(SysUser currentUser);
 	
 }

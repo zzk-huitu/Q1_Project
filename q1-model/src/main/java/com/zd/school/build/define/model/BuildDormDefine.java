@@ -43,11 +43,11 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "床位数", type = "tinyint NOT NULL", explain = "床位数")
 	@Column(name = "bedCount", columnDefinition = "tinyint", nullable = false)
-	private Byte bedCount;
+	private Integer bedCount;
 
 	@FieldInfo(name = "柜子数", type = "tinyint NOT NULL", explain = "柜子数")
 	@Column(name = "sarkCount", columnDefinition = "tinyint", nullable = false)
-	private Byte sarkCount;
+	private Integer sarkCount;
 
 	@FieldInfo(name = "宿舍管理员", type = "varchar(20) default ''", explain = "宿舍管理员(教师ID)")
 	@Column(name = "dormAdminId", length = 20, columnDefinition = "default ''", nullable = true)
@@ -133,19 +133,19 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 		this.dormCategory = dormCategory;
 	}
 
-	public Byte getBedCount() {
+	public Integer getBedCount() {
 		return bedCount;
 	}
 
-	public void setBedCount(Byte bedCount) {
+	public void setBedCount(Integer bedCount) {
 		this.bedCount = bedCount;
 	}
 
-	public Byte getSarkCount() {
+	public Integer getSarkCount() {
 		return sarkCount;
 	}
 
-	public void setSarkCount(Byte sarkCount) {
+	public void setSarkCount(Integer sarkCount) {
 		this.sarkCount = sarkCount;
 	}
 

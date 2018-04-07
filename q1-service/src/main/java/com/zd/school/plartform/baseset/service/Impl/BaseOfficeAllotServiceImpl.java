@@ -81,7 +81,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 			JwClassstudent classStu) {
 		try {
 			if (dorm != null) {//学生宿舍门禁分配
-				String dormId = classDormService.get(dorm.getCdormId()).getDormId(); //班级宿舍id
+				String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); //班级宿舍id
 				roomId = dormDefine.get(dormId).getRoomId();
 			} else if (classStu != null) { //班级的教师分配门禁 #目前还未增加教师分配该模块
 				//String[] propName = { "claiId", "isDelete" };
@@ -98,12 +98,12 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 					for (int i = 0; i < list.size(); i++) {
 						for (int j = 0; j < uId.length; j++) {
 							String[] name = { "termId", "stuId" };
-							String[] value = { list.get(i).getUuid(), uId[j] };
+							String[] value = { list.get(i).getId(), uId[j] };
 							userRight = mjService.getByProerties(name, value);
 							if (userRight != null) {
 								userRight.setIsDelete(1);
 								userRight.setControlsegId(0);
-								userRight.setCardstatusId(0);
+								userRight.setCardStatusId(0);
 								userRight.setUpdateTime(new Date());
 								mjService.merge(userRight);
 							}
@@ -114,7 +114,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 				if (list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						String[] name = { "termId", "stuId" };
-						String[] value = { list.get(i).getUuid(), uuid };
+						String[] value = { list.get(i).getId(), uuid };
 						userRight = mjService.getByProerties(name, value);//该学生或教师是否已经被分配了该房间的设备
 						if (userRight != null) {
 							userRight.setIsDelete(0);
@@ -122,9 +122,9 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 							mjService.merge(userRight);
 						} else {
 							userRight = new MjUserright();
-							userRight.setTermId(list.get(i).getUuid());
+							userRight.setDeviceId(list.get(i).getId());
 							userRight.setCreateUser("超级管理员");
-							userRight.setStuId(uuid);
+							userRight.setUserId(uuid);
 							mjService.merge(userRight);
 						}
 					}
@@ -149,13 +149,13 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 		String[] strId = null;// 多个老师id
 		StringBuffer xm =new StringBuffer();
 		StringBuffer roomName =new StringBuffer();
-		strId = entity.getTteacId().split(",");// 多个老师id
+		strId = entity.getTeacherId().split(",");// 多个老师id
 		for (int i = 0; i < strId.length; i++) {
 			Object[] objValue = { entity.getRoomId(), strId[i], 0 };
 			String[] objName = { "roomId", "tteacId", "isDelete" };
 			valioff = this.getByProerties(objName, objValue);
 			if (valioff != null) {
-				xm.append(valioff.getXm()+',');
+				xm.append(valioff.getName()+',');
 				roomName.append(valioff.getRoomName()+',');
 				flag = false;
 				hashMap.put("flag", flag);
@@ -165,12 +165,12 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 			orderIndex = this.getDefaultOrderIndex(entity);
 			perEntity = new JwOfficeAllot();
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
-			entity.setCreateUser(currentUser.getXm()); // 创建人
-			entity.setTteacId(strId[i]);
+			entity.setCreateUser(currentUser.getId()); // 创建人
+			entity.setTeacherId(strId[i]);
 			entity.setOrderIndex(orderIndex);// 排序
 			this.merge(entity); // 执行添加方法
 			
-			qxflag=this.mjUserRight(strId[i], entity.getRoomId(), entity.getUuid(), null, null);
+			qxflag=this.mjUserRight(strId[i], entity.getRoomId(), entity.getId(), null, null);
 			/*if(!qxflag){ 
 				flag = false;
 				hashMap.put("flag", flag);
@@ -181,7 +181,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 			String hql=" from BuildOfficeDefine a where a.roomId='"+entity.getRoomId()+"' ";
 			BuildOfficeDefine office=this.getEntityByHql(hql);
 			if(office!=null){
-				office.setRoomStatus("1");
+				office.setIsAllot(true);
 				offRoomService.merge(office); 
 			}
 			flag = true;
@@ -202,14 +202,14 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 		offTeas = this.queryByProerties(str, str2);//该办公室下的老师
 	    for (JwOfficeAllot jwTOfficeAllot : offTeas) {
 			pushInfo = new PushInfo();
-			pushInfo.setEmplName(jwTOfficeAllot.getXm());// 姓名
-			pushInfo.setEmplNo(jwTOfficeAllot.getGh());// 学号
+			pushInfo.setEmpleeName(jwTOfficeAllot.getName());// 姓名
+			pushInfo.setEmpleeNo(jwTOfficeAllot.getUserNumb());// 学号
 			pushInfo.setRegTime(new Date());
 			pushInfo.setEventType("办公室分配");
 			pushInfo.setPushStatus(0);
 			pushInfo.setPushWay(1);
 			roominfo = infoService.get(jwTOfficeAllot.getRoomId());
-			pushInfo.setRegStatus(pushInfo.getEmplName() + "您好，你的办公室分配在" + roominfo.getAreaUpName() + "，"
+			pushInfo.setRegStatus(pushInfo.getEmpleeName() + "您好，你的办公室分配在" + roominfo.getAreaUpName() + "，"
 					+ roominfo.getAreaName() + "，" + jwTOfficeAllot.getRoomName() + "房");
 			pushService.merge(pushInfo);
 		}
@@ -226,7 +226,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 		for (String id : delId) {
 			offAllot = this.get(id);
 			offRoomId += offAllot.getRoomId()+',';
-			this.mjUserRight(null, offAllot.getRoomId(), offAllot.getTteacId(), null, null);
+			this.mjUserRight(null, offAllot.getRoomId(), offAllot.getTeacherId(), null, null);
 			flag = this.deleteByPK(id);	
 	    }
 		return flag;
@@ -246,8 +246,8 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 			Integer count = this.getQueryCountBySql(sql);
 			if(count==0){	
 				office = offRoomService.get(officeRoomId);
-				if (office.getRoomStatus().equals("1")) {
-					office.setRoomStatus("0");
+				if (office.getIsAllot()==true) {
+					office.setIsAllot(false);
 					office.setUpdateTime(new Date());
 					offRoomService.merge(office);			
 				}

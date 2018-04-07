@@ -88,7 +88,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -138,27 +138,27 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 			BaseDeptjob deptjob = null;
 			for (BaseOrg setDept : setDeptList) {
 				for (int i = 0; i < jobIds.length; i++) {
-					key = setDept.getUuid() + "," + jobIds[i];
+					key = setDept.getId() + "," + jobIds[i];
 					if (mapHasJob.get(key) == null) {
 						BaseJob setJob = jobService.get(jobIds[i]);
 						deptjob = new BaseDeptjob();
-						deptjob.setDeptId(setDept.getUuid()); // 部门ID
+						deptjob.setDeptId(setDept.getId()); // 部门ID
 						deptjob.setDeptName(setDept.getNodeText()); // 部门名称
-						deptjob.setParentdeptId(setDept.getSuperDept());// 上级部门Id,默认为所在部门的上级主管岗位
-						deptjob.setParentdeptName(setDept.getSuperdeptName());
+						deptjob.setParentDeptId(setDept.getSuperDept());// 上级部门Id,默认为所在部门的上级主管岗位
+						deptjob.setParentDeptName(setDept.getSuperDeptName());
 						deptjob.setAllDeptName(setDept.getAllDeptName());
 
-						deptjob.setJobId(setJob.getUuid());
+						deptjob.setJobId(setJob.getId());
 						deptjob.setJobName(setJob.getJobName());
-						deptjob.setParentjobId(setDept.getSuperJob());
-						deptjob.setParentjobName(setDept.getSuperjobName());
+						deptjob.setParentJobId(setDept.getSuperJob());
+						deptjob.setParentJobName(setDept.getSuperJobName());
 
-						deptjob.setCreateUser(currentUser.getUuid());
+						deptjob.setCreateUser(currentUser.getId());
 						// 将第一个岗位设置成部门的负责岗位
-						if (i == 0 && maps.get(setDept.getUuid()) == null)
-							deptjob.setJobType(0);
+						if (i == 0 && maps.get(setDept.getId()) == null)
+							deptjob.setJobType("0");
 						else
-							deptjob.setJobType(2);
+							deptjob.setJobType("2");
 
 						this.merge(deptjob);
 					}
@@ -226,7 +226,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 		Object[] propValue = { deptid, jobId };
 		List<BaseDeptjob> isParentJob = this.queryByProerties(propName, propValue);
 		for (BaseDeptjob baseDeptjob : isParentJob) {
-			sbCheck.append(MessageFormat.format("{0},", baseDeptjob.getAlldeptjobName()));
+			sbCheck.append(MessageFormat.format("{0},", baseDeptjob.getAllDeptJobName()));
 		}
 		// 检查指定部门的指定岗位是否其它部门的上级
 		propName[0] = "superDept";
@@ -247,14 +247,14 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 			String[] conditionName = { "deptId", "jobType" };
 			Object[] conditionValue = { deptId, 0 };
 			String[] propertyName = { "jobType", "updateUser", "updateTime" };
-			Object[] propertyValue = { 2, currentUser.getUuid(), new Date() };
+			Object[] propertyValue = { 2, currentUser.getId(), new Date() };
 
 			// 将该部门原来的负责岗位设置为不是负责岗位
 			this.updateByProperties(conditionName, conditionValue, propertyName, propertyValue);
 
 			// 将将当前的岗位设置为部门负责岗位
 			propertyValue[0] = 0;
-			propertyValue[1] = currentUser.getUuid();
+			propertyValue[1] = currentUser.getId();
 			propertyValue[2] = new Date();
 			this.updateByProperties("uuid", deptJobId, propertyName, propertyValue);
 			return true;
@@ -369,10 +369,10 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 					this.delDeptTreeByDeptJob(oldDeptJob);
 
 					baseOrg.setSuperDept(deptId);
-					baseOrg.setSuperdeptName(deptName);
+					baseOrg.setSuperDeptName(deptName);
 					baseOrg.setSuperJob(jobId);
-					baseOrg.setSuperjobName(jobName);
-					baseOrg.setUpdateUser(currentUser.getUuid());
+					baseOrg.setSuperJobName(jobName);
+					baseOrg.setUpdateUser(currentUser.getId());
 					baseOrg.setUpdateTime(new Date());
 
 					deptService.merge(baseOrg);
@@ -383,15 +383,15 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 
 					// 获取旧的部门岗位数据，然后清除这个部门的用户部门树缓存
 					BaseDeptjob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
-							new Object[] { 0, baseDeptjob.getParentdeptId(), baseDeptjob.getParentjobId() });
+							new Object[] { 0, baseDeptjob.getParentDeptId(), baseDeptjob.getParentJobId() });
 					if(oldDeptJob!=null)
 						this.delDeptTreeByDeptJob(oldDeptJob);
 
-					baseDeptjob.setParentdeptId(deptId);
-					baseDeptjob.setParentdeptName(deptName);
-					baseDeptjob.setParentjobId(jobId);
-					baseDeptjob.setParentjobName(jobName);
-					baseDeptjob.setUpdateUser(currentUser.getUuid());
+					baseDeptjob.setParentDeptId(deptId);
+					baseDeptjob.setParentDeptName(deptName);
+					baseDeptjob.setParentJobId(jobId);
+					baseDeptjob.setParentJobName(jobName);
+					baseDeptjob.setUpdateUser(currentUser.getId());
 					baseDeptjob.setUpdateTime(new Date());
 
 					this.merge(baseDeptjob);
@@ -415,7 +415,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 		// TODO Auto-generated method stub
 		/* 删除用户的菜单redis数据，以至于下次刷新或请求时，可以加载最新数据 */
 		String hql = "select userId from BaseUserdeptjob o where o.deptjobId=? and o.isDelete=0 ";
-		List<String> userIds = this.queryEntityByHql(hql, deptJob.getUuid());
+		List<String> userIds = this.queryEntityByHql(hql, deptJob.getId());
 					
 		if(userIds.size()>0){
 			deptRedisService.deleteDeptTreeByUsers(userIds.toArray());

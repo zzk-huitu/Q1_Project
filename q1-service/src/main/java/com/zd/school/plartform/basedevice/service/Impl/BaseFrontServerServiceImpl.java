@@ -40,8 +40,8 @@ public class BaseFrontServerServiceImpl extends BaseServiceImpl<SysFrontServer> 
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		SysFrontServer perEntity = this.get(entity.getUuid());
-		perEntity.setUpdateUser(currentUser.getXm());
+		SysFrontServer perEntity = this.get(entity.getId());
+		perEntity.setUpdateUser(currentUser.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -62,7 +62,7 @@ public class BaseFrontServerServiceImpl extends BaseServiceImpl<SysFrontServer> 
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			SysFrontServer perEntity = new SysFrontServer();
-			perEntity.setCreateUser(currentUser.getXm());
+			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			// perEntity.setPriceValue(entity.getPriceValue());
 			// perEntity.setPriceStatus(entity.getPriceStatus());

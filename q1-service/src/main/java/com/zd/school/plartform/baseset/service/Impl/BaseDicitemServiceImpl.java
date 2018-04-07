@@ -47,7 +47,7 @@ public class BaseDicitemServiceImpl extends BaseServiceImpl<BaseDicitem> impleme
 
 		if (entity != null) {
 			// 删除reids中的此数据字典缓存，以至于下次请求时重新从库中获取
-			BaseDic baseDic = dictionaryService.get(entity.getDicId());
+			BaseDic baseDic = dictionaryService.get(entity.getDictId());
 			
 			dicItemRedisService.deleteByDicCode( baseDic.getDicCode());
 			

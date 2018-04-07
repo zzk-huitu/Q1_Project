@@ -63,7 +63,7 @@ public class AttTermServiceImpl extends BaseServiceImpl<AttTerm> implements AttT
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -84,11 +84,11 @@ public class AttTermServiceImpl extends BaseServiceImpl<AttTerm> implements AttT
 	@Override
 	public AttTerm doUpdateEntity(AttTerm entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		AttTerm saveEntity = this.get(entity.getUuid());
+		AttTerm saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -117,7 +117,7 @@ public class AttTermServiceImpl extends BaseServiceImpl<AttTerm> implements AttT
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("uuid");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -137,14 +137,14 @@ public class AttTermServiceImpl extends BaseServiceImpl<AttTerm> implements AttT
 			perEntity =this.get(termIds[i]);
 			//perEntity = this.getByProerties("uuid",termIds[i]);
 			if (perEntity != null) {
-				perEntity.setTitleId(titleId);
+				perEntity.setAttendThemeId(titleId);
 				perEntity.setUpdateTime(date);
 				perEntity.setUpdateUser(xm);
 				this.merge(perEntity);
 			} else {
 				perEntity = new AttTerm();
-				perEntity.setTitleId(titleId);
-				perEntity.setUuid(termIds[i]);
+				perEntity.setAttendThemeId(titleId);
+				perEntity.setId(termIds[i]);
 			    perEntity.setCreateUser(xm);
 				perEntity.setCreateTime(date);
 				this.merge(perEntity);

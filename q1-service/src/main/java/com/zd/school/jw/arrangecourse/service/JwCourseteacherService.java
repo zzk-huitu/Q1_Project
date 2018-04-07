@@ -5,10 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 import com.zd.school.jw.arrangecourse.model.JwCourseteacher;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
 
 /**
  * 
@@ -63,5 +61,5 @@ public interface JwCourseteacherService extends BaseService<JwCourseteacher> {
 	 * @param currentUser
 	 * @return
 	 */
-	public CommTreeChk getUserRightDeptDisciplineTree(String rootId, SysUser currentUser);
+	public CommTree getUserRightDeptDisciplineTree(String rootId, SysUser currentUser);
 }

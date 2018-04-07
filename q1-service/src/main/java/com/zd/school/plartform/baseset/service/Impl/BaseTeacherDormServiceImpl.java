@@ -89,11 +89,11 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 		for (String id : outId) {
 			entity = this.get(id);
 			// 解除门禁权限
-			officeAllotService.mjUserRight(null, entity.getRoomId(), entity.getTteacId(), null, null);
+			officeAllotService.mjUserRight(null, entity.getRoomId(), entity.getTeacherId(), null, null);
 			
 			entity.setOutTime(new Date());
-			entity.setInout(1);
-			entity.setCreateUser(currentUser.getUuid());
+			entity.setInOutState("1");
+			entity.setCreateUser(currentUser.getId());
 			entity.setUpdateTime(new Date());
 			this.merge(entity);
 			flag = true;
@@ -110,7 +110,7 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 		String arkCounts = request.getParameter("arkCount");
 		String userNumbs = request.getParameter("userNumb");
 		String sendCheckNames = request.getParameter("sendCheckName");
-		String tteacIds = entity.getTteacId();
+		String tteacIds = entity.getTeacherId();
 
 		String[] tteacIdArr = tteacIds.split(",");
 		String[] bedCount = bedCounts.split(",");
@@ -130,7 +130,7 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 			List<DormTeacherDorm> lists = this.queryByHql(hql);
 			if (lists.size() > 0) {
 				for (DormTeacherDorm dormEntity : lists) {
-					teaName.append(dormEntity.getXm() + ',');
+					teaName.append(dormEntity.getName() + ',');
 					teaInRoom.append(dormEntity.getDormName() + ',');
 				}
 				flag = false;
@@ -142,10 +142,10 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			perEntity.setOrderIndex(orderIndex);// 排序
 			// 增加时要设置创建人
-			perEntity.setCreateUser(currentUser.getUuid()); // 创建人
-			perEntity.setTteacId(tteacIdArr[i]);
-			perEntity.setArkNum(Integer.parseInt(arkCount[i]));
-			perEntity.setBedNum(Integer.parseInt(bedCount[i]));
+			perEntity.setCreateUser(currentUser.getId()); // 创建人
+			perEntity.setTeacherId(tteacIdArr[i]);
+			perEntity.setSarkNo(Integer.parseInt(arkCount[i]));
+			perEntity.setBedNo(Integer.parseInt(bedCount[i]));
 			// 持久化到数据库
 			entity = this.merge(perEntity);
 
@@ -155,7 +155,7 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 			 * List<PtTerm> ptTrems = ptTermService.queryByProerties("roomId",
 			 * entity.getRoomId()); for (PtTerm ptTerm : ptTrems) { MjUserright
 			 * mj = new MjUserright(); mj.setStatusID(0);
-			 * mj.setStuId(userNumb[i]); mj.setTermId(ptTerm.getUuid());
+			 * mj.setStuId(userNumb[i]); mj.setTermId(ptTerm.getId());
 			 * mjService.merge(mj); }
 			 */
 
@@ -184,7 +184,7 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 		for (String id : delId) {
 			entity = this.get(id);
 			// 解除门禁权限
-			officeAllotService.mjUserRight(null, entity.getRoomId(), entity.getTteacId(), null, null);			
+			officeAllotService.mjUserRight(null, entity.getRoomId(), entity.getTeacherId(), null, null);			
 			flag = this.deleteByPK(id);
 		}
 				
@@ -206,8 +206,8 @@ public class BaseTeacherDormServiceImpl extends BaseServiceImpl<DormTeacherDorm>
 			Integer count = this.getQueryCountBySql(teacDormSql);
 			if(count==0){		
 				dorm = dormRoomService.get(teacRoomId);
-				if (dorm.getRoomStatus().equals("1")) {
-					dorm.setRoomStatus("0");
+				if (dorm.getIsAllot()==true) {
+					dorm.setIsAllot(false);
 					dorm.setUpdateTime(new Date());
 					dormRoomService.merge(dorm);			
 				}

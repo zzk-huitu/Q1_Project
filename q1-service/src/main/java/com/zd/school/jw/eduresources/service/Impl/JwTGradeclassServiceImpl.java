@@ -15,11 +15,9 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.eduresources.dao.JwTGradeclassDao;
 import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.jw.eduresources.model.JwGradeteacher;
 import com.zd.school.jw.eduresources.model.JwTGrade;
 import com.zd.school.jw.eduresources.model.JwTGradeclass;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.jw.eduresources.service.JwGradeteacherService;
 import com.zd.school.jw.eduresources.service.JwTGradeService;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
 import com.zd.school.plartform.system.model.SysUser;
@@ -45,8 +43,7 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 	@Resource
 	private JwTGradeService gradeService;
 
-	@Resource
-	private JwGradeteacherService gradeTeaService;
+
 
 	@Resource
 	private JwClassteacherService classTTeaService;
@@ -63,7 +60,7 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		JwTGradeclass jtgClass = this.dao.getByProerties("uuid", claiId);
 		if (jtgClass == null)
 			return null;
-		JwTGrade grade = gradeService.get(jtgClass.getGraiId());
+		JwTGrade grade = gradeService.get(jtgClass.getGradeId());
 
 		if (ModelUtil.isNotNull(grade))
 			return grade;
@@ -85,25 +82,26 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		String qrClassId = "";
 		ExtDataFilter selfFilter = new ExtDataFilter();
 		String propName[] = { "studyYeah", "semester", "tteacId", "isDelete" };
-		Object[] propValue = { studyYear, smester, currentUser.getUuid(), 0 };
-		// 当前人是否年级组长,如果是年级组长则取年级下的所有班级
-		List<JwGradeteacher> gt = gradeTeaService.queryByProerties(propName, propValue);
-		for (JwGradeteacher jgt : gt) {
-			sb.append(jgt.getGraiId() + ",");
-		}
-		if (sb.length() > 0) {
-			sb.deleteCharAt(sb.length() - 1);
-			String st = sb.toString();
-			List<JwTGradeclass> gcList = this.queryByProerties("graiId", st);
-			for (JwTGradeclass gc : gcList) {
-				sbClass.append(gc.getUuid() + ",");
-			}
-		}
+		Object[] propValue = { studyYear, smester, currentUser.getId(), 0 };
+		
+		//（zzk:新版本中取消了年级组长概念）当前人是否年级组长,如果是年级组长则取年级下的所有班级
+//		List<JwGradeteacher> gt = gradeTeaService.queryByProerties(propName, propValue);
+//		for (JwGradeteacher jgt : gt) {
+//			sb.append(jgt.getGraiId() + ",");
+//		}
+//		if (sb.length() > 0) {
+//			sb.deleteCharAt(sb.length() - 1);
+//			String st = sb.toString();
+//			List<JwTGradeclass> gcList = this.queryByProerties("graiId", st);
+//			for (JwTGradeclass gc : gcList) {
+//				sbClass.append(gc.getId() + ",");
+//			}
+//		}
 		// 当前人是否班主任，如是则取所在的班级
 		List<JwClassteacher> jct = classTTeaService.queryByProerties(propName, propValue);
 		if (jct.size() > 0) {
 			for (JwClassteacher jt : jct) {
-				sbClass.append(jt.getClaiId() + ",");
+				sbClass.append(jt.getClassId() + ",");
 			}
 		}
 		if (sbClass.length() > 0) {
@@ -144,7 +142,7 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		case "1": // 查询学校
 			gcList = this.queryByProerties("isDelete", 0);
 			for (JwTGradeclass gc : gcList) {
-				sbClass.append(gc.getUuid() + ",");
+				sbClass.append(gc.getId() + ",");
 			}
 			if (sbClass.length() > 0) {
 				sbClass.deleteCharAt(sbClass.length() - 1);
@@ -155,7 +153,7 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		case "2": // 查询年级
 			gcList = this.queryByProerties("graiId", claiId);
 			for (JwTGradeclass gc : gcList) {
-				sbClass.append(gc.getUuid() + ",");
+				sbClass.append(gc.getId() + ",");
 			}
 			if (sbClass.length() > 0) {
 				sbClass.deleteCharAt(sbClass.length() - 1);

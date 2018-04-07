@@ -1,19 +1,18 @@
 package com.zd.school.jw.eduresources.service.Impl;
 
-import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.jw.eduresources.dao.JwTGradeDao;
-import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.jw.eduresources.service.JwGradeteacherService;
-import com.zd.school.jw.eduresources.service.JwTGradeService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.plartform.system.service.SysJobService;
-import com.zd.school.plartform.system.service.SysOrgService;
+import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
+import com.zd.core.model.extjs.QueryResult;
+import com.zd.core.service.BaseServiceImpl;
+import com.zd.school.jw.eduresources.dao.JwTGradeDao;
+import com.zd.school.jw.eduresources.model.JwTGrade;
+import com.zd.school.jw.eduresources.service.JwTGradeService;
+import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.service.SysJobService;
+import com.zd.school.plartform.system.service.SysOrgService;
 
 /**
  * 
@@ -39,8 +38,6 @@ public class JwTGradeServiceImpl extends BaseServiceImpl<JwTGrade> implements Jw
     @Resource
     private SysJobService jobService;
 
-    @Resource
-    private JwGradeteacherService gradeTeaService;
 
     @SuppressWarnings("unchecked")
     @Override

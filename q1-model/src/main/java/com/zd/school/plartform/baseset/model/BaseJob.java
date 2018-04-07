@@ -27,7 +27,7 @@ public class BaseJob extends BaseEntity implements Serializable {
 	@Column(name = "jobName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String jobName;
 
-	@FieldInfo(name = "岗位编码", type = "varchar(16) defalut ''", explain = "岗位的编码")
+	@FieldInfo(name = "岗位编码", type = "nvarchar(16) defalut ''", explain = "岗位的编码")
 	@Column(name = "jobCode", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
 	private String jobCode;
 	

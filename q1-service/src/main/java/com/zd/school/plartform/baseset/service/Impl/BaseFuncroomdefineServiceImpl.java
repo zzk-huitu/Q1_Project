@@ -71,7 +71,7 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<BuildFuncRoom
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(userCh);
 		roomInfo.setRoomType("5");// 设置房间类型 5、功能室
-		roomInfo.setAreaStatu(1);// 设置为已分配
+//		roomInfo.setAreaStatu("1");// 设置为已分配
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -86,7 +86,7 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<BuildFuncRoom
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(xm);
 		roomInfo.setRoomType("0");// 设置房间类型为空
-		roomInfo.setAreaStatu(0);// 设置房间状态为未分配
+//		roomInfo.setAreaStatu("0");// 设置房间状态为未分配
 		roomInfo.setRoomName(roomInfo.getRoomCode());
 		thisService.merge(roomInfo);
 		

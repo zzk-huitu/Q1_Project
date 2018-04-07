@@ -174,17 +174,17 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 							
 							
 						//查询任课教师信息
-						hql = "from JwCourseteacher where courseId='" + basecourse.getUuid() + "' and claiId='"
-								+ gc.getUuid() + "'" + andIsDelete;					
+						hql = "from JwCourseteacher where courseId='" + basecourse.getId() + "' and claiId='"
+								+ gc.getId() + "'" + andIsDelete;					
 						
 						List<JwCourseteacher> courseteachers = courseTeacherService.queryByHql(hql);
 						String teacherGh = "";
 						String teacherName = "";
 						String teacherId = "";
 						for (JwCourseteacher jwCourseteacher : courseteachers) {
-							teacherId += jwCourseteacher.getTteacId() + ",";
+							teacherId += jwCourseteacher.getTeacherId() + ",";
 							teacherGh += jwCourseteacher.getUserNumb() + ",";
-							teacherName += jwCourseteacher.getXm() + ",";
+							teacherName += jwCourseteacher.getName() + ",";
 						}
 						if(teacherId.length()>0){
 							teacherId = StringUtils.trimLast(teacherId);
@@ -192,62 +192,60 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 							teacherName = StringUtils.trimLast(teacherName);	
 						}
 
-						jca.setSchoolId(schoolId);
-						jca.setSchoolName(schoolName);
 						jca.setClassName(className);
-						jca.setClaiId(gc.getUuid());
-						jca.setTeachTime(i+1 + "");
+						jca.setClassId(gc.getId());
+						jca.setSections(String.valueOf(i+1));
 						jca.setExtField05("0");
 						jca.setIsDelete(0);
 
 						switch (j) {
 							case 1:
-								jca.setCourseId01(basecourse.getUuid());
+								jca.setCourseId01(basecourse.getId());
 								jca.setCourseName01(basecourse.getCourseName());
-								jca.setTteacId01(teacherId);
-								jca.setTeacherGh01(teacherGh);
+								jca.setTeacherId01(teacherId);
+								jca.setTeacherNumber01(teacherGh);
 								jca.setTeacherName01(teacherName);
 								break;
 							case 2:
-								jca.setCourseId02(basecourse.getUuid());
+								jca.setCourseId02(basecourse.getId());
 								jca.setCourseName02(basecourse.getCourseName());
-								jca.setTteacId02(teacherId);
-								jca.setTeacherGh02(teacherGh);
+								jca.setTeacherId02(teacherId);
+								jca.setTeacherNumber02(teacherGh);
 								jca.setTeacherName02(teacherName);
 								break;
 							case 3:
-								jca.setCourseId03(basecourse.getUuid());
+								jca.setCourseId03(basecourse.getId());
 								jca.setCourseName03(basecourse.getCourseName());
-								jca.setTteacId03(teacherId);
-								jca.setTeacherGh03(teacherGh);
+								jca.setTeacherId03(teacherId);
+								jca.setTeacherNumber03(teacherGh);
 								jca.setTeacherName03(teacherName);
 								break;
 							case 4:
-								jca.setCourseId04(basecourse.getUuid());
+								jca.setCourseId04(basecourse.getId());
 								jca.setCourseName04(basecourse.getCourseName());
-								jca.setTteacId04(teacherId);
-								jca.setTeacherGh04(teacherGh);
+								jca.setTeacherId04(teacherId);
+								jca.setTeacherNumber04(teacherGh);
 								jca.setTeacherName04(teacherName);
 								break;
 							case 5:
-								jca.setCourseId05(basecourse.getUuid());
+								jca.setCourseId05(basecourse.getId());
 								jca.setCourseName05(basecourse.getCourseName());
-								jca.setTteacId05(teacherId);
-								jca.setTeacherGh05(teacherGh);
+								jca.setTeacherId05(teacherId);
+								jca.setTeacherNumber05(teacherGh);
 								jca.setTeacherName05(teacherName);
 								break;
 							case 6:
-								jca.setCourseId06(basecourse.getUuid());
+								jca.setCourseId06(basecourse.getId());
 								jca.setCourseName06(basecourse.getCourseName());
-								jca.setTteacId06(teacherId);
-								jca.setTeacherGh06(teacherGh);
+								jca.setTeacherId06(teacherId);
+								jca.setTeacherNumber06(teacherGh);
 								jca.setTeacherName06(teacherName);
 								break;
 							case 7:
-								jca.setCourseId07(basecourse.getUuid());
+								jca.setCourseId07(basecourse.getId());
 								jca.setCourseName07(basecourse.getCourseName());
-								jca.setTteacId07(teacherId);
-								jca.setTeacherGh07(teacherGh);
+								jca.setTeacherId07(teacherId);
+								jca.setTeacherNumber07(teacherGh);
 								jca.setTeacherName07(teacherName);
 								break;
 						}

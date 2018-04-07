@@ -78,7 +78,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		String excludes = super.excludes(request);
 
 		SysUser currentUser = getCurrentSysUser();
-		List<BaseOrgChkTree> lists = thisService.getOrgChkTreeList(whereSql, orderSql,deptId, currentUser);
+		List<BaseOrgChkTree> lists = thisService.getOrgTreeList(whereSql, orderSql,deptId, currentUser);
 
 		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
 		writeJSON(response, strData);// 返回数据

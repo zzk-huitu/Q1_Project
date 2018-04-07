@@ -7,6 +7,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import com.zd.core.annotation.FieldInfo;
 import com.zd.core.model.BaseEntity;
 
@@ -63,6 +65,16 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 	@Column(name = "allDeptName", columnDefinition = "nvarchar(500) defalut ''", nullable = true)
 	private String allDeptName;
 
+	
+	@FieldInfo(name = "部门岗位名称")
+	//@Formula("(SELECT a.DEPT_NAME+a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=DEPTJOB_ID)")
+	private String deptJobName=deptName+jobName;
+
+	@FieldInfo(name = "部门岗位全称")
+	//@Formula("(SELECT a.ALL_DEPTNAME+a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=DEPTJOB_ID)")
+	private String allDeptJobName=allDeptName+jobName;
+	
+	
 	public String getDeptId() {
 		return deptId;
 	}
@@ -141,6 +153,22 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 
 	public void setAllDeptName(String allDeptName) {
 		this.allDeptName = allDeptName;
+	}
+
+	public String getDeptJobName() {
+		return deptJobName;
+	}
+
+	public void setDeptJobName(String deptJobName) {
+		this.deptJobName = deptJobName;
+	}
+
+	public String getAllDeptJobName() {
+		return allDeptJobName;
+	}
+
+	public void setAllDeptJobName(String allDeptJobName) {
+		this.allDeptJobName = allDeptJobName;
 	}
 
 	public BaseDeptjob() {

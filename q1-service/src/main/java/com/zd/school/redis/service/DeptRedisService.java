@@ -2,8 +2,8 @@ package com.zd.school.redis.service;
 
 import java.util.List;
 
-import com.zd.school.plartform.baseset.model.BaseOrgChkTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.baseset.model.BaseOrgTree;
+import com.zd.school.plartform.comm.model.CommTree;
 
 public interface DeptRedisService {
 	
@@ -12,9 +12,9 @@ public interface DeptRedisService {
 	public Object getRightDeptDisciplineTreeByUser(String userId);
 	
 	
-	public void setRightDeptTreeByUser(String userId,List<BaseOrgChkTree> values);	
-	public void setRightDeptClassTreeByUser(String userId,List<CommTreeChk> values);
-	public void setRightDeptDisciplineTreeByUser(String userId,List<CommTreeChk> values);
+	public void setRightDeptTreeByUser(String userId,List<BaseOrgTree> values);	
+	public void setRightDeptClassTreeByUser(String userId,List<CommTree> values);
+	public void setRightDeptDisciplineTreeByUser(String userId,List<CommTree> values);
 	
 	
 	/**

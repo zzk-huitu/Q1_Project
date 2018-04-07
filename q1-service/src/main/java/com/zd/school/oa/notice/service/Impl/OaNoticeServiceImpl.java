@@ -24,10 +24,7 @@ import com.zd.core.util.BeanUtils;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.jw.eduresources.model.JwGradeteacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.jw.eduresources.service.JwGradeteacherService;
 import com.zd.school.jw.push.service.PushInfoService;
 import com.zd.school.oa.notice.dao.OaNoticeDao;
 import com.zd.school.oa.notice.model.OaNotice;
@@ -35,7 +32,6 @@ import com.zd.school.oa.notice.model.OaNoticeOther;
 import com.zd.school.oa.notice.model.OaNoticeauditor;
 import com.zd.school.oa.notice.service.OaNoticeService;
 import com.zd.school.oa.notice.service.OaNoticeauditorService;
-import com.zd.school.oa.notice.service.OaNoticerightService;
 import com.zd.school.oa.terminal.model.OaInfoterm;
 import com.zd.school.plartform.baseset.model.BaseOrg;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
@@ -74,8 +70,6 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 	@Resource
 	private SysRoleService roleService;
 
-	@Resource
-	private OaNoticerightService rightService;
 
 	@Resource
 	private OaNoticeauditorService auditorService;
@@ -87,11 +81,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 	private BaseInfotermService oaInfotermService;
 
 	@Resource
-	private JwGradeteacherService gTeacherService;
-
-	@Resource
 	private JwClassteacherService cTeacherService;
-
 
 	@Override
 	public QueryResult<OaNotice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
@@ -114,7 +104,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getXm(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -136,11 +126,11 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 	@Override
 	public OaNotice doUpdateEntity(OaNotice entity, SysUser currentUser) {
 		// 先拿到已持久化的实体
-		OaNotice saveEntity = this.get(entity.getUuid());
+		OaNotice saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -170,34 +160,33 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 			String terminalIds, String stuIds, String isNoticeParent) {
 		Object[] propValue = {};
 		// 先拿到已持久化的实体
-		OaNotice saveEntity = this.get(entity.getUuid());
-		try {			
-			//根据传入的部门、人员与角色的id处理
-			OaNoticeOther otherInfo = this.getNoticeOther(entity.getUuid());
-			
-			//当不为不通知的时候，则更新
+		OaNotice saveEntity = this.get(entity.getId());
+		try {
+			// 根据传入的部门、人员与角色的id处理
+			OaNoticeOther otherInfo = this.getNoticeOther(entity.getId());
+
+			// 当不为不通知的时候，则更新
 			if (!"3".equals(entity.getDeptRadio())) {
-				
+
 				if (!deptIds.equals(otherInfo.getDeptIds())) {
 					propValue = deptIds.split(",");
 					Set<BaseOrg> orgs = saveEntity.getNoticeDepts();
 					List<BaseOrg> setOrgs = null;
-					
-					if(deptIds.trim().equals(AdminType.ADMIN_ORG_ID)){
-						setOrgs = orgService.getOrgList(" and isLeaf=true ", " order by orderIndex asc ", currentUser);							
-					}else{
-						setOrgs = orgService.queryByProerties("uuid", propValue);					
-					}				
-										
+
+					if (deptIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
+						setOrgs = orgService.getOrgList(" and isLeaf=true ", " order by orderIndex asc ", currentUser);
+					} else {
+						setOrgs = orgService.queryByProerties("uuid", propValue);
+					}
+
 					orgs.addAll(setOrgs);
 					saveEntity.setNoticeDepts(orgs);
 				}
-				
-			}else { //当为3时，就处理为空
+
+			} else { // 当为3时，就处理为空
 				saveEntity.setNoticeDepts(new HashSet<BaseOrg>());
 			}
-			
-			
+
 			if (!roleIds.equals(otherInfo.getRoleIds())) {
 				propValue = roleIds.split(",");
 				Set<SysRole> roles = saveEntity.getNoticeRoles();
@@ -205,7 +194,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 				roles.addAll(setRoles);
 				saveEntity.setNoticeRoles(roles);
 			}
-			
+
 			if (!userIds.equals(otherInfo.getUserIds())) {
 				propValue = userIds.split(",");
 				Set<SysUser> users = saveEntity.getNoticeUsers();
@@ -214,77 +203,75 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 				saveEntity.setNoticeUsers(users);
 			}
 
-			
-			//当不为不通知的时候，则更新
+			// 当不为不通知的时候，则更新
 			if (!"3".equals(entity.getTerminalRadio())) {
 				if (!terminalIds.equals(otherInfo.getTermIds())) {
 					// 现在前台修改时，传来的是房间id，所以，要用房间roomId去查询设备。
 					Set<OaInfoterm> oaInfoTrems = saveEntity.getNoticeTerms();
 					List<OaInfoterm> oaInfotermsSet = new ArrayList<>();
-					List<Object> roomInfo=null;
-					
+					List<Object> roomInfo = null;
+
 					if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
 						String roomInfoHql = "select uuid from BuildRoominfo where isDelete=0";
 						roomInfo = this.queryEntityByHql(roomInfoHql);
-						
+
 					} else {
 						propValue = terminalIds.split(",");
 						roomInfo = Arrays.asList(propValue);
 					}
-					
-					//分批次执行				
-					int propLen=roomInfo.size();
-					int increment=100;
-					for(int i=0;i<propLen;i+=increment){
-						if(propLen<=i+increment){			
-							List<Object> proplist=roomInfo.subList(i, propLen);
-							oaInfotermsSet.addAll(oaInfotermService.queryByProerties("roomId",proplist.toArray()));
+
+					// 分批次执行
+					int propLen = roomInfo.size();
+					int increment = 100;
+					for (int i = 0; i < propLen; i += increment) {
+						if (propLen <= i + increment) {
+							List<Object> proplist = roomInfo.subList(i, propLen);
+							oaInfotermsSet.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));
 							break;
-						}		
-						List<Object> proplist=roomInfo.subList(i,i+increment);
-						oaInfotermsSet.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));										
+						}
+						List<Object> proplist = roomInfo.subList(i, i + increment);
+						oaInfotermsSet.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));
 					}
-					
+
 					oaInfoTrems.addAll(oaInfotermsSet);
-					saveEntity.setNoticeTerms(oaInfoTrems);														
-					
+					saveEntity.setNoticeTerms(oaInfoTrems);
+
 				}
-			}else { //当为3时，就处理为空
+			} else { // 当为3时，就处理为空
 				saveEntity.setNoticeTerms(new HashSet<OaInfoterm>());
 			}
-				
-			//当不为不通知的时候，则更新
-			if (!"3".equals(entity.getStuRadio())) {
+
+			// 当不为不通知的时候，则更新
+			if (!"3".equals(entity.getStudentRadio())) {
 				if (!stuIds.equals(otherInfo.getStuIds())) {
 					Set<SysUser> stus = saveEntity.getNoticeStus();
 					List<SysUser> setStus = new ArrayList<>();
-					if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {						
-						String hql1=" from SysUser where isDelete=0 and category=2 ";
-						setStus=userService.queryByHql(hql1);
-					} else {						
+					if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
+						String hql1 = " from SysUser where isDelete=0 and category=2 ";
+						setStus = userService.queryByHql(hql1);
+					} else {
 						propValue = stuIds.split(",");
-						//分批次执行
-						List<Object> propValueList = Arrays.asList(propValue);					
-						int propLen=propValueList.size();
-						int increment=100;
-						for(int i=0;i<propLen;i+=increment){
-							if(propLen<=i+increment){			
-								List<Object> proplist=propValueList.subList(i, propLen);
-								setStus.addAll(userService.queryByProerties("uuid",proplist.toArray()));
+						// 分批次执行
+						List<Object> propValueList = Arrays.asList(propValue);
+						int propLen = propValueList.size();
+						int increment = 100;
+						for (int i = 0; i < propLen; i += increment) {
+							if (propLen <= i + increment) {
+								List<Object> proplist = propValueList.subList(i, propLen);
+								setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));
 								break;
-							}		
-							List<Object> proplist=propValueList.subList(i,i+increment);
-							setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));										
+							}
+							List<Object> proplist = propValueList.subList(i, i + increment);
+							setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));
 						}
 					}
 					stus.addAll(setStus);
-					saveEntity.setNoticeStus(stus);					
+					saveEntity.setNoticeStus(stus);
 				}
-			}else { //当为3时，就处理为空
+			} else { // 当为3时，就处理为空
 				saveEntity.setNoticeStus(new HashSet<SysUser>());
 			}
-				
-				
+
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("noticeTerms");
 			excludedProp.add("noticeDepts");
@@ -294,8 +281,8 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
-			saveEntity.setUpdateUser(currentUser.getXm()); // 设置修改人的中文名
-			
+			saveEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
+
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -321,7 +308,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("uuid");
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			return entity;
@@ -360,38 +347,37 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 			excludedProp.add("uuid");
 			String[] propValue = {};
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
-			saveEntity.setCreateUser(currentUser.getXm()); // 设置修改人的中文名
-			
-					
+			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
+
 			// 如果通知部门不为空时处理
 			if (StringUtils.isNotEmpty(deptIds)) {
 				propValue = deptIds.split(",");
 				Set<BaseOrg> orgs = saveEntity.getNoticeDepts();
-				List<BaseOrg> setOrgs=null;
+				List<BaseOrg> setOrgs = null;
 				ids = "";
-				
-				if(deptIds.trim().equals(AdminType.ADMIN_ORG_ID)){
-					setOrgs = orgService.getOrgList(" and isLeaf=true ", " order by orderIndex asc ", currentUser);						
-					ids=setOrgs.stream().map((x)->x.getUuid()).collect(Collectors.joining("','","'","'"));
-					
-				}else{
+
+				if (deptIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
+					setOrgs = orgService.getOrgList(" and isLeaf=true ", " order by orderIndex asc ", currentUser);
+					ids = setOrgs.stream().map((x) -> x.getId()).collect(Collectors.joining("','", "'", "'"));
+
+				} else {
 					setOrgs = orgService.queryByProerties("uuid", propValue);
-					ids=setOrgs.stream().map(BaseOrg::getUuid).collect(Collectors.joining("','","'","'"));				
-				}				
-				
+					ids = setOrgs.stream().map(BaseOrg::getId).collect(Collectors.joining("','", "'", "'"));
+				}
+
 				orgs.addAll(setOrgs);
 				saveEntity.setNoticeDepts(orgs);
-										
-				//注：只通知主部门的人员（2017-12-28 zzk）		
-				hql = "from SysUser as o where o.deptId in(" + ids
-						+ ") and o.isDelete=0 and o.category=1 ";
+
+				// 注：只通知主部门的人员（2017-12-28 zzk）
+				hql = "from SysUser as o where o.deptId in(" + ids + ") and o.isDelete=0 and o.category=1 ";
 				userList.addAll(userService.queryByHql(hql));
 			}
 			// 如果通知人员不为空时处理
 			if (StringUtils.isNotEmpty(userIds)) {
 				propValue = userIds.split(",");
 				Set<SysUser> users = saveEntity.getNoticeUsers();
-				List<SysUser> setUsers = userService.queryByProerties(new String[]{"uuid","isDelete","category"}, new Object[]{propValue,0,"1"});
+				List<SysUser> setUsers = userService.queryByProerties(new String[] { "uuid", "isDelete", "category" },
+						new Object[] { propValue, 0, "1" });
 				users.addAll(setUsers);
 				userList.addAll(setUsers);
 				saveEntity.setNoticeUsers(users);
@@ -403,13 +389,13 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 				List<SysRole> setRoles = roleService.queryByProerties("uuid", propValue);
 				roles.addAll(setRoles);
 				saveEntity.setNoticeRoles(roles);
-				
+
 				ids = "";
 				for (String str : propValue) {
 					ids += "'" + str + "',";
 				}
 				ids = StringUtils.trimLast(ids);
-				
+
 				hql = "from SysUser as o inner join fetch o.sysRoles as d where d.uuid in(" + ids
 						+ ") and o.isDelete=0 and  o.category=1 ";
 				userList.addAll(userService.queryByHql(hql));
@@ -419,140 +405,149 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 			if (StringUtils.isNotEmpty(terminalIds)) {
 				Set<OaInfoterm> setOaInfoterm = saveEntity.getNoticeTerms();
 				List<OaInfoterm> oaInfoterms = new ArrayList<>();
-				List<String> roomInfo=null;
-				
+				List<String> roomInfo = null;
+
 				if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
 					String roomInfoHql = "select uuid from BuildRoominfo where isDelete=0";
-					roomInfo = this.queryEntityByHql(roomInfoHql);				
+					roomInfo = this.queryEntityByHql(roomInfoHql);
 				} else {
 					propValue = terminalIds.split(",");
 					roomInfo = Arrays.asList(propValue);
-					//oaInfoterms = oaInfotermService.queryByProerties("roomId", propValue);
+					// oaInfoterms =
+					// oaInfotermService.queryByProerties("roomId", propValue);
 				}
-				
-				//分批次执行				
-				int propLen=roomInfo.size();
-				int increment=100;
-				for(int i=0;i<propLen;i+=increment){
-					if(propLen<=i+increment){			
-						List<String> proplist=roomInfo.subList(i, propLen);
-						oaInfoterms.addAll(oaInfotermService.queryByProerties("roomId",proplist.toArray()));
+
+				// 分批次执行
+				int propLen = roomInfo.size();
+				int increment = 100;
+				for (int i = 0; i < propLen; i += increment) {
+					if (propLen <= i + increment) {
+						List<String> proplist = roomInfo.subList(i, propLen);
+						oaInfoterms.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));
 						break;
-					}		
-					List<String> proplist=roomInfo.subList(i,i+increment);
-					oaInfoterms.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));										
+					}
+					List<String> proplist = roomInfo.subList(i, i + increment);
+					oaInfoterms.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));
 				}
-										
+
 				setOaInfoterm.addAll(oaInfoterms);
 				saveEntity.setNoticeTerms(setOaInfoterm);
 			}
-			
+
 			// 如果通知学生不为空时处理
 			if (StringUtils.isNotEmpty(stuIds)) {
 				Set<SysUser> stus = saveEntity.getNoticeStus();
 				List<SysUser> setStus = new ArrayList<>();
 				if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
-					
-					String hql1=" from SysUser where isDelete=0 and category=2 ";
-					
-					//是否为学校管理员
+
+					String hql1 = " from SysUser where isDelete=0 and category=2 ";
+
+					// 是否为学校管理员
 					/*
-					Boolean isSchoolAdminRole = false;
-					List<SysUser> roleUsers = userService.getUserByRoleId(AdminType.SCHOOLADMIN_ROLE_ID).getResultList();
-					for (SysUser su : roleUsers) {
-						if (su.getUuid().equals(currentUser.getUuid())) {
-							isSchoolAdminRole = true;
-							break;
-						}
-					}*/
-					
-					/**暂无年级组长和班主任设置
+					 * Boolean isSchoolAdminRole = false; List<SysUser>
+					 * roleUsers =
+					 * userService.getUserByRoleId(AdminType.SCHOOLADMIN_ROLE_ID
+					 * ).getResultList(); for (SysUser su : roleUsers) { if
+					 * (su.getId().equals(currentUser.getId())) {
+					 * isSchoolAdminRole = true; break; } }
+					 */
+
+					/**
+					 * 暂无年级组长和班主任设置
 					 * 
 					 * 
-					if (!isSchoolAdminRole) {
-						
-						// 不是学校管理员判断是否是年级组长
-						String ghql = "from JwGradeteacher where isDelete=0 and tteacId='" + currentUser.getUuid() + "'";
-						List<JwGradeteacher> gradeclassteachers = gTeacherService.queryByHql(ghql);
-						if (gradeclassteachers != null && gradeclassteachers.size() > 0) {
-							JwGradeteacher gTeacher = gradeclassteachers.get(0);
-							hql1 += " and uuid in(select studentId from JwClassstudent where isDelete=0 and claiId in(";
-							hql1 += " select uuid from JwTGradeclass where graiId='"+gTeacher.getGraiId()+"'";
-							hql1 += "))";
-						} else {
-							// 判断是否是班主任
-							ghql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getUuid() + "'";
-							List<JwClassteacher> classteachers = cTeacherService.queryByHql(ghql);
-							if (classteachers != null && classteachers.size() > 0) {
-								JwClassteacher cTeacher = classteachers.get(0);
-								hql1 += " and uuid in(select studentId from JwClassstudent where isDelete=0 and claiId='"+cTeacher.getClaiId()+"') ";
-							}
-						}
-					}*/
-					
-					setStus=userService.queryByHql(hql1);
+					 * if (!isSchoolAdminRole) {
+					 * 
+					 * // 不是学校管理员判断是否是年级组长 String ghql =
+					 * "from JwGradeteacher where isDelete=0 and tteacId='" +
+					 * currentUser.getId() + "'"; List
+					 * <JwGradeteacher> gradeclassteachers =
+					 * gTeacherService.queryByHql(ghql); if (gradeclassteachers
+					 * != null && gradeclassteachers.size() > 0) {
+					 * JwGradeteacher gTeacher = gradeclassteachers.get(0); hql1
+					 * +=
+					 * " and uuid in(select studentId from JwClassstudent where isDelete=0 and claiId in("
+					 * ; hql1 +=
+					 * " select uuid from JwTGradeclass where graiId='"
+					 * +gTeacher.getGraiId()+"'"; hql1 += "))"; } else { //
+					 * 判断是否是班主任 ghql =
+					 * "from JwClassteacher where isDelete=0 and tteacId='" +
+					 * currentUser.getId() + "'"; List
+					 * <JwClassteacher> classteachers =
+					 * cTeacherService.queryByHql(ghql); if (classteachers !=
+					 * null && classteachers.size() > 0) { JwClassteacher
+					 * cTeacher = classteachers.get(0); hql1 +=
+					 * " and uuid in(select studentId from JwClassstudent where isDelete=0 and claiId='"
+					 * +cTeacher.getClaiId()+"') "; } } }
+					 */
+
+					setStus = userService.queryByHql(hql1);
 				} else {
 					propValue = stuIds.split(",");
-					//分批次执行
-					List<String> propValueList = Arrays.asList(propValue);					
-					int propLen=propValueList.size();
-					int increment=100;
-					for(int i=0;i<propLen;i+=increment){
-						if(propLen<=i+increment){			
-							List<String> proplist=propValueList.subList(i, propLen);
-							setStus.addAll(userService.queryByProerties("uuid",proplist.toArray()));
+					// 分批次执行
+					List<String> propValueList = Arrays.asList(propValue);
+					int propLen = propValueList.size();
+					int increment = 100;
+					for (int i = 0; i < propLen; i += increment) {
+						if (propLen <= i + increment) {
+							List<String> proplist = propValueList.subList(i, propLen);
+							setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));
 							break;
-						}		
-						List<String> proplist=propValueList.subList(i,i+increment);
-						setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));										
+						}
+						List<String> proplist = propValueList.subList(i, i + increment);
+						setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));
 					}
 				}
 				stus.addAll(setStus);
 				stuList.addAll(setStus);
 				saveEntity.setNoticeStus(stus);
 			}
-			
-			//通知家长
+
+			// 通知家长
 			if (isNoticeParent.equals("1")) {
 				Set<SysUser> filterStu = new HashSet<SysUser>(stuList);
 				stuList = new ArrayList<SysUser>(filterStu);
 				for (SysUser sysUser : filterStu) {
-					String regStatus = "您好," + sysUser.getXm() + "同学的家长,有通知公告需要您查看!";
-					pushService.pushInfo(sysUser.getXm(), sysUser.getUserNumb(), "通知公告查看", regStatus,
-							StringVeriable.WEB_URL + "static/core/coreApp/oa/notice/phonequery/list.jsp?userId="
-									+ sysUser.getUuid(),currentUser);
+					String regStatus = "您好," + sysUser.getName() + "同学的家长,有通知公告需要您查看!";
+					pushService.pushInfo(sysUser.getName(), sysUser.getUserNumb(), "通知公告查看",
+							regStatus, StringVeriable.WEB_URL
+									+ "static/core/coreApp/oa/notice/phonequery/list.jsp?userId=" + sysUser.getId(),
+							currentUser);
 				}
 			}
-			
-			//通知老师
+
+			// 通知老师
 			Set<SysUser> filterUser = new HashSet<SysUser>(userList);
 			userList = new ArrayList<SysUser>(filterUser);
 			for (SysUser sysUser : filterUser) {
-				String regStatus = "您好," + sysUser.getXm() + "老师,有通知公告需要您查看!";
-				pushService.pushInfo(sysUser.getXm(), sysUser.getUserNumb(), "通知公告查看", regStatus, StringVeriable.WEB_URL
-						+ "static/core/coreApp/oa/notice/phonequery/list.jsp?userId=" + sysUser.getUuid(),currentUser);
+				String regStatus = "您好," + sysUser.getName() + "老师,有通知公告需要您查看!";
+				pushService.pushInfo(sysUser.getName(), sysUser.getUserNumb(),
+						"通知公告查看", regStatus, StringVeriable.WEB_URL
+								+ "static/core/coreApp/oa/notice/phonequery/list.jsp?userId=" + sysUser.getId(),
+						currentUser);
 			}
-			
-			//通知公告审批的权限人员
-			SysUser approveUser = rightService.getApproveUser(currentUser);
-			if (approveUser != null) {
-				saveEntity.setIsCheck("1");
-				OaNoticeauditor auditor = new OaNoticeauditor();
-				auditor.setXm(approveUser.getXm());
-				auditor.setUserId(approveUser.getUuid());
-				auditor.setAuditState(0);
-				auditor.setOaNotice(saveEntity);
-				auditorService.merge(auditor);
-				String regStatus = "您好," + approveUser.getXm() + "老师,有通知公告需要您尽快处理!";
-				pushService.pushInfo(approveUser.getXm(), approveUser.getUserNumb(), "通知公告审批", regStatus,currentUser);			
-			}
-			
+
+			//（zzk：新版本已经去除通知的权限功能）通知公告审批的权限人员
+//			SysUser approveUser = rightService.getApproveUser(currentUser);
+//			if (approveUser != null) {
+//				saveEntity.setIsCheck("1");
+//				OaNoticeauditor auditor = new OaNoticeauditor();
+//				auditor.setName(approveUser.getName());
+//				auditor.setUserId(approveUser.getId());
+//				auditor.setAuditState("0");
+//				auditor.setOaNotice(saveEntity);
+//				auditorService.merge(auditor);
+//				String regStatus = "您好," + approveUser.getName() + "老师,有通知公告需要您尽快处理!";
+//				pushService.pushInfo(approveUser.getName(), approveUser.getUserNumb(), "通知公告审批", regStatus,
+//						currentUser);
+//			}
+
 			entity = this.merge(saveEntity);// 执行修改方法
 			return entity;
 		} catch (Exception e) {
-			//回滚
+			// 回滚
 			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			logger.error("错误原因：【"+e.getMessage()+"】 出错堆栈跟踪："+ Arrays.toString( e.getStackTrace()));
+			logger.error("错误原因：【" + e.getMessage() + "】 出错堆栈跟踪：" + Arrays.toString(e.getStackTrace()));
 			return null;
 		}
 	}
@@ -589,21 +584,21 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 
 		return otherEntity;
 	}
-	
-	//获取部门信息
+
+	// 获取部门信息
 	public OaNoticeOther getNoticeDeptInfo(String id) {
-			
-		OaNoticeOther otherEntity = new OaNoticeOther();		
+
+		OaNoticeOther otherEntity = new OaNoticeOther();
 		OaNotice getEntity = this.get(id);
-		
-		//当为指定部门时，才去查询，否则不查询
-		if("2".equals(getEntity.getDeptRadio())){
-				
+
+		// 当为指定部门时，才去查询，否则不查询
+		if ("2".equals(getEntity.getDeptRadio())) {
+
 			// 通知部门信息
 			Set<BaseOrg> orgs = getEntity.getNoticeDepts();
-			String sbIds=orgs.stream().map((x)->x.getUuid()).collect(Collectors.joining(","));
-			String sbNames=orgs.stream().map(BaseOrg::getNodeText).collect(Collectors.joining(","));
-					
+			String sbIds = orgs.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
+			String sbNames = orgs.stream().map(BaseOrg::getNodeText).collect(Collectors.joining(","));
+
 			otherEntity.setDeptIds(sbIds);
 			otherEntity.setDeptNames(sbNames);
 			otherEntity.setNoticeId(id);
@@ -619,73 +614,73 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 	 * @return
 	 */
 	public OaNoticeOther getNoticeRoleInfo(String id) {
-		
-		OaNoticeOther otherEntity = new OaNoticeOther();		
+
+		OaNoticeOther otherEntity = new OaNoticeOther();
 		OaNotice getEntity = this.get(id);
-		
+
 		Set<SysRole> roles = getEntity.getNoticeRoles();
-		String sbIds=roles.stream().map((x)->x.getUuid()).collect(Collectors.joining(","));
-		String sbNames=roles.stream().map(SysRole::getRoleName).collect(Collectors.joining(","));
-				
+		String sbIds = roles.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
+		String sbNames = roles.stream().map(SysRole::getRoleName).collect(Collectors.joining(","));
+
 		otherEntity.setRoleIds(sbIds);
 		otherEntity.setRoleNames(sbNames);
 		otherEntity.setNoticeId(id);
-			
+
 		return otherEntity;
 	}
 
 	public OaNoticeOther getNoticeUserInfo(String id) {
-		
-		OaNoticeOther otherEntity = new OaNoticeOther();		
+
+		OaNoticeOther otherEntity = new OaNoticeOther();
 		OaNotice getEntity = this.get(id);
-		
+
 		Set<SysUser> users = getEntity.getNoticeUsers();
-		String sbIds=users.stream().map((x)->x.getUuid()).collect(Collectors.joining(","));
-		String sbNames=users.stream().map(SysUser::getXm).collect(Collectors.joining(","));
-				
+		String sbIds = users.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
+		String sbNames = users.stream().map(SysUser::getName).collect(Collectors.joining(","));
+
 		otherEntity.setUserIds(sbIds);
 		otherEntity.setUserNames(sbNames);
 		otherEntity.setNoticeId(id);
-		
+
 		return otherEntity;
 	}
 
 	public OaNoticeOther getNoticeTermsInfo(String id) {
 		OaNoticeOther otherEntity = new OaNoticeOther();
 		OaNotice getEntity = this.get(id);
-			
-		//当为指定终端时，才去查询，否则不查询(注：set集合里面的是设备数据，而显示的应该是房间的数据，所以直接去实体类的数据，做特殊冗余)
-		if("2".equals(getEntity.getTerminalRadio())){
-			/*
+
+		// 当为指定终端时，才去查询，否则不查询(注：set集合里面的是设备数据，而显示的应该是房间的数据，所以直接去实体类的数据，做特殊冗余)
+		if ("2".equals(getEntity.getTerminalRadio())) {
+
 			Set<OaInfoterm> infos = getEntity.getNoticeTerms();
-			String sbIds=infos.stream().map((x)->x.getUuid()).collect(Collectors.joining(","));
-			String sbNames=infos.stream().map(OaInfoterm::getRoomName).collect(Collectors.joining(","));
-			*/		
-			otherEntity.setTermIds(getEntity.getTermIds());
-			otherEntity.setTermNames(getEntity.getTermNames());
+			String sbIds = infos.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
+			String sbNames = infos.stream().map(OaInfoterm::getRoomName).collect(Collectors.joining(","));
+
+			otherEntity.setTermIds(sbIds);
+			otherEntity.setTermNames(sbNames);
 			otherEntity.setNoticeId(id);
 		}
-		
+
 		return otherEntity;
 	}
 
 	public OaNoticeOther getNoticeStuInfo(String id) {
-		
+
 		OaNoticeOther otherEntity = new OaNoticeOther();
 		OaNotice getEntity = this.get(id);
-		
-		//当为指定学生时，才去查询，否则不查询
-		if("2".equals(getEntity.getStuRadio())){
-			
+
+		// 当为指定学生时，才去查询，否则不查询
+		if ("2".equals(getEntity.getStudentRadio())) {
+
 			Set<SysUser> stus = getEntity.getNoticeStus();
-			String sbIds=stus.stream().map((x)->x.getUuid()).collect(Collectors.joining(","));
-			String sbNames=stus.stream().map(SysUser::getXm).collect(Collectors.joining(","));
-					
+			String sbIds = stus.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
+			String sbNames = stus.stream().map(SysUser::getName).collect(Collectors.joining(","));
+
 			otherEntity.setStuIds(sbIds);
 			otherEntity.setStuNames(sbNames);
 			otherEntity.setNoticeId(id);
-		}	
-	
+		}
+
 		return otherEntity;
 	}
 
@@ -702,28 +697,28 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 		hql.append(" and o.endDate>='" + today + "' ");
 		hql.append(" order by o.createTime desc ");
 		List<OaNotice> list = this.queryByHql(hql.toString());
-		String userId = currentUser.getUuid();
+		String userId = currentUser.getId();
 		StringBuffer hql2 = new StringBuffer("from SysUser as u ");
 		hql2.append(" left join fetch u.sysRoles as r ");
 		hql2.append(" left join fetch u.userDepts as d ");
 		hql2.append(" where u.uuid='" + userId + "' ");
 		currentUser = userService.queryByHql(hql2.toString()).get(0);
 		Set<SysRole> userRoles = currentUser.getSysRoles();
-		//Set<BaseOrg> userDepts = currentUser.getUserDepts();	--换成下面的方式
-		Set<BaseOrg> userDepts  = userService.getDeptByUserId(currentUser.getUuid());
-		
+		// Set<BaseOrg> userDepts = currentUser.getUserDepts(); --换成下面的方式
+		Set<BaseOrg> userDepts = userService.getDeptByUserId(currentUser.getId());
+
 		List<OaNotice> list2 = new ArrayList<OaNotice>();
 		NEXT: for (OaNotice oaNotice : list) {
 			Set<SysUser> noticeUsers = oaNotice.getNoticeUsers();
 			for (SysUser sysUser : noticeUsers) {
-				if (sysUser.getUuid().equals(userId)) {
+				if (sysUser.getId().equals(userId)) {
 					list2.add(oaNotice);
 					continue NEXT;
 				}
 			}
 			Set<SysUser> noticeStus = oaNotice.getNoticeStus();
 			for (SysUser sysUser : noticeStus) {
-				if (sysUser.getUuid().equals(userId)) {
+				if (sysUser.getId().equals(userId)) {
 					list2.add(oaNotice);
 					continue NEXT;
 				}
@@ -731,7 +726,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 			Set<SysRole> noticeRoles = oaNotice.getNoticeRoles();
 			for (SysRole sysRole : noticeRoles) {
 				for (SysRole userRole : userRoles) {
-					if (sysRole.getUuid().equals(userRole.getUuid())) {
+					if (sysRole.getId().equals(userRole.getId())) {
 						list2.add(oaNotice);
 						continue NEXT;
 					}
@@ -740,7 +735,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 			Set<BaseOrg> noticeDepts = oaNotice.getNoticeDepts();
 			for (BaseOrg baseOrg : noticeDepts) {
 				for (BaseOrg userOrg : userDepts) {
-					if (baseOrg.getUuid().equals(userOrg.getUuid())) {
+					if (baseOrg.getId().equals(userOrg.getId())) {
 						list2.add(oaNotice);
 						continue NEXT;
 					}
@@ -766,12 +761,12 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<OaNotice> implements Oa
 	 * @return
 	 */
 	@Override
-	public QueryResult<OaNotice> list(Integer start, Integer limit, String sort, String filter,String termCode) {
+	public QueryResult<OaNotice> list(Integer start, Integer limit, String sort, String filter, String termCode) {
 		try {
 			OaInfoterm term = oaInfotermService.getByProerties("termCode", termCode);
 			// 如果存在此终端
 			if (ModelUtil.isNotNull(term)) {
-				String termId = term.getUuid();
+				String termId = term.getId();
 				String justDateStr = DateUtil.formatDate(new Date());
 				StringBuffer hql = new StringBuffer(" from OaNotice o ");
 				hql.append(" inner join  fetch o.noticeTerms g ");

@@ -8,8 +8,8 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.zd.school.plartform.baseset.model.BaseOrgChkTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.baseset.model.BaseOrgTree;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.redis.service.DeptRedisService;
 
 @Service
@@ -48,7 +48,7 @@ public class DeptRedisServiceImpl implements DeptRedisService{
 
 
 	@Override
-	public void setRightDeptTreeByUser(String userId, List<BaseOrgChkTree> values) {
+	public void setRightDeptTreeByUser(String userId, List<BaseOrgTree> values) {
 		// TODO Auto-generated method stub
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
 		hashOper.put("userRightDeptTree", userId, values);
@@ -64,7 +64,7 @@ public class DeptRedisServiceImpl implements DeptRedisService{
 
 
 	@Override
-	public void setRightDeptClassTreeByUser(String userId, List<CommTreeChk> values) {
+	public void setRightDeptClassTreeByUser(String userId, List<CommTree> values) {
 		// TODO Auto-generated method stub
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
 		hashOper.put("userRightDeptClassTree", userId, values);
@@ -80,7 +80,7 @@ public class DeptRedisServiceImpl implements DeptRedisService{
 
 
 	@Override
-	public void setRightDeptDisciplineTreeByUser(String userId, List<CommTreeChk> values) {
+	public void setRightDeptDisciplineTreeByUser(String userId, List<CommTree> values) {
 		// TODO Auto-generated method stub
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
 		hashOper.put("userRightDeptDisciplineTree", userId, values);

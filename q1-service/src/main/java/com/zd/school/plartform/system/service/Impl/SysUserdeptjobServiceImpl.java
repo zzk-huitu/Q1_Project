@@ -74,7 +74,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 		sortedCondition.put("masterDept", "desc");
 		sortedCondition.put("jobLevel", "asc");
 		String[] propName = { "userId", "isDelete" };
-		Object[] propValue = { currentUser.getUuid(), 0 };
+		Object[] propValue = { currentUser.getId(), 0 };
 
 		List<BaseUserdeptjob> list = this.queryByProerties(propName, propValue, sortedCondition);
 
@@ -94,7 +94,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 	@Override
 	public BaseUserdeptjob getUserMasterDeptJob(SysUser currentUser) {
 		String[] propName = { "userId", "masterDept", "isDelete" };
-		Object[] propValue = { currentUser.getUuid(), 1, 0 };
+		Object[] propValue = { currentUser.getId(), 1, 0 };
 
 		BaseUserdeptjob isMasterDeptJob = this.getByProerties(propName, propValue);
 		return isMasterDeptJob;
@@ -123,7 +123,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
-			Object[] propertyValue = { 1, currentUser.getUuid(), new Date() };
+			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
 			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
@@ -151,19 +151,19 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 			BaseUserdeptjob isMasterDeptJob = this.getUserMasterDeptJob(user);
 			for (int i = 0; i < deptjobs.size(); i++) {
 				BaseDeptjob deptjob=deptjobs.get(i);
-				String uuid = deptjob.getUuid(); // 选择的部门岗位Id
+				String uuid = deptjob.getId(); // 选择的部门岗位Id
 				if (userHasJobMap.get(uuid) == null) {
 					// 如果当用户还没有设置的此部门岗位
 					BaseUserdeptjob userDeptJob = new BaseUserdeptjob();
 					userDeptJob.setDeptId(deptjob.getDeptId());
 					userDeptJob.setJobId(deptjob.getJobId());
 					userDeptJob.setDeptjobId(uuid);
-					userDeptJob.setUserId(user.getUuid());
+					userDeptJob.setUserId(user.getId());
 					userDeptJob.setCreateTime(new Date());
-					userDeptJob.setCreateUser(currentUser.getUuid());
+					userDeptJob.setCreateUser(currentUser.getId());
 					// 当前人没有主工作部门时将一个岗位设置为主部门
 					if (!ModelUtil.isNotNull(isMasterDeptJob) && i == 0) {
-						userDeptJob.setMasterDept(1);
+						userDeptJob.setIsMainDept(true);
 											
 						//--------判断是否要更新班级学生表(2018-3-15加入)-----------						
 						//是否为学生
@@ -174,19 +174,19 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 								
 								JwClassstudent classStudent=classstudentService.getByProerties(
 										new String[]{"studentId","isDelete"}, 		//新版本暂不根据学年学期来查
-										new Object[]{user.getUuid(),0});
+										new Object[]{user.getId(),0});
 								if(classStudent==null){
 									classStudent=new JwClassstudent();
-									classStudent.setClaiId(deptjob.getDeptId());
-									classStudent.setStudentId(user.getUuid());
-									classStudent.setCreateUser(currentUser.getXm());
+									classStudent.setClassId(deptjob.getDeptId());
+									classStudent.setStudentId(user.getId());
+									classStudent.setCreateUser(currentUser.getId());
 									classStudent.setSemester(currentUser.getSemester());
-									classStudent.setStudyYeah(String.valueOf(currentUser.getStudyYear()));
+									classStudent.setStudyYear(String.valueOf(currentUser.getStudyYear()));
 								}else{
 									classStudent.setSemester(currentUser.getSemester());
-									classStudent.setStudyYeah(String.valueOf(currentUser.getStudyYear()));
-									classStudent.setClaiId(deptjob.getDeptId());
-									classStudent.setUpdateUser(currentUser.getXm());
+									classStudent.setStudyYear(String.valueOf(currentUser.getStudyYear()));
+									classStudent.setClassId(deptjob.getDeptId());
+									classStudent.setUpdateUser(currentUser.getId());
 									classStudent.setUpdateTime(new Date());
 								}
 								classstudentService.merge(classStudent);			
@@ -196,7 +196,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 						
 						
 					} else
-						userDeptJob.setMasterDept(0);
+						userDeptJob.setIsMainDept(false);
 
 					this.merge(userDeptJob);
 				}
@@ -204,7 +204,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 			// 将老师从临时部门删除
 			user.setDeptId("");
 			user.setUpdateTime(new Date());
-			user.setUpdateUser(currentUser.getUuid());
+			user.setUpdateUser(currentUser.getId());
 			userService.merge(user);
 		}
 
@@ -231,7 +231,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 		for(int i=0;i<baseUserdeptjobs.size();i++){
 			BaseUserdeptjob userdeptjob=baseUserdeptjobs.get(i);
 			//若为主部门、班级部门、学生岗位，就执行更新操作
-			if(userdeptjob.getMasterDept()==1&&userdeptjob.getDeptType().equals("05")
+			if(userdeptjob.getIsMainDept()==true&&userdeptjob.getDeptType().equals("05")
 					&&userdeptjob.getJobName().equals("学生")){
 				
 				SysUser user=userService.get(userdeptjob.getUserId());
@@ -239,7 +239,7 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 				if(user!=null&&user.getCategory().equals("2")){
 					//将JwClassstudent设置为isDelete
 					String hql="update JwClassstudent set isDelete=1 where isDelete=0 "
-							+ "	and studentId='"+user.getUuid()+"' and claiId='"+userdeptjob.getDeptId()+"'";
+							+ "	and studentId='"+user.getId()+"' and claiId='"+userdeptjob.getDeptId()+"'";
 					classstudentService.doExecuteCountByHql(hql);
 				}
 			}
@@ -258,15 +258,15 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 		SysUser user = userService.get(userId);
 		BaseUserdeptjob oldMaster = this.getUserMasterDeptJob(user);
 		if (ModelUtil.isNotNull(oldMaster)) {
-			oldMaster.setMasterDept(0);
+			oldMaster.setIsMainDept(false);
 			oldMaster.setUpdateTime(new Date());
-			oldMaster.setUpdateUser(currentUser.getUuid());
+			oldMaster.setUpdateUser(currentUser.getId());
 			this.merge(oldMaster);
 		}
 		
 		// 将新的部门岗位设置为主部门岗位
 		String[] propertyName = { "masterDept", "updateTime", "updateUser" };
-		Object[] propertyValue = { 1, new Date(), currentUser.getUuid() };
+		Object[] propertyValue = { 1, new Date(), currentUser.getId() };
 		this.updateByProperties("uuid", delIds, propertyName, propertyValue);
 		
 		
@@ -289,16 +289,16 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 						new Object[]{userId,0});
 				if(classStudent==null){
 					classStudent=new JwClassstudent();
-					classStudent.setClaiId(newMaster.getDeptId());
+					classStudent.setClassId(newMaster.getDeptId());
 					classStudent.setStudentId(userId);
-					classStudent.setCreateUser(currentUser.getXm());
+					classStudent.setCreateUser(currentUser.getId());
 					classStudent.setSemester(currentUser.getSemester());
-					classStudent.setStudyYeah(String.valueOf(currentUser.getStudyYear()));
+					classStudent.setStudyYear(String.valueOf(currentUser.getStudyYear()));
 				}else{
 					classStudent.setSemester(currentUser.getSemester());
-					classStudent.setStudyYeah(String.valueOf(currentUser.getStudyYear()));
-					classStudent.setClaiId(newMaster.getDeptId());
-					classStudent.setUpdateUser(currentUser.getXm());
+					classStudent.setStudyYear(String.valueOf(currentUser.getStudyYear()));
+					classStudent.setClassId(newMaster.getDeptId());
+					classStudent.setUpdateUser(currentUser.getId());
 					classStudent.setUpdateTime(new Date());
 				}
 				classstudentService.merge(classStudent);			
@@ -338,14 +338,14 @@ public class SysUserdeptjobServiceImpl extends BaseServiceImpl<BaseUserdeptjob> 
 		String[] conditionName = { "masterDept", "userId" };
 		Object[] conditionValue = { 1, userArray };
 		String[] propertyName = { "masterDept", "updateTime", "updateUser" };
-		Object[] propertyValue = { 0, new Date(), currentUser.getUuid() };
+		Object[] propertyValue = { 0, new Date(), currentUser.getId() };
 		this.updateByProperties(conditionName, conditionValue, propertyName, propertyValue);
 
 		// 将新的部门岗位设置为主部门岗位
 		String[] conditionName2 = { "deptjobId", "userId" };
 		Object[] conditionValue2 = { deptJobId, userArray };
 		String[] propertyName2 = { "masterDept", "updateTime", "updateUser" };
-		Object[] propertyValue2 = { 1, new Date(), currentUser.getUuid() };
+		Object[] propertyValue2 = { 1, new Date(), currentUser.getId() };
 		this.updateByProperties(conditionName2, conditionValue2, propertyName2, propertyValue2);
 		return true;
 	}

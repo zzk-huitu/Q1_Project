@@ -27,7 +27,7 @@ public class BaseDicitem extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "字典ID", type = "varchar(20) NOT NULL", explain = "字典ID")
 	@Column(name = "dictId", columnDefinition = "varchar(20)", nullable = false)
-	private String ddicId;
+	private String dictId;
 
 	@FieldInfo(name = "字典项编码", type = "varchar(16) NOT NULL", explain = "字典项编码")
 	@Column(name = "itemCode", columnDefinition = "varchar(16)", nullable = false)
@@ -55,12 +55,12 @@ public class BaseDicitem extends BaseEntity implements Serializable {
 	@Formula("(SELECT a.nodeText FROM T_PT_DataDict a WHERE a.dictId=dictId)")
 	private String dicName;
 
-	public String getDdicId() {
-		return ddicId;
+	public String getDictId() {
+		return dictId;
 	}
 
-	public void setDdicId(String ddicId) {
-		this.ddicId = ddicId;
+	public void setDictId(String dictId) {
+		this.dictId = dictId;
 	}
 
 	public String getItemCode() {
