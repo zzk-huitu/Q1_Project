@@ -20,7 +20,7 @@ import com.zd.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "JW_T_OfficeAllot")
+@Table(name = "T_PT_OfficeAllot")
 @AttributeOverride(name = "id", column = @Column(name = "officeId", length = 20, nullable = false) )
 public class JwOfficeAllot extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

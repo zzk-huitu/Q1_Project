@@ -31,8 +31,8 @@ public class MjUserright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备主键Id", type = "varchar(20)", explain = "设备主键Id")
-	@Column(name = "deviceId", length = 20, nullable = false)
-	private String deviceId;
+	@Column(name = "termId", length = 20, nullable = false)
+	private String termId;
 
 	@FieldInfo(name = "人员主键Id", type = "varchar(20)", explain = "人员主键Id")
 	@Column(name = "userId", length = 20, nullable = false)
@@ -84,12 +84,12 @@ public class MjUserright extends BaseEntity implements Serializable {
 	@Formula("(select a.roomName from T_PT_RoomInfo a where a.roomId=(select b.roomId from T_PT_Term b where b.deviceId=deviceId) )")
 	private String roomName;
 
-	public String getDeviceId() {
-		return deviceId;
+	public String getTermId() {
+		return termId;
 	}
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
+	public void setTermId(String termId) {
+		this.termId = termId;
 	}
 
 	public String getUserId() {
