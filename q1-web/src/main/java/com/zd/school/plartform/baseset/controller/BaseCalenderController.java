@@ -51,8 +51,8 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 		List<JwCalender> list = thisService.queryByHql(hql);
 		for (JwCalender jwTCander : list) {
 			pageJson.append("{");
-			pageJson.append("\"text\":\"" + jwTCander.getCanderName() + "\",");
-			pageJson.append("\"uuid\":\"" + jwTCander.getUuid() + "\",");
+			pageJson.append("\"text\":\"" + jwTCander.getCalenderName() + "\",");
+			pageJson.append("\"uuid\":\"" + jwTCander.getId() + "\",");
 			pageJson.append("\"leaf\":true");
 			pageJson.append("}");
 			pageJson.append(",");
@@ -156,7 +156,7 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
 			} else {

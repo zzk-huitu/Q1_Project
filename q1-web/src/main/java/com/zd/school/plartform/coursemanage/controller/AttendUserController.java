@@ -126,7 +126,7 @@ public class AttendUserController extends FrameWorkController<AttUser> implement
 
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
-		thisService.doUserAttendBind(userIds, titleId, currentUser.getXm());// 执行增加方法
+		thisService.doUserAttendBind(userIds, titleId, currentUser.getId());// 执行增加方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功'"));
 

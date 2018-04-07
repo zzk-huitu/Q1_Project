@@ -91,12 +91,12 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 			
 			String menuId = entity.getMenuId();
 
-			String hql1 = " o.isDelete='0' and o.perName='" + entity.getPerName() + "'";
+			String hql1 = " o.isDelete='0' and o.perName='" + entity.getPermissionName() + "'";
 			if (thisService.IsFieldExist("menuId", menuId, "-1", hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"菜单功能权限名称不能重复！\""));
 				return;
 			}		
-			hql1 = " o.isDelete='0' and o.perBtnName='" + entity.getPerBtnName() + "'";
+			hql1 = " o.isDelete='0' and o.perBtnName='" + entity.getButtonName() + "'";
 			if (thisService.IsFieldExist("menuId", menuId, "-1", hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"菜单按钮别名不能重复！\""));
 				return;
@@ -127,7 +127,7 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 			return;
 		} else {
             SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -151,13 +151,13 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 			
 		String menuId = entity.getMenuId();
 
-		String hql1 = " o.isDelete='0' and o.perName='" + entity.getPerName() + "'";
-		if (thisService.IsFieldExist("menuId", menuId, entity.getUuid(), hql1)) {
+		String hql1 = " o.isDelete='0' and o.perName='" + entity.getPermissionName() + "'";
+		if (thisService.IsFieldExist("menuId", menuId, entity.getId(), hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"菜单功能权限名称不能重复！\""));
 			return;
 		}		
-		hql1 = " o.isDelete='0' and o.perBtnName='" + entity.getPerBtnName() + "'";
-		if (thisService.IsFieldExist("menuId", menuId, entity.getUuid(), hql1)) {
+		hql1 = " o.isDelete='0' and o.perBtnName='" + entity.getButtonName() + "'";
+		if (thisService.IsFieldExist("menuId", menuId, entity.getId(), hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"菜单按钮别名不能重复！\""));
 			return;
 		}

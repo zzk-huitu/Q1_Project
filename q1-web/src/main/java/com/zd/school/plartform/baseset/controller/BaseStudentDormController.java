@@ -22,26 +22,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
-import com.zd.core.constant.StatuVeriable;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.util.EntityUtil;
-import com.zd.core.util.ExportExcelAnnoUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.school.build.allot.model.DormStudentDorm;
-import com.zd.school.build.allot.model.DormTeacherDorm;
 import com.zd.school.build.allot.model.JwClassDormAllot;
 import com.zd.school.build.define.model.BuildDormDefine;
-import com.zd.school.plartform.baseset.model.BaseOrgChkTree;
 import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
 import com.zd.school.plartform.baseset.service.BaseStudentDormService;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
 import com.zd.school.plartform.comm.service.CommTreeService;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysOrgService;
@@ -160,12 +154,12 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 			node = nodeId;
 		}
 		SysUser currentUser = getCurrentSysUser();
-		CommTreeChk root = thisService.getUserRightDeptClassTree(node, currentUser); // (04-年级
+		CommTree root = thisService.getUserRightDeptClassTree(node, currentUser); // (04-年级
 																						// 05-班级)
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		} else {
-			List<CommTreeChk> alist = new ArrayList<CommTreeChk>();
+			List<CommTree> alist = new ArrayList<CommTree>();
 			alist.add(root);
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		}
@@ -314,11 +308,11 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 			Integer inAllotCount = (Integer) hashMap.get("inAllotCount");
 			if (count == 1) {
 				writeJSON(response, jsonBuilder.returnFailureJson(
-						"'该宿舍最大人数为：" + buildDormDefine.getDormBedCount() + "人。现已入住：" + inAllotCount + "。'"));
+						"'该宿舍最大人数为：" + buildDormDefine.getBedCount() + "人。现已入住：" + inAllotCount + "。'"));
 				return;
 			} else {
 				Integer canInAllotCount = (Integer) hashMap.get("canInAllotCount");
-				writeJSON(response, jsonBuilder.returnFailureJson("'该宿舍最大人数为：" + buildDormDefine.getDormBedCount()
+				writeJSON(response, jsonBuilder.returnFailureJson("'该宿舍最大人数为：" + buildDormDefine.getBedCount()
 						+ "人。现已入住：" + inAllotCount + "。可分配床位数为：" + canInAllotCount + "'"));
 				return;
 			}
@@ -385,14 +379,14 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 			JwClassDormAllot jwTClassdorm = null;
 			for (int j = 0; j < ids.length; j++) {
 				jwTClassdorm = classDormService.get(ids[j]);
-				boolean flag = thisService.IsFieldExist("cdormId", jwTClassdorm.getUuid(), "-1", "isdelete=0");
+				boolean flag = thisService.IsFieldExist("cdormId", jwTClassdorm.getId(), "-1", "isdelete=0");
 				if (flag) {
 					++count;
 				}
 				if (count == 0) {
 					defin = dormDefineService.get(jwTClassdorm.getDormId());
-					defin.setRoomStatus("0"); // 设置成未分配
-					defin.setIsMixed("0"); // 恢复为非混合宿舍
+					defin.setIsAllot(false); // 设置成未分配
+					defin.setIsMixed(false); // 恢复为非混合宿舍
 					dormDefineService.merge(defin); // 持久化
 					jwTClassdorm.setIsDelete(1); // 设置删除状态
 					classDormService.merge(jwTClassdorm); // 持久化
@@ -442,12 +436,12 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 			throws IOException {
 		boolean flag = false;
 		SysUser currentUser = getCurrentSysUser();
-		if (StringUtils.isEmpty(entity.getUuid())) {
+		if (StringUtils.isEmpty(entity.getId())) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			String[] delIds = entity.getUuid().split(",");
-			flag = thisService.doDeleteDorm(delIds, currentUser.getUuid());
+			String[] delIds = entity.getId().split(",");
+			flag = thisService.doDeleteDorm(delIds, currentUser.getId());
 
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"取消宿舍成功!\""));
@@ -468,10 +462,10 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 		// 获取当前的操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		String[] list = entity.getUuid().split(";");
+		String[] list = entity.getId().split(";");
 		int count = 0;
 
-		count = thisService.doUpdateBedArkNum(list, currentUser.getUuid());
+		count = thisService.doUpdateBedArkNum(list, currentUser.getId());
 
 		if (count > 0) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"保存成功。\""));
@@ -514,12 +508,12 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		for (DormStudentDorm stuDorm : stuDormList) {
 			stuDormMap = new LinkedHashMap<>();
-			stuDormMap.put("claiName", stuDorm.getClaiName());
+			stuDormMap.put("claiName", stuDorm.getClassName());
 			stuDormMap.put("xm", stuDorm.getXm());
 			stuDormMap.put("userNumb", stuDorm.getUserNumb());
 			stuDormMap.put("roomName", stuDorm.getRoomName());
-			stuDormMap.put("bedNum", stuDorm.getBedNum().toString());
-			stuDormMap.put("arkNum", stuDorm.getArkNum().toString());
+			stuDormMap.put("bedNum", stuDorm.getBedNo().toString());
+			stuDormMap.put("arkNum", stuDorm.getSarkNo().toString());
 			stuDormMap.put("inTime", format.format(stuDorm.getInTime()));
 			stuDormExpList.add(stuDormMap);
 		}
@@ -571,7 +565,7 @@ public class BaseStudentDormController extends FrameWorkController<DormStudentDo
 	 */
 	private String getClassIds(String areaId, SysUser currentUser) {
 
-		List<CommTreeChk> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
+		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {
 			if (x.getNodeType().equals("05") && x.getTreeid().indexOf(areaId) != -1)
 				return true;

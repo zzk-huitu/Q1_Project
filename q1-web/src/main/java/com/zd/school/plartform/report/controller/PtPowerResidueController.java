@@ -105,7 +105,7 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 				Object[] propValue = new Object[] { roomId, "9", 0 };
 				PtTerm term = termService.getByProerties(propName, propValue);
 				if (term != null) {
-					PtTermBags termBag = termBagsService.getByProerties("termSn", term.getTermSN());
+					PtTermBags termBag = termBagsService.getByProerties("termSn", term.getTermSn());
 					if (termBag != null)
 						temp.setMoneyResidue(termBag.getBagValue() + "");
 				}

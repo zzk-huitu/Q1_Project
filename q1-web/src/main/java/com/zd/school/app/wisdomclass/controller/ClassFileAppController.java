@@ -117,7 +117,7 @@ public class ClassFileAppController {
 			// 如果当前设备被分配到了特殊课程里
 			if (attTerms != null && attTerms.size() != 0) {
 
-				String titleIds = attTerms.stream().map(x -> x.getTitleId())
+				String titleIds = attTerms.stream().map(x -> x.getAttendThemeId())
 						.collect(Collectors.joining("','", "'", "'"));
 
 				StringBuffer hql = new StringBuffer("from AttTime where isDelete=0");
@@ -137,7 +137,7 @@ public class ClassFileAppController {
 
 				// 查询这些学生中，有哪些班级
 				// 获取这些特殊考勤的主题id
-				titleIds = everyWeek.stream().map(x -> x.getTitleId()).collect(Collectors.joining("','", "'", "'"));
+				titleIds = everyWeek.stream().map(x -> x.getAttendThemeId()).collect(Collectors.joining("','", "'", "'"));
 				String sql = "select distinct a.CLAI_ID from JW_T_CLASSSTUDENT a where a.ISDELETE=0 and "
 						+ "	a.STUDENT_ID in (select distinct USER_ID from ATT_T_USER where ISDELETE=0 and TITLE_ID in ("
 						+ titleIds + "))";
@@ -189,7 +189,7 @@ public class ClassFileAppController {
 				info.setMessageInfo("未找到该班级信息！");
 				return info;
 			}
-			attList = filterFile(classInfo.getUuid(), inType, maxSize);
+			attList = filterFile(classInfo.getId(), inType, maxSize);
 
 		}
 		
@@ -209,8 +209,8 @@ public class ClassFileAppController {
 //			pic.setPictureName(attUrl.substring(attUrl.lastIndexOf('/') + 1));
 			
 			/*文件地址，方式二：直接使用url的方式获取文件*/
-			pic.setPictureURL(virtualFileUrl+"/"+baseAttachment.getAttachUrl());
-			pic.setPictureName(baseAttachment.getAttachName());
+			pic.setPictureURL(virtualFileUrl+"/"+baseAttachment.getFileUrl());
+			pic.setPictureName(baseAttachment.getFileName());
 			picList.add(pic);
 		}
 
@@ -264,7 +264,7 @@ public class ClassFileAppController {
 			// 如果当前设备被分配到了特殊课程里
 			if (attTerms != null && attTerms.size() != 0) {
 
-				String titleIds = attTerms.stream().map(x -> x.getTitleId())
+				String titleIds = attTerms.stream().map(x -> x.getAttendThemeId())
 						.collect(Collectors.joining("','", "'", "'"));
 
 				StringBuffer hql = new StringBuffer("from AttTime where isDelete=0");
@@ -284,7 +284,7 @@ public class ClassFileAppController {
 
 				// 查询这些学生中，有哪些班级
 				// 获取这些特殊考勤的主题id
-				titleIds = everyWeek.stream().map(x -> x.getTitleId()).collect(Collectors.joining("','", "'", "'"));
+				titleIds = everyWeek.stream().map(x -> x.getAttendThemeId()).collect(Collectors.joining("','", "'", "'"));
 				String sql = "select distinct a.CLAI_ID from JW_T_CLASSSTUDENT a where a.ISDELETE=0 and"
 						+ "	a.STUDENT_ID in (select distinct USER_ID from ATT_T_USER where ISDELETE=0 and TITLE_ID in ("
 						+ titleIds + "))";
@@ -336,7 +336,7 @@ public class ClassFileAppController {
 				info.setMessageInfo("未找到该班级信息！");
 				return info;
 			}
-			attList = filterFile(classInfo.getUuid(), inType, maxSize);
+			attList = filterFile(classInfo.getId(), inType, maxSize);
 
 		}
 		
@@ -356,8 +356,8 @@ public class ClassFileAppController {
 //			vd.setVideoName(attUrl.substring(attUrl.lastIndexOf('/') + 1));
 			
 			/*文件地址，方式二：直接使用url的方式获取文件*/
-			vd.setVideoURL(virtualFileUrl+"/"+baseAttachment.getAttachUrl());
-			vd.setVideoName(baseAttachment.getAttachName());
+			vd.setVideoURL(virtualFileUrl+"/"+baseAttachment.getFileUrl());
+			vd.setVideoName(baseAttachment.getFileName()());
 			videoList.add(vd);
 		}
 		
@@ -384,22 +384,22 @@ public class ClassFileAppController {
 		int size = 0;
 		
 		if(!eleganeList.isEmpty()){
-			String recordIds=eleganeList.stream().map(x->x.getUuid()).collect(Collectors.joining("','","'","'"));
+			String recordIds=eleganeList.stream().map(x->x.getId()).collect(Collectors.joining("','","'","'"));
 			
 			hql = "from BaseAttachment where isDelete=0 and recordId in (" + recordIds + ") and attachType in(" + types
 					+ ") order by createTime desc";
 			List<BaseAttachment> attList = baseTAttachmentService.queryByHql(hql);
 			for (BaseAttachment baseAttachment : attList) {
-				if (size + baseAttachment.getAttachSize() <= maxSize) {
+				if (size + baseAttachment.getFileSize() <= maxSize) {
 					returnList.add(baseAttachment);
-					size += baseAttachment.getAttachSize();
+					size += baseAttachment.getFileSize();
 				}
 			}
 		}
 		
 		/*N次循环的方式*/
 //		for (EccClasselegant eccClasselegant : eleganeList) {
-//			hql = "from BaseAttachment where recordId='" + eccClasselegant.getUuid() + "' and attachType in(" + types
+//			hql = "from BaseAttachment where recordId='" + eccClasselegant.getId() + "' and attachType in(" + types
 //					+ ") order by createTime desc";
 //			List<BaseAttachment> attList = baseTAttachmentService.queryByHql(hql);
 //			for (BaseAttachment baseAttachment : attList) {

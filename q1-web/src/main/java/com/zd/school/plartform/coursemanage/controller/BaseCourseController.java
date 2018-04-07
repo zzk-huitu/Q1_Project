@@ -82,7 +82,7 @@ public class BaseCourseController extends FrameWorkController<JwTBasecourse> imp
         }
         
         // 获取当前操作用户
-        String userCh =  getCurrentSysUser().getXm();
+        String userCh =  getCurrentSysUser().getId();
         
         JwTBasecourse resultEntity=thisService.doAddEntity(entity, userCh);          
 
@@ -112,7 +112,7 @@ public class BaseCourseController extends FrameWorkController<JwTBasecourse> imp
 				return;
 			}
         	SysUser currentUser=getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
             } else {
@@ -132,7 +132,7 @@ public class BaseCourseController extends FrameWorkController<JwTBasecourse> imp
             throws IOException, IllegalAccessException, InvocationTargetException {
         //String courseCode = entity.getCourseCode();
         String courseName = entity.getCourseName();
-        String courseId = entity.getUuid();
+        String courseId = entity.getId();
         // 此处为放在入库前的一些检查的代码，如唯一校验等
 
         if (thisService.IsFieldExist("courseName", courseName, courseId)) {
@@ -141,7 +141,7 @@ public class BaseCourseController extends FrameWorkController<JwTBasecourse> imp
         }
 
         // 获取当前的操作用户
-        String userCh = getCurrentSysUser().getXm();
+        String userCh = getCurrentSysUser().getId();
 
         JwTBasecourse resultEntity=thisService.doUpdateEntity(entity, userCh, null);      
 

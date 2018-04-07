@@ -37,7 +37,7 @@ public class ShiroSecurityRealm extends AuthorizingRealm {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         SysUser user = sysUserService.getByProerties("userName", token.getUsername());
         if (user != null) {
-            return new SimpleAuthenticationInfo(user.getUuid(), user.getUserPwd(), getName());
+            return new SimpleAuthenticationInfo(user.getId(), user.getUserPwd(), getName());
         } else {
             //return null;
             throw new AuthenticationException();	//此处表明验证失败，抛出异常，捕获异常处在login的下面代码。

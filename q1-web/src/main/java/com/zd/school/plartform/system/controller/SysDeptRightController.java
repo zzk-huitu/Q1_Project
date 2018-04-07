@@ -115,7 +115,7 @@ public class SysDeptRightController extends FrameWorkController<SysDeptRight> im
 		String uuid=request.getParameter("userId");
 		String rightType=request.getParameter("rightType");
 		
-		thisService.doUpdateRightType(uuid,rightType,currentUser.getUuid());
+		thisService.doUpdateRightType(uuid,rightType,currentUser.getId());
 		
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"设置部门权限成功\""));

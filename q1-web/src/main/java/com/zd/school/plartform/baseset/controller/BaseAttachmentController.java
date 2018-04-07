@@ -94,7 +94,7 @@ public class BaseAttachmentController extends FrameWorkController<BaseAttachment
         String userCh = "超级管理员";
         SysUser currentUser = getCurrentSysUser();
         if (currentUser != null)
-            userCh = currentUser.getXm();
+            userCh = currentUser.getId();
 
         // 生成默认的orderindex
         // 如果界面有了排序号的输入，则不需要取默认的了
@@ -124,7 +124,7 @@ public class BaseAttachmentController extends FrameWorkController<BaseAttachment
             return;
         } else {
             SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
             } else {
@@ -146,7 +146,7 @@ public class BaseAttachmentController extends FrameWorkController<BaseAttachment
             return;
         } else {
             SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
             } else {
@@ -170,11 +170,11 @@ public class BaseAttachmentController extends FrameWorkController<BaseAttachment
         String userCh = "超级管理员";
         SysUser currentUser = getCurrentSysUser();
         if (currentUser != null)
-            userCh = currentUser.getXm();
+            userCh = currentUser.getId();
 
         // 先拿到已持久化的实体
         // entity.getSchoolId()要自己修改成对应的获取主键的方法
-        BaseAttachment perEntity = thisService.get(entity.getUuid());
+        BaseAttachment perEntity = thisService.get(entity.getId());
 
         // 将entity中不为空的字段动态加入到perEntity中去。
         BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -214,14 +214,14 @@ public class BaseAttachmentController extends FrameWorkController<BaseAttachment
     	HashMap<String, Object> maps=null;
     	for(BaseAttachment bt : list){
     		maps = new LinkedHashMap<>();
-    		maps.put("id", "SWFUpload_" + bt.getUuid());
-    		maps.put("name", bt.getAttachName());
-    		maps.put("size", bt.getAttachSize());
-    		maps.put("type", bt.getAttachType());
+    		maps.put("id", "SWFUpload_" + bt.getId());
+    		maps.put("name", bt.getFileName());
+    		maps.put("size", bt.getFileSize());
+    		maps.put("type", bt.getFileType());
     		maps.put("status", 0);
     		maps.put("percent", 100);
-    		maps.put("fileId", bt.getUuid());
-    		maps.put("fileUrl", virtualFileUrl +"/"+ bt.getAttachUrl());
+    		maps.put("fileId", bt.getId());
+    		maps.put("fileUrl", virtualFileUrl +"/"+ bt.getFileUrl());
     		lists.add(maps);
     	}
     	writeJSON(response,jsonBuilder.toJson(lists));

@@ -109,10 +109,10 @@ public class LoginController extends FrameWorkController<SysUser> implements Con
 		// login失败，要捕获相应异常
 		try {
 			// 执行login之后，会立即执行Realm的getAuthenticationInfo方法，用来判断token信息是否正确。
-			subject.login(new UsernamePasswordToken(sysUser.getUserName(), pwd, sysUserModel.isRememberMe()));
+			subject.login(new UsernamePasswordToken(sysUser.getUserName(), pwd, sysUserModel.getRememberMe()));
 
 			// 判断 用户ID和会话ID是否已经存在数据库中
-			String userId = sysUser.getUuid();
+			String userId = sysUser.getId();
 			String sessionId = (String) session.getId();
 
 			// 先判断此sessionID是否已经存在，若存在且userid不等于当前的，且没有登记退出时间，则设置为退出
@@ -360,9 +360,9 @@ public class LoginController extends FrameWorkController<SysUser> implements Con
 		// DictionaryItemCache.clearAll();
 		SysUser sysUser = getCurrentSysUser();
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
-		hashOper.delete("userMenuTree", sysUser.getUuid());
-		hashOper.delete("userAuth", sysUser.getUuid());
-		hashOper.delete("userBtn", sysUser.getUuid());
+		hashOper.delete("userMenuTree", sysUser.getId());
+		hashOper.delete("userAuth", sysUser.getId());
+		hashOper.delete("userBtn", sysUser.getId());
 
 		/**
 		 * 删除部门权限树的缓存数据 在什么情况下执行？ 1.在给用户添加、删除部门岗位时(SysUserdeptjobServiceImpl)
@@ -373,9 +373,9 @@ public class LoginController extends FrameWorkController<SysUser> implements Con
 		 * 6.在进行添加、删除教师任课时，也会删除用户的缓存（JwCourseteacherServiceImpl）
 		 * 7.在进行添加、删除班主任时，也会删除用户的缓存（JwClassteacherServiceImpl）
 		 */
-		hashOper.delete("userRightDeptTree", sysUser.getUuid());
-		hashOper.delete("userRightDeptClassTree", sysUser.getUuid());
-		hashOper.delete("userRightDeptDisciplineTree", sysUser.getUuid());
+		hashOper.delete("userRightDeptTree", sysUser.getId());
+		hashOper.delete("userRightDeptClassTree", sysUser.getId());
+		hashOper.delete("userRightDeptDisciplineTree", sysUser.getId());
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"缓存清除成功\""));	
 	}

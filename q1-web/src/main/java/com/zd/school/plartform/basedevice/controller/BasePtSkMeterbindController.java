@@ -92,7 +92,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		thisService.doMeterBind(termId, termSn, meterId, currentUser.getXm());
+		thisService.doMeterBind(termId, termSn, meterId, currentUser.getId());
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功'"));
 	 }
@@ -110,7 +110,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
 			} else {
@@ -147,7 +147,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
 			} else {
@@ -171,11 +171,11 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 		String userCh = "超级管理员";
 		SysUser currentUser = getCurrentSysUser();
 		if (currentUser != null)
-			userCh = currentUser.getXm();
+			userCh = currentUser.getId();
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		PtSkMeterbind perEntity = thisService.get(entity.getUuid());
+		PtSkMeterbind perEntity = thisService.get(entity.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);

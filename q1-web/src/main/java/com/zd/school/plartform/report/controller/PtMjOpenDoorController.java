@@ -157,7 +157,7 @@ public class PtMjOpenDoorController extends FrameWorkController<PtMjOpenDoor> im
 			mjOpenDoorMap.put("userName", mjOpenDoor.getUserName());
 			mjOpenDoorMap.put("openDate", format.format(mjOpenDoor.getOpenDate()));
 			mjOpenDoorMap.put("roomArea", mjOpenDoor.getRoomArea());
-			mjOpenDoorMap.put("inoutType", mjOpenDoor.getInoutType());
+			mjOpenDoorMap.put("inoutType", mjOpenDoor.getInOutType());
 			mjOpenDoorMap.put("openType", mjOpenDoor.getOpenType());
 			i++;
 			mjOpenDoorExpList.add(mjOpenDoorMap);

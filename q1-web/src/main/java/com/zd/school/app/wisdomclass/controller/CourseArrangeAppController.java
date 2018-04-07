@@ -124,7 +124,7 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 					jca.setCourseName05(funcroomcourse.getClassName05());
 					jca.setCourseName06(funcroomcourse.getClassName06());
 					jca.setCourseName07(funcroomcourse.getClassName07());
-					jca.setTeachTime(funcroomcourse.getTeachTime());
+					jca.setSections(funcroomcourse.getSections());
 					jca.setWeekOne(funcroomcourse.getCourseName01());
 					jca.setWeekTwo(funcroomcourse.getCourseName02());
 					jca.setWeekThree(funcroomcourse.getCourseName03());
@@ -257,17 +257,17 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 					tempTime = jkc.getEndTime().trim().split(":");
 					int tempEndHour = Integer.parseInt(tempTime[0]);
 					int tempEndMinute = Integer.parseInt(tempTime[1]);
-					if (tempBeginMinute - checkrule.getInBefore() < 0) {
+					if (tempBeginMinute - checkrule.getInAdvanceTime() < 0) {
 						tempBeginHour -= 1;
-						tempBeginMinute = tempBeginMinute - checkrule.getInBefore() + 60;
+						tempBeginMinute = tempBeginMinute - checkrule.getInAdvanceTime() + 60;
 					} else {
-						tempBeginMinute = tempBeginMinute - checkrule.getInBefore();
+						tempBeginMinute = tempBeginMinute - checkrule.getInAdvanceTime();
 					}
-					if (tempEndMinute + checkrule.getOutBefore() >= 60) {
+					if (tempEndMinute + checkrule.getOutAdvanceTimme() >= 60) {
 						tempEndHour += 1;
-						tempEndMinute = tempEndMinute + checkrule.getOutBefore() - 60;
+						tempEndMinute = tempEndMinute + checkrule.getOutAdvanceTimme() - 60;
 					} else {
-						tempEndMinute = tempEndMinute + checkrule.getOutBefore();
+						tempEndMinute = tempEndMinute + checkrule.getOutAdvanceTimme();
 					}
 
 					// if (tempBeginHour < hour) continue;
@@ -318,13 +318,13 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 				tempTime = jkc.getEndTime().trim().split(":");
 				int tempEndHour = Integer.parseInt(tempTime[0]);
 				int tempEndMinute = Integer.parseInt(tempTime[1]);
-				if (tempBeginMinute - checkrule.getInBefore() < 0) {
+				if (tempBeginMinute - checkrule.getInAdvanceTime() < 0) {
 					tempBeginHour -= 1;
-					tempBeginMinute = tempBeginMinute - checkrule.getInBefore() + 60;
+					tempBeginMinute = tempBeginMinute - checkrule.getInAdvanceTime() + 60;
 				}
-				if (tempEndMinute + checkrule.getOutBefore() >= 60) {
+				if (tempEndMinute + checkrule.getOutAdvanceTimme() >= 60) {
 					tempEndHour += 1;
-					tempEndMinute = tempEndMinute + checkrule.getOutBefore() - 60;
+					tempEndMinute = tempEndMinute + checkrule.getOutAdvanceTimme() - 60;
 				}
 				if (DateUtil.isInZone(DateUtil.getLong(tempBeginHour + ":" + tempBeginMinute),
 						DateUtil.getLong(tempEndHour + ":" + tempEndMinute), DateUtil.getCurrentTime())){
@@ -406,7 +406,7 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 				//找到了作息时间
 				if(calender!=null){
 					propName = new String[] { "canderId", "isDelete" };
-					propValue = new Object[] { calender.getUuid(), 0 };
+					propValue = new Object[] { calender.getId(), 0 };
 					canderDetilList = canderDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
 				}
 			}
@@ -429,7 +429,7 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 			
 			//获取jcCode字段不为空的数据
 			List<JwCalenderdetail> canderDetilListed = canderDetilList.stream()
-					.filter(x->StringUtils.isNotEmpty(x.getJcCode()))
+					.filter(x->StringUtils.isNotEmpty(x.getSenctionCode()))
 					.collect(Collectors.toList());			
 //			List<JwCalenderdetail> canderDetilListed = new ArrayList<JwCalenderdetail>();
 //			for (JwCalenderdetail jtc : canderDetilList) {
@@ -451,9 +451,9 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 				JKCourse jc = new JKCourse();
 				boolean flag = false;
 				for (JwCourseArrange tempJta : jtaList) {
-					if (tempJtc.getJcCode().equals(tempJta.getTeachTime())) {
-						jc.setTeachTime(tempJtc.getJcCode());
-						jc.setJcName(tempJtc.getJcName());
+					if (tempJtc.getSenctionCode().equals(tempJta.getSections())) {
+						jc.setTeachTime(tempJtc.getSenctionCode());
+						jc.setJcName(tempJtc.getSenctionName());
 						jc.setBeginTime(simpl.format(tempJtc.getBeginTime()));
 						jc.setEndTime(simpl.format(tempJtc.getEndTime()));
 						jc.setNeedSignIn(tempJtc.getNeedSignIn());
@@ -557,7 +557,7 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 			
 			//获取功能室课程
 			StringBuffer hql = new StringBuffer("from JwFuncroomcourse where isDelete=0 and funcRoomId='");
-			hql.append(funcRoom.getUuid()).append("'  order by teachTime asc");
+			hql.append(funcRoom.getId()).append("'  order by teachTime asc");
 			List<JwFuncroomcourse> jtaList = funcroomService.queryByHql(hql.toString());// 执行查询方法得到课程表					
 			if (jtaList == null || jtaList.size() <= 0) {
 				jctd.setMessage(false);
@@ -567,7 +567,7 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 			
 			//获取jcCode字段不为空的数据
 			List<JwCalenderdetail> canderDetilListed = canderDetilList.stream()
-					.filter(x->StringUtils.isNotEmpty(x.getJcCode()))
+					.filter(x->StringUtils.isNotEmpty(x.getSenctionCode()))
 					.collect(Collectors.toList());			
 			// 数据处理
 //			List<JwCalenderdetail> canderDetilListed = new ArrayList<JwCalenderdetail>();
@@ -586,8 +586,8 @@ public class CourseArrangeAppController extends FrameWorkController<JwCourseArra
 				JKCourse jc = new JKCourse();
 				boolean flag = false;
 				for (JwFuncroomcourse tempJta : jtaList) {
-					if (tempJtc.getJcCode().equals(tempJta.getTeachTime())) {
-						jc.setJcName(tempJtc.getJcName());
+					if (tempJtc.getSenctionCode().equals(tempJta.getSections())) {
+						jc.setJcName(tempJtc.getSenctionName());
 						jc.setBeginTime(simpl.format(tempJtc.getBeginTime()));
 						jc.setEndTime(simpl.format(tempJtc.getEndTime()));
 						jc.setNeedSignIn(tempJtc.getNeedSignIn());

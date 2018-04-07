@@ -219,14 +219,14 @@ public class PtSkTermStatusController extends FrameWorkController<PtSkTermStatus
 			skTermStatusMap.put("statusDate", format.format(skTermStatus.getStatusDate()));
 			skTermStatusMap.put("measure", skTermStatus.getMeasure().toString());
 			skTermStatusMap.put("price", skTermStatus.getPrice().toString());
-			skTermStatusMap.put("useliter", String.valueOf(skTermStatus.getUseliter()));
-			skTermStatusMap.put("totalusedliter", String.valueOf(skTermStatus.getTotalusedliter()));
-			skTermStatusMap.put("usepulse", String.valueOf(skTermStatus.getUsepulse()));
-			skTermStatusMap.put("totalusedpulse", String.valueOf(skTermStatus.getTotalusedpulse()));
-			skTermStatusMap.put("usemoney", skTermStatus.getUsemoney().toString());
-			skTermStatusMap.put("totalusedmoney", skTermStatus.getTotalusedmoney().toString());
-			skTermStatusMap.put("totalrecord", String.valueOf(skTermStatus.getTotalrecord()));
-			skTermStatusMap.put("uploadrecord", String.valueOf(skTermStatus.getUploadrecord()));
+			skTermStatusMap.put("useliter", String.valueOf(skTermStatus.getUseLiter()));
+			skTermStatusMap.put("totalusedliter", String.valueOf(skTermStatus.getTotalUsedLiter()));
+			skTermStatusMap.put("usepulse", String.valueOf(skTermStatus.getUsePulse()));
+			skTermStatusMap.put("totalusedpulse", String.valueOf(skTermStatus.getTotalUsedPulse()));
+			skTermStatusMap.put("usemoney", skTermStatus.getUseMoney().toString());
+			skTermStatusMap.put("totalusedmoney", skTermStatus.getTotalUsedMoney().toString());
+			skTermStatusMap.put("totalrecord", String.valueOf(skTermStatus.getTotalRecord()));
+			skTermStatusMap.put("uploadrecord", String.valueOf(skTermStatus.getUploadRecord()));
 			i++;
 			skTermStatusExpList.add(skTermStatusMap);
 		}

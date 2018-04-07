@@ -146,7 +146,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 			info.setMessageInfo("找不到班主任信息！");
 			return info; 
 		}
-		String teacherId = calssTeacher.getTteacId();
+		String teacherId = calssTeacher.getTeacherId();
 		List<TeaTeacherbase> teacherList = teacherService.queryByProerties("uuid", teacherId);
 		if (teacherList.isEmpty()) {
 			info.setMessage(false);
@@ -160,7 +160,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		String today = DateUtil.formatDate(date);
 		
 		//查询班级星级信息
-		String hql = "from EccClassstar where isDelete=0 and claiId='" + classInfo.getUuid() + "' and beginDate<='"
+		String hql = "from EccClassstar where isDelete=0 and claiId='" + classInfo.getId() + "' and beginDate<='"
 				+ today + "' and endDate>='" + today + "'";
 		List<EccClassstar> classstarList = starService.queryByHql(hql);
 		if (!classstarList.isEmpty()) {
@@ -169,7 +169,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		}
 		
 		//查询班级红旗信息(显示最新的红旗)
-		hql = "from EccClassredflag where isDelete=0 and claiId='" + classInfo.getUuid() + "' and beginDate<='" + today
+		hql = "from EccClassredflag where isDelete=0 and claiId='" + classInfo.getId() + "' and beginDate<='" + today
 				+ "' and endDate>='" + today + "' order by redflagType";
 		List<EccClassredflag> classflagList = flagService.queryByHql(hql);
 		if (classflagList != null && classflagList.size() > 0) {
@@ -177,7 +177,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 				for (int i = 1; i < classflagList.size(); i++) {
 					EccClassredflag before = classflagList.get(i - 1);
 					EccClassredflag now = classflagList.get(i);
-					if (before.getRedflagType().equals(now.getRedflagType())) {
+					if (before.getRedFlagType().equals(now.getRedFlagType())) {
 						classflagList.remove(before);
 					    i--;
 					}
@@ -235,7 +235,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 				//找到了作息时间
 				if(calender!=null){
 					propName = new String[] { "canderId", "isDelete" };
-					propValue = new Object[] { calender.getUuid(), 0 };
+					propValue = new Object[] { calender.getId(), 0 };
 					List<JwCalenderdetail> calenderDetails = calendarDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
 					
 					
@@ -246,7 +246,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 						if (calenderdetail.getEndTime() != null) {
 							String tE = DateUtil.formatDate(calenderdetail.getEndTime(), "HH:mm:ss");
 							if (DateUtil.isInZone(DateUtil.getLong(tS), DateUtil.getLong(tE), DateUtil.getCurrentTime())) {
-								teachTime = calenderdetail.getJcCode(); 
+								teachTime = calenderdetail.getSenctionCode(); 
 								break;
 							}
 						}

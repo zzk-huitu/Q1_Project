@@ -50,7 +50,7 @@ public class PtTask extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "任务数据", type = "varbinary(255)", explain = "任务数据")
 	@Column(name = "taskData", nullable = true)
-	private Byte[] taskData;
+	private byte[] taskData;
 
 	@FieldInfo(name = "超时时间", type = "int NOT NULL", explain = "超时时间")
 	@Column(name = "timeOut", nullable = false)
@@ -137,11 +137,11 @@ public class PtTask extends BaseEntity implements Serializable {
 		this.termSn = termSn;
 	}
 
-	public Byte[] getTaskData() {
+	public byte[] getTaskData() {
 		return taskData;
 	}
 
-	public void setTaskData(Byte[] taskData) {
+	public void setTaskData(byte[] taskData) {
 		this.taskData = taskData;
 	}
 

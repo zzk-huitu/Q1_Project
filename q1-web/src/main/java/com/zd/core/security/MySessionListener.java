@@ -28,7 +28,7 @@ public class MySessionListener implements SessionListener {
         SysUser sysuser = (SysUser) session.getAttribute("SESSION_SYS_USER");
         // session.getAttribute("kickout"));  
         
-        String userId=sysuser.getUuid();
+        String userId=sysuser.getId();
         String sessionId=(String) session.getId();
      
         String hql="from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
@@ -46,7 +46,7 @@ public class MySessionListener implements SessionListener {
              
         SysUser sysuser = (SysUser) session.getAttribute("SESSION_SYS_USER");
               
-        String userId=sysuser.getUuid();
+        String userId=sysuser.getId();
         String sessionId=(String) session.getId();
      
         String hql="from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";

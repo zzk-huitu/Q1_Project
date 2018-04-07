@@ -248,10 +248,10 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 		Map<String, String> terminfoMap = null;
 		for (OaInfoterm terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
-			terminfoMap.put("termCode", terminfo.getTermCode());
-			terminfoMap.put("termType", terminfo.getTermType());
-			terminfoMap.put("termSpec", terminfo.getTermSpec());
-			terminfoMap.put("isUse", terminfo.getIsUse() == 0 ? "未使用" : "已使用");
+			terminfoMap.put("termCode", terminfo.getTerminalNo());
+			terminfoMap.put("termType", terminfo.getTerminalType());
+			terminfoMap.put("termSpec", terminfo.getTerminalSpec());
+			terminfoMap.put("isUse", terminfo.getIsUse() == false? "未使用" : "已使用");
 			terminfoMap.put("roomName", terminfo.getRoomName());
 			terminfoExpList.add(terminfoMap);
 		}
@@ -295,8 +295,8 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 		Map<String, String> terminfoMap = null;
 		for (OaInfoterm terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
-			terminfoMap.put("termCode", terminfo.getTermCode());
-			terminfoMap.put("houseNumb", terminfo.getHouseNumb());
+			terminfoMap.put("termCode", terminfo.getTerminalNo());
+			terminfoMap.put("houseNumb", terminfo.getHouseNo());
 			terminfoMap.put("roomName", terminfo.getRoomName());
 			terminfoExpList.add(terminfoMap);
 		}

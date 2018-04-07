@@ -171,7 +171,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<PtIrRoomDe
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 		
-		thisService.doBindRoomBrand(entity.getRoomId(),entity.getBrandId(),currentUser.getXm());
+		thisService.doBindRoomBrand(entity.getRoomId(),entity.getBrandId(),currentUser.getId());
 			
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"绑定成功\""));
 	}
@@ -192,7 +192,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<PtIrRoomDe
 		} else {
 			SysUser currentUser = getCurrentSysUser();
 			try {
-				boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE, currentUser.getXm());
+				boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE, currentUser.getId());
 				if (flag) {
 					writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 				} else {
@@ -330,11 +330,11 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<PtIrRoomDe
 				List excued = new ArrayList<String>();
 				
 				for (PtTerm t : list) {
-					if (excued.contains(t.getTermSN()))
+					if (excued.contains(t.getTermSn()))
 						continue;
 					for (Long irDataNo : irDataNos) {
-						qResult += t.getTermName() + t.getTermSN() + ":";
-						String result = irSend(t.getTermSN(), irDataNo + "", currentUser.getUuid());
+						qResult += t.getTermName() + t.getTermSn() + ":";
+						String result = irSend(t.getTermSn(), irDataNo + "", currentUser.getId());
 						Map map = JSONObject.fromObject(result);
 						if ((boolean) map.get("result")) {
 							// excued.add(t.getTermSN());

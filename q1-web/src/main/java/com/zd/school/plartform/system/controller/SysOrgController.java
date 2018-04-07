@@ -24,7 +24,6 @@ import com.zd.core.util.EntityUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.baseset.model.BaseOrg;
-import com.zd.school.plartform.baseset.model.BaseOrgChkTree;
 import com.zd.school.plartform.baseset.model.BaseOrgToUP;
 import com.zd.school.plartform.baseset.model.BaseOrgTree;
 import com.zd.school.plartform.system.model.SysUser;
@@ -78,7 +77,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		String excludes = super.excludes(request);
 
 		SysUser currentUser = getCurrentSysUser();
-		List<BaseOrgChkTree> lists = thisService.getOrgTreeList(whereSql, orderSql,deptId, currentUser);
+		List<BaseOrgTree> lists = thisService.getOrgTreeList(whereSql, orderSql,deptId, currentUser);
 
 		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -110,11 +109,11 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		}
 		
 		SysUser currentUser = getCurrentSysUser();
-		BaseOrgChkTree root = thisService.getUserRightDeptTree(currentUser, node);
+		BaseOrgTree root = thisService.getUserRightDeptTree(currentUser, node);
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		} else {
-			List<BaseOrgChkTree> alist = new ArrayList<BaseOrgChkTree>();
+			List<BaseOrgTree> alist = new ArrayList<BaseOrgTree>();
 			alist.add(root);
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		}
@@ -132,7 +131,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		
 		SysUser currentUser=getCurrentSysUser();
 		
-		List<BaseOrgChkTree> baseOrgList = thisService.getUserRightDeptTreeList(currentUser);
+		List<BaseOrgTree> baseOrgList = thisService.getUserRightDeptTreeList(currentUser);
 		String deptIds = baseOrgList.stream().filter((x) -> x.getIsRight().equals("1"))
 				.map((x) -> x.getId()).collect(Collectors.joining("','"));					
 		
@@ -236,7 +235,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		String parentNode = entity.getParentNode();
 		String parentName = entity.getParentName();
 		String nodeText = entity.getNodeText();
-		String uuid = entity.getUuid();
+		String uuid = entity.getId();
 		Integer orderIndex = entity.getOrderIndex();
 	//	Integer defaultOrderIndex = Integer.valueOf(0);
 
@@ -267,7 +266,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 */
 		SysUser currentUser = getCurrentSysUser();
 
-		entity = thisService.doUpdate(entity, currentUser.getUuid());		
+		entity = thisService.doUpdate(entity, currentUser.getId());		
 		
 		
 		if (entity == null){

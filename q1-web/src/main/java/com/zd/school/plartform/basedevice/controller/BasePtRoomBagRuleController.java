@@ -78,7 +78,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 		
-		entity = thisService.doAddEntity(entity, currentUser.getXm());
+		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -114,7 +114,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 						
 			SysUser sysuser = getCurrentSysUser();
 
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, sysuser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, sysuser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -136,7 +136,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 			return;
 		} else {
 			SysUser sysuser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, sysuser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, sysuser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
 			} else {
@@ -161,7 +161,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 		
 		String hql1 = " o.isDelete='0' ";
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		if (thisService.IsFieldExist("roomRuleName", entity.getRoomRuleName(), entity.getUuid(), hql1)) {
+		if (thisService.IsFieldExist("roomRuleName", entity.getRoomRuleName(), entity.getId(), hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"钱包规则名称不能重复！\""));
 			return;
 		}
@@ -169,7 +169,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 		// 获取当前的操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		entity = thisService.doUpdateEntity(entity, currentUser.getXm(), null);
+		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

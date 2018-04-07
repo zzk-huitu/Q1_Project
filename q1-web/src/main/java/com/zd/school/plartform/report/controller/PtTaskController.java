@@ -84,11 +84,11 @@ public class PtTaskController extends FrameWorkController<PtTask> implements Con
 	@RequestMapping("/baseParam_read")
 	public void baseParam_read(TLVModel tlvs, HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
-		PtTask perEntity = thisService.get(tlvs.getUuid());
+		PtTask perEntity = thisService.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		String strData ="";
-		if(perEntity.getTaskdata()!=null){
-			List<TagLenVal> list=TLVUtils.decode(perEntity.getTaskdata(), tlvs.getTlvs());
+		if(perEntity.getTaskData()!=null){
+			List<TagLenVal> list=TLVUtils.decode(perEntity.getTaskData(), tlvs.getTlvs());
 			tlvs.setTlvs(list);
 			strData = JsonBuilder.getInstance().buildList(tlvs.getTlvs(), "");// 处理数据
 		}
@@ -137,18 +137,18 @@ public class PtTaskController extends FrameWorkController<PtTask> implements Con
 		for (PtTask ptTask : ptTaskList) {
 			ptTasMap = new LinkedHashMap<>();
 			ptTasMap.put("xh",i+"");
-			ptTasMap.put("taskno", ptTask.getTaskno());
-			ptTasMap.put("taskdate", ptTask.getTaskdate());
-			ptTasMap.put("tasktype", mapDicItem.get(ptTask.getTasktype() + "TASKTYPE"));
-			ptTasMap.put("devicetype", mapDicItem.get(ptTask.getDevicetype() + "PTTERMTYPE"));
-			ptTasMap.put("termsn", ptTask.getTermsn());
+			ptTasMap.put("taskno", ptTask.getTaskNo());
+			ptTasMap.put("taskdate", ptTask.getTaskDate());
+			ptTasMap.put("tasktype", mapDicItem.get(ptTask.getTaskType() + "TASKTYPE"));
+			ptTasMap.put("devicetype", mapDicItem.get(ptTask.getTermType() + "PTTERMTYPE"));
+			ptTasMap.put("termsn", ptTask.getTermSn());
 			ptTasMap.put("termName", ptTask.getTermName());
-			ptTasMap.put("retrycount", ptTask.getRetrycount().toString());
-			ptTasMap.put("executecount", ptTask.getExecutecount().toString());
-			ptTasMap.put("executetime", format.format(ptTask.getExecutetime()));
-			ptTasMap.put("executeresult", ptTask.getExecuteresult()==true?"成功":"失败");
-			ptTasMap.put("istaskover", ptTask.getIstaskover()==true?"是":"否");
-			ptTasMap.put("resultmsg", ptTask.getResultmsg());
+			ptTasMap.put("retrycount", ptTask.getRetryCount().toString());
+			ptTasMap.put("executecount", ptTask.getExecuteCount().toString());
+			ptTasMap.put("executetime", format.format(ptTask.getExecuteTime()));
+			ptTasMap.put("executeresult", ptTask.getExecuteResult()==true?"成功":"失败");
+			ptTasMap.put("istaskover", ptTask.getIsTaskOver()==true?"是":"否");
+			ptTasMap.put("resultmsg", ptTask.getResultMsg());
 			i++;
 			ptTasExpList.add(ptTasMap);
 		}

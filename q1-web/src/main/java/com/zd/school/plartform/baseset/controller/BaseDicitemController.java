@@ -77,7 +77,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 	public void doAdd(BaseDicitem entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		String dicId = entity.getDicId();
+		String dicId = entity.getDictId();
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 		String hql = " o.dicId='" + dicId + "' and o.isDelete='0'";
@@ -93,7 +93,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 		// 获取当前操作用户	
 		SysUser currentUser = getCurrentSysUser();		
 		                
-        entity=thisService.doAdd(entity,currentUser.getXm());     
+        entity=thisService.doAdd(entity,currentUser.getId());     
         
         if(entity==null)
         	writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -117,8 +117,8 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 			return;
 		} else {
             SysUser currentUser = getCurrentSysUser();
-			//boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
-            boolean flag = thisService.doDeleteOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+			//boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
+            boolean flag = thisService.doDeleteOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {			
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -140,8 +140,8 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 			return;
 		} else {
             SysUser currentUser = getCurrentSysUser();
-			//boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
-            boolean flag = thisService.doDeleteOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+			//boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
+            boolean flag = thisService.doDeleteOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {				
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
 			} else {
@@ -164,15 +164,15 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 	public void doUpdate(BaseDicitem entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		String dicId = entity.getDicId();
+		String dicId = entity.getDictId();
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 		String hql = " o.dicId='" + dicId + "' and o.isDelete='0'";
-		if (thisService.IsFieldExist("itemName", entity.getItemName(), entity.getUuid(), hql)) {
+		if (thisService.IsFieldExist("itemName", entity.getItemName(), entity.getId(), hql)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"同一字典下的字典项名称不能相同！\""));
 			return;
 		}
-		if (thisService.IsFieldExist("itemCode", entity.getItemCode(), entity.getUuid(), hql)) {
+		if (thisService.IsFieldExist("itemCode", entity.getItemCode(), entity.getId(), hql)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"同一字典下的字典项编码不能相同！\""));
 			return;
 		}
@@ -180,7 +180,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 		// 获取当前的操作用户	
 		SysUser currentUser = getCurrentSysUser();		
 			
-        entity=thisService.doUpdate(entity, currentUser.getXm());
+        entity=thisService.doUpdate(entity, currentUser.getId());
         
         if(entity==null)
        	 	writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));
@@ -207,7 +207,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 		if (baseDicItem == null) { // 若存在，则不需要设置
 		
 			BaseDic dictionary = dictionaryService.getByProerties("dicCode", dicCode);
-			String hql = " from BaseDicitem where isDelete=0 and dicId='" + dictionary.getUuid()
+			String hql = " from BaseDicitem where isDelete=0 and dicId='" + dictionary.getId()
 					+ "' order by orderIndex asc, itemCode asc ";
 			List<BaseDicitem> lists = thisService.queryByHql(hql);
 			strData = jsonBuilder.buildObjListToJson(new Long(lists.size()), lists, false);

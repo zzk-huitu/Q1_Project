@@ -98,7 +98,7 @@ public class BasePtSkMeterController extends FrameWorkController<PtSkMeter> impl
 			}
 			
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {

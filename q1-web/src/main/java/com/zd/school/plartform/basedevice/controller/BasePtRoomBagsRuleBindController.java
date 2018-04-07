@@ -146,12 +146,12 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<PtRoom
 			dormDefine = dormDefinService.getByProerties(name, value);
 			if (dormDefine != null) {
 				String[] name2 = { "dormId", "isDelete" };
-				Object[] value2 = { dormDefine.getUuid(), 0 };
+				Object[] value2 = { dormDefine.getId(), 0 };
 				classDorm = classDormService.queryByProerties(name2, value2);
 				if (classDorm != null) {
 					for (int i = 0; i < classDorm.size(); i++) {
 						String[] name3 = { "cdormId", "isDelete" };
-						Object[] value3 = { classDorm.get(i).getUuid(), 0 };
+						Object[] value3 = { classDorm.get(i).getId(), 0 };
 						list = dormStuService.queryByProerties(name3, value3);
 						if (list.size() > 0)
 							stuList.addAll(list);
@@ -187,7 +187,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<PtRoom
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		thisService.doAddRuleBind(roomRuleId,roomIds,deductionUserIds,deductionRoomIds,currentUser.getXm());
+		thisService.doAddRuleBind(roomRuleId,roomIds,deductionUserIds,deductionRoomIds,currentUser.getId());
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功！\""));	
 		
@@ -207,7 +207,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<PtRoom
 		} else {
 			SysUser sysuser=getCurrentSysUser();
 			
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,sysuser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,sysuser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -244,7 +244,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<PtRoom
 			return;
 		} else {
 			SysUser sysuser=getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,sysuser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,sysuser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
 			} else {
@@ -267,7 +267,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<PtRoom
 		// 获取当前的操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		entity = thisService.doUpdateEntity(entity, currentUser.getXm(),null);
+		entity = thisService.doUpdateEntity(entity, currentUser.getId(),null);
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

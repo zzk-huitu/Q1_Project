@@ -106,7 +106,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
 		entity.setOrderIndex(defaultOrderIndex);
         SysUser currentUser = getCurrentSysUser();    
         
-        entity = thisService.doAddEntity(entity, currentUser.getXm());
+        entity = thisService.doAddEntity(entity, currentUser.getId());
         
         if(entity==null)
         	writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -139,7 +139,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
 			}
         				
         	SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
             } else {
@@ -161,7 +161,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
             return;
         } else {
         	SysUser currentUser = getCurrentSysUser();
-        	boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+        	boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
             } else {
@@ -183,7 +183,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
     @RequestMapping("/doUpdate")
     public void doUpdate(BuildRoomarea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
-        String uuid = entity.getUuid();
+        String uuid = entity.getId();
         String parentNode = entity.getParentNode();     
         String nodeText = entity.getNodeText();
         Integer orderIndex = entity.getOrderIndex();
@@ -202,7 +202,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
         //获取当前的操作用户
         SysUser currentUser = getCurrentSysUser();
  
-        entity=thisService.doUpdateEntity(entity, currentUser.getXm(), null);
+        entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         
         if(entity==null)
        	 	writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

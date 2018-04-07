@@ -141,7 +141,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		entity = thisService.doAddEntity(entity, currentUser.getXm());
+		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -158,7 +158,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -180,7 +180,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 		String[] classIdArr=classIds.split(",");
 		SysUser sysuser = getCurrentSysUser();
 		
-		thisService.doCouseUse(idArr,classIdArr,teachTimeArr,sysuser.getXm());
+		thisService.doCouseUse(idArr,classIdArr,teachTimeArr,sysuser.getId());
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"启用课表成功\""));		
 	}
@@ -195,7 +195,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 		
 		thisService.updateByProperties("uuid", idArr,
 				new String[]{"extField05","updateUser","updateTime"},
-				new Object[]{"0",sysuser.getXm(),new Date()});		
+				new Object[]{"0",sysuser.getId(),new Date()});		
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"禁用课表成功\""));		
 	}

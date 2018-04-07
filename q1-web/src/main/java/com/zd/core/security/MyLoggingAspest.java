@@ -42,7 +42,7 @@ public class MyLoggingAspest {
 		String methodName = pjd.getSignature().getName();
 		String targetName = pjd.getTarget().getClass().getName();  
 		SysOperateLog operteLog = new SysOperateLog();
-		operteLog.setUuid(null);
+		operteLog.setId(null);
 		try {
 			HttpServletRequest request = this.getHttpServletRequest();
 			
@@ -60,7 +60,7 @@ public class MyLoggingAspest {
 			SysUser sysUser = (SysUser) request.getSession().getAttribute(Constant.SESSION_SYS_USER);
 			if (sysUser != null) {
 				userName = sysUser.getUserName();
-				userId = sysUser.getUuid();
+				userId = sysUser.getId();
 			}
 			
 			operteLog.setUserId(userId);

@@ -123,7 +123,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 		entity.setOrderIndex(orderIndex);
 		entity.setRoomType("0");		//强制为 未定义类型
 		entity.setRoomName(roomCode);	//默认使用编号的命名
-		entity = thisService.doAddEntity(entity, currentUser.getXm());
+		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -170,7 +170,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -204,7 +204,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 	
 		SysUser currentUser = getCurrentSysUser();	
 		
-		entity=thisService.doUpdateEntity(entity, currentUser.getXm(), null);
+		entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         
         if(entity==null)
        	 	writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

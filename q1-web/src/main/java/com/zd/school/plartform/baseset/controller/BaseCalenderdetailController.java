@@ -131,7 +131,7 @@ public class BaseCalenderdetailController extends FrameWorkController<JwCalender
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
 			} else {
@@ -196,17 +196,17 @@ public class BaseCalenderdetailController extends FrameWorkController<JwCalender
 		for (JwCalenderdetail jwCalenderdetail : jwCalenderdetailList) {
 			jwCalenderMap = new LinkedHashMap<>();
 			jwCalenderMap.put("xh",i+"");
-			int isAfgernoon = jwCalenderdetail.getIsafgernoon();
+			String isAfgernoon = jwCalenderdetail.getTimeInterval();
 			String timeQuantum = "";
-			if(isAfgernoon==0){
+			if("0".equals(isAfgernoon)){
 				timeQuantum= "上午";
-			}else if(isAfgernoon==1){
+			}else if("1".equals(isAfgernoon)){
 				timeQuantum= "下午";
-			}else if(isAfgernoon==2){
+			}else if("2".equals(isAfgernoon)){
 				timeQuantum= "晚上";
 			}
 			jwCalenderMap.put("timeQuantum", timeQuantum);
-			jwCalenderMap.put("jcName", jwCalenderdetail.getJcName());
+			jwCalenderMap.put("jcName", jwCalenderdetail.getSenctionName());
 //			String beginTime = DateUtil.formatDateTime(jwCalenderdetail.getBeginTime());
 			jwCalenderMap.put("beginTime", (jwCalenderdetail.getBeginTime()==null)?"":DateUtil.formatDateTime(jwCalenderdetail.getBeginTime()).substring(11,16));
 			jwCalenderMap.put("endTime", (jwCalenderdetail.getEndTime()==null)?"":DateUtil.formatDateTime(jwCalenderdetail.getEndTime()).substring(11,16));

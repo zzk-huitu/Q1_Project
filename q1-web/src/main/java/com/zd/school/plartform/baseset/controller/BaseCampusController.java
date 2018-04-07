@@ -178,7 +178,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
             return;
         } else {
         	SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
             } else {
@@ -201,7 +201,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
         String campusCode = entity.getCampusCode();
         String schoolId = entity.getSchoolId();
         String schoolName = entity.getSchoolName();
-        String uuid = entity.getUuid();
+        String uuid = entity.getId();
         Integer orderIndex = entity.getOrderIndex();
 
         //此处为放在入库前的一些检查的代码，如唯一校验等

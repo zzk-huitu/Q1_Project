@@ -24,11 +24,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,11 +46,9 @@ import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.PoiImportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.baseset.model.BaseDicitem;
-import com.zd.school.plartform.baseset.model.BaseOrgChkTree;
+import com.zd.school.plartform.baseset.model.BaseOrgTree;
 import com.zd.school.plartform.baseset.model.BaseUserdeptjob;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.plartform.system.model.CardUserInfoToUP;
-import com.zd.school.plartform.system.model.SysDatapermission;
 import com.zd.school.plartform.system.model.SysMenuTree;
 import com.zd.school.plartform.system.model.SysRole;
 import com.zd.school.plartform.system.model.SysUser;
@@ -67,6 +61,7 @@ import com.zd.school.redis.service.UserRedisService;
 
 /**
  * 用户管理
+ * 
  * @author Administrator
  *
  */
@@ -98,9 +93,9 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 	 * list查询 @Title: list @Description: TODO @param @param entity
 	 * 实体类 @param @param request @param @param response @param @throws
 	 * IOException 设定参数 @return void 返回类型 @throws
-	 *  若当前用户是超级管理员/学校管理员，并且点击为学校部门，则查询出所有的用户
-	 *  否则其他用户点击顶层学校部门，会显示出他所有权限部门之下的用户(主和副部门的用户)
-	 *  点击其他的各个子部门，只会显示这个部门下的用户(主和副部门的用户)
+	 * 若当前用户是超级管理员/学校管理员，并且点击为学校部门，则查询出所有的用户
+	 * 否则其他用户点击顶层学校部门，会显示出他所有权限部门之下的用户(主和副部门的用户)
+	 * 点击其他的各个子部门，只会显示这个部门下的用户(主和副部门的用户)
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
@@ -111,41 +106,41 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 		if (StringUtils.isEmpty(deptId)) {
 			deptId = AdminType.ADMIN_ORG_ID;
 		}
-		
+
 		Integer isAdmin = (Integer) request.getSession().getAttribute(Constant.SESSION_SYS_ISADMIN);
 		Integer isSchoolAdmin = (Integer) request.getSession().getAttribute(Constant.SESSION_SYS_ISSCHOOLADMIN);
-		
+
 		// 若当前用户是超级管理员/学校管理员，并且为学校部门，则查询出所有的用户
-		if ((isAdmin == 1 || isSchoolAdmin==1) && deptId.equals(AdminType.ADMIN_ORG_ID)) {
-			
+		if ((isAdmin == 1 || isSchoolAdmin == 1) && deptId.equals(AdminType.ADMIN_ORG_ID)) {
+
 			QueryResult<SysUser> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), true);
 			strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 
-		} else {		
+		} else {
 			SysUser currentUser = getCurrentSysUser();
 			// 其他非管理员的，并且点击了学校部门，则查询出它有权限的部门
 			if (deptId.equals(AdminType.ADMIN_ORG_ID)) {
-				List<BaseOrgChkTree> baseOrgList = sysOrgService.getUserRightDeptTreeList(currentUser);
-				deptId = baseOrgList.stream().filter((x) -> x.getIsRight().equals("1"))
-						.map((x) -> x.getId()).collect(Collectors.joining("','"));				
+				List<BaseOrgTree> baseOrgList = sysOrgService.getUserRightDeptTreeList(currentUser);
+				deptId = baseOrgList.stream().filter((x) -> x.getIsRight().equals("1")).map((x) -> x.getId())
+						.collect(Collectors.joining("','"));
 			}
-			
-			//根据deptId，查询出所有用户信息（主部门和副部门的）
-			if(StringUtils.isNotEmpty(deptId)){
-				String hql="from SysUser g where g.isDelete=0 and g.uuid in ("
-						+ "	select distinct userId  from BaseUserdeptjob where isDelete=0 and deptId in ('"+deptId+"')"
-						+ ")";	//and masterDept=1 目前显示部门的全部用户
-						
-				QueryResult<SysUser> qr=thisService.queryCountToHql(super.start(request), super.limit(request),
-							super.sort(request), super.filter(request), hql,null,null);
-				
+
+			// 根据deptId，查询出所有用户信息（主部门和副部门的）
+			if (StringUtils.isNotEmpty(deptId)) {
+				String hql = "from SysUser g where g.isDelete=0 and g.uuid in ("
+						+ "	select distinct userId  from BaseUserdeptjob where isDelete=0 and deptId in ('" + deptId
+						+ "')" + ")"; // and masterDept=1 目前显示部门的全部用户
+
+				QueryResult<SysUser> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
+						super.sort(request), super.filter(request), hql, null, null);
+
 				strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
-				
-			}else{
+
+			} else {
 				strData = jsonBuilder.buildObjListToJson((long) 0, new ArrayList<>(), true);// 处理数据
 			}
-			
+
 		}
 
 		writeJSON(response, strData);// 返回数据
@@ -153,6 +148,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 	/**
 	 * 添加用户
+	 * 
 	 * @param entity
 	 * @param request
 	 * @param response
@@ -168,8 +164,8 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			writeJSON(response, jsonBuilder.returnFailureJson("'用户名不能重复！'"));
 			return;
 		}
-		
-		if(StringUtils.isNotEmpty(userNumb)){
+
+		if (StringUtils.isNotEmpty(userNumb)) {
 			if (thisService.IsFieldExist("userNumb", userNumb, "-1")) {
 				writeJSON(response, jsonBuilder.returnFailureJson("'工号/学号不能重复！'"));
 				return;
@@ -179,8 +175,8 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 		String deptJobId = request.getParameter("deptJobId");
-		//给学生或教师加入角色
-		entity = thisService.doAddUser(entity, currentUser/*, deptJobId*/);
+		// 给学生或教师加入角色
+		entity = thisService.doAddUser(entity, currentUser/* , deptJobId */);
 
 		// 返回实体到前端界面
 		writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
@@ -188,6 +184,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 	/**
 	 * 逻辑删除用户
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -199,9 +196,9 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 		if (StringUtils.isEmpty(delIds)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入删除主键\""));
 			return;
-		} else {		
+		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -212,6 +209,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 	/**
 	 * 更新用户信息
+	 * 
 	 * @param entity
 	 * @param request
 	 * @param response
@@ -223,14 +221,14 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 		String userName = entity.getUserName();
 		String userNumb = entity.getUserNumb();
-		String userId = entity.getUuid();
+		String userId = entity.getId();
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 		if (thisService.IsFieldExist("userName", userName, userId)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"用户名不能重复！\""));
 			return;
 		}
-		
-		if(StringUtils.isNotEmpty(userNumb)){
+
+		if (StringUtils.isNotEmpty(userNumb)) {
 			if (thisService.IsFieldExist("userNumb", userNumb, userId)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("'工号/学号不能重复！'"));
 				return;
@@ -243,9 +241,10 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 		writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
 	}
-	
+
 	/**
 	 * 获取用户菜单树
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -257,8 +256,8 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 		SysUser currentUser = (SysUser) session.getAttribute(SESSION_SYS_USER);
 		String strData = null;
 
-		//获取缓存数据
-		Object userMenuTree = userRedisService.getMenuTreeByUser(currentUser.getUuid());
+		// 获取缓存数据
+		Object userMenuTree = userRedisService.getMenuTreeByUser(currentUser.getId());
 
 		if (userMenuTree == null) { // 若存在，则不需要设置
 			String node = request.getParameter("node");
@@ -268,12 +267,12 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 				node = TreeVeriable.ROOT;
 			}
 
-			List<SysMenuTree> lists = sysMenuService.getPermTree(node, currentUser.getUuid(), AuthorType.USER, true,
+			List<SysMenuTree> lists = sysMenuService.getPermTree(node, currentUser.getId(), AuthorType.USER, true,
 					false);
 			strData = jsonBuilder.buildList(lists, excludes);
 
-			//存入redis中
-			userRedisService.setMenuTreeByUser(currentUser.getUuid(), strData);
+			// 存入redis中
+			userRedisService.setMenuTreeByUser(currentUser.getId(), strData);
 
 		} else {
 			strData = (String) userMenuTree;
@@ -379,16 +378,16 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			if (flag) {
 				/* 删除用户的redis数据，以至于下次刷新或请求时，可以加载最新数据 */
 				thisService.deleteUserRoleRedis(userId);
-				
-				//当操作了当前用户的角色，则更新roleKey的session值
-				if(userId.indexOf(currentUser.getUuid())!=-1){
-					SysUser sysUser = thisService.get(currentUser.getUuid());
-					String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
-					 		.collect(Collectors.joining(","));
+
+				// 当操作了当前用户的角色，则更新roleKey的session值
+				if (userId.indexOf(currentUser.getId()) != -1) {
+					SysUser sysUser = thisService.get(currentUser.getId());
+					String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0)
+							.map(x -> x.getRoleCode()).collect(Collectors.joining(","));
 					request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
 					request.getSession().setAttribute(Constant.SESSION_ROLE_KEY, roleKeys);
 				}
-							
+
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"删除失败\""));
@@ -425,16 +424,16 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			if (flag) {
 				/* 删除用户的redis数据，以至于下次刷新或请求时，可以加载最新数据 */
 				thisService.deleteUserRoleRedis(userId);
-				
-				//当操作了当前用户的角色，则更新roleKey的session值
-				if(userId.indexOf(currentUser.getUuid())!=-1){
-					SysUser sysUser = thisService.get(currentUser.getUuid());
-					String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
-					 		.collect(Collectors.joining(","));
+
+				// 当操作了当前用户的角色，则更新roleKey的session值
+				if (userId.indexOf(currentUser.getId()) != -1) {
+					SysUser sysUser = thisService.get(currentUser.getId());
+					String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0)
+							.map(x -> x.getRoleCode()).collect(Collectors.joining(","));
 					request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
 					request.getSession().setAttribute(Constant.SESSION_ROLE_KEY, roleKeys);
 				}
-				
+
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"添加成功\""));
 			} else {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败\""));
@@ -487,8 +486,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 	@RequestMapping(value = { "/userList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void getUserlist(@ModelAttribute SysDatapermission entity, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public void getUserlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		QueryResult<SysUser> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
@@ -500,8 +498,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 	@RequestMapping(value = { "/selectedUserlist" }, method = {
 			org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void getSelectedUserlist(@ModelAttribute SysDatapermission entity, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public void getSelectedUserlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		String ids = request.getParameter("ids");
 		String hql = "from SysUser a where uuid in ('" + ids.replace(",", "','") + "')";
@@ -513,6 +510,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 	/**
 	 * 获取用户部门岗位列表
+	 * 
 	 * @param entity
 	 * @param request
 	 * @param response
@@ -521,8 +519,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 	@RequestMapping(value = { "/userDeptJobList" }, method = {
 			org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void getUserDeptJobList(@ModelAttribute SysDatapermission entity, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
+	public void getUserDeptJobList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 
 		String userId = request.getParameter("userId");
@@ -584,8 +581,8 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 	}
 
 	/**
-	 * 调整指定用户的主部门岗位
-	 * 2018-3-15更新：当用户是学生，并且操作的是学生岗位，那么则判断是否处理JwClassstudent表
+	 * 调整指定用户的主部门岗位 2018-3-15更新：当用户是学生，并且操作的是学生岗位，那么则判断是否处理JwClassstudent表
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -606,7 +603,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 				writeJSON(response, jsonBuilder.returnSuccessJson("'设置主部门失败'"));
 		}
 	}
-	
+
 	/*
 	 * 一键同步UP的方式
 	 */
@@ -661,55 +658,9 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 		writeAppJSON(response, returnJson.toString());
 	}
 
-	/*
-	 * 废弃：一键同步UP的方式（待定；目前使用数据库定时脚本，进行发卡信息同步）
-	 */
-	@RequestMapping("/doSyncAllCardInfoFromUp")
-	public void doSyncAllCardInfoFromUp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		StringBuffer returnJson = null;
-		try {
-
-			// 1.切换数据源
-			DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
-
-			// (2017-10-11:使用人员表和卡片表，双向关联查出最精确的发卡数据)
-			String sql = "select B.UserId as userId,replace(B.EmployeeStrID,'NO','') as sid,B.EmployeeStatusID as employeeStatusID,"
-					+ "	convert(varchar,A.CardID) as upCardId,convert(varchar,A.FactoryFixID) as factNumb,"
-					+ "	convert(int,A.CardStatusIDXF) as useState, convert(int,A.CardTypeID) as cardTypeId "
-					+ " from TC_Card A left join Tc_Employee B" + " on A.CardID=B.CardID and A.EmployeeID=B.EmployeeID "
-					+ " where A.EmployeeID=B.EmployeeID or A.EmployeeID=0" + " order by A.CardID asc";
-
-			List<CardUserInfoToUP> upCardUserInfos = thisService.queryEntityBySql(sql, CardUserInfoToUP.class);
-
-			// 3.恢复数据源
-			DBContextHolder.clearDBType();
-
-			int row = 0;
-			if (upCardUserInfos.size() > 0) {
-				row = thisService.syncAllCardInfoFromUp(upCardUserInfos);
-			} else {
-				row = thisService.syncAllCardInfoFromUp(null);
-			}
-
-			if (row == 0) {
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"未有人员数据需要同步！\"}");
-			} else if (row > 0) {
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"同步人员数据成功！\"}");
-			} else {
-				returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步人员发卡数据失败，请联系管理员！\"}");
-			}
-
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			logger.error("同步UP发卡数据到Q1失败！错误信息：->" + Arrays.toString(e.getStackTrace()));
-			returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步人员发卡数据失败，请联系管理员！\"}");
-		}
-
-		writeAppJSON(response, returnJson.toString());
-	}
-
 	/**
 	 * 获取不在某角色下的用户列表
+	 * 
 	 * @param roleId
 	 * @param request
 	 * @param response
@@ -735,6 +686,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 
 	/**
 	 * 导出用户信息
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -791,10 +743,10 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			ClassName = sysUser.getDeptName();
 			traineeMap.put("xh", i + "");
 			traineeMap.put("userName", sysUser.getUserName());
-			traineeMap.put("name", sysUser.getXm());
-			traineeMap.put("xb", mapDicItem.get(sysUser.getXbm() + "XBM"));
+			traineeMap.put("name", sysUser.getName());
+			traineeMap.put("xb", mapDicItem.get(sysUser.getSex() + "XBM"));
 			traineeMap.put("category", mapDicItem.get(sysUser.getCategory() + "CATEGORY"));
-			traineeMap.put("zxxbzlb", mapDicItem.get(sysUser.getZxxbzlb() + "ZXXBZLB"));
+			traineeMap.put("zxxbzlb", mapDicItem.get(sysUser.getHeadCountType() + "ZXXBZLB"));
 			traineeMap.put("stustatus", mapDicItem.get(sysUser.getState() + "ACCOUNTSTATE"));
 			traineeMap.put("cardNo", String.valueOf((sysUser.getUpCardId() == null) ? 0 : sysUser.getUpCardId()));
 			String useState = "";
@@ -827,7 +779,7 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			request.getSession().setAttribute("exportTrainClassTraineeCardIIsState", "0");
 		}
 	}
-	
+
 	@RequestMapping("/checkExportEnd")
 	public void checkExportEnd(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -857,10 +809,10 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			throws IOException {
 		try {
 			SysUser sysUser = getCurrentSysUser();
-			
-			//获取缓存数据
-			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getUuid());
-			
+
+			// 获取缓存数据
+			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getId());
+
 			String[] strs = menuCodes.split(",");
 
 			Set<String> set = null;
@@ -870,9 +822,9 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 				set = new HashSet<>();
 			}
 			set.addAll(Arrays.asList(strs));
-			
-			//存入redis中
-			userRedisService.setDeskFuncByUser(sysUser.getUuid(), set);
+
+			// 存入redis中
+			userRedisService.setDeskFuncByUser(sysUser.getId(), set);
 
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功！\""));
 
@@ -893,10 +845,10 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 			throws IOException {
 		try {
 			SysUser sysUser = getCurrentSysUser();
-			
-			//获取缓存数据
-			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getUuid());
-			
+
+			// 获取缓存数据
+			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getId());
+
 			String[] strs = menuCodes.split(",");
 
 			Set<String> set = null;
@@ -906,9 +858,9 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 				set = new HashSet<>();
 			}
 			set.removeAll(Arrays.asList(strs));
-			
-			//存入redis中
-			userRedisService.setDeskFuncByUser(sysUser.getUuid(), set);		
+
+			// 存入redis中
+			userRedisService.setDeskFuncByUser(sysUser.getId(), set);
 
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"取消成功！\""));
 
@@ -928,9 +880,9 @@ public class SysUserController extends FrameWorkController<SysUser> implements C
 	public void getUserDeskFunc(HttpServletResponse response) throws IOException {
 		try {
 			SysUser sysUser = getCurrentSysUser();
-			
-			//获取缓存数据
-			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getUuid());
+
+			// 获取缓存数据
+			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getId());
 
 			Set<String> set = (Set<String>) userDeskFunc;
 			String returnStr = set.stream().collect(Collectors.joining(","));

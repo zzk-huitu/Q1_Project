@@ -24,7 +24,7 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.arrangecourse.model.JwCourseteacher;
 import com.zd.school.jw.arrangecourse.service.JwCourseteacherService;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
@@ -133,11 +133,11 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 			node = nodeId;
 		}
 		SysUser currentUser = getCurrentSysUser();
-		CommTreeChk root = thisService.getUserRightDeptDisciplineTree(node, currentUser); // (04-年级，05-班级，06-学科)
+		CommTree root = thisService.getUserRightDeptDisciplineTree(node, currentUser); // (04-年级，05-班级，06-学科)
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		} else {
-			List<CommTreeChk> alist = new ArrayList<CommTreeChk>();
+			List<CommTree> alist = new ArrayList<CommTree>();
 			alist.add(root);
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		}
@@ -309,7 +309,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 	 */
 	private String getClassIds(String deptId, SysUser currentUser) {
 
-		List<CommTreeChk> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
+		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {
 			if (x.getNodeType().equals("05") && x.getTreeid().indexOf(deptId) != -1)
 				return true;

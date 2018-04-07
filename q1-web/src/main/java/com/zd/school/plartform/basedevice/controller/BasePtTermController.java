@@ -220,7 +220,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	@RequestMapping("/highParam_read")
 	public void highParam_read(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		PtTerm perEntity = thisService.get(tlvs.getUuid());
+		PtTerm perEntity = thisService.get(tlvs.getId());
 		String strData = "";
 		if (perEntity.getAdvParam() != null) {
 			TLVUtils.decode(perEntity.getAdvParam(), tlvs.getTlvs());
@@ -239,30 +239,30 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		// 1.判断，是否批量设置(0-不批量，4-本楼层，3-本楼栋，2-本校区，1-本学校，5-选择批量)
 		String termRadio = request.getParameter("termRadio");
 		if ("1".equals(termRadio)) {
-			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "1", currentUser.getXm());
+			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "1", currentUser.getId());
 		} else if ("2".equals(termRadio)) {
-			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "2", currentUser.getXm());
+			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "2", currentUser.getId());
 		} else if ("3".equals(termRadio)) {
-			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "3", currentUser.getXm());
+			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "3", currentUser.getId());
 		} else if ("4".equals(termRadio)) {
-			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "4", currentUser.getXm());
+			thisService.doBatchUpdateHighParam(tlvs, termTypeID, "4", currentUser.getId());
 		} /*
 			 * else if("5".equals(termRadio)){ String
 			 * termIds=request.getParameter("termIds");
 			 * thisService.doUpdatHighParamToIds(tlvs, termIds ,
-			 * currentUser.getXm()); }
+			 * currentUser.getId()); }
 			 */else { // 默认为0，只设置当前自己
-			thisService.doUpdateHighParam(tlvs, currentUser.getXm());
+			thisService.doUpdateHighParam(tlvs, currentUser.getId());
 		}
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"设备参数设置成功！\""));
 
 		// byte[] result = null;
-		// PtTerm perEntity = thisService.get(tlvs.getUuid());
+		// PtTerm perEntity = thisService.get(tlvs.getId());
 		// SysUser currentUser = getCurrentSysUser();
 		// result=TLVUtils.encode(tlvs.getTlvs());
 		// perEntity.setAdvParam(result);
-		// perEntity.setUpdateUser(currentUser.getXm());
+		// perEntity.setUpdateUser(currentUser.getId());
 		// perEntity.setUpdateTime(new Date());
 		// thisService.merge(perEntity);// 执行修改方法
 		// writeJSON(response,
@@ -273,12 +273,12 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	@RequestMapping("/baseParam_read")
 	public void baseParam_read(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		PtTerm perEntity = thisService.get(tlvs.getUuid());
+		PtTerm perEntity = thisService.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		String strData = "";
 		if (perEntity.getBaseParam() != null) {
 			TLVUtils.decode(perEntity.getBaseParam(), tlvs.getTlvs());
-			if ("11".equals(perEntity.getTermTypeID()) || "17".equals(perEntity.getTermTypeID())) {
+			if ("11".equals(perEntity.getTermTypeId()) || "17".equals(perEntity.getTermTypeId())) {
 				tlvs.setNotes(perEntity.getNotes());
 				strData = JsonBuilder.getInstance().toJson(tlvs);
 			} else {
@@ -300,20 +300,20 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		// 1.判断，是否批量设置(0-不批量，4-本楼层，3-本楼栋，2-本校区，1-本学校，5-选择批量)
 		String termRadio = request.getParameter("termRadio");
 		if ("1".equals(termRadio)) {
-			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "1", currentUser.getXm());
+			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "1", currentUser.getId());
 		} else if ("2".equals(termRadio)) {
-			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "2", currentUser.getXm());
+			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "2", currentUser.getId());
 		} else if ("3".equals(termRadio)) {
-			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "3", currentUser.getXm());
+			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "3", currentUser.getId());
 		} else if ("4".equals(termRadio)) {
-			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "4", currentUser.getXm());
+			thisService.doBatchUpdateBaseParam(tlvs, termTypeID, notes, "4", currentUser.getId());
 		} /*
 			 * else if("5".equals(termRadio)){ String
 			 * termIds=request.getParameter("termIds");
 			 * thisService.doUpdatHighParamToIds(tlvs, termIds ,
-			 * currentUser.getXm()); }
+			 * currentUser.getId()); }
 			 */else { // 默认为0，只设置当前自己
-			thisService.doUpdateBaseParam(tlvs, notes, currentUser.getXm());
+			thisService.doUpdateBaseParam(tlvs, notes, currentUser.getId());
 		}
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"设备参数设置成功！\""));
@@ -388,7 +388,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 			ptTermExporMap.put("termName", ptTermdetail.getTermName());
 			ptTermExporMap.put("gatewayName", ptTermdetail.getGatewayName());
 			ptTermExporMap.put("roomName", ptTermdetail.getRoomName());
-			ptTermExporMap.put("termTypeID", mapDicItem.get(ptTermdetail.getTermTypeID() + "PTTERMTYPE"));
+			ptTermExporMap.put("termTypeID", mapDicItem.get(ptTermdetail.getTermTypeId() + "PTTERMTYPE"));
 			i++;
 			ptTermExportList.add(ptTermExporMap);
 		}
@@ -468,10 +468,10 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 			ptTermMap = new LinkedHashMap<>();
 			ptTermMap.put("xh", i + "");
 			ptTermMap.put("termName", ptTerm.getTermName());
-			ptTermMap.put("termSN", ptTerm.getTermSN());
+			ptTermMap.put("termSN", ptTerm.getTermSn());
 			ptTermMap.put("roomName", ptTerm.getRoomName());
 			ptTermMap.put("gatewayName", ptTerm.getGatewayName());
-			ptTermMap.put("termTypeID", mapDicItem.get(ptTerm.getTermTypeID() + "PTTERMTYPE"));
+			ptTermMap.put("termTypeID", mapDicItem.get(ptTerm.getTermTypeId() + "PTTERMTYPE"));
 			i++;
 			ptTermExpList.add(ptTermMap);
 		}
@@ -577,15 +577,15 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		for (PtTerm ptTermdetail : ptTermList) {
 			ptTermExporMap = new LinkedHashMap<>();
 			ptTermExporMap.put("xh", i + "");
-			ptTermExporMap.put("termSN", ptTermdetail.getTermSN());
+			ptTermExporMap.put("termSN", ptTermdetail.getTermSn());
 			ptTermExporMap.put("termNo", (String.valueOf(ptTermdetail.getTermNo()).equals("null") ? ""
 					: String.valueOf(ptTermdetail.getTermNo())));
 			ptTermExporMap.put("termName", ptTermdetail.getTermName());
 			ptTermExporMap.put("gatewayName", ptTermdetail.getGatewayName());
-			ptTermExporMap.put("termTypeID", mapDicItem.get(ptTermdetail.getTermTypeID() + "PTTERMTYPE"));
+			ptTermExporMap.put("termTypeID", mapDicItem.get(ptTermdetail.getTermTypeId() + "PTTERMTYPE"));
 			String termStatus = "禁用";
 			if (ptTermdetail.getTermStatus() != null) {
-				if (ptTermdetail.getTermStatus() == 0) {
+				if (ptTermdetail.getTermStatus() == false) {
 					termStatus = "禁用";
 				} else {
 					termStatus = "启用";

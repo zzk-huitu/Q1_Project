@@ -206,10 +206,10 @@ public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus
 			ecTermStatusMap.put("roomName", ecTermStatus.getRoomName());
 			ecTermStatusMap.put("termName", ecTermStatus.getTermName());
 			ecTermStatusMap.put("statusDate", format.format(ecTermStatus.getStatusDate()));
-			ecTermStatusMap.put("usekwh",String.valueOf(ecTermStatus.getUsekwh()));
-			ecTermStatusMap.put("buyedkwh", String.valueOf(ecTermStatus.getBuyedkwh()));
-			ecTermStatusMap.put("totalusedkwh", String.valueOf(ecTermStatus.getTotalusedkwh()));
-			ecTermStatusMap.put("surpluskwh", String.valueOf(ecTermStatus.getSurpluskwh()));
+			ecTermStatusMap.put("usekwh",String.valueOf(ecTermStatus.getUseKwh()));
+			ecTermStatusMap.put("buyedkwh", String.valueOf(ecTermStatus.getBuyedKwh()));
+			ecTermStatusMap.put("totalusedkwh", String.valueOf(ecTermStatus.getTotalUsedKwh()));
+			ecTermStatusMap.put("surpluskwh", String.valueOf(ecTermStatus.getSurplusKwh()));
 			ecTermStatusMap.put("voltage", String.valueOf(ecTermStatus.getVoltage()));
 			ecTermStatusMap.put("currents", String.valueOf(ecTermStatus.getCurrents()));
 			ecTermStatusMap.put("power", String.valueOf(ecTermStatus.getPower()));

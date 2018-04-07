@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.zd.core.constant.Constant;
@@ -19,7 +18,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysDatapermission;
 import com.zd.school.plartform.system.model.SysPermission;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysPerimissonService;
@@ -53,7 +51,7 @@ public class SysPermissionController extends FrameWorkController<SysPermission> 
     */
    @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
            org.springframework.web.bind.annotation.RequestMethod.POST })
-   public void list(@ModelAttribute SysDatapermission entity, HttpServletRequest request, HttpServletResponse response)
+   public void list( HttpServletRequest request, HttpServletResponse response)
            throws IOException {
        String strData = ""; // 返回给js的数据
        QueryResult<SysPermission> qr = thisService.queryPageResult(super.start(request), super.limit(request),
@@ -84,7 +82,7 @@ public class SysPermissionController extends FrameWorkController<SysPermission> 
 		String userCh = "超级管理员";
        SysUser currentUser = getCurrentSysUser();
        if (currentUser != null)
-           userCh = currentUser.getXm();
+           userCh = currentUser.getId();
 
        SysPermission perEntity = new SysPermission();
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
@@ -121,7 +119,7 @@ public class SysPermissionController extends FrameWorkController<SysPermission> 
            return;
        } else {
            SysUser currentUser = getCurrentSysUser();
-           boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+           boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
            if (flag) {
                writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
            } else {
@@ -151,12 +149,12 @@ public class SysPermissionController extends FrameWorkController<SysPermission> 
        String userCh = "超级管理员";
        SysUser currentUser = getCurrentSysUser();
        if (currentUser != null)
-           userCh = currentUser.getXm();
+           userCh = currentUser.getId();
 			
 			
        //先拿到已持久化的实体
 		//entity.getSchoolId()要自己修改成对应的获取主键的方法
-       SysPermission perEntity = thisService.get(entity.getUuid());
+       SysPermission perEntity = thisService.get(entity.getId());
 
        //将entity中不为空的字段动态加入到perEntity中去。
        

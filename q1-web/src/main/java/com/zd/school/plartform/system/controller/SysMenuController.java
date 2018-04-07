@@ -20,7 +20,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.system.model.SysMenu;
-import com.zd.school.plartform.system.model.SysMenuChkTree;
 import com.zd.school.plartform.system.model.SysMenuTree;
 import com.zd.school.plartform.system.model.SysPermission;
 import com.zd.school.plartform.system.model.SysUser;
@@ -115,7 +114,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
         }
         SysUser currentUser = getCurrentSysUser();
 
-        List<SysMenuChkTree> lists = thisService.getUserPermissionToRole(roleId, currentUser.getUuid());
+        List<SysMenuTree> lists = thisService.getUserPermissionToRole(roleId, currentUser.getId());
 
         strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -186,7 +185,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
         String menuName = entity.getNodeText();
         String menuCode = entity.getMenuCode();     
         String parentNode = entity.getParentNode();
-        String uuid = entity.getUuid();
+        String uuid = entity.getId();
         //此处为放在入库前的一些检查的代码，如唯一校验等
         String hql = " o.isDelete='0'";
         if (thisService.IsFieldExist("menuCode", menuCode, uuid, hql)) {
@@ -205,7 +204,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
 
         //获取当前的操作用户     
         SysUser currentUser = getCurrentSysUser();      
-        entity=thisService.doUpdateMenu(entity, currentUser.getXm());
+        entity=thisService.doUpdateMenu(entity, currentUser.getId());
         
         if(entity==null)
        	 	writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

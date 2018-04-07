@@ -66,7 +66,7 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 		String userCh = "超级管理员";
 		SysUser currentUser = getCurrentSysUser();
 		if (currentUser != null)
-			userCh = currentUser.getXm();
+			userCh = currentUser.getId();
 
 		BaseSchool perEntity = new BaseSchool();
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
@@ -98,7 +98,7 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
 			} else {
@@ -120,7 +120,7 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 			return;
 		} else {
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
 			} else {
@@ -142,9 +142,9 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 		// 获取当前的操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		// entity = thisService.doUpdateEntity(entity, currentUser.getXm(),
+		// entity = thisService.doUpdateEntity(entity, currentUser.getId(),
 		// null);
-		entity = thisService.doUpdate(entity, currentUser.getXm());
+		entity = thisService.doUpdate(entity, currentUser.getId());
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

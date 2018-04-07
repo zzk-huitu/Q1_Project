@@ -133,7 +133,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 		if(categroy.equals("0")){
 			String hql1 = " o.isDelete='0' ";
 			// 此处为放在入库前的一些检查的代码，如唯一校验等
-			if (skPriceDefineService.IsFieldExist("priceName", entity.getPriceName(),entity.getUuid(), hql1)) {
+			if (skPriceDefineService.IsFieldExist("priceName", entity.getPriceName(),entity.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"水控费率名称不能重复！\""));
 				return;
 			}
@@ -147,7 +147,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 		if(categroy.equals("1")){
 			String hql1 = " o.isDelete='0' ";
 			// 此处为放在入库前的一些检查的代码，如唯一校验等
-			if (dkPriceDefineService.IsFieldExist("priceName", entitys.getPriceName(), entitys.getUuid(), hql1)) {
+			if (dkPriceDefineService.IsFieldExist("priceName", entitys.getPriceName(), entitys.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"电控费率名称不能重复！\""));
 				return;
 			}
@@ -187,7 +187,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 					writeJSON(response, jsonBuilder.returnFailureJson("\"这些费率参数当前绑定了设备，请解除绑定后再删除！\""));
 					return;
 				}			
-				flag = skPriceDefineService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getXm());
+				flag = skPriceDefineService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			}
 			
 			if(categroy.equals("电控")){			
@@ -196,7 +196,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 					writeJSON(response, jsonBuilder.returnFailureJson("\"这些费率参数当前绑定了设备，请解除绑定后再删除！\""));
 					return;
 				}		
-				flag = dkPriceDefineService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getXm());
+				flag = dkPriceDefineService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			}
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));

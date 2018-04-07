@@ -95,7 +95,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
         // 获取当前操作用户    
         SysUser currentUser = getCurrentSysUser();
                  
-        entity=thisService.doAdd(entity,currentUser.getXm());     
+        entity=thisService.doAdd(entity,currentUser.getId());     
         
         if(entity==null)
         	writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -117,7 +117,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
             return;
         } else {
             SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
             } else {
@@ -139,7 +139,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
             return;
         } else {
             SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
             } else {
@@ -166,7 +166,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
         String parentNode = entity.getParentNode();      
         String nodeText = entity.getNodeText();
         String dicCode = entity.getDicCode();
-        String uuid = entity.getUuid();
+        String uuid = entity.getId();
         Integer orderIndex = entity.getOrderIndex();
         // 此处为放在入库前的一些检查的代码，如唯一校验等
         String hql = " o.isDelete='0'";
@@ -186,7 +186,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
         
         // 获取当前的操作用户  
         SysUser currentUser = getCurrentSysUser();     
-        entity=thisService.doUpdateEntity(entity, currentUser.getXm(),null);           
+        entity=thisService.doUpdateEntity(entity, currentUser.getId(),null);           
      			
         if(entity==null)
        	 	writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

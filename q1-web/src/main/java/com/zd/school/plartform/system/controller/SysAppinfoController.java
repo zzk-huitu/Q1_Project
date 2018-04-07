@@ -113,7 +113,7 @@ public class SysAppinfoController extends FrameWorkController<SysAppinfo> implem
  	            String userCh = "超级管理员";
  	            SysUser currentUser = getCurrentSysUser();
  	            if (currentUser != null)
- 	                userCh = currentUser.getXm();
+ 	                userCh = currentUser.getId();
 
  	            SysAppinfo perEntity = new SysAppinfo();
  	            BeanUtils.copyPropertiesExceptNull(entity, perEntity);
@@ -122,7 +122,7 @@ public class SysAppinfoController extends FrameWorkController<SysAppinfo> implem
  	            entity.setCreateUser(userCh); // 创建人
  	            
  	            entity.setAppUrl(url + fileName);	           
- 	            entity.setAppIsuse(0);
+ 	            entity.setAppIsuse(false);
  	            // 持久化到数据库
  	            entity = thisService.merge(entity);
 
@@ -160,7 +160,7 @@ public class SysAppinfoController extends FrameWorkController<SysAppinfo> implem
             String userCh = "超级管理员";
             SysUser currentUser = getCurrentSysUser();
             if (currentUser != null)
-                userCh = currentUser.getXm();
+                userCh = currentUser.getId();
         
             /*此文件夹中需要预先放置此文件，否则启用时会报错*/
             String loadUrl="";

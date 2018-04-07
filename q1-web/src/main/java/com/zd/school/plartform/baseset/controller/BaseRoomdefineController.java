@@ -68,7 +68,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 		
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
-		String userCh =  currentUser.getXm();
+		String userCh =  currentUser.getId();
 		
 		// 在add前判断房间名称是否唯一
 		String roomName = entity.getRoomName();
@@ -102,7 +102,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 		
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
-		String xm = currentUser.getXm();
+		String xm = currentUser.getId();
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String delIds = request.getParameter("ids");
 		if (StringUtils.isEmpty(delIds)) {

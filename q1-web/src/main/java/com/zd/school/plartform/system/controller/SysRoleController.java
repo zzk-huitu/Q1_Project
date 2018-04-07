@@ -119,12 +119,12 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         }
         
         //设置初始化属性
-        entity.setIsHidden("0");
-        entity.setIssystem(0);
+        entity.setIsHidden(false);
+        entity.setIsSystem(false);
         
         // 获取当前操作用户
         SysUser currentUser = getCurrentSysUser();         
-        entity=thisService.doAddEntity(entity,currentUser.getXm());     
+        entity=thisService.doAddEntity(entity,currentUser.getId());     
         
         if(entity==null)
         	writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -150,7 +150,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
             writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入删除主键\""));
             return;
 		} else {
-			flag = thisService.doDeleteRole(delIds, hashMap, currentUser.getXm());
+			flag = thisService.doDeleteRole(delIds, hashMap, currentUser.getId());
 			flag = (Boolean) hashMap.get("flag") == null ? true : (Boolean) hashMap.get("flag");
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -181,7 +181,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
             return;
         } else {
             SysUser currentUser = getCurrentSysUser();
-            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getXm());
+            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
             } else {
@@ -205,7 +205,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
             throws IOException, IllegalAccessException, InvocationTargetException {
         String roleName = entity.getRoleName();
         String roleCode = entity.getRoleCode();
-        String roleId = entity.getUuid();
+        String roleId = entity.getId();
         //入库前检查代码
         String hql = " o.isDelete='0'";
         if (thisService.IsFieldExist("roleName", roleName, roleId, hql)) {
@@ -219,7 +219,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         //获取当前的操作用户
         SysUser currentUser = getCurrentSysUser();
        
-        entity=thisService.doUpdateEntity(entity, currentUser.getXm(), null);
+        entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         
         if(entity==null)
        	 	writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));
@@ -252,7 +252,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         if (userRole.size() > 0) {
         	StringBuilder sb = new StringBuilder();
             for (SysRole r : userRole) {
-                sb.append(r.getUuid());
+                sb.append(r.getId());
                 sb.append(",");
             }
             sb = sb.deleteCharAt(sb.length()-1);
@@ -394,8 +394,8 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         	
           	//当操作了当前用户的角色，则更新roleKey的session值
         	SysUser currentUser=getCurrentSysUser();
-			if(userId.indexOf(currentUser.getUuid())!=-1){
-				SysUser sysUser = userSerive.get(currentUser.getUuid());
+			if(userId.indexOf(currentUser.getId())!=-1){
+				SysUser sysUser = userSerive.get(currentUser.getId());
 				String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
 				 		.collect(Collectors.joining(","));
 				request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
@@ -429,8 +429,8 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         	
         	//当操作了当前用户的角色，则更新roleKey的session值
         	SysUser currentUser=getCurrentSysUser();
-			if(userId.indexOf(currentUser.getUuid())!=-1){
-				SysUser sysUser = userSerive.get(currentUser.getUuid());
+			if(userId.indexOf(currentUser.getId())!=-1){
+				SysUser sysUser = userSerive.get(currentUser.getId());
 				String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
 				 		.collect(Collectors.joining(","));
 				request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);

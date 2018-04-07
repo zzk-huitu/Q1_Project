@@ -173,7 +173,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 		String[] userNames = request.getParameter("userNames").split(",");
 		String[] userNumbs = request.getParameter("userNumbs").split(",");
 		
-		Integer count=thisService.doAddUsers(titleId, userIds,userNames,userNumbs,currentUser.getXm());
+		Integer count=thisService.doAddUsers(titleId, userIds,userNames,userNumbs,currentUser.getId());
 		if(count>0)
 			writeJSON(response, jsonBuilder.returnSuccessJson("'增加成功'"));
 		else
@@ -189,7 +189,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 		String[] roomIds = request.getParameter("roomIds").split(",");
 		String[] roomNames = request.getParameter("roomNames").split(",");
 		
-		Integer count=thisService.doAddTerms(titleId,termCodes, roomIds,roomNames,currentUser.getXm());
+		Integer count=thisService.doAddTerms(titleId,termCodes, roomIds,roomNames,currentUser.getId());
 		if(count>0)
 			writeJSON(response, jsonBuilder.returnSuccessJson("'增加成功'"));
 		else

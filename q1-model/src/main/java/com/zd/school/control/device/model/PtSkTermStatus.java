@@ -96,11 +96,11 @@ public class PtSkTermStatus extends BaseEntity implements Serializable {
 	// @FieldInfo(name = "房间名称", type = "varchar(16)", explain = "房间名称")
 	private String roomName;
 
-	@Formula("(SELECT A.deveiceName FROM T_PT_Deveice A WHERE A.deveiceSn=deveiceSn)")
+	@Formula("(SELECT A.termName FROM T_PT_Deveice A WHERE A.termSn=termSn)")
 	// @FieldInfo(name = "设备名称", type = "varchar(25)", explain = "设备名称")
-	private String deveiceName;
+	private String termName;
 
-	@Formula("(SELECT A.GATEWAYNAME FROM PT_GATEWAY A ,PT_TERM t  WHERE   A.GATEWAY_ID=t.GATEWAY_ID and t.TERMSN=TERMSN)")
+	@Formula("(SELECT A.gatewayName FROM PT_GATEWAY A ,PT_TERM t  WHERE   A.gatewayId=t.gatewayId and t.termSn=termSn)")
 	// @FieldInfo(name = "网关名称")
 	private String gatewayName;
 
@@ -241,12 +241,12 @@ public class PtSkTermStatus extends BaseEntity implements Serializable {
 		this.roomName = roomName;
 	}
 
-	public String getDeveiceName() {
-		return deveiceName;
+	public String getTermName() {
+		return termName;
 	}
 
-	public void setDeveiceName(String deveiceName) {
-		this.deveiceName = deveiceName;
+	public void setTermName(String termName) {
+		this.termName = termName;
 	}
 
 	public String getGatewayName() {

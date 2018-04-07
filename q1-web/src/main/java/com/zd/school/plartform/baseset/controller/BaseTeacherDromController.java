@@ -234,11 +234,11 @@ public class BaseTeacherDromController extends FrameWorkController<DormTeacherDo
 		List<Object[]> list = thisService.queryObjectBySql(sql);
 		DormTeacherDorm entity = new DormTeacherDorm();
 		try {
-			entity.setArkNum(Integer.parseInt(list.get(0)[0] + ""));
-			entity.setBedNum(Integer.parseInt(list.get(0)[1] + ""));
+			entity.setSarkNo(Integer.parseInt(list.get(0)[0] + ""));
+			entity.setBedNo(Integer.parseInt(list.get(0)[1] + ""));
 		} catch (Exception e) {
-			entity.setArkNum(0);
-			entity.setBedNum(0);
+			entity.setSarkNo(0);
+			entity.setBedNo(0);
 		}
 		return entity;
 	}

@@ -148,8 +148,8 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<PtIrDevic
 		SysUser currentUser = getCurrentSysUser();
 		Integer level = entity.getLevel();
 		if (level != 4)
-			if (thisService.IsFieldExist("brandname", entity.getBrandname(), "-1"," isDelete=0")) {
-				writeJSON(response, jsonBuilder.returnFailureJson("'" + entity.getBrandname() + "已存在'"));
+			if (thisService.IsFieldExist("brandname", entity.getBrandName(), "-1"," isDelete=0")) {
+				writeJSON(response, jsonBuilder.returnFailureJson("'" + entity.getBrandName() + "已存在'"));
 				return;
 			}
 		
@@ -163,7 +163,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<PtIrDevic
 		} else {
 			if (level == 3) {
 				bar = thisService.get(entity.getParentNode());
-				entity.setDeviceTypeCode(bar.getUuid());
+				entity.setDeviceTypeCode(bar.getId());
 			}
 		}
 		entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
@@ -230,7 +230,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<PtIrDevic
 				writeJSON(response, jsonBuilder.returnFailureJson("\"该品牌已经绑定房间，不能删除！\""));
 				return;
 			}
-			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE, currentUser.getId());
 
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -279,7 +279,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<PtIrDevic
 			deviceBrandMap = new LinkedHashMap<>();
 			deviceBrandMap.put("xh", i+"");
 			deviceBrandMap.put("productModel", deviceBrand.getProductModel());
-			deviceBrandMap.put("brandname", deviceBrand.getBrandname());
+			deviceBrandMap.put("brandname", deviceBrand.getBrandName());
 			deviceBrandMap.put("notes", deviceBrand.getNotes());
 			i++;
 			deviceBrandExpList.add(deviceBrandMap);

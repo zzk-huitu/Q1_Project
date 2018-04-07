@@ -80,7 +80,7 @@ public class AttendTermController extends FrameWorkController<AttTerm> implement
    		}
    		StringBuffer termId = new StringBuffer();
    		for(AttTerm attTerm:qr.getResultList()){
-   			termId.append(attTerm.getUuid()+",");
+   			termId.append(attTerm.getId()+",");
    		}
    		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + termId.substring(0, termId.length() - 1)
    			+ "\",\"field\":\"uuid\"}]";
@@ -126,7 +126,7 @@ public class AttendTermController extends FrameWorkController<AttTerm> implement
 
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
-		thisService.doTermAttendAdd(userIds, titleId, currentUser.getXm());// 执行增加方法
+		thisService.doTermAttendAdd(userIds, titleId, currentUser.getId());// 执行增加方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功'"));
 

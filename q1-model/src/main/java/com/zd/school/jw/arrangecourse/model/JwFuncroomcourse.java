@@ -37,6 +37,13 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@Column(name = "sections", columnDefinition = "nvarchar(10) default ''", nullable = false)
 	private String sections;
 
+	@FieldInfo(name = "班级ID1", type = "varchar(20) default ''", explain = "班级ID1")
+	@Column(name = "classId01", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId01;
+
+	@FieldInfo(name = "班级名1", type = "nvarchar(16) default ''", explain = "班级名1")
+	@Column(name = "className01", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className01;
 
 	@FieldInfo(name = "课程ID1", type = "varchar(20) default ''", explain = "课程ID1")
 	@Column(name = "courseId01", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -58,6 +65,14 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@Column(name = "teacherName01", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String teacherName01;
 
+	@FieldInfo(name = "班级ID2", type = "varchar(20) default ''", explain = "班级ID2")
+	@Column(name = "classId02", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId02;
+
+	@FieldInfo(name = "班级名2", type = "nvarchar(16) default ''", explain = "班级名2")
+	@Column(name = "className02", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className02;
+
 	@FieldInfo(name = "课程ID2", type = "varchar(20) default ''", explain = "课程ID2")
 	@Column(name = "courseId02", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId02;
@@ -77,6 +92,14 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@FieldInfo(name = "任课教师姓名2", type = "nvarchar(10) default ''", explain = "任课教师姓名2")
 	@Column(name = "teacherName02", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String teacherName02;
+
+	@FieldInfo(name = "班级ID3", type = "varchar(20) default ''", explain = "班级ID3")
+	@Column(name = "classId03", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId03;
+
+	@FieldInfo(name = "班级名3", type = "nvarchar(16) default ''", explain = "班级名3")
+	@Column(name = "className03", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className03;
 
 	@FieldInfo(name = "课程ID3", type = "varchar(20) default ''", explain = "课程ID3")
 	@Column(name = "courseId03", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -98,6 +121,14 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@Column(name = "teacherName03", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String teacherName03;
 
+	@FieldInfo(name = "班级ID4", type = "varchar(20) default ''", explain = "班级ID4")
+	@Column(name = "classId04", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId04;
+
+	@FieldInfo(name = "班级名4", type = "nvarchar(16) default ''", explain = "班级名4")
+	@Column(name = "className04", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className04;
+
 	@FieldInfo(name = "课程ID4", type = "varchar(20) default ''", explain = "课程ID4")
 	@Column(name = "courseId04", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId04;
@@ -117,6 +148,14 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@FieldInfo(name = "任课教师姓名4", type = "nvarchar(10) default ''", explain = "任课教师姓名4")
 	@Column(name = "teacherName04", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String teacherName04;
+
+	@FieldInfo(name = "班级ID5", type = "varchar(20) default ''", explain = "班级ID5")
+	@Column(name = "classId05", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId05;
+
+	@FieldInfo(name = "班级名5", type = "nvarchar(16) default ''", explain = "班级名5")
+	@Column(name = "className05", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className05;
 
 	@FieldInfo(name = "课程ID5", type = "varchar(20) default ''", explain = "课程ID5")
 	@Column(name = "courseId05", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -138,6 +177,14 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@Column(name = "teacherName05", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String teacherName05;
 
+	@FieldInfo(name = "班级ID6", type = "varchar(20) default ''", explain = "班级ID6")
+	@Column(name = "classId06", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId06;
+
+	@FieldInfo(name = "班级名6", type = "nvarchar(16) default ''", explain = "班级名6")
+	@Column(name = "className06", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className06;
+
 	@FieldInfo(name = "课程ID6", type = "varchar(20) default ''", explain = "课程ID6")
 	@Column(name = "courseId06", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String courseId06;
@@ -157,6 +204,14 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	@FieldInfo(name = "任课教师姓名6", type = "nvarchar(10) default ''", explain = "任课教师姓名6")
 	@Column(name = "teacherName06", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String teacherName06;
+
+	@FieldInfo(name = "班级ID7", type = "varchar(20) default ''", explain = "班级ID7")
+	@Column(name = "classId07", columnDefinition = "varchar(20) default ''", nullable = true)
+	private String classId07;
+
+	@FieldInfo(name = "班级名7", type = "nvarchar(16) default ''", explain = "班级名7")
+	@Column(name = "className07", columnDefinition = "nvarchar(16) default ''", nullable = true)
+	private String className07;
 
 	@FieldInfo(name = "课程ID7", type = "varchar(20) default ''", explain = "课程ID7")
 	@Column(name = "courseId07", columnDefinition = "varchar(20) default ''", nullable = true)
@@ -216,8 +271,6 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 	public void setSections(String sections) {
 		this.sections = sections;
 	}
-
-	
 
 	public String getCourseId01() {
 		return courseId01;
@@ -497,6 +550,118 @@ public class JwFuncroomcourse extends BaseEntity implements Serializable {
 
 	public void setTeacherName07(String teacherName07) {
 		this.teacherName07 = teacherName07;
+	}
+
+	public String getClassId01() {
+		return classId01;
+	}
+
+	public void setClassId01(String classId01) {
+		this.classId01 = classId01;
+	}
+
+	public String getClassName01() {
+		return className01;
+	}
+
+	public void setClassName01(String className01) {
+		this.className01 = className01;
+	}
+
+	public String getClassId02() {
+		return classId02;
+	}
+
+	public void setClassId02(String classId02) {
+		this.classId02 = classId02;
+	}
+
+	public String getClassName02() {
+		return className02;
+	}
+
+	public void setClassName02(String className02) {
+		this.className02 = className02;
+	}
+
+	public String getClassId03() {
+		return classId03;
+	}
+
+	public void setClassId03(String classId03) {
+		this.classId03 = classId03;
+	}
+
+	public String getClassName03() {
+		return className03;
+	}
+
+	public void setClassName03(String className03) {
+		this.className03 = className03;
+	}
+
+	public String getClassId04() {
+		return classId04;
+	}
+
+	public void setClassId04(String classId04) {
+		this.classId04 = classId04;
+	}
+
+	public String getClassName04() {
+		return className04;
+	}
+
+	public void setClassName04(String className04) {
+		this.className04 = className04;
+	}
+
+	public String getClassId05() {
+		return classId05;
+	}
+
+	public void setClassId05(String classId05) {
+		this.classId05 = classId05;
+	}
+
+	public String getClassName05() {
+		return className05;
+	}
+
+	public void setClassName05(String className05) {
+		this.className05 = className05;
+	}
+
+	public String getClassId06() {
+		return classId06;
+	}
+
+	public void setClassId06(String classId06) {
+		this.classId06 = classId06;
+	}
+
+	public String getClassName06() {
+		return className06;
+	}
+
+	public void setClassName06(String className06) {
+		this.className06 = className06;
+	}
+
+	public String getClassId07() {
+		return classId07;
+	}
+
+	public void setClassId07(String classId07) {
+		this.classId07 = classId07;
+	}
+
+	public String getClassName07() {
+		return className07;
+	}
+
+	public void setClassName07(String className07) {
+		this.className07 = className07;
 	}
 
 	public Date getStarTime() {

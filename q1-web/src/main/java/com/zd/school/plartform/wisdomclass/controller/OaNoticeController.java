@@ -92,9 +92,6 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	private SysUserService userService;
 	
 	@Resource
-	private JwGradeteacherService gTeacherService;
-
-	@Resource
 	private JwClassteacherService cTeacherService;
 	
 	@Value("${realFileUrl}")  
@@ -157,7 +154,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		//设置全体
 		if("1".equals(entity.getDeptRadio()))
 			deptIds=AdminType.ADMIN_ORG_ID;
-		if("1".equals(entity.getStuRadio()))
+		if("1".equals(entity.getStudentRadio()))
 			stuIds=AdminType.ADMIN_ORG_ID;
 		if("1".equals(entity.getTerminalRadio()))
 			terminalIds=AdminType.ADMIN_ORG_ID;
@@ -224,7 +221,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		//设置全体
 		if("1".equals(entity.getDeptRadio()))
 			deptIds=AdminType.ADMIN_ORG_ID;
-		if("1".equals(entity.getStuRadio()))
+		if("1".equals(entity.getStudentRadio()))
 			stuIds=AdminType.ADMIN_ORG_ID;
 		if("1".equals(entity.getTerminalRadio()))
 			terminalIds=AdminType.ADMIN_ORG_ID;
@@ -349,11 +346,10 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 					BaseAttachment bt = new BaseAttachment();
 					bt.setEntityName("OaNotice");
 					bt.setRecordId(recordId);
-					bt.setAttachUrl(url + myFileName);
-					bt.setAttachName(myFileName);
-					bt.setAttachType(type);
-					bt.setAttachSize(file.getSize());
-					bt.setAttachIsMain(attachIsMain);
+					bt.setFileUrl(url + myFileName);
+					bt.setFileName(myFileName);
+					bt.setFileType(type);
+					bt.setFileSize(file.getSize());
 					baseTAttachmentService.merge(bt);
 
 					writeJSON(response, "{ \"success\" : true,\"obj\":\"" + url + myFileName + "\"}");
@@ -406,7 +402,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 			rootAreaMap.put("text",rootAreas.get(i).getNodeText());
 			rootAreaMap.put("leaf",false);
 			rootAreaMap.put("checked",false);
-			rootAreaMap.put("treeid", rootAreas.get(i).getUuid());
+			rootAreaMap.put("treeid", rootAreas.get(i).getId());
 			rootAreaMap.put("type","01");
 			
 			List<Map<String, Object>> rootChildren=new ArrayList<>();
@@ -414,14 +410,14 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 			
 			//2.创建第二层（初中、高中校区）
 			String hql2="from BuildRoomarea t where t.isDelete=0 and t.parentNode=?";
-			List<BuildRoomarea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getUuid());
+			List<BuildRoomarea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
 			for(int j=0;j<rootAreasSecond.size();j++){
 				
 				Map<String,Object> tempMap=new LinkedHashMap<>();
 				tempMap.put("text",rootAreasSecond.get(j).getNodeText());
 				tempMap.put("leaf",false);
 				tempMap.put("checked",false);
-				tempMap.put("treeid", rootAreasSecond.get(j).getUuid());
+				tempMap.put("treeid", rootAreasSecond.get(j).getId());
 				tempMap.put("type","02");
 				
 				List<Map<String, Object>> tempMapChildren=new ArrayList<>();
@@ -430,7 +426,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 				//查询初中或高中的所有子区域id		
 				String roomareaHql="from BuildRoomarea where isDelete=0 order by orderIndex asc ";
 				List<BuildRoomarea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
-				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getUuid(),roomareaList,new StringBuffer());
+				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getId(),roomareaList,new StringBuffer());
 				String childAreasStr="";
 				if(childAreasSB.length()>0){
 					childAreasStr=childAreasSB.substring(0, childAreasSB.length()-1);
@@ -447,7 +443,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 					labMap.put("text",baseDicitem.getItemName());
 					labMap.put("leaf",false);					
 					labMap.put("checked",false);
-					labMap.put("treeid", baseDicitem.getUuid());
+					labMap.put("treeid", baseDicitem.getId());
 					labMap.put("type","03");
 					
 					List<Map<String, Object>> labMapChildren=new ArrayList<>();
@@ -462,7 +458,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 							roomInfoMap.put("text",roomInfo.getRoomName());
 							roomInfoMap.put("leaf",true);
 							roomInfoMap.put("checked",false);
-							roomInfoMap.put("treeid", roomInfo.getUuid());
+							roomInfoMap.put("treeid", roomInfo.getId());
 							roomInfoMap.put("type","04");	
 							
 							labMapChildren.add(roomInfoMap);
@@ -489,8 +485,8 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	
 		for(BuildRoomarea br : list ){
 			if(br.getParentNode().equals(parentId)){
-				sb.append("'"+br.getUuid()+"',");
-				sb=searchChildArea(br.getUuid(),list,sb);		
+				sb.append("'"+br.getId()+"',");
+				sb=searchChildArea(br.getId(),list,sb);		
 			}				
 		}
 		return sb;
@@ -507,39 +503,29 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		Boolean isSchoolAdminRole = false;
 		List<SysUser> roleUsers = userService.getUserByRoleName("学校管理员");
 		for (SysUser su : roleUsers) {
-			if (su.getUuid().equals(currentUser.getUuid())) {
+			if (su.getId().equals(currentUser.getId())) {
 				isSchoolAdminRole = true;
 				break;
 			}
 		}
 		
 		if (!isSchoolAdminRole) {
-			// 不是学校管理员判断是否是年级组长
-			String hql = "from JwGradeteacher where isDelete=0 and tteacId='" + currentUser.getUuid() + "'";
-			List<JwGradeteacher> gradeclassteachers = gTeacherService.queryByHql(hql);
-			if (gradeclassteachers != null && gradeclassteachers.size() > 0) {
-				JwGradeteacher gTeacher = gradeclassteachers.get(0);
-				whereSql += " and level=1";
-				whereSql += " or id='" + gTeacher.getGraiId() + "'";
-				whereSql += " or parent='" + gTeacher.getGraiId() + "'";
-			} else {
 				// 判断是否是班主任
-				hql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getUuid() + "'";
-				List<JwClassteacher> classteachers = cTeacherService.queryByHql(hql);
-				if (classteachers != null && classteachers.size() > 0) {
-					JwClassteacher cTeacher = classteachers.get(0);
-					whereSql += " and level=1";
-					whereSql += " or id=(select parent from JW_V_GRADECLASSTREE where id='" + cTeacher.getClaiId()
-							+ "')";
-					whereSql += " or id='" + cTeacher.getClaiId() + "'";
-				}
+			String hql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getId() + "'";
+			List<JwClassteacher> classteachers = cTeacherService.queryByHql(hql);
+			if (classteachers != null && classteachers.size() > 0) {
+				JwClassteacher cTeacher = classteachers.get(0);
+				whereSql += " and level=1";
+				whereSql += " or id=(select parent from JW_V_GRADECLASSTREE where id='" + cTeacher.getClassId()
+						+ "')";
+				whereSql += " or id='" + cTeacher.getClassId() + "'";
 			}
+			
 		}
 
-		List<CommTreeChk> commTreeList = treeSerice.getCommTreeChk("JW_V_GRADECLASSTREE", whereSql);		
+		List<CommTree> commTreeList = treeSerice.getCommTree("JW_V_GRADECLASSTREE", whereSql);		
 		
 		String stuHql="from JwClassstudent where isDelete=0 order by orderIndex asc";
-		
 		
 		
 		
@@ -553,16 +539,16 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	}
 	
 	@SuppressWarnings("unused")
-	private void addStuInTree(List<CommTreeChk> commTreeChks,List<JwClassstudent> stus){
-		for(CommTreeChk commTreeChk:commTreeChks){
-			List<CommTreeChk> ctc=commTreeChk.getChildren();
+	private void addStuInTree(List<CommTree> commTreeChks,List<JwClassstudent> stus){
+		for(CommTree commTreeChk:commTreeChks){
+			List<CommTree> ctc=commTreeChk.getChildren();
 			if(ctc.size()==0){
 				commTreeChk.setLeaf(false);
-				ctc=new ArrayList<CommTreeChk>();
+				ctc=new ArrayList<CommTree>();
 				for(JwClassstudent stu:stus){
-					if(stu.getClaiId().equals(commTreeChk.getId())){					
-						CommTreeChk child = new CommTreeChk(stu.getStudentId(), stu.getXm(), "", true,
-								commTreeChk.getLevel()+1, "", new ArrayList<CommTreeChk>(), commTreeChk.getId(),false);
+					if(stu.getClassId().equals(commTreeChk.getId())){					
+						CommTree child = new CommTree(stu.getStudentId(), stu.getName(), "", true,
+								commTreeChk.getLevel()+1, "", new ArrayList<CommTree>(), commTreeChk.getId(),false);
 						
 						ctc.add(child);
 						//stus.remove(stu);

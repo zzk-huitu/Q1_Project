@@ -8,7 +8,7 @@ public class JKCourse {
 	private String jcName;
 	private String teachrName;
 	private String className;
-	private Integer needSignIn;
+	private Boolean needSignIn;
 	private String teachTime;
 
 	public String getBeginTime() {
@@ -59,11 +59,11 @@ public class JKCourse {
 		this.className = className;
 	}
 
-	public Integer getNeedSignIn() {
+	public Boolean getNeedSignIn() {
 		return needSignIn;
 	}
 
-	public void setNeedSignIn(Integer needSignIn) {
+	public void setNeedSignIn(Boolean needSignIn) {
 		this.needSignIn = needSignIn;
 	}
 

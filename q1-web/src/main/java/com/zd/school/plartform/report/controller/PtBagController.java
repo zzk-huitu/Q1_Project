@@ -159,7 +159,7 @@ public class PtBagController extends FrameWorkController implements Constant {
 		List<DormStudentDorm> studentDorms = studentdormService.queryByHql(hql);
 		if (studentDorms.size() != 0) {
 			DormStudentDorm studentDormfirst = studentDorms.get(0);
-			JwClassDormAllot classDormAllot = classDormAllotService.get(studentDormfirst.getCdormId());
+			JwClassDormAllot classDormAllot = classDormAllotService.get(studentDormfirst.getClassDormId());
 			dormDefine = dormDefineService.get(classDormAllot.getDormId());
 		}
 		return dormDefine;
