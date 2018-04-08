@@ -26,16 +26,16 @@ import com.zd.school.excel.annotation.MapperCell;
  */
 @Entity
 @Table(name = "T_DK_TermStatus")
-@AttributeOverride(name = "id", column = @Column(name = "termStatusId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "termStatusId", length = 20, nullable = false))
 public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号")
-	@Column(name = "termSn", length = 14,  nullable = false)
+	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
 
 	@FieldInfo(name = "房间ID", type = "varchar(20) NOT NULL", explain = "房间编号")
-	@Column(name = "roomId", length = 20,  nullable = false)
+	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
 	@FieldInfo(name = "状态的日期", type = "date  NOT NULL", explain = "状态的日期")
@@ -92,11 +92,11 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 
 	@Transient
 	// @FieldInfo(name = "设备机号")
-	private String deviceNo;
+	private String termNo;
 
 	@Transient
 	// @FieldInfo(name = "设备类型")
-	private String deviceTypeId;
+	private String termTypeId;
 
 	@Transient
 	// @FieldInfo(name = "网关名称")
@@ -118,7 +118,7 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 	// @FieldInfo(name = "总电量")
 	private String sumDl;
 
-	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
+	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")
 	// @FieldInfo(name = "设备名称")
 	private String termName;
 
@@ -234,20 +234,20 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 		this.roomType = roomType;
 	}
 
-	public String getDeviceNo() {
-		return deviceNo;
+	public String getTermNo() {
+		return termNo;
 	}
 
-	public void setDeviceNo(String deviceNo) {
-		this.deviceNo = deviceNo;
+	public void setTermNo(String termNo) {
+		this.termNo = termNo;
 	}
 
-	public String getDeviceTypeId() {
-		return deviceTypeId;
+	public String getTermTypeId() {
+		return termTypeId;
 	}
 
-	public void setDeviceTypeId(String deviceTypeId) {
-		this.deviceTypeId = deviceTypeId;
+	public void setTermTypeId(String termTypeId) {
+		this.termTypeId = termTypeId;
 	}
 
 	public String getGatewayName() {

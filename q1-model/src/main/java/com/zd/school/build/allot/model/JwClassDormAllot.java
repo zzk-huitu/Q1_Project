@@ -68,7 +68,7 @@ public class JwClassDormAllot extends BaseEntity implements Serializable {
 	private String dormBedCount;
 
 	// @FieldInfo(name = "班级名称")
-	@Formula("(SELECT A.className FROM dbo.JW_T_GRADECLASS A WHERE A.classId=classId)")
+	@Formula("(SELECT A.className FROM dbo.T_PT_GradeClass A WHERE A.classId=classId)")
 	private String clainame;
 
 	@Formula("(SELECT B.roomName FROM  dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "

@@ -24,7 +24,7 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "班级宿舍id", type = "varchar(20) NOT NULL", explain = "班级宿舍主键")
+	@FieldInfo(name = "班级宿舍ID", type = "varchar(20) NOT NULL", explain = "班级宿舍主键")
 	@Column(name = "classDormId", length = 20, nullable = false)
 	private String classDormId;
 
