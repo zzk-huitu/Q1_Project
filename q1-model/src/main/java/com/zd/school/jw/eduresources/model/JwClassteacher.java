@@ -26,7 +26,7 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_PT_ClassTeacher")
-@AttributeOverride(name = "id", column = @Column(name = "classTeacherId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "classTeacherId", length = 20, nullable = false))
 public class JwClassteacher extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -71,8 +71,8 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	private String className;
 
 	// @FieldInfo(name = "年级ID")
-	@Formula("(SELECT a.GRAI_ID FROM T_PT_GradeClass a WHERE a.classId=classId )")
-	private String graiId;
+	@Formula("(SELECT a.gradeId FROM T_PT_GradeClass a WHERE a.classId=classId )")
+	private String gradeId;
 
 	// @FieldInfo(name = "年级")
 	@Formula("(SELECT a.nj FROM T_PT_GradeClass a WHERE a.classId=classId )")
@@ -86,7 +86,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	@Formula("(SELECT a.name FROM T_PT_User a WHERE a.userId=teacherId )")
 	private String name;
 
-	//@FieldInfo(name = "老师性别")
+	// @FieldInfo(name = "老师性别")
 	@Formula("(SELECT a.sex FROM T_PT_User a WHERE a.userId=teacherId )")
 	private String sex;
 
@@ -162,12 +162,12 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 		this.className = className;
 	}
 
-	public String getGraiId() {
-		return graiId;
+	public String getGradeId() {
+		return gradeId;
 	}
 
-	public void setGraiId(String graiId) {
-		this.graiId = graiId;
+	public void setGradeId(String gradeId) {
+		this.gradeId = gradeId;
 	}
 
 	public String getNj() {

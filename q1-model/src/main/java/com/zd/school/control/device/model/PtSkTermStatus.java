@@ -96,11 +96,11 @@ public class PtSkTermStatus extends BaseEntity implements Serializable {
 	// @FieldInfo(name = "房间名称", type = "varchar(16)", explain = "房间名称")
 	private String roomName;
 
-	@Formula("(SELECT A.termName FROM T_PT_Deveice A WHERE A.termSn=termSn)")
+	@Formula("(SELECT A.termName FROM T_PT_Term A WHERE A.termSn=termSn)")
 	// @FieldInfo(name = "设备名称", type = "varchar(25)", explain = "设备名称")
 	private String termName;
 
-	@Formula("(SELECT A.gatewayName FROM PT_GATEWAY A ,PT_TERM t  WHERE   A.gatewayId=t.gatewayId and t.termSn=termSn)")
+	@Formula("(SELECT A.gatewayName FROM T_PT_Gateway A ,T_PT_Term t  WHERE A.gatewayId=t.gatewayId and t.termSn=termSn)")
 	// @FieldInfo(name = "网关名称")
 	private String gatewayName;
 

@@ -31,7 +31,7 @@ public class EccClasselegant extends BaseEntity implements Serializable {
 	private String classId;
 
 	// @FieldInfo(name = "班级名称")
-	@Formula("(SELECT a.className FROM T_PT_GrageClass a WHERE a.classId=classId )")
+	@Formula("(SELECT a.className FROM T_PT_GradeClass a WHERE a.classId=classId )")
 	private String className;
 
 	@FieldInfo(name = "标题", type = "nvarchar(16) NOT NULL", explain = "标题")

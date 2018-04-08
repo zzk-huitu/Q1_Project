@@ -26,7 +26,7 @@ import com.zd.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_MJ_UserRight")
-@AttributeOverride(name = "id", column = @Column(name = "userRightId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "userRightId", length = 20, nullable = false))
 public class MjUserright extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -73,15 +73,15 @@ public class MjUserright extends BaseEntity implements Serializable {
 	private String name;
 
 	// @FieldInfo(name = "设备名称")
-	@Formula("(SELECT A.deviceName FROM dbo.T_PT_Term A WHERE A.deviceId=deviceId)")
-	private String deviceName;
+	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termId=termId)")
+	private String termName;
 
 	// @FieldInfo(name = "设备序列号")
-	@Formula("(SELECT A.deviceSn FROM dbo.T_PT_Term A WHERE A.deviceId=deviceId)")
-	private String deviceSN;
+	@Formula("(SELECT A.termSn FROM dbo.T_PT_Term A WHERE A.termId=termId)")
+	private String termSn;
 
 	// @FieldInfo(name = "房间名称")
-	@Formula("(select a.roomName from T_PT_RoomInfo a where a.roomId=(select b.roomId from T_PT_Term b where b.deviceId=deviceId) )")
+	@Formula("(select a.roomName from T_PT_RoomInfo a where a.roomId=(select b.roomId from T_PT_Term b where b.termId=termId) )")
 	private String roomName;
 
 	public String getTermId() {
@@ -164,20 +164,20 @@ public class MjUserright extends BaseEntity implements Serializable {
 		this.name = name;
 	}
 
-	public String getDeviceName() {
-		return deviceName;
+	public String getTermName() {
+		return termName;
 	}
 
-	public void setDeviceName(String deviceName) {
-		this.deviceName = deviceName;
+	public void setTermName(String termName) {
+		this.termName = termName;
 	}
 
-	public String getDeviceSN() {
-		return deviceSN;
+	public String getTermSn() {
+		return termSn;
 	}
 
-	public void setDeviceSN(String deviceSN) {
-		this.deviceSN = deviceSN;
+	public void setTermSn(String termSn) {
+		this.termSn = termSn;
 	}
 
 	public String getRoomName() {

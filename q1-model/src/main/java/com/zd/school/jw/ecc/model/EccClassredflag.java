@@ -38,7 +38,7 @@ public class EccClassredflag extends BaseEntity implements Serializable {
 	private String redFlagType;
 
 	// @FieldInfo(name = "班级名称")
-	@Formula("(SELECT a.className FROM T_PT_GrageClass a WHERE a.classId=classId )")
+	@Formula("(SELECT a.className FROM T_PT_GradeClass a WHERE a.classId=classId )")
 	private String className;
 
 	@FieldInfo(name = "开始日期", type = "datetime", explain = "开始日期")
