@@ -684,66 +684,66 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<Notice> implements OaNo
 		return otherEntity;
 	}
 
-	@Override
-	public List<Notice> getUserOaNotice(User currentUser) {
-		String today = DateUtil.formatDate(new Date());
-		StringBuffer hql = new StringBuffer("select distinct o from Notice as o ");
-		hql.append(" left join fetch o.noticeUsers as u ");
-		hql.append(" left join fetch o.noticeRoles as r ");
-		hql.append(" left join fetch o.noticeDepts as d ");
-		hql.append(" left join fetch o.noticeStus as s ");
-		hql.append(" where o.isDelete=0 ");
-		hql.append(" and o.beginDate<='" + today + "' ");
-		hql.append(" and o.endDate>='" + today + "' ");
-		hql.append(" order by o.createTime desc ");
-		List<Notice> list = this.queryByHql(hql.toString());
-		String userId = currentUser.getId();
-		StringBuffer hql2 = new StringBuffer("from SysUser as u ");
-		hql2.append(" left join fetch u.sysRoles as r ");
-		hql2.append(" left join fetch u.userDepts as d ");
-		hql2.append(" where u.uuid='" + userId + "' ");
-		currentUser = userService.queryByHql(hql2.toString()).get(0);
-		Set<Role> userRoles = currentUser.getSysRoles();
-		// Set<Department> userDepts = currentUser.getUserDepts(); --换成下面的方式
-		Set<Department> userDepts = userService.getDeptByUserId(currentUser.getId());
-
-		List<Notice> list2 = new ArrayList<Notice>();
-		NEXT: for (Notice oaNotice : list) {
-			Set<User> noticeUsers = oaNotice.getNoticeUsers();
-			for (User sysUser : noticeUsers) {
-				if (sysUser.getId().equals(userId)) {
-					list2.add(oaNotice);
-					continue NEXT;
-				}
-			}
-			Set<User> noticeStus = oaNotice.getNoticeStus();
-			for (User sysUser : noticeStus) {
-				if (sysUser.getId().equals(userId)) {
-					list2.add(oaNotice);
-					continue NEXT;
-				}
-			}
-			Set<Role> noticeRoles = oaNotice.getNoticeRoles();
-			for (Role sysRole : noticeRoles) {
-				for (Role userRole : userRoles) {
-					if (sysRole.getId().equals(userRole.getId())) {
-						list2.add(oaNotice);
-						continue NEXT;
-					}
-				}
-			}
-			Set<Department> noticeDepts = oaNotice.getNoticeDepts();
-			for (Department Department : noticeDepts) {
-				for (Department userOrg : userDepts) {
-					if (Department.getId().equals(userOrg.getId())) {
-						list2.add(oaNotice);
-						continue NEXT;
-					}
-				}
-			}
-		}
-		return list2;
-	}
+//	@Override
+//	public List<Notice> getUserOaNotice(User currentUser) {
+//		String today = DateUtil.formatDate(new Date());
+//		StringBuffer hql = new StringBuffer("select distinct o from Notice as o ");
+//		hql.append(" left join fetch o.noticeUsers as u ");
+//		hql.append(" left join fetch o.noticeRoles as r ");
+//		hql.append(" left join fetch o.noticeDepts as d ");
+//		hql.append(" left join fetch o.noticeStus as s ");
+//		hql.append(" where o.isDelete=0 ");
+//		hql.append(" and o.beginDate<='" + today + "' ");
+//		hql.append(" and o.endDate>='" + today + "' ");
+//		hql.append(" order by o.createTime desc ");
+//		List<Notice> list = this.queryByHql(hql.toString());
+//		String userId = currentUser.getId();
+//		StringBuffer hql2 = new StringBuffer("from User as u ");
+//		hql2.append(" left join fetch u.sysRoles as r ");
+//		hql2.append(" left join fetch u.userDepts as d ");
+//		hql2.append(" where u.uuid='" + userId + "' ");
+//		currentUser = userService.queryByHql(hql2.toString()).get(0);
+//		Set<Role> userRoles = currentUser.getSysRoles();
+//		// Set<Department> userDepts = currentUser.getUserDepts(); --换成下面的方式
+//		Set<Department> userDepts = userService.getDeptByUserId(currentUser.getId());
+//
+//		List<Notice> list2 = new ArrayList<Notice>();
+//		NEXT: for (Notice oaNotice : list) {
+//			Set<User> noticeUsers = oaNotice.getNoticeUsers();
+//			for (User sysUser : noticeUsers) {
+//				if (sysUser.getId().equals(userId)) {
+//					list2.add(oaNotice);
+//					continue NEXT;
+//				}
+//			}
+//			Set<User> noticeStus = oaNotice.getNoticeStus();
+//			for (User sysUser : noticeStus) {
+//				if (sysUser.getId().equals(userId)) {
+//					list2.add(oaNotice);
+//					continue NEXT;
+//				}
+//			}
+//			Set<Role> noticeRoles = oaNotice.getNoticeRoles();
+//			for (Role sysRole : noticeRoles) {
+//				for (Role userRole : userRoles) {
+//					if (sysRole.getId().equals(userRole.getId())) {
+//						list2.add(oaNotice);
+//						continue NEXT;
+//					}
+//				}
+//			}
+//			Set<Department> noticeDepts = oaNotice.getNoticeDepts();
+//			for (Department Department : noticeDepts) {
+//				for (Department userOrg : userDepts) {
+//					if (Department.getId().equals(userOrg.getId())) {
+//						list2.add(oaNotice);
+//						continue NEXT;
+//					}
+//				}
+//			}
+//		}
+//		return list2;
+//	}
 
 	/**
 	 * 获取发送到指定终端的通知公告数据列表

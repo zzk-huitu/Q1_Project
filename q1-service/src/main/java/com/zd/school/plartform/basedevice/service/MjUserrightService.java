@@ -1,8 +1,8 @@
 package com.zd.school.plartform.basedevice.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.control.device.model.MjUserright ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.control.device.model.MjUserRight ;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -18,10 +18,10 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
  
-public interface MjUserrightService extends BaseService<MjUserright> {
+public interface MjUserrightService extends BaseService<MjUserRight> {
 
-	public MjUserright doAddEntity(MjUserright entity, SysUser currentUser);
+	public MjUserRight doAddEntity(MjUserRight entity, User currentUser);
 
-	public void doAddMj(String userId, String termId, SysUser currentUser);
+	public void doAddMj(String userId, String termId, User currentUser);
 	
 }

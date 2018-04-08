@@ -1,11 +1,7 @@
 package com.zd.school.plartform.basedevice.service;
 
-import java.util.Map;
-
-import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.control.device.model.PtIrRoomDevice ;
+import com.zd.school.control.device.model.IrRoomDevice ;
 
 
 /**
@@ -21,7 +17,7 @@ import com.zd.school.control.device.model.PtIrRoomDevice ;
  * @since JDK 1.8
  */
  
-public interface PtIrRoomDeviceService extends BaseService<PtIrRoomDevice> {
+public interface PtIrRoomDeviceService extends BaseService<IrRoomDevice> {
 
 	public void doBindRoomBrand(String roomIds, String brandIds, String xm);
 	

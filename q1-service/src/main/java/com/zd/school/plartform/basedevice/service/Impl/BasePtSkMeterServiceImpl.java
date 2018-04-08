@@ -11,16 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.DkPriceDefine;
-import com.zd.school.build.define.model.SkPriceDefine;
-import com.zd.school.control.device.model.PtSkMeter;
+import com.zd.school.control.device.model.SkMeter;
 import com.zd.school.plartform.basedevice.dao.BasePtSkMeterDao;
 import com.zd.school.plartform.basedevice.service.BasePtSkMeterService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 @Service
 @Transactional
-public class BasePtSkMeterServiceImpl extends BaseServiceImpl<PtSkMeter> implements BasePtSkMeterService{
+public class BasePtSkMeterServiceImpl extends BaseServiceImpl<SkMeter> implements BasePtSkMeterService{
 
 	private static Logger logger = Logger.getLogger(BasePtSkMeterServiceImpl.class);
 	
@@ -30,10 +28,10 @@ public class BasePtSkMeterServiceImpl extends BaseServiceImpl<PtSkMeter> impleme
 	}
 	
 	 @Override
-		public PtSkMeter doAddEntity(PtSkMeter entity, SysUser currentUser) {
+		public SkMeter doAddEntity(SkMeter entity, User currentUser) {
 			try {
 				Integer orderIndex = this.getDefaultOrderIndex(entity);
-				PtSkMeter perEntity = new PtSkMeter();
+				SkMeter perEntity = new SkMeter();
 				perEntity.setCreateUser(currentUser.getId());
 				perEntity.setOrderIndex(orderIndex);
 				BeanUtils.copyPropertiesExceptNull(entity, perEntity);
@@ -50,9 +48,9 @@ public class BasePtSkMeterServiceImpl extends BaseServiceImpl<PtSkMeter> impleme
 		}
 	
 	@Override
-	public PtSkMeter doUpdateEntity(PtSkMeter entity, SysUser currentUser) {
+	public SkMeter doUpdateEntity(SkMeter entity, User currentUser) {
 		// 先拿到已持久化的实体
-		PtSkMeter perEntity = this.get(entity.getId());
+		SkMeter perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间

@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.oa.terminal.model.OaInfoterm;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.oa.terminal.model.InfoTerminal;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -17,7 +17,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface BaseInfotermService extends BaseService<OaInfoterm> {
+public interface BaseInfotermService extends BaseService<InfoTerminal> {
 
 	/**
 	 * 数据列表
@@ -34,7 +34,7 @@ public interface BaseInfotermService extends BaseService<OaInfoterm> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-	public QueryResult<OaInfoterm> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	public QueryResult<InfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -45,7 +45,7 @@ public interface BaseInfotermService extends BaseService<OaInfoterm> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -56,7 +56,7 @@ public interface BaseInfotermService extends BaseService<OaInfoterm> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public OaInfoterm doUpdateEntity(OaInfoterm entity, SysUser currentUser);
+	public InfoTerminal doUpdateEntity(InfoTerminal entity, User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -71,7 +71,7 @@ public interface BaseInfotermService extends BaseService<OaInfoterm> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public OaInfoterm doAddEntity(OaInfoterm entity, SysUser currentUser, Integer beforeNumber, Integer termCount);
+	public InfoTerminal doAddEntity(InfoTerminal entity, User currentUser, Integer beforeNumber, Integer termCount);
 
-	public Boolean doSetTerminal(List<OaInfoterm> terminals, String roomId, String roomName, SysUser currentUser);
+	public Boolean doSetTerminal(List<InfoTerminal> terminals, String roomId, String roomName, User currentUser);
 }

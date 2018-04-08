@@ -14,16 +14,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.TLVUtils;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.control.device.model.TLVModel;
 import com.zd.school.plartform.basedevice.dao.BasePtTermDao;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
 import com.zd.school.plartform.comm.model.CommBase;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 @Service
 @Transactional
-public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements BasePtTermService {
+public class BasePtTermServiceImpl extends BaseServiceImpl<Term> implements BasePtTermService {
 
 	private static Logger logger = Logger.getLogger(BasePtTermServiceImpl.class);
 
@@ -31,17 +31,18 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 	public void setPtTermDao(BasePtTermDao dao) {
 		this.dao = dao;
 	}
-	
-	//已废弃
+
+	// 已废弃
 	@Override
 	public void batchUpdate(int termTypeID, String termid, String areaType, String[] strings, Object[] objects) {
-		PtTerm term = this.get(termid);
+		Term term = this.get(termid);
 		String roomid = term.getRoomId();
 		int area = Integer.parseInt(areaType);
 		for (int level = 5; level > area; level--) {
-			String sql = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where id='" + roomid + "'";
+			String sql = "select id,text,iconCls,leaf,level,parent from V_PT_AreaRoomInfoTree where id='" + roomid
+					+ "'";
 			List<CommBase> lists = this.queryEntityBySql(sql, CommBase.class);
-			String sql2 = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where id='"
+			String sql2 = "select id,text,iconCls,leaf,level,parent from  V_PT_AreaRoomInfoTree where id='"
 					+ lists.get(0).getParent() + "'";
 			lists = this.queryEntityBySql(sql2, CommBase.class);
 			roomid = lists.get(0).getId();
@@ -49,17 +50,16 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		List<CommBase> list = null;
 		list = findChildren(list, roomid);
 		for (CommBase cb : list) {
-			updateByProperties(new String[] { "termTypeID", "roomId" }, new Object[] { termTypeID, cb.getId() },
+			updateByProperties(new String[] { "termTypeId", "roomId" }, new Object[] { termTypeID, cb.getId() },
 					strings, objects);
 		}
 	}
 
-
 	@Override
-	public PtTerm doAddEntity(PtTerm entity, SysUser currentUser) {
+	public Term doAddEntity(Term entity, User currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			PtTerm perEntity = new PtTerm();
+			Term perEntity = new Term();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
@@ -76,9 +76,9 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 	}
 
 	@Override
-	public PtTerm doUpdateEntity(PtTerm entity, SysUser currentUser) {
+	public Term doUpdateEntity(Term entity, User currentUser) {
 		// 先拿到已持久化的实体
-		PtTerm perEntity = this.get(entity.getId());
+		Term perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -105,7 +105,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		// TODO Auto-generated method stub
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs());
-		PtTerm perEntity = this.get(tlvs.getId());
+		Term perEntity = this.get(tlvs.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
@@ -121,44 +121,45 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs());
 
-		PtTerm term = this.get(uuid);
+		Term term = this.get(uuid);
 		String roomid = term.getRoomId();
 		int area = Integer.parseInt(areaType);
-		//最多5层，但也可能为4层（无校区的情况）
+		// 最多5层，但也可能为4层（无校区的情况）
 		for (int level = 5; level > area; level--) {
-			String sql = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where id='" + roomid + "'";
+			String sql = "select id,text,iconCls,leaf,level,parent from V_PT_AreaRoomInfoTree where id='" + roomid
+					+ "'";
 			List<CommBase> lists = this.queryEntityBySql(sql, CommBase.class);
-			//加入判断，防止出错
-			if(lists.size()>0){
-				String sql2 = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where id='"
+			// 加入判断，防止出错
+			if (lists.size() > 0) {
+				String sql2 = "select id,text,iconCls,leaf,level,parent from V_PT_AreaRoomInfoTree where id='"
 						+ lists.get(0).getParent() + "'";
 				lists = this.queryEntityBySql(sql2, CommBase.class);
-				
-				//加入判断，防止出错
-				if(lists.size()>0){
+
+				// 加入判断，防止出错
+				if (lists.size() > 0) {
 					roomid = lists.get(0).getId();
-				}else{
+				} else {
 					break;
 				}
 			}
 		}
-		
+
 		List<CommBase> list = null;
-		list = findChildren(list, roomid);	//查找此区域下的所有房间
-		
-		String[] propertyNames=new String[]{"advParam","updateUser","updateTime"};
-		Object[] propertyValues=new Object[]{ advResult,xm,new Date()};
+		list = findChildren(list, roomid); // 查找此区域下的所有房间
+
+		String[] propertyNames = new String[] { "advParam", "updateUser", "updateTime" };
+		Object[] propertyValues = new Object[] { advResult, xm, new Date() };
 		for (CommBase cb : list) {
-			updateByProperties(new String[] { "termTypeID", "roomId" }, new Object[] { termTypeID, cb.getId() },
+			updateByProperties(new String[] { "termTypeId", "roomId" }, new Object[] { termTypeID, cb.getId() },
 					propertyNames, propertyValues);
 		}
 	}
-	
 
 	public List<CommBase> findChildren(List<CommBase> list, String roomid) {
 		if (list == null)
 			list = new ArrayList<>();
-		String sql = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where parent='" + roomid + "'";
+		String sql = "select id,text,iconCls,leaf,level,parent from  V_PT_AreaRoomInfoTree where parent='" + roomid
+				+ "'";
 		List<CommBase> lists = this.queryEntityBySql(sql, CommBase.class);
 		for (CommBase cb : lists) {
 			if (cb.getLeaf().equals("true")) {
@@ -175,16 +176,16 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		// TODO Auto-generated method stub
 		byte[] baseResult = null;
 		baseResult = TLVUtils.encode(tlvs.getTlvs());
-		
-		PtTerm perEntity = this.get(tlvs.getId());
+
+		Term perEntity = this.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
 		perEntity.setUpdateTime(new Date());
 		perEntity.setBaseParam(baseResult);
-		if("11".equals(perEntity.getTermTypeId())||"17".equals(perEntity.getTermTypeId())){
+		if ("11".equals(perEntity.getTermTypeId()) || "17".equals(perEntity.getTermTypeId())) {
 			perEntity.setNotes(notes);
 		}
-		this.merge(perEntity);// 执行修改方法		
+		this.merge(perEntity);// 执行修改方法
 	}
 
 	@Override
@@ -194,60 +195,62 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<PtTerm> implements Ba
 		byte[] baseResult = null;
 		baseResult = TLVUtils.encode(tlvs.getTlvs());
 
-		PtTerm term = this.get(uuid);
+		Term term = this.get(uuid);
 		String roomid = term.getRoomId();
 		int area = Integer.parseInt(areaType);
-		//最多5层，但也可能为4层（无校区的情况）
+		// 最多5层，但也可能为4层（无校区的情况）
 		for (int level = 5; level > area; level--) {
-			String sql = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where id='" + roomid + "'";
+			String sql = "select id,text,iconCls,leaf,level,parent from  V_PT_AreaRoomInfoTree where id='" + roomid
+					+ "'";
 			List<CommBase> lists = this.queryEntityBySql(sql, CommBase.class);
-			//加入判断，防止出错
-			if(lists.size()>0){
-				String sql2 = "select id,text,iconCls,leaf,level,parent from  JW_V_AREAROOMINFOTREE where id='"
+			// 加入判断，防止出错
+			if (lists.size() > 0) {
+				String sql2 = "select id,text,iconCls,leaf,level,parent from  V_PT_AreaRoomInfoTree where id='"
 						+ lists.get(0).getParent() + "'";
 				lists = this.queryEntityBySql(sql2, CommBase.class);
-				
-				//加入判断，防止出错
-				if(lists.size()>0){
+
+				// 加入判断，防止出错
+				if (lists.size() > 0) {
 					roomid = lists.get(0).getId();
-				}else{
+				} else {
 					break;
 				}
 			}
 		}
-		
+
 		List<CommBase> list = null;
-		list = findChildren(list, roomid);	//查找此区域下的所有房间
-		
-		String[] propertyNames=null;
-		Object[] propertyValues=null;
-		if("11".equals(termTypeID)||"17".equals(termTypeID)){
-			propertyNames=new String[]{"baseParam","notes","updateUser","updateTime"};
-			propertyValues=new Object[]{ baseResult,notes,xm,new Date()};
-		}else{
-			propertyNames=new String[]{"baseParam","updateUser","updateTime"};
-			propertyValues=new Object[]{ baseResult,xm,new Date()};
+		list = findChildren(list, roomid); // 查找此区域下的所有房间
+
+		String[] propertyNames = null;
+		Object[] propertyValues = null;
+		if ("11".equals(termTypeID) || "17".equals(termTypeID)) {
+			propertyNames = new String[] { "baseParam", "notes", "updateUser", "updateTime" };
+			propertyValues = new Object[] { baseResult, notes, xm, new Date() };
+		} else {
+			propertyNames = new String[] { "baseParam", "updateUser", "updateTime" };
+			propertyValues = new Object[] { baseResult, xm, new Date() };
 		}
-		
+
 		for (CommBase cb : list) {
-			updateByProperties(new String[] { "termTypeID", "roomId" }, new Object[] { termTypeID, cb.getId() },
+			updateByProperties(new String[] { "termTypeId", "roomId" }, new Object[] { termTypeID, cb.getId() },
 					propertyNames, propertyValues);
 		}
 	}
 
 	@Override
-	public void doSetPtTerm(String roomId, String uuid, SysUser currentUser) {
+	public void doSetPtTerm(String roomId, String uuid, User currentUser) {
 		// TODO Auto-generated method stub
 		String uuids[] = uuid.split(",");
 		String roomIds[] = roomId.split(",");
-		PtTerm entity = null;
+		Term entity = null;
 		for (int i = 0; i < uuids.length; i++) {
 			entity = this.get(uuids[i]);
 			entity.setRoomId(roomIds[i]);
 			entity.setCreateUser(currentUser.getId());
 			entity.setUpdateTime(new Date());
 			this.merge(entity);
-			//thisService.updateByProperties("uuid", uuids[i], "roomId", roomId);
+			// thisService.updateByProperties("uuid", uuids[i], "roomId",
+			// roomId);
 		}
 	}
 }

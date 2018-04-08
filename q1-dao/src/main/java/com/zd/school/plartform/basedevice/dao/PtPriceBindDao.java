@@ -1,13 +1,13 @@
 package com.zd.school.plartform.basedevice.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.control.device.model.PtPriceBind;
+import com.zd.school.control.device.model.PriceBind;
 
 /**
  * 水控、电控费率绑定表
  * @author hucy
  *
  */
-public interface PtPriceBindDao extends BaseDao<PtPriceBind>{
+public interface PtPriceBindDao extends BaseDao<PriceBind>{
 
 }

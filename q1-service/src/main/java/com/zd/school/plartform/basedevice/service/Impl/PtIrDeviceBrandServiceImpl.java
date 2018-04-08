@@ -15,39 +15,38 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.school.plartform.basedevice.dao.PtIrDeviceBrandDao;
 import com.zd.school.plartform.basedevice.service.PtIrDeviceBrandService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.control.device.model.PtIrDeviceBrand ;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.control.device.model.IrDeviceBrand;
 
 /**
  * 
- * ClassName: PtIrDeviceBrandServiceImpl
- * Function:  ADD FUNCTION. 
- * Reason:  ADD REASON(可选). 
- * Description: 红外设备品牌型号(PT_IR_DEVICE_BRAND)实体Service接口实现类.
- * date: 2017-01-12
+ * ClassName: PtIrDeviceBrandServiceImpl Function: ADD FUNCTION. Reason: ADD
+ * REASON(可选). Description: 红外设备品牌型号(PT_IR_DEVICE_BRAND)实体Service接口实现类. date:
+ * 2017-01-12
  *
- * @author  luoyibo 创建文件
+ * @author luoyibo 创建文件
  * @version 0.1
  * @since JDK 1.8
  */
 @Service
 @Transactional
-public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand> implements PtIrDeviceBrandService{
-	
-    @Resource
-    public void setPtIrDeviceBrandDao(PtIrDeviceBrandDao dao) {
-        this.dao = dao;
-    }
+public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<IrDeviceBrand> implements PtIrDeviceBrandService {
+
+	@Resource
+	public void setPtIrDeviceBrandDao(PtIrDeviceBrandDao dao) {
+		this.dao = dao;
+	}
+
 	private static Logger logger = Logger.getLogger(PtIrDeviceBrandServiceImpl.class);
-	
+
 	@Override
-	public PtIrDeviceBrand doAddEntity(PtIrDeviceBrand entity, SysUser currentUser) {
-		PtIrDeviceBrand saveEntity = new PtIrDeviceBrand();
-		
+	public IrDeviceBrand doAddEntity(IrDeviceBrand entity, User currentUser) {
+		IrDeviceBrand saveEntity = new IrDeviceBrand();
+
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
+		excludedProp.add("id");
 		try {
-			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
+			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,23 +55,23 @@ public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand>
 		entity = this.merge(saveEntity);// 执行修改方法
 
 		return entity;
-		
+
 	}
-	
+
 	@Override
-	public PtIrDeviceBrand doUpdateEntity(PtIrDeviceBrand entity, SysUser currentUser) {
+	public IrDeviceBrand doUpdateEntity(IrDeviceBrand entity, User currentUser) {
 		// 先拿到已持久化的实体
-		PtIrDeviceBrand perEntity = this.get(entity.getId());
+		IrDeviceBrand perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
 			perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(perEntity);// 执行修改方法
-			
-			/*若修改的是第三层的品牌名称，则一并把第四层的品牌名称修改*/
-			if(entity.getLevel()==3){
-				String hql="update PtIrDeviceBrand set brandName='"+entity.getBrandName()+"'"
-						+ " where isDelete=0 and level=4 and parentNode='"+entity.getId()+"'";
+
+			/* 若修改的是第三层的品牌名称，则一并把第四层的品牌名称修改 */
+			if (entity.getLevel() == 3) {
+				String hql = "update IrDeviceBrand set brandName='" + entity.getBrandName() + "'"
+						+ " where isDelete=0 and level=4 and parentNode='" + entity.getId() + "'";
 				this.doExecuteCountByHql(hql);
 			}
 			return entity;

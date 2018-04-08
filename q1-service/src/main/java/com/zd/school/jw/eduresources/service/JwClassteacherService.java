@@ -18,24 +18,24 @@ import com.zd.school.plartform.system.model.User;
 public interface JwClassteacherService extends BaseService<ClassTeacher> {
 
 	/**
-	 * 
-	 * getClassLeader:获取指定学生的所在班级的班主任
-	 *
-	 * @author luoyibo
-	 * @param userId
-	 * @return String
-	 * @throws @since
-	 *             JDK 1.8
-	 */
-	public String getClassLeader(String userId);
-
-	/**
-	 * 获取指定学生的所有班主任
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	public String getClassLeaderList(String userId);
+//	 * 
+//	 * getClassLeader:获取指定学生的所在班级的班主任
+//	 *
+//	 * @author luoyibo
+//	 * @param userId
+//	 * @return String
+//	 * @throws @since
+//	 *             JDK 1.8
+//	 */
+//	public String getClassLeader(String userId);
+//
+//	/**
+//	 * 获取指定学生的所有班主任
+//	 * 
+//	 * @param userId
+//	 * @return
+//	 */
+//	public String getClassLeaderList(String userId);
 
 	public ClassTeacher doAddClassTeacher(ClassTeacher entity, User currentUser)
 			throws IllegalAccessException, InvocationTargetException;

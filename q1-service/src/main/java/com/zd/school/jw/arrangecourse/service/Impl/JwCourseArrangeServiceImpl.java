@@ -103,7 +103,7 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> i
 				
 			
 				//查询此班级信息			
-				hql = "from JwTGradeclass where className='" + className + "'" + andIsDelete;	
+				hql = "from GradeClass where className='" + className + "'" + andIsDelete;	
 				List<GradeClass> gcList=jwClassService.queryByHql(hql);
 				GradeClass gc=null;
 				
@@ -153,7 +153,7 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> i
 						index++;
 						
 						//查询课程信息
-						hql = "from JwTBasecourse where courseName='" + cousreName + "'" + andIsDelete;
+						hql = "from BaseCourse where courseName='" + cousreName + "'" + andIsDelete;
 						List<BaseCourse> baseCourseList= jtbService.queryByHql(hql);
 						BaseCourse basecourse = null;
 						if(baseCourseList.size()==1){

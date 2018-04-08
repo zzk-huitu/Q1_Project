@@ -1,10 +1,8 @@
 package com.zd.school.plartform.basedevice.service;
 
-
-
 import com.zd.core.service.BaseService;
-import com.zd.school.build.define.model.SysFrontServer;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.build.define.model.FrontServer;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -12,7 +10,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @author hucy
  *
  */
-public interface BaseFrontServerService extends BaseService<SysFrontServer> {
+public interface BaseFrontServerService extends BaseService<FrontServer> {
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
 	 * 
@@ -22,7 +20,7 @@ public interface BaseFrontServerService extends BaseService<SysFrontServer> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public SysFrontServer doUpdateEntity(SysFrontServer entity, SysUser currentUser);
+	public FrontServer doUpdateEntity(FrontServer entity, User currentUser);
 	/**
 	 * 将传入的实体对象持久化到数据
 	 * 
@@ -33,6 +31,6 @@ public interface BaseFrontServerService extends BaseService<SysFrontServer> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public SysFrontServer doAddEntity(SysFrontServer entity, SysUser currentUser);
+	public FrontServer doAddEntity(FrontServer entity, User currentUser);
 
 }

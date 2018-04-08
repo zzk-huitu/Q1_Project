@@ -120,7 +120,7 @@ public interface OaNoticeService extends BaseService<Notice> {
 	 */
 	public NoticeOther getNoticeOther(String id);
 	
-	public  List<Notice> getUserOaNotice(User currentUser);
+//	public  List<Notice> getUserOaNotice(User currentUser);
 	
 	/**
 	 * 获取发送到指定终端的通知公告数据列表

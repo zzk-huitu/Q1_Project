@@ -14,7 +14,7 @@ import com.zd.core.util.BeanUtils;
 import com.zd.school.build.define.model.DkPriceDefine;
 import com.zd.school.plartform.basedevice.dao.BaseDkPriceDefineDao;
 import com.zd.school.plartform.basedevice.service.BaseDkPriceDefineService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 电控费率定义
@@ -33,7 +33,7 @@ public class BaseDkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine>
 private static Logger logger = Logger.getLogger(BaseDkPriceDefineServiceImpl.class);
     
     @Override
-	public DkPriceDefine doAddEntity(DkPriceDefine entity, SysUser currentUser) {
+	public DkPriceDefine doAddEntity(DkPriceDefine entity, User currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			float priceValue = entity.getPriceValue();
@@ -55,7 +55,7 @@ private static Logger logger = Logger.getLogger(BaseDkPriceDefineServiceImpl.cla
 	}
     
     @Override
-	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, SysUser currentUser) {
+	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, User currentUser) {
 		// 先拿到已持久化的实体
     	DkPriceDefine perEntity = this.get(entity.getId());
 		try {
