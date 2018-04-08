@@ -40,8 +40,8 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 	@Override
 	public QueryResult<PtTask> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
 		String hql1=" select g" ;
-		String hql= " from PtTask g where g.executetime= "
-				+ "(select Max(executetime) from PtTask s1 where s1.termsn=g.termsn)  ";
+		String hql= " from PtTask g where g.executeTime= "
+				+ "(select Max(executeTime) from PtTask s1 where s1.termSn=g.termSn)  ";
 		QueryResult<PtTask> qResult = this.queryCountToHql(start, limit, sort, filter,
 				   hql1+ hql, null, null);
 		return qResult;
@@ -73,7 +73,7 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -124,7 +124,7 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 		PtTask saveEntity = new PtTask();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

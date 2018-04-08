@@ -45,10 +45,6 @@ public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
 	 *             JDK 1.8
 	 */
 	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
-			String whereSql, String orderSql, String querySql, Boolean isDelete, String deptId, SysUser currentUser);
-
-	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit,String whereSql);
-	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
 			String qureyFilter, Boolean isDelete, String deptId, SysUser currentUser);
 
 	/**
