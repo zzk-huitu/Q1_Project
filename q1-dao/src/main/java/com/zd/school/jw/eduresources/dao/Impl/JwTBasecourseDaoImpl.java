@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.jw.eduresources.dao.JwTBasecourseDao;
-import com.zd.school.jw.eduresources.model.JwTBasecourse;
+import com.zd.school.jw.eduresources.model.BaseCourse;
 
 /**
  * 
@@ -16,9 +16,9 @@ import com.zd.school.jw.eduresources.model.JwTBasecourse;
  * @since JDK 1.8
  */
 @Repository
-public class JwTBasecourseDaoImpl extends BaseDaoImpl<JwTBasecourse> implements JwTBasecourseDao {
+public class JwTBasecourseDaoImpl extends BaseDaoImpl<BaseCourse> implements JwTBasecourseDao {
     public JwTBasecourseDaoImpl() {
-        super(JwTBasecourse.class);
+        super(BaseCourse.class);
         // TODO Auto-generated constructor stub
     }
 }

@@ -1,7 +1,7 @@
 package com.zd.school.oa.attendance.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.oa.attendance.model.AttTime ;
+import com.zd.school.oa.attendance.model.AttendTime ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.attendance.model.AttTime ;
  * @since JDK 1.8
  */
  
-public interface AttTimeDao extends BaseDao<AttTime> {
+public interface AttTimeDao extends BaseDao<AttendTime> {
 
 }

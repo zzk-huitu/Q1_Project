@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.jw.eduresources.dao.JwTGradeclassDao;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.GradeClass;
 
 /**
  * 
@@ -16,9 +16,9 @@ import com.zd.school.jw.eduresources.model.JwTGradeclass;
  * @since JDK 1.8
  */
 @Repository
-public class JwTGradeclassDaoImpl extends BaseDaoImpl<JwTGradeclass> implements JwTGradeclassDao {
+public class JwTGradeclassDaoImpl extends BaseDaoImpl<GradeClass> implements JwTGradeclassDao {
     public JwTGradeclassDaoImpl() {
-        super(JwTGradeclass.class);
+        super(GradeClass.class);
         // TODO Auto-generated constructor stub
     }
 }

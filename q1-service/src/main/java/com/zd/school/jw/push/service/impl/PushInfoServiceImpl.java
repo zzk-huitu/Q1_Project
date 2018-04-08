@@ -12,7 +12,7 @@ import com.zd.core.util.StringUtils;
 import com.zd.school.jw.push.dao.PushInfoDao;
 import com.zd.school.jw.push.model.PushInfo;
 import com.zd.school.jw.push.service.PushInfoService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 @Service
 @Transactional
@@ -24,12 +24,12 @@ public class PushInfoServiceImpl extends BaseServiceImpl<PushInfo> implements Pu
     }
 
     @Override
-	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus,SysUser currentUser) {
+	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus,User currentUser) {
 		return this.pushInfo(empName, empNo, eventType, regStatus,null, currentUser);
 	}
 
 	@Override
-	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus, String pushUrl,SysUser currentUser) {
+	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus, String pushUrl,User currentUser) {
 		Boolean br = false;
 		PushInfo pushInfo = new PushInfo();
 		pushInfo.setEmpleeName(empName);

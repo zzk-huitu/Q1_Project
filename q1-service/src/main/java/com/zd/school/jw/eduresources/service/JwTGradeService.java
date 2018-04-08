@@ -2,8 +2,8 @@ package com.zd.school.jw.eduresources.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.eduresources.model.Grade;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -15,8 +15,8 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface JwTGradeService extends BaseService<JwTGrade> {
+public interface JwTGradeService extends BaseService<Grade> {
 
-    public QueryResult<JwTGrade> getGradeList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, SysUser currentUser);
+    public QueryResult<Grade> getGradeList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, User currentUser);
 }

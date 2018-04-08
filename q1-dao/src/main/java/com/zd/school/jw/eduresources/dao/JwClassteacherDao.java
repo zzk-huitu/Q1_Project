@@ -1,7 +1,7 @@
 package com.zd.school.jw.eduresources.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.eduresources.model.JwClassteacher ;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.jw.eduresources.model.JwClassteacher ;
  * @since JDK 1.8
  */
  
-public interface JwClassteacherDao extends BaseDao<JwClassteacher> {
+public interface JwClassteacherDao extends BaseDao<ClassTeacher> {
 
 }

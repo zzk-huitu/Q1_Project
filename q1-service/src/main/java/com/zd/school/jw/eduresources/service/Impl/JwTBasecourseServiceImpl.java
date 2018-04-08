@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.school.jw.eduresources.dao.JwTBasecourseDao;
-import com.zd.school.jw.eduresources.model.JwTBasecourse;
+import com.zd.school.jw.eduresources.model.BaseCourse;
 import com.zd.school.jw.eduresources.service.JwTBasecourseService;
 
 /**
@@ -21,7 +21,7 @@ import com.zd.school.jw.eduresources.service.JwTBasecourseService;
  */
 @Service
 @Transactional
-public class JwTBasecourseServiceImpl extends BaseServiceImpl<JwTBasecourse> implements JwTBasecourseService {
+public class JwTBasecourseServiceImpl extends BaseServiceImpl<BaseCourse> implements JwTBasecourseService {
 
     @Resource
     public void setJwTBasecourseDao(JwTBasecourseDao dao) {

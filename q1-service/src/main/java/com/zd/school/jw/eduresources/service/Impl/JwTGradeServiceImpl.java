@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.school.jw.eduresources.dao.JwTGradeDao;
+import com.zd.school.jw.eduresources.model.Grade;
 import com.zd.school.jw.eduresources.model.JwTGrade;
 import com.zd.school.jw.eduresources.service.JwTGradeService;
 import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysJobService;
 import com.zd.school.plartform.system.service.SysOrgService;
 
@@ -25,7 +27,7 @@ import com.zd.school.plartform.system.service.SysOrgService;
  */
 @Service
 @Transactional
-public class JwTGradeServiceImpl extends BaseServiceImpl<JwTGrade> implements JwTGradeService {
+public class JwTGradeServiceImpl extends BaseServiceImpl<Grade> implements JwTGradeService {
 
     @Resource
     public void setJwTGradeDao(JwTGradeDao dao) {
@@ -41,8 +43,8 @@ public class JwTGradeServiceImpl extends BaseServiceImpl<JwTGrade> implements Jw
 
     @SuppressWarnings("unchecked")
     @Override
-    public QueryResult<JwTGrade> getGradeList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, SysUser currentUser) {
+    public QueryResult<Grade> getGradeList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, User currentUser) {
         String queryFilter = filter;
 /*        String jobId = currentUser.getJobId();
         String jobName = currentUser.getJobName();
@@ -80,7 +82,7 @@ public class JwTGradeServiceImpl extends BaseServiceImpl<JwTGrade> implements Jw
         }*/
         if (currentUser.getUserName().equals("schooladmin"))
             queryFilter = "";
-        QueryResult<JwTGrade> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
+        QueryResult<Grade> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
         return qr;
     }
 

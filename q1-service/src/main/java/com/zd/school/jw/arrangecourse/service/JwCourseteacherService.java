@@ -4,9 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.arrangecourse.model.JwCourseteacher;
+import com.zd.school.jw.arrangecourse.model.CourseTeacher;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -19,7 +19,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface JwCourseteacherService extends BaseService<JwCourseteacher> {
+public interface JwCourseteacherService extends BaseService<CourseTeacher> {
 
     /**
      * 
@@ -39,21 +39,21 @@ public interface JwCourseteacherService extends BaseService<JwCourseteacher> {
      * @throws @since
      *             JDK 1.8
      */
-    public Boolean doAddCourseTeacher(String jsonData, SysUser currentUser) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException;
+    public Boolean doAddCourseTeacher(String jsonData, User currentUser) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException;
 
-    public Boolean doDelCourseTeacher(String delIds, SysUser currentUser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+    public Boolean doDelCourseTeacher(String delIds, User currentUser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
     
-    public QueryResult<JwCourseteacher> getClassCourseTeacherList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, String claiId, Integer claiLevel);   
+    public QueryResult<CourseTeacher> getClassCourseTeacherList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, String classId, Integer classLevel);   
     
 	/**
 	 * 批量更新周课时
 	 */
-	public String updateZjsByClassId(String classid,String courseid,int zjs);
+	public String updateZjsByClassId(String classId,String courseid,int zjs);
 
-	public Integer doReplaceCourseTeacher(String jctUuid, String teacherId, SysUser sysser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	public Integer doReplaceCourseTeacher(String jctUuid, String teacherId, User sysser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
-	public void updatePubliceClass(String claiId, String courseId, String publicClassid);
+	public void updatePubliceClass(String classId, String courseId, String publicClassId);
 	
 	/**
 	 * 获取用户有权限的学科树
@@ -61,5 +61,5 @@ public interface JwCourseteacherService extends BaseService<JwCourseteacher> {
 	 * @param currentUser
 	 * @return
 	 */
-	public CommTree getUserRightDeptDisciplineTree(String rootId, SysUser currentUser);
+	public CommTree getUserRightDeptDisciplineTree(String rootId, User currentUser);
 }

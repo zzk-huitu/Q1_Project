@@ -16,11 +16,11 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
 import com.zd.school.oa.notice.dao.OaNoticeauditorDao ;
-import com.zd.school.oa.notice.model.OaNotice;
-import com.zd.school.oa.notice.model.OaNoticeauditor ;
+import com.zd.school.oa.notice.model.Notice;
+import com.zd.school.oa.notice.model.NoticeAuditor ;
 import com.zd.school.oa.notice.service.OaNoticeService;
 import com.zd.school.oa.notice.service.OaNoticeauditorService ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -36,7 +36,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor> implements OaNoticeauditorService{
+public class OaNoticeauditorServiceImpl extends BaseServiceImpl<NoticeAuditor> implements OaNoticeauditorService{
 
     @Resource
     public void setOaNoticeauditorDao(OaNoticeauditorDao dao) {
@@ -48,8 +48,8 @@ public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor>
 	private OaNoticeService noticeService;
 	
 	@Override
-	public QueryResult<OaNoticeauditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<OaNoticeauditor> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<NoticeAuditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<NoticeAuditor> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -62,13 +62,13 @@ public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor>
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -86,9 +86,9 @@ public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor>
 	 * @return
 	 */
 	@Override
-	public OaNoticeauditor doUpdateEntity(OaNoticeauditor entity, SysUser currentUser) {
+	public NoticeAuditor doUpdateEntity(NoticeAuditor entity, User currentUser) {
 		// 先拿到已持久化的实体
-		OaNoticeauditor saveEntity = this.get(entity.getId());
+		NoticeAuditor saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -115,11 +115,11 @@ public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor>
 	 * @return
 	 */
 	@Override
-	public OaNoticeauditor doAddEntity(OaNoticeauditor entity, SysUser currentUser) {
-		OaNoticeauditor saveEntity = new OaNoticeauditor();
+	public NoticeAuditor doAddEntity(NoticeAuditor entity, User currentUser) {
+		NoticeAuditor saveEntity = new NoticeAuditor();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -134,11 +134,11 @@ public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor>
 		}
 	}
 	@Override
-	public QueryResult<OaNotice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, SysUser currentUser) {
+	public QueryResult<Notice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, User currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
-		StringBuffer hql = new StringBuffer("from OaNotice where 1=1 ");
+		StringBuffer hql = new StringBuffer("from Notice where 1=1 ");
 
 		hql.append(whereSql);
 		hql.append(filterSql);
@@ -152,7 +152,7 @@ public class OaNoticeauditorServiceImpl extends BaseServiceImpl<OaNoticeauditor>
 				hql.append(" order by  " + sortSql);
 		}
 
-		QueryResult<OaNotice> qResult = noticeService.queryResult(hql.toString(), start, limit);
+		QueryResult<Notice> qResult = noticeService.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

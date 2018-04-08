@@ -15,8 +15,8 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.oa.attendance.model.AttTime ;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.oa.attendance.model.AttendTime ;
 import com.zd.school.oa.attendance.dao.AttTimeDao ;
 import com.zd.school.oa.attendance.service.AttTimeService ;
 
@@ -34,7 +34,7 @@ import com.zd.school.oa.attendance.service.AttTimeService ;
  */
 @Service
 @Transactional
-public class AttTimeServiceImpl extends BaseServiceImpl<AttTime> implements AttTimeService{
+public class AttTimeServiceImpl extends BaseServiceImpl<AttendTime> implements AttTimeService{
 
     @Resource
     public void setAttTimeDao(AttTimeDao dao) {
@@ -43,8 +43,8 @@ public class AttTimeServiceImpl extends BaseServiceImpl<AttTime> implements AttT
 	private static Logger logger = Logger.getLogger(AttTimeServiceImpl.class);
 	
 	@Override
-	public QueryResult<AttTime> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<AttTime> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<AttendTime> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<AttendTime> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -57,13 +57,13 @@ public class AttTimeServiceImpl extends BaseServiceImpl<AttTime> implements AttT
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -81,9 +81,9 @@ public class AttTimeServiceImpl extends BaseServiceImpl<AttTime> implements AttT
 	 * @return
 	 */
 	@Override
-	public AttTime doUpdateEntity(AttTime entity, SysUser currentUser) {
+	public AttendTime doUpdateEntity(AttendTime entity, User currentUser) {
 		// 先拿到已持久化的实体
-		AttTime saveEntity = this.get(entity.getId());
+		AttendTime saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -110,11 +110,11 @@ public class AttTimeServiceImpl extends BaseServiceImpl<AttTime> implements AttT
 	 * @return
 	 */
 	@Override
-	public AttTime doAddEntity(AttTime entity, SysUser currentUser) {
-		AttTime saveEntity = new AttTime();
+	public AttendTime doAddEntity(AttendTime entity, User currentUser) {
+		AttendTime saveEntity = new AttendTime();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

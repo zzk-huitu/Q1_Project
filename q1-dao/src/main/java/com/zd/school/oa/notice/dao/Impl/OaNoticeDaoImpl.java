@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.oa.notice.dao.OaNoticeDao ;
-import com.zd.school.oa.notice.model.OaNotice ;
+import com.zd.school.oa.notice.model.Notice ;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.oa.notice.model.OaNotice ;
  * @since JDK 1.8
  */
 @Repository
-public class OaNoticeDaoImpl extends BaseDaoImpl<OaNotice> implements OaNoticeDao {
+public class OaNoticeDaoImpl extends BaseDaoImpl<Notice> implements OaNoticeDao {
     public OaNoticeDaoImpl() {
-        super(OaNotice.class);
+        super(Notice.class);
         // TODO Auto-generated constructor stub
     }
 }
