@@ -2,7 +2,6 @@ package com.zd.school.teacher.teacherinfo.service.Impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +17,6 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.baseset.model.BaseJob;
-import com.zd.school.plartform.baseset.model.BaseOrg;
 import com.zd.school.plartform.system.model.SysRole;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysJobService;
@@ -62,57 +60,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 	@Resource
 	private SysUserdeptjobService userDeptJobService;
 
-	@Override
-	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
-			String whereSql, String orderSql, String querySql, Boolean isDelete, String deptId, SysUser currentUser) {
-		String deptIds = "";
-		StringBuffer hql = new StringBuffer();
-		StringBuffer countHql = new StringBuffer();
-		String filterHql = "";
-		if (StringUtils.isNotEmpty(filter)) {
-			filterHql = StringUtils.convertFilterToSql(filter);
-		}
-		if (StringUtils.isEmpty(deptId)) {
-			// rightDept = orgService.getOrgList("", "", currentUser);
-		} else {
-			BaseOrg org = orgService.get(deptId);
-			deptIds = org.getTreeIds(); // 指定部门及其子部门
-			hql.append(
-					"from TeaTeacherbase as o inner join fetch o.userDepts as r where o.isDelete=0 and  r.treeIds like '"
-							+ deptIds + "%' ");
-			hql.append(whereSql);
-			hql.append(filterHql);
-			hql.append(" order by o.jobCode ");
-
-		}
-		if (hql.length() > 0) {
-			QueryResult<TeaTeacherbase> qr = this.queryResult(hql.toString(), start, limit);
-			Set<TeaTeacherbase> tt = new HashSet<TeaTeacherbase>();
-			tt.addAll(qr.getResultList());
-			qr.getResultList().clear();
-			qr.getResultList().addAll(tt);
-			return qr;
-			// return this.setTeacherJobAndDept(qr);
-		} else {
-			return null;
-		}
-	}
-
-	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit, String whereSql) {
-
-		StringBuffer hql = new StringBuffer();
-		hql.append("from TeaTeacherbase as o where o.isDelete=0 ");
-		hql.append(whereSql);
-		hql.append(" order by o.jobCode ");
-		if (hql.length() > 0) {
-			QueryResult<TeaTeacherbase> qr = this.queryResult(hql.toString(), start, limit);
-
-			return qr;
-		} else {
-			return null;
-		}
-	}
-
+	
 	@Override
 	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
 			String qureyFilter, Boolean isDelete, String deptId, SysUser currentUser) {
@@ -130,22 +78,22 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 			if ("0".equals(currentUser.getRightType())) {
 				// 当前用户有所有部门权限
 				hql.append(
-						"select o,k.jobName from TeaTeacherbase as o left join BaseUserdeptjob as r on o.uuid=r.userId and r.isDelete=0 ");
-				hql.append(" left join BaseJob as k on k.uuid=r.jobId where o.isDelete=0  ");
+						"select o,k.jobName from TeaTeacherbase as o left join BaseUserdeptjob as r on o.id=r.userId and r.isDelete=0 ");
+				hql.append(" left join BaseJob as k on k.id=r.jobId where o.isDelete=0  ");
 				hql.append(queryFilterSql);
 			} else {
 				if (StringUtils.isNotEmpty(rightDeptIds)) {
 					// 不是根部门
 					if (deptId.equals("058b21fe-b37f-41c9-ad71-091f97201ff8")) {
 						hql.append(
-								"select o,'临时部门' from TeaTeacherbase o where o.uuid not in(select userId from BaseUserdeptjob where isDelete=0) ");
+								"select o,'临时部门' from TeaTeacherbase o where o.id not in(select userId from BaseUserdeptjob where isDelete=0) ");
 						hql.append(queryFilterSql);
 					} else {
 						// 当前用户有指定的部门权限
 						hql.append(
-								"select o,k.jobName from TeaTeacherbase as o left join BaseUserdeptjob as r on o.uuid=r.userId and r.isDelete=0 ");
+								"select o,k.jobName from TeaTeacherbase as o left join BaseUserdeptjob as r on o.id=r.userId and r.isDelete=0 ");
 						hql.append(" and r.deptId in(" + rightDeptIds + ") ");
-						hql.append(" left join BaseJob as k on k.uuid=r.jobId where o.isDelete=0  ");
+						hql.append(" left join BaseJob as k on k.id=r.jobId where o.isDelete=0  ");
 						hql.append(queryFilterSql);
 					}
 				}
@@ -158,23 +106,23 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 					if (StringUtils.isNotEmpty(rightDeptIds)) {
 						// 当前用户有指定的部门权限
 						hql.append(
-								"select o,k.jobName from TeaTeacherbase as o inner join BaseUserdeptjob as r on o.uuid=r.userId and r.isDelete=0 ");
-						hql.append(" inner join BaseJob as k on k.uuid=r.jobId where o.isDelete=0  ");
-						hql.append(" order by r.jobLevel ");
+								"select o,k.jobName from TeaTeacherbase as o inner join BaseUserdeptjob as r on o.id=r.userId and r.isDelete=0 ");
+						hql.append(" inner join BaseJob as k on k.id=r.jobId where o.isDelete=0  ");
+						hql.append(" order by k.jobCode ");
 					}
 				} else {
 					if (StringUtils.isNotEmpty(deptId)) {
 						// 不是根部门
 						if (deptId.equals("058b21fe-b37f-41c9-ad71-091f97201ff8")) {
 							hql.append(
-									"select o,'临时部门' from TeaTeacherbase o where o.uuid not in(select userId from BaseUserdeptjob where isDelete=0) ");
+									"select o,'临时部门' from TeaTeacherbase o where o.id not in(select userId from BaseUserdeptjob where isDelete=0) ");
 						} else {
 							hql.append("SELECT a,d.jobName FROM TeaTeacherbase a ");
-							hql.append(" INNER JOIN BaseUserdeptjob b ON a.uuid=b.userId ");
-							hql.append(" INNER JOIN BaseJob d ON d.uuid=b.jobId ");
+							hql.append(" INNER JOIN BaseUserdeptjob b ON a.id=b.userId ");
+							hql.append(" INNER JOIN BaseJob d ON d.id=b.jobId ");
 							hql.append(" WHERE PATINDEX('%" + deptId + "%', b.treeIds)>0 ");
 							hql.append(" and a.isDelete=0 and b.isDelete=0 and d.isDelete=0 ");
-							hql.append(" ORDER BY b.jobLevel ");
+							hql.append(" ORDER BY d.jobCode ");
 						}
 					}
 				}
@@ -187,10 +135,10 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 					} else {
 						hql.append("select o,k.jobName from TeaTeacherbase as o ,BaseUserdeptjob as r,BaseJob as k ");
 						hql.append(
-								"where o.uuid=r.userId and k.uuid=r.jobId and o.isDelete=0 and r.isDelete=0 and patindex('%"
+								"where o.id=r.userId and k.id=r.jobId and o.isDelete=0 and r.isDelete=0 and patindex('%"
 										+ deptId + "%',r.treeIds)>0 ");
 						hql.append(" and r.deptId in(" + rightDeptIds + ")");
-						hql.append(" order by r.jobLevel ");
+						hql.append(" order by k.jobCode ");
 					}
 				}
 			}
@@ -398,7 +346,7 @@ public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeaTeacherbase> i
 	public TeaTeacherbase doAddTeacher(TeaTeacherbase entity, SysUser currentUser/*, String deptJobId*/) {
 		TeaTeacherbase saveEntity = new TeaTeacherbase();
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
+		excludedProp.add("id");
 		try {
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {

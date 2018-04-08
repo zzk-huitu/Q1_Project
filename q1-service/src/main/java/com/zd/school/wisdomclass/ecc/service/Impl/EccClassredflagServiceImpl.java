@@ -67,7 +67,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -116,8 +116,8 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 	@Override
 	public EccClassredflag doAddEntity(EccClassredflag entity, SysUser currentUser) {
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
-		excludedProp.add("claiId");
+		excludedProp.add("id");
+		excludedProp.add("classId");
 		excludedProp.add("className");
 		try {
 			String [] claiIds = entity.getClassId().split(",");
@@ -156,7 +156,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 			//rightDeptIds = userService.getUserOwnDeptids(currentUser);(zzk 2017/12/22 暂不存在此方法)
 		}
 		if (StringUtils.isNotEmpty(rightDeptIds)) {
-			whereSql+=" and claiId in("+rightDeptIds+")";
+			whereSql+=" and classId in("+rightDeptIds+")";
 		}
         if (orderSql.length()>0){
         	if (sortSql.length()>0)
