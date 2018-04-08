@@ -2,8 +2,8 @@ package com.zd.school.oa.attendance.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.oa.attendance.model.AttTerm ;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.oa.attendance.model.AttendTerm ;
 
 
 /**
@@ -19,7 +19,7 @@ import com.zd.school.oa.attendance.model.AttTerm ;
  * @since JDK 1.8
  */
  
-public interface AttTermService extends BaseService<AttTerm> {
+public interface AttTermService extends BaseService<AttendTerm> {
 
 	/**
 	 * 数据列表
@@ -36,7 +36,7 @@ public interface AttTermService extends BaseService<AttTerm> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<AttTerm> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<AttendTerm> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -47,7 +47,7 @@ public interface AttTermService extends BaseService<AttTerm> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -58,7 +58,7 @@ public interface AttTermService extends BaseService<AttTerm> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public AttTerm doUpdateEntity(AttTerm entity, SysUser currentUser);
+	public AttendTerm doUpdateEntity(AttendTerm entity, User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -69,7 +69,7 @@ public interface AttTermService extends BaseService<AttTerm> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public AttTerm doAddEntity(AttTerm entity, SysUser currentUser);
+	public AttendTerm doAddEntity(AttendTerm entity, User currentUser);
 	/**
 	 * 绑定考勤设备
 

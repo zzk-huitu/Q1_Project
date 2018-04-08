@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.oa.notice.model.OaNoticetype ;
+import com.zd.school.oa.notice.model.NoticeType ;
 import com.zd.school.oa.notice.dao.OaNoticetypeDao ;
 import com.zd.school.oa.notice.service.OaNoticetypeService ;
 
@@ -24,7 +24,7 @@ import com.zd.school.oa.notice.service.OaNoticetypeService ;
  */
 @Service
 @Transactional
-public class OaNoticetypeServiceImpl extends BaseServiceImpl<OaNoticetype> implements OaNoticetypeService{
+public class OaNoticetypeServiceImpl extends BaseServiceImpl<NoticeType> implements OaNoticetypeService{
 
     @Resource
     public void setOaNoticetypeDao(OaNoticetypeDao dao) {

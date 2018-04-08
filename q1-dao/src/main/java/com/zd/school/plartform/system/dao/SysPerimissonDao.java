@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.system.model.SysPermission ;
+import com.zd.school.plartform.system.model.Permission;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.system.model.SysPermission ;
  * @since JDK 1.8
  */
  
-public interface SysPerimissonDao extends BaseDao<SysPermission> {
+public interface SysPerimissonDao extends BaseDao<Permission> {
 
 }

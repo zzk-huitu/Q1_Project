@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.system.model.SysDeptRight;
+import com.zd.school.plartform.system.model.UserDeptRight;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.zd.school.plartform.system.model.SysDeptRight;
  * @since JDK 1.8
  */
 
-public interface SysDeptRightDao extends BaseDao<SysDeptRight> {
+public interface SysDeptRightDao extends BaseDao<UserDeptRight> {
 
 }

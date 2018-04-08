@@ -1,8 +1,8 @@
 package com.zd.school.plartform.system.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysDeptRight ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.plartform.system.model.UserDeptRight;
 
 
 /**
@@ -18,11 +18,11 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
  
-public interface SysDeptRightService extends BaseService<SysDeptRight> {
+public interface SysDeptRightService extends BaseService<UserDeptRight> {
 
 	boolean doDelete(String delIds);
 
-	Boolean doUserRightDept(String userIds, String deptIds, SysUser currentUser);
+	Boolean doUserRightDept(String userIds, String deptIds, User currentUser);
 
 	
 

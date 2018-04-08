@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.oa.attendance.dao.AttUserDao ;
-import com.zd.school.oa.attendance.model.AttUser ;
+import com.zd.school.oa.attendance.model.AttendUser ;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.oa.attendance.model.AttUser ;
  * @since JDK 1.8
  */
 @Repository
-public class AttUserDaoImpl extends BaseDaoImpl<AttUser> implements AttUserDao {
+public class AttUserDaoImpl extends BaseDaoImpl<AttendUser> implements AttUserDao {
     public AttUserDaoImpl() {
-        super(AttUser.class);
+        super(AttendUser.class);
         // TODO Auto-generated constructor stub
     }
 }

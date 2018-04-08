@@ -1,7 +1,7 @@
 package com.zd.school.oa.attendance.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.oa.attendance.model.AttTitle ;
+import com.zd.school.oa.attendance.model.AttendTheme ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.attendance.model.AttTitle ;
  * @since JDK 1.8
  */
  
-public interface AttTitleDao extends BaseDao<AttTitle> {
+public interface AttTitleDao extends BaseDao<AttendTheme> {
 
 }

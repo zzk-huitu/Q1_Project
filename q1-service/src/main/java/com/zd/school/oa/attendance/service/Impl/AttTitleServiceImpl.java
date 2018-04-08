@@ -15,14 +15,14 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.school.oa.attendance.dao.AttTitleDao ;
-import com.zd.school.oa.attendance.model.AttTerm;
-import com.zd.school.oa.attendance.model.AttTitle ;
-import com.zd.school.oa.attendance.model.AttUser;
+import com.zd.school.oa.attendance.model.AttendTerm;
+import com.zd.school.oa.attendance.model.AttendTheme ;
+import com.zd.school.oa.attendance.model.AttendUser;
 import com.zd.school.oa.attendance.service.AttTermService;
 import com.zd.school.oa.attendance.service.AttTimeService;
 import com.zd.school.oa.attendance.service.AttTitleService ;
 import com.zd.school.oa.attendance.service.AttUserService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements AttTitleService{
+public class AttTitleServiceImpl extends BaseServiceImpl<AttendTheme> implements AttTitleService{
 
 	@Resource
 	AttUserService attUserService;
@@ -53,8 +53,8 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 	private static Logger logger = Logger.getLogger(AttTitleServiceImpl.class);
 	
 	@Override
-	public QueryResult<AttTitle> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<AttTitle> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<AttendTheme> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<AttendTheme> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -67,16 +67,16 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
-			attTermService.updateByProperties("titleId", conditionValue, propertyName, propertyValue);
-			attTermService.updateByProperties("titleId", conditionValue, propertyName, propertyValue);
-			attUserService.updateByProperties("titleId", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
+			attTermService.updateByProperties("attendThemeId", conditionValue, propertyName, propertyValue);
+			attTermService.updateByProperties("attendThemeId", conditionValue, propertyName, propertyValue);
+			attUserService.updateByProperties("attendThemeId", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -94,9 +94,9 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 	 * @return
 	 */
 	@Override
-	public AttTitle doUpdateEntity(AttTitle entity, SysUser currentUser) {
+	public AttendTheme doUpdateEntity(AttendTheme entity, User currentUser) {
 		// 先拿到已持久化的实体
-		AttTitle saveEntity = this.get(entity.getId());
+		AttendTheme saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -123,11 +123,11 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 	 * @return
 	 */
 	@Override
-	public AttTitle doAddEntity(AttTitle entity, SysUser currentUser) {
-		AttTitle saveEntity = new AttTitle();
+	public AttendTheme doAddEntity(AttendTheme entity, User currentUser) {
+		AttendTheme saveEntity = new AttendTheme();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -146,7 +146,7 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 		Integer count=0;
 	
 		for (int i = 0; i < userIds.length; i++) {
-			AttUser attUser = new AttUser();
+			AttendUser attUser = new AttendUser();
 			attUser.setAttendThemeId(titleId);
 			attUser.setUserId(userIds[i]);
 			attUser.setName(userNames[i]);
@@ -167,7 +167,7 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttTitle> implements At
 		Integer count=0;
 		
 		for (int i = 0; i < termCodes.length; i++) {
-			AttTerm attTerm = new AttTerm();
+			AttendTerm attTerm = new AttendTerm();
 			attTerm.setAttendThemeId(titleId);
 			attTerm.setTerminalNo(termCodes[i]);
 			attTerm.setRoomId(roomIds[i]);

@@ -21,7 +21,7 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_UserDeptRight")
-@AttributeOverride(name = "deptPermissionId", column = @Column(name = "deptRightId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "deptRightId", length = 20, nullable = false) )
 public class UserDeptRight extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

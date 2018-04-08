@@ -4,9 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysMenu;
-import com.zd.school.plartform.system.model.SysMenuTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Menu;
+import com.zd.school.plartform.system.model.MenuTree;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface SysMenuService extends BaseService<SysMenu> {
+public interface SysMenuService extends BaseService<Menu> {
 
     /**
      * 
@@ -35,7 +35,7 @@ public interface SysMenuService extends BaseService<SysMenu> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<SysMenuTree> getTreeList(String whereSql, String orderSql);
+    public List<MenuTree> getTreeList(String whereSql, String orderSql);
 
     /**
      * 获取指定对象的授权树
@@ -52,7 +52,7 @@ public interface SysMenuService extends BaseService<SysMenu> {
      *            是否展开
      * @return
      */
-    public List<SysMenuTree> getPermTree(String roodId, String author, String authorType, Boolean isSee,
+    public List<MenuTree> getPermTree(String roodId, String author, String authorType, Boolean isSee,
             Boolean expanded);
 
     /**
@@ -65,7 +65,7 @@ public interface SysMenuService extends BaseService<SysMenu> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<SysMenuTree> getRoleMenuTreeList(String roleId);
+    public List<MenuTree> getRoleMenuTreeList(String roleId);
 
     /**
      * 
@@ -104,11 +104,11 @@ public interface SysMenuService extends BaseService<SysMenu> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<SysMenuTree> getUserPermissionToRole(String roleId, String userId);
+    public List<MenuTree> getUserPermissionToRole(String roleId, String userId);
 
-    public SysMenu addMenu(SysMenu menu, SysUser currentUser) throws IllegalAccessException, InvocationTargetException;
+    public Menu addMenu(Menu menu, User currentUser) throws IllegalAccessException, InvocationTargetException;
 
-	public SysMenu doUpdateMenu(SysMenu entity, String xm);
+	public Menu doUpdateMenu(Menu entity, String xm);
     
     //public
 }

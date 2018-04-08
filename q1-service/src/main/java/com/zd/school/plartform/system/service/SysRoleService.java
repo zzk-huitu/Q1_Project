@@ -1,10 +1,9 @@
 package com.zd.school.plartform.system.service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysRole;
+import com.zd.school.plartform.system.model.Role;
 
 /**
  * 
@@ -16,7 +15,7 @@ import com.zd.school.plartform.system.model.SysRole;
  * @since JDK 1.8
  */
 
-public interface SysRoleService extends BaseService<SysRole> {
+public interface SysRoleService extends BaseService<Role> {
 
 	boolean doDelete(String delIds, String isdelete, String xm);
     //public List<SysRole> doQueryForIn(String hql, Integer start, Integer limit,Object[] objs);

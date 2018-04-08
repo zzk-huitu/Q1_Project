@@ -2,9 +2,9 @@ package com.zd.school.jw.eduresources.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.eduresources.model.Grade;
+import com.zd.school.jw.eduresources.model.GradeClass;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface JwTGradeclassService extends BaseService<JwTGradeclass> {
+public interface JwTGradeclassService extends BaseService<GradeClass> {
     /**
      * 根据班级ID得到年级对象
      * 
@@ -24,11 +24,11 @@ public interface JwTGradeclassService extends BaseService<JwTGradeclass> {
      * @return
      * @author huangzc
      */
-    public JwTGrade findJwTGradeByClaiId(String claiId);
+    public Grade findJwTGradeByClassId(String classId);
 
-    public QueryResult<JwTGradeclass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, SysUser currentUser);
+    public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, User currentUser);
     
-    public QueryResult<JwTGradeclass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, SysUser currentUser,String claiId,String claiLevel);    
+    public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, User currentUser,String classId,String classLevel);    
 }

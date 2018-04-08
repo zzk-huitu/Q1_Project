@@ -62,7 +62,7 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -113,7 +113,7 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 		JwCheckrule saveEntity = new JwCheckrule();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -130,7 +130,7 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 
 	@Override
 	public Boolean doUsingOrno(String ids, String usingStatu,SysUser currentUser) {
-		String conditionName = "uuid";
+		String conditionName = "id";
 		String[] propertyName = {"startUsing","updateUser","updateTime"};
 		Object[] properyValue = {0,currentUser.getId(),new Date()};
 		try {

@@ -14,13 +14,13 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.eduresources.dao.JwTGradeclassDao;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
+import com.zd.school.jw.eduresources.model.Grade;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
 import com.zd.school.jw.eduresources.service.JwTGradeService;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> implements JwTGradeclassService {
+public class JwTGradeclassServiceImpl extends BaseServiceImpl<GradeClass> implements JwTGradeclassService {
 
 	@Resource
 	public void setJwTGradeclassDao(JwTGradeclassDao dao) {
@@ -51,16 +51,16 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 	/**
 	 * 根据班级ID得到年级对象
 	 * 
-	 * @param claiId
+	 * @param classId
 	 * @return
 	 * @author huangzc
 	 */
 	@Override
-	public JwTGrade findJwTGradeByClaiId(String claiId) {
-		JwTGradeclass jtgClass = this.dao.getByProerties("uuid", claiId);
+	public Grade findJwTGradeByClassId(String classId) {
+		GradeClass jtgClass = this.dao.getByProerties("id", classId);
 		if (jtgClass == null)
 			return null;
-		JwTGrade grade = gradeService.get(jtgClass.getGradeId());
+		Grade grade = gradeService.get(jtgClass.getGradeId());
 
 		if (ModelUtil.isNotNull(grade))
 			return grade;
@@ -70,8 +70,8 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public QueryResult<JwTGradeclass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-			Boolean isDelete, SysUser currentUser) {
+	public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+			Boolean isDelete, User currentUser) {
 		String queryFilter = filter;
 		// String jobId = currentUser.getJobId();
 		// String jobName = currentUser.getJobName();
@@ -81,7 +81,7 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		StringBuffer sbClass = new StringBuffer();
 		String qrClassId = "";
 		ExtDataFilter selfFilter = new ExtDataFilter();
-		String propName[] = { "studyYeah", "semester", "tteacId", "isDelete" };
+		String propName[] = { "studyYear", "semester", "teacherId", "isDelete" };
 		Object[] propValue = { studyYear, smester, currentUser.getId(), 0 };
 		
 		//（zzk:新版本中取消了年级组长概念）当前人是否年级组长,如果是年级组长则取年级下的所有班级
@@ -98,9 +98,9 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 //			}
 //		}
 		// 当前人是否班主任，如是则取所在的班级
-		List<JwClassteacher> jct = classTTeaService.queryByProerties(propName, propValue);
+		List<ClassTeacher> jct = classTTeaService.queryByProerties(propName, propValue);
 		if (jct.size() > 0) {
-			for (JwClassteacher jt : jct) {
+			for (ClassTeacher jt : jct) {
 				sbClass.append(jt.getClassId() + ",");
 			}
 		}
@@ -109,7 +109,7 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		}
 		qrClassId = sbClass.toString();
 		selfFilter = (ExtDataFilter) JsonBuilder.getInstance().fromJson(
-				"{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId + "\",\"field\":\"uuid\"}",
+				"{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId + "\",\"field\":\"id\"}",
 				ExtDataFilter.class);
 		if (StringUtils.isNotEmpty(filter)) {
 			if (StringUtils.isNotEmpty(qrClassId)) {
@@ -123,50 +123,50 @@ public class JwTGradeclassServiceImpl extends BaseServiceImpl<JwTGradeclass> imp
 		} else {
 			if (StringUtils.isNotEmpty(qrClassId))
 				queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId
-						+ "\",\"field\":\"uuid\"}]";
+						+ "\",\"field\":\"id\"}]";
 		}
 		// if (currentUser.getUserName().equals("schooladmin"))
 		// queryFilter = "";
-		QueryResult<JwTGradeclass> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
+		QueryResult<GradeClass> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
 		return qr;
 	}
 
 	@Override
-	public QueryResult<JwTGradeclass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-			Boolean isDelete, SysUser currentUser, String claiId, String claiLevel) {
+	public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+			Boolean isDelete, User currentUser, String claiId, String claiLevel) {
 
 		String queryFilter = "";
 		StringBuffer sbClass = new StringBuffer();
-		List<JwTGradeclass> gcList = null;
+		List<GradeClass> gcList = null;
 		switch (claiLevel) {
 		case "1": // 查询学校
 			gcList = this.queryByProerties("isDelete", 0);
-			for (JwTGradeclass gc : gcList) {
+			for (GradeClass gc : gcList) {
 				sbClass.append(gc.getId() + ",");
 			}
 			if (sbClass.length() > 0) {
 				sbClass.deleteCharAt(sbClass.length() - 1);
 				queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + sbClass.toString()
-						+ "\",\"field\":\"uuid\"}]";
+						+ "\",\"field\":\"id\"}]";
 			}
 			break;
 		case "2": // 查询年级
-			gcList = this.queryByProerties("graiId", claiId);
-			for (JwTGradeclass gc : gcList) {
+			gcList = this.queryByProerties("gradeId", claiId);
+			for (GradeClass gc : gcList) {
 				sbClass.append(gc.getId() + ",");
 			}
 			if (sbClass.length() > 0) {
 				sbClass.deleteCharAt(sbClass.length() - 1);
 				queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + sbClass.toString()
-						+ "\",\"field\":\"uuid\"}]";
+						+ "\",\"field\":\"id\"}]";
 			}
 			break;
 		case "3": // 查询班级
 			queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + claiId
-					+ "\",\"field\":\"uuid\"}]";
+					+ "\",\"field\":\"id\"}]";
 			break;
 		}
-		QueryResult<JwTGradeclass> qr = this.getGradeClassList(start, limit, sort, queryFilter, true, currentUser);
+		QueryResult<GradeClass> qr = this.getGradeClassList(start, limit, sort, queryFilter, true, currentUser);
 
 		return qr;
 	}

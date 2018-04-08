@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.oa.attendance.dao.AttTimeDao ;
-import com.zd.school.oa.attendance.model.AttTime ;
+import com.zd.school.oa.attendance.model.AttendTime ;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.oa.attendance.model.AttTime ;
  * @since JDK 1.8
  */
 @Repository
-public class AttTimeDaoImpl extends BaseDaoImpl<AttTime> implements AttTimeDao {
+public class AttTimeDaoImpl extends BaseDaoImpl<AttendTime> implements AttTimeDao {
     public AttTimeDaoImpl() {
-        super(AttTime.class);
+        super(AttendTime.class);
         // TODO Auto-generated constructor stub
     }
 }

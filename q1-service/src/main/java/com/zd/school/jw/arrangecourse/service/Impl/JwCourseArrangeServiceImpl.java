@@ -14,15 +14,15 @@ import com.zd.core.model.ImportNotInfo;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.arrangecourse.dao.JwCourseArrangeDao ;
-import com.zd.school.jw.arrangecourse.model.JwCourseArrange ;
-import com.zd.school.jw.arrangecourse.model.JwCourseteacher;
+import com.zd.school.jw.arrangecourse.model.CourseArrange;
+import com.zd.school.jw.arrangecourse.model.CourseTeacher;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService ;
 import com.zd.school.jw.arrangecourse.service.JwCourseteacherService;
-import com.zd.school.jw.eduresources.model.JwTBasecourse;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.BaseCourse;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwTBasecourseService;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange> implements JwCourseArrangeService{
+public class JwCourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> implements JwCourseArrangeService{
 
     @Resource
     public void setJwCourseArrangeDao(JwCourseArrangeDao dao) {
@@ -54,7 +54,7 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
     
     
 	@Override
-	public List<ImportNotInfo> doImportCourse(Map<String, List<String>> gccMap, SysUser currentUser) {
+	public List<ImportNotInfo> doImportCourse(Map<String, List<String>> gccMap, User currentUser) {
 		
 		List<ImportNotInfo> listNotExit = new ArrayList<>();
 		ImportNotInfo notExits = null;
@@ -77,7 +77,7 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 					
 			try{	
 				
-				List<JwCourseArrange> courseArranges = new ArrayList<JwCourseArrange>(); //排课课程表对象
+				List<CourseArrange> courseArranges = new ArrayList<CourseArrange>(); //排课课程表对象
 				
 				//key为年级班级名称
 				/*
@@ -103,9 +103,9 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 				
 			
 				//查询此班级信息			
-				hql = "from JwTGradeclass where className='" + className + "'" + andIsDelete;	
-				List<JwTGradeclass> gcList=jwClassService.queryByHql(hql);
-				JwTGradeclass gc=null;
+				hql = "from GradeClass where className='" + className + "'" + andIsDelete;	
+				List<GradeClass> gcList=jwClassService.queryByHql(hql);
+				GradeClass gc=null;
 				
 				if(gcList.size()==1){
 					gc = gcList.get(0);		
@@ -141,11 +141,11 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 						break;
 					
 					for (int i = 0; i < 9; i++) {
-						JwCourseArrange jca;		//每天的课程，都一次性录入到同一条数据中				
+						CourseArrange jca;		//每天的课程，都一次性录入到同一条数据中				
 						if(courseArranges.size()>i){
 							jca = courseArranges.get(i);
 						}else{
-							jca = new JwCourseArrange();
+							jca = new CourseArrange();
 							courseArranges.add(jca);
 						}
 						
@@ -153,9 +153,9 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 						index++;
 						
 						//查询课程信息
-						hql = "from JwTBasecourse where courseName='" + cousreName + "'" + andIsDelete;
-						List<JwTBasecourse> baseCourseList= jtbService.queryByHql(hql);
-						JwTBasecourse basecourse = null;
+						hql = "from BaseCourse where courseName='" + cousreName + "'" + andIsDelete;
+						List<BaseCourse> baseCourseList= jtbService.queryByHql(hql);
+						BaseCourse basecourse = null;
 						if(baseCourseList.size()==1){
 							basecourse = baseCourseList.get(0);		
 						}else{
@@ -174,17 +174,17 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 							
 							
 						//查询任课教师信息
-						hql = "from JwCourseteacher where courseId='" + basecourse.getId() + "' and claiId='"
+						hql = "from CourseTeacher where courseId='" + basecourse.getId() + "' and classId='"
 								+ gc.getId() + "'" + andIsDelete;					
 						
-						List<JwCourseteacher> courseteachers = courseTeacherService.queryByHql(hql);
+						List<CourseTeacher> courseteachers = courseTeacherService.queryByHql(hql);
 						String teacherGh = "";
 						String teacherName = "";
 						String teacherId = "";
-						for (JwCourseteacher jwCourseteacher : courseteachers) {
-							teacherId += jwCourseteacher.getTeacherId() + ",";
-							teacherGh += jwCourseteacher.getUserNumb() + ",";
-							teacherName += jwCourseteacher.getName() + ",";
+						for (CourseTeacher courseteacher : courseteachers) {
+							teacherId += courseteacher.getTeacherId() + ",";
+							teacherGh += courseteacher.getUserNumb() + ",";
+							teacherName += courseteacher.getName() + ",";
 						}
 						if(teacherId.length()>0){
 							teacherId = StringUtils.trimLast(teacherId);
@@ -255,7 +255,7 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 				
 				//当此班级的课表信息不出现错误时，那就入库
 				if(isError==false){
-					for (JwCourseArrange jwCourseArrange : courseArranges) {
+					for (CourseArrange jwCourseArrange : courseArranges) {
 						this.merge(jwCourseArrange);
 					}
 				}
@@ -284,20 +284,20 @@ public class JwCourseArrangeServiceImpl extends BaseServiceImpl<JwCourseArrange>
 
 
 	@Override
-	public void doCouseUse(String[] idArr, String[] classIdArr, String[] teachTimeArr, String xm) {
+	public void doCouseUse(String[] idArr, String[] classIdArr, String[] sectionsArr, String xm) {
 		// TODO Auto-generated method stub
 		//将班级下之前启用的课表，设置为不启用
 		for(int i=0;i<idArr.length;i++){
 			this.updateByProperties(
-					new String[]{"claiId","isDelete","teachTime"},
-					new Object[]{classIdArr[i],0,teachTimeArr[i]},
-					new String[]{"extField05","updateUser","updateTime"},
+					new String[]{"classId","isDelete","sections"},
+					new Object[]{classIdArr[i],0,sectionsArr[i]},
+					new String[]{"isUse","updateUser","updateTime"},
 					new Object[]{"0",xm,new Date()});	
 		}
 		
 		//再设置启用的课表
-		this.updateByProperties("uuid", idArr,
-				new String[]{"extField05","updateUser","updateTime"},
+		this.updateByProperties("id", idArr,
+				new String[]{"isUse","updateUser","updateTime"},
 				new Object[]{"1",xm,new Date()});		
 		
 	}

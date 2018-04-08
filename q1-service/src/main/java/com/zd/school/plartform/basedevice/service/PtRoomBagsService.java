@@ -1,13 +1,13 @@
 package com.zd.school.plartform.basedevice.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.control.device.model.PtRoomBags;
+import com.zd.school.control.device.model.RoomBag;
 
 /**
  * 宿舍钱包
  * @author hucy
  *
  */
-public interface PtRoomBagsService extends BaseService<PtRoomBags>{
+public interface PtRoomBagsService extends BaseService<RoomBag>{
 
 }

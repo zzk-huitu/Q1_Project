@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseDeptjob;
-import com.zd.school.plartform.baseset.model.BaseDpetJobTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.DeptJob;
+import com.zd.school.plartform.baseset.model.DpetJobTree;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface SysDeptjobService extends BaseService<BaseDeptjob> {
+public interface SysDeptjobService extends BaseService<DeptJob> {
 
 	/**
 	 * 数据列表
@@ -35,7 +35,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-	public QueryResult<BaseDeptjob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	public QueryResult<DeptJob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -46,7 +46,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 设置部门所包含的岗位
@@ -59,7 +59,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 *            当前操作员
 	 * @return
 	 */
-	public Boolean doBatchSetDeptJob(String deptId, String jobId, SysUser currentUser);
+	public Boolean doBatchSetDeptJob(String deptId, String jobId, User currentUser);
 
 	/**
 	 * 删除部门的岗位
@@ -70,7 +70,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 *            当前操作员
 	 * @return
 	 */
-	public Boolean delDeptJob(String deptJobId, SysUser currentUser);
+	public Boolean delDeptJob(String deptJobId,User currentUser);
 
 	/**
 	 * 检查指定的部门岗位是否其它部门或岗位的上级
@@ -99,7 +99,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 * @param currentUser
 	 * @return
 	 */
-	public Boolean doSetDeptLeaderJob(String deptid, String deptJobId, SysUser currentUser);
+	public Boolean doSetDeptLeaderJob(String deptid, String deptJobId, User currentUser);
 
 	/**
 	 * 获取部门岗位的树形结构
@@ -110,7 +110,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 *            查询的过滤语句
 	 * @return
 	 */
-	public BaseDpetJobTree getDeptJobTree(String root, String whereSql);
+	public DpetJobTree getDeptJobTree(String root, String whereSql);
 
 	/**
 	 * 获取部门岗位的树形列表数据
@@ -119,7 +119,7 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 * @param whereSql
 	 * @return
 	 */
-	public List<BaseDpetJobTree> getDeptJobTreeList(String root, String whereSql);
+	public List<DpetJobTree> getDeptJobTreeList(String root, String whereSql);
 
 	/**
 	 * 设置指定的岗位（部门）的上级主管岗位
@@ -132,6 +132,6 @@ public interface SysDeptjobService extends BaseService<BaseDeptjob> {
 	 *            设置类型，是设置的岗位的还是部门的
 	 * @return
 	 */
-	public Boolean doSetSuperJob(String ids, String setIds, String setType, SysUser currentUser);
+	public Boolean doSetSuperJob(String ids, String setIds, String setType,User currentUser);
 
 }

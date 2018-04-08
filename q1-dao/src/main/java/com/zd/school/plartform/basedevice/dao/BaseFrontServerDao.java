@@ -3,7 +3,7 @@ package com.zd.school.plartform.basedevice.dao;
 
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.build.define.model.SysFrontServer;
+import com.zd.school.build.define.model.FrontServer;
 
 
 
@@ -12,6 +12,6 @@ import com.zd.school.build.define.model.SysFrontServer;
  * @author hucy
  *
  */
-public interface BaseFrontServerDao extends BaseDao<SysFrontServer> {
+public interface BaseFrontServerDao extends BaseDao<FrontServer> {
 
 }

@@ -1,7 +1,7 @@
 package com.zd.school.jw.eduresources.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.GradeClass;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.zd.school.jw.eduresources.model.JwTGradeclass;
  * @since JDK 1.8
  */
 
-public interface JwTGradeclassDao extends BaseDao<JwTGradeclass> {
+public interface JwTGradeclassDao extends BaseDao<GradeClass> {
 
 }

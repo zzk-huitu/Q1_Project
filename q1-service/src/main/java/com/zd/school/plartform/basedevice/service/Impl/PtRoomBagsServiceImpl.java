@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.control.device.model.PtRoomBags;
+import com.zd.school.control.device.model.RoomBag;
 import com.zd.school.plartform.basedevice.dao.PtRoomBagsDao;
 import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
 
@@ -17,7 +17,7 @@ import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
  */
 @Service
 @Transactional
-public class PtRoomBagsServiceImpl extends BaseServiceImpl<PtRoomBags> implements PtRoomBagsService{
+public class PtRoomBagsServiceImpl extends BaseServiceImpl<RoomBag> implements PtRoomBagsService{
 	
 	@Resource
     public void setPtRoomBagsDao(PtRoomBagsDao dao) {

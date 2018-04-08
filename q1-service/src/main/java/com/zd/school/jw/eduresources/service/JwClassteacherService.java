@@ -1,13 +1,9 @@
 package com.zd.school.jw.eduresources.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -19,32 +15,32 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface JwClassteacherService extends BaseService<JwClassteacher> {
+public interface JwClassteacherService extends BaseService<ClassTeacher> {
 
 	/**
-	 * 
-	 * getClassLeader:获取指定学生的所在班级的班主任
-	 *
-	 * @author luoyibo
-	 * @param userId
-	 * @return String
-	 * @throws @since
-	 *             JDK 1.8
-	 */
-	public String getClassLeader(String userId);
+//	 * 
+//	 * getClassLeader:获取指定学生的所在班级的班主任
+//	 *
+//	 * @author luoyibo
+//	 * @param userId
+//	 * @return String
+//	 * @throws @since
+//	 *             JDK 1.8
+//	 */
+//	public String getClassLeader(String userId);
+//
+//	/**
+//	 * 获取指定学生的所有班主任
+//	 * 
+//	 * @param userId
+//	 * @return
+//	 */
+//	public String getClassLeaderList(String userId);
 
-	/**
-	 * 获取指定学生的所有班主任
-	 * 
-	 * @param userId
-	 * @return
-	 */
-	public String getClassLeaderList(String userId);
-
-	public JwClassteacher doAddClassTeacher(JwClassteacher entity, SysUser currentUser)
+	public ClassTeacher doAddClassTeacher(ClassTeacher entity, User currentUser)
 			throws IllegalAccessException, InvocationTargetException;
 
-	public Boolean doDelete(String delIds, SysUser currentUser);
+	public Boolean doDelete(String delIds, User currentUser);
 
 	public boolean doDeleteByPK(String id);
 }

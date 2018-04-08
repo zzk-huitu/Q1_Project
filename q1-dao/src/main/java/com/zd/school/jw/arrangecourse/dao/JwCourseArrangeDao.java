@@ -1,7 +1,7 @@
 package com.zd.school.jw.arrangecourse.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.arrangecourse.model.JwCourseArrange ;
+import com.zd.school.jw.arrangecourse.model.CourseArrange;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.jw.arrangecourse.model.JwCourseArrange ;
  * @since JDK 1.8
  */
  
-public interface JwCourseArrangeDao extends BaseDao<JwCourseArrange> {
+public interface JwCourseArrangeDao extends BaseDao<CourseArrange> {
 
 }

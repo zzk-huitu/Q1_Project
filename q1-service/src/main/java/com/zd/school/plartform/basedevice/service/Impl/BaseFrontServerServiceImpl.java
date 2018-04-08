@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.SysFrontServer;
-import com.zd.school.jw.eduresources.model.JwCalenderdetail;
+import com.zd.school.build.define.model.FrontServer;
+import com.zd.school.jw.eduresources.model.CalenderDetail;
 import com.zd.school.plartform.basedevice.dao.BaseFrontServerDao;
 import com.zd.school.plartform.basedevice.service.BaseFrontServerService;
 import com.zd.school.plartform.baseset.service.Impl.BaseCalenderdetailServiceImpl;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 综合前置管理
@@ -26,7 +26,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class BaseFrontServerServiceImpl extends BaseServiceImpl<SysFrontServer> implements BaseFrontServerService {
+public class BaseFrontServerServiceImpl extends BaseServiceImpl<FrontServer> implements BaseFrontServerService {
 
 	@Resource
 	public void setSysFrontServerDao(BaseFrontServerDao dao) {
@@ -36,11 +36,11 @@ public class BaseFrontServerServiceImpl extends BaseServiceImpl<SysFrontServer> 
 	private static Logger logger = Logger.getLogger(BaseFrontServerServiceImpl.class);
 
 	@Override
-	public SysFrontServer doUpdateEntity(SysFrontServer entity, SysUser currentUser) {
+	public FrontServer doUpdateEntity(FrontServer entity, User currentUser) {
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		SysFrontServer perEntity = this.get(entity.getId());
+		FrontServer perEntity = this.get(entity.getId());
 		perEntity.setUpdateUser(currentUser.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		try {
@@ -58,10 +58,10 @@ public class BaseFrontServerServiceImpl extends BaseServiceImpl<SysFrontServer> 
 	}
 
 	@Override
-	public SysFrontServer doAddEntity(SysFrontServer entity, SysUser currentUser) {
+	public FrontServer doAddEntity(FrontServer entity, User currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			SysFrontServer perEntity = new SysFrontServer();
+			FrontServer perEntity = new FrontServer();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			// perEntity.setPriceValue(entity.getPriceValue());

@@ -6,15 +6,13 @@ import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.school.plartform.system.dao.SysDeptRightDao;
-import com.zd.school.plartform.system.model.SysDeptRight;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.plartform.system.model.UserDeptRight;
 import com.zd.school.plartform.system.service.SysDeptRightService;
 import com.zd.school.plartform.system.service.SysUserService;
 import com.zd.school.redis.service.DeptRedisService;
@@ -31,7 +29,7 @@ import com.zd.school.redis.service.DeptRedisService;
  */
 @Service
 @Transactional
-public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> implements SysDeptRightService {
+public class SysDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> implements SysDeptRightService {
 	
 	//自动注入dao到service层中，并设置到dao变量中
 	@Resource
@@ -46,21 +44,21 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 	private SysUserService userService;
 	
 	@Override
-	public Boolean doUserRightDept(String userId, String deptId, SysUser currentUser) {
+	public Boolean doUserRightDept(String userId, String deptId, User currentUser) {
 		Date date=new Date();
 		String[] userIds = userId.split(",");
 		String[] deptIds = deptId.split(",");
 		String[] propertyName = { "updateUser", "updateTime", "rightType" };
 		Object[] propertyValue = { currentUser.getId(), date, 1 };
 		
-		String hql="select deptId from SysDeptRight where isDelete=0 and userId=?";
-		SysDeptRight deptright = null;
+		String hql="select deptId from UserDeptRight where isDelete=0 and userId=?";
+		UserDeptRight deptright = null;
 		for (String ui : userIds) {
 			//一次性查询出这个用户的所有部门权限，判断是否要入库		
 			List<Object> deptIdList = this.queryEntityByHql(hql, ui);		
 			for (String di : deptIds) {
 				if(!deptIdList.contains(di)){			
-					deptright = new SysDeptRight();
+					deptright = new UserDeptRight();
 					deptright.setUserId(ui);
 					deptright.setDeptId(di);
 					//deptright.setRightSource(1);取消了此字段
@@ -75,7 +73,7 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 		deptRedisService.deleteDeptTreeByUsers(userIds);
 				
 		// 更新指定的用户信息
-		userService.updateByProperties("uuid", userIds, propertyName, propertyValue);
+		userService.updateByProperties("id", userIds, propertyName, propertyValue);
 		return true;
 	}
 
@@ -85,7 +83,7 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 		String doIds = "'" + delIds.replace(",", "','") + "'";
 		
 		// 所有要设置的用户	
-		String hql="select userId from SysDeptRight where uuid in ("+doIds+")";
+		String hql="select userId from UserDeptRight where id in ("+doIds+")";
 		
 		List<String> userIds = this.queryEntityByHql(hql);
 		// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
@@ -94,7 +92,7 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 			deptRedisService.deleteDeptTreeByUsers(userIds.toArray());
 		}
 			
-		hql="Delete from SysDeptRight where uuid in ("+doIds+")";
+		hql="Delete from UserDeptRight where id in ("+doIds+")";
 			
 	    return this.doExecuteCountByHql(hql)>0;
 	}
@@ -107,7 +105,7 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<SysDeptRight> imple
 		String[] propertyName = { "updateUser", "updateTime", "rightType" };
 		Object[] propertyValue = { userId, new Date(), Integer.valueOf(rightType) };	
 		// 更新指定的用户信息
-		userService.updateByProperties("uuid", uuid, propertyName, propertyValue);
+		userService.updateByProperties("id", uuid, propertyName, propertyValue);
 	}
 	
 	

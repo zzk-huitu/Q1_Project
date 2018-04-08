@@ -15,13 +15,13 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.system.dao.SysMenuPermissionDao;
-import com.zd.school.plartform.system.model.SysMenuPermission;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.MenuPermission;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysMenuPermissionService;
 
 @Service
 @Transactional
-public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermission> implements SysMenuPermissionService{
+public class SysMenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> implements SysMenuPermissionService{
 
     @Resource
     public void setSysMenuPermissionDao(SysMenuPermissionDao dao) {
@@ -29,10 +29,10 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
     }
 
 	@Override
-	public List<SysMenuPermission> getRoleMenuPerlist(String roleId, String perId) {
-		List<SysMenuPermission> returnList=null;
+	public List<MenuPermission> getRoleMenuPerlist(String roleId, String perId) {
+		List<MenuPermission> returnList=null;
 		//查询此菜单的功能权限	
-		String hql = "select menuPerId from SysRoleMenuPermission a where a.isDelete=0 ";
+		String hql = "select menuPermissionId from RoleMenuPermission a where a.isDelete=0 ";
 		if(StringUtils.isNotEmpty(roleId)){
 			hql+=" and a.roleId='"+roleId+"'";		
 		}
@@ -41,7 +41,7 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
 		}
 		List<String> menuPerIds = this.queryEntityByHql(hql);
 		if(menuPerIds.size()>0){
-			hql = "from SysMenuPermission s where s.uuid in (:ids) and s.isDelete=0";          
+			hql = "from MenuPermission s where s.id in (:ids) and s.isDelete=0";          
         	returnList = this.queryByHql(hql.toString(), 0, -1, "ids", menuPerIds.toArray());// 执行查询方法
 		}else{
 			returnList=new ArrayList<>();
@@ -50,12 +50,12 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
 	}
 
 	@Override
-	public SysMenuPermission doAddEntity(SysMenuPermission entity, SysUser currentUser) {
+	public MenuPermission doAddEntity(MenuPermission entity, User currentUser) {
 		// TODO Auto-generated method stub	
-		SysMenuPermission saveEntity = new SysMenuPermission();
+		MenuPermission saveEntity = new MenuPermission();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity,entity,excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -77,10 +77,10 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<SysMenuPermiss
 	}
 	
 	@Override
-	public SysMenuPermission doUpdateEntity(SysMenuPermission entity, SysUser currentUser) {
+	public MenuPermission doUpdateEntity(MenuPermission entity, User currentUser) {
 		// TODO Auto-generated method stub	
 		// 先拿到已持久化的实体	
-		SysMenuPermission perEntity = this.get(entity.getId());
+		MenuPermission perEntity = this.get(entity.getId());
 	
 		try {
 			// 将entity中不为空的字段动态加入到perEntity中去。

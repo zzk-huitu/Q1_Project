@@ -4,7 +4,7 @@ package com.zd.school.plartform.basedevice.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.control.device.model.PtIrRoomDevice ;
+import com.zd.school.control.device.model.IrRoomDevice ;
 import com.zd.school.plartform.basedevice.dao.PtIrRoomDeviceDao;
 
 
@@ -21,9 +21,9 @@ import com.zd.school.plartform.basedevice.dao.PtIrRoomDeviceDao;
  * @since JDK 1.8
  */
 @Repository
-public class PtIrRoomDeviceDaoImpl extends BaseDaoImpl<PtIrRoomDevice> implements PtIrRoomDeviceDao {
+public class PtIrRoomDeviceDaoImpl extends BaseDaoImpl<IrRoomDevice> implements PtIrRoomDeviceDao {
     public PtIrRoomDeviceDaoImpl() {
-        super(PtIrRoomDevice.class);
+        super(IrRoomDevice.class);
         // TODO Auto-generated constructor stub
     }
 }

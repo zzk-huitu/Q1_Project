@@ -16,11 +16,11 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
-import com.zd.school.control.device.model.PtGateway;
+import com.zd.school.control.device.model.Gateway;
 import com.zd.school.control.device.model.TLVModel;
 import com.zd.school.plartform.basedevice.dao.BaseGatewayDao;
 import com.zd.school.plartform.basedevice.service.BaseGatewayService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 import javassist.bytecode.ByteArray;
 
@@ -32,7 +32,7 @@ import javassist.bytecode.ByteArray;
  */
 @Service
 @Transactional
-public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implements BaseGatewayService {
+public class BaseGatewayServiceImpl extends BaseServiceImpl<Gateway> implements BaseGatewayService {
 
 	@Resource
 	public void setBaseGatewayDao(BaseGatewayDao dao) {
@@ -42,9 +42,9 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	private static Logger logger = Logger.getLogger(BaseGatewayServiceImpl.class);
 
 	@Override
-	public PtGateway doUpdateEntity(PtGateway entity, SysUser currentUser) {
+	public Gateway doUpdateEntity(Gateway entity, User currentUser) {
 		// 先拿到已持久化的实体
-		PtGateway perEntity = this.get(entity.getId());
+		Gateway perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -62,10 +62,10 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	}
 
 	@Override
-	public PtGateway doAddEntity(PtGateway entity, SysUser currentUser) {
+	public Gateway doAddEntity(Gateway entity, User currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			PtGateway perEntity = new PtGateway();
+			Gateway perEntity = new Gateway();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			// perEntity.setPriceValue(entity.getPriceValue());
@@ -91,10 +91,10 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	public void doSetGatewayParam(HttpServletRequest request, TLVModel tlvs, String userCh) {
 		// TODO Auto-generated method stub
 		byte[] result = null;
-		PtGateway perEntity = this.get(tlvs.getId());
+		Gateway perEntity = this.get(tlvs.getId());
 		result = TLVUtils.encode(tlvs.getTlvs());
 		perEntity.setNetParam(result);
-		perEntity.setGatewayIP(request.getParameter("gatewayIP"));
+		perEntity.setGatewayIP(request.getParameter("gatewayIp"));
 		perEntity.setNetGatewayIp(request.getParameter("netGatewayIp"));
 		perEntity.setGatewayMask(request.getParameter("gatewayMask"));
 		perEntity.setGatewayMac(request.getParameter("gatewayMac"));
@@ -120,7 +120,7 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 
-		PtGateway perEntity = this.get(tlvs.getId());
+		Gateway perEntity = this.get(tlvs.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
@@ -143,7 +143,7 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 		byte[] baseResult =TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
 		byte[] advResult =TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 		
-		String hql="update PtGateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.uuid in ('"+gatewayIds.replace(",", "','")+"')";
+		String hql="update Gateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.id in ('"+gatewayIds.replace(",", "','")+"')";
 		Query query = this.getSession().createQuery(hql);
 		query.setBinary(0, baseResult);
 		query.setBinary(1, advResult);
@@ -173,13 +173,13 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	@Override
 	public void doUpdateBaseHighParamToAll(TLVModel tlvs, String xm) {
 		// TODO Auto-generated method stub
-		PtGateway perEntity = this.get(tlvs.getId());
+		Gateway perEntity = this.get(tlvs.getId());
 		String frontServerId=perEntity.getFrontServerId();
 		
 		byte[] baseResult =TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
 		byte[] advResult =TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 		
-		String hql="update PtGateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.isDelete=0 and a.frontserverId=?";
+		String hql="update Gateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.isDelete=0 and a.frontServerId=?";
 		Query query = this.getSession().createQuery(hql);
 		query.setBinary(0, baseResult);
 		query.setBinary(1, advResult);
@@ -193,11 +193,11 @@ public class BaseGatewayServiceImpl extends BaseServiceImpl<PtGateway> implement
 	 * 批量设置前置服务器
 	 */
 	@Override
-	public void doUpdateBatchFront(PtGateway entity, String xm) {
+	public void doUpdateBatchFront(Gateway entity, String xm) {
 		// TODO Auto-generated method stub
 		String uuids[] =entity.getId().split(",");
 		
-		String hql="update PtGateway a set a.frontserverId = ?,a.updateTime=?,a.updateUser=? where a.uuid in (:ids)";
+		String hql="update Gateway a set a.frontServerId = ?,a.updateTime=?,a.updateUser=? where a.id in (:ids)";
 		Query query = this.getSession().createQuery(hql);
 		query.setString(0, entity.getFrontServerId());
 		query.setDate(1, new Date());
