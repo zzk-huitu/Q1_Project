@@ -25,7 +25,7 @@ import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 区域房间信息
@@ -116,7 +116,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 			return;
 		}
 
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		Integer orderIndex = thisService.getDefaultOrderIndex(entity);
 		entity.setOrderIndex(orderIndex);
@@ -145,7 +145,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 	@RequestMapping("/doBatchAdd")
 	public void doBatchAdd(BuildRoominfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 	
 		Boolean bResult = thisService.doBatchAddRoom(entity, currentUser);
 		if (bResult) {
@@ -168,7 +168,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -201,7 +201,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 			return;
 		}
 	
-		SysUser currentUser = getCurrentSysUser();	
+		User currentUser = getCurrentSysUser();	
 		
 		entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         

@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.zd.core.constant.Constant;
 import com.zd.core.model.BaseEntity;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * ClassName:FrameWorkController Function: TODO ADD FUNCTION. Reason: TODO ADD
@@ -29,10 +29,10 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 public abstract class FrameWorkController<E extends BaseEntity> extends BaseController<E> implements Constant {
 
-    public SysUser getCurrentSysUser() {
+    public User getCurrentSysUser() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest();
-        return (SysUser) request.getSession().getAttribute(SESSION_SYS_USER);
+        return (User) request.getSession().getAttribute(SESSION_SYS_USER);
     }
     
     public Integer getIsAdmin() {

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zd.school.jw.ecc.model.JwCheckrule;
+import com.zd.school.jw.ecc.model.AttenceRule;
 import com.zd.school.jw.model.app.CommonApp;
 import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
 
@@ -20,9 +20,9 @@ public class CheckRuleAppController {
 
 	@ResponseBody
 	@RequestMapping(value = { "/getRule" }, method = RequestMethod.GET)
-	public CommonApp<JwCheckrule> getRule() {
+	public CommonApp<AttenceRule> getRule() {
 
-		CommonApp<JwCheckrule> app = new CommonApp<JwCheckrule>();
+		CommonApp<AttenceRule> app = new CommonApp<AttenceRule>();
 
 		/* 暂不需要 */
 		// OaInfoterm roomTerm = termService.getByProerties("termCode",
@@ -42,7 +42,7 @@ public class CheckRuleAppController {
 
 		String[] propName = new String[] { "startUsing", "isDelete" };
 		Object[] propValue = new Object[] { 1, 0 };
-		JwCheckrule rule = thisService.getByProerties(propName, propValue); // 查出启用的考勤规则
+		AttenceRule rule = thisService.getByProerties(propName, propValue); // 查出启用的考勤规则
 
 		if (rule == null) {
 			app.setMessage(false);

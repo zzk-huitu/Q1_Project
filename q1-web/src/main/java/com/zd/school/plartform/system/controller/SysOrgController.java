@@ -23,10 +23,10 @@ import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseOrg;
+import com.zd.school.plartform.baseset.model.Department;
 import com.zd.school.plartform.baseset.model.BaseOrgToUP;
-import com.zd.school.plartform.baseset.model.BaseOrgTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.DepartmentTree;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.model.SysUserToUP;
 import com.zd.school.plartform.system.service.SysOrgService;
 
@@ -37,7 +37,7 @@ import com.zd.school.plartform.system.service.SysOrgService;
  */
 @Controller
 @RequestMapping("/SysOrg")
-public class SysOrgController extends FrameWorkController<BaseOrg> implements Constant {
+public class SysOrgController extends FrameWorkController<Department> implements Constant {
 
 	@Resource
 	private SysOrgService thisService; // service层接口
@@ -55,8 +55,8 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		String orderSql = request.getParameter("orderSql");
         String excludes = super.excludes(request);
 
-		SysUser currentUser = getCurrentSysUser();
-		List<BaseOrgTree> lists = thisService.getOrgTreeList(whereSql, orderSql, currentUser);
+		User currentUser = getCurrentSysUser();
+		List<DepartmentTree> lists = thisService.getOrgTreeList(whereSql, orderSql, currentUser);
 
 		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -76,8 +76,8 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 		String deptId = request.getParameter("deptId")== null ?TreeVeriable.ROOT: request.getParameter("deptId");
 		String excludes = super.excludes(request);
 
-		SysUser currentUser = getCurrentSysUser();
-		List<BaseOrgTree> lists = thisService.getOrgTreeList(whereSql, orderSql,deptId, currentUser);
+		User currentUser = getCurrentSysUser();
+		List<DepartmentTree> lists = thisService.getOrgTreeList(whereSql, orderSql,deptId, currentUser);
 
 		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -108,12 +108,12 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 			node = nodeId;
 		}
 		
-		SysUser currentUser = getCurrentSysUser();
-		BaseOrgTree root = thisService.getUserRightDeptTree(currentUser, node);
+		User currentUser = getCurrentSysUser();
+		DepartmentTree root = thisService.getUserRightDeptTree(currentUser, node);
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		} else {
-			List<BaseOrgTree> alist = new ArrayList<BaseOrgTree>();
+			List<DepartmentTree> alist = new ArrayList<DepartmentTree>();
 			alist.add(root);
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		}
@@ -129,9 +129,9 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 	public void getUserRightDeptIds( HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		
-		SysUser currentUser=getCurrentSysUser();
+		User currentUser=getCurrentSysUser();
 		
-		List<BaseOrgTree> baseOrgList = thisService.getUserRightDeptTreeList(currentUser);
+		List<DepartmentTree> baseOrgList = thisService.getUserRightDeptTreeList(currentUser);
 		String deptIds = baseOrgList.stream().filter((x) -> x.getIsRight().equals("1"))
 				.map((x) -> x.getId()).collect(Collectors.joining("','"));					
 		
@@ -150,7 +150,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
      */
 	@Auth("DEPARTMENT_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(BaseOrg entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(Department entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String parentNode = entity.getParentNode();
 		String parentName = entity.getParentName();
@@ -178,7 +178,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 			defaultOrderIndex = 0;
 		entity.setOrderIndex(defaultOrderIndex);
 		
-		SysUser sysuser = getCurrentSysUser();
+		User sysuser = getCurrentSysUser();
 		
 		entity = thisService.addOrg(entity, sysuser);
 		entity.setParentName(parentName);
@@ -203,7 +203,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 			writeJSON(response, JsonBuilder.getInstance().returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		}
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String flag = thisService.delOrg(deptId, currentUser);
 		if ("1".equals(flag)) {
 			writeJSON(response, JsonBuilder.getInstance().returnSuccessJson("\"删除成功\""));
@@ -229,7 +229,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 	 */
 	@Auth("DEPARTMENT_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(BaseOrg entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(Department entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String parentNode = entity.getParentNode();
@@ -264,7 +264,7 @@ public class SysOrgController extends FrameWorkController<BaseOrg> implements Co
 			entity.setOrderIndex(baseOrg.getOrderIndex());
 		}
 */
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdate(entity, currentUser.getId());		
 		

@@ -9,10 +9,10 @@ import com.zd.core.util.BeanUtils;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoomAreaTree;
-import com.zd.school.build.define.model.BuildRoomarea;
+import com.zd.school.build.define.model.RoomAreaTree;
+import com.zd.school.build.define.model.RoomArea;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/BaseRoomarea")
-public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> implements Constant {
+public class BaseRoomareaController extends FrameWorkController<RoomArea> implements Constant {
 
     @Resource
     BaseRoomareaService thisService; // service层接口
@@ -47,12 +47,12 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute BuildRoomarea entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute RoomArea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
         String excludes = request.getParameter("excludes");
 
-        List<BuildRoomAreaTree> lists = thisService.getBuildAreaList(request.getParameter("whereSql"));
+        List<RoomAreaTree> lists = thisService.getBuildAreaList(request.getParameter("whereSql"));
 
         strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -69,7 +69,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
      */
     @Auth("JWTROOMINFO_add")
     @RequestMapping("/doAdd")
-    public void doAdd(BuildRoomarea entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(RoomArea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         String parentNode = entity.getParentNode();      
         String nodeText = entity.getNodeText();
@@ -104,7 +104,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
         	defaultOrderIndex=1;
         
 		entity.setOrderIndex(defaultOrderIndex);
-        SysUser currentUser = getCurrentSysUser();    
+        User currentUser = getCurrentSysUser();    
         
         entity = thisService.doAddEntity(entity, currentUser.getId());
         
@@ -138,7 +138,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
 				return;
 			}
         				
-        	SysUser currentUser = getCurrentSysUser();
+        	User currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -160,7 +160,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
             return;
         } else {
-        	SysUser currentUser = getCurrentSysUser();
+        	User currentUser = getCurrentSysUser();
         	boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -181,7 +181,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
      */
     @Auth("JWTROOMINFO_update")
     @RequestMapping("/doUpdate")
-    public void doUpdate(BuildRoomarea entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdate(RoomArea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         String uuid = entity.getId();
         String parentNode = entity.getParentNode();     
@@ -200,7 +200,7 @@ public class BaseRoomareaController extends FrameWorkController<BuildRoomarea> i
         }
 
         //获取当前的操作用户
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
  
         entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         

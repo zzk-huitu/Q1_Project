@@ -20,10 +20,10 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.DormStudentDorm;
-import com.zd.school.build.allot.model.JwClassDormAllot;
-import com.zd.school.build.define.model.BuildDormDefine;
-import com.zd.school.control.device.model.PtRoomBags;
+import com.zd.school.build.allot.model.StudentDorm;
+import com.zd.school.build.allot.model.ClassDormAllot;
+import com.zd.school.build.define.model.DormDefine;
+import com.zd.school.control.device.model.RoomBag;
 import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
 import com.zd.school.plartform.basedevice.service.PtTermBagsService;
 import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
@@ -87,7 +87,7 @@ public class PtBagController extends FrameWorkController implements Constant {
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void roombaglist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtRoomBags> qResult = roomBagsService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<RoomBag> qResult = roomBagsService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), false);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -150,16 +150,16 @@ public class PtBagController extends FrameWorkController implements Constant {
 
 	@RequestMapping(value = { "/getUserRoomId" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public @ResponseBody BuildDormDefine getUserRoomId(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody DormDefine getUserRoomId(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		BuildDormDefine dormDefine = null;
+		DormDefine dormDefine = null;
 		String querySql = super.querySql(request);
 		String hql = "from DormStudentDorm where isDelete=0 ";
 		hql += querySql;
-		List<DormStudentDorm> studentDorms = studentdormService.queryByHql(hql);
+		List<StudentDorm> studentDorms = studentdormService.queryByHql(hql);
 		if (studentDorms.size() != 0) {
-			DormStudentDorm studentDormfirst = studentDorms.get(0);
-			JwClassDormAllot classDormAllot = classDormAllotService.get(studentDormfirst.getClassDormId());
+			StudentDorm studentDormfirst = studentDorms.get(0);
+			ClassDormAllot classDormAllot = classDormAllotService.get(studentDormfirst.getClassDormId());
 			dormDefine = dormDefineService.get(classDormAllot.getDormId());
 		}
 		return dormDefine;

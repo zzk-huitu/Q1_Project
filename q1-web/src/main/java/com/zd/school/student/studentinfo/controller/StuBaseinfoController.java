@@ -23,8 +23,8 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.PinyinUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.student.studentinfo.model.StuBaseinfo;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.student.studentinfo.model.StudentBaseInfo;
 import com.zd.school.student.studentinfo.service.StuBaseinfoService;
 
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
@@ -40,7 +40,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
  */
 @Controller
 @RequestMapping("/StuBaseinfo")
-public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> implements Constant {
+public class StuBaseinfoController extends FrameWorkController<StudentBaseInfo> implements Constant {
 
 	@Resource
 	StuBaseinfoService thisService; // service层接口
@@ -59,7 +59,7 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 	 */
 	@RequestMapping(value = { "/doAdd" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void doAdd(@RequestParam("file") MultipartFile file, StuBaseinfo entity, HttpServletRequest request,
+	public void doAdd(@RequestParam("file") MultipartFile file, StudentBaseInfo entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, BadHanyuPinyinOutputFormatCombination,
 			IllegalAccessException, InvocationTargetException {
 		if (!file.isEmpty()) {
@@ -120,7 +120,7 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 		
 //		String deptJobId = request.getParameter("deptJobId");
 		// 获取当前操作用户    
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddStudent(entity, currentUser/*, deptJobId */);
 
@@ -141,7 +141,7 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 	 */
 	@RequestMapping(value = { "/doUpdate" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void doUpdates(StuBaseinfo entity, @RequestParam("file") MultipartFile file, HttpServletRequest request,
+	public void doUpdates(StudentBaseInfo entity, @RequestParam("file") MultipartFile file, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
 		// 入库前检查代码
 		try {
@@ -184,7 +184,7 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 				}
 			}
 			// 获取当前的操作用户
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));

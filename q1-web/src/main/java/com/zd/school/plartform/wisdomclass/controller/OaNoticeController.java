@@ -30,24 +30,24 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoomarea;
+import com.zd.school.build.define.model.RoomArea;
 import com.zd.school.build.define.model.BuildRoominfo;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.oa.notice.model.OaNotice;
-import com.zd.school.oa.notice.model.OaNoticeOther;
+import com.zd.school.oa.notice.model.Notice;
+import com.zd.school.oa.notice.model.NoticeOther;
 import com.zd.school.oa.notice.service.OaNoticeService;
-import com.zd.school.plartform.baseset.model.BaseAttachment;
-import com.zd.school.plartform.baseset.model.BaseDicitem;
+import com.zd.school.plartform.baseset.model.Attachment;
+import com.zd.school.plartform.baseset.model.DataDictItem;
 import com.zd.school.plartform.baseset.service.BaseAttachmentService;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysUserService;
-import com.zd.school.student.studentclass.model.JwClassstudent;
+import com.zd.school.student.studentclass.model.ClassStudent;
 import com.zd.school.student.studentclass.service.JwClassstudentService;
 
 /**
@@ -61,7 +61,7 @@ import com.zd.school.student.studentclass.service.JwClassstudentService;
  */
 @Controller
 @RequestMapping("/OaNotice")
-public class OaNoticeController extends FrameWorkController<OaNotice> implements Constant {
+public class OaNoticeController extends FrameWorkController<Notice> implements Constant {
 
 	@Resource
 	OaNoticeService thisService; // service层接口
@@ -105,7 +105,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute OaNotice entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute Notice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -120,7 +120,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 						+ "\",\"field\":\"noticeType\"}]";
 			}
 		}
-		QueryResult<OaNotice> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<Notice> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -134,7 +134,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	 */
 	@Auth("OANOTICE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(OaNotice entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(Notice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等		
@@ -156,7 +156,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 			terminalIds=AdminType.ADMIN_ORG_ID;
 		
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 	
 		entity = thisService.doAddEntity(entity, currentUser, deptIds, roleIds, userIds,terminalIds,stuIds,isNoticeParent);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -179,7 +179,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 	
 			boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 			if (flag) {
@@ -195,7 +195,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	 * 
 	 * @Title: doUpdate
 	 * @Description:
-	 * @param OaNotice
+	 * @param Notice
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -203,7 +203,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	 */
 	@Auth("OANOTICE_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(OaNotice entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(Notice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String deptIds = request.getParameter("deptIds");
 		String roleIds = request.getParameter("roleIds");
@@ -224,7 +224,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		
 		
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser, deptIds, roleIds, userIds,terminalIds,stuIds,isNoticeParent);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))
@@ -266,7 +266,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		String strData = "";
 		String id = request.getParameter("noticeId");
 		if (StringUtils.isNotEmpty(id)) {
-			OaNoticeOther other = thisService.getNoticeOther(id);
+			NoticeOther other = thisService.getNoticeOther(id);
 			strData = jsonBuilder.toJson(other);// 处理数据
 			writeJSON(response, jsonBuilder.returnSuccessJson(strData));// 返回数据
 		} else {
@@ -275,14 +275,14 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	}
 
 	@RequestMapping("/getUserOaNotice")
-	public @ResponseBody List<OaNotice> getUserOaNotice(HttpServletRequest request, HttpServletResponse response) {
-		SysUser currentUser = getCurrentSysUser();
-		List<OaNotice> list = thisService.getUserOaNotice(currentUser);
+	public @ResponseBody List<Notice> getUserOaNotice(HttpServletRequest request, HttpServletResponse response) {
+		User currentUser = getCurrentSysUser();
+		List<Notice> list = thisService.getUserOaNotice(currentUser);
 		return list;
 	}
 
 	@RequestMapping("/getOaNoticeById")
-	public @ResponseBody OaNotice getOaNoticeById(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody Notice getOaNoticeById(HttpServletRequest request, HttpServletResponse response) {
 		String uuid = request.getParameter("uuid");
 		return thisService.get(uuid);
 	}
@@ -339,7 +339,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 					
 
 					// 插入数据
-					BaseAttachment bt = new BaseAttachment();
+					Attachment bt = new Attachment();
 					bt.setEntityName("OaNotice");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
@@ -392,7 +392,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	
 		//1.创建根目录（深大附中）
 		String hql1="from BuildRoomarea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
-		List<BuildRoomarea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
+		List<RoomArea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
 		for(int i=0;i<rootAreas.size();i++){
 			Map<String,Object> rootAreaMap=new LinkedHashMap<>();
 			rootAreaMap.put("text",rootAreas.get(i).getNodeText());
@@ -406,7 +406,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 			
 			//2.创建第二层（初中、高中校区）
 			String hql2="from BuildRoomarea t where t.isDelete=0 and t.parentNode=?";
-			List<BuildRoomarea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
+			List<RoomArea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
 			for(int j=0;j<rootAreasSecond.size();j++){
 				
 				Map<String,Object> tempMap=new LinkedHashMap<>();
@@ -421,7 +421,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 				
 				//查询初中或高中的所有子区域id		
 				String roomareaHql="from BuildRoomarea where isDelete=0 order by orderIndex asc ";
-				List<BuildRoomarea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
+				List<RoomArea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
 				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getId(),roomareaList,new StringBuffer());
 				String childAreasStr="";
 				if(childAreasSB.length()>0){
@@ -433,8 +433,8 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 						+ " a.dicId=b.uuid and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
 						+ " and a.itemName in ('功能室','办公室','教室','宿舍') "
 						+ " order by a.itemCode asc";
-				List<BaseDicitem> fjlxList=baseDicitemService.queryEntityByHql(fjlxHql, "FJLX");
-				for(BaseDicitem baseDicitem : fjlxList){
+				List<DataDictItem> fjlxList=baseDicitemService.queryEntityByHql(fjlxHql, "FJLX");
+				for(DataDictItem baseDicitem : fjlxList){
 					Map<String,Object> labMap=new LinkedHashMap<>();	//房间类型室
 					labMap.put("text",baseDicitem.getItemName());
 					labMap.put("leaf",false);					
@@ -477,9 +477,9 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	}
 
 	@SuppressWarnings("unused")
-	private StringBuffer searchChildArea(String parentId,List<BuildRoomarea> list,StringBuffer sb){
+	private StringBuffer searchChildArea(String parentId,List<RoomArea> list,StringBuffer sb){
 	
-		for(BuildRoomarea br : list ){
+		for(RoomArea br : list ){
 			if(br.getParentNode().equals(parentId)){
 				sb.append("'"+br.getId()+"',");
 				sb=searchChildArea(br.getId(),list,sb);		
@@ -494,11 +494,11 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	public void getAllClassStuTreelist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
 		Boolean isSchoolAdminRole = false;
-		List<SysUser> roleUsers = userService.getUserByRoleName("学校管理员");
-		for (SysUser su : roleUsers) {
+		List<User> roleUsers = userService.getUserByRoleName("学校管理员");
+		for (User su : roleUsers) {
 			if (su.getId().equals(currentUser.getId())) {
 				isSchoolAdminRole = true;
 				break;
@@ -508,9 +508,9 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		if (!isSchoolAdminRole) {
 				// 判断是否是班主任
 			String hql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getId() + "'";
-			List<JwClassteacher> classteachers = cTeacherService.queryByHql(hql);
+			List<ClassTeacher> classteachers = cTeacherService.queryByHql(hql);
 			if (classteachers != null && classteachers.size() > 0) {
-				JwClassteacher cTeacher = classteachers.get(0);
+				ClassTeacher cTeacher = classteachers.get(0);
 				whereSql += " and level=1";
 				whereSql += " or id=(select parent from JW_V_GRADECLASSTREE where id='" + cTeacher.getClassId()
 						+ "')";
@@ -526,7 +526,7 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 		
 		
 		
-		List<JwClassstudent> stus=jwClassstudentService.queryByHql(stuHql);
+		List<ClassStudent> stus=jwClassstudentService.queryByHql(stuHql);
 		
 		addStuInTree(commTreeList,stus);
 		
@@ -535,13 +535,13 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	}
 	
 	@SuppressWarnings("unused")
-	private void addStuInTree(List<CommTree> commTrees,List<JwClassstudent> stus){
+	private void addStuInTree(List<CommTree> commTrees,List<ClassStudent> stus){
 		for(CommTree ct:commTrees){
 			List<CommTree> ctc=ct.getChildren();
 			if(ctc.size()==0){
 				ct.setLeaf(false);
 				ctc=new ArrayList<CommTree>();
-				for(JwClassstudent stu:stus){
+				for(ClassStudent stu:stus){
 					if(stu.getClassId().equals(ct.getId())){					
 						CommTree child = new CommTree(stu.getStudentId(), stu.getName(), "", true,
 								ct.getLevel()+1, "",  ct.getId(),ct.getOrderIndex(),new ArrayList<CommTree>());

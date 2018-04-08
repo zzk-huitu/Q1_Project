@@ -16,8 +16,8 @@ import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysDeptRight;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.UserDeptRight;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysDeptRightService;
 import com.zd.school.plartform.system.service.SysUserService;
 
@@ -28,7 +28,7 @@ import com.zd.school.plartform.system.service.SysUserService;
  */
 @Controller
 @RequestMapping("/SysDeptright")
-public class SysDeptRightController extends FrameWorkController<SysDeptRight> implements Constant {
+public class SysDeptRightController extends FrameWorkController<UserDeptRight> implements Constant {
 
 	@Resource
 	SysDeptRightService thisService; // service层接口
@@ -56,7 +56,7 @@ public class SysDeptRightController extends FrameWorkController<SysDeptRight> im
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-		QueryResult<SysDeptRight> qResult = thisService.queryPageResult(start, limit, sort, filter, true);
+		QueryResult<UserDeptRight> qResult = thisService.queryPageResult(start, limit, sort, filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -99,7 +99,7 @@ public class SysDeptRightController extends FrameWorkController<SysDeptRight> im
 			writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入设置的参数\""));
 			return;
 		}
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 	
 		Boolean flag = thisService.doUserRightDept(userIds, deptIds, currentUser);
 		if (flag)
@@ -110,7 +110,7 @@ public class SysDeptRightController extends FrameWorkController<SysDeptRight> im
 	@Auth("SYSUSER_doUpdateRightType")
 	@RequestMapping("/doUpdateRightType")
 	public void doUpdateRightType(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		SysUser  currentUser=getCurrentSysUser();
+		User  currentUser=getCurrentSysUser();
 		
 		String uuid=request.getParameter("userId");
 		String rightType=request.getParameter("rightType");

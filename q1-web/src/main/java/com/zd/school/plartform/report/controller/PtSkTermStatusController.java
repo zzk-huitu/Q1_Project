@@ -25,10 +25,10 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtSkTermStatus;
+import com.zd.school.control.device.model.SkTermStatus;
 import com.zd.school.plartform.basedevice.service.PtSkTermStatusService;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 水控使用状态表
@@ -38,7 +38,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/PtSkTermStatus")
-public class PtSkTermStatusController extends FrameWorkController<PtSkTermStatus> implements Constant {
+public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> implements Constant {
 
 	@Resource
 	PtSkTermStatusService thisService; // service层接口
@@ -96,7 +96,7 @@ public class PtSkTermStatusController extends FrameWorkController<PtSkTermStatus
 			}
 		}
 
-		QueryResult<PtSkTermStatus> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<SkTermStatus> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, false);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -113,7 +113,7 @@ public class PtSkTermStatusController extends FrameWorkController<PtSkTermStatus
 	 */
 	@RequestMapping(value = { "/statistics" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void statistics(@ModelAttribute PtSkTermStatus entity, HttpServletRequest request,
+	public void statistics(@ModelAttribute SkTermStatus entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		Integer start = super.start(request);
@@ -179,7 +179,7 @@ public class PtSkTermStatusController extends FrameWorkController<PtSkTermStatus
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 15, 15, 15, 15, 15, 20, 20, 15, 15, 15, 15 };
-		List<PtSkTermStatus> skTermStatusList = null;
+		List<SkTermStatus> skTermStatusList = null;
 		String hql = " from PtSkTermStatus a where a.isDelete=0 ";
 		
 		//组装房间id参数
@@ -211,7 +211,7 @@ public class PtSkTermStatusController extends FrameWorkController<PtSkTermStatus
 
 		Map<String, String> skTermStatusMap = null;
 		int i = 1;
-		for (PtSkTermStatus skTermStatus : skTermStatusList) {
+		for (SkTermStatus skTermStatus : skTermStatusList) {
 			skTermStatusMap = new LinkedHashMap<>();
 			skTermStatusMap.put("xh", i + "");
 			skTermStatusMap.put("roomName", skTermStatus.getRoomName());

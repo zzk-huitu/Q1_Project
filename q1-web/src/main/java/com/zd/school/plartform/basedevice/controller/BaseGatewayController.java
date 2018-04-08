@@ -24,15 +24,15 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
-import com.zd.school.build.define.model.SysFrontServer;
-import com.zd.school.control.device.model.PtGateway;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.build.define.model.FrontServer;
+import com.zd.school.control.device.model.Gateway;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.control.device.model.TLVModel;
-import com.zd.school.oa.terminal.model.OaInfoterm;
+import com.zd.school.oa.terminal.model.InfoTerminal;
 import com.zd.school.plartform.basedevice.service.BaseGatewayService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 网关表
@@ -41,7 +41,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BaseGateway")
-public class BaseGatewayController extends FrameWorkController<PtGateway> implements Constant  {
+public class BaseGatewayController extends FrameWorkController<Gateway> implements Constant  {
 
 	@Resource
 	BaseGatewayService thisService; // service层接口
@@ -57,11 +57,11 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtGateway entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute Gateway entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 
-		QueryResult<PtGateway> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<Gateway> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -99,7 +99,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -121,7 +121,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -142,10 +142,10 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	 */
 	@Auth("BASEGATEWAY_updateBatch")
 	@RequestMapping("/doUpdateBatch")
-	public void doupdateBatch(PtGateway entity, HttpServletRequest request, HttpServletResponse response)
+	public void doupdateBatch(Gateway entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
 		thisService.doUpdateBatchFront(entity,currentUser.getId());
 		
@@ -163,11 +163,11 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	 */
 	@Auth("BASEGATEWAY_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(PtGateway entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(Gateway entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		   
         entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
         if (ModelUtil.isNotNull(entity))
@@ -178,12 +178,12 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
     }
 	
 	@RequestMapping("/doAdd")
-    public void doAdd(PtGateway entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(Gateway entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
    
         // 获取当前操作用户
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
       
         entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
         if (ModelUtil.isNotNull(entity))
@@ -207,12 +207,12 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void batchHighParam(TLVModel tlvs,HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		byte[] result=TLVUtils.encode(tlvs.getTlvs());
-		List<PtGateway> list=thisService.queryAll();
+		List<Gateway> list=thisService.queryAll();
 		String userCh = "超级管理员";
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
-		for(PtGateway gateway:list){
+		for(Gateway gateway:list){
 			gateway.setUpdateUser(userCh);
 			gateway.setUpdateTime(new Date());
 			gateway.setAdvParam(result);
@@ -236,12 +236,12 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void batchBaseParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 			byte[] result=TLVUtils.encode(tlvs.getTlvs());
-			List<PtGateway> list=thisService.queryAll();
+			List<Gateway> list=thisService.queryAll();
 			String userCh = "超级管理员";
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			if (currentUser != null)
 				userCh = currentUser.getId();
-			for(PtGateway gateway:list){
+			for(Gateway gateway:list){
 				gateway.setUpdateUser(userCh);
 				gateway.setUpdateTime(new Date());
 				gateway.setBaseParam(result);
@@ -264,7 +264,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void baseAndHighParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 	
 		//1.判断，是否批量设置(0-不批量，1-选择批量，2-所有网关)
 		String gatewayRadio=request.getParameter("gatewayRadio");
@@ -285,7 +285,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	@RequestMapping("/baseParam_read")
 	public void baseParam_read(TLVModel tlvs, HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
-		PtGateway perEntity = thisService.get(tlvs.getId());
+		Gateway perEntity = thisService.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		String strData ="";
 		if(perEntity.getBaseParam()!=null){
@@ -298,7 +298,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	@RequestMapping("/highParam_read")
 	public void highParam_read(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		PtGateway perEntity = thisService.get(tlvs.getId());
+		Gateway perEntity = thisService.get(tlvs.getId());
 		String strData ="";
 		if(perEntity.getAdvParam()!=null){
 			TLVUtils.decode(perEntity.getAdvParam(), tlvs.getTlvs());
@@ -311,10 +311,10 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void baseParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String userCh = "超级管理员";
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
-		PtGateway perEntity = thisService.get(tlvs.getId());
+		Gateway perEntity = thisService.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(userCh);
 		perEntity.setUpdateTime(new Date());
@@ -331,8 +331,8 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void highParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		byte[] result = null;
-		PtGateway perEntity = thisService.get(tlvs.getId());
-		SysUser currentUser = getCurrentSysUser();
+		Gateway perEntity = thisService.get(tlvs.getId());
+		User currentUser = getCurrentSysUser();
 		String userCh = "超级管理员";
 		if (currentUser != null)
 			userCh = currentUser.getId();
@@ -350,12 +350,12 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void batchGatewayParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 			byte[] result=TLVUtils.encode(tlvs.getTlvs());
-			List<PtGateway> list=thisService.queryAll();
-			SysUser currentUser = getCurrentSysUser();
+			List<Gateway> list=thisService.queryAll();
+			User currentUser = getCurrentSysUser();
 			String userCh = "超级管理员";
 			if (currentUser != null)
 				userCh = currentUser.getId();
-			for(PtGateway gateway:list){
+			for(Gateway gateway:list){
 				gateway.setUpdateUser(userCh);
 				gateway.setUpdateTime(new Date());
 				gateway.setNetParam(result);
@@ -378,7 +378,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	public void gatewayParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
-		SysUser currentUser = getCurrentSysUser();				
+		User currentUser = getCurrentSysUser();				
 		thisService.doSetGatewayParam(request,tlvs, currentUser.getId());	
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"网关参数设置成功！\""));
@@ -397,7 +397,7 @@ public class BaseGatewayController extends FrameWorkController<PtGateway> implem
 	@RequestMapping("/gatewayParam_read")
 	public void gatewayParam_read(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		PtGateway perEntity = thisService.get(tlvs.getId());
+		Gateway perEntity = thisService.get(tlvs.getId());
 		String strData ="";
 		if(perEntity.getAdvParam()!=null){
 			TLVUtils.decode(perEntity.getNetParam(), tlvs.getTlvs());

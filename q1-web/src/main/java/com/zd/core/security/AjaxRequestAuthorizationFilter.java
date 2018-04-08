@@ -24,8 +24,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.ModelUtil;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Role;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysRoleService;
 import com.zd.school.plartform.system.service.SysUserService;
 
@@ -122,7 +122,7 @@ public class AjaxRequestAuthorizationFilter extends PassThruAuthenticationFilter
 					break;
 				}
 			}*/		
-			SysUser sysUser = (SysUser) session.getAttribute(Constant.SESSION_SYS_USER);
+			User sysUser = (User) session.getAttribute(Constant.SESSION_SYS_USER);
 			String roleKeys = (String) session.getAttribute(Constant.SESSION_ROLE_KEY);
 			if(roleKeys.indexOf(AdminType.ADMIN_ROLE_NAME)==-1){			
 				HashMap<String,Set<String>> userRMP_Map = sysUserService.getUserRoleMenuPermission(sysUser,session);	

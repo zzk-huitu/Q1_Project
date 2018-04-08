@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zd.school.build.define.model.BuildRoominfo;
-import com.zd.school.jw.model.app.BuildRoominfoApp;
-import com.zd.school.oa.terminal.model.OaInfoterm;
+import com.zd.school.jw.model.app.RoomInfoApp;
+import com.zd.school.oa.terminal.model.InfoTerminal;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 
@@ -36,10 +36,10 @@ public class RoomInfoAppController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = { "/getRoomInfo" }, method = RequestMethod.GET)
-	public  BuildRoominfoApp getRoomInfo(@RequestParam(value="termCode") String termCode){
-		BuildRoominfoApp info=new BuildRoominfoApp();
+	public  RoomInfoApp getRoomInfo(@RequestParam(value="termCode") String termCode){
+		RoomInfoApp info=new RoomInfoApp();
 		
-		OaInfoterm roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
 		
 		if (roomTerm==null) {
 			info.setMessage(false);

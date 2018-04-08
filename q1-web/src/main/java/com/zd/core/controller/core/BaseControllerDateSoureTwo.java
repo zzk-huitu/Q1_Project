@@ -17,7 +17,7 @@ import com.zd.core.util.CustomDateEditor;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 public class BaseControllerDateSoureTwo implements Constant{
 
@@ -108,8 +108,8 @@ public class BaseControllerDateSoureTwo implements Constant{
             return "";
     }
     
-    public SysUser getCurrentSysUser(HttpServletRequest request){
-		return (SysUser) request.getSession().getAttribute(SESSION_SYS_USER);
+    public User getCurrentSysUser(HttpServletRequest request){
+		return (User) request.getSession().getAttribute(SESSION_SYS_USER);
 	}
     
     protected  Long  getMaxId(BaseService<?> thisService,Class<?> thisClass){

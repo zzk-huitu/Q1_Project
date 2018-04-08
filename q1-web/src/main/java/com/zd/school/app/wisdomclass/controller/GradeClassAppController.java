@@ -20,29 +20,29 @@ import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.build.define.model.BuildRoominfo;
-import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse;
+import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
-import com.zd.school.jw.ecc.model.EccClassredflag;
-import com.zd.school.jw.ecc.model.EccClassstar;
-import com.zd.school.jw.eduresources.model.JwCalender;
-import com.zd.school.jw.eduresources.model.JwCalenderdetail;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.ecc.model.ClassRedFlag;
+import com.zd.school.jw.ecc.model.ClassStar;
+import com.zd.school.jw.eduresources.model.Calender;
+import com.zd.school.jw.eduresources.model.CalenderDetail;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.jw.model.app.ClassInfoForApp;
+import com.zd.school.jw.model.app.ClassInfoApp;
 import com.zd.school.jw.model.app.ClassStudentApp;
 import com.zd.school.jw.model.app.CommonApp;
-import com.zd.school.oa.terminal.model.OaInfoterm;
+import com.zd.school.oa.terminal.model.InfoTerminal;
 import com.zd.school.plartform.baseset.service.BaseAttachmentService;
 import com.zd.school.plartform.baseset.service.BaseCalenderService;
 import com.zd.school.plartform.baseset.service.BaseCalenderdetailService;
 import com.zd.school.plartform.baseset.service.BaseCampusService;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.student.studentclass.model.JwClassstudent;
+import com.zd.school.student.studentclass.model.ClassStudent;
 import com.zd.school.student.studentclass.service.JwClassstudentService;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
+import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 import com.zd.school.wisdomclass.ecc.service.EccClasselegantService;
 import com.zd.school.wisdomclass.ecc.service.EccClassredflagService;
@@ -50,7 +50,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClassstarService;
 
 @Controller
 @RequestMapping("/app/GradeClass")
-public class GradeClassAppController extends BaseController<JwTGradeclass> {
+public class GradeClassAppController extends BaseController<GradeClass> {
 
 	@Value("${virtualFileUrl}")  	//读取在配置文件属性
 	private String virtualFileUrl; 	//文件目录虚拟路径
@@ -125,11 +125,11 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 	 * @return
 	 */
 	@RequestMapping(value = { "/getClassInfo" }, method = RequestMethod.GET)
-	public @ResponseBody ClassInfoForApp getClassInfo(@RequestParam(value = "classId") String classId) {
+	public @ResponseBody ClassInfoApp getClassInfo(@RequestParam(value = "classId") String classId) {
 		
-		ClassInfoForApp info = new ClassInfoForApp();
+		ClassInfoApp info = new ClassInfoApp();
 
-		JwTGradeclass classInfo = thisService.get(classId);// 班级对象
+		GradeClass classInfo = thisService.get(classId);// 班级对象
 		if (classInfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到对应的班级！");
@@ -138,7 +138,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		
 		Map<String,String> sort = new HashMap<>();
 		sort.put("category", "asc");
-		JwClassteacher calssTeacher = classTeacherService.getByProerties(
+		ClassTeacher calssTeacher = classTeacherService.getByProerties(
 				new String[]{"claiId","isDelete"},
 				new Object[]{classId,0},sort);		//率先读取正班主任
 		if (calssTeacher == null) {
@@ -147,7 +147,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 			return info; 
 		}
 		String teacherId = calssTeacher.getTeacherId();
-		List<TeaTeacherbase> teacherList = teacherService.queryByProerties("uuid", teacherId);
+		List<TeacherBaseInfo> teacherList = teacherService.queryByProerties("uuid", teacherId);
 		if (teacherList.isEmpty()) {
 			info.setMessage(false);
 			info.setMessageInfo("未找到该班级的班主任信息！");
@@ -162,21 +162,21 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		//查询班级星级信息
 		String hql = "from EccClassstar where isDelete=0 and claiId='" + classInfo.getId() + "' and beginDate<='"
 				+ today + "' and endDate>='" + today + "'";
-		List<EccClassstar> classstarList = starService.queryByHql(hql);
+		List<ClassStar> classstarList = starService.queryByHql(hql);
 		if (!classstarList.isEmpty()) {
-			EccClassstar starInfo = classstarList.get(0);
+			ClassStar starInfo = classstarList.get(0);
 			info.setClassstarInfo(starInfo);
 		}
 		
 		//查询班级红旗信息(显示最新的红旗)
 		hql = "from EccClassredflag where isDelete=0 and claiId='" + classInfo.getId() + "' and beginDate<='" + today
 				+ "' and endDate>='" + today + "' order by redflagType";
-		List<EccClassredflag> classflagList = flagService.queryByHql(hql);
+		List<ClassRedFlag> classflagList = flagService.queryByHql(hql);
 		if (classflagList != null && classflagList.size() > 0) {
 			if (classflagList.size() > 1) {
 				for (int i = 1; i < classflagList.size(); i++) {
-					EccClassredflag before = classflagList.get(i - 1);
-					EccClassredflag now = classflagList.get(i);
+					ClassRedFlag before = classflagList.get(i - 1);
+					ClassRedFlag now = classflagList.get(i);
 					if (before.getRedFlagType().equals(now.getRedFlagType())) {
 						classflagList.remove(before);
 					    i--;
@@ -205,7 +205,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		
 		ClassStudentApp info = new ClassStudentApp();
 
-		OaInfoterm roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
@@ -230,18 +230,18 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 			if(campusId!=null){
 				String[] propName = new String[] { "campusId", "activityState", "isDelete" };
 				Object[] propValue = new Object[] { campusId, 1, 0 };
-				JwCalender calender = calendarService.getByProerties(propName, propValue); // 查询出校区启用的作息时间
+				Calender calender = calendarService.getByProerties(propName, propValue); // 查询出校区启用的作息时间
 				
 				//找到了作息时间
 				if(calender!=null){
 					propName = new String[] { "canderId", "isDelete" };
 					propValue = new Object[] { calender.getId(), 0 };
-					List<JwCalenderdetail> calenderDetails = calendarDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
+					List<CalenderDetail> calenderDetails = calendarDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
 					
 					
 					// 根据当前时间取得现在的节次
 					String teachTime = "";
-					for (JwCalenderdetail calenderdetail : calenderDetails) {
+					for (CalenderDetail calenderdetail : calenderDetails) {
 						String tS = DateUtil.formatDate(calenderdetail.getBeginTime(), "HH:mm:ss");
 						if (calenderdetail.getEndTime() != null) {
 							String tE = DateUtil.formatDate(calenderdetail.getEndTime(), "HH:mm:ss");
@@ -255,7 +255,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 					//获取功能室的课程信息
 					propName = new String[] { "roomId", "teachTime","isDelete" };
 					propValue = new Object[] { roomTerm.getRoomId(), teachTime,0};
-					JwFuncroomcourse funcroomcourses = funcCourseService.getByProerties(propName, propValue);
+					FuncRoomCourse funcroomcourses = funcCourseService.getByProerties(propName, propValue);
 					
 					//最后获取星期N的功能室课程的班级
 					if (funcroomcourses != null) {
@@ -267,7 +267,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		} else { // 当为教室的时候
 
 			// 验证班级是否存在
-			JwTGradeclass classInfo = thisService.get(classId);
+			GradeClass classInfo = thisService.get(classId);
 			if (classInfo == null) {
 				info.setMessage(false);
 				info.setMessageInfo("未找到该班级信息！");
@@ -281,7 +281,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 		
 			//查询班级下的学生信息
 			String hql = "from JwClassstudent where claiId='" + classId + "' and isDelete=0";
-			List<JwClassstudent> list = classStudentService.queryByHql(hql);
+			List<ClassStudent> list = classStudentService.queryByHql(hql);
 		
 			//直接遍历修改各个数据的照片路径（加入虚拟目录名）
 			list.stream().forEach(x->x.setPhoto(virtualFileUrl+"/"+x.getPhoto()));

@@ -8,9 +8,9 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseSchool;
+import com.zd.school.plartform.baseset.model.School;
 import com.zd.school.plartform.baseset.service.BaseSchoolService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/BaseSchool")
-public class BaseSchoolController extends FrameWorkController<BaseSchool> implements Constant {
+public class BaseSchoolController extends FrameWorkController<School> implements Constant {
 
 	@Resource
 	BaseSchoolService thisService; // service层接口
@@ -40,10 +40,10 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute BaseSchool entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute School entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<BaseSchool> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<School> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -57,18 +57,18 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 	 * IOException 设定参数 @return void 返回类型 @throws
 	 */
 	@RequestMapping("/doAdd")
-	public void doAdd(BaseSchool entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(School entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
 		String userCh = "超级管理员";
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
 
-		BaseSchool perEntity = new BaseSchool();
+		School perEntity = new School();
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 		// 生成默认的orderindex
 		// 如果界面有了排序号的输入，则不需要取默认的了
@@ -97,7 +97,7 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -119,7 +119,7 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -136,11 +136,11 @@ public class BaseSchoolController extends FrameWorkController<BaseSchool> implem
 	 */
 	@Auth("SCHOOLINFO_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(BaseSchool entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(School entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		// entity = thisService.doUpdateEntity(entity, currentUser.getId(),
 		// null);

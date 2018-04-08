@@ -23,13 +23,13 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.JwOfficeAllot;
-import com.zd.school.build.define.model.BuildOfficeDefine;
+import com.zd.school.build.allot.model.OfficeAllot;
+import com.zd.school.build.define.model.OfficeDefine;
 import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
 import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysUserService;
 
 /**
@@ -38,7 +38,7 @@ import com.zd.school.plartform.system.service.SysUserService;
  */
 @Controller
 @RequestMapping("/BaseOfficeAllot")
-public class BaseOfficeAllotController extends FrameWorkController<JwOfficeAllot> implements Constant {
+public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> implements Constant {
 	@Resource
 	BaseOfficeAllotService thisService; // service层接口
 	@Resource
@@ -57,7 +57,7 @@ public class BaseOfficeAllotController extends FrameWorkController<JwOfficeAllot
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute JwOfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute OfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -97,7 +97,7 @@ public class BaseOfficeAllotController extends FrameWorkController<JwOfficeAllot
 			}
 		}
 
-		QueryResult<JwOfficeAllot> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<OfficeAllot> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -131,16 +131,16 @@ public class BaseOfficeAllotController extends FrameWorkController<JwOfficeAllot
 	 */
 	@Auth("BASEROOMALLOT_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(JwOfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(OfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
-		BuildOfficeDefine off = null;
+		OfficeDefine off = null;
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String[] name = { "roomId", "isDelete" };
 		Object[] value = { entity.getRoomId(), 0 };
 		off = offdService.getByProerties(name, value);
 		if (off != null) {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			flag = thisService.doAddRoom(entity, hashMap, currentUser);// 执行增加方法
 			flag = (Boolean) hashMap.get("flag") == null ? true : (Boolean) hashMap.get("flag");
 			if (flag) {
@@ -198,10 +198,10 @@ public class BaseOfficeAllotController extends FrameWorkController<JwOfficeAllot
 	 */
 	@RequestMapping(value = { "/teacherAllot" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void teacherAllot(@ModelAttribute SysUser entity, HttpServletRequest request, HttpServletResponse response)
+	public void teacherAllot(@ModelAttribute User entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<SysUser> qr = sysUserService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<User> qr = sysUserService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据

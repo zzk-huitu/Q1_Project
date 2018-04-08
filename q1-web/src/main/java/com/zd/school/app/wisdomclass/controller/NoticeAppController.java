@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
-import com.zd.school.oa.notice.model.OaNotice;
+import com.zd.school.oa.notice.model.Notice;
 import com.zd.school.oa.notice.service.OaNoticeService;
 
 @Controller
 @RequestMapping("/app/Notice")
-public class NoticeAppController extends FrameWorkController<OaNotice> implements Constant {
+public class NoticeAppController extends FrameWorkController<Notice> implements Constant {
 	@Resource
 	private OaNoticeService thisService; // service层接口
 	
@@ -34,9 +34,9 @@ public class NoticeAppController extends FrameWorkController<OaNotice> implement
 		String sort = super.sort(request);
 		String filter = super.filter(request);
 
-		QueryResult<OaNotice> qResult = thisService.list(start, limit, sort, filter, termCode);
+		QueryResult<Notice> qResult = thisService.list(start, limit, sort, filter, termCode);
 		if(qResult!=null){
-			for (OaNotice notice : qResult.getResultList()) {
+			for (Notice notice : qResult.getResultList()) {
 				String content = notice.getNoticeContent();
 				// 过滤文章内容中的html
 				content = content.replaceAll("</?[^<]+>", "");

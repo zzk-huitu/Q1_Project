@@ -16,7 +16,7 @@ import com.zd.core.model.BaseEntity;
 /**
  * 房间信息表
  * 
- * 注：使用备用字段1-5，作为房间的门牌号1-5
+ * 注：houseNo01-05：旧版本使用备用字段1-5，作为房间的门牌号1-5
  * 
  * 注：删除areaStatu字段，目前而言没什么意义（roomType不为0，则代表已经分配）
  * 
@@ -60,6 +60,26 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	@FieldInfo(name = "房间电话", type = "varchar(16)  default ''", explain = "房间电话")
 	@Column(name = "roomPhone", columnDefinition = "varchar(16)  default ''", nullable = true)
 	private String roomPhone;
+
+	@FieldInfo(name = "门牌号1", type = "varchar(16) default ''", explain = "门牌号1")
+	@Column(name = "houseNo01", columnDefinition = "varchar(16)  default ''", nullable = true)
+	private String houseNo01;
+
+	@FieldInfo(name = "门牌号2", type = "varchar(16) default ''", explain = "门牌号2")
+	@Column(name = "houseNo02", columnDefinition = "varchar(16)  default ''", nullable = true)
+	private String houseNo02;
+
+	@FieldInfo(name = "门牌号3", type = "varchar(16) default ''", explain = "门牌号1")
+	@Column(name = "houseNo03", columnDefinition = "varchar(16)  default ''", nullable = true)
+	private String houseNo03;
+
+	@FieldInfo(name = "门牌号4", type = "varchar(16) default ''", explain = "门牌号4")
+	@Column(name = "houseNo04", columnDefinition = "varchar(16)  default ''", nullable = true)
+	private String houseNo04;
+
+	@FieldInfo(name = "门牌号5", type = "varchar(16) default ''", explain = "门牌号5")
+	@Column(name = "houseNo05", columnDefinition = "varchar(16)  default ''", nullable = true)
+	private String houseNo05;
 
 	/**
 	 * 以下为不需要持久化到数据库中的字段,根据项目的需要手工增加
@@ -166,6 +186,46 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 
 	public void setAreaUpName(String areaUpName) {
 		this.areaUpName = areaUpName;
+	}
+
+	public String getHouseNo01() {
+		return houseNo01;
+	}
+
+	public void setHouseNo01(String houseNo01) {
+		this.houseNo01 = houseNo01;
+	}
+
+	public String getHouseNo02() {
+		return houseNo02;
+	}
+
+	public void setHouseNo02(String houseNo02) {
+		this.houseNo02 = houseNo02;
+	}
+
+	public String getHouseNo03() {
+		return houseNo03;
+	}
+
+	public void setHouseNo03(String houseNo03) {
+		this.houseNo03 = houseNo03;
+	}
+
+	public String getHouseNo04() {
+		return houseNo04;
+	}
+
+	public void setHouseNo04(String houseNo04) {
+		this.houseNo04 = houseNo04;
+	}
+
+	public String getHouseNo05() {
+		return houseNo05;
+	}
+
+	public void setHouseNo05(String houseNo05) {
+		this.houseNo05 = houseNo05;
 	}
 
 	public BuildRoominfo() {

@@ -9,22 +9,22 @@ import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import com.zd.school.plartform.system.model.SysOperateLog;
+import com.zd.school.plartform.system.model.OprateLog;
 import com.zd.school.plartform.system.service.SysOperateLogService;
 
 //@Component(value="LogJobQuartz")
 public class LogJobQuartz {
 	
 	@Resource
-	private RedisTemplate<String, SysOperateLog> redisTemplate;
+	private RedisTemplate<String, OprateLog> redisTemplate;
 
 	@Resource
 	private SysOperateLogService logService; 
 	
 	protected void execute() {
 		try{
-			ListOperations<String, SysOperateLog> listOper = redisTemplate.opsForList();
-			List<SysOperateLog> lists = listOper.range("SysOperateLog",0,-1);
+			ListOperations<String, OprateLog> listOper = redisTemplate.opsForList();
+			List<OprateLog> lists = listOper.range("SysOperateLog",0,-1);
 			redisTemplate.delete("SysOperateLog");
 			
 			logService.multiAddEntity(lists);

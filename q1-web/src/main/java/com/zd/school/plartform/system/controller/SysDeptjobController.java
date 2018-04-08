@@ -20,9 +20,9 @@ import com.zd.core.constant.TreeVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseDeptjob;
-import com.zd.school.plartform.baseset.model.BaseDpetJobTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.DeptJob;
+import com.zd.school.plartform.baseset.model.DpetJobTree;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysDeptjobService;
 
 /**
@@ -32,7 +32,7 @@ import com.zd.school.plartform.system.service.SysDeptjobService;
  */
 @Controller
 @RequestMapping("/SysDeptjob")
-public class SysDeptjobController extends FrameWorkController<BaseDeptjob> implements Constant {
+public class SysDeptjobController extends FrameWorkController<DeptJob> implements Constant {
 
 	@Resource
 	SysDeptjobService thisService; // service层接口
@@ -50,14 +50,14 @@ public class SysDeptjobController extends FrameWorkController<BaseDeptjob> imple
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute BaseDeptjob entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute DeptJob entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-		QueryResult<BaseDeptjob> qResult = thisService.list(start, limit, sort, filter, true);
+		QueryResult<DeptJob> qResult = thisService.list(start, limit, sort, filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -82,7 +82,7 @@ public class SysDeptjobController extends FrameWorkController<BaseDeptjob> imple
 			return;
 		}
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		Boolean flag = thisService.doBatchSetDeptJob(deptId, jobId, currentUser);
 		if (flag)
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"添加部门岗位成功\""));
@@ -117,7 +117,7 @@ public class SysDeptjobController extends FrameWorkController<BaseDeptjob> imple
 				return;
 			}
 			
-			SysUser currentUser = getCurrentSysUser();			
+			User currentUser = getCurrentSysUser();			
 			Boolean flag = thisService.delDeptJob(delIds, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -151,7 +151,7 @@ public class SysDeptjobController extends FrameWorkController<BaseDeptjob> imple
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"参数传入错误\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			Boolean flag = thisService.doSetDeptLeaderJob(deptId, deptJobId, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功\""));
@@ -174,11 +174,11 @@ public class SysDeptjobController extends FrameWorkController<BaseDeptjob> imple
 		if (StringUtils.isNotEmpty(nodeId)) {
 			node = nodeId;
 		}
-		BaseDpetJobTree root = thisService.getDeptJobTree(node, "");
+		DpetJobTree root = thisService.getDeptJobTree(node, "");
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		} else {
-			List<BaseDpetJobTree> alist = new ArrayList<BaseDpetJobTree>();
+			List<DpetJobTree> alist = new ArrayList<DpetJobTree>();
 			alist.add(root);
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
 		}
@@ -190,7 +190,7 @@ public class SysDeptjobController extends FrameWorkController<BaseDeptjob> imple
 		String ids = request.getParameter("ids");
 		String setIds = request.getParameter("setIds");
 		String setType = request.getParameter("types");
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		Boolean flag = thisService.doSetSuperJob(ids, setIds, setType, currentUser);
 		if (flag) {

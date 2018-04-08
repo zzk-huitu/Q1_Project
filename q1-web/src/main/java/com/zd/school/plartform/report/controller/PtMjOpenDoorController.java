@@ -24,10 +24,10 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtMjOpenDoor;
+import com.zd.school.control.device.model.MjOpenDoor;
 import com.zd.school.plartform.basedevice.service.PtMjOpenDoorService;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 门禁开门记录
@@ -37,7 +37,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/PtMjOpenDoor")
-public class PtMjOpenDoorController extends FrameWorkController<PtMjOpenDoor> implements Constant {
+public class PtMjOpenDoorController extends FrameWorkController<MjOpenDoor> implements Constant {
 
 	@Resource
 	PtMjOpenDoorService thisService; // service层接口
@@ -53,7 +53,7 @@ public class PtMjOpenDoorController extends FrameWorkController<PtMjOpenDoor> im
 
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtMjOpenDoor entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute MjOpenDoor entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String roomId = request.getParameter("roomId");
@@ -93,7 +93,7 @@ public class PtMjOpenDoorController extends FrameWorkController<PtMjOpenDoor> im
 			}
 		}
 
-		QueryResult<PtMjOpenDoor> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<MjOpenDoor> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, false); // 列出包含isDelte不为0的数据
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -113,7 +113,7 @@ public class PtMjOpenDoorController extends FrameWorkController<PtMjOpenDoor> im
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 30, 15 ,15};
-		List<PtMjOpenDoor> mjOpenDoorList = null;
+		List<MjOpenDoor> mjOpenDoorList = null;
 
 		String hql = " from PtMjOpenDoor a where 1=1 ";		// a.isDelete=0 ";暂时不需要这个条件
 		
@@ -149,7 +149,7 @@ public class PtMjOpenDoorController extends FrameWorkController<PtMjOpenDoor> im
 
 		Map<String, String> mjOpenDoorMap = null;
 		int i = 1;
-		for (PtMjOpenDoor mjOpenDoor : mjOpenDoorList) {
+		for (MjOpenDoor mjOpenDoor : mjOpenDoorList) {
 			mjOpenDoorMap = new LinkedHashMap<>();
 			mjOpenDoorMap.put("xh", i + "");
 			mjOpenDoorMap.put("roomName", mjOpenDoor.getRoomName());

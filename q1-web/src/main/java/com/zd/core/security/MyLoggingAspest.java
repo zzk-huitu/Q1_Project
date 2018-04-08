@@ -18,8 +18,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.zd.core.constant.Constant;
 import com.zd.core.util.JsonBuilder;
-import com.zd.school.plartform.system.model.SysOperateLog;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.OprateLog;
+import com.zd.school.plartform.system.model.User;
 
 @Component
 @Aspect
@@ -27,7 +27,7 @@ public class MyLoggingAspest {
 	private static Logger logger = Logger.getLogger(MyLoggingAspest.class);
 
 	@Resource
-	private RedisTemplate<String, SysOperateLog> redisTemplate;
+	private RedisTemplate<String, OprateLog> redisTemplate;
 	
 	@Pointcut("execution(* *..service..*.do*(..))")
 	public void pointService() {
@@ -41,7 +41,7 @@ public class MyLoggingAspest {
 		Object result = null;
 		String methodName = pjd.getSignature().getName();
 		String targetName = pjd.getTarget().getClass().getName();  
-		SysOperateLog operteLog = new SysOperateLog();
+		OprateLog operteLog = new OprateLog();
 		operteLog.setId(null);
 		try {
 			HttpServletRequest request = this.getHttpServletRequest();
@@ -57,7 +57,7 @@ public class MyLoggingAspest {
 					methodParams += jsonBuilder.toJson(args[i]) + ";";
 				}
 			}
-			SysUser sysUser = (SysUser) request.getSession().getAttribute(Constant.SESSION_SYS_USER);
+			User sysUser = (User) request.getSession().getAttribute(Constant.SESSION_SYS_USER);
 			if (sysUser != null) {
 				userName = sysUser.getUserName();
 				userId = sysUser.getId();

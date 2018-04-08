@@ -21,11 +21,11 @@ import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 
 /**
@@ -36,7 +36,7 @@ import com.zd.school.plartform.system.service.SysOrgService;
  */
 @Controller
 @RequestMapping("/ClassTeacher")
-public class WisClassTeacherController extends FrameWorkController<JwClassteacher> implements Constant {
+public class WisClassTeacherController extends FrameWorkController<ClassTeacher> implements Constant {
 
 	@Resource
 	JwClassteacherService thisService; // service层接口
@@ -54,7 +54,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute JwClassteacher entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute ClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -86,7 +86,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 
 			} else { // 当选择的区域不为班级时
 
-				SysUser currentUser = getCurrentSysUser();
+				User currentUser = getCurrentSysUser();
 				String classIds = getClassIds(deptId, currentUser);
 
 				if (StringUtils.isNotEmpty(classIds)) {
@@ -109,7 +109,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 			}
 		}
 
-		QueryResult<JwClassteacher> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<ClassTeacher> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -124,7 +124,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 	 */
 	@Auth("CLASSTEACHER_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(JwClassteacher entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(ClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String claiId = entity.getClassId(); // 班级
@@ -148,7 +148,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 		}
 
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		// 持久化到数据库
 		entity = thisService.doAddClassTeacher(entity, currentUser);
@@ -190,7 +190,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 			return;
 		} else {
 			boolean flag = false;
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			flag = thisService.doDelete(outIds, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'解除设置成功'"));
@@ -207,7 +207,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 	 * @param roomLeaf
 	 * @return
 	 */
-	private String getClassIds(String deptId, SysUser currentUser) {
+	private String getClassIds(String deptId, User currentUser) {
 
 		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {

@@ -27,14 +27,14 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.control.device.model.TLVModel;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
-import com.zd.school.plartform.baseset.model.BaseDicitem;
+import com.zd.school.plartform.baseset.model.DataDictItem;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 房间设备
@@ -42,7 +42,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BasePtTerm")
-public class BasePtTermController extends FrameWorkController<PtTerm> implements Constant {
+public class BasePtTermController extends FrameWorkController<Term> implements Constant {
 	@Resource
 	BasePtTermService thisService; // service层接口
 
@@ -63,7 +63,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	//查询方法不用设置@Auth("PtRoombagStatus_look")
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtTerm entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute Term entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -102,7 +102,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 			}
 		}
 		
-		QueryResult<PtTerm> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<Term> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -120,7 +120,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 
 		// QueryResult<PtTerm> qResult = thisService.queryResult(hql,
 		// super.start(request), super.limit(request));
-		QueryResult<PtTerm> qResult = thisService.queryCountToHql(super.start(request), super.limit(request),
+		QueryResult<Term> qResult = thisService.queryCountToHql(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), hql, null, null);
 
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
@@ -145,7 +145,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		// String uuids[] = uuid.split(",");
 		// String roomIds[] = roomId.split(",");
 		// PtTerm entity = null;
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		thisService.doSetPtTerm(roomId, uuid, currentUser);// 执行修改方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"分配成功!\""));
@@ -163,7 +163,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String uuids[] = uuid.split(",");
 		String roomIds[] = roomId.split(",");
-		PtTerm entity = null;
+		Term entity = null;
 		for (int i = 0; i < uuids.length; i++) {
 			entity = thisService.get(uuids[i]);
 			entity.setRoomId(roomIds[i]);
@@ -185,9 +185,9 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	 */
 	@Auth("DEVICEALLOT_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(PtTerm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(Term entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
@@ -220,7 +220,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	@RequestMapping("/highParam_read")
 	public void highParam_read(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		PtTerm perEntity = thisService.get(tlvs.getId());
+		Term perEntity = thisService.get(tlvs.getId());
 		String strData = "";
 		if (perEntity.getAdvParam() != null) {
 			TLVUtils.decode(perEntity.getAdvParam(), tlvs.getTlvs());
@@ -233,7 +233,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	@RequestMapping("/doSetHighParam")
 	public void doSetHighParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String termTypeID = request.getParameter("termTypeID");
 
 		// 1.判断，是否批量设置(0-不批量，4-本楼层，3-本楼栋，2-本校区，1-本学校，5-选择批量)
@@ -273,7 +273,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	@RequestMapping("/baseParam_read")
 	public void baseParam_read(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		PtTerm perEntity = thisService.get(tlvs.getId());
+		Term perEntity = thisService.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		String strData = "";
 		if (perEntity.getBaseParam() != null) {
@@ -293,7 +293,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 	@RequestMapping("/doSetBaseParam")
 	public void doSetBaseParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String termTypeID = request.getParameter("termTypeID");
 		String notes = request.getParameter("notes");
 
@@ -322,10 +322,10 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 
 	@RequestMapping(value = { "/termlist" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void listterm(@ModelAttribute PtTerm entity, HttpServletRequest request, HttpServletResponse response)
+	public void listterm(@ModelAttribute Term entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtTerm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<Term> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -344,8 +344,8 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		String mapKey = null;
 		String[] propValue = { "PTTERMTYPE" };
 		Map<String, String> mapDicItem = new HashMap<>();
-		List<BaseDicitem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
-		for (BaseDicitem baseDicitem : listDicItem) {
+		List<DataDictItem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
+		for (DataDictItem baseDicitem : listDicItem) {
 			mapKey = baseDicitem.getItemCode() + baseDicitem.getDicCode();
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
@@ -370,7 +370,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 				}
 			}
 		}
-		List<PtTerm> ptTermList = null;
+		List<Term> ptTermList = null;
 		if (StringUtils.isNotEmpty(termName)) {
 			hql += " and termName like'%" + termName + "%'";
 		}
@@ -382,7 +382,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		Map<String, String> ptTermExporMap = null;
 		String ClassName = "";
 		int i = 1;
-		for (PtTerm ptTermdetail : ptTermList) {
+		for (Term ptTermdetail : ptTermList) {
 			ptTermExporMap = new LinkedHashMap<>();
 			ptTermExporMap.put("xh", i + "");
 			ptTermExporMap.put("termName", ptTermdetail.getTermName());
@@ -444,12 +444,12 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		String mapKey = null;
 		String[] propValue = { "PTTERMTYPE" };
 		Map<String, String> mapDicItem = new HashMap<>();
-		List<BaseDicitem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
-		for (BaseDicitem baseDicitem : listDicItem) {
+		List<DataDictItem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
+		for (DataDictItem baseDicitem : listDicItem) {
 			mapKey = baseDicitem.getItemCode() + baseDicitem.getDicCode();
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
-		List<PtTerm> ptTermList = null;
+		List<Term> ptTermList = null;
 		String hql = " from PtTerm a where a.isDelete=0 ";
 
 		if (StringUtils.isNotEmpty(termName)) {
@@ -464,7 +464,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 
 		Map<String, String> ptTermMap = null;
 		int i = 1;
-		for (PtTerm ptTerm : ptTermList) {
+		for (Term ptTerm : ptTermList) {
 			ptTermMap = new LinkedHashMap<>();
 			ptTermMap.put("xh", i + "");
 			ptTermMap.put("termName", ptTerm.getTermName());
@@ -528,12 +528,12 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		String mapKey = null;
 		String[] propValue = { "PTTERMTYPE" };
 		Map<String, String> mapDicItem = new HashMap<>();
-		List<BaseDicitem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
-		for (BaseDicitem baseDicitem : listDicItem) {
+		List<DataDictItem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
+		for (DataDictItem baseDicitem : listDicItem) {
 			mapKey = baseDicitem.getItemCode() + baseDicitem.getDicCode();
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
-		List<PtTerm> ptTermList = null;
+		List<Term> ptTermList = null;
 		String roomId = request.getParameter("roomId");
 		String roomLeaf = request.getParameter("roomLeaf");
 		String termSN = request.getParameter("termSN");
@@ -574,7 +574,7 @@ public class BasePtTermController extends FrameWorkController<PtTerm> implements
 		List<Map<String, String>> ptTermExportList = new ArrayList<>();
 		Map<String, String> ptTermExporMap = null;
 		int i = 1;
-		for (PtTerm ptTermdetail : ptTermList) {
+		for (Term ptTermdetail : ptTermList) {
 			ptTermExporMap = new LinkedHashMap<>();
 			ptTermExporMap.put("xh", i + "");
 			ptTermExporMap.put("termSN", ptTermdetail.getTermSn());

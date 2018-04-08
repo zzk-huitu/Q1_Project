@@ -27,20 +27,20 @@ import com.zd.core.util.BeanUtils;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PinyinUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseOrg;
+import com.zd.school.plartform.baseset.model.Department;
 import com.zd.school.plartform.baseset.service.BaseAttachmentService;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Role;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.plartform.system.service.SysRoleService;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
+import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 
 @Controller
 @RequestMapping("/TeacherBase")
-public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase> implements Constant {
+public class TeaTeacherbaseController extends FrameWorkController<TeacherBaseInfo> implements Constant {
 	@Resource
 	private TeaTeacherbaseService thisService; // service层接口
 
@@ -66,7 +66,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute TeaTeacherbase entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute TeacherBaseInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String deptId = request.getParameter("deptId");
@@ -74,9 +74,9 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 		if (StringUtils.isEmpty(qureyFilter)) {
 			qureyFilter = request.getParameter("filter");
 		}
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
-		QueryResult<TeaTeacherbase> qr = thisService.getDeptTeacher(super.start(request), super.limit(request),
+		QueryResult<TeacherBaseInfo> qr = thisService.getDeptTeacher(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), qureyFilter, true, deptId, currentUser);
 		if (ModelUtil.isNotNull(qr))
 			strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -100,7 +100,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 
 		// 当传入的参数树courseId时。就去查询deptId
 		if (StringUtils.isEmpty(deptId) && StringUtils.isNotEmpty(courseId)) {
-			BaseOrg baseOrg = sysOrgService.getByProerties("extField01", courseId);
+			Department baseOrg = sysOrgService.getByProerties("extField01", courseId);
 			deptId = baseOrg.getId();
 		}
 
@@ -109,7 +109,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 			String hql = "from TeaTeacherbase g where g.isDelete=0 and g.uuid in ("
 					+ "	select distinct userId  from BaseUserdeptjob where isDelete=0 and deptId = '" + deptId + "'"
 					+ ")";
-			QueryResult<TeaTeacherbase> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
+			QueryResult<TeacherBaseInfo> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), hql, null, null);
 
 			strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -132,7 +132,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 	 */
 	@RequestMapping(value = { "/doAdd" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void doAdd(TeaTeacherbase entity, @RequestParam("file") MultipartFile file, HttpServletRequest request,
+	public void doAdd(TeacherBaseInfo entity, @RequestParam("file") MultipartFile file, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, BadHanyuPinyinOutputFormatCombination,
 			IllegalAccessException, InvocationTargetException {
 		if (!file.isEmpty()) {
@@ -186,7 +186,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 		
 //		String deptJobId = request.getParameter("deptJobId");
 		// 获取当前操作用户    
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
         entity=thisService.doAddTeacher(entity,currentUser/*,deptJobId*/);  
 
 		// 返回实体到前端界面
@@ -204,7 +204,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 	 */
 	@RequestMapping(value = { "/doUpdate" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void doUpdates(TeaTeacherbase entity, @RequestParam("file") MultipartFile file, HttpServletRequest request,
+	public void doUpdates(TeacherBaseInfo entity, @RequestParam("file") MultipartFile file, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
 		// 入库前检查代码
 		try {
@@ -247,7 +247,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeaTeacherbase
 				}
 			}
 			// 获取当前的操作用户
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));

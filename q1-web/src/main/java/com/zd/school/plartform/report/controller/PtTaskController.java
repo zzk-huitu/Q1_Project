@@ -28,12 +28,12 @@ import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
 import com.zd.core.util.TagLenVal;
-import com.zd.school.control.device.model.PtSkTermStatus;
+import com.zd.school.control.device.model.SkTermStatus;
 import com.zd.school.control.device.model.TLVModel;
-import com.zd.school.plartform.baseset.model.BaseDicitem;
+import com.zd.school.plartform.baseset.model.DataDictItem;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.ykt.model.PtTask;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.ykt.model.Task;
 import com.zd.school.ykt.service.PtTaskService;
 
 /**
@@ -41,7 +41,7 @@ import com.zd.school.ykt.service.PtTaskService;
 */
 @Controller
 @RequestMapping("/PtTask")
-public class PtTaskController extends FrameWorkController<PtTask> implements Constant {
+public class PtTaskController extends FrameWorkController<Task> implements Constant {
 
     @Resource
     PtTaskService thisService; // service层接口
@@ -58,24 +58,24 @@ public class PtTaskController extends FrameWorkController<PtTask> implements Con
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute PtTask entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute Task entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
-		QueryResult<PtTask> qResult = thisService.list(super.start(request), super.limit(request), super.sort(request),  super.filter(request),true);
+		QueryResult<Task> qResult = thisService.list(super.start(request), super.limit(request), super.sort(request),  super.filter(request),true);
         strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
         writeJSON(response, strData);// 返回数据
     }
     
     @RequestMapping(value = { "/tasklistbyTermId" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void tasklistbyTermId(@ModelAttribute PtTask entity, HttpServletRequest request, HttpServletResponse response)
+    public void tasklistbyTermId(@ModelAttribute Task entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-        QueryResult<PtTask> qResult = thisService.tasklistbyTermId(start, limit, sort, filter,true);
+        QueryResult<Task> qResult = thisService.tasklistbyTermId(start, limit, sort, filter,true);
         strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
         writeJSON(response, strData);// 返回数据
     }
@@ -84,7 +84,7 @@ public class PtTaskController extends FrameWorkController<PtTask> implements Con
 	@RequestMapping("/baseParam_read")
 	public void baseParam_read(TLVModel tlvs, HttpServletRequest request, 
 			HttpServletResponse response) throws IOException{
-		PtTask perEntity = thisService.get(tlvs.getId());
+		Task perEntity = thisService.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		String strData ="";
 		if(perEntity.getTaskData()!=null){
@@ -110,12 +110,12 @@ public class PtTaskController extends FrameWorkController<PtTask> implements Con
 		String mapKey = null;
 		String[] propValue = { "TASKTYPE","PTTERMTYPE" };
 		Map<String, String> mapDicItem = new HashMap<>();
-		List<BaseDicitem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
-		for (BaseDicitem baseDicitem : listDicItem) {
+		List<DataDictItem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
+		for (DataDictItem baseDicitem : listDicItem) {
 			mapKey = baseDicitem.getItemCode() + baseDicitem.getDicCode();
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
-		List<PtTask> ptTaskList = null;
+		List<Task> ptTaskList = null;
 		//String hql = " from PtTask a where a.isDelete=0 ";
 		String hql= " select a from PtTask a where a.executetime= "
 				+ "(select Max(executetime) from PtTask s1 where s1.termsn=a.termsn)  ";
@@ -134,7 +134,7 @@ public class PtTaskController extends FrameWorkController<PtTask> implements Con
 		Map<String, String> ptTasMap = null;
 		SimpleDateFormat format =new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		int i = 1;
-		for (PtTask ptTask : ptTaskList) {
+		for (Task ptTask : ptTaskList) {
 			ptTasMap = new LinkedHashMap<>();
 			ptTasMap.put("xh",i+"");
 			ptTasMap.put("taskno", ptTask.getTaskNo());

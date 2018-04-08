@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
 
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.plartform.system.model.SysUserLoginLog;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.plartform.system.model.UserLoginLog;
 import com.zd.school.plartform.system.service.SysUserLoginLogService;
 
 public class MySessionListener implements SessionListener { 
@@ -25,14 +25,14 @@ public class MySessionListener implements SessionListener {
     public void onExpiration(Session session) {//会话过期时触发 
     	//System.out.println("会话过期：" + session.getId());  
     	 
-        SysUser sysuser = (SysUser) session.getAttribute("SESSION_SYS_USER");
+        User sysuser = (User) session.getAttribute("SESSION_SYS_USER");
         // session.getAttribute("kickout"));  
         
         String userId=sysuser.getId();
         String sessionId=(String) session.getId();
      
         String hql="from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
-    	SysUserLoginLog loginLog = sysUserLoginLogService.getEntityByHql(hql, userId,sessionId);
+    	UserLoginLog loginLog = sysUserLoginLogService.getEntityByHql(hql, userId,sessionId);
     	if(loginLog!=null){
     		loginLog.setLastAccessDate(session.getLastAccessTime());
     		loginLog.setOfflineDate(new Date());
@@ -44,13 +44,13 @@ public class MySessionListener implements SessionListener {
     public void onStop(Session session) {//退出/会话过期时触发    
         //System.out.println("会话停止：" + session.getId());  
              
-        SysUser sysuser = (SysUser) session.getAttribute("SESSION_SYS_USER");
+        User sysuser = (User) session.getAttribute("SESSION_SYS_USER");
               
         String userId=sysuser.getId();
         String sessionId=(String) session.getId();
      
         String hql="from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
-    	SysUserLoginLog loginLog = sysUserLoginLogService.getEntityByHql(hql, userId,sessionId);
+    	UserLoginLog loginLog = sysUserLoginLogService.getEntityByHql(hql, userId,sessionId);
     	if(loginLog!=null){
     		loginLog.setLastAccessDate(session.getLastAccessTime());
     		loginLog.setOfflineDate(new Date());
