@@ -36,19 +36,19 @@ public class StuParents extends BaseEntity implements Serializable {
 	private String sex;
 
 	@FieldInfo(name = "身份证件类型码", type = "varchar(10) default ''", explain = "身份证件类型码（字典码）")
-	@Column(name = "identityType", length = 10, columnDefinition = "default ''", nullable = true)
+	@Column(name = "identityType", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String identityType;
 
 	@FieldInfo(name = "身份证件号", type = "varchar(18) default ''", explain = "身份证件号")
-	@Column(name = "identityNo", length = 18, columnDefinition = "default ''", nullable = true)
+	@Column(name = "identityNo", columnDefinition = "varchar(18) default ''", nullable = true)
 	private String identityNo;
 
 	@FieldInfo(name = "电子邮箱", type = "varchar(128) default ''", explain = "电子邮箱")
-	@Column(name = "email", length = 128, columnDefinition = "default ''", nullable = true)
+	@Column(name = "email", columnDefinition = "varchar(128) default ''", nullable = true)
 	private String email;
 
 	@FieldInfo(name = "移动电话号码", type = "varchar(20) default ''", explain = "移动电话号码")
-	@Column(name = "mobile", length = 20, columnDefinition = "default ''", nullable = true)
+	@Column(name = "mobile",  columnDefinition = "varchar(20) default ''", nullable = true)
 	private String mobile;
 
 	public String getStuId() {

@@ -48,15 +48,15 @@ public class JwCheckrule extends BaseEntity implements Serializable {
 	private Boolean needSignOut;
 
 	@FieldInfo(name = "签退提前分钟", type = "int default 0", explain = "签退提前分钟")
-	@Column(name = "outAdvanceTimme", columnDefinition = "default 0", nullable = true)
+	@Column(name = "outAdvanceTimme", columnDefinition = "int default 0", nullable = true)
 	private Integer outAdvanceTimme;
 
 	@FieldInfo(name = "早退分钟", type = "int default 0", explain = "早退分钟")
-	@Column(name = "leaveEarlyTime", columnDefinition = "default 0", nullable = true)
+	@Column(name = "leaveEarlyTime", columnDefinition = "int default 0", nullable = true)
 	private Integer leaveEarlyTime;
 
 	@FieldInfo(name = "签退延迟分钟", type = "int default 0", explain = "签退延迟分钟")
-	@Column(name = "leaveDelayTime", columnDefinition = "default 0", nullable = true)
+	@Column(name = "leaveDelayTime", columnDefinition = "int default 0", nullable = true)
 	private Integer leaveDelayTime;
 
 	@FieldInfo(name = "规则说明", type = "nvarchar(128)  default ''", explain = "规则说明")

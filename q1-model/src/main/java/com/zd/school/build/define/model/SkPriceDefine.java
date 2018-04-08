@@ -31,7 +31,7 @@ public class SkPriceDefine extends BaseEntity implements Serializable {
 	private Double priceValue;
 
 	@FieldInfo(name = "费率状态", type = "bit NOT NULL default 0", explain = "状态,用于标识是否启用：0禁用。1启用")
-	@Column(name = "priceStatus", columnDefinition = "default 0", nullable = false)
+	@Column(name = "priceStatus", columnDefinition = "bit default 0", nullable = false)
 	private Boolean priceStatus;
 
 	@FieldInfo(name = "货币种类", type = "nvarchar(16) default 'RMB(人民币)'", explain = "货币种类")

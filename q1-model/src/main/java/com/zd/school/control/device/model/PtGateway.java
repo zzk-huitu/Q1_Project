@@ -33,28 +33,28 @@ public class PtGateway extends BaseEntity implements Serializable {
 	private String gatewayName;
 	
 	@FieldInfo(name = "前置表ID", type = "varchar(20) default ''", explain = "前置表ID")
-	@Column(name = "frontServerId", length=20, columnDefinition = "default ''", nullable = true)
+	@Column(name = "frontServerId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String frontServerId;
 	
 	@FieldInfo(name = "序列号", type = "varchar(128) default ''", explain = "序列号")
-	@Column(name = "gatewaySn", length=128, columnDefinition = "default ''", nullable = true)
+	@Column(name = "gatewaySn", columnDefinition = "varchar(128) default ''", nullable = true)
 	private String gatewaySn;
 
 	@FieldInfo(name = "硬件程序版本号", type = "varchar(8)  default ''", explain = "硬件程序版本号")
-	@Column(name = "programVersion", length=8, columnDefinition = " default ''", nullable = true)
+	@Column(name = "programVersion", columnDefinition = "varchar(8) default ''", nullable = true)
 	private String programVersion;
 
 	@FieldInfo(name = "网关Ip", type = "varchar(16) default ''", explain = "网关Ip")
-	@Column(name = "gatewayIp", length=16, columnDefinition = "default ''", nullable = true)
+	@Column(name = "gatewayIp",  columnDefinition = "varchar(16) default ''", nullable = true)
 	private String gatewayIP;
 
 	@FieldInfo(name = "设备掩码", type = "varchar(32) default ''", explain = "设备掩码")
-    @Column(name = "gatewayMask", length=32,columnDefinition = "default ''", nullable = true)
+    @Column(name = "gatewayMask", columnDefinition = "varchar(32) default ''", nullable = true)
     private String gatewayMask;
 
     
     @FieldInfo(name = "设备MAC", type = "varchar(32) default ''", explain = "设备MAC")
-    @Column(name = "gatewayMac", length=32,columnDefinition = "default ''", nullable = true)
+    @Column(name = "gatewayMac",columnDefinition = "varchar(32) default ''", nullable = true)
     private String gatewayMac;
 
   
@@ -75,11 +75,11 @@ public class PtGateway extends BaseEntity implements Serializable {
 	private String notes;
 	
     @FieldInfo(name = "接入网关", type = "varchar(16) default ''", explain = "接入网关")
-    @Column(name = "netGatewayIp",length=16, columnDefinition = "default ''", nullable = true)
+    @Column(name = "netGatewayIp", columnDefinition = "varchar(16) default ''", nullable = true)
     private String netGatewayIp;
 	
 	@FieldInfo(name = "网关状态", type = "int", explain = "网关状态(1是启用 0是禁用)")//修正，数据弄反
-	@Column(name = "gatewayStatus",columnDefinition = "default 0", nullable = true)
+	@Column(name = "gatewayStatus",columnDefinition = "int default 0", nullable = true)
 	private Integer gatewayStatus;
 
 	//@FieldInfo(name = "前置名称")

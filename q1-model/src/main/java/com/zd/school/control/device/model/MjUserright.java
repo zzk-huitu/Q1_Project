@@ -39,27 +39,27 @@ public class MjUserright extends BaseEntity implements Serializable {
 	private String userId;
 
 	@FieldInfo(name = "卡流水号", type = "varchar(16) default ''", explain = "卡流水号")
-	@Column(name = "cardId", length = 16, columnDefinition = "default ''", nullable = true)
+	@Column(name = "cardId", columnDefinition = "varchar(16) default ''", nullable = true)
 	private String cardId;
 
 	@FieldInfo(name = "物理卡号", type = "varchar(16) default ''", explain = "物理卡号")
-	@Column(name = "cardNo", length = 16, columnDefinition = " default ''", nullable = true)
+	@Column(name = "cardNo",  columnDefinition = "varchar(16) default ''", nullable = true)
 	private String cardNo;
 
 	@FieldInfo(name = "时段ID", type = "int default 0", explain = "时段ID")
-	@Column(name = "controlsegId", columnDefinition = "default 0", nullable = true)
+	@Column(name = "controlsegId", columnDefinition = "int default 0", nullable = true)
 	private Integer controlsegId;
 
 	@FieldInfo(name = "卡片状态", type = "int default 0", explain = "卡片状态，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")
-	@Column(name = "cardStatusId", columnDefinition = "default 0", nullable = true)
+	@Column(name = "cardStatusId", columnDefinition = "int default 0", nullable = true)
 	private Integer cardStatusId;
 
 	@FieldInfo(name = "是否下载", type = "bit default 0", explain = "是否下载（更新CardStatusID的同时更新此字段为False）")
-	@Column(name = "isDownLoad", columnDefinition = "default 0", nullable = true)
+	@Column(name = "isDownLoad", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isDownLoad;
 
 	@FieldInfo(name = "数据状态", type = "int default 0", explain = "数据状态对应数据字典（0正常，1	删除，2无效，3过期，4历史）")
-	@Column(name = "statusId", columnDefinition = "default 0", nullable = true)
+	@Column(name = "statusId", columnDefinition = "int default 0", nullable = true)
 	private Integer statusId;
 
 	@FieldInfo(name = "卡片状态日期", type = "datetime", explain = "卡片状态日期，在卡片挂失、解挂、换卡、补卡、退卡、销户等操作时更新")

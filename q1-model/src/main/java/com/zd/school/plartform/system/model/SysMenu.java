@@ -34,29 +34,29 @@ public class SysMenu extends TreeNodeEntity implements Serializable {
 	@Column(name = "menuType", columnDefinition = "varchar(10)", nullable = false)
 	private String menuType;
 
-	@FieldInfo(name = "是否系统菜单", type = "bit NOT NULL defalut 0", explain = "是否系统菜单（0-非 1-是）")
+	@FieldInfo(name = "是否系统菜单", type = "bit NOT NULL DEFAULT 0", explain = "是否系统菜单（0-非 1-是）")
 	@Column(name = "isSystem", nullable = false)
 	private Boolean isSystem;
 
-	@FieldInfo(name = "菜单小图标", type = "varchar(256)  defalut ''", explain = "菜单的小图标")
-	@Column(name = "smallIcon", columnDefinition = "varchar(256) defalut ''", nullable = true)
+	@FieldInfo(name = "菜单小图标", type = "varchar(256)  DEFAULT ''", explain = "菜单的小图标")
+	@Column(name = "smallIcon", columnDefinition = "varchar(256) DEFAULT ''", nullable = true)
 	private String smallIcon;
 
-	@FieldInfo(name = "菜单大图标", type = "varchar(256) defalut ''", explain = "菜单的大图标")
-	@Column(name = "bigIcon", columnDefinition = "varchar(256) defalut ''", nullable = true)
+	@FieldInfo(name = "菜单大图标", type = "varchar(256) DEFAULT ''", explain = "菜单的大图标")
+	@Column(name = "bigIcon", columnDefinition = "varchar(256) DEFAULT ''", nullable = true)
 	private String bigIcon;
 
 	@FieldInfo(name = "菜单目标值", type = "varchar(128)", explain = "菜单的前端模块值（例：smartcontrol.userauthority.mainlayout,core.smartcontrol.userauthority.controller.MainController）")
-	@Column(name = "menuTarget", columnDefinition = "varchar(128) defalut ''", nullable = true)
+	@Column(name = "menuTarget", columnDefinition = "varchar(128) DEFAULT ''", nullable = true)
 	private String menuTarget;
 
 	/*zzk：去除此字段，使用意义不大*/
-//	@FieldInfo(name = "是否叶子菜单", type = "bit defalut 0", explain = "是否菜单（原值：GENERAL、LEAF）")
-//	@Column(name = "isMenuLeaf", columnDefinition = "defalut 0", nullable = true)
+//	@FieldInfo(name = "是否叶子菜单", type = "bit DEFAULT 0", explain = "是否菜单（原值：GENERAL、LEAF）")
+//	@Column(name = "isMenuLeaf", columnDefinition = "DEFAULT 0", nullable = true)
 //	private Boolean isMenuLeaf;
 
-	@FieldInfo(name = "是否隐藏", type = "bit defalut 0", explain = "是否隐藏菜单（0-不隐藏 1-隐藏）")
-	@Column(name = "isHidden", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "是否隐藏", type = "bit DEFAULT 0", explain = "是否隐藏菜单（0-不隐藏 1-隐藏）")
+	@Column(name = "isHidden", columnDefinition = "bit DEFAULT 0", nullable = true)
 	private Boolean isHidden;
 
 	/**

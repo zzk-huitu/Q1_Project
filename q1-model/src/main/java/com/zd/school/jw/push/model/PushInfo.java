@@ -61,7 +61,7 @@ public class PushInfo extends BaseEntity implements Serializable {
 	private Integer pushStatus; // 0未发送 1发送成功 -1发送失败
 
 	@FieldInfo(name = "推送路径", type = "varchar(512) default ''", explain = "推送路径")
-	@Column(name = "pushUrl", length = 512, columnDefinition = "default ''", nullable = true)
+	@Column(name = "pushUrl",  columnDefinition = "varchar(512) default ''", nullable = true)
 	private String pushUrl;
 
 	public String getEventType() {

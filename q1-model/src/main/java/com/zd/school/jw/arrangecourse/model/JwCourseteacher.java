@@ -38,7 +38,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	private Integer studyYear;
 
 	@FieldInfo(name = "学年名称", type = "nvarchar(20)  default ''", explain = "学年名称")
-	@Column(name = "studyYearName", columnDefinition = "varchar(20) default ''", nullable = true)
+	@Column(name = "studyYearName", columnDefinition = "nvarchar(20) default ''", nullable = true)
 	private String studyYearName;
 
 	@FieldInfo(name = "学期", type = "nvarchar(10)", explain = "学期")
@@ -46,7 +46,7 @@ public class JwCourseteacher extends BaseEntity implements Serializable {
 	private String semester;
 
 	@FieldInfo(name = "周节数", type = "int default 0", explain = "周节数: acs_zjs一周上多少节课")
-	@Column(name = "courseCountWeek", columnDefinition = "default 0", nullable = true)
+	@Column(name = "courseCountWeek", columnDefinition = "int default 0", nullable = true)
 	private Integer courseCountWeek;
 
 	@FieldInfo(name = "课程Id", type = "varchar(20) NOT NULL", explain = "课程Id")

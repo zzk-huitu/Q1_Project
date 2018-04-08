@@ -23,7 +23,7 @@ import javax.persistence.MappedSuperclass;
 public abstract class TreeNodeEntity extends BaseEntity {
 
     @FieldInfo(name = "节点编码",type="varchar(20) default ''",explain="节点编码")
-    @Column(name = "nodeCode",columnDefinition="default ''",length=20 )
+    @Column(name = "nodeCode",columnDefinition="varchar(20) default ''",length=20 )
     private String nodeCode;
 
     @FieldInfo(name = "节点名称",type="nvarchar(16) default ''",explain="节点名称")
@@ -31,19 +31,19 @@ public abstract class TreeNodeEntity extends BaseEntity {
     private String nodeText;
 
     @FieldInfo(name = "父节点",type="varchar(20) default ''",explain="父节点")
-    @Column(name = "parentNode",columnDefinition="default ''",length=20 )
+    @Column(name = "parentNode",columnDefinition="varchar(20) default ''",length=20 )
     private String parentNode;
 
     @FieldInfo(name = "是否 叶节点",type="bit default 0",explain="是否 叶节点")
-    @Column(name = "isLeaf",columnDefinition="default 0")
+    @Column(name = "isLeaf",columnDefinition="bit default 0")
     private Boolean isLeaf;
 
     @FieldInfo(name = "节点层级",type="int default 0",explain="节点层级")
-    @Column(name = "nodeLevel",columnDefinition="default 0" )
+    @Column(name = "nodeLevel",columnDefinition="int default 0" )
     private Integer nodeLevel;
 
     @FieldInfo(name = "节点标识层次",type="varchar(1024) default ''",explain="节点层级")
-    @Column(name = "treeIds", columnDefinition="default ''",length=1024 )
+    @Column(name = "treeIds", columnDefinition="varchar(1024) default ''",length=1024 )
     private String treeIds;
 
     public String getNodeCode() {

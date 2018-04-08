@@ -41,11 +41,11 @@ public class DormStudentRemove extends BaseEntity implements Serializable {
 	private String operateType;
 
 	@FieldInfo(name = "是否处理", type = "bit default 0", explain = "是否处理")
-	@Column(name = "isHandle", columnDefinition = "default 0", nullable = true)
+	@Column(name = "isHandle", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isHandle;
 
 	@FieldInfo(name = "amount", type = "numeric default 0", explain = "金额")
-	@Column(name = "amount", columnDefinition = "default 0", nullable = true)
+	@Column(name = "amount", columnDefinition = "bit default 0", nullable = true)
 	private BigDecimal amount;
 
 	public String getClassDormId() {

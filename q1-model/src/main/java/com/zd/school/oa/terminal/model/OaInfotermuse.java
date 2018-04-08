@@ -31,12 +31,12 @@ public class OaInfotermuse extends BaseEntity implements Serializable {
 	@Column(name = "terminalNo", length = 6, nullable = false)
 	private String terminalNo;
 
-	@FieldInfo(name = "使用房间ID", type = "varchar(20) defalut ''", explain = "终端的使用房间ID")
-	@Column(name = "roomId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "使用房间ID", type = "varchar(20) DEFAULT ''", explain = "终端的使用房间ID")
+	@Column(name = "roomId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String roomId;
 
-	@FieldInfo(name = "使用房间名称", type = "nvarchar(20)  defalut ''", explain = "终端的使用房间名称")
-	@Column(name = "roomName", columnDefinition = "nvarchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "使用房间名称", type = "nvarchar(20)  DEFAULT ''", explain = "终端的使用房间名称")
+	@Column(name = "roomName", columnDefinition = "nvarchar(20) DEFAULT ''", nullable = true)
 	private String roomName;
 
 	public String getTerminalId() {

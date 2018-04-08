@@ -31,11 +31,11 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 	private String courseType;
 
 	@FieldInfo(name = "课程编码", type = "varchar(10) default ''", explain = "课程编码")
-	@Column(name = "courseCode", length = 10, columnDefinition = "default ''", nullable = true)
+	@Column(name = "courseCode",  columnDefinition = "varchar(10) default ''", nullable = true)
 	private String courseCode;
 
 	@FieldInfo(name = "课程等级码", type = "varchar(10) default ''", explain = "课程等级码")
-	@Column(name = "courseLevel", length = 10, columnDefinition = " default ''", nullable = true)
+	@Column(name = "courseLevel", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String courseLevel;
 
 	@FieldInfo(name = "课程别名", type = "nvarchar(16) default ''", explain = "课程别名")
@@ -43,11 +43,11 @@ public class JwTBasecourse extends BaseEntity implements Serializable {
 	private String aliasName;
 
 	@FieldInfo(name = "总学时", type = "int default 0", explain = "总学时")
-	@Column(name = "totalHour", columnDefinition = "default 0", nullable = true)
+	@Column(name = "totalHour", columnDefinition = "int default 0", nullable = true)
 	private Integer totalHour;
 
 	@FieldInfo(name = "周学时", type = "int default 0", explain = "周学时")
-	@Column(name = "weekHour", columnDefinition = "default 0", nullable = true)
+	@Column(name = "weekHour", columnDefinition = "int default 0", nullable = true)
 	private Integer weekHour;
 
 	@FieldInfo(name = "授课方式码", type = "varchar(4)  default ''", explain = "授课方式码")

@@ -68,7 +68,7 @@ public class JwCalenderdetail extends BaseEntity implements Serializable {
 	private Date endTime;
 
 	@FieldInfo(name = "需要考勤", type = "bit default 0", explain = "需要考勤 :0-否; 1-是")
-	@Column(name = "needSignIn", columnDefinition = "default 0", nullable = true)
+	@Column(name = "needSignIn", columnDefinition = "bit default 0", nullable = true)
 	private Boolean needSignIn;
 
 	public String getCalenderId() {

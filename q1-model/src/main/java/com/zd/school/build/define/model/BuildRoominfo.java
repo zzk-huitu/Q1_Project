@@ -46,11 +46,11 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 	private String roomType;
 
 	@FieldInfo(name = "是否多媒体教室", type = "bit default 0", explain = "是否多媒体教室：0-否,1-是")
-	@Column(name = "isMediaRoom", columnDefinition = "default 1", nullable = true)
+	@Column(name = "isMediaRoom", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isMediaRoom;
 
 	@FieldInfo(name = "网络状态", type = "bit default 0", explain = "网络状态：0-无网络，1-有网络")
-	@Column(name = "roomNet", columnDefinition = "default 0", nullable = true)
+	@Column(name = "roomNet", columnDefinition = "bit default 0", nullable = true)
 	private Boolean roomNet;
 
 	@FieldInfo(name = "教室说明", type = "nvarchar(128) default ''", explain = "教室说明")

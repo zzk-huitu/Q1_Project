@@ -34,7 +34,7 @@ public class JwClassDormAllot extends BaseEntity implements Serializable {
 	private String classId;
 
 	@FieldInfo(name = "是否是混班宿舍", type = "bit NOT NULL default 0", explain = "是否是混班宿舍：0否-1是")
-	@Column(name = "isMixed", columnDefinition = "default 0", nullable = false)
+	@Column(name = "isMixed", columnDefinition = "bit default 0", nullable = false)
 	private Boolean isMixed;
 
 	/**

@@ -46,8 +46,8 @@ public class OaNoticeauditor extends BaseEntity implements Serializable {
 	@Column(name = "name", columnDefinition = "nvarchar(10)", nullable = false)
 	private String name;
 
-	@FieldInfo(name = "审核意见", type = "nvarchar(64)  defalut ''", explain = "公告的审核意见")
-	@Column(name = "auditOpinion", columnDefinition = "nvarchar(64) defalut ''", nullable = true)
+	@FieldInfo(name = "审核意见", type = "nvarchar(64)  DEFAULT ''", explain = "公告的审核意见")
+	@Column(name = "auditOpinion", columnDefinition = "nvarchar(64) DEFAULT ''", nullable = true)
 	private String auditOpinion;
 
 	@FieldInfo(name = "审核状态", type = "varchar(1) NOT NULL", explain = "公告的审核审核状态(0-待审核 1-审核通过 2-审核不通过)")

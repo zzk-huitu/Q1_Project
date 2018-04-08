@@ -33,28 +33,28 @@ public class BaseCampus extends BaseEntity implements Serializable {
 	@Column(name = "campusName", columnDefinition = "nvarchar(64)", nullable = false)
 	private String campusName;
 
-	@FieldInfo(name = "校区编码", type = "varchar(32) defalut ''", explain = "校区的编码")
-	@Column(name = "campusCode", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "校区编码", type = "varchar(32) DEFAULT ''", explain = "校区的编码")
+	@Column(name = "campusCode", columnDefinition = "varchar(32) DEFAULT ''", nullable = true)
 	private String campusCode;
 
-	@FieldInfo(name = "校区地址", type = "nvarchar(180)  defalut ''", explain = "校区的地址")
-	@Column(name = "campusAddr", columnDefinition = "nvarchar(180) defalut ''", nullable = true)
+	@FieldInfo(name = "校区地址", type = "nvarchar(180)  DEFAULT ''", explain = "校区的地址")
+	@Column(name = "campusAddr", columnDefinition = "nvarchar(180) DEFAULT ''", nullable = true)
 	private String campusAddr;
 
-	@FieldInfo(name = "邮政编码", type = "varchar(10) defalut ''", explain = "校区的邮政编码")
-	@Column(name = "mailCode", columnDefinition = "varchar(10) defalut ''", nullable = true)
+	@FieldInfo(name = "邮政编码", type = "varchar(10) DEFAULT ''", explain = "校区的邮政编码")
+	@Column(name = "mailCode", columnDefinition = "varchar(10) DEFAULT ''", nullable = true)
 	private String mailCode;
 
-	@FieldInfo(name = "校区联系电话", type = "varchar(20) defalut ''", explain = "校区的联系电话")
-	@Column(name = "campusPhone", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "校区联系电话", type = "varchar(20) DEFAULT ''", explain = "校区的联系电话")
+	@Column(name = "campusPhone", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String campusPhone;
 
-	@FieldInfo(name = "校区传真电话", type = "varchar(20)  defalut ''", explain = "校区的传真电话")
-	@Column(name = "campusFax", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "校区传真电话", type = "varchar(20)  DEFAULT ''", explain = "校区的传真电话")
+	@Column(name = "campusFax", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String campusFax;
 
-	@FieldInfo(name = "校区负责人工号", type = "varchar(20) defalut ''", explain = "校区的负责人工号")
-	@Column(name = "campusPrincipal", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "校区负责人工号", type = "varchar(20) DEFAULT ''", explain = "校区的负责人工号")
+	@Column(name = "campusPrincipal", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String campusPrincipal;
 
 	/**

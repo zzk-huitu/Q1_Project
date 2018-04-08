@@ -45,35 +45,35 @@ public class PtEcTermStatus extends BaseEntity implements Serializable {
 	private Date statusDate;
 
 	@FieldInfo(name = "状态的小时", type = "int NOT NULL default 0", explain = "状态的小时")
-	@Column(name = "statusHour", columnDefinition = "default 0", nullable = false)
+	@Column(name = "statusHour", columnDefinition = "int default 0", nullable = false)
 	private Integer statusHour;
 
 	@FieldInfo(name = "当前小时用电量", type = "float NOT NULL default 0", explain = "当前小时用电量")
-	@Column(name = "useKwh", columnDefinition = "default 0", nullable = false)
+	@Column(name = "useKwh", columnDefinition = "float default 0", nullable = false)
 	private Float useKwh;
 
 	@FieldInfo(name = "已购电总量", type = "float NOT NULL default 0", explain = "已购电总量")
-	@Column(name = "buyedKwh", columnDefinition = "default 0", nullable = false)
+	@Column(name = "buyedKwh", columnDefinition = "float default 0", nullable = false)
 	private Float buyedKwh;
 
 	@FieldInfo(name = "已使用总电量", type = "float NOT NULL default 0", explain = "已使用总电量")
-	@Column(name = "totalUsedKwh", columnDefinition = "default 0", nullable = false)
+	@Column(name = "totalUsedKwh", columnDefinition = "float default 0", nullable = false)
 	private Float totalUsedKwh;
 
 	@FieldInfo(name = "剩余总电量", type = "float NOT NULL default 0", explain = "剩余总电量")
-	@Column(name = "surplusKwh", columnDefinition = "default 0", nullable = false)
+	@Column(name = "surplusKwh", columnDefinition = "float default 0", nullable = false)
 	private Float surplusKwh;
 
 	@FieldInfo(name = "电压", type = "Bigint NOT NULL default 0", explain = "电压")
-	@Column(name = "voltage", columnDefinition = "default 0", nullable = false)
+	@Column(name = "voltage", columnDefinition = "Bigint default 0", nullable = false)
 	private Long voltage;
 
 	@FieldInfo(name = "电流", type = "Bigint NOT NULL default 0", explain = "电流")
-	@Column(name = "currents", columnDefinition = "default 0", nullable = false)
+	@Column(name = "currents", columnDefinition = "Bigint default 0", nullable = false)
 	private Long currents;
 
 	@FieldInfo(name = "功率", type = "Bigint NOT NULL default 0", explain = "功率")
-	@Column(name = "power", columnDefinition = "default 0", nullable = false)
+	@Column(name = "power", columnDefinition = "Bigint default 0", nullable = false)
 	private Long power;
 
 	@MapperCell(cellName = "状态的时间", order = 10)

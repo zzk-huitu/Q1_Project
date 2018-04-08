@@ -37,11 +37,11 @@ public class PtIrData extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "红外动作数据", type = "varbinary(255) NOT NULL", explain = "红外动作数据")
 	@Column(name = "irActionData", length = 255, nullable = false)
-	private Byte[] irActionData;
+	private byte[] irActionData;
 
 	@FieldInfo(name = "红外转换数据", type = "varbinary(255) NOT NULL", explain = "红外转换数据")
 	@Column(name = "irConvertedData", length = 255, nullable = false)
-	private Byte[] irConvertedData;
+	private byte[] irConvertedData;
 
 	public String getBrandId() {
 		return brandId;
@@ -67,19 +67,19 @@ public class PtIrData extends BaseEntity implements Serializable {
 		this.irDataName = irDataName;
 	}
 
-	public Byte[] getIrActionData() {
+	public byte[] getIrActionData() {
 		return irActionData;
 	}
 
-	public void setIrActionData(Byte[] irActionData) {
+	public void setIrActionData(byte[] irActionData) {
 		this.irActionData = irActionData;
 	}
 
-	public Byte[] getIrConvertedData() {
+	public byte[] getIrConvertedData() {
 		return irConvertedData;
 	}
 
-	public void setIrConvertedData(Byte[] irConvertedData) {
+	public void setIrConvertedData(byte[] irConvertedData) {
 		this.irConvertedData = irConvertedData;
 	}
 

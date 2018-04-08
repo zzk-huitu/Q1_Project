@@ -60,8 +60,8 @@ public class PtTask extends BaseEntity implements Serializable {
 	@Column(name = "retryCount", nullable = false)
 	private Integer retryCount;
 
-	@FieldInfo(name = "应答间隔", type = "int defalut 0", explain = "应答间隔")
-	@Column(name = "tickSecend", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "应答间隔", type = "int DEFAULT 0", explain = "应答间隔")
+	@Column(name = "tickSecend", columnDefinition = "int DEFAULT 0", nullable = true)
 	private Integer tickSecond;
 
 	@FieldInfo(name = "执行次数", type = "int NOT NULL", explain = "执行次数")
@@ -73,24 +73,24 @@ public class PtTask extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date executeTime;
 
-	@FieldInfo(name = "执行结果", type = "bit defalut 0", explain = "执行结果")
-	@Column(name = "executeResult", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "执行结果", type = "bit DEFAULT 0", explain = "执行结果")
+	@Column(name = "executeResult", columnDefinition = "bit DEFAULT 0", nullable = true)
 	private Boolean executeResult;
 
-	@FieldInfo(name = "立刻执行", type = "bit defalut 0", explain = "立刻执行")
-	@Column(name = "executeImmediately", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "立刻执行", type = "bit DEFAULT 0", explain = "立刻执行")
+	@Column(name = "executeImmediately", columnDefinition = "bit DEFAULT 0", nullable = true)
 	private Boolean executeImmediately;
 
-	@FieldInfo(name = "任务是否结束", type = "bit defalut 0", explain = "任务是否结束")
-	@Column(name = "isTaskOver", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "任务是否结束", type = "bit DEFAULT 0", explain = "任务是否结束")
+	@Column(name = "isTaskOver", columnDefinition = "bit DEFAULT 0", nullable = true)
 	private Boolean isTaskOver;
 
-	@FieldInfo(name = "结果信息", type = "varchar(1000) defalut ''", explain = "结果信息")
-	@Column(name = "resultMsg", columnDefinition = "varchar(1000) defalut ''", nullable = true)
+	@FieldInfo(name = "结果信息", type = "varchar(1000) DEFAULT ''", explain = "结果信息")
+	@Column(name = "resultMsg", columnDefinition = "varchar(1000) DEFAULT ''", nullable = true)
 	private String resultMsg;
 
-	@FieldInfo(name = "用户id", type = "varchar(20) defalut ''", explain = "用户id")
-	@Column(name = "userId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "用户id", type = "varchar(20) DEFAULT ''", explain = "用户id")
+	@Column(name = "userId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String userId;
 
 	@Formula("(SELECT A.termName FROM dbo.T_PT_Term A WHERE A.termSn=termSn)")

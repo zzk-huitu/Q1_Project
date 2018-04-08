@@ -61,28 +61,28 @@ public class SysUser extends BaseEntity implements Serializable {
 	@Column(name = "userPwd", length = 128, nullable = false)
 	private String userPwd;
 
-	@FieldInfo(name = "状态", type = "bit NOT NULL defalut 0", explain = "用户的账户状态（0-锁定，1-解锁）")
-	@Column(name = "state", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "状态", type = "bit NOT NULL DEFAULT 0", explain = "用户的账户状态（0-锁定，1-解锁）")
+	@Column(name = "state", columnDefinition = "bit DEFAULT 0", nullable = false)
 	private Boolean state;
 
-	@FieldInfo(name = "是否系统账户", type = "bit NOT NULL defalut 0", explain = "是否是系统用户( 0=非内置，1=内置 )")
-	@Column(name = "isSystem", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "是否系统账户", type = "bit NOT NULL DEFAULT 0", explain = "是否是系统用户( 0=非内置，1=内置 )")
+	@Column(name = "isSystem", columnDefinition = "bit DEFAULT 0", nullable = false)
 	private Boolean isSystem;
 
-	@FieldInfo(name = "身份", type = "varchar(1) NOT NULL defalut '0'", explain = "用户的当前身份（ 0=内部用户 1=老师 2=学生 3=家长 ）")
-	@Column(name = "category", length = 1, columnDefinition = "defalut '0'", nullable = false)
+	@FieldInfo(name = "身份", type = "varchar(1) NOT NULL DEFAULT '0'", explain = "用户的当前身份（ 0=内部用户 1=老师 2=学生 3=家长 ）")
+	@Column(name = "category",  columnDefinition = "varchar(1) DEFAULT '0'", nullable = false)
 	private String category;
 
-	@FieldInfo(name = "性别码", type = "varchar(2) defalut '0'", explain = "用户的性别码（数据字典）")
-	@Column(name = "sex", length = 2, columnDefinition = "defalut '0'", nullable = true)
+	@FieldInfo(name = "性别码", type = "varchar(2) DEFAULT '0'", explain = "用户的性别码（数据字典）")
+	@Column(name = "sex",  columnDefinition = "varchar(2) DEFAULT '0'", nullable = true)
 	private String sex;
 
-	@FieldInfo(name = "学校ID", type = "varchar(20)  defalut ''", explain = "用户所在的学校id")
-	@Column(name = "schoolId", length = 20, columnDefinition = "defalut ''", nullable = true)
+	@FieldInfo(name = "学校ID", type = "varchar(20)  DEFAULT ''", explain = "用户所在的学校id")
+	@Column(name = "schoolId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String schoolId;
 
-	@FieldInfo(name = "是否隐藏", type = "bit defalut 0", explain = "是否隐藏（0-不隐藏 1-隐藏）")
-	@Column(name = "isHidden", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "是否隐藏", type = "bit DEFAULT 0", explain = "是否隐藏（0-不隐藏 1-隐藏）")
+	@Column(name = "isHidden", columnDefinition = "bit DEFAULT 0", nullable = true)
 	private Boolean isHidden;
 
 	@FieldInfo(name = "出生日期", type = "datetime", explain = "用户的出生日期")
@@ -92,8 +92,8 @@ public class SysUser extends BaseEntity implements Serializable {
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private Date birthDate;
 
-	@FieldInfo(name = "身份证件号", type = "varchar(18) defalut ''", explain = "用户的身份证件号")
-	@Column(name = "identityNumber", length = 18, columnDefinition = "defalut ''", nullable = true)
+	@FieldInfo(name = "身份证件号", type = "varchar(18) DEFAULT ''", explain = "用户的身份证件号")
+	@Column(name = "identityNumber",  columnDefinition = "varchar(18) DEFAULT ''", nullable = true)
 	private String identityNumber;
 
 	@FieldInfo(name = "最后登录时间", type = "datetime", explain = "用户的最后登录时间")
@@ -112,24 +112,24 @@ public class SysUser extends BaseEntity implements Serializable {
 	private Set<SysRole> sysRoles = new HashSet<SysRole>();
 
 	// 默认设置为本部门
-	@FieldInfo(name = "部门权限类型", type = "varchar(1) defalut '2'", explain = "用户拥有的部门权限类型（0-所有权限，1-指定部门[默认包含了本部门和岗位主管的部门]， 2-本部门）")
-	@Column(name = "rightType", length = 1, columnDefinition = "defalut '2'", nullable = true)
+	@FieldInfo(name = "部门权限类型", type = "varchar(1) DEFAULT '2'", explain = "用户拥有的部门权限类型（0-所有权限，1-指定部门[默认包含了本部门和岗位主管的部门]， 2-本部门）")
+	@Column(name = "rightType", columnDefinition = "varchar(1) DEFAULT '2'", nullable = true)
 	private String rightType;
 
-	@FieldInfo(name = "政治面貌", type = "varchar(10) defalut ''", explain = "用户的政治面貌（数据字典）")
-	@Column(name = "politicalStatus", length = 10, columnDefinition = "defalut ''", nullable = true)
+	@FieldInfo(name = "政治面貌", type = "varchar(10) DEFAULT ''", explain = "用户的政治面貌（数据字典）")
+	@Column(name = "politicalStatus",  columnDefinition = "varchar(10) DEFAULT ''", nullable = true)
 	private String politicalStatus;
 
-	@FieldInfo(name = "移动电话", type = "varchar(11) defalut ''", explain = "用户的移动电话")
-	@Column(name = "mobilePhone", length = 11, columnDefinition = "defalut ''", nullable = true)
+	@FieldInfo(name = "移动电话", type = "varchar(11) DEFAULT ''", explain = "用户的移动电话")
+	@Column(name = "mobilePhone", columnDefinition = "varchar(11) DEFAULT ''", nullable = true)
 	private String mobilePhone;
 
-	@FieldInfo(name = "电子信箱", type = "varchar(40) defalut ''", explain = "用户的电子信箱")
-	@Column(name = "email", length = 40, columnDefinition = "defalut ''", nullable = true)
+	@FieldInfo(name = "电子信箱", type = "varchar(40) DEFAULT ''", explain = "用户的电子信箱")
+	@Column(name = "email", columnDefinition = "varchar(40) DEFAULT ''", nullable = true)
 	private String email;
 
-	@FieldInfo(name = "人员编制类型", type = "varchar(10) defalut ''", explain = "用户的人员编制类型")
-	@Column(name = "headCountType", length = 10, columnDefinition = "defalut ''", nullable = true)
+	@FieldInfo(name = "人员编制类型", type = "varchar(10) DEFAULT ''", explain = "用户的人员编制类型")
+	@Column(name = "headCountType", columnDefinition = "varchar(10) DEFAULT ''", nullable = true)
 	private String headCountType;
 
 	/**

@@ -26,7 +26,7 @@ public class PtTerm extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "房间主键", type = "varchar(20)  default ''", explain = "房间主键")
-	@Column(name = "roomId", length = 20, columnDefinition = " default ''", nullable = true)
+	@Column(name = "roomId", columnDefinition = "varchar(20)  default ''", nullable = true)
 	private String roomId;
 
 	@FieldInfo(name = "网关主键", type = "varchar(20) NOT NULL", explain = "网关主键")
@@ -34,7 +34,7 @@ public class PtTerm extends BaseEntity implements Serializable {
 	private String gatewayId;
 
 	@FieldInfo(name = "机号", type = "int NOT NULL", explain = "机号(1~65536)")
-	@Column(name = "termNo", columnDefinition = "default 0", nullable = false)
+	@Column(name = "termNo", columnDefinition = "int default 0", nullable = false)
 	private Integer termNo;
 
 	@FieldInfo(name = "设备序列号", type = "varchar(14) NOT NULL", explain = "设备序列号 编号规则为：001(3位设备类型  最大255)-001(3位品质员编号 最大255)"
@@ -55,11 +55,11 @@ public class PtTerm extends BaseEntity implements Serializable {
 	private String programVersion;
 
 	@FieldInfo(name = "设备状态", type = "bit default 1", explain = "设备状态(0-禁用，1-启用 )")
-	@Column(name = "termStatus", columnDefinition = "default 1", nullable = true)
+	@Column(name = "termStatus", columnDefinition = "bit default 1", nullable = true)
 	private Boolean termStatus;
 
 	@FieldInfo(name = "offlineUse", type = "bit default 0", explain = "是否允许脱机使用(0-禁用，1-启用 )")
-	@Column(name = "offlineUse", columnDefinition = "default 0", nullable = true)
+	@Column(name = "offlineUse", columnDefinition = "bit default 0", nullable = true)
 	private Boolean offlineUse;
 
 	@FieldInfo(name = "基础参数", type = "varbinary(255)", explain = "基础参数")

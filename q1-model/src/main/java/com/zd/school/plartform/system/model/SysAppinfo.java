@@ -23,8 +23,8 @@ import com.zd.core.model.BaseEntity;
 public class SysAppinfo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "app是否启用", type = "bit NOT NULL defalut 0", explain = "app是否启用")
-	@Column(name = "appIsuse", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "app是否启用", type = "bit NOT NULL DEFAULT 0", explain = "app是否启用")
+	@Column(name = "appIsuse", columnDefinition = "bit DEFAULT 0", nullable = false)
 	private Boolean appIsuse;
 
 	@FieldInfo(name = "app名称", type = "nvarchar(16) NOT NULL", explain = "app标题名称")
@@ -40,11 +40,11 @@ public class SysAppinfo extends BaseEntity implements Serializable {
 	private String appUrl;
 
 	@FieldInfo(name = "app版本号", type = "int NOT NULL", explain = "app版本号")
-	@Column(name = "appVersion", columnDefinition = "defalut 0", nullable = false)
+	@Column(name = "appVersion", columnDefinition = "int DEFAULT 0", nullable = false)
 	private Integer appVersion;
 
-	@FieldInfo(name = "app描述", type = "nvarchar(128) defalut ''", explain = "app描述")
-	@Column(name = "appIntro", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	@FieldInfo(name = "app描述", type = "nvarchar(128) DEFAULT ''", explain = "app描述")
+	@Column(name = "appIntro", columnDefinition = "nvarchar(128) DEFAULT ''", nullable = true)
 	private String appIntro;
 
 	public Boolean getAppIsuse() {

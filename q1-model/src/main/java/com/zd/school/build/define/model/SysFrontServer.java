@@ -35,11 +35,11 @@ public class SysFrontServer extends BaseEntity implements Serializable {
 	private Integer frontServerPort;
 
 	@FieldInfo(name = "是否启用", type = "bit NOT NULL default 0", explain = "是否启用 0禁用，1启用")
-	@Column(name = "frontServerStatus", columnDefinition = "default 0", nullable = false)
+	@Column(name = "frontServerStatus", columnDefinition = "bit default 0", nullable = false)
 	private Boolean frontServerStatus;
 
 	@FieldInfo(name = "请求任务URL", type = "varchar(64) default ''", explain = "请求任务URL")
-	@Column(name = "frontServerUrl", length = 64, columnDefinition = "default ''", nullable = true)
+	@Column(name = "frontServerUrl",  columnDefinition = "varchar(64) default ''", nullable = true)
 	private String frontServerUrl;
 
 	@FieldInfo(name = "备注", type = "nvarchar(128) default ''", explain = "备注")

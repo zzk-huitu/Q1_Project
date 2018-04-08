@@ -47,7 +47,7 @@ public class JwCalender extends BaseEntity implements Serializable {
 	private String sectionCode;
 
 	@FieldInfo(name = "生效状态", type = "bit NOT NULL default 0", explain = "生效状态")
-	@Column(name = "activityState", columnDefinition = "default 0", nullable = false)
+	@Column(name = "activityState", columnDefinition = "bit default 0", nullable = false)
 	private Boolean activityState;
 
 	@FieldInfo(name = "生效时间", type = "datetime NOT NULL", explain = "生效时间")

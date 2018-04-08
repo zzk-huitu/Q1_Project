@@ -39,7 +39,7 @@ public class JwClassteacher extends BaseEntity implements Serializable {
 	private String teacherId;
 
 	@FieldInfo(name = "学年", type = "int default 0", explain = "学年")
-	@Column(name = "studyYear", columnDefinition = "default 0", nullable = true)
+	@Column(name = "studyYear", columnDefinition = "int default 0", nullable = true)
 	private Integer studyYear;
 
 	@FieldInfo(name = "studyYearName", type = "nvarchar(20", explain = "学年名称")

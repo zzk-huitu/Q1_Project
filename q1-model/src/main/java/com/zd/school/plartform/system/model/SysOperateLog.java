@@ -28,32 +28,32 @@ import com.zd.core.util.DateTimeSerializer;
 public class SysOperateLog extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@FieldInfo(name = "用户ID", type = "varchar(20) defalut ''", explain = "当前操作的用户ID")
-	@Column(name = "userId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "用户ID", type = "varchar(20) DEFAULT ''", explain = "当前操作的用户ID")
+	@Column(name = "userId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String userId;
 
-	@FieldInfo(name = "IP地址", type = "varchar(20) defalut ''", explain = "操作用户登录的IP地址")
-	@Column(name = "ipHost", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "IP地址", type = "varchar(20) DEFAULT ''", explain = "操作用户登录的IP地址")
+	@Column(name = "ipHost", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String ipHost;
 
-	@FieldInfo(name = "方法名", type = "varchar(500) defalut ''", explain = "用户操作的方法名")
-	@Column(name = "methodName", columnDefinition = "varchar(500) defalut ''", nullable = true)
+	@FieldInfo(name = "方法名", type = "varchar(500) DEFAULT ''", explain = "用户操作的方法名")
+	@Column(name = "methodName", columnDefinition = "varchar(500) DEFAULT ''", nullable = true)
 	private String methodName;
 
-	@FieldInfo(name = "参数", type = "nvarchar(MAX) defalut ''", explain = "用户操作的参数")
-	@Column(name = "methodParams", columnDefinition = "nvarchar(MAX) defalut ''", nullable = true)
+	@FieldInfo(name = "参数", type = "nvarchar(MAX) DEFAULT ''", explain = "用户操作的参数")
+	@Column(name = "methodParams", columnDefinition = "nvarchar(MAX) DEFAULT ''", nullable = true)
 	private String methodParams;
 
-	@FieldInfo(name = "返回结果", type = "nvarchar(MAX) defalut ''", explain = "用户操作的返回结果")
-	@Column(name = "methodResult", columnDefinition = "nvarchar(MAX) defalut ''", nullable = true)
+	@FieldInfo(name = "返回结果", type = "nvarchar(MAX) DEFAULT ''", explain = "用户操作的返回结果")
+	@Column(name = "methodResult", columnDefinition = "nvarchar(MAX) DEFAULT ''", nullable = true)
 	private String methodResult;
 
-	@FieldInfo(name = "异常类型", type = "nvarchar(100) defalut ''", explain = "用户操作的异常类型")
-	@Column(name = "exceptionClass", columnDefinition = "nvarchar(100) defalut ''", nullable = true)
+	@FieldInfo(name = "异常类型", type = "nvarchar(100) DEFAULT ''", explain = "用户操作的异常类型")
+	@Column(name = "exceptionClass", columnDefinition = "nvarchar(100) DEFAULT ''", nullable = true)
 	private String exceptionClass;
 
 	@FieldInfo(name = "异常信息", type = "nvarchar(MAX)", explain = "用户操作的的异常信息")
-	@Column(name = "exceptionDetail", columnDefinition = "nvarchar(MAX) defalut ''", nullable = true)
+	@Column(name = "exceptionDetail", columnDefinition = "nvarchar(MAX) DEFAULT ''", nullable = true)
 	private String exceptionDetail;
 
 	@FieldInfo(name = "操作时间", type = "datetime", explain = "用户操作的的操作时间")

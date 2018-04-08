@@ -40,8 +40,8 @@ public class SysUserLoginLog extends BaseEntity implements Serializable {
 	@Column(name = "userName", columnDefinition = "varchar(16)", nullable = false)
 	private String userName;
 
-	@FieldInfo(name = "IP地址", type = "varchar(20) defalut ''", explain = "当前登录用户的IP地址")
-	@Column(name = "ipHost", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "IP地址", type = "varchar(20) DEFAULT ''", explain = "当前登录用户的IP地址")
+	@Column(name = "ipHost", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String ipHost;
 
 	@FieldInfo(name = "登录时间", type = "datetime NOT NULL", explain = "当前用户的登录时间")
@@ -62,8 +62,8 @@ public class SysUserLoginLog extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date offlineDate;
 
-	@FieldInfo(name = "登出说明", type = "nvarchar(32)  defalut ''", explain = "当前登录用户的退出描述")
-	@Column(name = "offlineIntro", columnDefinition = "nvarchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "登出说明", type = "nvarchar(32)  DEFAULT ''", explain = "当前登录用户的退出描述")
+	@Column(name = "offlineIntro", columnDefinition = "nvarchar(32) DEFAULT ''", nullable = true)
 	private String offlineIntro;
 
 	public String getUserId() {

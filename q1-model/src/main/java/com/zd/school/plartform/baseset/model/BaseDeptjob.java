@@ -37,32 +37,32 @@ public class BaseDeptjob extends BaseEntity implements Serializable {
 	@Column(name = "jobType", length = 1, nullable = false)
 	private String jobType;
 
-	@FieldInfo(name = "上级部门ID", type = "varchar(20)  defalut ''", explain = "上级部门ID")
-	@Column(name = "parentDeptId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "上级部门ID", type = "varchar(20)  DEFAULT ''", explain = "上级部门ID")
+	@Column(name = "parentDeptId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String parentDeptId;
 
-	@FieldInfo(name = "上级岗位ID", type = "varchar(20) defalut ''", explain = "上级岗位ID")
-	@Column(name = "parentJobId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "上级岗位ID", type = "varchar(20) DEFAULT ''", explain = "上级岗位ID")
+	@Column(name = "parentJobId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String parentJobId;
 
-	@FieldInfo(name = "部门名称", type = "nvarchar(16) defalut ''", explain = "部门名称")
-	@Column(name = "deptName", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "部门名称", type = "nvarchar(16) DEFAULT ''", explain = "部门名称")
+	@Column(name = "deptName", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String deptName;
 
-	@FieldInfo(name = "岗位名称", type = "nvarchar(16)  defalut ''", explain = "岗位名称")
-	@Column(name = "jobName", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "岗位名称", type = "nvarchar(16)  DEFAULT ''", explain = "岗位名称")
+	@Column(name = "jobName", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String jobName;
 
-	@FieldInfo(name = "上级部门名称", type = "nvarchar(16)  defalut ''", explain = "上级部门名称")
-	@Column(name = "parentDeptName", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "上级部门名称", type = "nvarchar(16)  DEFAULT ''", explain = "上级部门名称")
+	@Column(name = "parentDeptName", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String parentDeptName;
 
-	@FieldInfo(name = "上级岗位名称", type = "nvarchar(16) defalut ''", explain = "上级岗位名称")
-	@Column(name = "parentJobName", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "上级岗位名称", type = "nvarchar(16) DEFAULT ''", explain = "上级岗位名称")
+	@Column(name = "parentJobName", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String parentJobName;
 
-	@FieldInfo(name = "部门全称", type = "nvarchar(500) defalut ''", explain = "部门全称")
-	@Column(name = "allDeptName", columnDefinition = "nvarchar(500) defalut ''", nullable = true)
+	@FieldInfo(name = "部门全称", type = "nvarchar(500) DEFAULT ''", explain = "部门全称")
+	@Column(name = "allDeptName", columnDefinition = "nvarchar(500) DEFAULT ''", nullable = true)
 	private String allDeptName;
 
 	

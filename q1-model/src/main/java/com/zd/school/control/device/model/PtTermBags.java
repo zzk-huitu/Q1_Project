@@ -29,23 +29,23 @@ public class PtTermBags extends BaseEntity implements Serializable {
 	private String termTypeId;
 
 	@FieldInfo(name = "bagValue", type = "decimal NOT NULL default 0", explain = "设备余额")
-	@Column(name = "bagValue", columnDefinition = "default 0", nullable = false)
+	@Column(name = "bagValue", columnDefinition = "decimal default 0", nullable = false)
 	private BigDecimal bagValue;
 
 	@FieldInfo(name = "totalBoughtValue", type = "decimal NOT NULL default 0", explain = "总买量")
-	@Column(name = "totalBoughtValue", columnDefinition = "default 0", nullable = false)
+	@Column(name = "totalBoughtValue", columnDefinition = "decimal default 0", nullable = false)
 	private BigDecimal totalBoughtValue;
 
 	@FieldInfo(name = "totalUsedValue", type = "decimal NOT NULL default 0", explain = "总用量")
-	@Column(name = "totalUsedValue", columnDefinition = "default 0", nullable = false)
+	@Column(name = "totalUsedValue", columnDefinition = "decimal default 0", nullable = false)
 	private BigDecimal totalUsedValue;
 
 	@FieldInfo(name = "totalClearValue", type = "decimal NOT NULL default 0", explain = "总计清除补助量")
-	@Column(name = "totalClearValue", columnDefinition = "default 0", nullable = false)
+	@Column(name = "totalClearValue", columnDefinition = "decimal default 0", nullable = false)
 	private BigDecimal totalClearValue;
 
 	@FieldInfo(name = "surplusValue", type = "decimal NOT NULL default 0", explain = "补助剩余量")
-	@Column(name = "surplusValue", columnDefinition = "default 0", nullable = false)
+	@Column(name = "surplusValue", columnDefinition = "decimal default 0", nullable = false)
 	private BigDecimal surplusValue;
 
 	// @FieldInfo(name="设备名称")

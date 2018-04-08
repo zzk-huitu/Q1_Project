@@ -34,11 +34,11 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	private String areaId;
 
 	@FieldInfo(name = "宿舍类型", type = "varchar(1) NOT NULL default '3'", explain = "宿舍类型:1男、2女、3不限")
-	@Column(name = "dormType", length = 1, columnDefinition = "default '3'", nullable = false)
+	@Column(name = "dormType",  columnDefinition = "varchar(1) default '3'", nullable = false)
 	private String dormType;
 
 	@FieldInfo(name = "宿舍类别", type = "varchar(1) NOT NULL default '1'", explain = "宿舍类别:1学生宿舍、2教师宿舍")
-	@Column(name = "dormCategory", length = 1, columnDefinition = "default '1'", nullable = false)
+	@Column(name = "dormCategory", columnDefinition = "varchar(1) default '1'", nullable = false)
 	private String dormCategory;
 
 	@FieldInfo(name = "床位数", type = "tinyint NOT NULL", explain = "床位数")
@@ -50,7 +50,7 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	private Integer sarkCount;
 
 	@FieldInfo(name = "宿舍管理员", type = "varchar(20) default ''", explain = "宿舍管理员(教师ID)")
-	@Column(name = "dormAdminId", length = 20, columnDefinition = "default ''", nullable = true)
+	@Column(name = "dormAdminId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String dormAdminId;
 
 	@FieldInfo(name = "宿舍管理员姓名", type = "nvarchar(10)  default ''", explain = "宿舍管理员姓名")
@@ -58,19 +58,19 @@ public class BuildDormDefine extends BaseEntity implements Serializable {
 	private String dormAdminName;
 
 	@FieldInfo(name = "宿舍电话", type = "varchar(16) default ''", explain = "电话")
-	@Column(name = "dormPhone", length = 20, columnDefinition = "default ''", nullable = true)
+	@Column(name = "dormPhone", columnDefinition = "varchar(16) default ''", nullable = true)
 	private String dormPhone;
 
 	@FieldInfo(name = "传真", type = "varchar(16) default ''", explain = "传真")
-	@Column(name = "dormFax", length = 16, columnDefinition = "default ''", nullable = true)
+	@Column(name = "dormFax", columnDefinition = "varchar(16) default ''", nullable = true)
 	private String dormFax;
 
 	@FieldInfo(name = "分配状态", type = "bit default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
+	@Column(name = "isAllot", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isAllot;
 
 	@FieldInfo(name = "是否混班宿舍", type = "bit default 0", explain = "是否混班宿舍：0否,1是")
-	@Column(name = "isMixed", columnDefinition = "default 0", nullable = true)
+	@Column(name = "isMixed", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isMixed;
 	
 	/*使用下面的房间名称*/

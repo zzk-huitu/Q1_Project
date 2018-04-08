@@ -8,8 +8,10 @@ import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -119,19 +121,20 @@ public class OaNotice extends BaseEntity implements Serializable {
 	@JsonIgnore
 	@FieldInfo(name = "公告通知审核人", type = "Set<OaNoticeauditor>", explain = "一对多实体关系映射")
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "oaNotice")
+	//@JoinColumn(name="noticeAutitors")
 	private Set<OaNoticeauditor> noticeAutitors = new HashSet<OaNoticeauditor>();
 
 	/* 特意冗余字段 */
 	@FieldInfo(name = "通知部门方式（1-所有部门、2-指定部门、3-不通知）", type = "varchar(1) default '3'", explain = "公告通知部门方式")
-	@Column(name = "deptRadio", length = 1, columnDefinition = "default '3'", nullable = true)
+	@Column(name = "deptRadio", length = 1, columnDefinition = "varchar(1) default '3'", nullable = true)
 	private String deptRadio;
 
 	@FieldInfo(name = "通知学生方式（1-所有学生、2-指定学生、3-不通知）", type = "varchar(1) default '3'", explain = "公告通知学生方式")
-	@Column(name = "studentRadio", length = 1, columnDefinition = "default '3'", nullable = true)
+	@Column(name = "studentRadio", length = 1, columnDefinition = "varchar(1) default '3'", nullable = true)
 	private String studentRadio;
 
 	@FieldInfo(name = "通知终端方式（1-所有终端、2-指定终端、3-不通知）", type = "varchar(1) default '3'", explain = "公告通知终端方式")
-	@Column(name = "terminalRadio", length = 1, columnDefinition = "ddefaultefalut '3'", nullable = true)
+	@Column(name = "terminalRadio", length = 1, columnDefinition = "varchar(1) default '3'", nullable = true)
 	private String terminalRadio;
 
 	public String getNoticeTitle() {

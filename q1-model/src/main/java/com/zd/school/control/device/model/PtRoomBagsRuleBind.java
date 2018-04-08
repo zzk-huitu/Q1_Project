@@ -33,7 +33,7 @@ public class PtRoomBagsRuleBind extends BaseEntity implements Serializable {
 	private String roomRuleId;
 
 	@FieldInfo(name = "指定扣费模式下扣费的用户ID",type="varchar(20) default ''",explain="指定扣费模式下扣费的用户ID")
-	@Column(name = "deductionUserId", length=20, columnDefinition = "default ''", nullable = true)
+	@Column(name = "deductionUserId",  columnDefinition = "varchar(20) default ''", nullable = true)
 	private String deductionUserId;
 
 	

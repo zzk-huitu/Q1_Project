@@ -36,15 +36,15 @@ public class PtIrDeviceBrand extends BaseEntity implements Serializable {
 	private String productModel;
 
 	@FieldInfo(name = "区域等级", type = "int default 0", explain = "区域等级")
-	@Column(name = "level", columnDefinition = "default 0", nullable = true)
+	@Column(name = "level", columnDefinition = "int default 0", nullable = true)
 	private Integer level;
 
 	@FieldInfo(name = "是否有下级", type = "bit default 0", explain = "是否有下级")
-	@Column(name = "isLeaf", columnDefinition = "default 0", nullable = true)
+	@Column(name = "isLeaf", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isLeaf;
 
 	@FieldInfo(name = "上级区域ID", type = "varchar(20) default ''", explain = "上级区域ID")
-	@Column(name = "parentNode", length = 20, columnDefinition = "default ''", nullable = true)
+	@Column(name = "parentNode",  columnDefinition = "varchar(20) default ''", nullable = true)
 	private String parentNode;
 
 	@FieldInfo(name = "备注", type = "nvarchar(256) default ''", explain = "备注")

@@ -45,47 +45,47 @@ public class PtSkTermStatus extends BaseEntity implements Serializable {
 	private Date statusDate;
 
 	@FieldInfo(name = "状态的小时", type = "int NOT NULL default 0", explain = "状态的小时")
-	@Column(name = "statusHour", columnDefinition = "default 0", nullable = false)
+	@Column(name = "statusHour", columnDefinition = "int default 0", nullable = false)
 	private Integer statusHour;
 
-	@FieldInfo(name = "测量单位", type = "int NOT NULL defalut 0", explain = "测量单位（脉冲/升）")
-	@Column(name = "measure", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "测量单位", type = "int NOT NULL DEFAULT 0", explain = "测量单位（脉冲/升）")
+	@Column(name = "measure", columnDefinition = "int DEFAULT 0", nullable = false)
 	private Integer measure;
 
-	@FieldInfo(name = "费率", type = "decimal NOT NULL defalut 0defalut 0", explain = "费率（元/升）")
-	@Column(name = "price", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "费率", type = "decimal NOT NULL DEFAULT 0DEFAULT 0", explain = "费率（元/升）")
+	@Column(name = "price", columnDefinition = "decimal DEFAULT 0", nullable = false)
 	private BigDecimal price;
 
-	@FieldInfo(name = "冷水当前小时使用水量", type = "float NOT NULL defalut 0", explain = "冷水当前小时使用水量（升）")
-	@Column(name = "useLiter", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "冷水当前小时使用水量", type = "float NOT NULL DEFAULT 0", explain = "冷水当前小时使用水量（升）")
+	@Column(name = "useLiter", columnDefinition = "float DEFAULT 0", nullable = false)
 	private Float useLiter;
 
-	@FieldInfo(name = "冷水已使用总水量", type = "float NOT NULL defalut 0", explain = "冷水已使用总水量（升）")
-	@Column(name = "totalUsedLiter", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "冷水已使用总水量", type = "float NOT NULL DEFAULT 0", explain = "冷水已使用总水量（升）")
+	@Column(name = "totalUsedLiter", columnDefinition = "float DEFAULT 0", nullable = false)
 	private Float totalUsedLiter;
 
-	@FieldInfo(name = "冷水当前小时使用脉冲数", type = "bigint  NOT NULL defalut 0", explain = "冷水当前小时使用脉冲数")
-	@Column(name = "usePulse", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "冷水当前小时使用脉冲数", type = "bigint  NOT NULL DEFAULT 0", explain = "冷水当前小时使用脉冲数")
+	@Column(name = "usePulse", columnDefinition = "bigint DEFAULT 0", nullable = false)
 	private Long usePulse;
 
-	@FieldInfo(name = "冷水总使用脉冲数", type = "bigint NOT NULL defalut 0", explain = "冷水总使用脉冲数")
-	@Column(name = "totalUsedPulse", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "冷水总使用脉冲数", type = "bigint NOT NULL DEFAULT 0", explain = "冷水总使用脉冲数")
+	@Column(name = "totalUsedPulse", columnDefinition = "bigint DEFAULT 0", nullable = false)
 	private Long totalUsedPulse;
 
-	@FieldInfo(name = "热水交易金额", type = "decimal NOT NULL defalut 0", explain = "热水交易金额")
-	@Column(name = "useMoney", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "热水交易金额", type = "decimal NOT NULL DEFAULT 0", explain = "热水交易金额")
+	@Column(name = "useMoney", columnDefinition = "decimal DEFAULT 0", nullable = false)
 	private BigDecimal useMoney;
 
-	@FieldInfo(name = "热水已交易总额", type = "decimal NOT NULL defalut 0", explain = "热水已交易总额")
-	@Column(name = "totalUsedMoney", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "热水已交易总额", type = "decimal NOT NULL DEFAULT 0", explain = "热水已交易总额")
+	@Column(name = "totalUsedMoney", columnDefinition = "decimal DEFAULT 0", nullable = false)
 	private BigDecimal totalUsedMoney;
 
-	@FieldInfo(name = "热水已交易流水", type = "bigint NOT NULL defalut 0", explain = "热水已交易流水")
-	@Column(name = "totalRecord", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "热水已交易流水", type = "bigint NOT NULL DEFAULT 0", explain = "热水已交易流水")
+	@Column(name = "totalRecord", columnDefinition = "bigint DEFAULT 0", nullable = false)
 	private Long totalRecord;
 
-	@FieldInfo(name = "热水已上传流水", type = "bigint NOT NULL defalut 0", explain = "热水已上传流水")
-	@Column(name = "uploadRecord", columnDefinition = "defalut 0", nullable = false)
+	@FieldInfo(name = "热水已上传流水", type = "bigint NOT NULL DEFAULT 0", explain = "热水已上传流水")
+	@Column(name = "uploadRecord", columnDefinition = "bigint DEFAULT 0", nullable = false)
 	private Long uploadRecord;
 
 	@FieldInfo(name = "状态的时间", type = "datetime NOT NULL", explain = "状态的时间")

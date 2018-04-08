@@ -7,8 +7,10 @@ import java.util.Set;
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -45,17 +47,18 @@ public class SysRole extends BaseEntity implements Serializable {
 
 
 
-    @FieldInfo(name = "是否隐藏",type="bit defalut 0",explain="当前角色是否隐藏(0-不隐藏 1-隐藏)")
-    @Column(name = "isHidden",columnDefinition="defalut 0", nullable = true)
+    @FieldInfo(name = "是否隐藏",type="bit DEFAULT 0",explain="当前角色是否隐藏(0-不隐藏 1-隐藏)")
+    @Column(name = "isHidden",columnDefinition="bit DEFAULT 0", nullable = true)
     private Boolean isHidden;
 
     
 
-    @FieldInfo(name = "角色说明 ",type="nvarchar(128) defalut ''",explain="角色说明 ")
-    @Column(name = "remark",columnDefinition="nvarchar(128) defalut ''", nullable = true)
+    @FieldInfo(name = "角色说明 ",type="nvarchar(128) DEFAULT ''",explain="角色说明 ")
+    @Column(name = "remark",columnDefinition="nvarchar(128) DEFAULT ''", nullable = true)
     private String remark;
     
 
+    
     @FieldInfo(name = "有权限的菜单",type="Set<SysPermission>",explain="多对多的实体对象关联，生成一个中间表T_PT_RolePermission")
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE })

@@ -62,7 +62,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	private Date allowOffEndTime;
 
 	@FieldInfo(name = "是否启用", type = "bit NOT NULL default 0", explain = "是否启用：0-不启用，1-启用")
-	@Column(name = "isEnable", columnDefinition = "default 0", nullable = false)
+	@Column(name = "isEnable", columnDefinition = "bit default 0", nullable = false)
 	private Boolean isEnable;
 
 	public String getRoomRuleName() {

@@ -55,7 +55,7 @@ public class PtMjOpenDoor extends BaseEntity implements Serializable {
 	private String roomName;
 
 	@FieldInfo(name = "房间所在区域", type = "nvarchar(64)  NOT NULL", explain = "房间所在区域")
-	@Column(name = "roomArea", columnDefinition = "nvarchar(64)'", nullable = false)
+	@Column(name = "roomArea", columnDefinition = "nvarchar(64)", nullable = false)
 	private String roomArea;
 
 	@FieldInfo(name = "进出标识", type = "nvarchar(16)  NOT NULL", explain = "进出标识")

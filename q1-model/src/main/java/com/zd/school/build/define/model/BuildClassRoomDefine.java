@@ -31,7 +31,7 @@ public class BuildClassRoomDefine extends BaseEntity implements Serializable {
 	private String areaId;
 
 	@FieldInfo(name = "状态", type = "bit NOT NULL default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "roomStatus", columnDefinition = "default 0", nullable = false)
+	@Column(name = "roomStatus", columnDefinition = "bit default 0", nullable = false)
 	private Boolean roomStatus;
 
 	@FieldInfo(name = "班级名称", type = "nvarchar(16) default ''", explain = "班级名称")

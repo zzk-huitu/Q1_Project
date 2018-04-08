@@ -38,7 +38,7 @@ public class PtCard extends BaseEntity implements Serializable {
 	private Integer cardTypeId;
 
 	@FieldInfo(name = "物理卡号", type = "bigint default 0", explain = "物理卡号")
-	@Column(name = "factoryFixId", columnDefinition = "default 0", nullable = true)
+	@Column(name = "factoryFixId", columnDefinition = "bigint default 0", nullable = true)
 	private Long factoryFixId;
 
 	@FieldInfo(name = "用户ID", type = "varchar(20) default ''", explain = "关联user表")
@@ -52,11 +52,11 @@ public class PtCard extends BaseEntity implements Serializable {
 	private Date expiryDate;
 
 	@FieldInfo(name = "卡押金", type = "numeric default 0", explain = "卡押金")
-	@Column(name = "deposit", columnDefinition = "default 0", nullable = true)
+	@Column(name = "deposit", columnDefinition = "numeric default 0", nullable = true)
 	private BigDecimal deposit;
 
 	@FieldInfo(name = "卡状态", type = "int default 0", explain = "卡状态 1正常 2挂失 3注销 4换卡 7冻结")
-	@Column(name = "cardStatusId", columnDefinition = "default 0", nullable = true)
+	@Column(name = "cardStatusId", columnDefinition = "int default 0", nullable = true)
 	private Integer cardStatusId;
 
 	@FieldInfo(name = "卡状态改变时间", type = "datetime", explain = "卡状态改变时间")
@@ -66,19 +66,19 @@ public class PtCard extends BaseEntity implements Serializable {
 	private Date statusChangeTime = new Date();
 
 	@FieldInfo(name = "当日消费次数", type = "int default 0", explain = "当日消费次数")
-	@Column(name = "dayCount", columnDefinition = "default 0", nullable = true)
+	@Column(name = "dayCount", columnDefinition = "int default 0", nullable = true)
 	private Integer dayCount;
 
 	@FieldInfo(name = "当餐消费次数", type = "int default 0", explain = "当餐消费次数")
-	@Column(name = "mealCount", columnDefinition = "default 0", nullable = true)
+	@Column(name = "mealCount", columnDefinition = "int default 0", nullable = true)
 	private Integer mealCount;
 
 	@FieldInfo(name = "当日交易金额", type = "numeric default 0", explain = "当日交易金额")
-	@Column(name = "dayValue", columnDefinition = "default 0", nullable = true)
+	@Column(name = "dayValue", columnDefinition = "numeric default 0", nullable = true)
 	private BigDecimal dayValue;
 
 	@FieldInfo(name = "当餐交易金额", type = "numeric default 0", explain = "当餐交易金额")
-	@Column(name = "mealValue", columnDefinition = "default 0", nullable = true)
+	@Column(name = "mealValue", columnDefinition = "numeric default 0", nullable = true)
 	private BigDecimal mealValue;
 
 	@FieldInfo(name = "最后交易时间", type = "datetime", explain = "最后交易时间")
@@ -88,7 +88,7 @@ public class PtCard extends BaseEntity implements Serializable {
 	private Date lastPayDate;
 
 	@FieldInfo(name = "最后交易餐类", type = "int default 0", explain = "最后交易餐类")
-	@Column(name = "lastPayMealType", columnDefinition = "default 0", nullable = true)
+	@Column(name = "lastPayMealType", columnDefinition = "int default 0", nullable = true)
 	private Integer lastPayMealType;
 
 	public Long getCardNo() {

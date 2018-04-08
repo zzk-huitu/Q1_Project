@@ -31,7 +31,7 @@ public class BuildRoomarea extends TreeNodeEntity implements Serializable {
 	private String areaType;
 
 	@FieldInfo(name = "区域编码", type = "varchar(16) default ''", explain = "区域编码")
-	@Column(name = "areaCode", length = 16, columnDefinition = "default ''", nullable = true)
+	@Column(name = "areaCode", columnDefinition = "varchar(16)  default ''", nullable = true)
 	private String areaCode;
 
 	@FieldInfo(name = "区域说明", type = "nvarchar(128) default ''", explain = "区域说明")

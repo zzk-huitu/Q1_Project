@@ -34,7 +34,7 @@ public class BuildFuncRoomDefine extends BaseEntity implements Serializable {
 	private String roomId;
 
 	@FieldInfo(name = "分配状态", type = "bit default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "isAllot", columnDefinition = "default 0", nullable = true)
+	@Column(name = "isAllot", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isAllot;
 
 	/*使用下面的房间名称*/

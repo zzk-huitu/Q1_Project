@@ -27,116 +27,116 @@ public class BaseSchool extends BaseEntity implements Serializable {
 	@Column(name = "schoolName", columnDefinition = "nvarchar(32)", nullable = false)
 	private String schoolName;
 
-	@FieldInfo(name = "学校代码", type = "varchar(32) defalut ''", explain = "学校代码")
-	@Column(name = "schoolCode", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "学校代码", type = "varchar(32) DEFAULT ''", explain = "学校代码")
+	@Column(name = "schoolCode", columnDefinition = "varchar(32) DEFAULT ''", nullable = true)
 	private String schoolCode;
 
-	@FieldInfo(name = "学校英文名", type = "varchar(64) defalut ''", explain = "学校的英文名")
-	@Column(name = "schoolEng", columnDefinition = "varchar(64) defalut ''", nullable = true)
+	@FieldInfo(name = "学校英文名", type = "varchar(64) DEFAULT ''", explain = "学校的英文名")
+	@Column(name = "schoolEng", columnDefinition = "varchar(64) DEFAULT ''", nullable = true)
 	private String schoolEng;
 
-	@FieldInfo(name = "学校地址", type = "nvarchar(128) defalut ''", explain = "学校的地址")
-	@Column(name = "schoolAddr", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	@FieldInfo(name = "学校地址", type = "nvarchar(128) DEFAULT ''", explain = "学校的地址")
+	@Column(name = "schoolAddr", columnDefinition = "nvarchar(128) DEFAULT ''", nullable = true)
 	private String schoolAddr;
 
-	@FieldInfo(name = "建校年月", type = "nvarchar(16) defalut ''", explain = "学校的建校年月")
-	@Column(name = "foundYear", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "建校年月", type = "nvarchar(16) DEFAULT ''", explain = "学校的建校年月")
+	@Column(name = "foundYear", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String foundYear;
 
-	@FieldInfo(name = "邮政编码", type = "varchar(6) defalut ''", explain = "学校的邮政编码")
-	@Column(name = "mailCode", columnDefinition = "varchar(6) defalut ''", nullable = true)
+	@FieldInfo(name = "邮政编码", type = "varchar(6) DEFAULT ''", explain = "学校的邮政编码")
+	@Column(name = "mailCode", columnDefinition = "varchar(6) DEFAULT ''", nullable = true)
 	private String mailCode;
 
-	@FieldInfo(name = "行政区划", type = "nvarchar(32) defalut ''", explain = "学校的行政区划（数据字典）")
-	@Column(name = "administration", columnDefinition = "nvarchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "行政区划", type = "nvarchar(32) DEFAULT ''", explain = "学校的行政区划（数据字典）")
+	@Column(name = "administration", columnDefinition = "nvarchar(32) DEFAULT ''", nullable = true)
 	private String administration;
 
-	@FieldInfo(name = "校庆日", type = "nvarchar(16) defalut ''", explain = "学校的校庆日")
-	@Column(name = "anniversaryDay", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "校庆日", type = "nvarchar(16) DEFAULT ''", explain = "学校的校庆日")
+	@Column(name = "anniversaryDay", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String anniversaryDay;
 
-	@FieldInfo(name = "办学类型", type = "varchar(4) defalut ''", explain = "学校的办学类型（数据字典）")
-	@Column(name = "officeType", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@FieldInfo(name = "办学类型", type = "varchar(4) DEFAULT ''", explain = "学校的办学类型（数据字典）")
+	@Column(name = "officeType", columnDefinition = "varchar(4) DEFAULT ''", nullable = true)
 	private String officeType;
 
-	@FieldInfo(name = "学校主管部门", type = "nvarchar(16) defalut ''", explain = "学校的学校主管部门")
-	@Column(name = "chargeDept", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "学校主管部门", type = "nvarchar(16) DEFAULT ''", explain = "学校的学校主管部门")
+	@Column(name = "chargeDept", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String chargeDept;
 
-	@FieldInfo(name = "法定代表人工号", type = "varchar(32) defalut ''", explain = "学校的法定代表人工号")
-	@Column(name = "legalPerson", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "法定代表人工号", type = "varchar(32) DEFAULT ''", explain = "学校的法定代表人工号")
+	@Column(name = "legalPerson", columnDefinition = "varchar(32) DEFAULT ''", nullable = true)
 	private String legalPerson;
 
-	@FieldInfo(name = "法人证书号", type = "varchar(64) defalut ''", explain = "学校的法人证书号")
-	@Column(name = "legalCertificate", columnDefinition = "varchar(64) defalut ''", nullable = true)
+	@FieldInfo(name = "法人证书号", type = "varchar(64) DEFAULT ''", explain = "学校的法人证书号")
+	@Column(name = "legalCertificate", columnDefinition = "varchar(64) DEFAULT ''", nullable = true)
 	private String legalCertificate;
 
-	@FieldInfo(name = "校长工号", type = "varchar(32)  defalut ''", explain = "学校的校长工号")
-	@Column(name = "headMasterNum", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "校长工号", type = "varchar(32)  DEFAULT ''", explain = "学校的校长工号")
+	@Column(name = "headMasterNum", columnDefinition = "varchar(32) DEFAULT ''", nullable = true)
 	private String headMasterNum;
 
-	@FieldInfo(name = "校长姓名", type = "nvarchar(10)  defalut ''", explain = "学校的校长姓名")
-	@Column(name = "headMasterName", columnDefinition = "nvarchar(10) defalut ''", nullable = true)
+	@FieldInfo(name = "校长姓名", type = "nvarchar(10)  DEFAULT ''", explain = "学校的校长姓名")
+	@Column(name = "headMasterName", columnDefinition = "nvarchar(10) DEFAULT ''", nullable = true)
 	private String headMasterName;
 
-	@FieldInfo(name = "党委负责人工号", type = "varchar(32) defalut ''", explain = "学校的党委负责人工号")
-	@Column(name = "partyPersonNo", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "党委负责人工号", type = "varchar(32) DEFAULT ''", explain = "学校的党委负责人工号")
+	@Column(name = "partyPersonNo", columnDefinition = "varchar(32) DEFAULT ''", nullable = true)
 	private String partyPersonNo;
 
-	@FieldInfo(name = "组织机构码", type = "varchar(32)  defalut ''", explain = "学校的组织机构码")
-	@Column(name = "orgCode", columnDefinition = "varchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "组织机构码", type = "varchar(32)  DEFAULT ''", explain = "学校的组织机构码")
+	@Column(name = "orgCode", columnDefinition = "varchar(32) DEFAULT ''", nullable = true)
 	private String orgCode;
 
-	@FieldInfo(name = "联系电话", type = "varchar(16) defalut ''", explain = "学校的联系电话")
-	@Column(name = "telephone", columnDefinition = "varchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "联系电话", type = "varchar(16) DEFAULT ''", explain = "学校的联系电话")
+	@Column(name = "telephone", columnDefinition = "varchar(16) DEFAULT ''", nullable = true)
 	private String telephone;
 
-	@FieldInfo(name = "传真电话", type = "varchar(16) defalut ''", explain = "学校的传真电话")
-	@Column(name = "faxNum", columnDefinition = "varchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "传真电话", type = "varchar(16) DEFAULT ''", explain = "学校的传真电话")
+	@Column(name = "faxNum", columnDefinition = "varchar(16) DEFAULT ''", nullable = true)
 	private String faxNum;
 
-	@FieldInfo(name = "电子邮箱", type = "varchar(128) defalut ''", explain = "学校的电子邮箱")
-	@Column(name = "email", columnDefinition = "varchar(128) defalut ''", nullable = true)
+	@FieldInfo(name = "电子邮箱", type = "varchar(128) DEFAULT ''", explain = "学校的电子邮箱")
+	@Column(name = "email", columnDefinition = "varchar(128) DEFAULT ''", nullable = true)
 	private String email;
 
-	@FieldInfo(name = "主页地址", type = "varchar(128) defalut ''", explain = "学校的主页地址")
-	@Column(name = "homepage", columnDefinition = "varchar(128) defalut ''", nullable = true)
+	@FieldInfo(name = "主页地址", type = "varchar(128) DEFAULT ''", explain = "学校的主页地址")
+	@Column(name = "homepage", columnDefinition = "varchar(128) DEFAULT ''", nullable = true)
 	private String homepage;
 
-	@FieldInfo(name = "历史沿革", type = "nvarchar(MAX) defalut ''", explain = "学校的历史沿革")
-	@Column(name = "historyEvolution", columnDefinition = "nvarchar(MAX) defalut ''", nullable = true)
+	@FieldInfo(name = "历史沿革", type = "nvarchar(MAX) DEFAULT ''", explain = "学校的历史沿革")
+	@Column(name = "historyEvolution", columnDefinition = "nvarchar(MAX) DEFAULT ''", nullable = true)
 	private String historyEvolution;
 
-	@FieldInfo(name = "学校办别", type = "varchar(4) defalut ''", explain = "学校的办别（数据字典）")
-	@Column(name = "schoolType", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@FieldInfo(name = "学校办别", type = "varchar(4) DEFAULT ''", explain = "学校的办别（数据字典）")
+	@Column(name = "schoolType", columnDefinition = "varchar(4) DEFAULT ''", nullable = true)
 	private String schoolType;
 
-	@FieldInfo(name = "所属主管单位", type = "nvarchar(32) defalut ''", explain = "学校的所属主管单位")
-	@Column(name = "chargeUnit", columnDefinition = "nvarchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "所属主管单位", type = "nvarchar(32) DEFAULT ''", explain = "学校的所属主管单位")
+	@Column(name = "chargeUnit", columnDefinition = "nvarchar(32) DEFAULT ''", nullable = true)
 	private String chargeUnit;
 
-	@FieldInfo(name = "所在地城乡类型", type = "varchar(4) defalut ''", explain = "学校的所在地城乡类型（数据字典）")
-	@Column(name = "cityAndCountryType", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@FieldInfo(name = "所在地城乡类型", type = "varchar(4) DEFAULT ''", explain = "学校的所在地城乡类型（数据字典）")
+	@Column(name = "cityAndCountryType", columnDefinition = "varchar(4) DEFAULT ''", nullable = true)
 	private String cityAndCountryType;
 
-	@FieldInfo(name = "所在地经济属性码", type = "varchar(4) defalut ''", explain = "学校的所在地经济属性码（数据字典）")
-	@Column(name = "economicCode", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@FieldInfo(name = "所在地经济属性码", type = "varchar(4) DEFAULT ''", explain = "学校的所在地经济属性码（数据字典）")
+	@Column(name = "economicCode", columnDefinition = "varchar(4) DEFAULT ''", nullable = true)
 	private String economicCode;
 
-	@FieldInfo(name = "所在地民族属性", type = "varchar(4) defalut ''", explain = "学校的所在地民族属性")
-	@Column(name = "raceProperty", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@FieldInfo(name = "所在地民族属性", type = "varchar(4) DEFAULT ''", explain = "学校的所在地民族属性")
+	@Column(name = "raceProperty", columnDefinition = "varchar(4) DEFAULT ''", nullable = true)
 	private String raceProperty;
 
-	@FieldInfo(name = "学制", type = "varchar(4) defalut ''", explain = "学校的学制")
-	@Column(name = "eductionalSystme", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@FieldInfo(name = "学制", type = "varchar(4) DEFAULT ''", explain = "学校的学制")
+	@Column(name = "eductionalSystme", columnDefinition = "varchar(4) DEFAULT ''", nullable = true)
 	private String eductionalSystme;
 
-	@FieldInfo(name = "入学年龄", type = "int defalut 0", explain = "入学年龄")
-	@Column(name = "admissionAge", columnDefinition = "defalut 0", nullable = true)
+	@FieldInfo(name = "入学年龄", type = "int DEFAULT 0", explain = "入学年龄")
+	@Column(name = "admissionAge", columnDefinition = "int DEFAULT 0", nullable = true)
 	private Integer admissionAge;
 
-	@FieldInfo(name = "备注", type = "nvarchar(1024) defalut ''", explain = "备注说明")
-	@Column(name = "remark", columnDefinition = "nvarchar(1024) defalut ''", nullable = true)
+	@FieldInfo(name = "备注", type = "nvarchar(1024) DEFAULT ''", explain = "备注说明")
+	@Column(name = "remark", columnDefinition = "nvarchar(1024) DEFAULT ''", nullable = true)
 	private String remark;
 
 	public String getSchoolName() {

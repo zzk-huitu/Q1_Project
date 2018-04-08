@@ -31,26 +31,26 @@ public class OaInfoterm extends BaseEntity implements Serializable {
 	@Column(name = "terminalType", length = 10, nullable = false)
 	private String terminalType;
 
-	@FieldInfo(name = "规格", type = "nvarchar(32) defalut ''", explain = "信息终端的终端规格")
-	@Column(name = "terminalSpec", columnDefinition = "nvarchar(32) defalut ''", nullable = true)
+	@FieldInfo(name = "规格", type = "nvarchar(32) DEFAULT ''", explain = "信息终端的终端规格")
+	@Column(name = "terminalSpec", columnDefinition = "nvarchar(32) DEFAULT ''", nullable = true)
 	private String terminalSpec;
 
 	@FieldInfo(name = "使用状态", type = "bit NOT NULL", explain = "终端的使用状态，0-未使用 1-已使用")
 	@Column(name = "isUse", nullable = false)
 	private Boolean isUse;
 
-	@FieldInfo(name = "使用房间ID", type = "varchar(20) defalut ''", explain = "终端的使用房间ID")
-	@Column(name = "roomId", columnDefinition = "varchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "使用房间ID", type = "varchar(20) DEFAULT ''", explain = "终端的使用房间ID")
+	@Column(name = "roomId", columnDefinition = "varchar(20) DEFAULT ''", nullable = true)
 	private String roomId;
 
-	@FieldInfo(name = "使用房间名称", type = "nvarchar(20) defalut ''", explain = "终端的使用房间名称")
+	@FieldInfo(name = "使用房间名称", type = "nvarchar(20) DEFAULT ''", explain = "终端的使用房间名称")
 	// @Formula("(SELECT a.ROOM_NAME FROM BuildRoominfo a WHERE
 	// a.ROOM_ID=ROOM_ID)")
-	@Column(name = "roomName", columnDefinition = "nvarchar(20) defalut ''", nullable = true)
+	@Column(name = "roomName", columnDefinition = "nvarchar(20) DEFAULT ''", nullable = true)
 	private String roomName;
 
-	@FieldInfo(name = "使用房间名称门牌号", type = "nvarchar(20)  defalut ''", explain = "终端的使用房间名称门牌号")
-	@Column(name = "houseNo", columnDefinition = "nvarchar(20) defalut ''", nullable = true)
+	@FieldInfo(name = "使用房间名称门牌号", type = "nvarchar(20)  DEFAULT ''", explain = "终端的使用房间名称门牌号")
+	@Column(name = "houseNo", columnDefinition = "nvarchar(20) DEFAULT ''", nullable = true)
 	private String houseNo;
 
 	public String getTerminalNo() {

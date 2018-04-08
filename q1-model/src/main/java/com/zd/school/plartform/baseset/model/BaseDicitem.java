@@ -37,8 +37,8 @@ public class BaseDicitem extends BaseEntity implements Serializable {
 	@Column(name = "itemName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String itemName;
 
-	@FieldInfo(name = "字典项说明", type = "nvarchar(128) defalut ''", explain = "字典项说明")
-	@Column(name = "itemDesc", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	@FieldInfo(name = "字典项说明", type = "nvarchar(128) DEFAULT ''", explain = "字典项说明")
+	@Column(name = "itemDesc", columnDefinition = "nvarchar(128) DEFAULT ''", nullable = true)
 	private String itemDesc;
 
 	/**

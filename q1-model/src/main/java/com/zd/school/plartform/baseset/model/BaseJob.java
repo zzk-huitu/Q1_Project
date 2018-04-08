@@ -27,13 +27,13 @@ public class BaseJob extends BaseEntity implements Serializable {
 	@Column(name = "jobName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String jobName;
 
-	@FieldInfo(name = "岗位编码", type = "nvarchar(16) defalut ''", explain = "岗位的编码")
-	@Column(name = "jobCode", columnDefinition = "nvarchar(16) defalut ''", nullable = true)
+	@FieldInfo(name = "岗位编码", type = "nvarchar(16) DEFAULT ''", explain = "岗位的编码")
+	@Column(name = "jobCode", columnDefinition = "nvarchar(16) DEFAULT ''", nullable = true)
 	private String jobCode;
 	
 
-	@FieldInfo(name = "备注", type = "nvarchar(128)  defalut ''", explain = "岗位的备注")
-	@Column(name = "remark", columnDefinition = "nvarchar(128) defalut ''", nullable = true)
+	@FieldInfo(name = "备注", type = "nvarchar(128)  DEFAULT ''", explain = "岗位的备注")
+	@Column(name = "remark", columnDefinition = "nvarchar(128) DEFAULT ''", nullable = true)
 	private String remark;
 
 	public String getJobName() {
