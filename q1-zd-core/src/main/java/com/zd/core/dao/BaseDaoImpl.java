@@ -1,5 +1,29 @@
 package com.zd.core.dao;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.ScrollMode;
+import org.hibernate.ScrollableResults;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.ResultTransformer;
+import org.hibernate.transform.Transformers;
+
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.ExtSortModel;
@@ -8,18 +32,6 @@ import com.zd.core.util.DateUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import org.hibernate.*;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.transform.ResultTransformer;
-import org.hibernate.transform.Transformers;
-import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
-import java.io.Serializable;
-import java.util.*;
 
 public class BaseDaoImpl<E> implements BaseDao<E> {
 	// private final Logger logger = Logger.getLogger(entityClass);

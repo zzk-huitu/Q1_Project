@@ -28,8 +28,8 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.build.allot.model.ClassDormAllot;
+import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.build.define.model.DormDefine;
 import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
@@ -40,7 +40,6 @@ import com.zd.school.plartform.comm.service.CommTreeService;
 import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.student.studentclass.model.ClassStudent;
-import com.zd.school.student.studentclass.model.StandVClassStudent;
 import com.zd.school.student.studentclass.service.JwClassstudentService;
 
 /**
