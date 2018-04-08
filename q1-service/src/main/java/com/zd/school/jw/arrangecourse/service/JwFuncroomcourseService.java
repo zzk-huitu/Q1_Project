@@ -5,8 +5,8 @@ import java.util.List;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse ;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 
 
 /**
@@ -22,7 +22,7 @@ import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse ;
  * @since JDK 1.8
  */
  
-public interface JwFuncroomcourseService extends BaseService<JwFuncroomcourse> {
+public interface JwFuncroomcourseService extends BaseService<FuncRoomCourse> {
 
 	/**
 	 * 数据列表
@@ -39,7 +39,7 @@ public interface JwFuncroomcourseService extends BaseService<JwFuncroomcourse> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<JwFuncroomcourse> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<FuncRoomCourse> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -50,7 +50,7 @@ public interface JwFuncroomcourseService extends BaseService<JwFuncroomcourse> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -61,7 +61,7 @@ public interface JwFuncroomcourseService extends BaseService<JwFuncroomcourse> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public JwFuncroomcourse doUpdateEntity(JwFuncroomcourse entity, SysUser currentUser);
+	public FuncRoomCourse doUpdateEntity(FuncRoomCourse entity, User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -72,7 +72,7 @@ public interface JwFuncroomcourseService extends BaseService<JwFuncroomcourse> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public JwFuncroomcourse doAddEntity(JwFuncroomcourse entity, SysUser currentUser);
+	public FuncRoomCourse doAddEntity(FuncRoomCourse entity, User currentUser);
 
-	public Integer doAddEntityList(List<JwFuncroomcourse> funcRoomCourseList, SysUser currentUser) throws IllegalAccessException, InvocationTargetException;
+	public Integer doAddEntityList(List<FuncRoomCourse> funcRoomCourseList, User currentUser) throws IllegalAccessException, InvocationTargetException;
 }

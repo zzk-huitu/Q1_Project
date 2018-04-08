@@ -1,7 +1,7 @@
 package com.zd.school.jw.eduresources.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.eduresources.model.JwTBasecourse;
+import com.zd.school.jw.eduresources.model.BaseCourse;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.zd.school.jw.eduresources.model.JwTBasecourse;
  * @since JDK 1.8
  */
 
-public interface JwTBasecourseService extends BaseService<JwTBasecourse> {
+public interface JwTBasecourseService extends BaseService<BaseCourse> {
 
 }

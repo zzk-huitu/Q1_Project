@@ -1,7 +1,7 @@
 package com.zd.school.oa.attendance.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.oa.attendance.model.AttTerm ;
+import com.zd.school.oa.attendance.model.AttendTerm ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.attendance.model.AttTerm ;
  * @since JDK 1.8
  */
  
-public interface AttTermDao extends BaseDao<AttTerm> {
+public interface AttTermDao extends BaseDao<AttendTerm> {
 
 }

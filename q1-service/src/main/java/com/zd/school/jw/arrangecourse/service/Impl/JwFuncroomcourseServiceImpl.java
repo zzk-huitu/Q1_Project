@@ -14,9 +14,9 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.school.jw.arrangecourse.dao.JwFuncroomcourseDao;
-import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse;
+import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -30,7 +30,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcourse> implements JwFuncroomcourseService {
+public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> implements JwFuncroomcourseService {
 
 	@Resource
 	public void setJwFuncroomcourseDao(JwFuncroomcourseDao dao) {
@@ -40,9 +40,9 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 	private static Logger logger = Logger.getLogger(JwFuncroomcourseServiceImpl.class);
 
 	@Override
-	public QueryResult<JwFuncroomcourse> list(Integer start, Integer limit, String sort, String filter,
+	public QueryResult<FuncRoomCourse> list(Integer start, Integer limit, String sort, String filter,
 			Boolean isDelete) {
-		QueryResult<JwFuncroomcourse> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+		QueryResult<FuncRoomCourse> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -56,13 +56,13 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -81,9 +81,9 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 	 * @return
 	 */
 	@Override
-	public JwFuncroomcourse doUpdateEntity(JwFuncroomcourse entity, SysUser currentUser) {
+	public FuncRoomCourse doUpdateEntity(FuncRoomCourse entity, User currentUser) {
 		// 先拿到已持久化的实体
-		JwFuncroomcourse saveEntity = this.get(entity.getId());
+		FuncRoomCourse saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -110,8 +110,8 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 	 * @return
 	 */
 	@Override
-	public JwFuncroomcourse doAddEntity(JwFuncroomcourse entity, SysUser currentUser) {
-		JwFuncroomcourse saveEntity;
+	public FuncRoomCourse doAddEntity(FuncRoomCourse entity, User currentUser) {
+		FuncRoomCourse saveEntity;
 		try {
 			// List<String> excludedProp = new ArrayList<>();
 			// excludedProp.add("uuid");
@@ -123,7 +123,7 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
-				saveEntity = new JwFuncroomcourse();
+				saveEntity = new FuncRoomCourse();
 			}
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
@@ -139,20 +139,20 @@ public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<JwFuncroomcours
 	}
 
 	@Override
-	public Integer doAddEntityList(List<JwFuncroomcourse> funcRoomCourseList, SysUser currentUser) throws IllegalAccessException, InvocationTargetException {
+	public Integer doAddEntityList(List<FuncRoomCourse> funcRoomCourseList, User currentUser) throws IllegalAccessException, InvocationTargetException {
 		Integer count=0;
 		
-		JwFuncroomcourse saveEntity;
+		FuncRoomCourse saveEntity;
 		for(int i=0;i<funcRoomCourseList.size();i++){
 			
-			JwFuncroomcourse entity=funcRoomCourseList.get(i);
+			FuncRoomCourse entity=funcRoomCourseList.get(i);
 			
 			String[] propName = { "funcRoomId", "sections", "isDelete" };
 			Object[] propValue = { entity.getFuncRoomId(), entity.getSections(), 0 };
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
-				saveEntity = new JwFuncroomcourse();
+				saveEntity = new FuncRoomCourse();
 			}else{
 				entity.setId(null);
 			}			

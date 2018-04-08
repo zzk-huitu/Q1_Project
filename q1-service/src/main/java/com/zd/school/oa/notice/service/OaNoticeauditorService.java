@@ -2,9 +2,9 @@ package com.zd.school.oa.notice.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.oa.notice.model.OaNotice;
-import com.zd.school.oa.notice.model.OaNoticeauditor ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.oa.notice.model.Notice;
+import com.zd.school.oa.notice.model.NoticeAuditor ;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -20,7 +20,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
  
-public interface OaNoticeauditorService extends BaseService<OaNoticeauditor> {
+public interface OaNoticeauditorService extends BaseService<NoticeAuditor> {
 
 	/**
 	 * 数据列表
@@ -37,7 +37,7 @@ public interface OaNoticeauditorService extends BaseService<OaNoticeauditor> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<OaNoticeauditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<NoticeAuditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -48,7 +48,7 @@ public interface OaNoticeauditorService extends BaseService<OaNoticeauditor> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -59,7 +59,7 @@ public interface OaNoticeauditorService extends BaseService<OaNoticeauditor> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public OaNoticeauditor doUpdateEntity(OaNoticeauditor entity, SysUser currentUser);
+	public NoticeAuditor doUpdateEntity(NoticeAuditor entity, User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -70,8 +70,8 @@ public interface OaNoticeauditorService extends BaseService<OaNoticeauditor> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public OaNoticeauditor doAddEntity(OaNoticeauditor entity, SysUser currentUser);
+	public NoticeAuditor doAddEntity(NoticeAuditor entity, User currentUser);
 
-	public QueryResult<OaNotice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, SysUser currentUser);
+	public QueryResult<Notice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, User currentUser);
 }

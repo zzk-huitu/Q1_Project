@@ -1,7 +1,7 @@
 package com.zd.school.oa.notice.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.oa.notice.model.OaNoticetype ;
+import com.zd.school.oa.notice.model.NoticeType ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.notice.model.OaNoticetype ;
  * @since JDK 1.8
  */
  
-public interface OaNoticetypeService extends BaseService<OaNoticetype> {
+public interface OaNoticetypeService extends BaseService<NoticeType> {
 
 }

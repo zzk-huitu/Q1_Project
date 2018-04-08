@@ -1,7 +1,7 @@
 package com.zd.school.oa.notice.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.oa.notice.model.OaNoticeauditor ;
+import com.zd.school.oa.notice.model.NoticeAuditor ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.notice.model.OaNoticeauditor ;
  * @since JDK 1.8
  */
  
-public interface OaNoticeauditorDao extends BaseDao<OaNoticeauditor> {
+public interface OaNoticeauditorDao extends BaseDao<NoticeAuditor> {
 
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.oa.notice.model.OaNotice;
-import com.zd.school.oa.notice.model.OaNoticeOther;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.oa.notice.model.Notice;
+import com.zd.school.oa.notice.model.NoticeOther;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -18,7 +18,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface OaNoticeService extends BaseService<OaNotice> {
+public interface OaNoticeService extends BaseService<Notice> {
 
 	/**
 	 * 数据列表
@@ -35,7 +35,7 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-	public QueryResult<OaNotice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -46,7 +46,7 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -57,7 +57,7 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public OaNotice doUpdateEntity(OaNotice entity, SysUser currentUser);
+	public Notice doUpdateEntity(Notice entity, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -77,7 +77,7 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 * @param terminalIds 
 	 * @return
 	 */
-	public OaNotice doUpdateEntity(OaNotice entity, SysUser currentUser, String deptIds, String roleIds,
+	public Notice doUpdateEntity(Notice entity, User currentUser, String deptIds, String roleIds,
 			String userIds, String terminalIds, String stuIds, String isNoticeParent);
 
 	/**
@@ -89,7 +89,7 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public OaNotice doAddEntity(OaNotice entity, SysUser currentUser);
+	public Notice doAddEntity(Notice entity, User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -109,7 +109,7 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 * @param stuIds 
 	 * @return
 	 */
-	public OaNotice doAddEntity(OaNotice entity, SysUser currentUser, String deptIds, String roleIds, String userIds, String terminalIds, String stuIds, String isNoticeParent);
+	public Notice doAddEntity(Notice entity, User currentUser, String deptIds, String roleIds, String userIds, String terminalIds, String stuIds, String isNoticeParent);
 
 	/**
 	 * 获取指定公告的通知部门、角色、人员的信息
@@ -118,9 +118,9 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 *            指定的公告id
 	 * @return
 	 */
-	public OaNoticeOther getNoticeOther(String id);
+	public NoticeOther getNoticeOther(String id);
 	
-	public  List<OaNotice> getUserOaNotice(SysUser currentUser);
+	public  List<Notice> getUserOaNotice(User currentUser);
 	
 	/**
 	 * 获取发送到指定终端的通知公告数据列表
@@ -137,5 +137,5 @@ public interface OaNoticeService extends BaseService<OaNotice> {
 	 *            指定的终端号
 	 * @return
 	 */
-	public QueryResult<OaNotice> list(Integer start, Integer limit, String sort, String filter, String  termCode);
+	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, String  termCode);
 }

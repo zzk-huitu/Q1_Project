@@ -1,7 +1,7 @@
 package com.zd.school.jw.arrangecourse.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse ;
+import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse ;
  * @since JDK 1.8
  */
  
-public interface JwFuncroomcourseDao extends BaseDao<JwFuncroomcourse> {
+public interface JwFuncroomcourseDao extends BaseDao<FuncRoomCourse> {
 
 }
