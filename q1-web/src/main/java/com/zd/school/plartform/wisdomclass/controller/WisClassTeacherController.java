@@ -23,7 +23,7 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.eduresources.model.JwClassteacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysOrgService;
@@ -127,8 +127,8 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 	public void doAdd(JwClassteacher entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		String claiId = entity.getClaiId(); // 年级
-		String tteacId = entity.getTteacId(); // 教师
+		String claiId = entity.getClassId(); // 班级
+		String tteacId = entity.getTeacherId(); // 教师
 		Integer category = entity.getCategory(); // 身份
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
@@ -209,7 +209,7 @@ public class WisClassTeacherController extends FrameWorkController<JwClassteache
 	 */
 	private String getClassIds(String deptId, SysUser currentUser) {
 
-		List<CommTreeChk> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
+		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {
 			if (x.getNodeType().equals("05") && x.getTreeid().indexOf(deptId) != -1)
 				return true;

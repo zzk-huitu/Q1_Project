@@ -160,11 +160,11 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 					BaseAttachment bt = new BaseAttachment();
 					bt.setEntityName("EccClasselegant");
 					bt.setRecordId(recordId);
-					bt.setAttachUrl(url + myFileName);
-					bt.setAttachName(myFileName);
-					bt.setAttachType(type);
-					bt.setAttachSize(file.getSize());
-					bt.setAttachIsMain(attachIsMain);
+					bt.setFileUrl(url + myFileName);
+					bt.setFileName(myFileName);
+					bt.setFileType(type);
+					bt.setFileSize(file.getSize());
+					//bt.setAttachIsMain(attachIsMain);
 					baseTAttachmentService.merge(bt);
 
 					writeJSON(response, "{ \"success\" : true,\"obj\":\"" + url + myFileName + "\"}");
@@ -208,7 +208,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 		// 获取当前操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		entity = thisService.doAddEntity(entity, currentUser.getXm());
+		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
@@ -226,7 +226,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 		} else {
 
 			SysUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getXm());
+			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
@@ -245,7 +245,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 		// 获取当前的操作用户
 		SysUser currentUser = getCurrentSysUser();
 
-		entity = thisService.doUpdateEntity(entity, currentUser.getXm(), null);
+		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"修改失败，请重试或联系管理员！\""));

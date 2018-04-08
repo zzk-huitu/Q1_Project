@@ -83,15 +83,15 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 					localFile.mkdirs(); // 不存在则创建
 				}
 				file.transferTo(localFile);
-				entity.setZp(url + myFileName);
+				entity.setPhoto(url + myFileName);
 			}
 		}
 		
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		String sfzjh = entity.getSfzjh();
+		String sfzjh = entity.getIdentityNumber();
 		String userName = entity.getUserName();
 		String xh = entity.getUserNumb();
-		String xjh = entity.getXjh();
+		String xjh = entity.getStudentCode();
 
 		// 判断身份证件号是否重复
 		if (StringUtils.isNotEmpty(sfzjh)&&thisService.IsFieldExist("sfzjh", sfzjh, "-1")) {
@@ -146,15 +146,15 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 		// 入库前检查代码
 		try {
 			String hql1 = " o.isDelete='0'";
-			if (StringUtils.isNotEmpty(entity.getSfzjh())&&thisService.IsFieldExist("sfzjh", entity.getSfzjh(), entity.getUuid(), hql1)) {
+			if (StringUtils.isNotEmpty(entity.getIdentityNumber())&&thisService.IsFieldExist("sfzjh", entity.getIdentityNumber(), entity.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"身份证件号不能重复！\""));
 				return;
 			}
-			if (StringUtils.isNotEmpty(entity.getUserName())&&thisService.IsFieldExist("userName", entity.getUserName(), entity.getUuid(), hql1)) {
+			if (StringUtils.isNotEmpty(entity.getUserName())&&thisService.IsFieldExist("userName", entity.getUserName(), entity.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"用户名不能重复！\""));
 				return;
 			}
-			if (StringUtils.isNotEmpty(entity.getUserNumb())&&thisService.IsFieldExist("userNumb", entity.getUserNumb(), entity.getUuid(), hql1)) {
+			if (StringUtils.isNotEmpty(entity.getUserNumb())&&thisService.IsFieldExist("userNumb", entity.getUserNumb(), entity.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"学号不能重复！\""));
 				return;
 			}
@@ -180,12 +180,12 @@ public class StuBaseinfoController extends FrameWorkController<StuBaseinfo> impl
 					}
 
 					file.transferTo(localFile);
-					entity.setZp(url + myFileName);
+					entity.setPhoto(url + myFileName);
 				}
 			}
 			// 获取当前的操作用户
 			SysUser currentUser = getCurrentSysUser();
-			entity = thisService.doUpdateEntity(entity, currentUser.getXm(), null);
+			entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
 

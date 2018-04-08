@@ -14,7 +14,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,9 +33,7 @@ import com.zd.core.util.StringUtils;
 import com.zd.school.build.define.model.BuildRoomarea;
 import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.jw.eduresources.model.JwGradeteacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.jw.eduresources.service.JwGradeteacherService;
 import com.zd.school.oa.notice.model.OaNotice;
 import com.zd.school.oa.notice.model.OaNoticeOther;
 import com.zd.school.oa.notice.service.OaNoticeService;
@@ -47,7 +44,6 @@ import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
 import com.zd.school.plartform.comm.service.CommTreeService;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysUserService;
@@ -539,22 +535,22 @@ public class OaNoticeController extends FrameWorkController<OaNotice> implements
 	}
 	
 	@SuppressWarnings("unused")
-	private void addStuInTree(List<CommTree> commTreeChks,List<JwClassstudent> stus){
-		for(CommTree commTreeChk:commTreeChks){
-			List<CommTree> ctc=commTreeChk.getChildren();
+	private void addStuInTree(List<CommTree> commTrees,List<JwClassstudent> stus){
+		for(CommTree ct:commTrees){
+			List<CommTree> ctc=ct.getChildren();
 			if(ctc.size()==0){
-				commTreeChk.setLeaf(false);
+				ct.setLeaf(false);
 				ctc=new ArrayList<CommTree>();
 				for(JwClassstudent stu:stus){
-					if(stu.getClassId().equals(commTreeChk.getId())){					
+					if(stu.getClassId().equals(ct.getId())){					
 						CommTree child = new CommTree(stu.getStudentId(), stu.getName(), "", true,
-								commTreeChk.getLevel()+1, "", new ArrayList<CommTree>(), commTreeChk.getId(),false);
+								ct.getLevel()+1, "",  ct.getId(),ct.getOrderIndex(),new ArrayList<CommTree>());
 						
 						ctc.add(child);
 						//stus.remove(stu);
 					}
 				}
-				commTreeChk.setChildren(ctc);
+				ct.setChildren(ctc);
 			}else{
 				addStuInTree(ctc,stus);
 			}
