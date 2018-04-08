@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -194,7 +193,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String areaId = entity.getAreaId();
 		String roomCode = entity.getRoomCode();
-		String roomId = entity.getUuid();
+		String roomId = entity.getId();
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 		String hql = " o.isDelete='0' and o.areaId='" + areaId + "' ";
 		if (thisService.IsFieldExist("roomCode", roomCode, roomId, hql)) {

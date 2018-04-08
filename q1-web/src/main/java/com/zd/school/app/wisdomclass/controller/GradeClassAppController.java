@@ -284,7 +284,7 @@ public class GradeClassAppController extends BaseController<JwTGradeclass> {
 			List<JwClassstudent> list = classStudentService.queryByHql(hql);
 		
 			//直接遍历修改各个数据的照片路径（加入虚拟目录名）
-			list.stream().forEach(x->x.setZp(virtualFileUrl+"/"+x.getZp()));
+			list.stream().forEach(x->x.setPhoto(virtualFileUrl+"/"+x.getPhoto()));
 			
 //			for (JwClassstudent jwClassstudent : list) {
 //				jwClassstudent.setZp(request.getScheme() + "://" + request.getServerName() + ":"

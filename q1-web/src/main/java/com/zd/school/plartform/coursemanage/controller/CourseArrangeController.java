@@ -37,7 +37,7 @@ import com.zd.core.util.StringUtils;
 import com.zd.school.jw.arrangecourse.model.JwCourseArrange;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
 import com.zd.school.plartform.baseset.model.BaseJob;
-import com.zd.school.plartform.comm.model.CommTreeChk;
+import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.system.model.SysUser;
 import com.zd.school.plartform.system.service.SysOrgService;
 
@@ -292,7 +292,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 	 */
 	private String getClassIds(String deptId, SysUser currentUser) {
 
-		List<CommTreeChk> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
+		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {
 			if (x.getNodeType().equals("05") && x.getTreeid().indexOf(deptId) != -1)
 				return true;

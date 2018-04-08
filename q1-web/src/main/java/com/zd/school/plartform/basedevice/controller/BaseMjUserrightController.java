@@ -25,13 +25,10 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.control.device.model.MjUserright;
-import com.zd.school.control.device.model.PtIrRoomDevice;
 import com.zd.school.plartform.basedevice.service.MjUserrightService;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.comm.model.CommTreeChk;
 import com.zd.school.plartform.comm.service.CommTreeService;
 import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.teacher.teacherinfo.model.ViewUserRoom;
 
 /**
  * 门禁权限
