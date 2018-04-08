@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
-import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -18,12 +17,12 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseDeptjob;
-import com.zd.school.plartform.baseset.model.BaseDpetJobTree;
-import com.zd.school.plartform.baseset.model.BaseJob;
-import com.zd.school.plartform.baseset.model.BaseOrg;
+import com.zd.school.plartform.baseset.model.Department;
+import com.zd.school.plartform.baseset.model.DeptJob;
+import com.zd.school.plartform.baseset.model.DpetJobTree;
+import com.zd.school.plartform.baseset.model.Job;
 import com.zd.school.plartform.system.dao.SysDeptjobDao;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysDeptjobService;
 import com.zd.school.plartform.system.service.SysJobService;
 import com.zd.school.plartform.system.service.SysOrgService;
@@ -43,7 +42,7 @@ import com.zd.school.redis.service.DeptRedisService;
  */
 @Service
 @Transactional
-public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implements SysDeptjobService {
+public class SysDeptjobServiceImpl extends BaseServiceImpl<DeptJob> implements SysDeptjobService {
 
 	@Resource
 	public void setBaseDeptjobDao(SysDeptjobDao dao) {
@@ -68,8 +67,8 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	private static Logger logger = Logger.getLogger(SysDeptjobServiceImpl.class);
 
 	@Override
-	public QueryResult<BaseDeptjob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-		QueryResult<BaseDeptjob> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<DeptJob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+		QueryResult<DeptJob> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -83,7 +82,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -110,38 +109,38 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	 * @return
 	 */
 	@Override
-	public Boolean doBatchSetDeptJob(String deptId, String jobId, SysUser currentUser) {
+	public Boolean doBatchSetDeptJob(String deptId, String jobId, User currentUser) {
 		String[] jobIds = jobId.split(",");
 		String[] deptIds = deptId.split(",");
 		try {
 			// 待设置的部门清单
-			List<BaseOrg> setDeptList = deptService.queryByProerties("uuid", deptIds);
+			List<Department> setDeptList = deptService.queryByProerties("id", deptIds);
 
 			// 待设置部门的主负责岗位清单
 			String[] propName = { "deptId", "jobType" };
 			Object[] propValue = { deptIds, 0 };
-			List<BaseDeptjob> mainJob = this.queryByProerties(propName, propValue);
-			Map<String, BaseDeptjob> maps = new HashMap<String, BaseDeptjob>();
-			for (BaseDeptjob baseDeptjob : mainJob) {
+			List<DeptJob> mainJob = this.queryByProerties(propName, propValue);
+			Map<String, DeptJob> maps = new HashMap<String, DeptJob>();
+			for (DeptJob baseDeptjob : mainJob) {
 				maps.put(baseDeptjob.getDeptId(), baseDeptjob);
 			}
 			// 待设置部门已有岗位清单
 			Map<String, String> mapHasJob = new HashMap<String, String>();
-			List<BaseDeptjob> deptHasJob = this.queryByProerties("deptId", deptIds);
+			List<DeptJob> deptHasJob = this.queryByProerties("deptId", deptIds);
 			String key = "";
-			for (BaseDeptjob baseDeptjob : deptHasJob) {
+			for (DeptJob baseDeptjob : deptHasJob) {
 				key = baseDeptjob.getDeptId() + "," + baseDeptjob.getJobId();
 				mapHasJob.put(key, baseDeptjob.getJobId());
 				key = "";
 			}
 
-			BaseDeptjob deptjob = null;
-			for (BaseOrg setDept : setDeptList) {
+			DeptJob deptjob = null;
+			for (Department setDept : setDeptList) {
 				for (int i = 0; i < jobIds.length; i++) {
 					key = setDept.getId() + "," + jobIds[i];
 					if (mapHasJob.get(key) == null) {
-						BaseJob setJob = jobService.get(jobIds[i]);
-						deptjob = new BaseDeptjob();
+						Job setJob = jobService.get(jobIds[i]);
+						deptjob = new DeptJob();
 						deptjob.setDeptId(setDept.getId()); // 部门ID
 						deptjob.setDeptName(setDept.getNodeText()); // 部门名称
 						deptjob.setParentDeptId(setDept.getSuperDept());// 上级部门Id,默认为所在部门的上级主管岗位
@@ -184,7 +183,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	 * @return
 	 */
 	@Override
-	public Boolean delDeptJob(String deptJobId, SysUser currentUser) {
+	public Boolean delDeptJob(String deptJobId, User currentUser) {
 		try {
 			this.deleteByPK(deptJobId);
 			return true;
@@ -212,7 +211,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 
 	@Override
 	public String chkIsSuperJob(String deptJobId) {
-		BaseDeptjob deptjob = this.get(deptJobId);
+		DeptJob deptjob = this.get(deptJobId);
 
 		return this.chkIsSuperJob(deptjob.getDeptId(), deptjob.getJobId());
 	}
@@ -222,17 +221,17 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 		StringBuffer sbCheck = new StringBuffer();
 
 		// 检查指定部门的指定岗位是否其它部门岗位的上级
-		String[] propName = { "parentdeptId", "parentjobId" };
+		String[] propName = { "parentDeptId", "parentJobId" };
 		Object[] propValue = { deptid, jobId };
-		List<BaseDeptjob> isParentJob = this.queryByProerties(propName, propValue);
-		for (BaseDeptjob baseDeptjob : isParentJob) {
+		List<DeptJob> isParentJob = this.queryByProerties(propName, propValue);
+		for (DeptJob baseDeptjob : isParentJob) {
 			sbCheck.append(MessageFormat.format("{0},", baseDeptjob.getAllDeptJobName()));
 		}
 		// 检查指定部门的指定岗位是否其它部门的上级
 		propName[0] = "superDept";
 		propName[1] = "superJob";
-		List<BaseOrg> isSuperJob = deptService.queryByProerties(propName, propValue);
-		for (BaseOrg baseOrg : isSuperJob) {
+		List<Department> isSuperJob = deptService.queryByProerties(propName, propValue);
+		for (Department baseOrg : isSuperJob) {
 			sbCheck.append(MessageFormat.format("{0},", baseOrg.getAllDeptName()));
 		}
 		if (sbCheck.length() > 0)
@@ -242,7 +241,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	}
 
 	@Override
-	public Boolean doSetDeptLeaderJob(String deptId, String deptJobId, SysUser currentUser) {
+	public Boolean doSetDeptLeaderJob(String deptId, String deptJobId, User currentUser) {
 		try {
 			String[] conditionName = { "deptId", "jobType" };
 			Object[] conditionValue = { deptId, 0 };
@@ -256,7 +255,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 			propertyValue[0] = 0;
 			propertyValue[1] = currentUser.getId();
 			propertyValue[2] = new Date();
-			this.updateByProperties("uuid", deptJobId, propertyName, propertyValue);
+			this.updateByProperties("id", deptJobId, propertyName, propertyValue);
 			return true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -267,10 +266,10 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	}
 
 	@Override
-	public BaseDpetJobTree getDeptJobTree(String rootId, String whereSql) {
-		List<BaseDpetJobTree> list = getDeptJobTreeList(rootId, whereSql);
-		BaseDpetJobTree root = new BaseDpetJobTree();
-		for (BaseDpetJobTree node : list) {
+	public DpetJobTree getDeptJobTree(String rootId, String whereSql) {
+		List<DpetJobTree> list = getDeptJobTreeList(rootId, whereSql);
+		DpetJobTree root = new DpetJobTree();
+		for (DpetJobTree node : list) {
 			// 默认会找到根目录root（从sdfz迁移而来的bug，下面的判断找不到root）
 			if (node.getId().equals("2851655E-3390-4B80-B00C-52C7CA62CB39") || node.getParent().equals("ROOT")) {
 				root = node;
@@ -288,7 +287,7 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	}
 
 	@Override
-	public List<BaseDpetJobTree> getDeptJobTreeList(String root, String whereSql) {
+	public List<DpetJobTree> getDeptJobTreeList(String root, String whereSql) {
 		// StringBuilder sbSql = new StringBuilder("WITH ctr_child(id,text,
 		// iconcls,leaf,level,treeids,parent)");
 		// sbSql.append(" AS ( SELECT id,text, iconcls,leaf,level,treeids,parent
@@ -300,11 +299,11 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 		// INNER JOIN ctr_child b");
 		// sbSql.append(" ON a.parent=b.id) SELECT * FROM ctr_child ");
 		String sbSql = " EXEC BASE_P_GETDEPTJOBTREE";
-		List<BaseDpetJobTree> chilrens = new ArrayList<BaseDpetJobTree>();
+		List<DpetJobTree> chilrens = new ArrayList<DpetJobTree>();
 		List<?> alist = this.querySql(sbSql);
 		for (int i = 0; i < alist.size(); i++) {
 			Object[] obj = (Object[]) alist.get(i);
-			BaseDpetJobTree node = new BaseDpetJobTree();
+			DpetJobTree node = new DpetJobTree();
 			node.setId((String) obj[0]);
 			node.setText((String) obj[1]);
 			node.setIconCls((String) obj[2]);
@@ -323,10 +322,10 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 		return chilrens;
 	}
 
-	private void createTreeChildren(List<BaseDpetJobTree> childrens, BaseDpetJobTree root) {
+	private void createTreeChildren(List<DpetJobTree> childrens, DpetJobTree root) {
 		String parentId = root.getId();
 		for (int i = 0; i < childrens.size(); i++) {
-			BaseDpetJobTree node = childrens.get(i);
+			DpetJobTree node = childrens.get(i);
 			if (StringUtils.isNotEmpty(node.getParent()) && node.getParent().equals(parentId)) {
 				root.getChildren().add(node);
 				createTreeChildren(childrens, node);
@@ -350,20 +349,20 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	 * @return
 	 */
 	@Override
-	public Boolean doSetSuperJob(String ids, String setIds, String setType, SysUser currentUser) {
+	public Boolean doSetSuperJob(String ids, String setIds, String setType, User currentUser) {
 		String[] setId = setIds.split(",");
-		BaseDeptjob deptjob = this.get(ids);
+		DeptJob deptjob = this.get(ids);
 		String deptId = deptjob.getDeptId();
 		String deptName = deptjob.getDeptName();
 		String jobId = deptjob.getJobId();
 		String jobName = deptjob.getJobName();
 		try {
 			if ("dept".equals(setType)) {
-				List<BaseOrg> depts = deptService.queryByProerties("uuid", setId);
-				for (BaseOrg baseOrg : depts) {
+				List<Department> depts = deptService.queryByProerties("id", setId);
+				for (Department baseOrg : depts) {
 
 					// 获取旧的部门岗位数据，然后清除这个部门的用户部门树缓存
-					BaseDeptjob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
+					DeptJob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
 							new Object[] { 0, baseOrg.getSuperDept(), baseOrg.getSuperJob() });
 					if(oldDeptJob!=null)
 					this.delDeptTreeByDeptJob(oldDeptJob);
@@ -378,11 +377,11 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 					deptService.merge(baseOrg);
 				}
 			} else {
-				List<BaseDeptjob> setDeptJob = this.queryByProerties("uuid", setId);
-				for (BaseDeptjob baseDeptjob : setDeptJob) {
+				List<DeptJob> setDeptJob = this.queryByProerties("id", setId);
+				for (DeptJob baseDeptjob : setDeptJob) {
 
 					// 获取旧的部门岗位数据，然后清除这个部门的用户部门树缓存
-					BaseDeptjob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
+					DeptJob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
 							new Object[] { 0, baseDeptjob.getParentDeptId(), baseDeptjob.getParentJobId() });
 					if(oldDeptJob!=null)
 						this.delDeptTreeByDeptJob(oldDeptJob);
@@ -411,10 +410,10 @@ public class SysDeptjobServiceImpl extends BaseServiceImpl<BaseDeptjob> implemen
 	 * 
 	 * @param userIds
 	 */
-	public void delDeptTreeByDeptJob(BaseDeptjob deptJob) {
+	public void delDeptTreeByDeptJob(DeptJob deptJob) {
 		// TODO Auto-generated method stub
 		/* 删除用户的菜单redis数据，以至于下次刷新或请求时，可以加载最新数据 */
-		String hql = "select userId from BaseUserdeptjob o where o.deptjobId=? and o.isDelete=0 ";
+		String hql = "select userId from UserDeptJob o where o.deptJobId=? and o.isDelete=0 ";
 		List<String> userIds = this.queryEntityByHql(hql, deptJob.getId());
 					
 		if(userIds.size()>0){

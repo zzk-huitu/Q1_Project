@@ -1,8 +1,7 @@
 package com.zd.school.plartform.system.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseJob;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.Job;
 
 
 /**
@@ -18,8 +17,8 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
  
-public interface SysJobService extends BaseService<BaseJob> {
+public interface SysJobService extends BaseService<Job> {
 
-	BaseJob doUpdate(BaseJob entity, String xm);
+	Job doUpdate(Job entity, String xm);
 
 }

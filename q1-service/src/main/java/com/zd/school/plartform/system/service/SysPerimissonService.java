@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysPermission ;
+import com.zd.school.plartform.system.model.Permission;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.system.model.SysPermission ;
  * @since JDK 1.8
  */
  
-public interface SysPerimissonService extends BaseService<SysPermission> {
+public interface SysPerimissonService extends BaseService<Permission> {
 
 }

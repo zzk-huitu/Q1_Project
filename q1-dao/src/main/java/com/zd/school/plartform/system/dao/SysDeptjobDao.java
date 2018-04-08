@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.baseset.model.BaseDeptjob ;
+import com.zd.school.plartform.baseset.model.DeptJob;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.baseset.model.BaseDeptjob ;
  * @since JDK 1.8
  */
  
-public interface SysDeptjobDao extends BaseDao<BaseDeptjob> {
+public interface SysDeptjobDao extends BaseDao<DeptJob> {
 
 }

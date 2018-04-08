@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.system.model.SysMenu ;
+import com.zd.school.plartform.system.model.Menu;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.system.model.SysMenu ;
  * @since JDK 1.8
  */
  
-public interface SysMenuDao extends BaseDao<SysMenu> {
+public interface SysMenuDao extends BaseDao<Menu> {
 
 }

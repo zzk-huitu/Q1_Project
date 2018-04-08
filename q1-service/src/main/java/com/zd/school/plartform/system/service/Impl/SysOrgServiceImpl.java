@@ -23,19 +23,17 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwTBasecourse;
-import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.BaseCourse;
+import com.zd.school.jw.eduresources.model.Grade;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwTBasecourseService;
 import com.zd.school.jw.eduresources.service.JwTGradeService;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.baseset.model.BaseOrg;
-import com.zd.school.plartform.baseset.model.BaseOrgToUP;
-import com.zd.school.plartform.baseset.model.BaseOrgTree;
+import com.zd.school.plartform.baseset.model.Department;
+import com.zd.school.plartform.baseset.model.DepartmentTree;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.system.dao.SysOrgDao;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.plartform.system.model.SysUserToUP;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.plartform.system.service.SysUserService;
 import com.zd.school.redis.service.DeptRedisService;
@@ -51,7 +49,7 @@ import com.zd.school.redis.service.DeptRedisService;
  */
 @Service
 @Transactional
-public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOrgService {
+public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements SysOrgService {
 
 	@Resource
 	public void setBaseOrgDao(SysOrgDao dao) {
@@ -78,26 +76,26 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	private SysUserService sysUserService; // 人员service
 
 	@Override
-	public List<BaseOrgTree> getOrgTreeList(String whereSql, String orderSql, SysUser currentUser) {
+	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, User currentUser) {
 
 		
-		String hql = " from BaseOrg where isDelete = 0 order by parentNode,orderIndex";
-		List<BaseOrgTree> result = new ArrayList<BaseOrgTree>();
-		List<BaseOrg> lists = this.queryByHql(hql);
+		String hql = " from Department where isDelete = 0 order by parentNode,orderIndex";
+		List<DepartmentTree> result = new ArrayList<DepartmentTree>();
+		List<Department> lists = this.queryByHql(hql);
 		// for (BaseOrg baseOrg : rightDept) {
 		// maps.put(baseOrg.getId(), baseOrg);
 		// }
 		// 构建Tree数据
-		createChild(new BaseOrgTree(TreeVeriable.ROOT, new ArrayList<BaseOrgTree>()), result, lists);
+		createChild(new DepartmentTree(TreeVeriable.ROOT, new ArrayList<DepartmentTree>()), result, lists);
 
 		return result;
 	}
 
-	private void createChild(BaseOrgTree parentNode, List<BaseOrgTree> result, List<BaseOrg> list) {
+	private void createChild(DepartmentTree parentNode, List<DepartmentTree> result, List<Department> list) {
 		
-		List<BaseOrg> childs = new ArrayList<BaseOrg>();
+		List<Department> childs = new ArrayList<Department>();
 		String isRight = "1";
-		for (BaseOrg org : list) {
+		for (Department org : list) {
 			if (org.getParentNode().equals(parentNode.getId())) {
 				childs.add(org);
 			}
@@ -110,14 +108,14 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		// parent, Integer orderIndex,
 		// String deptType, String deptTypeName, String mainLeaderName, String
 		// viceLeaderName)
-		for (BaseOrg org : childs) {
+		for (Department org : childs) {
 			// if (maps.get(org.getId()) == null) {
 			// isRight = "1";
 			// } else {
 			isRight = "0";
 			// }
-			BaseOrgTree child = new BaseOrgTree(org.getId(), org.getNodeText(), "", org.getLeaf(), org.getNodeLevel(),
-					org.getTreeIds(),org.getParentNode(),org.getOrderIndex(), new ArrayList<BaseOrgTree>(),
+			DepartmentTree child = new DepartmentTree(org.getId(), org.getNodeText(), "", org.getLeaf(), org.getNodeLevel(),
+					org.getTreeIds(),org.getParentNode(),org.getOrderIndex(), new ArrayList<DepartmentTree>(),
 					org.getOutPhone(), org.getInPhone(), org.getFax(), org.getIsSystem(), org.getRemark(),
 					org.getNodeCode(), org.getDeptType(), org.getParentType(),
 					org.getMainLeaderName(), org.getSuperJob(),org.getSuperJobName(), 
@@ -126,7 +124,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 			if (org.getParentNode().equals(TreeVeriable.ROOT)) {
 				result.add(child);
 			} else {
-				List<BaseOrgTree> trees = parentNode.getChildren();
+				List<DepartmentTree> trees = parentNode.getChildren();
 				trees.add(child);
 				parentNode.setChildren(trees);
 			}
@@ -135,7 +133,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	}
 
 	@Override
-	public String delOrg(String delIds, SysUser currentUser) {
+	public String delOrg(String delIds, User currentUser) {
 		// 删除班级
 		//boolean flag = gradeService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 		// 删除年级
@@ -148,29 +146,29 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	
 		String[] delUuid = delIds.split(",");
 		for (String id : delUuid) {
-			BaseOrg org = this.get(id);
-			String hql = "select count(*) from BaseOrg where parentNode='" + org.getParentNode() + "' and isDelete=0";
+			Department org = this.get(id);
+			String hql = "select count(*) from Department where parentNode='" + org.getParentNode() + "' and isDelete=0";
 			Integer count = this.getQueryCountByHql(hql);
 			if (count.equals(0)) {
-				BaseOrg parentOrg = this.get(org.getParentNode());
+				Department parentOrg = this.get(org.getParentNode());
 				parentOrg.setLeaf(true);
 				parentOrg.setUpdateUser(currentUser.getId());
 				parentOrg.setUpdateTime(new Date());
 				this.merge(parentOrg);
 			}
 			String deptType = org.getDeptType();
-			List<SysUser> deptUser = sysUserService.getUserByDeptId(id);
+			List<User> deptUser = sysUserService.getUserByDeptId(id);
 			if (deptUser != null && deptUser.size() > 0) {
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				return org.getNodeText() + "部门下存在人员,请删除后重试";
 			}
 			switch (deptType) {
 			case "04": // 年级
-				JwTGrade grade = gradeService.get(id);
+				Grade grade = gradeService.get(id);
 				hql = "from JwTGradeclass where graiId='" + id + "'";
-				List<JwTGradeclass> gradeclasses = classService.queryByHql(hql);
+				List<GradeClass> gradeclasses = classService.queryByHql(hql);
 				// 检查年级下的班级是否存在人员
-				for (JwTGradeclass jwTGradeclass : gradeclasses) {
+				for (GradeClass jwTGradeclass : gradeclasses) {
 					hql = "select count(*) from JwClassstudent where isDelete=0 and claiId='" + jwTGradeclass.getId()
 							+ "'";
 					count = this.getQueryCountByHql(hql);
@@ -211,7 +209,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 						return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 					}
 				}
-				for (JwTGradeclass jwTGradeclass : gradeclasses) {
+				for (GradeClass jwTGradeclass : gradeclasses) {
 					jwTGradeclass.setIsDelete(1);
 					classService.merge(jwTGradeclass);
 				}
@@ -219,7 +217,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 				gradeService.merge(grade);
 				break;
 			case "05": // 班级
-				JwTGradeclass jwTGradeclass = classService.get(id);
+				GradeClass jwTGradeclass = classService.get(id);
 				hql = "select count(*) from JwClassstudent where isDelete=0 and claiId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
@@ -258,7 +256,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 				}
-				jwTGradeclass.setIsDelete(1);
+				GradeClass.setIsDelete(1);
 				classService.merge(jwTGradeclass);
 				break;
 			default:
@@ -285,7 +283,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	 *      com.zd.school.plartform.system.model.SysUser)
 	 */
 	@Override
-	public BaseOrg addOrg(BaseOrg entity, SysUser currentUser)
+	public Department addOrg(Department entity, User currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		String parentNode = entity.getParentNode();
 		String parentName = entity.getParentName();
@@ -298,11 +296,11 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		// BaseOrg saveEntity = null;
 		String courseId = null;
 		if (deptType.equals("06")) {
-			JwTBasecourse course = courseService.getByProerties("courseName", nodeText);
+			BaseCourse course = courseService.getByProerties("courseName", nodeText);
 			courseId = course.getId();
 		}
 
-		BaseOrg saveEntity = new BaseOrg();
+		Department saveEntity = new Department();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("uuid");
 		BeanUtils.copyProperties(saveEntity, entity,excludedProp);	
@@ -314,7 +312,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		saveEntity.setCourseId(courseId);
 		
 		if (!parentNode.equals(TreeVeriable.ROOT)) {
-			BaseOrg parEntity = this.get(parentNode);
+			Department parEntity = this.get(parentNode);
 			parEntity.setLeaf(false);
 			this.merge(parEntity);
 			saveEntity.BuildNode(parEntity);		
@@ -338,7 +336,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		String orgId = entity.getId();
 		switch (deptType) {
 		case "04": // 年级
-			JwTGrade grade = new JwTGrade(orgId);
+			Grade grade = new JwTGrade(orgId);
 			grade.setGradeName(entity.getNodeText());
 			grade.setCreateUser(currentUser.getId());
 			grade.setOrderIndex(entity.getOrderIndex());
@@ -349,8 +347,8 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 			gradeService.merge(grade);
 			break;
 		case "05": // 班级
-			JwTGrade gradea=gradeService.get(parentNode);
-			JwTGradeclass gradeclass = new JwTGradeclass(orgId);
+			Grade gradea=gradeService.get(parentNode);
+			GradeClass gradeclass = new GradeClass(orgId);
 			gradeclass.setClassName(entity.getNodeText());
 			gradeclass.setOrderIndex(entity.getOrderIndex());
 			gradeclass.setIsDelete(0);
@@ -369,12 +367,12 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	}
 
 	@Override
-	public List<BaseOrg> getOrgList(String whereSql, String orderSql, SysUser currentUser) {
+	public List<Department> getOrgList(String whereSql, String orderSql, User currentUser) {
 
 		StringBuffer hql = new StringBuffer(" from BaseOrg where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(orderSql);
-		List<BaseOrg> lists = this.queryByHql(hql.toString());// 执行查询方法
+		List<Department> lists = this.queryByHql(hql.toString());// 执行查询方法
 
 		// 当前登录人的部门信息
 		// String deptId = currentUser.getDeptId();
@@ -444,14 +442,14 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	}
 
 	@Override
-	public List<BaseOrg> getOrgAndChildList(String deptId, String orderSql, SysUser currentUser, Boolean isRight) {
+	public List<Department> getOrgAndChildList(String deptId, String orderSql, User currentUser, Boolean isRight) {
 
 		String treeIds = "";
 		String sql = "";
 		StringBuffer rightDeptIds = new StringBuffer();
-		BaseOrg selfDept = this.get(deptId);
-		List<BaseOrg> rightList = new ArrayList<BaseOrg>();
-		List<BaseOrg> reList = new ArrayList<BaseOrg>();
+		Department selfDept = this.get(deptId);
+		List<Department> rightList = new ArrayList<Department>();
+		List<Department> reList = new ArrayList<Department>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
 			sql = " from BaseOrg WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
@@ -462,7 +460,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 			rightList = this.getOrgList("", "", currentUser);
 			List<Object> filterList = new ArrayList<Object>();
 			if (rightList.size() > 0) {
-				for (BaseOrg bg : rightList) {
+				for (Department bg : rightList) {
 					filterList.add(bg.getId());
 				}
 				sql += " and uuid in (:depts)";
@@ -477,33 +475,33 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 
 	@Override
 	public Integer getChildCount(String deptId) {
-		String hql = " select count(*) from BaseOrg where isDelete=0 and parentNode='" + deptId + "'";
+		String hql = " select count(*) from Department where isDelete=0 and parentNode='" + deptId + "'";
 		Integer childCount = this.getQueryCountByHql(hql);
 		// TODO Auto-generated method stub
 		return childCount;
 	}
 
 	@Override
-	public List<BaseOrgTree> getOrgTreeList(String whereSql, String orderSql, String deptId, SysUser currentUser) {
+	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, SysUser currentUser) {
 
 		// 先查询出当前用户有权限的部门数据
-		List<BaseOrg> listOrg = this.getOrgList(whereSql, orderSql, currentUser);
+		List<Department> listOrg = this.getOrgList(whereSql, orderSql, currentUser);
 		// 根据部门数据生成带checkbox的树
 
-		List<BaseOrgTree> result = new ArrayList<BaseOrgTree>();
+		List<DepartmentTree> result = new ArrayList<DepartmentTree>();
 		if (deptId.equals(TreeVeriable.ROOT)) {
-			createChild(new BaseOrgTree(TreeVeriable.ROOT, new ArrayList<BaseOrgTree>()), result, listOrg);
+			createChild(new DepartmentTree(TreeVeriable.ROOT, new ArrayList<DepartmentTree>()), result, listOrg);
 		}else{//当传进来的根节点不是root时 ，是部门id时
-			createDeptChildTree(new BaseOrgTree(deptId, new ArrayList<BaseOrgTree>()), result, listOrg,deptId);
+			createDeptChildTree(new DepartmentTree(deptId, new ArrayList<DepartmentTree>()), result, listOrg,deptId);
 		}
 	
 		
 		return result;
 	}
 
-	private void createDeptChildTree(BaseOrgTree parentNode, List<BaseOrgTree> result, List<BaseOrg> list,String deptId) {
-		List<BaseOrg> childs = new ArrayList<BaseOrg>();
-		for (BaseOrg org : list) {
+	private void createDeptChildTree(DepartmentTree parentNode, List<DepartmentTree> result, List<BaseOrg> list,String deptId) {
+		List<Department> childs = new ArrayList<Department>();
+		for (Department org : list) {
 			if (org.getId().equals(deptId)) {
 				childs.add(org);
 				continue;
@@ -514,9 +512,9 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 			}
 		}
 		
-		for (BaseOrg org : childs) {
-			BaseOrgTree child = new BaseOrgTree(org.getId(), org.getNodeText(), "", org.getLeaf(), org.getNodeLevel(),
-					org.getTreeIds(),org.getParentNode(),org.getOrderIndex(), new ArrayList<BaseOrgTree>(),
+		for (Department org : childs) {
+			DepartmentTree child = new DepartmentTree(org.getId(), org.getNodeText(), "", org.getLeaf(), org.getNodeLevel(),
+					org.getTreeIds(),org.getParentNode(),org.getOrderIndex(), new ArrayList<DepartmentTree>(),
 					org.getOutPhone(), org.getInPhone(), org.getFax(), org.getIsSystem(), org.getRemark(),
 					org.getNodeCode(), org.getDeptType(), org.getParentType(),
 					org.getMainLeaderName(), org.getSuperJob(),org.getSuperJobName(), 
@@ -525,7 +523,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 			if (org.getId().equals(deptId)) {
 				result.add(child);
 			} else {
-				List<BaseOrgTree> trees = parentNode.getChildren();
+				List<DepartmentTree> trees = parentNode.getChildren();
 				trees.add(child);
 				parentNode.setChildren(trees);
 			}
@@ -537,19 +535,19 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		String treeIds = "";
 		String hql = "";
 		StringBuffer sbOrgIds = new StringBuffer();
-		BaseOrg selfDept = this.get(orgId);
+		Department selfDept = this.get(orgId);
 
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
-			hql = " from BaseOrg WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
+			hql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
-			hql = " from BaseOrg WHERE isDelete=0 ";
+			hql = " from Department WHERE isDelete=0 ";
 		}
-		List<BaseOrg> reList = this.queryByHql(hql);
+		List<Department> reList = this.queryByHql(hql);
 		if (!isSelf) {
 			reList.remove(selfDept);
 		}
-		for (BaseOrg baseOrg : reList) {
+		for (Department baseOrg : reList) {
 			sbOrgIds.append(baseOrg.getId() + ",");
 		}
 
@@ -562,97 +560,40 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	}
 
 	@Override
-	public Map<String, BaseOrg> getOrgChildMaps(String orgId, boolean isSelf) {
+	public Map<String, Department> getOrgChildMaps(String orgId, boolean isSelf) {
 		String treeIds = "";
 		String hql = "";
 		StringBuffer sbOrgIds = new StringBuffer();
-		BaseOrg selfDept = this.get(orgId);
-		Map<String, BaseOrg> maps = new HashMap<String, BaseOrg>();
+		Department selfDept = this.get(orgId);
+		Map<String, Department> maps = new HashMap<String, Department>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
-			hql = " from BaseOrg WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
+			hql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
-			hql = " from BaseOrg WHERE isDelete=0 ";
+			hql = " from Department WHERE isDelete=0 ";
 		}
-		List<BaseOrg> reList = this.queryByHql(hql);
+		List<Department> reList = this.queryByHql(hql);
 		if (!isSelf) {
 			reList.remove(selfDept);
 		}
-		for (BaseOrg baseOrg : reList) {
+		for (Department baseOrg : reList) {
 			maps.put(baseOrg.getId(), baseOrg);
 		}
 		// TODO Auto-generated method stub
 		return maps;
 	}
 
-	@Override
-	public int syncDeptInfoToUP(BaseOrgToUP baseOrgToUP, String smallDeptId) {
-		// TODO Auto-generated method stub
-		int row = 0;
-		try {
-			// 1.查询该数据源中的此部门的信息
-			String sql = "SELECT departmentId,parentDepartmentId,convert(varchar(1),DepartmentStatus) departmentStatus,"
-					+ " convert(varchar(36),departmentName) as departmentName,"
-					+ " convert(varchar,layer) as layer,convert(varchar,layerorder) as layerorder "
-					+ " FROM TC_Department " + " where DepartmentID = '" + smallDeptId + "'"
-					+ " order by DepartmentID asc";
 
-			List<BaseOrgToUP> upDeptInfos = this.queryEntityBySql(sql, BaseOrgToUP.class);
-
-			// 2.判断用户信息该作哪种处理
-			if (upDeptInfos.isEmpty()) { // 若UP没有此数据，则增加
-				if (baseOrgToUP != null) {
-					String sqlInsert = "insert into TC_Department(DepartmentID,ParentDepartmentID,DepartmentName,DepartmentStatus,layer,layerorder) "
-							+ " values('" + baseOrgToUP.getDepartmentId() + "','" + baseOrgToUP.getParentDepartmentId()
-							+ "'," + "'" + baseOrgToUP.getDepartmentName() + "',1,'" + baseOrgToUP.getLayer() + "','"
-							+ baseOrgToUP.getLayerorder() + "')";
-
-					row = this.doExecuteCountBySql(sqlInsert);
-				}
-			} else { // 若存在，则判断是修改还是删除
-				BaseOrgToUP upDeptInfo = upDeptInfos.get(0);
-
-				if (baseOrgToUP == null) { // 没有此部门数据，则删除
-					String sqlDelete = "update TC_Department set DepartmentStatus='0' where DepartmentID='"
-							+ smallDeptId + "'";// 逻辑删除
-					row = this.doExecuteCountBySql(sqlDelete);
-
-				} else { // 若数据都存在，则判断是否有修改
-					if (!baseOrgToUP.equals(upDeptInfo)) { // 对比部分数据是否一致
-						String sqlUpdate = "update TC_Department set ParentDepartmentID='"
-								+ baseOrgToUP.getParentDepartmentId() + "',DepartmentStatus='1'," + " DepartmentName='"
-								+ baseOrgToUP.getDepartmentName() + "',layer='" + baseOrgToUP.getLayer() + "',"
-								+ "layerorder='" + baseOrgToUP.getLayerorder() + "'" + " where DepartmentID='"
-								+ smallDeptId + "'";
-
-						row = this.doExecuteCountBySql(sqlUpdate);
-						
-					} else if (upDeptInfo.getDepartmentStatus().equals("0")) { // 若状态为0，则置为1
-						String sqlUpdate = "update TC_Department set DepartmentStatus='1'" 
-								+ " where DepartmentID='" + smallDeptId + "'";
-
-						row = this.doExecuteCountBySql(sqlUpdate);
-						
-					}
-				}
-			}
-
-		} catch (Exception e) {
-			row = -1;
-		}
-
-		return row;
-	}
 
 	@Override
-	public BaseOrg doUpdate(BaseOrg entity, String userId) {
+	public Department doUpdate(Department entity, String userId) {
 		String parentNode = entity.getParentNode();	
 		String nodeText = entity.getNodeText();
 		String uuid = entity.getId();
 		String deptType = entity.getDeptType();
 		
 		// 先拿到已持久化的实体
-		BaseOrg perEntity = this.get(uuid);
+		Department perEntity = this.get(uuid);
 		Boolean isLeaf = perEntity.getLeaf();
 		String oldDeptName = perEntity.getNodeText();
 		//String OldParentNode=perEntity.getParentNode();
@@ -671,7 +612,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 
 
 		// 更新父节点的是否叶节点的标记
-		BaseOrg parentOrg = this.get(parentNode);
+		Department parentOrg = this.get(parentNode);
 		if(parentOrg!=null){
 			parentOrg.setUpdateTime(new Date()); // 设置修改时间
 			parentOrg.setUpdateUser(userId); // 设置修改人的中文名
@@ -693,7 +634,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		entity = this.merge(perEntity);// 执行修改方法
 		
 		if (deptType.equals("04")) { // 年级
-			JwTGrade grade = gradeService.get(uuid);
+			Grade grade = gradeService.get(uuid);
 			grade.setGradeName(nodeText);
 			grade.setUpdateUser(userId);
 			grade.setOrderIndex(entity.getOrderIndex());
@@ -703,7 +644,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 			grade.setGradeCode(entity.getSectionCode()+entity.getGrade());
 			gradeService.merge(grade);
 		} else if (deptType.equals("05")) { // 班级
-			JwTGradeclass gradeclass = classService.get(uuid);
+			GradeClass gradeclass = classService.get(uuid);
 			gradeclass.setClassName(nodeText);
 			gradeclass.setUpdateUser(userId);
 			gradeclass.setOrderIndex(entity.getOrderIndex());
@@ -745,7 +686,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		this.doExecuteCountByHql(updateHql3);	
 	}
 	@Override
-	public void setChildAllDeptName(BaseOrg dept,String parentAllDeptName){	
+	public void setChildAllDeptName(Department dept,String parentAllDeptName){	
 		//1.设置当前类的全部门名
 		String currentAllName="";
 		if(!"ROOT".equals(parentAllDeptName))
@@ -761,91 +702,13 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		this.doExecuteCountByHql(updateHql);	
 		
 		//3.递归遍历设置子部门的全部门名
-		List<BaseOrg> childDepts = this.queryByProerties(new String[]{"isDelete","parentNode"}, new Object[]{0,dept.getId()});
+		List<Department> childDepts = this.queryByProerties(new String[]{"isDelete","parentNode"}, new Object[]{0,dept.getId()});
 		for(int i=0;i<childDepts.size();i++){
 			this.setChildAllDeptName(childDepts.get(i),currentAllName);
 		}
 		
 	}
 
-	@Override
-	public int syncAllDeptInfoToUP(List<BaseOrgToUP> deptInfos) {
-		// TODO Auto-generated method stub
-		int row = 0;
-		try {
-			// 1.查询该数据源中的此部门的信息(排除班级部门Train)
-			String sql = "SELECT departmentId,parentDepartmentId,convert(varchar(1),DepartmentStatus) departmentStatus,"
-					+ " convert(varchar(36),departmentName) as departmentName,"
-					+ " convert(varchar,layer) as layer,convert(varchar,layerorder) as layerorder "
-					+ " FROM TC_Department " + " where DepartmentID not like 'Train%'"	
-					+ " order by DepartmentID asc";
-
-			List<BaseOrgToUP> upDeptInfos = this.queryEntityBySql(sql, BaseOrgToUP.class);
-			
-			// 循环对比
-			BaseOrgToUP currentDept = null;
-			BaseOrgToUP upDept = null;
-			boolean isExist = false;
-			StringBuffer sqlSb = new StringBuffer();
-			for(int i=0;i<deptInfos.size();i++){			
-				currentDept = deptInfos.get(i);
-				isExist = false;
-				
-				if(currentDept.getDepartmentId()==null)	//若此部门没有这个id，则不处理他
-					continue;
-				
-				for (int j = 0; j < upDeptInfos.size(); j++) {
-					upDept = upDeptInfos.get(j);
-					
-					if(currentDept.getDepartmentId().equals(upDept.getDepartmentId())){
-						isExist = true;
-						
-						if (!currentDept.equals(upDept)) { // 对比部分数据是否一致
-							sqlSb.append(" update TC_Department set ParentDepartmentID='"
-									+ currentDept.getParentDepartmentId() + "',DepartmentStatus='1'," + " DepartmentName='"
-									+ currentDept.getDepartmentName() + "',layer=" + currentDept.getLayer() + ","
-									+ "layerorder='" + currentDept.getLayerorder() + "'" + " where DepartmentID='"
-									+ currentDept.getDepartmentId() + "'");
-						
-						} else if (upDept.getDepartmentStatus().equals("0")) { // 若状态为0，则置为1
-							sqlSb.append(" update TC_Department set DepartmentStatus='1'" 
-									+ " where DepartmentID='" + currentDept.getDepartmentId() + "'");
-				
-						}		
-						upDeptInfos.remove(j);
-						break; // 跳出
-					}
-								
-				}
-							
-				if (!isExist) {
-					sqlSb.append(" insert into TC_Department(DepartmentID,ParentDepartmentID,DepartmentName,DepartmentStatus,layer,layerorder) "
-							+ " values('" + currentDept.getDepartmentId() + "','" + currentDept.getParentDepartmentId()
-							+ "'," + "'" + currentDept.getDepartmentName() + "',1," + currentDept.getLayer() + ",'"
-							+ currentDept.getLayerorder() + "')");
-				
-				}
-
-				// 若积累的语句长度大于2000（大约50条语句左右），则执行
-				if (sqlSb.length() > 2000) {
-					row += this.doExecuteCountBySql(sqlSb.toString());
-					sqlSb.setLength(0); // 清空
-				}
-			}
-			
-			// 最后执行一次
-			if (sqlSb.length() > 0)
-				row += this.doExecuteCountBySql(sqlSb.toString());
-			
-		} catch (Exception e) {
-			// 捕获了异常后，要手动进行回滚； 还需要进行验证测试是否完全正确。
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-			row = -1;
-		}
-
-		return row;
-		
-	}
 
 	
 	
@@ -878,8 +741,8 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		// TODO Auto-generated method stub
 		//1.查询第一层的部门
 		String hql="from BaseOrg where nodeLevel=1 and isDelete=0 order by orderIndex asc,nodeText asc";
-		List<BaseOrg>  lists = this.queryByHql(hql);
-		BaseOrg temp=null;
+		List<Department>  lists = this.queryByHql(hql);
+		Department temp=null;
 		long initValue=100;
 		for(int i=0;i<lists.size();i++){
 			temp=lists.get(i);
@@ -898,8 +761,8 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	
 	private void createChildFuId(String parentNodeId,long initValue,String parentFuId){
 		String hql="from BaseOrg where parentNode='"+parentNodeId+"' and isDelete=0 order by orderIndex asc,nodeText asc";
-		List<BaseOrg>  lists = this.queryByHql(hql);
-		BaseOrg temp=null;
+		List<Department>  lists = this.queryByHql(hql);
+		Department temp=null;
 		for(int i=0;i<lists.size();i++){
 			temp=lists.get(i);
 			temp.setExtField05(parentFuId);
@@ -913,34 +776,13 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		}
 	}
 	
-	//只用于更新当前UP库中用户的部门ID
+
 	@Override
-	public void syncAllUserDeptInfoToUP(List<SysUserToUP> userInfos) {
-		// TODO Auto-generated method stub
-		this.getSession().doWork((x)->{
-			SysUserToUP sut=null;
-			String sqlUpdate = " update Tc_Employee set DepartmentID=? where UserId=?";
-			PreparedStatement ps=x.prepareStatement(sqlUpdate);
-			for(int i=0;i<userInfos.size();i++){
-				sut=userInfos.get(i);
-				ps.setString(1, sut.getEmployeeId());
-				ps.setString(2, sut.getUserId());
-				
-				ps.addBatch();
-				
-				if((i+1)%30==0){
-					ps.executeBatch();
-				}
-			}
-			ps.executeBatch();
-		});
-	}
-	@Override
-	public List<BaseOrg> getUserRightDeptList(SysUser currentUser) {
+	public List<Department> getUserRightDeptList(User currentUser) {
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
 		String hql = "";
-		List<BaseOrg> list = new ArrayList<>();
+		List<Department> list = new ArrayList<>();
 		if ("0".equals(rightType )) {
 			// 有所有部门权限
 			hql = " from BaseOrg WHERE isDelete=0 order by parentNode,orderIndex asc ";
@@ -953,11 +795,11 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 					"SELECT DEPT_ID ,CREATE_TIME ,CREATE_USER ,EXT_FIELD01 ,EXT_FIELD02 ,EXT_FIELD03 ,EXT_FIELD04 ,EXT_FIELD05 ,ISDELETE ,ORDER_INDEX ,UPDATE_TIME ,UPDATE_USER ,VERSION ,ISLEAF ,NODE_CODE ,NODE_LEVEL ,NODE_TEXT ,PARENT_NODE ,TREE_IDS ,DEPT_TYPE ,FAX ,IN_PHONE ,ISSYSTEM ,MAIN_LEADER ,OUT_PHONE ,REMARK ,VICE_LEADER ,SUPER_JOB ,SUPER_DEPT ,ALL_DEPTNAME ,SUPERDEPT_NAME ,SUPERJOB_NAME FROM dbo.SYS_V_USERRIGHTDEPT WHERE USER_ID=''{0}'' ORDER BY PARENT_NODE,ORDER_INDEX ASC",
 					userId);
 			List<?> alist = this.querySql(sql);
-			BaseOrg dept = null;
+			Department dept = null;
 			Integer length = alist.size();
 			for (int i = 0; i < length; i++) {
 				Object[] obj = (Object[]) alist.get(i);
-				dept = new BaseOrg();
+				dept = new Department();
 				dept.setId((String) obj[0]);
 				dept.setIsDelete((Integer) obj[8]);
 				dept.setOrderIndex((Integer) obj[9]);
@@ -990,13 +832,13 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	
 	@Transactional(readOnly=true)
 	@Override
-	public BaseOrgTree getUserRightDeptTree(SysUser currentUser, String rootId) {
+	public DepartmentTree getUserRightDeptTree(User currentUser, String rootId) {
 		//1.查询部门的数据，并封装到实体类中
-		List<BaseOrgTree> list = getUserRightDeptTreeList(currentUser);
+		List<DepartmentTree> list = getUserRightDeptTreeList(currentUser);
 		
 		//2.找到根节点
-		BaseOrgTree root = new BaseOrgTree();
-		for (BaseOrgTree node : list) {			
+		DepartmentTree root = new DepartmentTree();
+		for (DepartmentTree node : list) {			
 			//if (!(StringUtils.isNotEmpty(node.getParent()) && !node.getId().equals(rootId))) {
 			if ( StringUtils.isEmpty(node.getParent()) || node.getId().equals(rootId)) {
 				root = node;
@@ -1012,7 +854,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	
 	@Transactional(readOnly=true)
 	@Override
-	public List<BaseOrgTree> getUserRightDeptTreeList(SysUser currentUser) {
+	public List<DepartmentTree> getUserRightDeptTreeList(User currentUser) {
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
 		
@@ -1020,7 +862,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		//先从redis中取数据	
 		Object userRightDeptTree = deptRedisService.getRightDeptTreeByUser(userId);
 		if (userRightDeptTree != null) { // 若存在,则直接返回redis数据
-			return (List<BaseOrgTree>)userRightDeptTree;	
+			return (List<DepartmentTree>)userRightDeptTree;	
 		}
 		
 		//若当前用户是超级管理员或学校管理员，那就直接查询所有部门
@@ -1031,11 +873,11 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		
 		
 		String sql = MessageFormat.format("EXECUTE SYS_P_GETUSERRIGHTDEPTTREE ''{0}'',{1}", userId, rightType);
-		List<BaseOrgTree> chilrens = new ArrayList<BaseOrgTree>();
+		List<DepartmentTree> chilrens = new ArrayList<DepartmentTree>();
 		List<?> alist = this.queryObjectBySql(sql);
 		for (int i = 0; i < alist.size(); i++) {
 			Object[] obj = (Object[]) alist.get(i);
-			BaseOrgTree node = new BaseOrgTree();
+			DepartmentTree node = new DepartmentTree();
 			node.setId((String) obj[0]);
 			node.setText((String) obj[1]);
 			node.setIconCls((String) obj[2]);
@@ -1070,10 +912,10 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 		return chilrens;
 	}
 	
-	private void createTreeChildren(List<BaseOrgTree> childrens, BaseOrgTree root) {
+	private void createTreeChildren(List<DepartmentTree> childrens, DepartmentTree root) {
 		String parentId = root.getId();
 		for (int i = 0; i < childrens.size(); i++) {
-			BaseOrgTree node = childrens.get(i);
+			DepartmentTree node = childrens.get(i);
 			if (StringUtils.isNotEmpty(node.getParent()) && node.getParent().equals(parentId)) {
 				root.getChildren().add(node);
 				createTreeChildren(childrens, node);
@@ -1093,7 +935,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	 */
 	@Transactional(readOnly=true)
 	@Override
-	public List<CommTree> getUserRightDeptClassTreeList(SysUser currentUser) {
+	public List<CommTree> getUserRightDeptClassTreeList(User currentUser) {
 				
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
@@ -1149,7 +991,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<BaseOrg> implements SysOr
 	 */
 	@Transactional(readOnly=true)
 	@Override
-	public List<CommTree> getUserRightDeptDisciplineTreeList(SysUser currentUser) {
+	public List<CommTree> getUserRightDeptDisciplineTreeList(User currentUser) {
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
 		

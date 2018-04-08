@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.baseset.model.BaseOrg ;
+import com.zd.school.plartform.baseset.model.Department;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.baseset.model.BaseOrg ;
  * @since JDK 1.8
  */
  
-public interface SysOrgDao extends BaseDao<BaseOrg> {
+public interface SysOrgDao extends BaseDao<Department> {
 
 }

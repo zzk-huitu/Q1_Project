@@ -4,16 +4,16 @@ package com.zd.school.plartform.system.service;
 import java.util.List;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysMenuPermission;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.MenuPermission;
+import com.zd.school.plartform.system.model.User;
 
 
-public interface SysMenuPermissionService extends BaseService<SysMenuPermission> {
+public interface SysMenuPermissionService extends BaseService<MenuPermission> {
 
-	List<SysMenuPermission> getRoleMenuPerlist(String roleId, String perId);
+	List<MenuPermission> getRoleMenuPerlist(String roleId, String perId);
 
-	SysMenuPermission doAddEntity(SysMenuPermission entity, SysUser currentUser);
+	MenuPermission doAddEntity(MenuPermission entity, User currentUser);
 
-	SysMenuPermission doUpdateEntity(SysMenuPermission entity, SysUser currentUser);
+	MenuPermission doUpdateEntity(MenuPermission entity, User currentUser);
 
 }

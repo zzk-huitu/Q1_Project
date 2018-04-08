@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.plartform.system.model.SysPermission ;
 import com.zd.school.plartform.system.dao.SysPerimissonDao ;
+import com.zd.school.plartform.system.model.Permission;
 import com.zd.school.plartform.system.service.SysPerimissonService ;
 
 /**
@@ -24,7 +24,7 @@ import com.zd.school.plartform.system.service.SysPerimissonService ;
  */
 @Service
 @Transactional
-public class SysPerimissonServiceImpl extends BaseServiceImpl<SysPermission> implements SysPerimissonService{
+public class SysPerimissonServiceImpl extends BaseServiceImpl<Permission> implements SysPerimissonService{
 
     @Resource
     public void setBaseTPerimissonDao(SysPerimissonDao dao) {

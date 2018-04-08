@@ -16,12 +16,10 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseOrg;
-import com.zd.school.plartform.baseset.model.BaseOrgToUP;
-import com.zd.school.plartform.baseset.model.BaseOrgTree;
+import com.zd.school.plartform.baseset.model.Department;
+import com.zd.school.plartform.baseset.model.DepartmentTree;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.plartform.system.model.SysUserToUP;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * ClassName:BaseOrgService Function: TODO ADD FUNCTION. Reason: TODO ADD
@@ -33,7 +31,7 @@ import com.zd.school.plartform.system.model.SysUserToUP;
  * @see
  */
 @Transactional
-public interface SysOrgService extends BaseService<BaseOrg> {
+public interface SysOrgService extends BaseService<Department> {
 
     /**
      * 
@@ -50,7 +48,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<BaseOrgTree> getOrgTreeList(String whereSql, String orderSql, SysUser currentUser);
+    public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, User currentUser);
 
     /**
      * 
@@ -65,7 +63,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public String delOrg(String delIds, SysUser currentUser);
+    public String delOrg(String delIds, User currentUser);
 
     /**
      * 
@@ -83,7 +81,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public BaseOrg addOrg(BaseOrg entity, SysUser currentUser) throws IllegalAccessException, InvocationTargetException;
+    public Department addOrg(Department entity, User currentUser) throws IllegalAccessException, InvocationTargetException;
 
     /**
      * 
@@ -97,7 +95,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<BaseOrg> getOrgList(String whereSql, String orderSql, SysUser currentUser);
+    public List<Department> getOrgList(String whereSql, String orderSql, User currentUser);
 
     /**
      * 
@@ -116,7 +114,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<BaseOrg> getOrgAndChildList(String deptId, String orderSql, SysUser currentUser, Boolean isRight);
+    public List<Department> getOrgAndChildList(String deptId, String orderSql, User currentUser, Boolean isRight);
 
     public Integer getChildCount(String deptId);
 
@@ -132,7 +130,7 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<BaseOrgTree> getOrgTreeList(String whereSql, String orderSql, String deptId, SysUser currentUser);
+    public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, User currentUser);
 
     /**
      * 
@@ -160,23 +158,19 @@ public interface SysOrgService extends BaseService<BaseOrg> {
      * @throws @since
      *             JDK 1.8
      */
-    public Map<String, BaseOrg> getOrgChildMaps(String OrgId, boolean isSelf);
+    public Map<String, Department> getOrgChildMaps(String OrgId, boolean isSelf);
 
-	public int syncDeptInfoToUP(BaseOrgToUP baseOrgToUP, String smallDeptId);
-
-	public BaseOrg doUpdate(BaseOrg entity, String xm);
+	public Department doUpdate(Department entity, String xm);
 
 	public Integer getDeptJobCount(String uuid);
 
 	public void setDeptName(String deptName, String uuid);
 
-	public void setChildAllDeptName(BaseOrg dept, String parentAllDeptName);
-
-	public int syncAllDeptInfoToUP(List<BaseOrgToUP> deptInfo);
+	public void setChildAllDeptName(Department dept, String parentAllDeptName);
 
 	public void doCreateFuId();
 
-	public void syncAllUserDeptInfoToUP(List<SysUserToUP> userInfos);
+	
 
 	/**
 	 * 获取指定用户有权限的部门列表
@@ -185,27 +179,27 @@ public interface SysOrgService extends BaseService<BaseOrg> {
 	 *            指定的用户对象
 	 * @return
 	 */
-	public List<BaseOrg> getUserRightDeptList(SysUser currentUser);
+	public List<Department> getUserRightDeptList(User currentUser);
 
-	public BaseOrgTree getUserRightDeptTree(SysUser currentUser, String node);
+	public DepartmentTree getUserRightDeptTree(User currentUser, String node);
 	
 	/**
 	 * 用户有权限的部门列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<BaseOrgTree> getUserRightDeptTreeList(SysUser currentUser);
+	public List<DepartmentTree> getUserRightDeptTreeList(User currentUser);
 	/**
 	 * 用户有权限的班级列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<CommTree> getUserRightDeptClassTreeList(SysUser currentUser);
+	public List<CommTree> getUserRightDeptClassTreeList(User currentUser);
 	/**
 	 * 用户有权限的学科列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<CommTree> getUserRightDeptDisciplineTreeList(SysUser currentUser);
+	public List<CommTree> getUserRightDeptDisciplineTreeList(User currentUser);
 	
 }

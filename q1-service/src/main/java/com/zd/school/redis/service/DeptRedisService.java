@@ -2,7 +2,7 @@ package com.zd.school.redis.service;
 
 import java.util.List;
 
-import com.zd.school.plartform.baseset.model.BaseOrgTree;
+import com.zd.school.plartform.baseset.model.DepartmentTree;
 import com.zd.school.plartform.comm.model.CommTree;
 
 public interface DeptRedisService {
@@ -12,7 +12,7 @@ public interface DeptRedisService {
 	public Object getRightDeptDisciplineTreeByUser(String userId);
 	
 	
-	public void setRightDeptTreeByUser(String userId,List<BaseOrgTree> values);	
+	public void setRightDeptTreeByUser(String userId,List<DepartmentTree> values);	
 	public void setRightDeptClassTreeByUser(String userId,List<CommTree> values);
 	public void setRightDeptDisciplineTreeByUser(String userId,List<CommTree> values);
 	

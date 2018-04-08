@@ -30,8 +30,8 @@ public class UserDeptJob extends BaseEntity implements Serializable {
 	private String userId;
 
 	@FieldInfo(name = "部门岗位ID", type = "varchar(20) NOT NULL", explain = "用户的部门岗位ID")
-	@Column(name = "deptjobId", length = 20, nullable = false)
-	private String deptjobId;
+	@Column(name = "deptJobId", length = 20, nullable = false)
+	private String deptJobId;
 
 	@FieldInfo(name = "部门ID", type = "varchar(20) NOT NULL", explain = "用户的部门ID")
 	@Column(name = "deptId", length = 20, nullable = false)
@@ -87,12 +87,13 @@ public class UserDeptJob extends BaseEntity implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getDeptjobId() {
-		return deptjobId;
+
+	public String getDeptJobId() {
+		return deptJobId;
 	}
 
-	public void setDeptjobId(String deptjobId) {
-		this.deptjobId = deptjobId;
+	public void setDeptJobId(String deptJobId) {
+		this.deptJobId = deptJobId;
 	}
 
 	public String getDeptId() {

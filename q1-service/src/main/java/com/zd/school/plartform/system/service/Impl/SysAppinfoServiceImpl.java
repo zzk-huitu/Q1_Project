@@ -14,10 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.plartform.system.model.SysAppinfo ;
 import com.zd.school.plartform.system.dao.SysAppinfoDao ;
+import com.zd.school.plartform.system.model.AppInfo;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysAppinfoService ;
 
 /**
@@ -34,7 +33,7 @@ import com.zd.school.plartform.system.service.SysAppinfoService ;
  */
 @Service
 @Transactional
-public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implements SysAppinfoService{
+public class SysAppinfoServiceImpl extends BaseServiceImpl<AppInfo> implements SysAppinfoService{
 
     @Resource
     public void setSysAppinfoDao(SysAppinfoDao dao) {
@@ -43,8 +42,8 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 	private static Logger logger = Logger.getLogger(SysAppinfoServiceImpl.class);
 	
 	@Override
-	public QueryResult<SysAppinfo> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<SysAppinfo> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<AppInfo> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<AppInfo> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -57,7 +56,7 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -81,9 +80,9 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 	 * @return
 	 */
 	@Override
-	public SysAppinfo doUpdateEntity(SysAppinfo entity, SysUser currentUser) {
+	public AppInfo doUpdateEntity(AppInfo entity,User currentUser) {
 		// 先拿到已持久化的实体
-		SysAppinfo saveEntity = this.get(entity.getId());
+		AppInfo saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -110,8 +109,8 @@ public class SysAppinfoServiceImpl extends BaseServiceImpl<SysAppinfo> implement
 	 * @return
 	 */
 	@Override
-	public SysAppinfo doAddEntity(SysAppinfo entity, SysUser currentUser) {
-		SysAppinfo saveEntity = new SysAppinfo();
+	public AppInfo doAddEntity(AppInfo entity, User currentUser) {
+		AppInfo saveEntity = new AppInfo();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");

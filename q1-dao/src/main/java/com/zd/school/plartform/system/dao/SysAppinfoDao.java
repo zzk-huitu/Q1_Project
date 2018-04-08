@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.system.model.SysAppinfo ;
+import com.zd.school.plartform.system.model.AppInfo;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.system.model.SysAppinfo ;
  * @since JDK 1.8
  */
  
-public interface SysAppinfoDao extends BaseDao<SysAppinfo> {
+public interface SysAppinfoDao extends BaseDao<AppInfo> {
 
 }

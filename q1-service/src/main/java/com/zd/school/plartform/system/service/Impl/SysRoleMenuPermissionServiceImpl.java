@@ -6,18 +6,16 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.redis.core.HashOperations;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.system.dao.SysRoleMenuPermissionDao;
-import com.zd.school.plartform.system.model.SysPermission;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysRoleMenuPermission;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Permission;
+import com.zd.school.plartform.system.model.Role;
+import com.zd.school.plartform.system.model.RoleMenuPermission;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysPerimissonService;
 import com.zd.school.plartform.system.service.SysRoleMenuPermissionService;
 import com.zd.school.plartform.system.service.SysRoleService;
@@ -26,7 +24,7 @@ import com.zd.school.redis.service.UserRedisService;
 
 @Service
 @Transactional
-public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMenuPermission>
+public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermission>
 		implements SysRoleMenuPermissionService {
 	
 	@Resource  
@@ -62,9 +60,9 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 			String[] roleMenuPerIds = roleMenuPers.split(",");
 	
 			// 要增加权限菜单的角色及已有权限菜单信息
-			SysRole addRoleEntity = sysRoleService.get(roleId);
-			SysPermission sysPermission = perimissonSevice.get(perId);
-			Set<SysPermission> rolePermission = addRoleEntity.getSysPermissions();
+			Role addRoleEntity = sysRoleService.get(roleId);
+			Permission sysPermission = perimissonSevice.get(perId);
+			Set<Permission> rolePermission = addRoleEntity.getSysPermissions();
 	
 			// 判断此角色是否拥有此菜单权限
 			if (!rolePermission.contains(sysPermission)) {
@@ -75,7 +73,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 				String menuPerId = roleMenuPerIds[i];
 				if (currentRoleMenuPerIds.contains(menuPerId))
 					continue;
-				SysRoleMenuPermission rmp = new SysRoleMenuPermission();
+				RoleMenuPermission rmp = new RoleMenuPermission();
 				rmp.setRoleId(roleId); // 角色id
 				rmp.setPermissionId(perId); // 角色菜单id
 				rmp.setMenuPermissionId(menuPerId); // 菜单功能id			
@@ -85,7 +83,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 			
 			if(currentRoleMenuPerIds.size()>0){
 				// 删除角色菜单功能不属于roleMenuPerIds中的功能
-				String deleteHql = "delete from SysRoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + perId
+				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + perId
 						+ "' and a.menuPerId not in ('" + roleMenuPers.replace(",", "','") + "')";
 				int row=this.doExecuteCountByHql(deleteHql);
 				if(row>0)
@@ -95,14 +93,14 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 		}else{
 			if(currentRoleMenuPerIds.size()>0){
 				// 删除角色菜单所有功能
-				String deleteHql = "delete from SysRoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + perId + "'";
+				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + perId + "'";
 				this.doExecuteCountByHql(deleteHql);
 				isUpdate=true;
 			}
 		}
 		
 		//删除此role的相关用户的redis功能权限数据
-		List<SysUser> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
+		List<User> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
 		Object[] userIds=new String[roleUsers.size()];
 		for(int i=0;i<roleUsers.size();i++){
 			userIds[i]=roleUsers.get(i).getId();			
@@ -121,7 +119,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 	}
 
 	@Override
-	public void removeRoleMenuPermission(String roleId, List<SysPermission> cancelPerimission) {
+	public void removeRoleMenuPermission(String roleId, List<Permission> cancelPerimission) {
 		int row=0;
 		for(int i=0;i< cancelPerimission.size();i++){
 			// 删除角色菜单所有功能
@@ -131,7 +129,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<SysRoleMen
 		
 		
 		//删除此role的相关用户的redis功能权限数据				
-		List<SysUser> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
+		List<User> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
 		Object[] userIds=new String[roleUsers.size()];
 		for(int i=0;i<roleUsers.size();i++){
 			userIds[i]=roleUsers.get(i).getId();			
