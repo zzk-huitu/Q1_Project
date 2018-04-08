@@ -357,7 +357,7 @@ public class ClassFileAppController {
 			
 			/*文件地址，方式二：直接使用url的方式获取文件*/
 			vd.setVideoURL(virtualFileUrl+"/"+baseAttachment.getFileUrl());
-			vd.setVideoName(baseAttachment.getFileName()());
+			vd.setVideoName(baseAttachment.getFileName());
 			videoList.add(vd);
 		}
 		
