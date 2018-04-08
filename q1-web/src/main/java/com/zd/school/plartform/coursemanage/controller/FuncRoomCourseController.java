@@ -23,13 +23,13 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.model.JwCourseArrange;
-import com.zd.school.jw.arrangecourse.model.JwFuncroomcourse;
+import com.zd.school.jw.arrangecourse.model.CourseArrange;
+import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
 import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 /**
  * 功能室课程
  * @author Administrator
@@ -37,7 +37,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/FuncRoomCourse")
-public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcourse> implements Constant {
+public class FuncRoomCourseController extends FrameWorkController<FuncRoomCourse> implements Constant {
 
 	@Resource
 	CommTreeService treeService; // 生成树
@@ -111,7 +111,7 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 			}
 		}
 		
-		QueryResult<JwFuncroomcourse> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<FuncRoomCourse> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -127,13 +127,13 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 	 */
 	@RequestMapping(value = { "/getCourseByClass" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public @ResponseBody List<JwCourseArrange> getCourseByClass(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody List<CourseArrange> getCourseByClass(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String classId=request.getParameter("classId");
 		String hql = "from JwCourseArrange where 1=1 and extField05=1 and isDelete=0 ";
 		hql += " and claiId='"+classId+"'";
 		hql += " order by teachTime asc";
-		List<JwCourseArrange> list = courseArrangeService.queryByHql(hql);
+		List<CourseArrange> list = courseArrangeService.queryByHql(hql);
 		return list;
 	}
 
@@ -142,7 +142,7 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 	 * 
 	 * @Title: doadd
 	 * @Description: 增加新实体信息至数据库
-	 * @param JwFuncroomcourse
+	 * @param FuncRoomCourse
 	 *            实体类
 	 * @param request
 	 * @param response
@@ -158,11 +158,11 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
-		List<JwFuncroomcourse> funcRoomCourseList = null;
+		List<FuncRoomCourse> funcRoomCourseList = null;
 		if (null != entitys) {
-			funcRoomCourseList = (List<JwFuncroomcourse>) JsonBuilder.getInstance().fromJsonArray(entitys, JwFuncroomcourse.class);
+			funcRoomCourseList = (List<FuncRoomCourse>) JsonBuilder.getInstance().fromJsonArray(entitys, FuncRoomCourse.class);
 		}
 		
 		Integer result = thisService.doAddEntityList(funcRoomCourseList, currentUser);// 执行增加方法
@@ -191,7 +191,7 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -208,7 +208,7 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 	/**
 	 * @Title: doUpdate
 	 * @Description: 编辑指定记录
-	 * @param JwFuncroomcourse
+	 * @param FuncRoomCourse
 	 * @param request
 	 * @param response
 	 * @return void 返回类型
@@ -216,13 +216,13 @@ public class FuncRoomCourseController extends FrameWorkController<JwFuncroomcour
 	 *             抛出异常
 	 */
 	@RequestMapping("/doupdate")
-	public void doUpdates(JwFuncroomcourse entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(FuncRoomCourse entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))

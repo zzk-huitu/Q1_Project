@@ -20,9 +20,9 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.oa.terminal.model.OaInfotermuse;
+import com.zd.school.oa.terminal.model.InfoTerminalHistory;
 import com.zd.school.plartform.baseset.service.BaseInfotermuseService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -38,7 +38,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BaseInfotermuse")
-public class BaseInfotermuseController extends FrameWorkController<OaInfotermuse> implements Constant {
+public class BaseInfotermuseController extends FrameWorkController<InfoTerminalHistory> implements Constant {
 
     @Resource
     BaseInfotermuseService thisService; // service层接口
@@ -54,14 +54,14 @@ public class BaseInfotermuseController extends FrameWorkController<OaInfotermuse
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute OaInfotermuse entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute InfoTerminalHistory entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-        QueryResult<OaInfotermuse> qResult = thisService.list(start, limit, sort, filter,true);
+        QueryResult<InfoTerminalHistory> qResult = thisService.list(start, limit, sort, filter,true);
         strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
         writeJSON(response, strData);// 返回数据
     }
@@ -70,20 +70,20 @@ public class BaseInfotermuseController extends FrameWorkController<OaInfotermuse
      * 
       * @Title: doadd
       * @Description: 增加新实体信息至数据库
-      * @param OaInfotermuse 实体类
+      * @param InfoTerminalHistory 实体类
       * @param request
       * @param response
       * @return void    返回类型
       * @throws IOException    抛出异常
      */
     @RequestMapping("/doAdd")
-    public void doAdd(OaInfotermuse entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(InfoTerminalHistory entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         
 		//此处为放在入库前的一些检查的代码，如唯一校验等
 		
 		//获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
 		entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -109,7 +109,7 @@ public class BaseInfotermuseController extends FrameWorkController<OaInfotermuse
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
             return;
         } else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			
 			boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 			if (flag) {
@@ -122,20 +122,20 @@ public class BaseInfotermuseController extends FrameWorkController<OaInfotermuse
     /**
      * @Title: doUpdate
      * @Description: 编辑指定记录
-     * @param OaInfotermuse
+     * @param InfoTerminalHistory
      * @param request
      * @param response
      * @return void    返回类型
      * @throws IOException  抛出异常
     */
     @RequestMapping("/doUpdate")
-    public void doUpdates(OaInfotermuse entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdates(InfoTerminalHistory entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		//入库前检查代码
 		
 		//获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))

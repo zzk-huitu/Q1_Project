@@ -18,9 +18,9 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwCalender;
+import com.zd.school.jw.eduresources.model.Calender;
 import com.zd.school.plartform.baseset.service.BaseCalenderService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 作息目录
@@ -29,7 +29,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BaseCalender")
-public class BaseCalenderController extends FrameWorkController<JwCalender> implements Constant {
+public class BaseCalenderController extends FrameWorkController<Calender> implements Constant {
 
 	@Resource
 	BaseCalenderService thisService; // service层接口
@@ -48,8 +48,8 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 		pageJson.append("[");
 
 		String hql = "from JwTCander j where 1=1 and j.isDelete=0";
-		List<JwCalender> list = thisService.queryByHql(hql);
-		for (JwCalender jwTCander : list) {
+		List<Calender> list = thisService.queryByHql(hql);
+		for (Calender jwTCander : list) {
 			pageJson.append("{");
 			pageJson.append("\"text\":\"" + jwTCander.getCalenderName() + "\",");
 			pageJson.append("\"uuid\":\"" + jwTCander.getId() + "\",");
@@ -78,10 +78,10 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(JwCalender entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void list(Calender entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 
-		QueryResult<JwCalender> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<Calender> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -99,13 +99,13 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 	 */
 	@Auth("SCHOOLCALENDAR_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(JwCalender entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(Calender entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -155,7 +155,7 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -176,14 +176,14 @@ public class BaseCalenderController extends FrameWorkController<JwCalender> impl
 	 */
 	@Auth("SCHOOLCALENDAR_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(JwCalender entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(Calender entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
 
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
         entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));

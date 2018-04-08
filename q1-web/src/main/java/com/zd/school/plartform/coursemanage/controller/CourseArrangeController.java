@@ -34,11 +34,11 @@ import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.EntityExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.model.JwCourseArrange;
+import com.zd.school.jw.arrangecourse.model.CourseArrange;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
-import com.zd.school.plartform.baseset.model.BaseJob;
+import com.zd.school.plartform.baseset.model.Job;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 
 
@@ -53,7 +53,7 @@ import com.zd.school.plartform.system.service.SysOrgService;
  */
 @Controller
 @RequestMapping("/CourseArrange")
-public class CourseArrangeController extends FrameWorkController<JwCourseArrange> implements Constant {
+public class CourseArrangeController extends FrameWorkController<CourseArrange> implements Constant {
 
 	@Resource
 	JwCourseArrangeService thisService; // service层接口。。。
@@ -70,7 +70,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(BaseJob entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void list(Job entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		
 		String filter = request.getParameter("filter");
@@ -102,7 +102,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 
 			} else { // 当选择的区域不为班级时
 
-				SysUser currentUser = getCurrentSysUser();
+				User currentUser = getCurrentSysUser();
 				String classIds = getClassIds(deptId, currentUser);
 
 				if (StringUtils.isNotEmpty(classIds)) {
@@ -125,7 +125,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 			}
 		}
 		
-		QueryResult<JwCourseArrange> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<CourseArrange> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -135,11 +135,11 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 	
     @Auth("COURSETABLE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(JwCourseArrange entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(CourseArrange entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
@@ -157,7 +157,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 			writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -178,7 +178,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 		String[] idArr=ids.split(",");
 		String[] teachTimeArr=teachTimes.split(",");
 		String[] classIdArr=classIds.split(",");
-		SysUser sysuser = getCurrentSysUser();
+		User sysuser = getCurrentSysUser();
 		
 		thisService.doCouseUse(idArr,classIdArr,teachTimeArr,sysuser.getId());
 		
@@ -191,7 +191,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 		String ids = request.getParameter("ids");		
 		
 		String[] idArr=ids.split(",");	
-		SysUser sysuser = getCurrentSysUser();		
+		User sysuser = getCurrentSysUser();		
 		
 		thisService.updateByProperties("uuid", idArr,
 				new String[]{"extField05","updateUser","updateTime"},
@@ -205,7 +205,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 	public void importExcel(@RequestParam("file") MultipartFile file, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		try {
-			SysUser currentUser=getCurrentSysUser();
+			User currentUser=getCurrentSysUser();
 			InputStream in = null;
 			List<ImportNotInfo> listReturn;
 			
@@ -290,7 +290,7 @@ public class CourseArrangeController extends FrameWorkController<JwCourseArrange
 	 * @param roomLeaf
 	 * @return
 	 */
-	private String getClassIds(String deptId, SysUser currentUser) {
+	private String getClassIds(String deptId, User currentUser) {
 
 		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {

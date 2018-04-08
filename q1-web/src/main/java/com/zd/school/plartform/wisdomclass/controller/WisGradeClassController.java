@@ -22,19 +22,19 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwClassteacher;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.ClassTeacher;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
 import com.zd.school.jw.eduresources.service.JwTGradeService;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.baseset.model.BaseOrg;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.Department;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.plartform.system.service.SysUserService;
 
 @Controller
 @RequestMapping("/GradeClass")
-public class WisGradeClassController extends FrameWorkController<JwTGradeclass> implements Constant {
+public class WisGradeClassController extends FrameWorkController<GradeClass> implements Constant {
 	@Resource
 	private JwTGradeclassService thisService;
 	@Resource
@@ -93,7 +93,7 @@ public class WisGradeClassController extends FrameWorkController<JwTGradeclass> 
 			}
 		}
 
-		QueryResult<JwTGradeclass> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<GradeClass> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -101,12 +101,12 @@ public class WisGradeClassController extends FrameWorkController<JwTGradeclass> 
 
 	@Auth("CLASSMOTTO_update")
 	@RequestMapping("/doUpdate")
-	public void doupdate(JwTGradeclass entity, HttpServletRequest request, HttpServletResponse response)
+	public void doupdate(GradeClass entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
-		JwTGradeclass perEntity = thisService.get(entity.getId());
+		GradeClass perEntity = thisService.get(entity.getId());
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 
 		perEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,24 +114,24 @@ public class WisGradeClassController extends FrameWorkController<JwTGradeclass> 
 
 		entity = thisService.merge(perEntity);// 执行修改方法
 
-		BaseOrg org = orgService.get(entity.getId());
+		Department org = orgService.get(entity.getId());
 		org.setNodeText(perEntity.getClassName());
 		writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(perEntity)));
 	}
 
 	@RequestMapping(value = "/listUser", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void listUser(@ModelAttribute JwTGradeclass entity, HttpServletRequest request, HttpServletResponse response)
+	public void listUser(@ModelAttribute GradeClass entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 
 		String hql = "from JwTGradeclass where isDelete=0";
 		Boolean isSchoolAdminRole = false;
-		List<SysUser> roleUsers = userService.getUserByRoleName("学校管理员");
-		for (SysUser su : roleUsers) {
+		List<User> roleUsers = userService.getUserByRoleName("学校管理员");
+		for (User su : roleUsers) {
 			if (su.getId().equals(currentUser.getId())) {
 				isSchoolAdminRole = true;
 				break;
@@ -140,15 +140,15 @@ public class WisGradeClassController extends FrameWorkController<JwTGradeclass> 
 		if (!isSchoolAdminRole) {
 			// 判断是否是班主任
 			String ghql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getId() + "'";
-			List<JwClassteacher> classteachers = cTeacherService.queryByHql(ghql);
+			List<ClassTeacher> classteachers = cTeacherService.queryByHql(ghql);
 			if (classteachers != null && classteachers.size() > 0) {
-				JwClassteacher cTeacher = classteachers.get(0);
+				ClassTeacher cTeacher = classteachers.get(0);
 				hql += " and uuid='" + cTeacher.getClassId() + "'";
 			}
 
 		}
 
-		QueryResult<JwTGradeclass> qr = thisService.queryResult(hql, start, limit);
+		QueryResult<GradeClass> qr = thisService.queryResult(hql, start, limit);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据

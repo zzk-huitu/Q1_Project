@@ -18,8 +18,8 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysMenuPermission;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.MenuPermission;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysMenuPermissionService;
 
 /**
@@ -29,7 +29,7 @@ import com.zd.school.plartform.system.service.SysMenuPermissionService;
  */
 @Controller
 @RequestMapping("/SysMenuPermission")
-public class SysMenuPermissionController extends FrameWorkController<SysMenuPermission> implements Constant {
+public class SysMenuPermissionController extends FrameWorkController<MenuPermission> implements Constant {
 
 	@Resource
 	SysMenuPermissionService thisService; // service层接口
@@ -43,7 +43,7 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void list(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<SysMenuPermission> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<MenuPermission> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -65,7 +65,7 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 		String roleId = request.getParameter("roleId"); // 角色ID
 		String perId = request.getParameter("perId"); // 角色菜单权限ID
 
-		List<SysMenuPermission> lists = thisService.getRoleMenuPerlist(roleId, perId);
+		List<MenuPermission> lists = thisService.getRoleMenuPerlist(roleId, perId);
 
 		strData = jsonBuilder.buildObjListToJson((long) lists.size(), lists, true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -82,11 +82,11 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 	 */
 	@Auth("SYSPERIMISSON_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(SysMenuPermission entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(MenuPermission entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		try {		
 			
 			String menuId = entity.getMenuId();
@@ -126,7 +126,7 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-            SysUser currentUser = getCurrentSysUser();
+            User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -143,10 +143,10 @@ public class SysMenuPermissionController extends FrameWorkController<SysMenuPerm
 	 */
 	@Auth("SYSPERIMISSON_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(SysMenuPermission entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(MenuPermission entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 	
 			
 		String menuId = entity.getMenuId();

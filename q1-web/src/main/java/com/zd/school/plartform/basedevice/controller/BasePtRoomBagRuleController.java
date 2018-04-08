@@ -17,9 +17,9 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtRoomBagRule;
+import com.zd.school.control.device.model.RoomBagRule;
 import com.zd.school.plartform.basedevice.service.PtRoomBagRuleService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 房间钱包规则
@@ -29,7 +29,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BasePtRoomBagRule")
-public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRule> implements Constant {
+public class BasePtRoomBagRuleController extends FrameWorkController<RoomBagRule> implements Constant {
 	@Resource
 	PtRoomBagRuleService thisService; // service层接口
 
@@ -43,10 +43,10 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtRoomBagRule entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute RoomBagRule entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtRoomBagRule> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<RoomBagRule> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -65,7 +65,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 	 */
 	@Auth("ROOM_BAG_RULE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(PtRoomBagRule entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(RoomBagRule entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String hql1 = " o.isDelete='0' ";
@@ -76,7 +76,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 		}
 		
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
@@ -112,7 +112,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 			}
 
 						
-			SysUser sysuser = getCurrentSysUser();
+			User sysuser = getCurrentSysUser();
 
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, sysuser.getId());
 			if (flag) {
@@ -135,7 +135,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-			SysUser sysuser = getCurrentSysUser();
+			User sysuser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, sysuser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -156,7 +156,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 	 */
 	@Auth("ROOM_BAG_RULE_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(PtRoomBagRule entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(RoomBagRule entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		String hql1 = " o.isDelete='0' ";
@@ -167,7 +167,7 @@ public class BasePtRoomBagRuleController extends FrameWorkController<PtRoomBagRu
 		}
 		
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 

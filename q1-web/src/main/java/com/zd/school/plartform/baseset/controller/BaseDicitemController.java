@@ -19,11 +19,11 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseDic;
-import com.zd.school.plartform.baseset.model.BaseDicitem;
+import com.zd.school.plartform.baseset.model.DataDict;
+import com.zd.school.plartform.baseset.model.DataDictItem;
 import com.zd.school.plartform.baseset.service.BaseDicService;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.redis.service.DicItemRedisService;
 
 /**
@@ -33,7 +33,7 @@ import com.zd.school.redis.service.DicItemRedisService;
  */
 @Controller
 @RequestMapping("/BaseDicitem")
-public class BaseDicitemController extends FrameWorkController<BaseDicitem> implements Constant {
+public class BaseDicitemController extends FrameWorkController<DataDictItem> implements Constant {
 
 	@Resource
 	private BaseDicitemService thisService; // service层接口
@@ -53,10 +53,10 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute BaseDicitem entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute DataDictItem entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<BaseDicitem> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<DataDictItem> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -74,7 +74,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 	 */
 	@Auth("DICTIONARY_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(BaseDicitem entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(DataDictItem entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String dicId = entity.getDictId();
@@ -91,7 +91,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 		}
 		//
 		// 获取当前操作用户	
-		SysUser currentUser = getCurrentSysUser();		
+		User currentUser = getCurrentSysUser();		
 		                
         entity=thisService.doAdd(entity,currentUser.getId());     
         
@@ -116,7 +116,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-            SysUser currentUser = getCurrentSysUser();
+            User currentUser = getCurrentSysUser();
 			//boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             boolean flag = thisService.doDeleteOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {			
@@ -139,7 +139,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-            SysUser currentUser = getCurrentSysUser();
+            User currentUser = getCurrentSysUser();
 			//boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             boolean flag = thisService.doDeleteOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {				
@@ -161,7 +161,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 	 */
 	@Auth("DICTIONARY_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(BaseDicitem entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(DataDictItem entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String dicId = entity.getDictId();
@@ -178,7 +178,7 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 		}
 
 		// 获取当前的操作用户	
-		SysUser currentUser = getCurrentSysUser();		
+		User currentUser = getCurrentSysUser();		
 			
         entity=thisService.doUpdate(entity, currentUser.getId());
         
@@ -206,10 +206,10 @@ public class BaseDicitemController extends FrameWorkController<BaseDicitem> impl
 
 		if (baseDicItem == null) { // 若存在，则不需要设置
 		
-			BaseDic dictionary = dictionaryService.getByProerties("dicCode", dicCode);
+			DataDict dictionary = dictionaryService.getByProerties("dicCode", dicCode);
 			String hql = " from BaseDicitem where isDelete=0 and dicId='" + dictionary.getId()
 					+ "' order by orderIndex asc, itemCode asc ";
-			List<BaseDicitem> lists = thisService.queryByHql(hql);
+			List<DataDictItem> lists = thisService.queryByHql(hql);
 			strData = jsonBuilder.buildObjListToJson(new Long(lists.size()), lists, false);
 			
 			//加入到redis中

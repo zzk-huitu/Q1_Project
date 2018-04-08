@@ -26,10 +26,10 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtPowerResidue;
-import com.zd.school.control.device.model.PtRoomBags;
-import com.zd.school.control.device.model.PtTerm;
-import com.zd.school.control.device.model.PtTermBags;
+import com.zd.school.control.device.model.PowerResidue;
+import com.zd.school.control.device.model.RoomBag;
+import com.zd.school.control.device.model.Term;
+import com.zd.school.control.device.model.TermBag;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
 import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
 import com.zd.school.plartform.basedevice.service.PtTermBagsService;
@@ -61,11 +61,11 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public @ResponseBody List<PtPowerResidue> list(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody List<PowerResidue> list(HttpServletRequest request, HttpServletResponse response)
 			throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException {
 
-		List<PtPowerResidue> returnlist = new ArrayList<PtPowerResidue>();
+		List<PowerResidue> returnlist = new ArrayList<PowerResidue>();
 
 		// 1.获取学生的房间id【select * from [JW_V_STU_DORMALLOTTREE]】
 		String roomID = request.getParameter("roomId");
@@ -95,17 +95,17 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 
 		for (String roomId : roomIdList) {
 			try {
-				PtPowerResidue temp = new PtPowerResidue();
+				PowerResidue temp = new PowerResidue();
 
-				PtRoomBags roomBag = roomBagsService.getByProerties("roomId", roomId);
+				RoomBag roomBag = roomBagsService.getByProerties("roomId", roomId);
 				if (roomBag != null)
 					temp.setPowerResidue(roomBag.getRoomValue() + "");
 
 				String[] propName = new String[] { "roomId", "termTypeID", "isDelete" };
 				Object[] propValue = new Object[] { roomId, "9", 0 };
-				PtTerm term = termService.getByProerties(propName, propValue);
+				Term term = termService.getByProerties(propName, propValue);
 				if (term != null) {
-					PtTermBags termBag = termBagsService.getByProerties("termSn", term.getTermSn());
+					TermBag termBag = termBagsService.getByProerties("termSn", term.getTermSn());
 					if (termBag != null)
 						temp.setMoneyResidue(termBag.getBagValue() + "");
 				}
@@ -160,13 +160,13 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 15, 15, 20, 20,15,15,15, 20, 20};
-		List<PtPowerResidue> list =  list(request,response);
+		List<PowerResidue> list =  list(request,response);
 
 		List<Map<String, String>> powerResidueExpList = new ArrayList<>();
 		
 		Map<String, String> powerResidueMap = null;
 		int i = 1;
-		for (PtPowerResidue entity : list) {
+		for (PowerResidue entity : list) {
 			powerResidueMap = new LinkedHashMap<>();
 			powerResidueMap.put("xh",i+"");
 			powerResidueMap.put("roomName", entity.getRoomName());

@@ -21,7 +21,7 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtEcTermStatus;
+import com.zd.school.control.device.model.DkTermStatus;
 import com.zd.school.plartform.basedevice.service.PtEcTermStatusService;
 import com.zd.school.plartform.comm.service.CommTreeService;
 
@@ -33,7 +33,7 @@ import com.zd.school.plartform.comm.service.CommTreeService;
  */
 @Controller
 @RequestMapping("/PtEcTermStatus")
-public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus> implements Constant {
+public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> implements Constant {
 
 	@Resource
 	PtEcTermStatusService thisService; // service层接口
@@ -51,7 +51,7 @@ public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtEcTermStatus entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute DkTermStatus entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
 		String strData = ""; // 返回给js的数据
@@ -92,7 +92,7 @@ public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus
 			}
 		}
 
-		QueryResult<PtEcTermStatus> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<DkTermStatus> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, false);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -108,7 +108,7 @@ public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus
 	 */
 	@RequestMapping(value = { "/listCount" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void listDl(@ModelAttribute PtEcTermStatus entity, HttpServletRequest request, HttpServletResponse response)
+	public void listDl(@ModelAttribute DkTermStatus entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		//Integer start = super.start(request);
@@ -169,7 +169,7 @@ public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 15, 15, 20, 20,15,15,15,15, 15, 20, 20};
-		List<PtEcTermStatus> ecTermStatusList = null;
+		List<DkTermStatus> ecTermStatusList = null;
 		String hql = " from PtEcTermStatus a where a.isDelete=0 ";
 		
 		//组装房间id参数
@@ -200,7 +200,7 @@ public class PtEcTermStatusController extends FrameWorkController<PtEcTermStatus
 		List<Map<String, String>> ecTermStatusExpList = new ArrayList<>();
 		Map<String, String> ecTermStatusMap = null;
 		int i = 1;
-		for (PtEcTermStatus ecTermStatus : ecTermStatusList) {
+		for (DkTermStatus ecTermStatus : ecTermStatusList) {
 			ecTermStatusMap = new LinkedHashMap<>();
 			ecTermStatusMap.put("xh",i+"");
 			ecTermStatusMap.put("roomName", ecTermStatus.getRoomName());

@@ -24,12 +24,12 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildDormDefine;
-import com.zd.school.plartform.baseset.model.BaseCampus;
-import com.zd.school.plartform.baseset.model.BaseSchool;
+import com.zd.school.build.define.model.DormDefine;
+import com.zd.school.plartform.baseset.model.Campus;
+import com.zd.school.plartform.baseset.model.School;
 import com.zd.school.plartform.baseset.service.BaseCampusService;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 校区信息
@@ -38,7 +38,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BaseCampus")
-public class BaseCampusController extends FrameWorkController<BaseCampus> implements Constant {
+public class BaseCampusController extends FrameWorkController<Campus> implements Constant {
 
     @Resource
     BaseCampusService thisService; // service层接口
@@ -55,10 +55,10 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(BaseCampus entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(Campus entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
-        QueryResult<BaseCampus> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+        QueryResult<Campus> qr = thisService.queryPageResult(super.start(request), super.limit(request),
                 super.sort(request), super.filter(request), true);
 
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -76,7 +76,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
      */
     @Auth("BASECAMPUS_add")
     @RequestMapping("/doAdd")
-    public void doAdd(BaseCampus entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(Campus entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String campusName = entity.getCampusName();
@@ -121,7 +121,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
         	defaultOrderIndex=1;
         
 		entity.setOrderIndex(defaultOrderIndex);
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
         //持久化到数据库
         entity = thisService.doAdd(entity, currentUser);
         if (ModelUtil.isNotNull(entity)) {
@@ -147,7 +147,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
             throws IOException, IllegalAccessException, InvocationTargetException {
         String delIds = request.getParameter("ids");
         Map<String,Object> hashMap = new HashMap<String,Object>();
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
         if (StringUtils.isEmpty(delIds)) {
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
             return;
@@ -177,7 +177,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
             return;
         } else {
-        	SysUser currentUser = getCurrentSysUser();
+        	User currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -194,7 +194,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
      */
     @Auth("BASECAMPUS_update")
     @RequestMapping("/doUpdate")
-    public void doUpdates(BaseCampus entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdates(Campus entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String campusName = entity.getCampusName();
@@ -220,7 +220,7 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
                 return;
             }
         }
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
 
         //持久化到数据库
         entity = thisService.doUpdate(entity, currentUser);
@@ -234,9 +234,9 @@ public class BaseCampusController extends FrameWorkController<BaseCampus> implem
 
     }
     @RequestMapping("/getSchool")
-    public  @ResponseBody BaseSchool getSchool(HttpServletRequest request, HttpServletResponse response){
+    public  @ResponseBody School getSchool(HttpServletRequest request, HttpServletResponse response){
     	String hql = " from BaseSchool";
-    	BaseSchool baseSchool = thisService.getEntityByHql(hql);
+    	School baseSchool = thisService.getEntityByHql(hql);
         return baseSchool;
     }
 }

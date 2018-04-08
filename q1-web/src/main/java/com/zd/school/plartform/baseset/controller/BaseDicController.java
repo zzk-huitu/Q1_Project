@@ -19,10 +19,10 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseDic;
-import com.zd.school.plartform.baseset.model.BaseDicTree;
+import com.zd.school.plartform.baseset.model.DataDict;
+import com.zd.school.plartform.baseset.model.DataDictTree;
 import com.zd.school.plartform.baseset.service.BaseDicService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.redis.service.DicItemRedisService;
 
 /**
@@ -32,7 +32,7 @@ import com.zd.school.redis.service.DicItemRedisService;
  */
 @Controller
 @RequestMapping("/BaseDic")
-public class BaseDicController extends FrameWorkController<BaseDic> implements Constant {
+public class BaseDicController extends FrameWorkController<DataDict> implements Constant {
 
     @Resource
     private BaseDicService thisService; // service层接口
@@ -49,11 +49,11 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute BaseDic entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute DataDict entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
        
-        List<BaseDicTree> lists = thisService.getDicTreeList(request.getParameter("whereSql"));
+        List<DataDictTree> lists = thisService.getDicTreeList(request.getParameter("whereSql"));
 
         strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -70,7 +70,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
      */
     @Auth("DICTIONARY_add")
     @RequestMapping("/doAdd")
-    public void doAdd(BaseDic entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(DataDict entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String parentNode = entity.getParentNode();      
@@ -93,7 +93,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
             return;
         }
         // 获取当前操作用户    
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
                  
         entity=thisService.doAdd(entity,currentUser.getId());     
         
@@ -116,7 +116,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
             return;
         } else {
-            SysUser currentUser = getCurrentSysUser();
+            User currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -138,7 +138,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
             return;
         } else {
-            SysUser currentUser = getCurrentSysUser();
+            User currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -160,7 +160,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
      */
     @Auth("DICTIONARY_update")
     @RequestMapping("/doUpdate")
-    public void doUpdates(BaseDic entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdates(DataDict entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String parentNode = entity.getParentNode();      
@@ -185,7 +185,7 @@ public class BaseDicController extends FrameWorkController<BaseDic> implements C
         }
         
         // 获取当前的操作用户  
-        SysUser currentUser = getCurrentSysUser();     
+        User currentUser = getCurrentSysUser();     
         entity=thisService.doUpdateEntity(entity, currentUser.getId(),null);           
      			
         if(entity==null)

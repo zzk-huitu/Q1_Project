@@ -28,11 +28,11 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.ecc.model.EccClasselegant;
-import com.zd.school.plartform.baseset.model.BaseAttachment;
-import com.zd.school.plartform.baseset.model.BaseJob;
+import com.zd.school.jw.ecc.model.ClassMien;
+import com.zd.school.plartform.baseset.model.Attachment;
+import com.zd.school.plartform.baseset.model.Job;
 import com.zd.school.plartform.baseset.service.BaseAttachmentService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.wisdomclass.ecc.service.EccClasselegantService;
 
 /**
@@ -42,7 +42,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClasselegantService;
  */
 @Controller
 @RequestMapping("/ClassElegant")
-public class WisClassElegantController extends FrameWorkController<EccClasselegant> implements Constant{
+public class WisClassElegantController extends FrameWorkController<ClassMien> implements Constant{
 	@Resource
 	EccClasselegantService thisService; // service层接口
 	
@@ -57,7 +57,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 	
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute EccClasselegant entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute ClassMien entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter=request.getParameter("filter");;
@@ -101,7 +101,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 			}
 		}	
 
-		QueryResult<EccClasselegant> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<ClassMien> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -157,7 +157,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 					
 
 					// 插入数据
-					BaseAttachment bt = new BaseAttachment();
+					Attachment bt = new Attachment();
 					bt.setEntityName("EccClasselegant");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
@@ -202,11 +202,11 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 	
 	@Auth("CLASSELEGANT_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(EccClasselegant entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(ClassMien entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
@@ -225,7 +225,7 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 			return;
 		} else {
 
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -237,13 +237,13 @@ public class WisClassElegantController extends FrameWorkController<EccClasselega
 	
 	@Auth("CLASSELEGANT_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(EccClasselegant entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(ClassMien entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 

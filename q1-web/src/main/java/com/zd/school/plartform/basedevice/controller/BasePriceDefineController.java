@@ -22,7 +22,7 @@ import com.zd.school.build.define.model.DkPriceDefine;
 import com.zd.school.build.define.model.SkPriceDefine;
 import com.zd.school.plartform.basedevice.service.BaseDkPriceDefineService;
 import com.zd.school.plartform.basedevice.service.BaseSkPriceDefineService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 费率定义(水控与电控)
@@ -82,7 +82,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
             throws IOException, IllegalAccessException, InvocationTargetException {
 		String categroy = request.getParameter("categroy");
 		 // 获取当前操作用户
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
         
 		if(categroy.equals("0")){		
 			String hql1 = " o.isDelete='0' ";
@@ -129,7 +129,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String categroy = request.getParameter("categroy");
 		
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		if(categroy.equals("0")){
 			String hql1 = " o.isDelete='0' ";
 			// 此处为放在入库前的一些检查的代码，如唯一校验等
@@ -179,7 +179,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 			String hql = "select count(a.uuid) from PtPriceBind as a where a.priceId in ('" + ids.replace(",", "','")
 					+ "') and a.isDelete=0";
 					
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag =false;
 			if(categroy.equals("水控")){
 				int count = skPriceDefineService.getQueryCountByHql(hql);

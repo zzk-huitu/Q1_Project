@@ -17,12 +17,12 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.oa.attendance.model.AttTitle;
+import com.zd.school.oa.attendance.model.AttendTheme;
 import com.zd.school.oa.attendance.service.AttTermService;
 import com.zd.school.oa.attendance.service.AttTimeService;
 import com.zd.school.oa.attendance.service.AttTitleService;
 import com.zd.school.oa.attendance.service.AttUserService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -35,7 +35,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/AttendTitle")
-public class AttendTitleController extends FrameWorkController<AttTitle> implements Constant {
+public class AttendTitleController extends FrameWorkController<AttendTheme> implements Constant {
 
 	@Resource
 	AttTitleService thisService; // service层接口
@@ -59,14 +59,14 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute AttTitle entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute AttendTheme entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-		QueryResult<AttTitle> qResult = thisService.list(start, limit, sort, filter, true);
+		QueryResult<AttendTheme> qResult = thisService.list(start, limit, sort, filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -75,7 +75,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 	 * 
 	 * @Title: doadd
 	 * @Description: 增加新实体信息至数据库
-	 * @param AttTitle
+	 * @param AttendTheme
 	 *            实体类
 	 * @param request
 	 * @param response
@@ -85,13 +85,13 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 	 */
 	@Auth("SPECIAL_COURSEATTEND_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(AttTitle entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(AttendTheme entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 			if (ModelUtil.isNotNull(entity))
@@ -121,7 +121,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -138,7 +138,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 	/**
 	 * @Title: doUpdate
 	 * @Description: 编辑指定记录
-	 * @param AttTitle
+	 * @param AttendTheme
 	 * @param request
 	 * @param response
 	 * @return void 返回类型
@@ -147,13 +147,13 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 	 */
 	@Auth("SPECIAL_COURSEATTEND_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(AttTitle entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(AttendTheme entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))
@@ -167,7 +167,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 
 	@RequestMapping("/doAddUsers")
 	public void aoAddUsers(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String titleId = request.getParameter("titleId");
 		String[] userIds = request.getParameter("userIds").split(",");
 		String[] userNames = request.getParameter("userNames").split(",");
@@ -183,7 +183,7 @@ public class AttendTitleController extends FrameWorkController<AttTitle> impleme
 	
 	@RequestMapping("/doAddTerms")
 	public void doAddTerms(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String titleId = request.getParameter("titleId");
 		String[] termCodes = request.getParameter("termCodes").split(",");
 		String[] roomIds = request.getParameter("roomIds").split(",");

@@ -22,10 +22,10 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.model.JwCourseteacher;
+import com.zd.school.jw.arrangecourse.model.CourseTeacher;
 import com.zd.school.jw.arrangecourse.service.JwCourseteacherService;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 
@@ -37,7 +37,7 @@ import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
  */
 @Controller
 @RequestMapping("/CourseTeacher")
-public class CourseTeacherController extends FrameWorkController<JwCourseteacher> implements Constant {
+public class CourseTeacherController extends FrameWorkController<CourseTeacher> implements Constant {
 
 	@Resource
 	private JwCourseteacherService thisService; // service层接口
@@ -87,7 +87,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 
 			} else { // 当选择的区域不为班级时
 
-				SysUser currentUser = getCurrentSysUser();
+				User currentUser = getCurrentSysUser();
 				String classIds = getClassIds(deptId, currentUser);
 
 				if (StringUtils.isNotEmpty(classIds)) {
@@ -110,7 +110,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 			}
 		}
 
-		QueryResult<JwCourseteacher> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<CourseTeacher> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -132,7 +132,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 		if (StringUtils.isNotEmpty(nodeId)) {
 			node = nodeId;
 		}
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		CommTree root = thisService.getUserRightDeptDisciplineTree(node, currentUser); // (04-年级，05-班级，06-学科)
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
 			strData = jsonBuilder.buildList(root.getChildren(), excludes);
@@ -166,7 +166,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doDelCourseTeacher(delIds, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -197,7 +197,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 
 		String hql = "select new JwCourseteacher(claiId,tteacId,courseId,studyYear,semester) from JwCourseteacher where studyYear="
 				+ studyYear + " and semester='" + semester + "' and isDelete='0' ";
-		List<JwCourseteacher> lists = thisService.queryByHql(hql);
+		List<CourseTeacher> lists = thisService.queryByHql(hql);
 		String strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -220,7 +220,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 
 		String jsonData = request.getParameter("jsonData");
 
-		SysUser sysuser = getCurrentSysUser();
+		User sysuser = getCurrentSysUser();
 
 		Boolean strData = thisService.doAddCourseTeacher(jsonData, sysuser);
 		if (strData)
@@ -235,7 +235,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 			throws IOException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException, IllegalArgumentException {
 		String uuid = request.getParameter("uuid");		//要修改的教师课程uuid
 		String tteacId = request.getParameter("tteacId");	//修改后的教师uuid
-		SysUser sysUser = getCurrentSysUser();
+		User sysUser = getCurrentSysUser();
 		if (StringUtils.isEmpty(tteacId)&&StringUtils.isEmpty(uuid) ) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"设置任课教师失败,参数错误！\""));
 			return;
@@ -307,7 +307,7 @@ public class CourseTeacherController extends FrameWorkController<JwCourseteacher
 	 * @param roomLeaf
 	 * @return
 	 */
-	private String getClassIds(String deptId, SysUser currentUser) {
+	private String getClassIds(String deptId, User currentUser) {
 
 		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {

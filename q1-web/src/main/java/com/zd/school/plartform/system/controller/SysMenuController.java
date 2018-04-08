@@ -19,10 +19,10 @@ import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysMenu;
-import com.zd.school.plartform.system.model.SysMenuTree;
-import com.zd.school.plartform.system.model.SysPermission;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Menu;
+import com.zd.school.plartform.system.model.MenuTree;
+import com.zd.school.plartform.system.model.Permission;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysMenuService;
 import com.zd.school.plartform.system.service.SysPerimissonService;
 import com.zd.school.plartform.system.service.SysUserService;
@@ -34,7 +34,7 @@ import com.zd.school.plartform.system.service.SysUserService;
  */
 @Controller
 @RequestMapping("/SysMenu")
-public class SysMenuController extends FrameWorkController<SysMenu> implements Constant {
+public class SysMenuController extends FrameWorkController<Menu> implements Constant {
 
     @Resource
     private SysMenuService thisService; // service层接口
@@ -56,8 +56,8 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
         String whereSql = request.getParameter("whereSql");
         String orderSql = request.getParameter("orderSql");
 
-        SysUser currentUser = getCurrentSysUser();
-        List<SysMenuTree> lists = new ArrayList<SysMenuTree>();
+        User currentUser = getCurrentSysUser();
+        List<MenuTree> lists = new ArrayList<MenuTree>();
         if (currentUser.getUserName().equals(AdminType.ADMIN_USER_NAME)||getIsAdmin()==1)
             lists = thisService.getTreeList(whereSql, orderSql);
         else {
@@ -84,7 +84,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
         	writeJSON(response, strData);// 返回数据
         	return;
         }
-        List<SysMenuTree> lists = thisService.getRoleMenuTreeList(roleId);
+        List<MenuTree> lists = thisService.getRoleMenuTreeList(roleId);
               
         strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -112,9 +112,9 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
         	 writeJSON(response,strData);// 返回数据
         	 return;
         }
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
 
-        List<SysMenuTree> lists = thisService.getUserPermissionToRole(roleId, currentUser.getId());
+        List<MenuTree> lists = thisService.getUserPermissionToRole(roleId, currentUser.getId());
 
         strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -131,7 +131,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
      */
     @Auth("MENUMANAGE_add")
     @RequestMapping("/doAdd")
-    public void doAdd(SysMenu entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(Menu entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
     	
         Integer orderIndex = entity.getOrderIndex();
@@ -155,7 +155,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
             return;
         }
         //获取当前操作用户
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
         
         //持久化到数据库
         entity = thisService.addMenu(entity, currentUser);
@@ -178,7 +178,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
      */
     @Auth("MENUMANAGE_update")
     @RequestMapping("/doUpdate")
-    public void doUpdate(SysMenu entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdate(Menu entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         Integer orderIndex = entity.getOrderIndex();
@@ -203,7 +203,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
         }
 
         //获取当前的操作用户     
-        SysUser currentUser = getCurrentSysUser();      
+        User currentUser = getCurrentSysUser();      
         entity=thisService.doUpdateMenu(entity, currentUser.getId());
         
         if(entity==null)
@@ -237,7 +237,7 @@ public class SysMenuController extends FrameWorkController<SysMenu> implements C
             //删除有权限的角色的用户的redis数据
             String[] delIdArr=delIds.split(",");
             for(int i=0;i<delIdArr.length;i++){
-            	SysPermission sysPermission= perimissonSevice.getByProerties("perCode", delIdArr[i]);
+            	Permission sysPermission= perimissonSevice.getByProerties("perCode", delIdArr[i]);
             	if(sysPermission!=null)
             		userSerive.deleteUserMenuTreeRedis(sysPermission);
             }

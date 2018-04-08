@@ -28,8 +28,8 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Role;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysMenuService;
 import com.zd.school.plartform.system.service.SysRoleMenuPermissionService;
 import com.zd.school.plartform.system.service.SysRoleService;
@@ -42,7 +42,7 @@ import com.zd.school.plartform.system.service.SysUserService;
  */
 @Controller
 @RequestMapping("/SysRole")
-public class SysRoleController extends FrameWorkController<SysRole> implements Constant {
+public class SysRoleController extends FrameWorkController<Role> implements Constant {
 
     @Resource
     private SysRoleService thisService; // service层接口
@@ -65,7 +65,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute SysRole entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute Role entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
         String filter = super.filter(request);
@@ -84,7 +84,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         if (getIsAdmin()==0)	//若非管理员，就加入这个条件
             listFilters.add(hideDataFilter);
         String newFilter = jsonBuilder.buildObjListToJson(Long.valueOf(listFilters.size()), listFilters, false);
-        QueryResult<SysRole> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+        QueryResult<Role> qr = thisService.queryPageResult(super.start(request), super.limit(request),
                 super.sort(request), newFilter, true);
 
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -102,7 +102,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
      */
     @Auth("SYSROLE_add")
     @RequestMapping("/doAdd")
-    public void doAdd(SysRole entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(Role entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String roleName = entity.getRoleName();
@@ -123,7 +123,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         entity.setIsSystem(false);
         
         // 获取当前操作用户
-        SysUser currentUser = getCurrentSysUser();         
+        User currentUser = getCurrentSysUser();         
         entity=thisService.doAddEntity(entity,currentUser.getId());     
         
         if(entity==null)
@@ -144,7 +144,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
     public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	Boolean flag=false;
     	String delIds = request.getParameter("ids");
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
         Map<String, Object> hashMap = new HashMap<String, Object>();
         if (StringUtils.isEmpty(delIds)) {
             writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入删除主键\""));
@@ -180,7 +180,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
             writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入还原主键\""));
             return;
         } else {
-            SysUser currentUser = getCurrentSysUser();
+            User currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -201,7 +201,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
      */
     @Auth("SYSROLE_update")
     @RequestMapping("/doUpdate")
-    public void doUpdate(SysRole entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdate(Role entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         String roleName = entity.getRoleName();
         String roleCode = entity.getRoleCode();
@@ -217,7 +217,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
             return;
         }
         //获取当前的操作用户
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
        
         entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         
@@ -237,7 +237,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
      */
     @RequestMapping(value = { "/selectList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void selectList(@ModelAttribute SysRole entity, HttpServletRequest request, HttpServletResponse response)
+    public void selectList(@ModelAttribute Role entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
         String userId = request.getParameter("userId");
@@ -246,12 +246,12 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         String sort = StringUtils.convertSortToSql(super.sort(request));
         String filter = StringUtils.convertFilterToSql(super.filter(request));
         
-        Set<SysRole> userRole = userSerive.get(userId).getSysRoles();
+        Set<Role> userRole = userSerive.get(userId).getSysRoles();
         // hql语句
         StringBuffer hql = new StringBuffer("from SysRole o where o.isDelete=0 ");           
         if (userRole.size() > 0) {
         	StringBuilder sb = new StringBuilder();
-            for (SysRole r : userRole) {
+            for (Role r : userRole) {
                 sb.append(r.getId());
                 sb.append(",");
             }
@@ -269,7 +269,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
             hql.append( sort);
         }
         
-        QueryResult<SysRole> qr = thisService.queryResult(hql.toString(), start, limit);
+        QueryResult<Role> qr = thisService.queryResult(hql.toString(), start, limit);
                   
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
         writeJSON(response, strData);// 返回数据        
@@ -362,7 +362,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         String strData = ""; // 返回给js的数据
         String roleId = request.getParameter("roleId");
      
-        QueryResult<SysUser> qr = userSerive.getUserByRoleId(roleId);
+        QueryResult<User> qr = userSerive.getUserByRoleId(roleId);
         if (ModelUtil.isNotNull(qr))
         	strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -393,9 +393,9 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         if(flag){
         	
           	//当操作了当前用户的角色，则更新roleKey的session值
-        	SysUser currentUser=getCurrentSysUser();
+        	User currentUser=getCurrentSysUser();
 			if(userId.indexOf(currentUser.getId())!=-1){
-				SysUser sysUser = userSerive.get(currentUser.getId());
+				User sysUser = userSerive.get(currentUser.getId());
 				String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
 				 		.collect(Collectors.joining(","));
 				request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
@@ -428,9 +428,9 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
         if(flag){
         	
         	//当操作了当前用户的角色，则更新roleKey的session值
-        	SysUser currentUser=getCurrentSysUser();
+        	User currentUser=getCurrentSysUser();
 			if(userId.indexOf(currentUser.getId())!=-1){
-				SysUser sysUser = userSerive.get(currentUser.getId());
+				User sysUser = userSerive.get(currentUser.getId());
 				String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
 				 		.collect(Collectors.joining(","));
 				request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
@@ -472,7 +472,7 @@ public class SysRoleController extends FrameWorkController<SysRole> implements C
 		 
 		//List<SysUser> list = userSerive.doQuery(hql);
 
-		QueryResult<SysUser> qr = userSerive.queryResult(hql, start, limit);
+		QueryResult<User> qr = userSerive.queryResult(hql, start, limit);
 		  
 		
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据

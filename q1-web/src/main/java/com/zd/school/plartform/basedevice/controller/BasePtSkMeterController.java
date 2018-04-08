@@ -19,9 +19,9 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtSkMeter;
+import com.zd.school.control.device.model.SkMeter;
 import com.zd.school.plartform.basedevice.service.BasePtSkMeterService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 水控流量计表
@@ -30,7 +30,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BasePtSkMeter")
-public class BasePtSkMeterController extends FrameWorkController<PtSkMeter> implements Constant  {
+public class BasePtSkMeterController extends FrameWorkController<SkMeter> implements Constant  {
 	
 	@Resource
 	BasePtSkMeterService thisService; // service层接口
@@ -42,10 +42,10 @@ public class BasePtSkMeterController extends FrameWorkController<PtSkMeter> impl
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtSkMeter entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute SkMeter entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-	        QueryResult<PtSkMeter> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+	        QueryResult<SkMeter> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), true);
 
 	        strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -62,11 +62,11 @@ public class BasePtSkMeterController extends FrameWorkController<PtSkMeter> impl
 	@Auth("WATER_METER_add")
 	@RequestMapping("/doAdd")
 	public void doAdd(
-			PtSkMeter entity, HttpServletRequest request, HttpServletResponse response)
+			SkMeter entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前操作用户
-        SysUser currentUser = getCurrentSysUser();
+        User currentUser = getCurrentSysUser();
       
         entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
         if (ModelUtil.isNotNull(entity))
@@ -97,7 +97,7 @@ public class BasePtSkMeterController extends FrameWorkController<PtSkMeter> impl
 				return;
 			}
 			
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -114,9 +114,9 @@ public class BasePtSkMeterController extends FrameWorkController<PtSkMeter> impl
 	 */
 	@Auth("WATER_METER_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(PtSkMeter entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(SkMeter entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		 entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 	        if (ModelUtil.isNotNull(entity))
 	            writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));

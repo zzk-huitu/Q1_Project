@@ -19,10 +19,10 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.SysFrontServer;
+import com.zd.school.build.define.model.FrontServer;
 import com.zd.school.plartform.basedevice.service.BaseFrontServerService;
 import com.zd.school.plartform.basedevice.service.BaseGatewayService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 综合前置服务器
@@ -32,7 +32,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BaseFrontServer")
-public class BaseFrontServerController extends FrameWorkController<SysFrontServer> implements Constant {
+public class BaseFrontServerController extends FrameWorkController<FrontServer> implements Constant {
 	@Resource
 	BaseFrontServerService thisService; // service层接口
 	@Resource
@@ -44,10 +44,10 @@ public class BaseFrontServerController extends FrameWorkController<SysFrontServe
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute SysFrontServer entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute FrontServer entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<SysFrontServer> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<FrontServer> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -62,10 +62,10 @@ public class BaseFrontServerController extends FrameWorkController<SysFrontServe
 	 */
 	@Auth("BASEFRONTSERVER_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(SysFrontServer entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(FrontServer entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -104,7 +104,7 @@ public class BaseFrontServerController extends FrameWorkController<SysFrontServe
 		    	writeJSON(response, jsonBuilder.returnFailureJson("\"该前置服务器使用中，不能删除！\""));
 				return;
 		    }
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -126,7 +126,7 @@ public class BaseFrontServerController extends FrameWorkController<SysFrontServe
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -143,13 +143,13 @@ public class BaseFrontServerController extends FrameWorkController<SysFrontServe
 	 */
 	@Auth("BASEFRONTSERVER_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(SysFrontServer entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(FrontServer entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))

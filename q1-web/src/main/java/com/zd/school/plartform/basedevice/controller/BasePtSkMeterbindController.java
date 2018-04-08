@@ -20,11 +20,11 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtSkMeterbind;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.control.device.model.SkMeterBind;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
 import com.zd.school.plartform.basedevice.service.PtSkMeterbindService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 水控流量记表绑定
@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BasePtSkMeterbind")
-public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbind> implements Constant {
+public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind> implements Constant {
 
 	@Resource
 	PtSkMeterbindService thisService; // service层接口
@@ -46,10 +46,10 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtSkMeterbind entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute SkMeterBind entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtSkMeterbind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<SkMeterBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -61,7 +61,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 	public void meterBingTermlist(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtSkMeterbind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<SkMeterBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		if(qr.getTotalCount()==0){
 			writeJSON(response, strData);// 返回数据	
@@ -69,13 +69,13 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 		}
 		
 		StringBuffer termId = new StringBuffer();
-		for(PtSkMeterbind ptSkMeterbind:qr.getResultList()){
+		for(SkMeterBind ptSkMeterbind:qr.getResultList()){
 			termId.append(ptSkMeterbind.getTermId()+",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + termId.substring(0, termId.length() - 1)
 			+ "\",\"field\":\"uuid\"}]";
 		//String sor="[{\"property\":\"orderIndex\",\"direction\":\"DESC\"}]";
-		QueryResult<PtTerm> termQr = ptTermService.queryPageResult(0,0,null, filter, true);
+		QueryResult<Term> termQr = ptTermService.queryPageResult(0,0,null, filter, true);
 		
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -90,7 +90,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 	public void doAdd(String[] termId, String[] termSn, String meterId, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		thisService.doMeterBind(termId, termSn, meterId, currentUser.getId());
 
@@ -109,7 +109,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -128,7 +128,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 			String[] ids =termIds.split(",");
 			for(int i=0;i<ids.length;i++){
 				 String hql = " from PtSkMeterbind where termId = '"+ ids[i]+"'";
-				 PtSkMeterbind entity = thisService.getEntityByHql(hql);
+				 SkMeterBind entity = thisService.getEntityByHql(hql);
 				 thisService.delete(entity);
 			}
 		}
@@ -146,7 +146,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -162,20 +162,20 @@ public class BasePtSkMeterbindController extends FrameWorkController<PtSkMeterbi
 	 * response @param @throws IOException 设定参数 @return void 返回类型 @throws
 	 */
 	@RequestMapping("/doupdate")
-	public void doUpdates(PtSkMeterbind entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(SkMeterBind entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
 		String userCh = "超级管理员";
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		PtSkMeterbind perEntity = thisService.get(entity.getId());
+		SkMeterBind perEntity = thisService.get(entity.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);

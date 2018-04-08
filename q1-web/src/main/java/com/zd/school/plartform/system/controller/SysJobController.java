@@ -22,8 +22,8 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseJob;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.Job;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysDeptjobService;
 import com.zd.school.plartform.system.service.SysJobService;
 
@@ -34,7 +34,7 @@ import com.zd.school.plartform.system.service.SysJobService;
  */
 @Controller
 @RequestMapping("/SysJob")
-public class SysJobController extends FrameWorkController<BaseJob> implements Constant {
+public class SysJobController extends FrameWorkController<Job> implements Constant {
 
 	@Resource
 	SysJobService thisService; // service层接口
@@ -50,9 +50,9 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(BaseJob entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void list(Job entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<BaseJob> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<Job> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -70,7 +70,7 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
 	 */
 	@Auth("JOBINFO_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(BaseJob entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(Job entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String jobCode = entity.getJobCode();
 		String jobName = entity.getJobName();
@@ -88,7 +88,7 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
 		}
 
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
@@ -122,7 +122,7 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
 				return;
 			}
 
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -145,7 +145,7 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -166,13 +166,13 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
 	 */
 	@Auth("JOBINFO_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(BaseJob entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(Job entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		//entity = thisService.doUpdateEntity(entity, currentUser.getXm(), null);
 		entity = thisService.doUpdate(entity, currentUser.getId());
@@ -212,7 +212,7 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
         if(StringUtils.isNotEmpty(jobName)){
         	hql=hql+"and jobName like '%"+jobName+"%'";
         }
-        List<BaseJob> baseJobList = thisService.queryByHql(hql);
+        List<Job> baseJobList = thisService.queryByHql(hql);
           
         List<Map<String, Object>> allList = new ArrayList<>();//存处理后的数据，有的一个sheet里面可能有多张表，所以用list
   		Integer[] columnWidth = new Integer[] { 20, 20, 20};//每个列宽
@@ -220,7 +220,7 @@ public class SysJobController extends FrameWorkController<BaseJob> implements Co
   		//处理数据，选择我们要导出的字段
   		List<Map<String, String>> jobInfoList = new ArrayList<>();//多条数据
 		Map<String, String> jobInfoMap = null;//用map去存每一个数据
-		for (BaseJob baseJob : baseJobList) {
+		for (Job baseJob : baseJobList) {
 			jobInfoMap = new LinkedHashMap<>();
 			jobInfoMap.put("jobName", baseJob.getJobName());
 			jobInfoMap.put("jobCode", baseJob.getJobCode());

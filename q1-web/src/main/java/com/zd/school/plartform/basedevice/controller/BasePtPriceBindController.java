@@ -20,11 +20,11 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtPriceBind;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.control.device.model.PriceBind;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
 import com.zd.school.plartform.basedevice.service.PtPriceBindService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 水控、电控费率绑定表
@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BasePtPriceBind")
-public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> implements Constant {
+public class BasePtPriceBindController extends FrameWorkController<PriceBind> implements Constant {
 
 	@Resource
 	PtPriceBindService thisService; // service层接口
@@ -46,10 +46,10 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute PtPriceBind entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PriceBind entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtPriceBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PriceBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -61,20 +61,20 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 	public void priceBingTermlist(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtPriceBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PriceBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		if(qr.getTotalCount()==0){
 			writeJSON(response, strData);// 返回数据	
 			return;
 		}
 		StringBuffer termId = new StringBuffer();
-		for(PtPriceBind priceBind:qr.getResultList()){
+		for(PriceBind priceBind:qr.getResultList()){
 			termId.append(priceBind.getTermId()+",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + termId.substring(0, termId.length() - 1)
 			+ "\",\"field\":\"uuid\"}]";
 		
-		QueryResult<PtTerm> termQr = ptTermService.queryPageResult(0, 0,null, filter, true);
+		QueryResult<Term> termQr = ptTermService.queryPageResult(0, 0,null, filter, true);
 		
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -95,7 +95,7 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 	public void doAdd(String[] termId,String[] termSn, String meterId, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		
 		thisService.doPriceBind(termId,termSn,meterId,currentUser.getId());
 		
@@ -114,7 +114,7 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -133,7 +133,7 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 			String[] ids =termIds.split(",");
 			for(int i=0;i<ids.length;i++){
 				 String hql = " from PtPriceBind where termId = '"+ ids[i]+"'";
-				 PtPriceBind entity = thisService.getEntityByHql(hql);
+				 PriceBind entity = thisService.getEntityByHql(hql);
 				 thisService.delete(entity);
 			}
 		}
@@ -151,7 +151,7 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -167,20 +167,20 @@ public class BasePtPriceBindController extends FrameWorkController<PtPriceBind> 
 	 * response @param @throws IOException 设定参数 @return void 返回类型 @throws
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(PtPriceBind entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PriceBind entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
 		String userCh = "超级管理员";
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		PtPriceBind perEntity = thisService.get(entity.getId());
+		PriceBind perEntity = thisService.get(entity.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);

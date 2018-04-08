@@ -21,14 +21,14 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildDormDefine;
+import com.zd.school.build.define.model.DormDefine;
 import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 房间定义
@@ -67,7 +67,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 		boolean flag = true;
 		
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String userCh =  currentUser.getId();
 		
 		// 在add前判断房间名称是否唯一
@@ -101,7 +101,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 		Boolean flag = false;
 		
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		String xm = currentUser.getId();
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String delIds = request.getParameter("ids");
@@ -123,10 +123,10 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
     
     
 	@RequestMapping("/doUpdate")
-	public void doUpdate(BuildDormDefine entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(DormDefine entity, HttpServletRequest request, HttpServletResponse response)
 			throws Exception, IOException, IllegalAccessException, InvocationTargetException {
 
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 		entity = dormRoomService.doUpdateEntity(entity, currentUser);
 
 		if (ModelUtil.isNotNull(entity))
@@ -149,7 +149,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 	@RequestMapping("/getDormEntity")
 	public void getDormEntity(String roomId, HttpServletRequest request, HttpServletResponse response)
 			throws Exception, IOException, IllegalAccessException, InvocationTargetException {
-		BuildDormDefine entity = null;
+		DormDefine entity = null;
 		if (!roomId.isEmpty()) {
 			entity = dormRoomService.getByRoomId(roomId);
 		}
@@ -167,7 +167,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 	 */
 	@RequestMapping(value = { "/onKeylist" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void onKeylist(@ModelAttribute BuildDormDefine entity, HttpServletRequest request, HttpServletResponse response)
+	public void onKeylist(@ModelAttribute DormDefine entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -203,7 +203,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 			   filter = filter.substring(0, filter.length()-1);
 			   filter+=",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""+ areaId+"\",\"field\":\"roomId\"}"+"]";
 			}
-		QueryResult<BuildDormDefine> qr = dormRoomService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<DormDefine> qr = dormRoomService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据

@@ -22,13 +22,13 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.DormStudentDorm;
-import com.zd.school.oa.terminal.model.OaInfoterm;
-import com.zd.school.oa.terminal.model.OaRoomTerm;
+import com.zd.school.build.allot.model.StudentDorm;
+import com.zd.school.oa.terminal.model.InfoTerminal;
+import com.zd.school.oa.terminal.model.RoomTerm;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * ClassName: OaInfotermController Function: ADD FUNCTION. Reason: ADD
@@ -40,7 +40,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Controller
 @RequestMapping("/BaseInfoterm")
-public class BaseInfotermController extends FrameWorkController<OaInfoterm> implements Constant {
+public class BaseInfotermController extends FrameWorkController<InfoTerminal> implements Constant {
 
 	@Resource
 	BaseInfotermService thisService; // service层接口
@@ -104,7 +104,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 			}
 		}
 		
-		QueryResult<OaInfoterm> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<InfoTerminal> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request),filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -120,7 +120,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 	 */
 	@Auth("INFOTERM_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(OaInfoterm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(InfoTerminal entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		Integer beforeNumber = Integer.parseInt(request.getParameter("beforeNumber"));
@@ -133,7 +133,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 			return;
 		}
 		// 获取当前操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser, beforeNumber, termCount);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -159,7 +159,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入主键\""));
 			return;
 		} else {
-			SysUser currentUser = getCurrentSysUser();
+			User currentUser = getCurrentSysUser();
 
 			boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 			if (flag) {
@@ -179,13 +179,13 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 	 * @throws InvocationTargetException
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(OaInfoterm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(InfoTerminal entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))
@@ -201,9 +201,9 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 		String setTerminals = request.getParameter("terminals");
 		String roomId = request.getParameter("roomId");
 		String roomName = request.getParameter("roomName");
-		SysUser currentUser = getCurrentSysUser();
+		User currentUser = getCurrentSysUser();
 
-		List<OaInfoterm> entityTerminals = (List<OaInfoterm>) jsonBuilder.fromJsonArray(setTerminals, OaInfoterm.class);
+		List<InfoTerminal> entityTerminals = (List<InfoTerminal>) jsonBuilder.fromJsonArray(setTerminals, InfoTerminal.class);
 		Boolean result = thisService.doSetTerminal(entityTerminals, roomId, roomName, currentUser);
 		if (result)
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功\""));
@@ -216,11 +216,11 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 	public void getRoomInfo(String roomId, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String sql = "select * from OA_V_ROOMTERM where roomId='" + roomId + "'";
-		List<OaRoomTerm> roomTerms = thisService.queryEntityBySql(sql, OaRoomTerm.class);
+		List<RoomTerm> roomTerms = thisService.queryEntityBySql(sql, RoomTerm.class);
 		if (roomTerms.size() == 0) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"请选择房间！\""));
 		} else {
-			OaRoomTerm roominfo = roomTerms.get(0);
+			RoomTerm roominfo = roomTerms.get(0);
 			String strData = jsonBuilder.toJson(roominfo);
 			writeJSON(response, jsonBuilder.returnSuccessJson(strData));
 		}
@@ -236,7 +236,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 35, };
-		List<OaInfoterm> terminfoList = null;
+		List<InfoTerminal> terminfoList = null;
 		String hql = " from OaInfoterm where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(roomName)) {
 			hql += " and roomName like '%" + roomName + "%' ";
@@ -246,7 +246,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 
 		List<Map<String, String>> terminfoExpList = new ArrayList<>();
 		Map<String, String> terminfoMap = null;
-		for (OaInfoterm terminfo : terminfoList) {
+		for (InfoTerminal terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
 			terminfoMap.put("termCode", terminfo.getTerminalNo());
 			terminfoMap.put("termType", terminfo.getTerminalType());
@@ -284,7 +284,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 25, 25, 25 };
-		List<OaInfoterm> terminfoList = null;
+		List<InfoTerminal> terminfoList = null;
 		String hql = " from OaInfoterm where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(ids)) {
 			hql += " and uuid in ('" + ids.replace(",", "','") + "')";
@@ -293,7 +293,7 @@ public class BaseInfotermController extends FrameWorkController<OaInfoterm> impl
 		terminfoList = thisService.queryByHql(hql);
 		List<Map<String, String>> terminfoExpList = new ArrayList<>();
 		Map<String, String> terminfoMap = null;
-		for (OaInfoterm terminfo : terminfoList) {
+		for (InfoTerminal terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
 			terminfoMap.put("termCode", terminfo.getTerminalNo());
 			terminfoMap.put("houseNumb", terminfo.getHouseNo());
