@@ -78,10 +78,10 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 				if (StringUtils.isNotEmpty(filter)) {
 					filter = filter.substring(0, filter.length() - 1);
 					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}" + "]";
+							+ "\",\"field\":\"classId\"}" + "]";
 				} else {
 					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}]";
+							+ "\",\"field\":\"classId\"}]";
 				}
 
 			} else { // 当选择的区域不为班级时
@@ -94,10 +94,10 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 					if (StringUtils.isNotEmpty(filter)) {
 						filter = filter.substring(0, filter.length() - 1);
 						filter += ",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}" + "]";
+								+ "\",\"field\":\"classId\"}" + "]";
 					} else {
 						filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}]";
+								+ "\",\"field\":\"classId\"}]";
 					}
 
 				} else { // 若区域之下没有班级，则直接返回空数据
@@ -127,21 +127,21 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 	public void doAdd(ClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		String claiId = entity.getClassId(); // 班级
-		String tteacId = entity.getTeacherId(); // 教师
+		String classId = entity.getClassId(); // 班级
+		String teacherId = entity.getTeacherId(); // 教师
 		Integer category = entity.getCategory(); // 身份
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 		// 同一老师不能重复设置
 		String hql = " o.isDelete='0' ";
-		if (thisService.IsFieldExist("tteacId", tteacId, "-1", hql)) {
+		if (thisService.IsFieldExist("teacherId", teacherId, "-1", hql)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"此教师已是班主任！\""));
 			return;
 		}
 		// 正班主任只能有一个
 		if (category == 0) {
 			hql = " o.isDelete='0' and category='" + category + "'";
-			if (thisService.IsFieldExist("claiId", claiId, "-1", hql)) {
+			if (thisService.IsFieldExist("classId", classId, "-1", hql)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"正班主任只能有一个！\""));
 				return;
 			}

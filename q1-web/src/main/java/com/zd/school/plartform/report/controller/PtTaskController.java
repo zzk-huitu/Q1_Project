@@ -117,16 +117,16 @@ public class PtTaskController extends FrameWorkController<Task> implements Const
 		}
 		List<Task> ptTaskList = null;
 		//String hql = " from PtTask a where a.isDelete=0 ";
-		String hql= " select a from PtTask a where a.executetime= "
-				+ "(select Max(executetime) from PtTask s1 where s1.termsn=a.termsn)  ";
+		String hql= " select a from Task a where a.executeTime= "
+				+ "(select Max(executeTime) from Task s1 where s1.termSn=a.termSn)  ";
 	
 		if (StringUtils.isNotEmpty(tasktype)) {
-			hql+=" and a.tasktype like'%"+tasktype+"%'";
+			hql+=" and a.taskType like'%"+tasktype+"%'";
 		}
 		if (StringUtils.isNotEmpty(termsn)) {
-			hql+=" and a.termsn like'%"+termsn+"%'";
+			hql+=" and a.termSn like'%"+termsn+"%'";
 		}
-		hql+=" order by updateTime desc,executetime asc";
+		hql+=" order by updateTime desc,executeTime asc";
 		ptTaskList = thisService.queryByHql(hql);
 
 		List<Map<String, String>> ptTasExpList = new ArrayList<>();

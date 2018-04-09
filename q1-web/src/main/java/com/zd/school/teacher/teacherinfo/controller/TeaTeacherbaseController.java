@@ -100,14 +100,14 @@ public class TeaTeacherbaseController extends FrameWorkController<TeacherBaseInf
 
 		// 当传入的参数树courseId时。就去查询deptId
 		if (StringUtils.isEmpty(deptId) && StringUtils.isNotEmpty(courseId)) {
-			Department baseOrg = sysOrgService.getByProerties("extField01", courseId);
+			Department baseOrg = sysOrgService.getByProerties("courseId", courseId);
 			deptId = baseOrg.getId();
 		}
 
 		if (StringUtils.isNotEmpty(deptId)) {
 
-			String hql = "from TeaTeacherbase g where g.isDelete=0 and g.uuid in ("
-					+ "	select distinct userId  from BaseUserdeptjob where isDelete=0 and deptId = '" + deptId + "'"
+			String hql = "from TeacherBaseInfo g where g.isDelete=0 and g.id in ("
+					+ "	select distinct userId  from UserDeptJob where isDelete=0 and deptId = '" + deptId + "'"
 					+ ")";
 			QueryResult<TeacherBaseInfo> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), hql, null, null);
@@ -167,7 +167,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeacherBaseInf
 		String  sfzjh = entity.getIdentityNumber();
 		String  userNumb = entity.getUserNumb();
 		// 判断身份证件号是否重复
-		if (StringUtils.isNotEmpty(sfzjh) && thisService.IsFieldExist("sfzjh", sfzjh, "-1")) {
+		if (StringUtils.isNotEmpty(sfzjh) && thisService.IsFieldExist("identityNumber", sfzjh, "-1")) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"身份证件号不能重复！\""));
 			return;
 		}
@@ -209,7 +209,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeacherBaseInf
 		// 入库前检查代码
 		try {
 			String hql1 = " o.isDelete='0'";
-			if (thisService.IsFieldExist("sfzjh", entity.getIdentityNumber(), entity.getId(), hql1)) {
+			if (thisService.IsFieldExist("identityNumber", entity.getIdentityNumber(), entity.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"教师的身份证件号不能重复！\""));
 				return;
 			}

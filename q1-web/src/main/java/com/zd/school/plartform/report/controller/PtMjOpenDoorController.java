@@ -1,7 +1,6 @@
 package com.zd.school.plartform.report.controller;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,22 +11,21 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
-import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.util.BeanUtils;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.school.control.device.model.MjOpenDoor;
 import com.zd.school.plartform.basedevice.service.PtMjOpenDoorService;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 门禁开门记录
@@ -115,7 +113,7 @@ public class PtMjOpenDoorController extends FrameWorkController<MjOpenDoor> impl
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 30, 15 ,15};
 		List<MjOpenDoor> mjOpenDoorList = null;
 
-		String hql = " from PtMjOpenDoor a where 1=1 ";		// a.isDelete=0 ";暂时不需要这个条件
+		String hql = " from MjOpenDoor a where 1=1 ";		// a.isDelete=0 ";暂时不需要这个条件
 		
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
@@ -212,12 +210,12 @@ public class PtMjOpenDoorController extends FrameWorkController<MjOpenDoor> impl
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ roomId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

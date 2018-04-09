@@ -59,6 +59,9 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 	@Resource
 	private SysUserService userService;
 
+	/*
+	 * 待迁移UP库
+	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public @ResponseBody List<PowerResidue> list(HttpServletRequest request, HttpServletResponse response)
@@ -76,20 +79,20 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
 				roomIdList.add(roomID);
 			} else { // 当选择的区域不为房间时,查询出子房间
-				String sql = "select a.id from JW_V_STU_DORMALLOTTREE a where a.leaf='false' " + "and a.treeIds like '%"
+				String sql = "select a.id from V_PT_StudentDromAllotTree a where a.leaf='false' " + "and a.treeIds like '%"
 						+ roomID + "%'";
 				List<String> lists = termService.queryEntityBySql(sql, null);
 				if (lists.size() > 0) {
 					String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
 
-					sql = "select a.id from JW_V_STU_DORMALLOTTREE a where a.leaf='true' and a.parent in (" + areaIds
+					sql = "select a.id from V_PT_StudentDromAllotTree a where a.leaf='true' and a.parent in (" + areaIds
 							+ ")";
 					roomIdList = termService.queryEntityBySql(sql, null);
 				}
 			}
 		}else{
 			//获取全部学生宿舍
-			String sql = "select a.id from JW_V_STU_DORMALLOTTREE a where a.leaf='true'";
+			String sql = "select a.id from V_PT_StudentDromAllotTree a where a.leaf='true'";
 			roomIdList = termService.queryEntityBySql(sql, null);
 		}
 
@@ -101,7 +104,7 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 				if (roomBag != null)
 					temp.setPowerResidue(roomBag.getRoomValue() + "");
 
-				String[] propName = new String[] { "roomId", "termTypeID", "isDelete" };
+				String[] propName = new String[] { "roomId", "termTypeId", "isDelete" };
 				Object[] propValue = new Object[] { roomId, "9", 0 };
 				Term term = termService.getByProerties(propName, propValue);
 				if (term != null) {
@@ -110,16 +113,16 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 						temp.setMoneyResidue(termBag.getBagValue() + "");
 				}
 
-				String sql = "SELECT user_id,Room_Name,xm FROM dbo.PT_V_STUDENTDORM WHERE ROOM_ID = '" + roomId + "'";
+				String sql = "SELECT userId,roomName,name FROM V_PT_StudentDormList WHERE roomId = '" + roomId + "'";
 				List<Map<String, Object>> studentDorms = stuDormService.queryMapBySql(sql);
-				temp.setRoomName(String.valueOf(studentDorms.get(0).get("Room_Name")));
+				temp.setRoomName(String.valueOf(studentDorms.get(0).get("roomName")));
 
 				DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
 
 				// 通过反射，去设置各个宿舍人员的数据（这里固定了宿舍人数为6人，实际上可能不合理，推荐使用拼接字符串的形式来实现宿舍人数超过6人的情况）
 				Class clazz = temp.getClass();
 				for (int i = 0; i < studentDorms.size(); i++) {
-					String userId = String.valueOf(studentDorms.get(i).get("user_id"));
+					String userId = String.valueOf(studentDorms.get(i).get("userId"));
 
 					String methodName = "setCardResidue" + (i + 1);
 					Method method = clazz.getDeclaredMethod(methodName, String.class);

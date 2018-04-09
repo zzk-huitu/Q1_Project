@@ -20,8 +20,8 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.build.allot.model.ClassDormAllot;
+import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.build.define.model.DormDefine;
 import com.zd.school.control.device.model.RoomBag;
 import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
@@ -94,8 +94,7 @@ public class PtBagController extends FrameWorkController implements Constant {
 	}
 
 	/**
-	 * 用户钱包余额
-	 * 
+	 * 用户钱包余额【待迁移UP库】 
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -104,18 +103,18 @@ public class PtBagController extends FrameWorkController implements Constant {
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void userbagyue(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String roomid = request.getParameter("roomId");
-		String sql = "select  u.USER_ID,u.USER_NUMB,u.XM  from PT_V_STUDENTDORM d,SYS_T_USER u where "
-				+ "u.USER_ID =d.USER_ID and d.ROOM_ID='" + roomid + "'";
+		String sql = "select  u.userId,u.userNumb,u.name  from V_PT_StudentDormList d,T_PT_User u where "
+				+ "u.userId =d.userId and d.roomId='" + roomid + "'";
 		List<Map<String, Object>> list = roomBagsService.queryMapBySql(sql);
 
 		DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
 		List<Map> listmap = new ArrayList<Map>();
 		try {
 			for (Map<String, Object> u : list) {
-				String USER_ID = (String) u.get("USER_ID");
+				String userId = (String) u.get("userId");
 				sql = "select b.bagName,b.cardValue from TC_Employee a "
 						+ " left join dbo.TC_Card_Bags b on a.cardID=b.cardID "
-						+ " where a.userId='"+USER_ID+"'";
+						+ " where a.userId='"+userId+"'";
 				List<Map<String, Object>> xf = roomBagsService.queryMapBySql(sql);
 				
 				String cardValueXF="";
@@ -154,7 +153,7 @@ public class PtBagController extends FrameWorkController implements Constant {
 			throws IOException {
 		DormDefine dormDefine = null;
 		String querySql = super.querySql(request);
-		String hql = "from DormStudentDorm where isDelete=0 ";
+		String hql = "from StudentDorm where isDelete=0 ";
 		hql += querySql;
 		List<StudentDorm> studentDorms = studentdormService.queryByHql(hql);
 		if (studentDorms.size() != 0) {

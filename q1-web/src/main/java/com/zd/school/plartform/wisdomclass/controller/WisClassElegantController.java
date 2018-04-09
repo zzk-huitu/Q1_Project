@@ -61,24 +61,24 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter=request.getParameter("filter");;
-		String claiId = request.getParameter("claiId");
+		String classId = request.getParameter("claiId");
 		String claiIdLeaf = request.getParameter("claiIdLeaf");
 		
-		if (StringUtils.isNotEmpty(claiId) && !AdminType.ADMIN_ORG_ID.equals(claiId)) {
+		if (StringUtils.isNotEmpty(classId) && !AdminType.ADMIN_ORG_ID.equals(classId)) {
 			if ("1".equals(claiIdLeaf)) { // 当选择的区域为房间时
 				if (StringUtils.isNotEmpty(filter)) {
 					filter = filter.substring(0, filter.length() - 1);
-					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + claiId
-							+ "\",\"field\":\"claiId\"}" + "]";
+					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + classId
+							+ "\",\"field\":\"classId\"}" + "]";
 				} else {
-					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + claiId
-							+ "\",\"field\":\"claiId\"}]";
+					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + classId
+							+ "\",\"field\":\"classId\"}]";
 				}
 			} else {					// 当选择的区域不为房间时
 				// 当选择的区域不为房间时
 				List<String> claiIdList = new ArrayList<>();
-				String hql = "select a.uuid from BaseOrg a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
-						+ claiId + "%'";
+				String hql = "select a.id from Department a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
+						+ classId + "%'";
 		    	claiIdList = thisService.queryEntityByHql(hql);
 			
 				if(!claiIdList.isEmpty()){
@@ -86,10 +86,10 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 					if (StringUtils.isNotEmpty(filter)) {
 						filter = filter.substring(0, filter.length() - 1);
 						filter += ",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + roomIds
-								+ "\",\"field\":\"claiId\"}" + "]";
+								+ "\",\"field\":\"classId\"}" + "]";
 					} else {
 						filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + roomIds
-								+ "\",\"field\":\"claiId\"}]";
+								+ "\",\"field\":\"classId\"}]";
 					}
 					
 				}else{	// 若区域之下没有房间，则直接返回空数据
@@ -158,7 +158,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 
 					// 插入数据
 					Attachment bt = new Attachment();
-					bt.setEntityName("EccClasselegant");
+					bt.setEntityName("ClassMien");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
 					bt.setFileName(myFileName);
@@ -184,7 +184,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 
 			String doIds = "'" + fileIds.replace(",", "','") + "'";
 
-			String hql = "DELETE FROM BaseAttachment b  WHERE b.uuid IN (" + doIds + ")";
+			String hql = "DELETE FROM Attachment b  WHERE b.id IN (" + doIds + ")";
 
 			int flag = baseTAttachmentService.doExecuteCountByHql(hql);
 

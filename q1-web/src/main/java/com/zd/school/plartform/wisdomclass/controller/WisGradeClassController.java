@@ -61,15 +61,15 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 				if (StringUtils.isNotEmpty(filter)) {
 					filter = filter.substring(0, filter.length() - 1);
 					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + claiId
-							+ "\",\"field\":\"uuid\"}" + "]";
+							+ "\",\"field\":\"id\"}" + "]";
 				} else {
 					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + claiId
-							+ "\",\"field\":\"uuid\"}]";
+							+ "\",\"field\":\"id\"}]";
 				}
 			} else { // 当选择的区域不为房间时
 				// 当选择的区域不为房间时
 				List<String> claiIdList = new ArrayList<>();
-				String hql = "select a.uuid from BaseOrg a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
+				String hql = "select a.id from Department a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
 						+ claiId + "%'";
 				claiIdList = thisService.queryEntityByHql(hql);
 
@@ -78,10 +78,10 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 					if (StringUtils.isNotEmpty(filter)) {
 						filter = filter.substring(0, filter.length() - 1);
 						filter += ",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + roomIds
-								+ "\",\"field\":\"uuid\"}" + "]";
+								+ "\",\"field\":\"id\"}" + "]";
 					} else {
 						filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + roomIds
-								+ "\",\"field\":\"uuid\"}]";
+								+ "\",\"field\":\"id\"}]";
 					}
 
 				} else { // 若区域之下没有房间，则直接返回空数据
@@ -128,7 +128,7 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 
-		String hql = "from JwTGradeclass where isDelete=0";
+		String hql = "from GradeClass where isDelete=0";
 		Boolean isSchoolAdminRole = false;
 		List<User> roleUsers = userService.getUserByRoleName("学校管理员");
 		for (User su : roleUsers) {
@@ -139,11 +139,11 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 		}
 		if (!isSchoolAdminRole) {
 			// 判断是否是班主任
-			String ghql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getId() + "'";
+			String ghql = "from ClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
 			List<ClassTeacher> classteachers = cTeacherService.queryByHql(ghql);
 			if (classteachers != null && classteachers.size() > 0) {
 				ClassTeacher cTeacher = classteachers.get(0);
-				hql += " and uuid='" + cTeacher.getClassId() + "'";
+				hql += " and id='" + cTeacher.getClassId() + "'";
 			}
 
 		}
@@ -154,27 +154,5 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 		writeJSON(response, strData);// 返回数据
 	}
 
-	/*
-	 * @RequestMapping("/doAdd") public void doadd(JwTGradeclass entity,
-	 * HttpServletRequest request, HttpServletResponse response) throws
-	 * IOException, IllegalAccessException, InvocationTargetException { //
-	 * String courseName = entity.getCourseName(); // 获取当前操作用户 String userCh =
-	 * "超级管理员"; SysUser currentUser = getCurrentSysUser(); if (currentUser !=
-	 * null) userCh = currentUser.getXm(); Integer orderIndex =
-	 * entity.getOrderIndex() + 1; String sName = ""; String gradeId =
-	 * entity.getGraiId(); JwTGrade grade = gradeService.get(gradeId); switch
-	 * (grade.getGradeCode()) { case "31": sName = "初一"; break; case "32": sName
-	 * = "初二"; break; case "33": sName = "初三"; break; case "41": sName = "高一";
-	 * break; case "42": sName = "高二"; break; case "43": sName = "高三"; break;
-	 * default: break; } for (int i = 1; i < orderIndex; i++) { String className
-	 * = sName + "（" + i + "）班"; String[] propName = new String[] { "className",
-	 * "isDelete" }; Object[] propValue = new Object[] { "className", "0" };
-	 * JwTGradeclass isClass = thisService.getByProerties("className",
-	 * className); if (!ModelUtil.isNotNull(isClass)) { JwTGradeclass gradeclass
-	 * = new JwTGradeclass(); BeanUtils.copyPropertiesExceptNull(entity,
-	 * gradeclass); entity.setOrderIndex(i); entity.setClassName(sName + "（" + i
-	 * + "）班"); entity.setCreateUser(userCh); thisService.merge(entity); } }
-	 * 
-	 * writeJSON(response, jsonBuilder.returnSuccessJson("'创建班级成功'")); }
-	 */
+
 }

@@ -94,7 +94,7 @@ public class StuBaseinfoController extends FrameWorkController<StudentBaseInfo> 
 		String xjh = entity.getStudentCode();
 
 		// 判断身份证件号是否重复
-		if (StringUtils.isNotEmpty(sfzjh)&&thisService.IsFieldExist("sfzjh", sfzjh, "-1")) {
+		if (StringUtils.isNotEmpty(sfzjh)&&thisService.IsFieldExist("identityNumber", sfzjh, "-1")) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"身份证件号不能重复！\""));
 			return;
 		}
@@ -112,7 +112,7 @@ public class StuBaseinfoController extends FrameWorkController<StudentBaseInfo> 
 		}
 
 		// 判断学籍号是否重复
-		if (StringUtils.isNotEmpty(xjh)&&thisService.IsFieldExist("xjh", xjh, "-1")) {
+		if (StringUtils.isNotEmpty(xjh)&&thisService.IsFieldExist("studentCode", xjh, "-1")) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"学籍号不能重复！\""));
 			return;
 		}
@@ -146,7 +146,7 @@ public class StuBaseinfoController extends FrameWorkController<StudentBaseInfo> 
 		// 入库前检查代码
 		try {
 			String hql1 = " o.isDelete='0'";
-			if (StringUtils.isNotEmpty(entity.getIdentityNumber())&&thisService.IsFieldExist("sfzjh", entity.getIdentityNumber(), entity.getId(), hql1)) {
+			if (StringUtils.isNotEmpty(entity.getIdentityNumber())&&thisService.IsFieldExist("identityNumber", entity.getIdentityNumber(), entity.getId(), hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"身份证件号不能重复！\""));
 				return;
 			}

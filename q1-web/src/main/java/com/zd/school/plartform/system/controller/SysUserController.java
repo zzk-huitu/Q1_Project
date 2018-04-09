@@ -644,7 +644,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			hql += " and a.userName like '%" + userName + "%'";
 		}
 		if (StringUtils.isNotEmpty(xm)) {
-			hql += " and a.xm like '%" + xm + "%'";
+			hql += " and a.name like '%" + xm + "%'";
 		}
 		if (StringUtils.isNotEmpty(category)) {
 			hql += " and a.category = '" + category + "'";
