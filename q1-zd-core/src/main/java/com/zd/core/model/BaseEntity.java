@@ -34,10 +34,10 @@ import java.util.UUID;
 public abstract class BaseEntity {
 		
 	@Id
-	@FieldInfo(name = "ID", type = "ID")
+	@FieldInfo(name = "id", type = "ID")
     //@GeneratedValue(generator = "uuid")
     //@GenericGenerator(name = "uuid", strategy = "uuid")
-    @Column(name = "ID", length = 20, nullable = false)
+    @Column(name = "id", length = 20, nullable = false)
 	private String id;
 
 	public String getId() {
@@ -49,58 +49,38 @@ public abstract class BaseEntity {
 	}
 
 	@FieldInfo(name = "创建时间")
-	@Column(name = "CREATE_TIME", nullable = true, columnDefinition = "datetime", updatable = false)
+	@Column(name = "createTime", nullable = true, columnDefinition = "datetime", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private Date createTime = new Date();
 
 	@FieldInfo(name = "创建人")
-	@Column(name = "CREATE_USER", length = 36)
+	@Column(name = "createUser", length = 36)
 	private String createUser;
 
 	@FieldInfo(name = "最后修改时间")
-	@Column(name = "UPDATE_TIME", columnDefinition = "datetime")
+	@Column(name = "updateTime", columnDefinition = "datetime")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private Date updateTime = new Date();
 
 	@FieldInfo(name = "修改人")
-	@Column(name = "UPDATE_USER", length = 36)
+	@Column(name = "updateUser", length = 36)
 	private String updateUser;
 
 	@FieldInfo(name = "版本")
 	@Version
-	@Column(name = "VERSION", nullable = false)
+	@Column(name = "version", nullable = false)
 	private Integer version;
-
-	@FieldInfo(name = "备用字段1")
-	@Column(name = "EXT_FIELD01", length = 1000)
-	private String extField01;
-
-	@FieldInfo(name = "备用字段2")
-	@Column(name = "EXT_FIELD02", length = 1000)
-	private String extField02;
-
-	@FieldInfo(name = "备用字段3")
-	@Column(name = "EXT_FIELD03", length = 1000)
-	private String extField03;
-
-	@FieldInfo(name = "备用字段4")
-	@Column(name = "EXT_FIELD04", length = 1000)
-	private String extField04;
-
-	@FieldInfo(name = "备用字段5")
-	@Column(name = "EXT_FIELD05", length = 1000)
-	private String extField05;
 
 	@FieldInfo(name = "是否删除",explain = "0-未删除 1-已删除")
 	@Column(name = "isDelete",columnDefinition = "smallint DEFAULT 0 ",nullable = false)
 	private Integer isDelete = 0;
 
 	@FieldInfo(name = "排序字段")
-	@Column(name = "ORDER_INDEX",columnDefinition = "int DEFAULT 0 ",nullable = false)
+	@Column(name = "orderIndex",columnDefinition = "int DEFAULT 0 ",nullable = false)
 	private Integer orderIndex=0;
 
     public Date getCreateTime() {
@@ -143,45 +123,6 @@ public abstract class BaseEntity {
         this.version = version;
     }
 
-    public String getExtField01() {
-        return extField01;
-    }
-
-    public void setExtField01(String extField01) {
-        this.extField01 = extField01;
-    }
-
-    public String getExtField02() {
-        return extField02;
-    }
-
-    public void setExtField02(String extField02) {
-        this.extField02 = extField02;
-    }
-
-    public String getExtField03() {
-        return extField03;
-    }
-
-    public void setExtField03(String extField03) {
-        this.extField03 = extField03;
-    }
-
-    public String getExtField04() {
-        return extField04;
-    }
-
-    public void setExtField04(String extField04) {
-        this.extField04 = extField04;
-    }
-
-    public String getExtField05() {
-        return extField05;
-    }
-
-    public void setExtField05(String extField05) {
-        this.extField05 = extField05;
-    }
 
     public Integer getIsDelete() {
         return isDelete;
