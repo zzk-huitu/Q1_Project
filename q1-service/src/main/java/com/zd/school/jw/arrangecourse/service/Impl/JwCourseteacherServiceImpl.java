@@ -144,7 +144,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<CourseTeacher> i
 						userdeptjob.setUserId(user.getId());
 						userdeptjob.setDeptId(addTeacher.getClassId());
 						userdeptjob.setJobId(job.getId());
-						userdeptjob.setDeptjobId(deptjob.getId());
+						userdeptjob.setDeptJobId(deptjob.getId());
 						userdeptjob.setIsMainDept(false);
 						userDeptJobService.merge(userdeptjob);
 
@@ -457,7 +457,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<CourseTeacher> i
 			userdeptjob2.setUserId(teaId);
 			userdeptjob2.setDeptId(jct.getClassId());
 			userdeptjob2.setJobId(job.getId());
-			userdeptjob2.setDeptjobId(jct.getId());
+			userdeptjob2.setDeptJobId(jct.getId());
 			userdeptjob2.setIsMainDept(false);
 			userDeptJobService.merge(userdeptjob2);
 
