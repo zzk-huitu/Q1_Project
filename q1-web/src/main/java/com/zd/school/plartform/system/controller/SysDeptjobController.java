@@ -109,7 +109,7 @@ public class SysDeptjobController extends FrameWorkController<DeptJob> implement
 			return;
 		} else {
 			// 判断这些部门岗位是否正在被其他用户使用
-			String hql = "select count(a.uuid) from BaseUserdeptjob as a where a.deptjobId in ('" + delIds.replace(",", "','")
+			String hql = "select count(a.id) from UserDeptJob as a where a.deptJobId in ('" + delIds.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {

@@ -39,7 +39,6 @@ import com.zd.core.constant.TreeVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.EntityExportExcel;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
@@ -52,7 +51,6 @@ import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.system.model.MenuTree;
 import com.zd.school.plartform.system.model.Role;
 import com.zd.school.plartform.system.model.User;
-import com.zd.school.plartform.system.model.SysUserToUP;
 import com.zd.school.plartform.system.service.SysMenuService;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.plartform.system.service.SysUserService;
@@ -128,8 +126,8 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 
 			// 根据deptId，查询出所有用户信息（主部门和副部门的）
 			if (StringUtils.isNotEmpty(deptId)) {
-				String hql = "from SysUser g where g.isDelete=0 and g.uuid in ("
-						+ "	select distinct userId  from BaseUserdeptjob where isDelete=0 and deptId in ('" + deptId
+				String hql = "from User g where g.isDelete=0 and g.id in ("
+						+ "	select distinct userId  from UserDeptJob where isDelete=0 and deptId in ('" + deptId
 						+ "')" + ")"; // and masterDept=1 目前显示部门的全部用户
 
 				QueryResult<User> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
@@ -282,35 +280,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		writeJSON(response, strData);
 	}
 
-	/**
-	 * 获取部分菜单的任务数量
-	 * 
-	 * @param request
-	 * @param response
-	 * @throws IOException
-	 */
-	@RequestMapping("/getUserMenuTask")
-	public void getUserMenuTask(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-		try {
-			String hql = "select COUNT(*) from TrainClass o where o.isDelete=0 and ((o.isuse=1 and o.isarrange!=1) or o.isuse=3 )";
-			Integer count1 = thisService.getQueryCountByHql(hql);
-
-			List<Map<String, Object>> returnList = new ArrayList<>();
-
-			Map<String, Object> map1 = new HashMap<>();
-			map1.put("name", "TRAINARRANGE");
-			map1.put("value", count1);
-
-			returnList.add(map1);
-
-			String strData = jsonBuilder.toJson(returnList);
-			writeJSON(response, jsonBuilder.returnSuccessJson(strData));
-
-		} catch (Exception e) {
-			writeJSON(response, jsonBuilder.returnFailureJson("\"请求失败，请重试或联系管理员！\""));
-		}
-	}
 
 	/**
 	 * 
@@ -450,7 +420,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			return;
 		} else {
 			String[] delId = delIds.split(",");
-			thisService.updateByProperties("uuid", delId, "state", "1");
+			thisService.updateByProperties("id", delId, "state", "1");
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"锁定成功\""));
 		}
 	}
@@ -464,7 +434,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			return;
 		} else {
 			String[] delId = delIds.split(",");
-			thisService.updateByProperties("uuid", delId, "state", "0");
+			thisService.updateByProperties("id", delId, "state", "0");
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"解锁成功\""));
 		}
 	}
@@ -479,7 +449,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		} else {
 			String[] delId = delIds.split(",");
 			String userPwd = new Sha256Hash("123456").toHex();
-			thisService.updateByProperties("uuid", delId, "userPwd", userPwd);
+			thisService.updateByProperties("id", delId, "userPwd", userPwd);
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"重置密码成功\""));
 		}
 	}
@@ -501,7 +471,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	public void getSelectedUserlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		String ids = request.getParameter("ids");
-		String hql = "from SysUser a where uuid in ('" + ids.replace(",", "','") + "')";
+		String hql = "from User a where id in ('" + ids.replace(",", "','") + "')";
 		List<User> userList = thisService.queryByHql(hql);
 
 		strData = jsonBuilder.buildObjListToJson((long) userList.size(), userList, true);// 处理数据
@@ -604,60 +574,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		}
 	}
 
-	/*
-	 * 一键同步UP的方式
-	 */
-	@Auth("SYSUSER_syncToUP")
-	@RequestMapping("/doSyncAllUserInfoToUp")
-	public void doSyncAllUserInfoToUp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		StringBuffer returnJson = null;
-		try {
-
-			// String userId="8a8a8834533a065601533a065ae80234";
-
-			// 1.查询最新的用户、部门信息
-			String sql = "select  u.USER_ID as userId,u.XM as employeeName, u.user_numb as employeeStrId,"
-					+ "CASE u.XBM WHEN '2' THEN '0' ELSE '1' END AS sexId,u.isDelete as isDelete,"
-					+ "u.SFZJH AS identifier,u.MOBILE as employeeTel,'1' AS cardState,"
-					+ "'' as sid,job.JOB_NAME as jobName,'' as employeePwd," + "isnull(org.EXT_FIELD04,("
-					+ "		select top 1 EXT_FIELD04 from BASE_T_ORG where ISDELETE=0 and NODE_TEXT='临时部门'"
-					+ "))as departmentId " + "from SYS_T_USER u " + " LEFT join BASE_T_ORG org on "
-					+ " 	(select top 1 DEPT_ID from BASE_T_UserDeptJOB where USER_ID=u.USER_ID and ISDELETE=0 order by master_dept desc,CREATE_TIME desc)=org.dept_ID "
-					+ " LEFT join BASE_T_JOB job on "
-					+ "		(select top 1 JOB_ID from BASE_T_UserDeptJOB where USER_ID=u.USER_ID and ISDELETE=0 order by master_dept desc,CREATE_TIME desc)=job.JOB_ID "
-					+ "order by userId asc";
-
-			List<SysUserToUP> userInfos = thisService.queryEntityBySql(sql, SysUserToUP.class);
-
-			// 2.进入事物之前切换数据源
-			DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
-			int row = 0;
-			if (userInfos.size() > 0) {
-				row = thisService.syncUserInfoToAllUP(userInfos, null);
-			} else {
-				row = thisService.syncUserInfoToAllUP(null, null);
-			}
-
-			if (row == 0) {
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"该数据已同步！\"}");
-			} else if (row > 0) {
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"同步人员数据成功！\"}");
-			} else {
-				returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步人员数据到UP失败，请联系管理员！\"}");
-			}
-
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-			logger.error("同步人员数据到UP失败！错误信息：->" + Arrays.toString(e.getStackTrace()));
-			returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步人员数据到UP失败，请联系管理员！\"}");
-		} finally {
-			// 恢复数据源
-			DBContextHolder.clearDBType();
-		}
-
-		writeAppJSON(response, returnJson.toString());
-	}
-
+	
 	/**
 	 * 获取不在某角色下的用户列表
 	 * 
@@ -716,10 +633,10 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		}
 
 		List<User> sysUserList = null;
-		String hql = " from SysUser a where a.isDelete=0 ";
+		String hql = " from User a where a.isDelete=0 ";
 		if (StringUtils.isNotEmpty(deptId)) {
 			if (!deptId.equals(AdminType.ADMIN_ORG_ID)) {
-				hql = " select a from SysUser a inner join BaseUserdeptjob b on a.uuid=b.userId where a.isDelete=0 and b.isDelete=0 and b.deptId='"
+				hql = " select a from User a inner join UserDeptJob b on a.id=b.userId where a.isDelete=0 and b.isDelete=0 and b.deptId='"
 						+ deptId + "'";
 			}
 		}

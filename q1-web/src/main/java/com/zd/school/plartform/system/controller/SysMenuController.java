@@ -231,13 +231,13 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要锁定的菜单\""));
             return;
         } else {
-            String hql = " update SysMenu set isHidden='" + lockFlag + "'  where uuid in ('" + delIds.replace(",", "','")  + "') ";
+            String hql = " update Menu set isHidden='" + lockFlag + "'  where id in ('" + delIds.replace(",", "','")  + "') ";
             thisService.doExecuteCountByHql(hql);
                        
             //删除有权限的角色的用户的redis数据
             String[] delIdArr=delIds.split(",");
             for(int i=0;i<delIdArr.length;i++){
-            	Permission sysPermission= perimissonSevice.getByProerties("perCode", delIdArr[i]);
+            	Permission sysPermission= perimissonSevice.getByProerties("permissionCode", delIdArr[i]);
             	if(sysPermission!=null)
             		userSerive.deleteUserMenuTreeRedis(sysPermission);
             }

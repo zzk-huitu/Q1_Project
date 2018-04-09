@@ -24,10 +24,8 @@ import com.zd.core.util.EntityUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
 import com.zd.school.plartform.baseset.model.Department;
-import com.zd.school.plartform.baseset.model.BaseOrgToUP;
 import com.zd.school.plartform.baseset.model.DepartmentTree;
 import com.zd.school.plartform.system.model.User;
-import com.zd.school.plartform.system.model.SysUserToUP;
 import com.zd.school.plartform.system.service.SysOrgService;
 
 /**
@@ -170,7 +168,7 @@ public class SysOrgController extends FrameWorkController<Department> implements
 			return;
 		}
 		//获取同一级别的顺序号
-		String hql = " from BaseOrg where orderIndex = (select max(o.orderIndex) from BaseOrg o where  o.isDelete='0' and o.parentNode='" + parentNode + "' )";
+		String hql = " from Department where orderIndex = (select max(o.orderIndex) from Department o where  o.isDelete='0' and o.parentNode='" + parentNode + "' )";
 		List list = thisService.queryByHql(hql);
 		if (list.size() > 0) {
 			defaultOrderIndex = (Integer) EntityUtil.getPropertyValue(list.get(0), "orderIndex") + 1;
@@ -279,116 +277,5 @@ public class SysOrgController extends FrameWorkController<Department> implements
 		}	
 	}
 	
-	/*
-     * 单条数据调用同步UP的方式
-     * 弃用
-     * */
-    @RequestMapping("/doSyncDeptInfoToUp/{smallDeptId}")
-	public void doSyncDeptInfoToUp(@PathVariable("smallDeptId") String smallDeptId,HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	StringBuffer returnJson = null;
-    	try{
-    		
-    		//String smallDeptId="12";
-    	
-    		// 1.查询这个smallDeptId的最新的部门信息
-			String sql = "select EXT_FIELD04 as departmentId,EXT_FIELD05 as parentDepartmentId,"
-					+ "	NODE_TEXT as departmentName,convert(varchar,NODE_LEVEL) as layer,"
-					+ " convert(varchar,ORDER_INDEX) as layerorder  "
-					+ " from BASE_T_ORG"
-					+ " where isdelete=0 and EXT_FIELD04='"+smallDeptId+"'"
-					+ " order by DepartmentID asc";
-			
-			List<BaseOrgToUP> deptInfo = thisService.queryEntityBySql(sql, BaseOrgToUP.class);
-			
-			//2.进入事物之前切换数据源		
-			DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
-			int row = 0;
-			if(deptInfo.size()!=0){			
-				row = thisService.syncDeptInfoToUP(deptInfo.get(0),smallDeptId);
-			}else{			
-				row = thisService.syncDeptInfoToUP(null, smallDeptId);			
-			}
-    		
-			if(row==0){
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"未有部门数据需要同步！\"}");
-			}else if(row>0){
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"同步部门数据成功！\"}");
-			}else{
-				returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步部门数据到UP失败，请联系管理员！\"}");
-			}
-				
-	    } catch (Exception e) {
-			returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步部门数据到UP失败，请联系管理员！\"}");
-		} finally {
-			// 恢复数据源
-			DBContextHolder.clearDBType();
-		}
-	
-		writeAppJSON(response, returnJson.toString());
-    }
-    
-    
-    /*
-     * 所有部门数据调用同步UP的方式
-     * 更新UP中的部门数据、更新UP用户的部门数据。
-     * */
-    @Auth("DEPARTMENT_sync")
-    @RequestMapping("/doSyncAllDeptInfoToUp")
-	public void doSyncAllDeptInfoToUp(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	StringBuffer returnJson = null;
-    	try{
-    		
-    		//String smallDeptId="12";
-    		// 0.重新生成副ID
-    		thisService.doCreateFuId();
-    		
-    		// 1.查询这个smallDeptId的最新的部门信息
-			String sql = "select EXT_FIELD04 as departmentId,EXT_FIELD05 as parentDepartmentId,"
-					+ "	NODE_TEXT as departmentName,convert(varchar,NODE_LEVEL) as layer,"
-					+ " convert(varchar,ORDER_INDEX) as layerorder  "
-					+ " from BASE_T_ORG"
-					+ " where isdelete=0 and DEPT_ID!='ROOT' "
-					+ " order by DepartmentID asc";
-			
-			List<BaseOrgToUP> deptInfo = thisService.queryEntityBySql(sql, BaseOrgToUP.class);
-				
-			//2.查询最新的用户、部门信息（若人员没有指定部门岗位，则设置为临时部门）
-			sql = "select  u.USER_ID as userId,isnull(org.EXT_FIELD04,("
-					+ "select top 1 EXT_FIELD04 from BASE_T_ORG where ISDELETE=0 and NODE_TEXT='临时部门'"
-					+ "))as departmentId "
-					+ " from SYS_T_USER u  left join BASE_T_ORG org on "
-					+ " (select top 1 DEPT_ID from BASE_T_UserDeptJOB "
-					+ " where USER_ID=u.USER_ID and ISDELETE=0 "
-					+ " order by master_dept desc,CREATE_TIME desc)=org.dept_ID "
-					+ " order by userId asc";
-			List<SysUserToUP> userInfos = thisService.queryEntityBySql(sql, SysUserToUP.class);
-			
-			//3.进入事物之前切换数据源		
-			DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
-			int row = 0;
-			if(deptInfo.size()!=0){			
-				row = thisService.syncAllDeptInfoToUP(deptInfo);
-			}
-			
-			//4.当部门数据同步更新了之后，再去更新up中用户的部门数据
-			thisService.syncAllUserDeptInfoToUP(userInfos);	//执行
-			
-			
-			if(row==0){
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"该部门数据已同步！\"}");
-			}else if(row>0){
-				returnJson = new StringBuffer("{ \"success\" : true, \"msg\":\"同步部门数据成功！\"}");
-			}else{
-				returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步部门数据到UP失败，请联系管理员！\"}");
-			}
-				
-	    } catch (Exception e) {
-			returnJson = new StringBuffer("{ \"success\" : false, \"msg\":\"同步部门数据到UP失败，请联系管理员！\"}");
-		} finally {
-			// 恢复数据源
-			DBContextHolder.clearDBType();
-		}
-	
-		writeAppJSON(response, returnJson.toString());
-    }
+
 }

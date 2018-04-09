@@ -117,7 +117,7 @@ public class LoginController extends FrameWorkController<User> implements Consta
 
 			// 先判断此sessionID是否已经存在，若存在且userid不等于当前的，且没有登记退出时间，则设置为退出
 			String updateTime = DateUtil.formatDateTime(new Date());
-			String updateHql = "update SysUserLoginLog o set o.offlineDate=CONVERT(datetime,'" + updateTime
+			String updateHql = "update UserLoginLog o set o.offlineDate=CONVERT(datetime,'" + updateTime
 					+ "'),o.offlineIntro='切换账户退出' where o.offlineDate is null and o.isDelete=0 and o.sessionId='"
 					+ sessionId + "' and o.userId!='" + userId + "'";
 			sysUserLoginLogService.doExecuteCountByHql(updateHql);

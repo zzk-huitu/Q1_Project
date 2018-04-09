@@ -91,12 +91,12 @@ public class SysMenuPermissionController extends FrameWorkController<MenuPermiss
 			
 			String menuId = entity.getMenuId();
 
-			String hql1 = " o.isDelete='0' and o.perName='" + entity.getPermissionName() + "'";
+			String hql1 = " o.isDelete='0' and o.permissionName='" + entity.getPermissionName() + "'";
 			if (thisService.IsFieldExist("menuId", menuId, "-1", hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"菜单功能权限名称不能重复！\""));
 				return;
 			}		
-			hql1 = " o.isDelete='0' and o.perBtnName='" + entity.getButtonName() + "'";
+			hql1 = " o.isDelete='0' and o.buttonName='" + entity.getButtonName() + "'";
 			if (thisService.IsFieldExist("menuId", menuId, "-1", hql1)) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"菜单按钮别名不能重复！\""));
 				return;
@@ -151,12 +151,12 @@ public class SysMenuPermissionController extends FrameWorkController<MenuPermiss
 			
 		String menuId = entity.getMenuId();
 
-		String hql1 = " o.isDelete='0' and o.perName='" + entity.getPermissionName() + "'";
+		String hql1 = " o.isDelete='0' and o.permissionName='" + entity.getPermissionName() + "'";
 		if (thisService.IsFieldExist("menuId", menuId, entity.getId(), hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"菜单功能权限名称不能重复！\""));
 			return;
 		}		
-		hql1 = " o.isDelete='0' and o.perBtnName='" + entity.getButtonName() + "'";
+		hql1 = " o.isDelete='0' and o.buttonName='" + entity.getButtonName() + "'";
 		if (thisService.IsFieldExist("menuId", menuId, entity.getId(), hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"菜单按钮别名不能重复！\""));
 			return;

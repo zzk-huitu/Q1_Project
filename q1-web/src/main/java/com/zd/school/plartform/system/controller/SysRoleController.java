@@ -248,7 +248,7 @@ public class SysRoleController extends FrameWorkController<Role> implements Cons
         
         Set<Role> userRole = userSerive.get(userId).getSysRoles();
         // hql语句
-        StringBuffer hql = new StringBuffer("from SysRole o where o.isDelete=0 ");           
+        StringBuffer hql = new StringBuffer("from Role o where o.isDelete=0 ");           
         if (userRole.size() > 0) {
         	StringBuilder sb = new StringBuilder();
             for (Role r : userRole) {
@@ -257,7 +257,7 @@ public class SysRoleController extends FrameWorkController<Role> implements Cons
             }
             sb = sb.deleteCharAt(sb.length()-1);
             String str = sb.toString().replace(",", "','");
-            hql.append(" and o.uuid not in('" + str + "')");
+            hql.append(" and o.id not in('" + str + "')");
         }
     
         //countHql.append("and e not in(:roles)");            
@@ -462,8 +462,8 @@ public class SysRoleController extends FrameWorkController<Role> implements Cons
         xm=xm==null?"":xm;
         //QueryResult<SysUser> qResult = thisService.getRoleUser(roleId, start, limit);
         
-		String hql = "from SysUser as o inner join fetch o.sysRoles as r where r.uuid='" + roleId
-				+ "' and r.isDelete=0 and o.isDelete=0 and o.xm like '%"+xm+"%'";	
+		String hql = "from User as o inner join fetch o.sysRoles as r where r.id='" + roleId
+				+ "' and r.isDelete=0 and o.isDelete=0 and o.name like '%"+xm+"%'";	
 		
 		 if(StringUtils.isNotEmpty(sort)){
             hql += " order by ";

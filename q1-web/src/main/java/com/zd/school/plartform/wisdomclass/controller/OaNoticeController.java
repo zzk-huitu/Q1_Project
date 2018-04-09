@@ -31,7 +31,6 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.build.define.model.RoomArea;
-import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.jw.eduresources.model.ClassTeacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
 import com.zd.school.oa.notice.model.Notice;
@@ -283,7 +282,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 
 	@RequestMapping("/getOaNoticeById")
 	public @ResponseBody Notice getOaNoticeById(HttpServletRequest request, HttpServletResponse response) {
-		String uuid = request.getParameter("uuid");
+		String uuid = request.getParameter("id");
 		return thisService.get(uuid);
 	}
 	
@@ -364,7 +363,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 
 			String doIds = "'" + fileIds.replace(",", "','") + "'";
 
-			String hql = "DELETE FROM BaseAttachment b  WHERE b.uuid IN (" + doIds + ")";
+			String hql = "DELETE FROM Attachment b  WHERE b.id IN (" + doIds + ")";
 
 			int flag = baseTAttachmentService.doExecuteCountByHql(hql);
 
@@ -391,7 +390,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		
 	
 		//1.创建根目录（深大附中）
-		String hql1="from BuildRoomarea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
+		String hql1="from RoomArea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
 		List<RoomArea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
 		for(int i=0;i<rootAreas.size();i++){
 			Map<String,Object> rootAreaMap=new LinkedHashMap<>();
@@ -405,7 +404,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 			rootAreaMap.put("children",rootChildren);
 			
 			//2.创建第二层（初中、高中校区）
-			String hql2="from BuildRoomarea t where t.isDelete=0 and t.parentNode=?";
+			String hql2="from RoomArea t where t.isDelete=0 and t.parentNode=?";
 			List<RoomArea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
 			for(int j=0;j<rootAreasSecond.size();j++){
 				
@@ -420,7 +419,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 				tempMap.put("children",tempMapChildren);
 				
 				//查询初中或高中的所有子区域id		
-				String roomareaHql="from BuildRoomarea where isDelete=0 order by orderIndex asc ";
+				String roomareaHql="from RoomArea where isDelete=0 order by orderIndex asc ";
 				List<RoomArea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
 				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getId(),roomareaList,new StringBuffer());
 				String childAreasStr="";
@@ -429,8 +428,8 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 				}
 				
 				//3.创建第三层（功能室、办公室、教室、宿舍）
-				String fjlxHql="select a from BaseDicitem a,BaseDic b where "
-						+ " a.dicId=b.uuid and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
+				String fjlxHql="select a from DataDictItem a,DataDict b where "
+						+ " a.dictId=b.id and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
 						+ " and a.itemName in ('功能室','办公室','教室','宿舍') "
 						+ " order by a.itemCode asc";
 				List<DataDictItem> fjlxList=baseDicitemService.queryEntityByHql(fjlxHql, "FJLX");
