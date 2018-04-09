@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.control.device.model.PtMjOpenDoor;
+import com.zd.school.control.device.model.MjOpenDoor;
 import com.zd.school.plartform.basedevice.dao.PtMjOpenDoorDao;
 import com.zd.school.plartform.basedevice.service.PtMjOpenDoorService;
 
 @Service
 @Transactional
-public class PtMjOpenDoorServiceImpl extends BaseServiceImpl<PtMjOpenDoor> implements PtMjOpenDoorService{
+public class PtMjOpenDoorServiceImpl extends BaseServiceImpl<MjOpenDoor> implements PtMjOpenDoorService{
 
     @Resource
     public void setPtMjOpenDoorDao(PtMjOpenDoorDao dao) {

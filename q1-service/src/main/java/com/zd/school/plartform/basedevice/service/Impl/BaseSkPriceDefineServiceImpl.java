@@ -2,20 +2,16 @@ package com.zd.school.plartform.basedevice.service.Impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
-
 import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.school.build.define.model.SkPriceDefine;
-import com.zd.school.control.device.model.PtGateway;
 import com.zd.school.plartform.basedevice.dao.BaseSkPriceDefineDao;
 import com.zd.school.plartform.basedevice.service.BaseSkPriceDefineService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 水控费率定义
@@ -34,7 +30,7 @@ public class BaseSkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine>
     private static Logger logger = Logger.getLogger(BaseSkPriceDefineServiceImpl.class);
     
     @Override
-	public SkPriceDefine doAddEntity(SkPriceDefine entity, SysUser currentUser) {
+	public SkPriceDefine doAddEntity(SkPriceDefine entity, User currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			double priceValue = entity.getPriceValue();
@@ -56,7 +52,7 @@ public class BaseSkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine>
 	}
     
     @Override
-	public SkPriceDefine doUpdateEntity(SkPriceDefine entity, SysUser currentUser) {
+	public SkPriceDefine doUpdateEntity(SkPriceDefine entity, User currentUser) {
 		// 先拿到已持久化的实体
     	SkPriceDefine perEntity = this.get(entity.getId());
 		try {

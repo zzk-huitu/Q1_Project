@@ -3,7 +3,7 @@ package com.zd.school.plartform.basedevice.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.control.device.model.PtTermBags;
+import com.zd.school.control.device.model.TermBag;
 import com.zd.school.plartform.basedevice.dao.PtTermBagsDao;
 
 /**
@@ -12,10 +12,10 @@ import com.zd.school.plartform.basedevice.dao.PtTermBagsDao;
  *
  */
 @Repository
-public class PtTermBagsDaoImpl extends BaseDaoImpl<PtTermBags> implements PtTermBagsDao{
+public class PtTermBagsDaoImpl extends BaseDaoImpl<TermBag> implements PtTermBagsDao{
 	
 	public PtTermBagsDaoImpl() {
-		super(PtTermBags.class);
+		super(TermBag.class);
 	}
 
 }

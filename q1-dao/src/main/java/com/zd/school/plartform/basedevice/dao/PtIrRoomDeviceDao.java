@@ -1,7 +1,7 @@
 package com.zd.school.plartform.basedevice.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.control.device.model.PtIrRoomDevice ;
+import com.zd.school.control.device.model.IrRoomDevice ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.control.device.model.PtIrRoomDevice ;
  * @since JDK 1.8
  */
  
-public interface PtIrRoomDeviceDao extends BaseDao<PtIrRoomDevice> {
+public interface PtIrRoomDeviceDao extends BaseDao<IrRoomDevice> {
 
 }

@@ -3,7 +3,7 @@ package com.zd.school.plartform.basedevice.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.control.device.model.PtIrDeviceBrand ;
+import com.zd.school.control.device.model.IrDeviceBrand ;
 import com.zd.school.plartform.basedevice.dao.PtIrDeviceBrandDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.basedevice.dao.PtIrDeviceBrandDao;
  * @since JDK 1.8
  */
 @Repository
-public class PtIrDeviceBrandDaoImpl extends BaseDaoImpl<PtIrDeviceBrand> implements PtIrDeviceBrandDao {
+public class PtIrDeviceBrandDaoImpl extends BaseDaoImpl<IrDeviceBrand> implements PtIrDeviceBrandDao {
     public PtIrDeviceBrandDaoImpl() {
-        super(PtIrDeviceBrand.class);
+        super(IrDeviceBrand.class);
         // TODO Auto-generated constructor stub
     }
 }

@@ -1,22 +1,22 @@
 package com.zd.school.plartform.basedevice.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.control.device.model.TLVModel;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 设备表
  * @author hucy
  *
  */
-public interface BasePtTermService extends BaseService<PtTerm>{
+public interface BasePtTermService extends BaseService<Term>{
 
-	public PtTerm doAddEntity(PtTerm entity, SysUser currentUser);
+	public Term doAddEntity(Term entity, User currentUser);
 	
 	void batchUpdate(int termTypeID, String areaType, String areaType2, String[] strings, Object[] objects);
 
-	public PtTerm doUpdateEntity(PtTerm entity, SysUser currentUser);
+	public Term doUpdateEntity(Term entity, User currentUser);
 
 	public void doUpdatHighParamToIds(TLVModel tlvs, String termIds, String xm);
 
@@ -28,6 +28,6 @@ public interface BasePtTermService extends BaseService<PtTerm>{
 
 	public void doBatchUpdateBaseParam(TLVModel tlvs, String termTypeID, String notes, String areaType, String xm);
 
-	public void doSetPtTerm(String roomId, String uuid, SysUser currentUser);
+	public void doSetPtTerm(String roomId, String uuid, User currentUser);
 	
 }

@@ -1,7 +1,7 @@
 package com.zd.school.plartform.basedevice.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.control.device.model.MjUserright ;
+import com.zd.school.control.device.model.MjUserRight ;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.control.device.model.MjUserright ;
  * @since JDK 1.8
  */
  
-public interface MjUserrightDao extends BaseDao<MjUserright> {
+public interface MjUserrightDao extends BaseDao<MjUserRight> {
 
 }

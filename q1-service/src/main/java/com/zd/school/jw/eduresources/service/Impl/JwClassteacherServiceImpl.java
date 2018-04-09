@@ -69,47 +69,47 @@ public class JwClassteacherServiceImpl extends BaseServiceImpl<ClassTeacher> imp
 	@Resource
 	private DeptRedisService deptRedisService;
 	
-    /**
-	 * 
-	 * getClassLeader:获取指定学生的所在班级的班主任
-	 *
-	 * @author luoyibo
-	 * @param userId
-	 * @return String
-	 * @throws @since
-	 *             JDK 1.8
-	 */
-	@Override
-	public String getClassLeader(String userId) {
-		String classLeader = "";
-		String sql = "EXECUTE T_PT_ClassTeacher '" + userId + "'";
-
-		List lists = this.queryEntityBySql(sql, null);
-		classLeader = lists.get(0).toString();
-
-		return classLeader;
-	}
-
-	@Override
-	public String getClassLeaderList(String userId) {
-		String classLeader = "";
-		String sql = "EXECUTE T_PT_ClassTeacher '" + userId + "'";
-
-		try {
-			List lists = this.dao.queryEntityBySql(sql);
-			Set set = new HashSet<>(lists);
-			lists = new ArrayList<>(set);
-			for (Object object : lists) {
-				classLeader += object + ",";
-			}
-			classLeader = classLeader.substring(0, classLeader.length() - 1);
-		} catch (Exception e) {
-			e.printStackTrace();
-			classLeader = "-1";
-		}
-
-		return classLeader;
-	}
+//    /**
+//	 * 
+//	 * getClassLeader:获取指定学生的所在班级的班主任
+//	 *
+//	 * @author luoyibo
+//	 * @param userId
+//	 * @return String
+//	 * @throws @since
+//	 *             JDK 1.8
+//	 */
+//	@Override
+//	public String getClassLeader(String userId) {
+//		String classLeader = "";
+//		String sql = "EXECUTE T_PT_ClassTeacher '" + userId + "'";
+//
+//		List lists = this.queryEntityBySql(sql, null);
+//		classLeader = lists.get(0).toString();
+//
+//		return classLeader;
+//	}
+//
+//	@Override
+//	public String getClassLeaderList(String userId) {
+//		String classLeader = "";
+//		String sql = "EXECUTE T_PT_ClassTeacher '" + userId + "'";
+//
+//		try {
+//			List lists = this.dao.queryEntityBySql(sql);
+//			Set set = new HashSet<>(lists);
+//			lists = new ArrayList<>(set);
+//			for (Object object : lists) {
+//				classLeader += object + ",";
+//			}
+//			classLeader = classLeader.substring(0, classLeader.length() - 1);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			classLeader = "-1";
+//		}
+//
+//		return classLeader;
+//	}
 
 	@Override
 	public ClassTeacher doAddClassTeacher(ClassTeacher entity, User currentUser)

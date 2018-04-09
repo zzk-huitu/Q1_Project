@@ -8,13 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.control.device.model.PtPriceBind;
-import com.zd.school.control.device.model.PtSkMeterbind;
+import com.zd.school.control.device.model.SkMeterBind;
 import com.zd.school.plartform.basedevice.dao.PtSkMeterbindDao;
 import com.zd.school.plartform.basedevice.service.PtSkMeterbindService;
 @Service
 @Transactional
-public class PtSkMeterbindServiceImpl  extends BaseServiceImpl<PtSkMeterbind> implements PtSkMeterbindService{
+public class PtSkMeterbindServiceImpl  extends BaseServiceImpl<SkMeterBind> implements PtSkMeterbindService{
 	
 	@Resource
     public void setPtSkMeterbindDao(PtSkMeterbindDao dao) {
@@ -24,7 +23,7 @@ public class PtSkMeterbindServiceImpl  extends BaseServiceImpl<PtSkMeterbind> im
 	@Override
 	public void doMeterBind(String[] termId, String[] termSn, String meterId, String xm) {
 		Date date=new Date();
-		PtSkMeterbind perEntity = null;
+		SkMeterBind perEntity = null;
 		for (int i = 0; i < termId.length; i++) {
 			perEntity = this.getByProerties("termId",termId[i]);
 			if (perEntity != null) {
@@ -33,7 +32,7 @@ public class PtSkMeterbindServiceImpl  extends BaseServiceImpl<PtSkMeterbind> im
 				perEntity.setUpdateUser(xm);
 				this.merge(perEntity);
 			} else {
-				perEntity = new PtSkMeterbind();
+				perEntity = new SkMeterBind();
 				perEntity.setMeterId(meterId);
 				perEntity.setTermId(termId[i]);
 				perEntity.setTermSn(termSn[i]);

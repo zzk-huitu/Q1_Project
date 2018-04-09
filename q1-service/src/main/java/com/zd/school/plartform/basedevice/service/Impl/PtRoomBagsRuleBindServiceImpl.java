@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.PtRoomBagsRuleBind;
+import com.zd.school.control.device.model.RoomBagRuleBind;
 import com.zd.school.plartform.basedevice.dao.PtRoomBagsRuleBindDao;
 import com.zd.school.plartform.basedevice.service.PtRoomBagsRuleBindService;
 
@@ -20,7 +20,7 @@ import com.zd.school.plartform.basedevice.service.PtRoomBagsRuleBindService;
  */
 @Service
 @Transactional
-public class PtRoomBagsRuleBindServiceImpl extends BaseServiceImpl<PtRoomBagsRuleBind> implements PtRoomBagsRuleBindService{
+public class PtRoomBagsRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind> implements PtRoomBagsRuleBindService{
 	
 	@Resource
     public void setPtRoomBagsRuleBindDao(PtRoomBagsRuleBindDao dao) {
@@ -42,7 +42,7 @@ public class PtRoomBagsRuleBindServiceImpl extends BaseServiceImpl<PtRoomBagsRul
 		if(StringUtils.isNotEmpty(deductionRoomIds))
 			deductionRooms=deductionRoomIds.split(",");
 		
-		PtRoomBagsRuleBind perEntity = null;
+		RoomBagRuleBind perEntity = null;
 		String getDeductionUserId=null;
 		
 		for(int i=0;i<rooms.length;i++){
@@ -65,8 +65,8 @@ public class PtRoomBagsRuleBindServiceImpl extends BaseServiceImpl<PtRoomBagsRul
 				perEntity.setCreateUser(xm);
 				perEntity.setIsDelete(0);
 			} else {
-				Integer orderIndex = this.getDefaultOrderIndex(new PtRoomBagsRuleBind());
-				perEntity = new PtRoomBagsRuleBind();
+				Integer orderIndex = this.getDefaultOrderIndex(new RoomBagRuleBind());
+				perEntity = new RoomBagRuleBind();
 				perEntity.setDeductionUserId(getDeductionUserId);
 				perEntity.setRoomRuleId(roomRuleId);
 				perEntity.setRoomId(rooms[i]);

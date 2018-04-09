@@ -12,11 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.MjUserright;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.control.device.model.MjUserRight;
 import com.zd.school.plartform.basedevice.dao.MjUserrightDao;
 import com.zd.school.plartform.basedevice.service.MjUserrightService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -30,22 +29,20 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserright> implements MjUserrightService {
+public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserRight> implements MjUserrightService {
 
 	private static Logger logger = Logger.getLogger(MjUserrightServiceImpl.class);
-
 
 	@Resource
 	public void setMjUserrightDao(MjUserrightDao dao) {
 		this.dao = dao;
 	}
-	
-	
+
 	@Override
-	public MjUserright doAddEntity(MjUserright entity, SysUser currentUser) {
+	public MjUserRight doAddEntity(MjUserRight entity, User currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			MjUserright perEntity = new MjUserright();
+			MjUserRight perEntity = new MjUserRight();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
@@ -61,48 +58,37 @@ public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserright> impleme
 		}
 	}
 
-
 	@Override
-	public void doAddMj(String userId, String termId, SysUser currentUser) {
+	public void doAddMj(String userId, String termId, User currentUser) {
 		// TODO Auto-generated method stub
 		String userIds[] = userId.split(",");
 		String termIds[] = termId.split(",");
-		
-		MjUserright mjUserright=null;
-		for (int i = 0; i < userIds.length; i++) {	
-			if(StringUtils.isEmpty(userIds[i]))
+
+		MjUserRight mjUserright = null;
+		for (int i = 0; i < userIds.length; i++) {
+			if (StringUtils.isEmpty(userIds[i]))
 				break;
-			
-			for(int j=0;j<termIds.length;j++){
-				if(StringUtils.isEmpty(termIds[j]))
+
+			for (int j = 0; j < termIds.length; j++) {
+				if (StringUtils.isEmpty(termIds[j]))
 					break;
-				
-				mjUserright = this.getByProerties(new String[]{"stuId","termId"}, new Object[]{userIds[i],termIds[j]});
-				if(mjUserright!=null){			
+
+				mjUserright = this.getByProerties(new String[] { "studentId", "termId" },
+						new Object[] { userIds[i], termIds[j] });
+				if (mjUserright != null) {
 					mjUserright.setIsDelete(0);
 					mjUserright.setUpdateUser(currentUser.getId());
 					mjUserright.setUpdateTime(new Date());
-				}else{
-					mjUserright=new MjUserright();
+				} else {
+					mjUserright = new MjUserRight();
 					mjUserright.setUserId(userIds[i]);
-					mjUserright.setDeviceId(termIds[j]);
-					mjUserright.setCreateUser(currentUser.getId());				
+					mjUserright.setTermId(termIds[j]);
+					mjUserright.setCreateUser(currentUser.getId());
 					mjUserright.setCreateTime(new Date());
-				}					
+				}
 				this.merge(mjUserright);
-			}			
+			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
 }

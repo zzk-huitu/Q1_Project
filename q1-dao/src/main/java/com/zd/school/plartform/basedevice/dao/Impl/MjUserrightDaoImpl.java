@@ -3,7 +3,7 @@ package com.zd.school.plartform.basedevice.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.control.device.model.MjUserright ;
+import com.zd.school.control.device.model.MjUserRight ;
 import com.zd.school.plartform.basedevice.dao.MjUserrightDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.basedevice.dao.MjUserrightDao;
  * @since JDK 1.8
  */
 @Repository
-public class MjUserrightDaoImpl extends BaseDaoImpl<MjUserright> implements MjUserrightDao {
+public class MjUserrightDaoImpl extends BaseDaoImpl<MjUserRight> implements MjUserrightDao {
     public MjUserrightDaoImpl() {
-        super(MjUserright.class);
+        super(MjUserRight.class);
         // TODO Auto-generated constructor stub
     }
 }

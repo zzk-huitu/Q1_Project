@@ -206,7 +206,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<CourseTeacher> i
 		Department couseDept = null;
 		Department classDept = orgService.get(classId);
 		String[] classDeptTreIds = classDept.getTreeIds().split(",");
-		List<Department> courseDeptList = orgService.queryByProerties("extField01", courseId);
+		List<Department> courseDeptList = orgService.queryByProerties("courseId", courseId);
 		for (Department baseOrg : courseDeptList) {
 			String[] treeIds = baseOrg.getTreeIds().split(",");
 			if (classDeptTreIds[1].equals(treeIds[1])) {
@@ -467,7 +467,7 @@ public class JwCourseteacherServiceImpl extends BaseServiceImpl<CourseTeacher> i
 		}
 
 		// 4.更新课表上的教师信息，采用relace的方式
-		StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(UUID),'null') FROM T_PT_CourseArrange");
+		StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(ID),'null') FROM T_PT_CourseArrange");
 		sql.append(" WHERE  isDelete=0 AND isUse=1");
 		sql.append(" AND classId='" + jct.getClassId() + "'");
 		for (int i = 1; i <= 7; i++) {
