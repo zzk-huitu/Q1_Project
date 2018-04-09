@@ -60,7 +60,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 		
 		//若为类型不为楼层，则去查询此区域下的所有楼层
 		if(!"04".equals(areaType)){
-			String hql="select a.uuid from BuildRoomarea a where a.isDelete=0 and a.areaType='04' and a.treeIds like '%"+areaId+"%'";
+			String hql="select a.id from RoomArea a where a.isDelete=0 and a.areaType='04' and a.treeIds like '%"+areaId+"%'";
 			List<String> lists=thisService.queryEntityByHql(hql);
 			if(!lists.isEmpty()){
 				String areaIds=lists.stream().collect(Collectors.joining(","));
@@ -210,15 +210,5 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
         else        
         	writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));              
 
-	}
-	
-	@RequestMapping("/allRoomTree")
-	public void treelist(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		String strData = "";
-		String whereSql = request.getParameter("whereSql");
-		String excludes = request.getParameter("excludes");
-		List<CommTree> lists = treeService.getCommTree("BUILD_V_ALLROOMTREE", whereSql);
-		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
-		writeJSON(response, strData);// 返回数据
 	}
 }

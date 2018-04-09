@@ -116,7 +116,7 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 	public void getNoAllotList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 
-		String hql = "from PtTerm g where g.isDelete=0 and (g.roomId = '' or g.roomId is null) ";
+		String hql = "from Term g where g.isDelete=0 and (g.roomId = '' or g.roomId is null) ";
 
 		// QueryResult<PtTerm> qResult = thisService.queryResult(hql,
 		// super.start(request), super.limit(request));
@@ -211,7 +211,7 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String uuids[] = uuid.split(",");
 		for (int i = 0; i < uuids.length; i++) {
-			thisService.updateByProperties("uuid", uuids[i], "roomId", "");
+			thisService.updateByProperties("id", uuids[i], "roomId", "");
 		}
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功。'"));
 	}
@@ -354,7 +354,7 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 		String roomLeaf = request.getParameter("roomLeaf");
 		String termName = request.getParameter("termName");
 
-		String hql = " from PtTerm a where a.isDelete=0 ";
+		String hql = " from Term a where a.isDelete=0 ";
 		// 组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
@@ -450,7 +450,7 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
 		List<Term> ptTermList = null;
-		String hql = " from PtTerm a where a.isDelete=0 ";
+		String hql = " from Term a where a.isDelete=0 ";
 
 		if (StringUtils.isNotEmpty(termName)) {
 			hql += " and a.termName like'%" + termName + "%'";
@@ -540,7 +540,7 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 		String termNo = request.getParameter("termNo");
 		String termName = request.getParameter("termName");
 
-		String hql = " from PtTerm a where a.isDelete=0 ";
+		String hql = " from Term a where a.isDelete=0 ";
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
@@ -559,7 +559,7 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 		}
 
 		if (StringUtils.isNotEmpty(termSN)) {
-			hql += " and a.termSN like'%" + termSN + "%'";
+			hql += " and a.termSn like'%" + termSN + "%'";
 		}
 		if (StringUtils.isNotEmpty(termNo)) {
 			hql += " and a.termNo like'%" + termNo + "%'";
@@ -643,12 +643,12 @@ public class BasePtTermController extends FrameWorkController<Term> implements C
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

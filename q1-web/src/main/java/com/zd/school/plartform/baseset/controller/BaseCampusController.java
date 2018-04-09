@@ -112,7 +112,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
 		} else
 			defaultOrderIndex = 0;
 		*/
-        String hql1 = "select max(o.orderIndex) from BaseCampus o where  o.isDelete='0' and o.schoolId='"
+        String hql1 = "select max(o.orderIndex) from Campus o where  o.isDelete='0' and o.schoolId='"
 				+ schoolId + "'";
         defaultOrderIndex = thisService.getEntityByHql(hql1);
         if(defaultOrderIndex!=null)
@@ -235,7 +235,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
     }
     @RequestMapping("/getSchool")
     public  @ResponseBody School getSchool(HttpServletRequest request, HttpServletResponse response){
-    	String hql = " from BaseSchool";
+    	String hql = " from School";
     	School baseSchool = thisService.getEntityByHql(hql);
         return baseSchool;
     }

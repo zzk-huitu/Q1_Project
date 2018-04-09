@@ -115,7 +115,7 @@ public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> 
 	public void getGradeTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		List<CommTree> lists = treeService.getCommTree("JW_V_OFFICEALLOTTREE", whereSql);
+		List<CommTree> lists = treeService.getCommTree("V_PT_OfficeRoomTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -233,13 +233,13 @@ public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> 
 	private List<String> getRoomIds(String areaId) {
 		List<String> result = new ArrayList<>();
 
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0 and a.roomType='2' and a.areaId in ('"
+			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType='2' and a.areaId in ('"
 					+ areaIds + "')";
 			result = thisService.queryEntityByHql(hql);
 

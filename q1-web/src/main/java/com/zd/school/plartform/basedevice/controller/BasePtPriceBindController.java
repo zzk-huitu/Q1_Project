@@ -55,6 +55,8 @@ public class BasePtPriceBindController extends FrameWorkController<PriceBind> im
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
+	
+	
 	@Auth("BASERATE_priceBingTerm")
 	@RequestMapping(value = { "/priceBingTermlist" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
@@ -72,7 +74,7 @@ public class BasePtPriceBindController extends FrameWorkController<PriceBind> im
 			termId.append(priceBind.getTermId()+",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + termId.substring(0, termId.length() - 1)
-			+ "\",\"field\":\"uuid\"}]";
+			+ "\",\"field\":\"id\"}]";
 		
 		QueryResult<Term> termQr = ptTermService.queryPageResult(0, 0,null, filter, true);
 		
@@ -132,7 +134,7 @@ public class BasePtPriceBindController extends FrameWorkController<PriceBind> im
 		} else {
 			String[] ids =termIds.split(",");
 			for(int i=0;i<ids.length;i++){
-				 String hql = " from PtPriceBind where termId = '"+ ids[i]+"'";
+				 String hql = " from PriceBind where termId = '"+ ids[i]+"'";
 				 PriceBind entity = thisService.getEntityByHql(hql);
 				 thisService.delete(entity);
 			}

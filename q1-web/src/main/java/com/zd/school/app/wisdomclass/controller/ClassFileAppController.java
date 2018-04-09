@@ -88,7 +88,7 @@ public class ClassFileAppController {
 		
 		PictureApp info = new PictureApp();
 
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
@@ -109,7 +109,7 @@ public class ClassFileAppController {
 
 		if (roominfo.getRoomType().equals("5")) { // 当为功能室的时候
 			
-			String[] propName = new String[] { "termCode", "isDelete" };
+			String[] propName = new String[] { "terminalNo", "isDelete" };
 			Object[] propValue = new Object[] { termCode, 0 };
 			List<AttendTerm> attTerms = attTermService.queryByProerties(propName, propValue); // 查询特殊考勤终端
 			int dayNum = DateUtil.mathWeekDay(new Date());// 星期参数
@@ -120,17 +120,17 @@ public class ClassFileAppController {
 				String titleIds = attTerms.stream().map(x -> x.getAttendThemeId())
 						.collect(Collectors.joining("','", "'", "'"));
 
-				StringBuffer hql = new StringBuffer("from AttTime where isDelete=0");
-				hql.append(" and titleId in(" + titleIds + ")");
+				StringBuffer hql = new StringBuffer("from AttendTime where isDelete=0");
+				hql.append(" and attendThemeId in(" + titleIds + ")");
 				hql.append(" and weekDay=" + dayNum);
 
 				// 每周都需要考勤（查询集合1）
-				String hql2 = " and beginDate is null and endDate is null";
+				String hql2 = " and beginTime is null and endTime is null";
 				List<AttendTime> everyWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				// 某一时间段的周几需要考勤（查询集合2）
 				String today = DateUtil.formatDate(new Date());
-				hql2 = " and beginDate<='" + today + "' and endDate>='" + today + "'";
+				hql2 = " and beginTime<='" + today + "' and endTime>='" + today + "'";
 				List<AttendTime> sometimeWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				everyWeek.addAll(sometimeWeek); // 融合
@@ -138,8 +138,8 @@ public class ClassFileAppController {
 				// 查询这些学生中，有哪些班级
 				// 获取这些特殊考勤的主题id
 				titleIds = everyWeek.stream().map(x -> x.getAttendThemeId()).collect(Collectors.joining("','", "'", "'"));
-				String sql = "select distinct a.CLAI_ID from JW_T_CLASSSTUDENT a where a.ISDELETE=0 and "
-						+ "	a.STUDENT_ID in (select distinct USER_ID from ATT_T_USER where ISDELETE=0 and TITLE_ID in ("
+				String sql = "select distinct a.classId from T_PT_ClassStudent a where a.isDelete=0 and "
+						+ "	a.studentId in (select distinct userId from T_PT_AttendUser where isDelete=0 and attendThemeId in ("
 						+ titleIds + "))";
 				List<String> classIds=thisService.queryEntityBySql(sql, null);
 				
@@ -166,12 +166,12 @@ public class ClassFileAppController {
 				
 				Map<String, String> map = new HashMap<String, String>();
 				map.clear();
-				map.put("teachTime", "asc");
+				map.put("sections", "asc");
 				List<FuncRoomCourse> funcroomcoursesList = funcCourseService.queryByProerties(propName, propValue,
 						map);
 				Set<String> classIds = new HashSet<String>();
 				for (FuncRoomCourse jwFuncroomcourse : funcroomcoursesList) {
-					String claid = EntityUtil.getPropertyValue(jwFuncroomcourse, "claiId0" + dayNum) + "";	//查询星期N的班级课程
+					String claid = EntityUtil.getPropertyValue(jwFuncroomcourse, "classId0" + dayNum) + "";	//查询星期N的班级课程
 					if (StringUtils.isNotEmpty(claid)) {
 						classIds.add(claid);
 					}
@@ -236,7 +236,7 @@ public class ClassFileAppController {
 		
 		VideoApp info = new VideoApp();
 
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
@@ -256,7 +256,7 @@ public class ClassFileAppController {
 
 		if (roominfo.getRoomType().equals("5")) { // 当为功能室的时候
 			
-			String[] propName = new String[] { "termCode", "isDelete" };
+			String[] propName = new String[] { "terminalNo", "isDelete" };
 			Object[] propValue = new Object[] { termCode, 0 };
 			List<AttendTerm> attTerms = attTermService.queryByProerties(propName, propValue); // 查询特殊考勤终端
 			int dayNum = DateUtil.mathWeekDay(new Date());// 星期参数
@@ -267,17 +267,17 @@ public class ClassFileAppController {
 				String titleIds = attTerms.stream().map(x -> x.getAttendThemeId())
 						.collect(Collectors.joining("','", "'", "'"));
 
-				StringBuffer hql = new StringBuffer("from AttTime where isDelete=0");
-				hql.append(" and titleId in(" + titleIds + ")");
+				StringBuffer hql = new StringBuffer("from AttendTime where isDelete=0");
+				hql.append(" and attendThemeId in(" + titleIds + ")");
 				hql.append(" and weekDay=" + dayNum);
 
 				// 每周都需要考勤（查询集合1）
-				String hql2 = " and beginDate is null and endDate is null";
+				String hql2 = " and beginTime is null and endTime is null";
 				List<AttendTime> everyWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				// 某一时间段的周几需要考勤（查询集合2）
 				String today = DateUtil.formatDate(new Date());
-				hql2 = " and beginDate<='" + today + "' and endDate>='" + today + "'";
+				hql2 = " and beginTime<='" + today + "' and endTime>='" + today + "'";
 				List<AttendTime> sometimeWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				everyWeek.addAll(sometimeWeek); // 融合
@@ -285,8 +285,8 @@ public class ClassFileAppController {
 				// 查询这些学生中，有哪些班级
 				// 获取这些特殊考勤的主题id
 				titleIds = everyWeek.stream().map(x -> x.getAttendThemeId()).collect(Collectors.joining("','", "'", "'"));
-				String sql = "select distinct a.CLAI_ID from JW_T_CLASSSTUDENT a where a.ISDELETE=0 and"
-						+ "	a.STUDENT_ID in (select distinct USER_ID from ATT_T_USER where ISDELETE=0 and TITLE_ID in ("
+				String sql = "select distinct a.classId from T_PT_ClassStudent a where a.isDelete=0 and "
+						+ "	a.studentId in (select distinct userId from T_PT_AttendUser where isDelete=0 and attendThemeId in ("
 						+ titleIds + "))";
 				List<String> classIds=thisService.queryEntityBySql(sql, null);
 				
@@ -313,12 +313,12 @@ public class ClassFileAppController {
 				
 				Map<String, String> map = new HashMap<String, String>();
 				map.clear();
-				map.put("teachTime", "asc");
+				map.put("sections", "asc");
 				List<FuncRoomCourse> funcroomcoursesList = funcCourseService.queryByProerties(propName, propValue,
 						map);
 				Set<String> classIds = new HashSet<String>();
 				for (FuncRoomCourse jwFuncroomcourse : funcroomcoursesList) {
-					String claid = EntityUtil.getPropertyValue(jwFuncroomcourse, "claiId0" + dayNum) + "";	//查询星期N的班级课程
+					String claid = EntityUtil.getPropertyValue(jwFuncroomcourse, "classId0" + dayNum) + "";	//查询星期N的班级课程
 					if (StringUtils.isNotEmpty(claid)) {
 						classIds.add(claid);
 					}
@@ -379,14 +379,14 @@ public class ClassFileAppController {
 			types.append("'." + type + "',");
 		}
 		types = types.deleteCharAt(types.length() - 1);
-		String hql = "from EccClasselegant where isDelete=0 and claiId='" + claiId + "' order by createTime desc";
+		String hql = "from ClassMien where isDelete=0 and classId='" + claiId + "' order by createTime desc";
 		List<ClassMien> eleganeList = elegantService.queryByHql(hql);
 		int size = 0;
 		
 		if(!eleganeList.isEmpty()){
 			String recordIds=eleganeList.stream().map(x->x.getId()).collect(Collectors.joining("','","'","'"));
 			
-			hql = "from BaseAttachment where isDelete=0 and recordId in (" + recordIds + ") and attachType in(" + types
+			hql = "from Attachment where isDelete=0 and recordId in (" + recordIds + ") and fileType in(" + types
 					+ ") order by createTime desc";
 			List<Attachment> attList = baseTAttachmentService.queryByHql(hql);
 			for (Attachment baseAttachment : attList) {

@@ -212,8 +212,8 @@ public class BaseStudentDormServiceImpl extends BaseServiceImpl<StudentDorm> imp
 		List<String> dormGirlList = new ArrayList<>();// 某年级下的所有女宿舍集合
 
 		// 排序方式：可能要使用班级编码来从低到高的排序（待定）
-		String sql = "select * from STAND_V_CLASSSTUDENT a where a.gradeId = '" + gradId + "'"
-				+ " and a.userId not in (select STU_ID from DORM_T_STUDENTDORM  where isDelete=0) "
+		String sql = "select * from V_PT_ClassStudentList a where a.gradeId = '" + gradId + "'"
+				+ " and a.userId not in (select studentId from T_PT_StudentDorm  where isDelete=0) "
 				+ " order by className asc,userNumb asc,xm asc";
 		classStuList = this.queryEntityBySql(sql, StandVClassStudent.class);// 先获取到该年级下全部学生
 		gradeClassList = gradeClassService
@@ -296,7 +296,7 @@ public class BaseStudentDormServiceImpl extends BaseServiceImpl<StudentDorm> imp
 		
 		/*处理是否混合班级宿舍*/
 		//查询这批新学生的班级
-		String sql="SELECT distinct a.classId FROM STAND_V_CLASSSTUDENT a where a.userId in ('"+ entity.getStudentId().replace(",","','")+"')";
+		String sql="SELECT distinct a.classId FROM V_PT_ClassStudentList a where a.userId in ('"+ entity.getStudentId().replace(",","','")+"')";
 		List<Object[]> classList=this.queryObjectBySql(sql);
 		if(classList.size()>2){	//如果新学生的班级数目大于2，则肯定为混合
 			isMixed=true;
@@ -476,7 +476,7 @@ public class BaseStudentDormServiceImpl extends BaseServiceImpl<StudentDorm> imp
 		 * girlList.add(jwClassstudent); } }
 		 */
 
-		String sql = " select * from STAND_V_CLASSSTUDENT a where a.classId='" + classId + "' and "
+		String sql = " select * from StandVClassStudent a where a.classId='" + classId + "' and "
 				+ " userId not in (select studentId from T_PT_StudentDorm  where  isDelete=0)";
 		classStulist = this.queryEntityBySql(sql, StandVClassStudent.class);
 		for (StandVClassStudent classstudent : classStulist) {

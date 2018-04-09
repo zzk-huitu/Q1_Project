@@ -94,7 +94,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 		
 		CourseArrangeApp arrangeForApp = new CourseArrangeApp();
 		
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);		
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);		
 		if (roomTerm==null) {
 			arrangeForApp.setMessageInfo("没有找到该终端设备！");
 			arrangeForApp.setMessage(false);
@@ -112,7 +112,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 
 		if (roominfo.getRoomType().equals("5"))	{	//功能室
 			
-			String hql = "from JwFuncroomcourse where isDelete=0 and roomId='" + roomTerm.getRoomId() + "' order by teachTime";
+			String hql = "from FuncRoomCourse where isDelete=0 and roomId='" + roomTerm.getRoomId() + "' order by sections";
 			List<FuncRoomCourse> lists = funcroomService.queryByHql(hql);
 			if (lists != null && lists.size() > 0) {
 				for (FuncRoomCourse funcroomcourse : lists) {
@@ -151,8 +151,8 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 				return arrangeForApp;
 			}			
 						
-			StringBuffer hql = new StringBuffer("from JwCourseArrange where claiId='" + classId
-					+ "' and extField05=1 and isDelete=0 order by className,teachTime asc");
+			StringBuffer hql = new StringBuffer("from CourseArrange where classId='" + classId
+					+ "' and isUse=1 and isDelete=0 order by className,sections asc");
 			List<CourseArrange> lists = thisService.queryByHql(hql.toString());// 执行查询方法
 
 			if (lists != null && lists.size() > 0) {
@@ -211,7 +211,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			return jtd;
 		}
 		
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			jtd.setMessage(false);
 			jtd.setMessageInfo("没有找到该终端设备！");
@@ -359,7 +359,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 		
 		JKCourseToDayArray jctd = new JKCourseToDayArray();
 		
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			jctd.setMessage(false);
 			jctd.setMessageInfo("没有找到该终端设备！");
@@ -405,7 +405,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 				
 				//找到了作息时间
 				if(calender!=null){
-					propName = new String[] { "canderId", "isDelete" };
+					propName = new String[] { "calenderId", "isDelete" };
 					propValue = new Object[] { calender.getId(), 0 };
 					canderDetilList = canderDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
 				}
@@ -418,8 +418,8 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			
 			
 			//获取班级的课表信息
-			StringBuffer hql = new StringBuffer("from JwCourseArrange where isDelete=0 and claiId='");
-			hql.append(claiId).append("' and extField05=1  order by className,teachTime asc");
+			StringBuffer hql = new StringBuffer("from CourseArrange where isDelete=0 and classId='");
+			hql.append(claiId).append("' and isUse=1  order by className,sections asc");
 			List<CourseArrange> jtaList = thisService.queryByHql(hql.toString());// 执行查询方法得到班级课程表
 			if (jtaList == null || jtaList.size() <= 0) {
 				jctd.setMessage(false);
@@ -440,10 +440,10 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			
 			//排序
 			SortListUtil<CalenderDetail> slu = new SortListUtil<CalenderDetail>();
-			slu.Sort(canderDetilListed, "jcCode", null);
+			slu.Sort(canderDetilListed, "sectionCode", null);
 			
 			SortListUtil<CourseArrange> jta = new SortListUtil<CourseArrange>();
-			jta.Sort(jtaList, "teachTime", null);
+			jta.Sort(jtaList, "sections", null);
 			
 			//根据作息时间的节次 与 课程的节次组合，组装数据
 			SimpleDateFormat simpl = new SimpleDateFormat("HH:mm");
@@ -556,8 +556,8 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			
 			
 			//获取功能室课程
-			StringBuffer hql = new StringBuffer("from JwFuncroomcourse where isDelete=0 and funcRoomId='");
-			hql.append(funcRoom.getId()).append("'  order by teachTime asc");
+			StringBuffer hql = new StringBuffer("from FuncRoomCourse where isDelete=0 and funcRoomId='");
+			hql.append(funcRoom.getId()).append("'  order by sections asc");
 			List<FuncRoomCourse> jtaList = funcroomService.queryByHql(hql.toString());// 执行查询方法得到课程表					
 			if (jtaList == null || jtaList.size() <= 0) {
 				jctd.setMessage(false);
@@ -578,7 +578,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 //			}		
 			//排序
 			SortListUtil<CalenderDetail> slu = new SortListUtil<CalenderDetail>();
-			slu.Sort(canderDetilListed, "jcCode", null);
+			slu.Sort(canderDetilListed, "senctionCode", null);
 			
 			//根据作息时间的节次 与 课程的节次组合，组装数据
 			SimpleDateFormat simpl = new SimpleDateFormat("HH:mm");

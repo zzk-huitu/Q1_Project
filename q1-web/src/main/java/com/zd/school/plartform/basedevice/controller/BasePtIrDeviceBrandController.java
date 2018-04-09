@@ -59,7 +59,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 	@RequestMapping("/treelist")
 	public void getTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
-		List<CommTree> lists = treeService.getCommTree("PT_V_DEVICE_BRANDTREE", " and 1=1");
+		List<CommTree> lists = treeService.getCommTree("V_PT_BrandDeviceTree", " and 1=1");
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -101,9 +101,9 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
      	}else{
 			String hql="";
 			if(brandId.equals("d9012b05-e85e-449d-82fc-4a424dee9b00")){//所有品牌
-				hql="select a.uuid from PtIrDeviceBrand a where a.isDelete=0  and a.level=3";
+				hql="select a.id from IrDeviceBrand a where a.isDelete=0  and a.level=3";
 			}else{//品牌类型
-				hql="select a.uuid from PtIrDeviceBrand a where a.isDelete=0  and a.level=3 and a.parentNode like '%"+brandId+"%'";
+				hql="select a.id from IrDeviceBrand a where a.isDelete=0  and a.level=3 and a.parentNode like '%"+brandId+"%'";
 			}
 		    List<String> categorylists=thisService.queryEntityByHql(hql);
 		    if(!categorylists.isEmpty()){
@@ -148,7 +148,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 		User currentUser = getCurrentSysUser();
 		Integer level = entity.getLevel();
 		if (level != 4)
-			if (thisService.IsFieldExist("brandname", entity.getBrandName(), "-1"," isDelete=0")) {
+			if (thisService.IsFieldExist("brandName", entity.getBrandName(), "-1"," isDelete=0")) {
 				writeJSON(response, jsonBuilder.returnFailureJson("'" + entity.getBrandName() + "已存在'"));
 				return;
 			}
@@ -223,7 +223,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 			return;
 		} else {
 			User currentUser = getCurrentSysUser();
-			String hql = " from PtIrRoomDevice a where a.isDelete=0 and a.brandId  in ('" + ids.replace(",", "','")
+			String hql = " from IrRoomDevice a where a.isDelete=0 and a.brandId  in ('" + ids.replace(",", "','")
 					+ "')";
 			List lists = deveiceService.queryByHql(hql);
 			if (lists.size() > 0) {
@@ -259,10 +259,10 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 			hql+=" and a.parentNode = '"+brandId+"' ";
 		}else{
 			if(brandId.equals("d9012b05-e85e-449d-82fc-4a424dee9b00")){//所有品牌
-				hql =" select a from PtIrDeviceBrand a left join PtIrDeviceBrand b on a.parentNode = b.uuid where a.isDelete=0 "
+				hql =" select a from IrDeviceBrand a left join IrDeviceBrand b on a.parentNode = b.id where a.isDelete=0 "
 						+ " and b.isDelete=0 and b.level=3";
 			}else{
-				hql =" select a from PtIrDeviceBrand a left join PtIrDeviceBrand b on a.parentNode = b.uuid where a.isDelete=0 "
+				hql =" select a from IrDeviceBrand a left join IrDeviceBrand b on a.parentNode = b.id where a.isDelete=0 "
 						+ " and b.isDelete=0 and b.level=3 and b.parentNode like '%"+brandId+"%'";
 			}
 		}

@@ -21,7 +21,7 @@ import com.zd.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_DataDictItem")
-@AttributeOverride(name = "ddicItemId", column = @Column(name = "dictItemId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "dictItemId", length = 20, nullable = false) )
 public class DataDictItem extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

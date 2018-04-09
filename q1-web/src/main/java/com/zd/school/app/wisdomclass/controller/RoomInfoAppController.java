@@ -39,7 +39,7 @@ public class RoomInfoAppController {
 	public  RoomInfoApp getRoomInfo(@RequestParam(value="termCode") String termCode){
 		RoomInfoApp info=new RoomInfoApp();
 		
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		
 		if (roomTerm==null) {
 			info.setMessage(false);

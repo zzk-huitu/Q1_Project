@@ -79,10 +79,10 @@ public class CourseTeacherController extends FrameWorkController<CourseTeacher> 
 				if (StringUtils.isNotEmpty(filter)) {
 					filter = filter.substring(0, filter.length() - 1);
 					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}" + "]";
+							+ "\",\"field\":\"classId\"}" + "]";
 				} else {
 					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}]";
+							+ "\",\"field\":\"classId\"}]";
 				}
 
 			} else { // 当选择的区域不为班级时
@@ -95,10 +95,10 @@ public class CourseTeacherController extends FrameWorkController<CourseTeacher> 
 					if (StringUtils.isNotEmpty(filter)) {
 						filter = filter.substring(0, filter.length() - 1);
 						filter += ",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}" + "]";
+								+ "\",\"field\":\"classId\"}" + "]";
 					} else {
 						filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}]";
+								+ "\",\"field\":\"classId\"}]";
 					}
 
 				} else { // 若区域之下没有班级，则直接返回空数据
@@ -195,7 +195,7 @@ public class CourseTeacherController extends FrameWorkController<CourseTeacher> 
 		Integer studyYear = Integer.parseInt(request.getParameter("studyYear"));
 		String semester = request.getParameter("semester");
 
-		String hql = "select new JwCourseteacher(claiId,tteacId,courseId,studyYear,semester) from JwCourseteacher where studyYear="
+		String hql = "select new CourseTeacher(classId,teacherId,courseId,studyYear,semester) from CourseTeacher where studyYear="
 				+ studyYear + " and semester='" + semester + "' and isDelete='0' ";
 		List<CourseTeacher> lists = thisService.queryByHql(hql);
 		String strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
