@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.build.allot.model.JwOfficeAllot;
+import com.zd.school.build.allot.model.OfficeAllot;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.build.allot.model.JwOfficeAllot;
  * @since JDK 1.8
  */
  
-public interface BaseOfficeAllotDao extends BaseDao<JwOfficeAllot> {
+public interface BaseOfficeAllotDao extends BaseDao<OfficeAllot> {
 
 }

@@ -1,7 +1,7 @@
 package com.zd.school.student.studentinfo.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.student.studentinfo.model.StuParents ;
+import com.zd.school.student.studentinfo.model.StudentParents;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.student.studentinfo.model.StuParents ;
  * @since JDK 1.8
  */
  
-public interface StuParentsService extends BaseService<StuParents> {
+public interface StuParentsService extends BaseService<StudentParents> {
 
 }

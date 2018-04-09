@@ -8,7 +8,7 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.zd.school.plartform.baseset.model.BaseOrgTree;
+import com.zd.school.plartform.baseset.model.DepartmentTree;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.redis.service.DeptRedisService;
 
@@ -48,7 +48,7 @@ public class DeptRedisServiceImpl implements DeptRedisService{
 
 
 	@Override
-	public void setRightDeptTreeByUser(String userId, List<BaseOrgTree> values) {
+	public void setRightDeptTreeByUser(String userId, List<DepartmentTree> values) {
 		// TODO Auto-generated method stub
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
 		hashOper.put("userRightDeptTree", userId, values);

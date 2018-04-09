@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildDormDefine;
 import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.DormDefine;
 import com.zd.school.plartform.baseset.dao.BaseDormDefineDao;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -28,7 +28,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> implements BaseDormDefineService {
+public class BaseDormDefineServiceImpl extends BaseServiceImpl<DormDefine> implements BaseDormDefineService {
 	@Resource
 	public void setBuildLaboratorydefinDao(BaseDormDefineDao dao) {
 		this.dao = dao;
@@ -38,20 +38,20 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> 
 	private BaseRoominfoService thisService; // service层接口
 
 	@Override
-	public BuildDormDefine getByRoomId(String roomId) {
-		String hql = "from BuildDormDefine where 1=1";
+	public DormDefine getByRoomId(String roomId) {
+		String hql = "from DormDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
-		BuildDormDefine entity = this.getEntityByHql(hql);
+		DormDefine entity = this.getEntityByHql(hql);
 		return entity;
 	}
 
 	@Override
-	public BuildDormDefine doUpdateEntity(BuildDormDefine entity, SysUser currentUser) throws Exception {
+	public DormDefine doUpdateEntity(DormDefine entity, User currentUser) throws Exception {
 		BuildRoominfo roomInfo = null;
 		// 先拿到已持久化的实体
-		BuildDormDefine perEntity = this.getByRoomId(entity.getId());
+		DormDefine perEntity = this.getByRoomId(entity.getId());
 		
 	
 		// 将entity中不为空的字段动态加入到perEntity中去。
@@ -72,7 +72,7 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> 
 	}
 
 	@Override
-	public void addDormRoom(BuildRoominfo entity, BuildDormDefine dormRoom, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+	public void addDormRoom(BuildRoominfo entity, DormDefine dormRoom, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
 		BuildRoominfo roomInfo = null;
 
 		roomInfo = thisService.get(id);
@@ -101,7 +101,7 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<BuildDormDefine> 
 	@Override
 	public Boolean delDormRoom(BuildRoominfo roomInfo, String delId, String xm) {
 		Boolean flag=false;
-		BuildDormDefine dormRoom = null;// 宿舍定义
+		DormDefine dormRoom = null;// 宿舍定义
 		dormRoom = this.getByRoomId(delId);// roomId
 		if (!dormRoom.getIsAllot()==true) {// 0：未分配 1:已分配
 			roomInfo.setUpdateTime(new Date());

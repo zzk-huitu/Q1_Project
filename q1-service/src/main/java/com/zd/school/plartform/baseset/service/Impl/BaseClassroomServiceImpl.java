@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildClassRoomDefine;
 import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.ClassRoomDefine;
 import com.zd.school.plartform.baseset.dao.BaseClassRoomDefineDao;
 import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -27,7 +27,7 @@ import com.zd.school.plartform.baseset.service.BaseRoominfoService;
  */
 @Service
 @Transactional
-public class BaseClassroomServiceImpl extends BaseServiceImpl<BuildClassRoomDefine>
+public class BaseClassroomServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 		implements BaseClassRoomDefineService {
 
 	@Resource
@@ -39,19 +39,19 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<BuildClassRoomDefi
 	private BaseRoominfoService thisService; // service层接口
 
 	@Override
-	public BuildClassRoomDefine getByRoomId(String roomId) {
-		String hql = "from BuildClassRoomDefine where 1=1";
+	public ClassRoomDefine getByRoomId(String roomId) {
+		String hql = "from ClassRoomDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
-		BuildClassRoomDefine entity = this.getEntityByHql(hql);
+		ClassRoomDefine entity = this.getEntityByHql(hql);
 		return entity;
 	}
 
 	@Override
 	public void addClassRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
 		BuildRoominfo roomInfo = null;
-		BuildClassRoomDefine classRoom = null;// 教室定义
+		ClassRoomDefine classRoom = null;// 教室定义
 		roomInfo = thisService.get(id);
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(userCh);
@@ -61,7 +61,7 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<BuildClassRoomDefi
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
-		classRoom = new BuildClassRoomDefine();
+		classRoom = new ClassRoomDefine();
 		BeanUtils.copyPropertiesExceptNull(classRoom, entity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(classRoom);
@@ -77,7 +77,7 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<BuildClassRoomDefi
 	@Override
 	public Boolean delClassRoom(BuildRoominfo roomInfo, String delId, String xm){
 		Boolean flag=false;
-		BuildClassRoomDefine classRoom = null;// 教室定义
+		ClassRoomDefine classRoom = null;// 教室定义
 		classRoom = this.getByRoomId(delId);
 
 		roomInfo.setUpdateTime(new Date());

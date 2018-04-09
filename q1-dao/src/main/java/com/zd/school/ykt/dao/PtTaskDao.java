@@ -3,6 +3,7 @@ package com.zd.school.ykt.dao;
 
 import com.zd.core.dao.BaseDao;
 import com.zd.school.ykt.model.PtTask;
+import com.zd.school.ykt.model.Task;
 
 /**
  * 
@@ -15,6 +16,6 @@ import com.zd.school.ykt.model.PtTask;
  * @since JDK 1.8
  */
  
-public interface PtTaskDao extends BaseDao<PtTask> {
+public interface PtTaskDao extends BaseDao<Task> {
 
 }

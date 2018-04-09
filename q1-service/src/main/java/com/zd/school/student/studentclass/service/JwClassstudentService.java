@@ -2,8 +2,8 @@ package com.zd.school.student.studentclass.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.student.studentclass.model.JwClassstudent;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.student.studentclass.model.ClassStudent;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.zd.school.student.studentclass.model.JwClassstudent;
  * @since JDK 1.8
  */
 
-public interface JwClassstudentService extends BaseService<JwClassstudent> {
+public interface JwClassstudentService extends BaseService<ClassStudent> {
 
     /**
      * 
@@ -37,6 +37,6 @@ public interface JwClassstudentService extends BaseService<JwClassstudent> {
      * @throws @since
      *             JDK 1.8
      */
-    public QueryResult<JwClassstudent> getclassStudent(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, String claiId, SysUser currentUser);
+    public QueryResult<ClassStudent> getclassStudent(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, String claiId, User currentUser);
 }

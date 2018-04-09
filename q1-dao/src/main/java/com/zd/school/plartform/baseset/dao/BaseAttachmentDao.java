@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.baseset.model.BaseAttachment;
+import com.zd.school.plartform.baseset.model.Attachment;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.zd.school.plartform.baseset.model.BaseAttachment;
  * @since JDK 1.8
  */
 
-public interface BaseAttachmentDao extends BaseDao<BaseAttachment> {
+public interface BaseAttachmentDao extends BaseDao<Attachment> {
 
 }

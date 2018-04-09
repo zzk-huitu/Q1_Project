@@ -11,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.school.plartform.system.dao.SysRoleDao;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Role;
 import com.zd.school.plartform.system.service.SysRoleService;
 import com.zd.school.plartform.system.service.SysUserService;
 
@@ -27,7 +26,7 @@ import com.zd.school.plartform.system.service.SysUserService;
  */
 @Service
 @Transactional
-public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysRoleService {
+public class SysRoleServiceImpl extends BaseServiceImpl<Role> implements SysRoleService {
 
 	@Resource
 	public void setBaseTRoleDao(SysRoleDao dao) {
@@ -64,7 +63,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	public Boolean doDeleteRoleUser(String ids, String userId) {
 		String[] userIds = userId.split(",");
 		String temp = userId.replace(",", "','");
-		String sql = " delete from SYS_T_ROLEUSER where role_id=''{0}'' and user_id in (''{1}'')";
+		String sql = " delete from T_PT_RoleUser where roleId=''{0}'' and userId in (''{1}'')";
 		sql = MessageFormat.format(sql, ids, temp);
 		Integer executeCount = this.doExecuteCountBySql(sql);
 		if (executeCount > 0){
@@ -81,7 +80,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	public Boolean doAddRoleUser(String ids, String userId) {
 		String[] userIds = userId.split(",");
 		StringBuilder sb = new StringBuilder();
-		String sql = " insert into SYS_T_ROLEUSER(role_id,user_id) values(''{0}'',''{1}'') ";
+		String sql = " insert into T_PT_RoleUser(roleId,userId) values(''{0}'',''{1}'') ";
 		int userCount = userIds.length;
 		for (int i = 0; i < userCount; i++) {
 			sb.append(MessageFormat.format(sql, ids, userIds[i]));
@@ -101,11 +100,11 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRole> implements SysR
 	public Boolean doDeleteRole(String ids, Map hashMap, String xm) {
 		Boolean flag = false;
 		String[] delIds = ids.split(",");
-		SysRole sysrole = null;
+		Role sysrole = null;
 		StringBuffer roleName = new StringBuffer();
 		for (int i = 0; i < delIds.length; i++) {
 			// 判断这些角色是否正在被其他用户使用
-			String hql = "select u from SysUser as u inner join fetch u.sysRoles as r where r.uuid='" + delIds[i]
+			String hql = "select u from User as u inner join fetch u.sysRoles as r where r.id='" + delIds[i]
 					+ "' and r.isDelete=0 and u.isDelete=0 ";
 			int count = userSerive.queryByHql(hql).size();
 			if (count > 0) {// 该角色关联着用户

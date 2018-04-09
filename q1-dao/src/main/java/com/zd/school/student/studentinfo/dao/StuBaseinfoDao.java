@@ -1,7 +1,7 @@
 package com.zd.school.student.studentinfo.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.student.studentinfo.model.StuBaseinfo ;
+import com.zd.school.student.studentinfo.model.StudentBaseInfo;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.student.studentinfo.model.StuBaseinfo ;
  * @since JDK 1.8
  */
  
-public interface StuBaseinfoDao extends BaseDao<StuBaseinfo> {
+public interface StuBaseinfoDao extends BaseDao<StudentBaseInfo> {
 
 }

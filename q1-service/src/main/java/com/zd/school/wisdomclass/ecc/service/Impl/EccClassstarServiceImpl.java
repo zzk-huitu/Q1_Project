@@ -15,8 +15,8 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.ecc.model.EccClassstar ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.ecc.model.ClassStar;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysUserService;
 import com.zd.school.wisdomclass.ecc.dao.EccClassstarDao;
 import com.zd.school.wisdomclass.ecc.service.EccClassstarService;
@@ -35,7 +35,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClassstarService;
  */
 @Service
 @Transactional
-public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> implements EccClassstarService{
+public class EccClassstarServiceImpl extends BaseServiceImpl<ClassStar> implements EccClassstarService{
 
 	@Resource
 	private SysUserService userService;
@@ -47,8 +47,8 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 	private static Logger logger = Logger.getLogger(EccClassstarServiceImpl.class);
 	
 	@Override
-	public QueryResult<EccClassstar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<EccClassstar> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<ClassStar> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -61,7 +61,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -85,9 +85,9 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 	 * @return
 	 */
 	@Override
-	public EccClassstar doUpdateEntity(EccClassstar entity, SysUser currentUser) {
+	public ClassStar doUpdateEntity(ClassStar entity, User currentUser) {
 		// 先拿到已持久化的实体
-		EccClassstar saveEntity = this.get(entity.getId());
+		ClassStar saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,7 +114,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 	 * @return
 	 */
 	@Override
-	public EccClassstar doAddEntity(EccClassstar entity, SysUser currentUser) {
+	public ClassStar doAddEntity(ClassStar entity, User currentUser) {
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		excludedProp.add("classId");
@@ -123,7 +123,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 			String [] claiIds = entity.getClassId().split(",");
 			String [] classNames = entity.getClassName().split(",");
 			for (int i = 0; i < claiIds.length; i++) {
-				EccClassstar saveEntity = new EccClassstar();
+				ClassStar saveEntity = new ClassStar();
 
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
@@ -141,12 +141,12 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
 		}
 	}
 	@Override
-	public QueryResult<EccClassstar> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, SysUser currentUser) {
+	public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, User currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
-		StringBuffer hql = new StringBuffer("from EccClassstar o where 1=1 and isDelete=0 ");
+		StringBuffer hql = new StringBuffer("from ClassStar o where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(filterSql);
 		String rightDeptIds = "";
@@ -167,7 +167,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<EccClassstar> imple
         		hql.append(" order by  " + sortSql);
         }
         
-        QueryResult<EccClassstar> qResult = this.queryResult(hql.toString(), start, limit);
+        QueryResult<ClassStar> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

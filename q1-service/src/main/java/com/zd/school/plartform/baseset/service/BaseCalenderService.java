@@ -1,9 +1,9 @@
 package com.zd.school.plartform.baseset.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.eduresources.model.JwCalender ;
-import com.zd.school.jw.eduresources.model.JwTGrade;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.eduresources.model.Calender;
+import com.zd.school.jw.eduresources.model.Grade;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -19,7 +19,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
  
-public interface BaseCalenderService extends BaseService<JwCalender> {
+public interface BaseCalenderService extends BaseService<Calender> {
 	
 	/**
      * 
@@ -28,10 +28,10 @@ public interface BaseCalenderService extends BaseService<JwCalender> {
      * @return
      * @author huangzc
      */
-	public JwCalender findJwTcanderByClaiId(JwTGrade  jtg);
+	public Calender findJwTcanderByClaiId(Grade  jtg);
 	
 	public int updateStatu(String calenderIds,String campusNames);
-	public JwCalender  doUpdateEntity(JwCalender entity, SysUser currentUser);
-	public JwCalender  doAddEntity(JwCalender entity, SysUser currentUser);
+	public Calender  doUpdateEntity(Calender entity, User currentUser);
+	public Calender  doAddEntity(Calender entity, User currentUser);
 	public Boolean  doDeleteEntity(String delIds);
 }

@@ -15,8 +15,8 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.ecc.model.EccClassredflag ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.ecc.model.ClassRedFlag;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysUserService;
 import com.zd.school.wisdomclass.ecc.dao.EccClassredflagDao;
 import com.zd.school.wisdomclass.ecc.service.EccClassredflagService;
@@ -35,7 +35,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClassredflagService;
  */
 @Service
 @Transactional
-public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag> implements EccClassredflagService{
+public class EccClassredflagServiceImpl extends BaseServiceImpl<ClassRedFlag> implements EccClassredflagService{
 
 	@Resource
 	private SysUserService userService;
@@ -47,8 +47,8 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 	private static Logger logger = Logger.getLogger(EccClassredflagServiceImpl.class);
 	
 	@Override
-	public QueryResult<EccClassredflag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<EccClassredflag> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<ClassRedFlag> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -61,7 +61,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -85,9 +85,9 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 	 * @return
 	 */
 	@Override
-	public EccClassredflag doUpdateEntity(EccClassredflag entity, SysUser currentUser) {
+	public ClassRedFlag doUpdateEntity(ClassRedFlag entity, User currentUser) {
 		// 先拿到已持久化的实体
-		EccClassredflag saveEntity = this.get(entity.getId());
+		ClassRedFlag saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,7 +114,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 	 * @return
 	 */
 	@Override
-	public EccClassredflag doAddEntity(EccClassredflag entity, SysUser currentUser) {
+	public ClassRedFlag doAddEntity(ClassRedFlag entity, User currentUser) {
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		excludedProp.add("classId");
@@ -123,7 +123,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 			String [] claiIds = entity.getClassId().split(",");
 			String [] classNames = entity.getClassName().split(",");	
 			for (int i = 0; i < claiIds.length; i++) {
-				EccClassredflag saveEntity = new EccClassredflag();
+				ClassRedFlag saveEntity = new ClassRedFlag();
 
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
@@ -142,12 +142,12 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
 		}
 	}
 	@Override
-	public QueryResult<EccClassredflag> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, SysUser currentUser) {
+	public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, User currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
-		StringBuffer hql = new StringBuffer("from EccClassredflag o where 1=1 and isDelete=0 ");
+		StringBuffer hql = new StringBuffer("from ClassRedFlag o where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(filterSql);
 		String rightDeptIds = "";
@@ -168,7 +168,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<EccClassredflag>
         		hql.append(" order by  " + sortSql);
         }
         
-        QueryResult<EccClassredflag> qResult = this.queryResult(hql.toString(), start, limit);
+        QueryResult<ClassRedFlag> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

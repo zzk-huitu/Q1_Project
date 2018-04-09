@@ -1,7 +1,7 @@
 package com.zd.school.wisdomclass.ecc.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.ecc.model.EccClassparam ;
+import com.zd.school.jw.ecc.model.ClassParam;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.jw.ecc.model.EccClassparam ;
  * @since JDK 1.8
  */
  
-public interface EccClassparamDao extends BaseDao<EccClassparam> {
+public interface EccClassparamDao extends BaseDao<ClassParam> {
 
 }

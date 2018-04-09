@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseDicitem ;
+import com.zd.school.plartform.baseset.model.DataDictItem;
 
 
 /**
@@ -17,11 +17,11 @@ import com.zd.school.plartform.baseset.model.BaseDicitem ;
  * @since JDK 1.8
  */
  
-public interface BaseDicitemService extends BaseService<BaseDicitem> {
+public interface BaseDicitemService extends BaseService<DataDictItem> {
 
-	BaseDicitem doAdd(BaseDicitem entity, String xm);
+	DataDictItem doAdd(DataDictItem entity, String xm);
 
-	BaseDicitem doUpdate(BaseDicitem entity, String xm);
+	DataDictItem doUpdate(DataDictItem entity, String xm);
 
 	boolean doDeleteOrRestore(String delIds, String isdelete, String xm);
 

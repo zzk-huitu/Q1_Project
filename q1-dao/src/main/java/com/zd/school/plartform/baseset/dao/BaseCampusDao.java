@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.baseset.model.BaseCampus ;
+import com.zd.school.plartform.baseset.model.Campus;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.baseset.model.BaseCampus ;
  * @since JDK 1.8
  */
  
-public interface BaseCampusDao extends BaseDao<BaseCampus> {
+public interface BaseCampusDao extends BaseDao<Campus> {
 
 }

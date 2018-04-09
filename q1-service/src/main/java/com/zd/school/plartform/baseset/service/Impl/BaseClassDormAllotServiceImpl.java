@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.build.allot.model.JwClassDormAllot;
+import com.zd.school.build.allot.model.ClassDormAllot;
 import com.zd.school.plartform.baseset.dao.BaseClassDormAllotDao;
 import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
 
@@ -25,7 +25,7 @@ import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
  */
 @Service
 @Transactional
-public class BaseClassDormAllotServiceImpl extends BaseServiceImpl<JwClassDormAllot> implements BaseClassDormAllotService{
+public class BaseClassDormAllotServiceImpl extends BaseServiceImpl<ClassDormAllot> implements BaseClassDormAllotService{
 
     @Resource
     public void setJwClassdormDao(BaseClassDormAllotDao dao) {

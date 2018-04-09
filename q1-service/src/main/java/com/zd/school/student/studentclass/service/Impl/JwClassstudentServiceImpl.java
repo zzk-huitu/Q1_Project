@@ -12,12 +12,12 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.student.studentclass.dao.JwClassstudentDao;
-import com.zd.school.student.studentclass.model.JwClassstudent;
+import com.zd.school.student.studentclass.model.ClassStudent;
 import com.zd.school.student.studentclass.service.JwClassstudentService;
 
 /**
@@ -32,7 +32,7 @@ import com.zd.school.student.studentclass.service.JwClassstudentService;
  */
 @Service
 @Transactional
-public class JwClassstudentServiceImpl extends BaseServiceImpl<JwClassstudent> implements JwClassstudentService {
+public class JwClassstudentServiceImpl extends BaseServiceImpl<ClassStudent> implements JwClassstudentService {
 
     @Resource
     public void setJwClassstudentDao(JwClassstudentDao dao) {
@@ -46,16 +46,16 @@ public class JwClassstudentServiceImpl extends BaseServiceImpl<JwClassstudent> i
 
     @SuppressWarnings("unchecked")
     @Override
-    public QueryResult<JwClassstudent> getclassStudent(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, String claiId, SysUser currentUser) {
+    public QueryResult<ClassStudent> getclassStudent(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, String claiId, User currentUser) {
         String queryFilter = filter;
         String qrClassId = claiId;
         //当前用户有权限的班级列表
-        QueryResult<JwTGradeclass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
-        List<JwTGradeclass> jgClass = qr.getResultList();
+        QueryResult<GradeClass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
+        List<GradeClass> jgClass = qr.getResultList();
         StringBuffer sb = new StringBuffer();
         if (jgClass.size() > 0) {
-            for (JwTGradeclass jwTGrade : jgClass) {
+            for (GradeClass jwTGrade : jgClass) {
                 sb.append(jwTGrade.getId() + ",");
             }
             sb.deleteCharAt(sb.length() - 1);
@@ -65,7 +65,7 @@ public class JwClassstudentServiceImpl extends BaseServiceImpl<JwClassstudent> i
             qrClassId = sb.toString();
         }
         ExtDataFilter selfFilter = (ExtDataFilter) JsonBuilder.getInstance().fromJson(
-                "{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId + "\",\"field\":\"claiId\"}",
+                "{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId + "\",\"field\":\"classId\"}",
                 ExtDataFilter.class);
 
         if (StringUtils.isNotEmpty(filter)) {
@@ -76,9 +76,9 @@ public class JwClassstudentServiceImpl extends BaseServiceImpl<JwClassstudent> i
             queryFilter = JsonBuilder.getInstance().buildObjListToJson((long) listFilters.size(), listFilters, false);
         } else {
             queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId
-                    + "\",\"field\":\"claiId\"}]";
+                    + "\",\"field\":\"classId\"}]";
         }
-        QueryResult<JwClassstudent> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
+        QueryResult<ClassStudent> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
         return qrReturn;
     }
 }

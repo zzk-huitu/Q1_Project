@@ -1,9 +1,10 @@
 package com.zd.school.wisdomclass.ecc.service;
 
+import com.sun.javadoc.ClassDoc;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.jw.ecc.model.EccClassstar ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.ecc.model.ClassStar;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -19,7 +20,7 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
  
-public interface EccClassstarService extends BaseService<EccClassstar> {
+public interface EccClassstarService extends BaseService<ClassStar> {
 
 	/**
 	 * 数据列表
@@ -36,10 +37,10 @@ public interface EccClassstarService extends BaseService<EccClassstar> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<EccClassstar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
-    public QueryResult<EccClassstar> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
-            SysUser currentUser); 
+    public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
+    		User currentUser); 
 	/**
 	 * 根据主键逻辑删除数据
 	 * 
@@ -49,7 +50,7 @@ public interface EccClassstarService extends BaseService<EccClassstar> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -60,7 +61,7 @@ public interface EccClassstarService extends BaseService<EccClassstar> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public EccClassstar doUpdateEntity(EccClassstar entity, SysUser currentUser);
+	public ClassStar doUpdateEntity(ClassStar entity, User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -71,5 +72,5 @@ public interface EccClassstarService extends BaseService<EccClassstar> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public EccClassstar doAddEntity(EccClassstar entity, SysUser currentUser);
+	public ClassStar doAddEntity(ClassStar entity, User currentUser);
 }

@@ -7,12 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.school.plartform.system.dao.SysUserLoginLogDao;
-import com.zd.school.plartform.system.model.SysUserLoginLog;
+import com.zd.school.plartform.system.model.UserLoginLog;
 import com.zd.school.plartform.system.service.SysUserLoginLogService;
 
 @Service
 @Transactional
-public class SysUserLoginLogServiceImpl extends BaseServiceImpl<SysUserLoginLog> implements SysUserLoginLogService {
+public class SysUserLoginLogServiceImpl extends BaseServiceImpl<UserLoginLog> implements SysUserLoginLogService {
 
     @Resource
     public void setSysUserLoginLogDao(SysUserLoginLogDao dao) {

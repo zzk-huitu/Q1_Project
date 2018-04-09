@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.ecc.model.EccClassparam ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.ecc.model.ClassParam;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.wisdomclass.ecc.dao.EccClassparamDao;
 import com.zd.school.wisdomclass.ecc.service.EccClassparamService;
 
@@ -27,7 +27,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClassparamService;
  */
 @Service
 @Transactional
-public class EccClassparamServiceImpl extends BaseServiceImpl<EccClassparam> implements EccClassparamService{
+public class EccClassparamServiceImpl extends BaseServiceImpl<ClassParam> implements EccClassparamService{
 
     @Resource
     public void setEccClassparamDao(EccClassparamDao dao) {
@@ -35,12 +35,12 @@ public class EccClassparamServiceImpl extends BaseServiceImpl<EccClassparam> imp
     }
 
 	@Override
-	public QueryResult<EccClassparam> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql,SysUser currentUser) {
+	public QueryResult<ClassParam> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql,User currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
-		StringBuffer hql = new StringBuffer("from EccClassparam o where 1=1 ");
+		StringBuffer hql = new StringBuffer("from ClassParam o where 1=1 ");
 		hql.append(whereSql);
 		hql.append(filterSql);
         if (orderSql.length()>0){
@@ -53,7 +53,7 @@ public class EccClassparamServiceImpl extends BaseServiceImpl<EccClassparam> imp
         		hql.append(" order by  " + sortSql);
         }
         
-        QueryResult<EccClassparam> qResult = this.queryResult(hql.toString(), start, limit);
+        QueryResult<ClassParam> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

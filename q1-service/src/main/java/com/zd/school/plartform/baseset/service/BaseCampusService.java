@@ -5,8 +5,8 @@ import java.util.Map;
 
 import com.zd.core.service.BaseService;
 import com.zd.school.build.define.model.BuildRoominfo;
-import com.zd.school.plartform.baseset.model.BaseCampus;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.baseset.model.Campus;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -18,15 +18,15 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface BaseCampusService extends BaseService<BaseCampus> {
+public interface BaseCampusService extends BaseService<Campus> {
 
-    public BaseCampus doAdd(BaseCampus entity, SysUser currentUser)
+    public Campus doAdd(Campus entity, User currentUser)
             throws IllegalAccessException, InvocationTargetException;
 
-    public BaseCampus doUpdate(BaseCampus entity, SysUser currentUser)
+    public Campus doUpdate(Campus entity, User currentUser)
             throws IllegalAccessException, InvocationTargetException;
 
-    public boolean doDelete(String delIds, SysUser currentUser,Map hashMap)
+    public boolean doDelete(String delIds, User currentUser,Map hashMap)
             throws IllegalAccessException, InvocationTargetException;
 
 	public String getCampusIdByRoom(BuildRoominfo roominfo);

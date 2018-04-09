@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseAttachment;
+import com.zd.school.plartform.baseset.model.Attachment;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.zd.school.plartform.baseset.model.BaseAttachment;
  * @since JDK 1.8
  */
 
-public interface BaseAttachmentService extends BaseService<BaseAttachment> {
+public interface BaseAttachmentService extends BaseService<Attachment> {
 
 }

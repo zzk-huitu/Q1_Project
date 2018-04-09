@@ -52,7 +52,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPe
 		Boolean doResult = false;
 		
 		// 查询此角色菜单中已有的功能权限
-		String hql = "select menuPerId from SysRoleMenuPermission a where a.roleId=? and a.perId=? and a.isDelete=0";
+		String hql = "select menuPermissionId from RoleMenuPermission a where a.roleId=? and a.permissionId=? and a.isDelete=0";
 		List<String> currentRoleMenuPerIds = this.queryEntityByHql(hql, roleId, perId);
 		
 		boolean isUpdate=false;	//若更新了功能权限，则执行删除redis的功能。
@@ -83,8 +83,8 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPe
 			
 			if(currentRoleMenuPerIds.size()>0){
 				// 删除角色菜单功能不属于roleMenuPerIds中的功能
-				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + perId
-						+ "' and a.menuPerId not in ('" + roleMenuPers.replace(",", "','") + "')";
+				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + perId
+						+ "' and a.menuPermissionId not in ('" + roleMenuPers.replace(",", "','") + "')";
 				int row=this.doExecuteCountByHql(deleteHql);
 				if(row>0)
 					isUpdate=true;
@@ -93,7 +93,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPe
 		}else{
 			if(currentRoleMenuPerIds.size()>0){
 				// 删除角色菜单所有功能
-				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + perId + "'";
+				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + perId + "'";
 				this.doExecuteCountByHql(deleteHql);
 				isUpdate=true;
 			}
@@ -123,7 +123,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPe
 		int row=0;
 		for(int i=0;i< cancelPerimission.size();i++){
 			// 删除角色菜单所有功能
-			String deleteHql = "delete from SysRoleMenuPermission a where a.roleId='" + roleId + "' and a.perId='" + cancelPerimission.get(i).getId() + "'";
+			String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + cancelPerimission.get(i).getId() + "'";
 			row+=this.doExecuteCountByHql(deleteHql);
 		}
 		

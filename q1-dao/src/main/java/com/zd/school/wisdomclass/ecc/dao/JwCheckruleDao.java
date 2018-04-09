@@ -1,7 +1,7 @@
 package com.zd.school.wisdomclass.ecc.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.ecc.model.JwCheckrule ;
+import com.zd.school.jw.ecc.model.AttenceRule;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.jw.ecc.model.JwCheckrule ;
  * @since JDK 1.8
  */
  
-public interface JwCheckruleDao extends BaseDao<JwCheckrule> {
+public interface JwCheckruleDao extends BaseDao<AttenceRule> {
 
 }

@@ -18,16 +18,15 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.model.JwTGradeclass;
+import com.zd.school.jw.eduresources.model.GradeClass;
 import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.Role;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysRoleService;
 import com.zd.school.plartform.system.service.SysUserdeptjobService;
 import com.zd.school.student.studentinfo.dao.StuBaseinfoDao;
-import com.zd.school.student.studentinfo.model.StuBaseinfo;
+import com.zd.school.student.studentinfo.model.StudentBaseInfo;
 import com.zd.school.student.studentinfo.service.StuBaseinfoService;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
 
 /**
  * 
@@ -40,7 +39,7 @@ import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
  */
 @Service
 @Transactional
-public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> implements StuBaseinfoService {
+public class StuBaseinfoServiceImpl extends BaseServiceImpl<StudentBaseInfo> implements StuBaseinfoService {
 
     @Resource
     public void setStuBaseinfoDao(StuBaseinfoDao dao) {
@@ -58,16 +57,16 @@ public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> impleme
 
     @SuppressWarnings("unchecked")
     @Override
-    public QueryResult<StuBaseinfo> getStudentList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, String claiId, SysUser currentUser) {
+    public QueryResult<StudentBaseInfo> getStudentList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, String claiId, User currentUser) {
         String queryFilter = filter;
         String qrClassId = claiId;
         //当前用户有权限的班级列表
-        QueryResult<JwTGradeclass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
-        List<JwTGradeclass> jgClass = qr.getResultList();
+        QueryResult<GradeClass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
+        List<GradeClass> jgClass = qr.getResultList();
         StringBuffer sb = new StringBuffer();
         if (jgClass.size() > 0) {
-            for (JwTGradeclass jwTGrade : jgClass) {
+            for (GradeClass jwTGrade : jgClass) {
                 sb.append(jwTGrade.getId() + ",");
             }
             sb.deleteCharAt(sb.length() - 1);
@@ -90,13 +89,13 @@ public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> impleme
             queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId
                     + "\",\"field\":\"classId\"}]";
         }
-        QueryResult<StuBaseinfo> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
+        QueryResult<StudentBaseInfo> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
         return qrReturn;
     }
 
 	@Override
-	public StuBaseinfo doAddStudent(StuBaseinfo entity, SysUser currentUser/*, String deptJobId*/) {
-		StuBaseinfo saveEntity = new StuBaseinfo();
+	public StudentBaseInfo doAddStudent(StudentBaseInfo entity, User currentUser/*, String deptJobId*/) {
+		StudentBaseInfo saveEntity = new StudentBaseInfo();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("uuid");
 		try {
@@ -117,8 +116,8 @@ public class StuBaseinfoServiceImpl extends BaseServiceImpl<StuBaseinfo> impleme
 		saveEntity.setSchoolId(AdminType.ADMIN_ORG_ID);
 		
 		//增加角色
-		Set<SysRole>  theUserRoler = saveEntity.getSysRoles();
-		SysRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
+		Set<Role>  theUserRoler = saveEntity.getSysRoles();
+		Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
 		
 		if(role!=null){
 			theUserRoler.add(role);

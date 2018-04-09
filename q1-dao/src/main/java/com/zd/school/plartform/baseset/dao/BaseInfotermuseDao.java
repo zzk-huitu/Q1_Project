@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.oa.terminal.model.OaInfotermuse;
+import com.zd.school.oa.terminal.model.InfoTerminalHistory;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.terminal.model.OaInfotermuse;
  * @since JDK 1.8
  */
  
-public interface BaseInfotermuseDao extends BaseDao<OaInfotermuse> {
+public interface BaseInfotermuseDao extends BaseDao<InfoTerminalHistory> {
 
 }

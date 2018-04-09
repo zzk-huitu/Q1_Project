@@ -13,11 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.jw.eduresources.model.JwCalender;
-import com.zd.school.jw.eduresources.model.JwCalenderdetail ;
+import com.zd.school.jw.eduresources.model.Calender;
+import com.zd.school.jw.eduresources.model.CalenderDetail;
 import com.zd.school.plartform.baseset.dao.BaseCalenderdetailDao;
 import com.zd.school.plartform.baseset.service.BaseCalenderdetailService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdetail> implements BaseCalenderdetailService{
+public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<CalenderDetail> implements BaseCalenderdetailService{
 
     @Resource
     public void setJwCalenderdetailDao(BaseCalenderdetailDao dao) {
@@ -41,21 +41,21 @@ public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdet
     }
 	private static Logger logger = Logger.getLogger(BaseCalenderdetailServiceImpl.class);
 	@Override
-	public List<JwCalenderdetail> queryJwTCanderdetailByJwTCander(JwCalender jtc) {
+	public List<CalenderDetail> queryJwTCanderdetailByJwTCander(Calender jtc) {
 		if(jtc == null)
     		return null;
     	if(jtc.getId() == null || jtc.getId().trim().equals(""))
     		return null;
-    	StringBuffer hql = new StringBuffer(" from JwCalenderdetail where isDelete=0 and canderId='");
+    	StringBuffer hql = new StringBuffer(" from CalenderDetail where isDelete=0 and calenderId='");
     	hql.append(jtc.getId()).append("'");
     	return this.dao.queryByHql(hql.toString());
 	}
 
 	@Override
-	public JwCalenderdetail doUpdateEntity(JwCalenderdetail entity, SysUser currentUser) {
+	public CalenderDetail doUpdateEntity(CalenderDetail entity, User currentUser) {
 
 		
-		JwCalenderdetail perEntity = this.get(entity.getId());
+		CalenderDetail perEntity = this.get(entity.getId());
 
 		
 		try{
@@ -74,8 +74,8 @@ public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdet
 	}
 
 	@Override
-	public JwCalenderdetail doAddEntity(JwCalenderdetail entity, SysUser currentUser) {
-		JwCalenderdetail saveEntity = new JwCalenderdetail();
+	public CalenderDetail doAddEntity(CalenderDetail entity, User currentUser) {
+		CalenderDetail saveEntity = new CalenderDetail();
 	    try {
 			BeanUtils.copyPropertiesExceptNull(entity, saveEntity);
 			// 生成默认的orderindex
@@ -106,7 +106,7 @@ public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<JwCalenderdet
 		Boolean delResult = false;
 		try {
 			String doIds = "'" + delIds.replace(",", "','") + "'";
-			String hql = "DELETE FROM JwCalenderdetail j  WHERE j.uuid IN (" + doIds + ")";
+			String hql = "DELETE FROM CalenderDetail j  WHERE j.id IN (" + doIds + ")";
 			this.doExecuteCountByHql(hql);
 			delResult = true;
 		} catch (Exception e) {

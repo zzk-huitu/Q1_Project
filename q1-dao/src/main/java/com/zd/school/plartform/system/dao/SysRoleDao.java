@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.system.model.SysRole;
+import com.zd.school.plartform.system.model.Role;
 
 /**
  * 
@@ -13,6 +13,6 @@ import com.zd.school.plartform.system.model.SysRole;
  * @since JDK 1.8
  */
 
-public interface SysRoleDao extends BaseDao<SysRole> {
+public interface SysRoleDao extends BaseDao<Role> {
     //public List<SysRole> doQueryForIn(String hql, Integer start, Integer limit,Object[] objs);
 }

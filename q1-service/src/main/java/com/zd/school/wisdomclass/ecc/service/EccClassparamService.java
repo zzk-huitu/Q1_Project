@@ -2,8 +2,8 @@ package com.zd.school.wisdomclass.ecc.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.jw.ecc.model.EccClassparam ;
+import com.zd.school.jw.ecc.model.ClassParam;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -19,8 +19,8 @@ import com.zd.school.jw.ecc.model.EccClassparam ;
  * @since JDK 1.8
  */
  
-public interface EccClassparamService extends BaseService<EccClassparam> {
+public interface EccClassparamService extends BaseService<ClassParam> {
 
-    public QueryResult<EccClassparam> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
-            SysUser currentUser); 
+    public QueryResult<ClassParam> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
+           User currentUser); 
 }

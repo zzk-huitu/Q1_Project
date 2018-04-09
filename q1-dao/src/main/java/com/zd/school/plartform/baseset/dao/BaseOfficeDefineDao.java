@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.build.define.model.BuildOfficeDefine ;
+import com.zd.school.build.define.model.OfficeDefine;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.build.define.model.BuildOfficeDefine ;
  * @since JDK 1.8
  */
  
-public interface BaseOfficeDefineDao extends BaseDao<BuildOfficeDefine> {
+public interface BaseOfficeDefineDao extends BaseDao<OfficeDefine> {
 
 }

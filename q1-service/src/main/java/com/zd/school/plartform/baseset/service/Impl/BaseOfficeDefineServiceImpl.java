@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildOfficeDefine;
 import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.OfficeDefine;
 import com.zd.school.plartform.baseset.dao.BaseOfficeDefineDao;
 import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -27,7 +27,7 @@ import com.zd.school.plartform.baseset.service.BaseRoominfoService;
  */
 @Service
 @Transactional
-public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<BuildOfficeDefine> implements BaseOfficeDefineService {
+public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> implements BaseOfficeDefineService {
 	@Resource
 	public void setBuildLaboratorydefinDao(BaseOfficeDefineDao dao) {
 		this.dao = dao;
@@ -37,20 +37,20 @@ public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<BuildOfficeDefi
 	private BaseRoominfoService thisService; // service层接口
 
 	@Override
-	public BuildOfficeDefine getByRoomId(String roomId) {
-		String hql = "from BuildOfficeDefine where 1=1";
+	public OfficeDefine getByRoomId(String roomId) {
+		String hql = "from OfficeDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
-		BuildOfficeDefine entity = this.getEntityByHql(hql);
+		OfficeDefine entity = this.getEntityByHql(hql);
 		return entity;
 	}
 
 	@Override
 	public void addOffRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
 		BuildRoominfo roomInfo = null;
-		BuildOfficeDefine offRoom = null;// 办公室定义
-		offRoom = new BuildOfficeDefine();
+		OfficeDefine offRoom = null;// 办公室定义
+		offRoom = new OfficeDefine();
 		BeanUtils.copyPropertiesExceptNull(offRoom, entity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(offRoom);
@@ -75,7 +75,7 @@ public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<BuildOfficeDefi
 	@Override
 	public Boolean delOffRoom(BuildRoominfo roomInfo, String delId, String xm) {
 		Boolean flag=false;
-		BuildOfficeDefine offRoom = null;// 办公室定义
+		OfficeDefine offRoom = null;// 办公室定义
 		offRoom = this.getByRoomId(delId);
 		if(!offRoom.getIsAllot()==true){
 			roomInfo.setUpdateTime(new Date());

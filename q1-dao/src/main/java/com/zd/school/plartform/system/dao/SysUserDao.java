@@ -1,7 +1,7 @@
 package com.zd.school.plartform.system.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.system.model.SysUser ;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.system.model.SysUser ;
  * @since JDK 1.8
  */
  
-public interface SysUserDao extends BaseDao<SysUser> {
+public interface SysUserDao extends BaseDao<User> {
 
 }

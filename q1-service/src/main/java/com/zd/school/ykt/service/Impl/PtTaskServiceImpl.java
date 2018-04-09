@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.ykt.dao.PtTaskDao;
-import com.zd.school.ykt.model.PtTask;
+import com.zd.school.ykt.model.Task;
 import com.zd.school.ykt.service.PtTaskService;
 
 
@@ -29,7 +29,7 @@ import com.zd.school.ykt.service.PtTaskService;
 */
 @Service
 @Transactional
-public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTaskService{
+public class PtTaskServiceImpl extends BaseServiceImpl<Task> implements PtTaskService{
 
     @Resource
     public void setPtTaskDao(PtTaskDao dao) {
@@ -38,18 +38,18 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 	private static Logger logger = Logger.getLogger(PtTaskServiceImpl.class);
 	
 	@Override
-	public QueryResult<PtTask> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+	public QueryResult<Task> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
 		String hql1=" select g" ;
-		String hql= " from PtTask g where g.executeTime= "
-				+ "(select Max(executeTime) from PtTask s1 where s1.termSn=g.termSn)  ";
-		QueryResult<PtTask> qResult = this.queryCountToHql(start, limit, sort, filter,
+		String hql= " from Task g where g.executeTime= "
+				+ "(select Max(executeTime) from Task s1 where s1.termSn=g.termSn)  ";
+		QueryResult<Task> qResult = this.queryCountToHql(start, limit, sort, filter,
 				   hql1+ hql, null, null);
 		return qResult;
 		
 	}
 	
 	@Override
-	public QueryResult<PtTask> tasklistbyTermId(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+	public QueryResult<Task> tasklistbyTermId(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
 		/*String hql1=" select g " ;
 		String hql= " from PtTask g,PtTerm t where  g.termsn =t.termSN  ";
 		//QueryResult<PtTask> qResult = this.dao.doQueryCountToHqlCountSql(start, limit, sort, filter,
@@ -67,7 +67,7 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -91,9 +91,9 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 	 * @return
 	 */
 	@Override
-	public PtTask doUpdateEntity(PtTask entity, SysUser currentUser) {
+	public Task doUpdateEntity(Task entity, User currentUser) {
 		// 先拿到已持久化的实体
-		PtTask saveEntity = this.get(entity.getId());
+		Task saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -120,8 +120,8 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 	 * @return
 	 */
 	@Override
-	public PtTask doAddEntity(PtTask entity, SysUser currentUser) {
-		PtTask saveEntity = new PtTask();
+	public Task doAddEntity(Task entity, User currentUser) {
+		Task saveEntity = new Task();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");

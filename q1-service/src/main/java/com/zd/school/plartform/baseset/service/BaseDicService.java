@@ -3,8 +3,8 @@ package com.zd.school.plartform.baseset.service;
 import java.util.List;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseDic ;
-import com.zd.school.plartform.baseset.model.BaseDicTree;
+import com.zd.school.plartform.baseset.model.DataDict;
+import com.zd.school.plartform.baseset.model.DataDictTree;
 
 
 /**
@@ -20,10 +20,10 @@ import com.zd.school.plartform.baseset.model.BaseDicTree;
  * @since JDK 1.8
  */
  
-public interface BaseDicService extends BaseService<BaseDic> {
+public interface BaseDicService extends BaseService<DataDict> {
 
-    public List<BaseDicTree>getDicTreeList(String whereSql);
+    public List<DataDictTree>getDicTreeList(String whereSql);
 
-	public BaseDic doAdd(BaseDic entity, String xm);
+	public DataDict doAdd(DataDict entity, String xm);
 
 }

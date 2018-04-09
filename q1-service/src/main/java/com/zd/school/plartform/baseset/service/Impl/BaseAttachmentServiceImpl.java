@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.school.plartform.baseset.dao.BaseAttachmentDao;
-import com.zd.school.plartform.baseset.model.BaseAttachment;
+import com.zd.school.plartform.baseset.model.Attachment;
 import com.zd.school.plartform.baseset.service.BaseAttachmentService;
 
 /**
@@ -21,7 +21,7 @@ import com.zd.school.plartform.baseset.service.BaseAttachmentService;
  */
 @Service
 @Transactional
-public class BaseAttachmentServiceImpl extends BaseServiceImpl<BaseAttachment> implements BaseAttachmentService {
+public class BaseAttachmentServiceImpl extends BaseServiceImpl<Attachment> implements BaseAttachmentService {
 
     @Resource
     public void setBaseTAttachmentDao(BaseAttachmentDao dao) {

@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.jw.ecc.model.JwCheckrule;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.jw.ecc.model.AttenceRule;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.wisdomclass.ecc.dao.JwCheckruleDao;
 import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
 
@@ -33,7 +33,7 @@ import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
  */
 @Service
 @Transactional
-public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> implements JwCheckruleService{
+public class JwCheckruleServiceImpl extends BaseServiceImpl<AttenceRule> implements JwCheckruleService{
 
     @Resource
     public void setJwCheckruleDao(JwCheckruleDao dao) {
@@ -42,8 +42,8 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 	private static Logger logger = Logger.getLogger(JwCheckruleServiceImpl.class);
 	
 	@Override
-	public QueryResult<JwCheckrule> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<JwCheckrule> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<AttenceRule> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<AttenceRule> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -56,7 +56,7 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -80,9 +80,9 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 	 * @return
 	 */
 	@Override
-	public JwCheckrule doUpdateEntity(JwCheckrule entity, SysUser currentUser) {
+	public AttenceRule doUpdateEntity(AttenceRule entity, User currentUser) {
 		// 先拿到已持久化的实体
-		JwCheckrule saveEntity = this.get(entity.getId());
+		AttenceRule saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -109,8 +109,8 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 	 * @return
 	 */
 	@Override
-	public JwCheckrule doAddEntity(JwCheckrule entity, SysUser currentUser) {
-		JwCheckrule saveEntity = new JwCheckrule();
+	public AttenceRule doAddEntity(AttenceRule entity, User currentUser) {
+		AttenceRule saveEntity = new AttenceRule();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
@@ -129,7 +129,7 @@ public class JwCheckruleServiceImpl extends BaseServiceImpl<JwCheckrule> impleme
 	}
 
 	@Override
-	public Boolean doUsingOrno(String ids, String usingStatu,SysUser currentUser) {
+	public Boolean doUsingOrno(String ids, String usingStatu,User currentUser) {
 		String conditionName = "id";
 		String[] propertyName = {"startUsing","updateUser","updateTime"};
 		Object[] properyValue = {0,currentUser.getId(),new Date()};

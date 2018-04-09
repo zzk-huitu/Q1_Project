@@ -2,7 +2,7 @@ package com.zd.school.plartform.baseset.service;
 
 
 import com.zd.core.service.BaseService;
-import com.zd.school.build.allot.model.JwClassDormAllot;
+import com.zd.school.build.allot.model.ClassDormAllot;
 
 
 /**
@@ -18,6 +18,6 @@ import com.zd.school.build.allot.model.JwClassDormAllot;
  * @since JDK 1.8
  */
  
-public interface BaseClassDormAllotService extends BaseService<JwClassDormAllot> {
+public interface BaseClassDormAllotService extends BaseService<ClassDormAllot> {
 
 }

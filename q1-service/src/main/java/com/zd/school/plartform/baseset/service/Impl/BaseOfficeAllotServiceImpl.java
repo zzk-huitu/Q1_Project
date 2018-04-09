@@ -1,7 +1,6 @@
 package com.zd.school.plartform.baseset.service.Impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.allot.model.DormStudentDorm;
-import com.zd.school.build.allot.model.JwOfficeAllot;
-import com.zd.school.build.define.model.BuildOfficeDefine;
+import com.zd.school.build.allot.model.OfficeAllot;
+import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.build.define.model.BuildRoominfo;
-import com.zd.school.control.device.model.MjUserright;
-import com.zd.school.control.device.model.PtTerm;
+import com.zd.school.build.define.model.OfficeDefine;
+import com.zd.school.control.device.model.MjUserRight;
+import com.zd.school.control.device.model.Term;
 import com.zd.school.jw.push.model.PushInfo;
 import com.zd.school.jw.push.service.PushInfoService;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
@@ -29,8 +28,8 @@ import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
 import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.student.studentclass.model.JwClassstudent;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.student.studentclass.model.ClassStudent;
 
 /**
  * 
@@ -43,7 +42,7 @@ import com.zd.school.student.studentclass.model.JwClassstudent;
  */
 @Service
 @Transactional
-public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> implements BaseOfficeAllotService {
+public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> implements BaseOfficeAllotService {
 	@Resource
 	BaseOfficeDefineService offRoomService; // 办公室service层接口
 	@Resource
@@ -77,8 +76,8 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 	 * classStu：班级学生，暂时不设置，已经取消了班级的方式。
 	 */
 	@Override
-	public boolean mjUserRight(String uuid, String roomId, String userId, DormStudentDorm dorm,
-			JwClassstudent classStu) {
+	public boolean mjUserRight(String uuid, String roomId, String userId, StudentDorm dorm,
+			ClassStudent classStu) {
 		try {
 			if (dorm != null) {//学生宿舍门禁分配
 				String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); //班级宿舍id
@@ -90,8 +89,8 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 			}
 			String[] propName = { "termTypeID", "isDelete", "roomId" };
 			Object[] propValue = { "4", 0, roomId };
-			MjUserright userRight = null;
-			List<PtTerm> list = ptTermService.queryByProerties(propName, propValue);//该房间是否有设备
+			MjUserRight userRight = null;
+			List<Term> list = ptTermService.queryByProerties(propName, propValue);//该房间是否有设备
 			if (uuid == null || uuid.equals("")) {
 				if (list.size() > 0) {//解除门禁权限
 					String[] uId = userId.split(","); //房间分配解除门禁设置
@@ -139,13 +138,13 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 	
 	
 	@Override
-	public Boolean doAddRoom(JwOfficeAllot entity, Map hashMap, SysUser currentUser)
+	public Boolean doAddRoom(OfficeAllot entity, Map hashMap, User currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
 		Boolean qxflag = false;
 		Integer orderIndex = 0;
-		JwOfficeAllot perEntity = null;
-		JwOfficeAllot valioff = null;
+		OfficeAllot perEntity = null;
+		OfficeAllot valioff = null;
 		String[] strId = null;// 多个老师id
 		StringBuffer xm =new StringBuffer();
 		StringBuffer roomName =new StringBuffer();
@@ -163,7 +162,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 			}
 			// 保存房间分配信息
 			orderIndex = this.getDefaultOrderIndex(entity);
-			perEntity = new JwOfficeAllot();
+			perEntity = new OfficeAllot();
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			entity.setCreateUser(currentUser.getId()); // 创建人
 			entity.setTeacherId(strId[i]);
@@ -178,8 +177,8 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 				continue;
 			}*/
 			//将办公室设置为已分配
-			String hql=" from BuildOfficeDefine a where a.roomId='"+entity.getRoomId()+"' ";
-			BuildOfficeDefine office=this.getEntityByHql(hql);
+			String hql=" from OfficeDefine a where a.roomId='"+entity.getRoomId()+"' ";
+			OfficeDefine office=this.getEntityByHql(hql);
 			if(office!=null){
 				office.setIsAllot(true);
 				offRoomService.merge(office); 
@@ -194,13 +193,13 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 	@Override
 	public Boolean doPushMessage(String roomId) {
 		Boolean flag=false;
-		List<JwOfficeAllot> offTeas = null;
+		List<OfficeAllot> offTeas = null;
 		PushInfo pushInfo = null;
 		BuildRoominfo roominfo = null;
 		String[] str = { "roomId", "isDelete" };
 		Object[] str2 = { roomId, 0 };
 		offTeas = this.queryByProerties(str, str2);//该办公室下的老师
-	    for (JwOfficeAllot jwTOfficeAllot : offTeas) {
+	    for (OfficeAllot jwTOfficeAllot : offTeas) {
 			pushInfo = new PushInfo();
 			pushInfo.setEmpleeName(jwTOfficeAllot.getName());// 姓名
 			pushInfo.setEmpleeNo(jwTOfficeAllot.getUserNumb());// 学号
@@ -219,7 +218,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 
 	@Override
 	public Boolean doDeleteOff(String delIds,String roomId,String tteacId) {
-		JwOfficeAllot offAllot = null ;
+		OfficeAllot offAllot = null ;
 		Boolean flag =false;
 		String offRoomId = "";
 		String[] delId = delIds.split(",");
@@ -234,7 +233,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<JwOfficeAllot> i
 	@Override
 	public void doOffSetOff(String roomIds) {
 		String[] roomId = roomIds.split(",");
-		BuildOfficeDefine office =null;
+		OfficeDefine office =null;
 		String sql="";
 		//List list =new ArrayList<>();
 	    for (String officeRoomId : roomId) {

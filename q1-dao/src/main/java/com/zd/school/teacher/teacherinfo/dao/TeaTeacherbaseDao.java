@@ -1,7 +1,7 @@
 package com.zd.school.teacher.teacherinfo.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase ;
+import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase ;
  * @since JDK 1.8
  */
  
-public interface TeaTeacherbaseDao extends BaseDao<TeaTeacherbase> {
+public interface TeaTeacherbaseDao extends BaseDao<TeacherBaseInfo> {
 
 }

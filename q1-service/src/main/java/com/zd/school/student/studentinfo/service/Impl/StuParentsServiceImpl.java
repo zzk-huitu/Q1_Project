@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
-import com.zd.school.student.studentinfo.model.StuParents ;
 import com.zd.school.student.studentinfo.dao.StuParentsDao ;
+import com.zd.school.student.studentinfo.model.StudentParents;
 import com.zd.school.student.studentinfo.service.StuParentsService ;
 
 /**
@@ -24,7 +24,7 @@ import com.zd.school.student.studentinfo.service.StuParentsService ;
  */
 @Service
 @Transactional
-public class StuParentsServiceImpl extends BaseServiceImpl<StuParents> implements StuParentsService{
+public class StuParentsServiceImpl extends BaseServiceImpl<StudentParents> implements StuParentsService{
 
     @Resource
     public void setStuParentsDao(StuParentsDao dao) {

@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.plartform.baseset.model.BaseDic ;
+import com.zd.school.plartform.baseset.model.DataDict;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.plartform.baseset.model.BaseDic ;
  * @since JDK 1.8
  */
  
-public interface BaseDicDao extends BaseDao<BaseDic> {
+public interface BaseDicDao extends BaseDao<DataDict> {
 
 }

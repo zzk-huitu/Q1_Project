@@ -2,9 +2,9 @@ package com.zd.school.teacher.teacherinfo.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseJob;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
+import com.zd.school.plartform.baseset.model.Department;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
  * @since JDK 1.8
  */
 
-public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
+public interface TeaTeacherbaseService extends BaseService<TeacherBaseInfo> {
 
 	/**
 	 * 
@@ -44,8 +44,8 @@ public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	public QueryResult<TeaTeacherbase> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
-			String qureyFilter, Boolean isDelete, String deptId, SysUser currentUser);
+	public QueryResult<TeacherBaseInfo> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
+			String qureyFilter, Boolean isDelete, String deptId, User currentUser);
 
 	/**
 	 * 
@@ -59,7 +59,7 @@ public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	public Boolean batchSetDept(String deptId, String userIds, SysUser cuurentUser);
+	public Boolean batchSetDept(String deptId, String userIds, User cuurentUser);
 
 	/**
 	 * 
@@ -73,13 +73,13 @@ public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	public Boolean delTeaFromDept(String deptId, String userIds, SysUser currentUser);
+	public Boolean delTeaFromDept(String deptId, String userIds, User currentUser);
 
-	public Boolean setTeaToJob(String jobId, String userIds, SysUser cuurentUser);
+	public Boolean setTeaToJob(String jobId, String userIds, User cuurentUser);
 
-	public Boolean delTeaFromJob(String deptId, String userIds, SysUser cuurentUser);
+	public Boolean delTeaFromJob(String deptId, String userIds, User cuurentUser);
 
-	public QueryResult<BaseJob> getTeahcerJobList(TeaTeacherbase teahcher, SysUser currentUser);
+	public QueryResult<Department> getTeahcerJobList(TeacherBaseInfo teahcher, User currentUser);
 
 	/**
 	 * 拼装指定教师的岗位的数据
@@ -88,7 +88,7 @@ public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
 	 *            要拼装的教师
 	 * @return 返回格式如 岗位ID1|岗位ID2,岗位名称1,岗位名称2
 	 */	
-	public String getTeacherJobs(TeaTeacherbase teacher);
+	public String getTeacherJobs(TeacherBaseInfo teacher);
 
 	/**
 	 * 拼装指定教师的部门的数据
@@ -97,11 +97,11 @@ public interface TeaTeacherbaseService extends BaseService<TeaTeacherbase> {
 	 *            要拼装的教师
 	 * @return 返回格式如 部门ID1|部门ID2,部门名称1,部门名称2
 	 */
-	public String getTeacherDepts(TeaTeacherbase teacher);
+	public String getTeacherDepts(TeacherBaseInfo teacher);
 	
-	public QueryResult<TeaTeacherbase> getCourseTeacherlist(Integer start, Integer limit, String sort, String filter,
+	public QueryResult<TeacherBaseInfo> getCourseTeacherlist(Integer start, Integer limit, String sort, String filter,
 			String whereSql, String orderSql, String querySql, Boolean isDelete);
 	
-	public TeaTeacherbase doAddTeacher(TeaTeacherbase teacher, SysUser currentUser/*, String deptJobId*/);
+	public TeacherBaseInfo doAddTeacher(TeacherBaseInfo teacher, User currentUser/*, String deptJobId*/);
 
 }

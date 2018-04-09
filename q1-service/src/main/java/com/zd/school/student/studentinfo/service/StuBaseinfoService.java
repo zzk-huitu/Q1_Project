@@ -2,8 +2,8 @@ package com.zd.school.student.studentinfo.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.student.studentinfo.model.StuBaseinfo;
+import com.zd.school.plartform.system.model.User;
+import com.zd.school.student.studentinfo.model.StudentBaseInfo;
 
 /**
  * 
@@ -15,10 +15,10 @@ import com.zd.school.student.studentinfo.model.StuBaseinfo;
  * @since JDK 1.8
  */
 
-public interface StuBaseinfoService extends BaseService<StuBaseinfo> {
+public interface StuBaseinfoService extends BaseService<StudentBaseInfo> {
 
-    public QueryResult<StuBaseinfo> getStudentList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, String claiId, SysUser currentUser);
+    public QueryResult<StudentBaseInfo> getStudentList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, String claiId, User currentUser);
     
-    public StuBaseinfo doAddStudent(StuBaseinfo stuBaseInfo, SysUser currentUser/*, String deptJobId*/);
+    public StudentBaseInfo doAddStudent(StudentBaseInfo stuBaseInfo, User currentUser/*, String deptJobId*/);
 }

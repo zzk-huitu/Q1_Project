@@ -2,9 +2,8 @@ package com.zd.school.wisdomclass.ecc.service;
 
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.jw.ecc.model.EccClassredflag ;
-import com.zd.school.jw.ecc.model.EccClassstar;
+import com.zd.school.jw.ecc.model.ClassRedFlag;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -20,7 +19,7 @@ import com.zd.school.jw.ecc.model.EccClassstar;
  * @since JDK 1.8
  */
  
-public interface EccClassredflagService extends BaseService<EccClassredflag> {
+public interface EccClassredflagService extends BaseService<ClassRedFlag> {
 
 	/**
 	 * 数据列表
@@ -37,10 +36,10 @@ public interface EccClassredflagService extends BaseService<EccClassredflag> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<EccClassredflag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
-    public QueryResult<EccClassredflag> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
-            SysUser currentUser); 
+    public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
+            User currentUser); 
 	/**
 	 * 根据主键逻辑删除数据
 	 * 
@@ -50,7 +49,7 @@ public interface EccClassredflagService extends BaseService<EccClassredflag> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser);
+	public Boolean doLogicDeleteByIds(String ids, User currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -61,7 +60,7 @@ public interface EccClassredflagService extends BaseService<EccClassredflag> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public EccClassredflag doUpdateEntity(EccClassredflag entity, SysUser currentUser);
+	public ClassRedFlag doUpdateEntity(ClassRedFlag entity,User currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -72,5 +71,5 @@ public interface EccClassredflagService extends BaseService<EccClassredflag> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public EccClassredflag doAddEntity(EccClassredflag entity, SysUser currentUser);
+	public ClassRedFlag doAddEntity(ClassRedFlag entity, User currentUser);
 }

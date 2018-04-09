@@ -1,7 +1,6 @@
 package com.zd.school.plartform.system.service.Impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.sql.PreparedStatement;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -165,43 +164,44 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 			switch (deptType) {
 			case "04": // 年级
 				Grade grade = gradeService.get(id);
-				hql = "from JwTGradeclass where graiId='" + id + "'";
+				hql = "from GradeClass where gradeId='" + id + "'";
 				List<GradeClass> gradeclasses = classService.queryByHql(hql);
 				// 检查年级下的班级是否存在人员
 				for (GradeClass jwTGradeclass : gradeclasses) {
-					hql = "select count(*) from JwClassstudent where isDelete=0 and claiId='" + jwTGradeclass.getId()
+					hql = "select count(*) from ClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
 							+ "'";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return jwTGradeclass.getClassName() + "班级下存在人员,请删除后重试";
 					}
+					//JwClassRoomAllot 已经不存在
 
-					hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='"
+				/*	hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='"
 							+ jwTGradeclass.getId() + "'";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
-					}
+					}*/
 
-					hql = "select count(*) from JwClassDormAllot where isDelete=0 and claiId='"
+					hql = "select count(*) from ClassDormAllot where isDelete=0 and classId='"
 							+ jwTGradeclass.getId() + "'";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return jwTGradeclass.getClassName() + "班级下存在宿舍,请删除后重试";
 					}
-					hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
+				/*	hql = "select count(*) from Term where isDelete=0 and roomId in("
 							+ "select roomId from JwClassRoomAllot where isDelete=0 and claiId='"
 							+ jwTGradeclass.getId() + "')";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
-					}
-					hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
-							+ "select dormId from JwClassDormAllot where isDelete=0 and claiId='"
+					}*/
+					hql = "select count(*) from Term where isDelete=0 and roomId in("
+							+ "select dormId from ClassDormAllot where isDelete=0 and classId='"
 							+ jwTGradeclass.getId() + "')";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
@@ -218,21 +218,21 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 				break;
 			case "05": // 班级
 				GradeClass jwTGradeclass = classService.get(id);
-				hql = "select count(*) from JwClassstudent where isDelete=0 and claiId='" + jwTGradeclass.getId()
+				hql = "select count(*) from ClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在人员,请删除后重试";
 				}
-				hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
+				/*hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
-				}
-				hql = "select count(*) from JwClassDormAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
+				}*/
+				hql = "select count(*) from ClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
@@ -240,23 +240,23 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 					return jwTGradeclass.getClassName() + "班级下存在宿舍,请删除后重试";
 				}
 
-				hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
+				/*hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
 						+ "select roomId from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
 						+ "')";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
-				}
-				hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
-						+ "select dormId from JwClassDormAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
+				}*/
+				hql = "select count(*) from Term where isDelete=0 and roomId in("
+						+ "select dormId from ClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "')";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 				}
-				GradeClass.setIsDelete(1);
+				jwTGradeclass.setIsDelete(1);
 				classService.merge(jwTGradeclass);
 				break;
 			default:
@@ -302,7 +302,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 
 		Department saveEntity = new Department();
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
+		excludedProp.add("id");
 		BeanUtils.copyProperties(saveEntity, entity,excludedProp);	
 		
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
@@ -336,7 +336,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 		String orgId = entity.getId();
 		switch (deptType) {
 		case "04": // 年级
-			Grade grade = new JwTGrade(orgId);
+			Grade grade = new Grade(orgId);
 			grade.setGradeName(entity.getNodeText());
 			grade.setCreateUser(currentUser.getId());
 			grade.setOrderIndex(entity.getOrderIndex());
@@ -369,7 +369,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 	@Override
 	public List<Department> getOrgList(String whereSql, String orderSql, User currentUser) {
 
-		StringBuffer hql = new StringBuffer(" from BaseOrg where 1=1 and isDelete=0 ");
+		StringBuffer hql = new StringBuffer(" from Department where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(orderSql);
 		List<Department> lists = this.queryByHql(hql.toString());// 执行查询方法
@@ -452,9 +452,9 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 		List<Department> reList = new ArrayList<Department>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
-			sql = " from BaseOrg WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
+			sql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
-			sql = " from BaseOrg WHERE isDelete=0 ";
+			sql = " from Department WHERE isDelete=0 ";
 		}
 		if (isRight) {
 			rightList = this.getOrgList("", "", currentUser);
@@ -463,7 +463,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 				for (Department bg : rightList) {
 					filterList.add(bg.getId());
 				}
-				sql += " and uuid in (:depts)";
+				sql += " and id in (:depts)";
 				reList = this.queryByHql(sql, "depts", filterList.toArray());
 			}
 		} else {
@@ -482,7 +482,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 	}
 
 	@Override
-	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, SysUser currentUser) {
+	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, User currentUser) {
 
 		// 先查询出当前用户有权限的部门数据
 		List<Department> listOrg = this.getOrgList(whereSql, orderSql, currentUser);
@@ -499,7 +499,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 		return result;
 	}
 
-	private void createDeptChildTree(DepartmentTree parentNode, List<DepartmentTree> result, List<BaseOrg> list,String deptId) {
+	private void createDeptChildTree(DepartmentTree parentNode, List<DepartmentTree> result, List<Department> list,String deptId) {
 		List<Department> childs = new ArrayList<Department>();
 		for (Department org : list) {
 			if (org.getId().equals(deptId)) {
@@ -670,7 +670,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 
 	@Override
 	public Integer getDeptJobCount(String uuid) {
-		String hql = " select count(*) from BaseDeptjob where isDelete=0 and (deptId='" + uuid + "' or parentdeptId='"+uuid+"')";
+		String hql = " select count(*) from DeptJob where isDelete=0 and (deptId='" + uuid + "' or parentDeptId='"+uuid+"')";
 		Integer childCount = this.getQueryCountByHql(hql);
 		// TODO Auto-generated method stub
 		return childCount;
@@ -678,9 +678,9 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 	
 	@Override
 	public void setDeptName(String deptName,String uuid){	
-		String updateHql1="update BaseOrg a set a.superdeptName='"+deptName+"' where a.superDept='"+uuid+"'";
-		String updateHql2="update BaseDeptjob a set a.deptName='"+deptName+"' where a.deptId='"+uuid+"'";
-		String updateHql3="update BaseDeptjob a set a.parentdeptName='"+deptName +"' where a.parentdeptId='"+uuid+"'";
+		String updateHql1="update Department a set a.superdeptName='"+deptName+"' where a.superDept='"+uuid+"'";
+		String updateHql2="update DeptJob a set a.deptName='"+deptName+"' where a.deptId='"+uuid+"'";
+		String updateHql3="update DeptJob a set a.parentDeptName='"+deptName +"' where a.parentDeptId='"+uuid+"'";
 		this.doExecuteCountByHql(updateHql1);
 		this.doExecuteCountByHql(updateHql2);
 		this.doExecuteCountByHql(updateHql3);	
@@ -698,7 +698,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 		this.merge(dept);
 		
 		//2.设置相应的部门岗位的部门全名
-		String updateHql="update BaseDeptjob a set a.allDeptName='"+currentAllName +"' where a.deptId='"+dept.getId()+"'";
+		String updateHql="update DeptJob a set a.allDeptName='"+currentAllName +"' where a.deptId='"+dept.getId()+"'";
 		this.doExecuteCountByHql(updateHql);	
 		
 		//3.递归遍历设置子部门的全部门名
@@ -740,7 +740,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 	public void doCreateFuId() {
 		// TODO Auto-generated method stub
 		//1.查询第一层的部门
-		String hql="from BaseOrg where nodeLevel=1 and isDelete=0 order by orderIndex asc,nodeText asc";
+		String hql="from Department where nodeLevel=1 and isDelete=0 order by orderIndex asc,nodeText asc";
 		List<Department>  lists = this.queryByHql(hql);
 		Department temp=null;
 		long initValue=100;
@@ -760,7 +760,7 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 	}
 	
 	private void createChildFuId(String parentNodeId,long initValue,String parentFuId){
-		String hql="from BaseOrg where parentNode='"+parentNodeId+"' and isDelete=0 order by orderIndex asc,nodeText asc";
+		String hql="from Department where parentNode='"+parentNodeId+"' and isDelete=0 order by orderIndex asc,nodeText asc";
 		List<Department>  lists = this.queryByHql(hql);
 		Department temp=null;
 		for(int i=0;i<lists.size();i++){
@@ -785,14 +785,14 @@ public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements Sy
 		List<Department> list = new ArrayList<>();
 		if ("0".equals(rightType )) {
 			// 有所有部门权限
-			hql = " from BaseOrg WHERE isDelete=0 order by parentNode,orderIndex asc ";
+			hql = " from Department WHERE isDelete=0 order by parentNode,orderIndex asc ";
 			list = this.queryByHql(hql);
 
 			return list;
 		} else {
 			// 指定部门、所在部门及主管的部门
 			String sql = MessageFormat.format(
-					"SELECT DEPT_ID ,CREATE_TIME ,CREATE_USER ,EXT_FIELD01 ,EXT_FIELD02 ,EXT_FIELD03 ,EXT_FIELD04 ,EXT_FIELD05 ,ISDELETE ,ORDER_INDEX ,UPDATE_TIME ,UPDATE_USER ,VERSION ,ISLEAF ,NODE_CODE ,NODE_LEVEL ,NODE_TEXT ,PARENT_NODE ,TREE_IDS ,DEPT_TYPE ,FAX ,IN_PHONE ,ISSYSTEM ,MAIN_LEADER ,OUT_PHONE ,REMARK ,VICE_LEADER ,SUPER_JOB ,SUPER_DEPT ,ALL_DEPTNAME ,SUPERDEPT_NAME ,SUPERJOB_NAME FROM dbo.SYS_V_USERRIGHTDEPT WHERE USER_ID=''{0}'' ORDER BY PARENT_NODE,ORDER_INDEX ASC",
+					"SELECT DEPT_ID ,CREATE_TIME ,CREATE_USER ,EXT_FIELD01 ,EXT_FIELD02 ,EXT_FIELD03 ,EXT_FIELD04 ,EXT_FIELD05 ,ISDELETE ,ORDER_INDEX ,UPDATE_TIME ,UPDATE_USER ,VERSION ,ISLEAF ,NODE_CODE ,NODE_LEVEL ,NODE_TEXT ,PARENT_NODE ,TREE_IDS ,DEPT_TYPE ,FAX ,IN_PHONE ,ISSYSTEM ,MAIN_LEADER ,OUT_PHONE ,REMARK ,VICE_LEADER ,SUPER_JOB ,SUPER_DEPT ,ALL_DEPTNAME ,SUPERDEPT_NAME ,SUPERJOB_NAME FROM V_PT_UserRightDept WHERE USER_ID=''{0}'' ORDER BY PARENT_NODE,ORDER_INDEX ASC",
 					userId);
 			List<?> alist = this.querySql(sql);
 			Department dept = null;

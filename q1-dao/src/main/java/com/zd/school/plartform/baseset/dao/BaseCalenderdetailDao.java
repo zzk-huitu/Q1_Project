@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.jw.eduresources.model.JwCalenderdetail ;
+import com.zd.school.jw.eduresources.model.CalenderDetail;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.jw.eduresources.model.JwCalenderdetail ;
  * @since JDK 1.8
  */
  
-public interface BaseCalenderdetailDao extends BaseDao<JwCalenderdetail> {
+public interface BaseCalenderdetailDao extends BaseDao<CalenderDetail> {
 
 }

@@ -3,7 +3,6 @@ package com.zd.school.plartform.system.service.Impl;
 import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,7 +18,6 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -29,23 +27,22 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.SortListUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.BaseDicitem;
-import com.zd.school.plartform.baseset.model.BaseOrg;
+import com.zd.school.plartform.baseset.model.DataDictItem;
+import com.zd.school.plartform.baseset.model.Department;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.system.dao.SysUserDao;
-import com.zd.school.plartform.system.model.SysMenuPermission;
-import com.zd.school.plartform.system.model.SysPermission;
-import com.zd.school.plartform.system.model.SysRole;
-import com.zd.school.plartform.system.model.SysUser;
-import com.zd.school.plartform.system.model.SysUserToUP;
+import com.zd.school.plartform.system.model.MenuPermission;
+import com.zd.school.plartform.system.model.Permission;
+import com.zd.school.plartform.system.model.Role;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysMenuPermissionService;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.plartform.system.service.SysRoleService;
 import com.zd.school.plartform.system.service.SysUserService;
 import com.zd.school.plartform.system.service.SysUserdeptjobService;
 import com.zd.school.redis.service.UserRedisService;
-import com.zd.school.student.studentinfo.model.StuBaseinfo;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase;
+import com.zd.school.student.studentinfo.model.StudentBaseInfo;
+import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 
 /**
@@ -59,7 +56,7 @@ import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
  */
 @Service
 @Transactional
-public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysUserService {
+public class SysUserServiceImpl extends BaseServiceImpl<User> implements SysUserService {
 
 	private static Logger logger = Logger.getLogger(SysUserServiceImpl.class);
 
@@ -91,20 +88,20 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
 	
 	@Override
-	public SysUser doAddUser(SysUser entity, SysUser currentUser/*, String deptJobId*/) throws Exception, InvocationTargetException {
+	public User doAddUser(User entity, User currentUser/*, String deptJobId*/) throws Exception, InvocationTargetException {
 
 		String userPwd = entity.getUserPwd();
 		userPwd = new Sha256Hash(userPwd).toHex();
 
 		// 根据身份来做不同的处理
-		SysUser saveEntity = null;
+		User saveEntity = null;
 		String category = entity.getCategory();
 		if (category.equals("1")) { // 老师
-			TeaTeacherbase t = new TeaTeacherbase();
+			TeacherBaseInfo t = new TeacherBaseInfo();
 			saveEntity = t;
 			//增加角色
-			Set<SysRole>  theUserRoler = saveEntity.getSysRoles();
-			SysRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"TEACHER",0});
+			Set<Role>  theUserRoler = saveEntity.getSysRoles();
+			Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"TEACHER",0});
 			
 			if(role!=null){
 				theUserRoler.add(role);
@@ -112,14 +109,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 			}
 
 		} else if (category.equals("2")) { // 学生
-			StuBaseinfo t = new StuBaseinfo();
+			StudentBaseInfo t = new StudentBaseInfo();
 			// t.setSchoolId("2851655E-3390-4B80-B00C-52C7CA62CB39");
 			// t.setClassId(entity.getDeptId());
 
 			saveEntity = t;
 			//增加角色
-			Set<SysRole>  theUserRoler = saveEntity.getSysRoles();
-			SysRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
+			Set<Role>  theUserRoler = saveEntity.getSysRoles();
+			Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
 			
 			if(role!=null){
 				theUserRoler.add(role);
@@ -127,7 +124,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 			}
 
 		} else {
-			saveEntity = new SysUser();
+			saveEntity = new User();
 		}
 
 		entity.setId(null);
@@ -158,12 +155,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	}
 
 	@Override
-	public SysUser doUpdateUser(SysUser entity, SysUser currentUser) throws Exception, InvocationTargetException {
+	public User doUpdateUser(User entity, User currentUser) throws Exception, InvocationTargetException {
 
 		// 先拿到已持久化的实体
-		SysUser perEntity = this.get(entity.getId());
+		User perEntity = this.get(entity.getId());
 
-		Set<SysRole> isUserRoles = perEntity.getSysRoles();
+		Set<Role> isUserRoles = perEntity.getSysRoles();
 		/* Set<BaseOrg> userDept = perEntity.getUserDepts(); */
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
@@ -207,14 +204,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	}
 
 	@Override
-	public Boolean doDeleteUserRole(String userId, String delRoleIds, SysUser currentUser) {
+	public Boolean doDeleteUserRole(String userId, String delRoleIds, User currentUser) {
 		Boolean delReurn = false;
 		// 获取当前用户的信息
-		SysUser theUser = this.get(userId);
-		Set<SysRole> theUserRole = theUser.getSysRoles();
+		User theUser = this.get(userId);
+		Set<Role> theUserRole = theUser.getSysRoles();
 
 		String[] delId = delRoleIds.split(",");
-		List<SysRole> delRoles = roleService.queryByProerties("uuid", delId);
+		List<Role> delRoles = roleService.queryByProerties("id", delId);
 
 		theUserRole.removeAll(delRoles);
 
@@ -228,15 +225,15 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	}
 
 	@Override
-	public Boolean doAddUserRole(String userId, String addRoleIds, SysUser currentUser) {
+	public Boolean doAddUserRole(String userId, String addRoleIds, User currentUser) {
 
 		Boolean addResult = false;
 		// 获取当前用户的信息
-		SysUser theUser = this.get(userId);
-		Set<SysRole> theUserRole = theUser.getSysRoles();
+		User theUser = this.get(userId);
+		Set<Role> theUserRole = theUser.getSysRoles();
 
 		String[] addId = addRoleIds.split(",");
-		List<SysRole> addRoles = roleService.queryByProerties("uuid", addId);
+		List<Role> addRoles = roleService.queryByProerties("id", addId);
 
 		theUserRole.addAll(addRoles);
 
@@ -251,8 +248,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public QueryResult<SysUser> getDeptUser(Integer start, Integer limit, String sort, String filter, Boolean isDelete,
-			String userIds, SysUser currentUser) {
+	public QueryResult<User> getDeptUser(Integer start, Integer limit, String sort, String filter, Boolean isDelete,
+			String userIds, User currentUser) {
 
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String userId = userIds;
@@ -274,14 +271,14 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 			 * " order by  o.jobCode "); QueryResult<SysUser> qr =
 			 * this.queryPageResult(hql.toString(), start, limit);
 			 */
-			hql.append(" from SysUser o  where o.uuid in(" + userId + ")");
+			hql.append(" from User o  where o.id in(" + userId + ")");
 			if (isDelete)
 				hql.append(" and o.isDelete=0 ");
 			hql.append(filterSql);
 			
 			if(StringUtils.isNotEmpty(sortSql))
 				hql.append(" order by "+sortSql);
-			QueryResult<SysUser> qr = this.queryResult(hql.toString(), start, limit);
+			QueryResult<User> qr = this.queryResult(hql.toString(), start, limit);
 
 			return qr;
 		}
@@ -323,7 +320,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	// }
 
 	@Override
-	public List<SysUser> getUserByRoleName(String roleName) {
+	public List<User> getUserByRoleName(String roleName) {
 		/*
 		 * String sql =
 		 * "SELECT USER_ID FROM SYS_T_USER WHERE USER_ID IN(SELECT USER_ID FROM SYS_T_ROLEUSER WHERE ROLE_ID IN(SELECT ROLE_ID FROM SYS_T_ROLE WHERE ROLE_NAME='"
@@ -332,13 +329,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		 * list.size(); i++) { String userid = list.get(i) + "";
 		 * users.add(this.get(userid)); }
 		 */
-		String hql = "from SysUser as u inner join fetch u.sysRoles as r where r.roleName='" + roleName
+		String hql = "from User as u inner join fetch u.sysRoles as r where r.roleName='" + roleName
 				+ "' and r.isDelete=0 and u.isDelete=0";
 		return this.queryByHql(hql);
 	}
 
 	@Override
-	public Boolean doDeleteUser(String delIds, String orgId, SysUser currentUser) {
+	public Boolean doDeleteUser(String delIds, String orgId, User currentUser) {
 		String[] ids = delIds.split(",");
 		boolean flag = false;
 		/*
@@ -358,13 +355,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	}
 
 	@Override
-	public QueryResult<SysUser> getUserByRoleId(String roleId) {
-		QueryResult<SysUser> qr = new QueryResult<SysUser>();
-		String hql = "from SysUser as u inner join fetch u.sysRoles as r where r.uuid='" + roleId
+	public QueryResult<User> getUserByRoleId(String roleId) {
+		QueryResult<User> qr = new QueryResult<User>();
+		String hql = "from User as u inner join fetch u.sysRoles as r where r.id='" + roleId
 				+ "' and r.isDelete=0 and u.isDelete=0 ";
-		List<SysUser> list = this.queryByHql(hql);
+		List<User> list = this.queryByHql(hql);
 
-		SortListUtil<SysUser> sortJob = new SortListUtil<SysUser>();
+		SortListUtil<User> sortJob = new SortListUtil<User>();
 		sortJob.Sort(list, "jobCode", "String");
 		qr.setResultList(list);
 		qr.setTotalCount((long) list.size());
@@ -392,265 +389,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		// return null;
 	}
 
-	@Override
-	public int syncUserInfoToUP(SysUserToUP sysUserInfo, String userId) {
-		int row = 0;
-		try {
-			// 1.查询该数据源中的此用户的信息
-			String sql = "select top 1 UserId as userId,convert(varchar,EmployeeID) as employeeId,DepartmentID as departmentId,"
-					+ " convert(varchar(36),EmployeeName) as employeeName,"
-					+ " employeeStrId,sid,convert(varchar(1),sexId) sexId,identifier " + " from Tc_Employee "
-					+ " where UserId='" + userId + "'";
 
-			List<SysUserToUP> upUserInfos = this.queryEntityBySql(sql, SysUserToUP.class);
-
-			// 2.判断用户信息该作哪种处理
-			if (upUserInfos.isEmpty()) { // 若UP没有此数据，则增加
-				if (sysUserInfo != null) {
-					String sqlInsert = "insert into Tc_Employee(UserId,DepartmentID,EmployeeName,EmployeeStrID,SID,EmployeePWD,SexID,identifier,cardid,CardTypeID,EmployeeStatusID) "
-							+ "values('" + sysUserInfo.getUserId() + "','" + sysUserInfo.getDepartmentId() + "','"
-							+ sysUserInfo.getEmployeeName() + "'," + "'" + sysUserInfo.getEmployeeStrId() + "','"
-							+ sysUserInfo.getSid() + "','" + sysUserInfo.getEmployeePwd() + "','"
-							+ sysUserInfo.getSexId() + "','" + sysUserInfo.getIdentifier() + "',0,1,24)";
-
-					row = this.doExecuteCountBySql(sqlInsert);
-				}
-			} else { // 若存在，则判断是修改还是删除
-				SysUserToUP upUserInfo = upUserInfos.get(0);
-
-				if (sysUserInfo == null) { // 没有此人数据，则删除
-					String sqlDelete = "update Tc_Employee set EmployeeStatusID='26' where UserId='" + userId + "'";// 逻辑删除
-					row = this.doExecuteCountBySql(sqlDelete);
-
-				} else { // 若数据都存在，则判断是否有修改
-					/*
-					 * web平台中不维护卡片信息，故注释掉 if
-					 * (!sysUserInfo.getCardState().equals("0")) { //
-					 * 预设：CardState!=0;卡片状态，在web系统中强行设置为退卡状态 String sqlDelete =
-					 * " delete from TC_Card_Bags where EMPLOYEEID='" +
-					 * upUserInfo.getEmployeeId() + "'"; // 物理删除 //
-					 * this.getExecuteCountBySql(sqlDelete);
-					 * 
-					 * sqlDelete += " delete from TC_Card where EMPLOYEEID='" +
-					 * upUserInfo.getEmployeeId() + "'"; // 物理删除 //
-					 * this.getExecuteCountBySql(sqlDelete);
-					 * 
-					 * sqlDelete +=
-					 * " delete from Tc_Employee where EMPLOYEEID='" +
-					 * upUserInfo.getEmployeeId() + "'"; // 物理删除
-					 * 
-					 * row = this.getExecuteCountBySql(sqlDelete);
-					 * 
-					 * } else
-					 */
-					if (!sysUserInfo.equals(upUserInfo)) { // 对比部分数据是否一致
-						String sqlUpdate = " update Tc_Employee set DepartmentID='" + sysUserInfo.getDepartmentId()
-								+ "'," + "EmployeeName='" + sysUserInfo.getEmployeeName() + "',EmployeeStrID='"
-								+ sysUserInfo.getEmployeeStrId() + "'," + "SexID='" + sysUserInfo.getSexId()
-								+ "',identifier='" + sysUserInfo.getIdentifier() + "' where UserId='" + userId + "'";
-
-						row = this.doExecuteCountBySql(sqlUpdate);
-					}
-				}
-			}
-
-		} catch (Exception e) {
-			row = -1;
-		}
-
-		return row;
-	}
-
-	@Override
-	public int syncUserInfoToAllUP(List<SysUserToUP> userInfos, String departmentId) {
-		int row = 0;
-		try {
-			// 1.查询该数据源中的此用户的信息
-			String sql = "select UserId as userId,convert(varchar,EmployeeID) as employeeId,DepartmentID as departmentId,"
-					+ " convert(varchar(36),EmployeeName) as employeeName,"
-					+ " employeeStrId,sid,convert(varchar(1),sexId) sexId,identifier, convert(varchar(36),employeeTel) as employeeTel "
-					+ " from Tc_Employee ";
-			// + " where DepartmentID='"+departmentId+"'"
-			// + " order by userId asc";
-
-			if (departmentId != null) // 当此值为具体的值的时候，表明同步的是某个班级、部门的人员
-				sql += " where DepartmentID='" + departmentId + "'";
-
-			sql += " order by userId asc";
-
-			List<SysUserToUP> upUserInfos = this.queryEntityBySql(sql, SysUserToUP.class);
-
-			// 循环对比
-			SysUserToUP currentUser = null;
-			SysUserToUP upUser = null;
-			boolean isExist = false;
-			StringBuffer sqlSb = new StringBuffer();
-			for (int i = 0; i < userInfos.size(); i++) {
-				currentUser = userInfos.get(i);
-				isExist = false;
-
-				for (int j = 0; j < upUserInfos.size(); j++) {
-					upUser = upUserInfos.get(j);
-					if (currentUser.getUserId().equals(upUser.getUserId())) {
-						// 执行代码
-						isExist = true;
-						if (currentUser.getIsDelete() == 1) {
-							// sqlDelete = "delete from Tc_Employee where
-							// UserId='" + UserId + "'"; 物理删除
-							// 现在每次同步都会更新这个值，理应判断之后就不同步的，但是影响不大。
-							sqlSb.append(" update Tc_Employee set EmployeeStatusID='26' where UserId='"
-									+ currentUser.getUserId() + "';");// 逻辑删除
-
-							// 更改此人的卡片状态为2
-							sqlSb.append(" update TC_Card set CardStatusIDXF='2' where EmployeeID='"
-									+ upUser.getEmployeeId() + "';");// 逻辑删除
-
-						}
-						/*
-						 * web平台中不维护卡片信息，故注释掉 else if
-						 * (!currentUser.getCardState().equals("0")) {//
-						 * 预设：CardState!=0;卡片状态，在web系统中强行设置为退卡状态
-						 * 
-						 * // String sqlDelete =
-						 * "delete from TC_Card_Bags where EMPLOYEEID='" +
-						 * upUser.getEmployeeId() // + "'"; // 物理删除 // //
-						 * sqlDelete +=
-						 * " delete from TC_Card where EMPLOYEEID='" +
-						 * upUser.getEmployeeId() + "'"; // 物理删除 // // sqlDelete
-						 * += " delete from Tc_Employee where EMPLOYEEID='" +
-						 * upUser.getEmployeeId() + "'"; // 物理删除 // //
-						 * this.executeSql(sqlDelete);
-						 * 
-						 * sqlSb.append(
-						 * " delete from TC_Card_Bags where EMPLOYEEID='" +
-						 * upUser.getEmployeeId()+ "'"); sqlSb.append(
-						 * " delete from TC_Card where EMPLOYEEID='" +
-						 * upUser.getEmployeeId() + "'"); sqlSb.append(
-						 * " delete from Tc_Employee where EMPLOYEEID='" +
-						 * upUser.getEmployeeId() + "'");
-						 * 
-						 * }
-						 */
-						else if (!currentUser.equals(upUser)) { // 对比数据（一部分需要判断的数据）是否一致
-							// 更新卡片状态； 2017-11-3现在不更新卡类了（胡洋确定及肯定）
-							// int cardTypeId=1;
-							// if(currentUser.getJobName()!=null){
-							// if(currentUser.getJobName().contains("合同工"))
-							// cardTypeId=2;
-							// else if(currentUser.getJobName().equals("学员"))
-							// cardTypeId=3;
-							// }
-
-							String sqlUpdate = " update Tc_Employee set DepartmentID='" + currentUser.getDepartmentId()
-									+ "'," + "EmployeeName='" + currentUser.getEmployeeName() + "'";
-
-							// update时不更新人员编号字段了，因为教职工发卡之后，会把印刷卡号绑定到EmployeeStrID字段。
-							// ,EmployeeStrID='" +
-							// currentUser.getEmployeeStrId() + "'";
-
-							if (currentUser.getSexId() == null)
-								sqlUpdate += ",SexID=NULL";
-							else
-								sqlUpdate += ",SexID='" + currentUser.getSexId() + "'";
-
-							if (currentUser.getIdentifier() == null)
-								sqlUpdate += ",identifier=NULL";
-							else
-								sqlUpdate += ",identifier='" + currentUser.getIdentifier() + "'";
-
-							if (currentUser.getEmployeeTel() == null)
-								sqlUpdate += ",employeeTel=NULL";
-							else
-								sqlUpdate += ",employeeTel='" + currentUser.getEmployeeTel() + "'";
-
-							sqlUpdate += ",EmployeeStatusID='24' " // ,CardTypeID="+cardTypeId+"现在不更新卡类了（胡洋确定及肯定）
-									+ " where UserId='" + currentUser.getUserId() + "';";
-				
-
-							sqlSb.append(sqlUpdate);
-						}
-
-						upUserInfos.remove(j);
-						break; // 跳出
-
-					}
-				}
-
-				// 若上面的循环无法找到对应的人员，表明UP中不存在此用户
-				if (!isExist && currentUser.getIsDelete() != 1) {
-					int cardTypeId = 1;
-					// if (currentUser.getJobName() != null) {
-					// if (currentUser.getJobName().contains("合同工"))
-					// cardTypeId = 2;
-					// else if (currentUser.getJobName().equals("学员"))
-					// cardTypeId = 3;
-					// }
-
-					String sqlInsert = "insert into Tc_Employee(UserId,DepartmentID,EmployeeName,EmployeeStrID,SID,EmployeePWD,SexID,identifier,employeeTel,cardid,CardTypeID,EmployeeStatusID,PositionId) "
-							+ "values('" + currentUser.getUserId() + "','" + currentUser.getDepartmentId() + "','"
-							+ currentUser.getEmployeeName() + "'," + "'" + currentUser.getEmployeeStrId() + "','"
-							+ currentUser.getSid() + "','" + currentUser.getEmployeePwd() + "'";
-
-					if (currentUser.getSexId() == null)
-						sqlInsert += ",NULL";
-					else
-						sqlInsert += ",'" + currentUser.getSexId() + "'";
-
-					if (currentUser.getIdentifier() == null)
-						sqlInsert += ",NULL";
-					else
-						sqlInsert += ",'" + currentUser.getIdentifier() + "'";
-
-					if (currentUser.getEmployeeTel() == null)
-						sqlInsert += ",NULL";
-					else
-						sqlInsert += ",'" + currentUser.getEmployeeTel() + "'";
-
-					sqlInsert += ",0," + cardTypeId + ",24,19);";
-
-					sqlSb.append(sqlInsert);	
-				}
-
-				// 若积累的语句长度大于2000（大约50条语句左右），则执行
-				if (sqlSb.length() > 2000) {
-					row += this.doExecuteCountBySql(sqlSb.toString());
-					sqlSb.setLength(0); // 清空
-				}
-			}
-
-			// 最后执行一次
-			if (sqlSb.length() > 0)
-				row += this.doExecuteCountBySql(sqlSb.toString());
-
-			// 剩下的，表明不存在平台的库中，进行删除
-			String sqlDelete = "";
-			for (int k = 0; k < upUserInfos.size(); k++) {
-				upUser = upUserInfos.get(k);
-				if(StringUtils.isNotEmpty(upUser.getEmployeeId())){
-					sqlDelete = "delete from TC_Card_Bags where EMPLOYEEID=" + upUser.getEmployeeId() + ";"; // 物理删除
-					sqlDelete += "delete from TC_Card where EMPLOYEEID=" + upUser.getEmployeeId() + ";"; // 物理删除
-					sqlDelete += "delete from Tc_Employee where EMPLOYEEID=" + upUser.getEmployeeId() + ";"; // 物理删除
-	
-					this.doExecuteCountBySql(sqlDelete);
-				}
-			}
-
-		} catch (Exception e) {
-			// 捕获了异常后，要手动进行回滚； 还需要进行验证测试是否完全正确。
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-
-			row = -1;
-
-			logger.error(e.getMessage());
-			logger.error("同步人员数据到UP失败！错误信息：->" + Arrays.toString(e.getStackTrace()));
-		}
-
-		return row;
-	}
 
 
 	@Override
-	public HashMap<String, Set<String>> getUserRoleMenuPermission(SysUser sysUser, Session session) {
+	public HashMap<String, Set<String>> getUserRoleMenuPermission(User sysUser, Session session) {
 		// TODO Auto-generated method stub
 		HashMap<String, Set<String>> map = new HashMap<>();
 
@@ -671,16 +414,16 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		Set<String> userRMP_AUTH = new HashSet<>(); // 接口
 		Set<String> userRMP_BTN = new HashSet<>(); // 按钮
 
-		Set<SysRole> sysRoleSet = sysUser.getSysRoles();
-		Iterator<SysRole> iterator = sysRoleSet.iterator();
+		Set<Role> sysRoleSet = sysUser.getSysRoles();
+		Iterator<Role> iterator = sysRoleSet.iterator();
 		while (iterator.hasNext()) {
-			SysRole sysRole = iterator.next();
+			Role sysRole = iterator.next();
 			if (sysRole.getIsDelete() == 0) { // 只加入正常状态的角色数据
-				List<SysMenuPermission> menuPerLists = menuPermissionService.getRoleMenuPerlist(sysRole.getId(),
+				List<MenuPermission> menuPerLists = menuPermissionService.getRoleMenuPerlist(sysRole.getId(),
 						null);
 
 				for (int i = 0; i < menuPerLists.size(); i++) {
-					SysMenuPermission smp = menuPerLists.get(i);
+					MenuPermission smp = menuPerLists.get(i);
 					userRMP_AUTH.add(smp.getAuthPrefix() + "_" + smp.getAuthPostfix()); // 前缀+后缀
 					userRMP_BTN.add(smp.getMenuCode() + "_" + smp.getButtonName()); // 菜单编码+按钮ref名称
 				}
@@ -708,12 +451,12 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	 * 通过SysPermission权限菜单，这个参数，来获取相关的角色的用户ID，然后清除redis
 	 */
 	@Override
-	public void deleteUserMenuTreeRedis(SysPermission sysPermission) {
+	public void deleteUserMenuTreeRedis(Permission sysPermission) {
 		// TODO Auto-generated method stub
-		Set<SysRole> sysRoleSet = sysPermission.getSysRoles();
+		Set<Role> sysRoleSet = sysPermission.getSysRoles();
 		Set<String> setUserId = new HashSet<>();
-		for (SysRole sysRole : sysRoleSet) {
-			List<SysUser> listUser = this.getUserByRoleId(sysRole.getId()).getResultList();
+		for (Role sysRole : sysRoleSet) {
+			List<User> listUser = this.getUserByRoleId(sysRole.getId()).getResultList();
 			for (int j = 0; j < listUser.size(); j++) {
 				setUserId.add(listUser.get(j).getId());
 			}
@@ -730,7 +473,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		// TODO Auto-generated method stub
 		Set<String> setUserId = new HashSet<>();
 		for (int i = 0; i < roleIds.length; i++) {
-			List<SysUser> listUser = this.getUserByRoleId(roleIds[i]).getResultList();
+			List<User> listUser = this.getUserByRoleId(roleIds[i]).getResultList();
 			for (int j = 0; j < listUser.size(); j++) {
 				setUserId.add(listUser.get(j).getId());
 			}
@@ -751,21 +494,21 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	}
 
 	@Override
-	public QueryResult<SysUser> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter) {
-		String hql = "from SysUser as o where o.isDelete=0  and state='0' "; // 只列出状态正常的用户
+	public QueryResult<User> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter) {
+		String hql = "from User as o where o.isDelete=0  and state='0' "; // 只列出状态正常的用户
 		if (StringUtils.isNotEmpty(roleId)) {
-			String hql1 = " from SysUser as u inner join fetch u.sysRoles as k where k.uuid='" + roleId
+			String hql1 = " from User as u inner join fetch u.sysRoles as k where k.id='" + roleId
 					+ "' and k.isDelete=0 and u.isDelete=0 ";
-			List<SysUser> tempList = this.queryByHql(hql1);
+			List<User> tempList = this.queryByHql(hql1);
 			if (tempList.size() > 0) {
 				StringBuilder sb = new StringBuilder();
-				for (SysUser sysUser : tempList) {
+				for (User sysUser : tempList) {
 					sb.append(sysUser.getId());
 					sb.append(",");
 				}
 				sb = sb.deleteCharAt(sb.length() - 1);
 				String str = sb.toString().replace(",", "','");
-				hql += " and o.uuid not in ('" + str + "')";
+				hql += " and o.id not in ('" + str + "')";
 			}
 		}
 		if (StringUtils.isNotEmpty(filter)) {
@@ -775,7 +518,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 			hql += " order by ";
 			hql += sort;
 		}
-		QueryResult<SysUser> qr = this.queryResult(hql, start, limit);
+		QueryResult<User> qr = this.queryResult(hql, start, limit);
 		return qr;
 	}
 
@@ -787,8 +530,8 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	 * @return
 	 */
 	@Override
-	public List<SysUser> getUserByDeptId(String deptId) {
-		String hql = "select u.uuid from SysUser as u,BaseUserdeptjob as r where u.uuid=r.userId and r.deptId='"
+	public List<User> getUserByDeptId(String deptId) {
+		String hql = "select u.id from User as u,UserDeptJob as r where u.id=r.userId and r.deptId='"
 				+ deptId + "' and r.isDelete=0 and u.isDelete=0";
 		return this.queryByHql(hql);
 	}
@@ -801,18 +544,18 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 	 * @return
 	 */
 	@Override
-	public Set<BaseOrg> getDeptByUserId(String userId) {
-		String hql = "select u.uuid from SysUser as u,BaseUserdeptjob as r,BaseOrg o where u.uuid=r.userId and r.uuid='"
-				+ userId + "' and r.deptId=o.uuid and r.isDelete=0 and u.isDelete=0 and o.isDelete=0";
-		List<BaseOrg>  orgs= orgService.queryByHql(hql);
+	public Set<Department> getDeptByUserId(String userId) {
+		String hql = "select u.id from User as u,UserDeptJob as r,Department o where u.id=r.userId and r.id='"
+				+ userId + "' and r.deptId=o.id and r.isDelete=0 and u.isDelete=0 and o.isDelete=0";
+		List<Department>  orgs= orgService.queryByHql(hql);
 		
-		Set<BaseOrg> set=new HashSet<>(orgs);      
+		Set<Department> set=new HashSet<>(orgs);      
 	
 		return set;
 	}
 	
 	@Override
-	public List<ImportNotInfo> doImportUser(List<List<Object>> listObject, SysUser currentUser) {
+	public List<ImportNotInfo> doImportUser(List<List<Object>> listObject, User currentUser) {
 		// TODO Auto-generated method stub
 		
 		List<ImportNotInfo> listNotExit = new ArrayList<>();
@@ -824,9 +567,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		Map<String, String> mapZzmmm = new HashMap<>();
 		Map<String, String> mapXbm = new HashMap<>();
 		Map<String, String> mapCategory = new HashMap<>();
-		String hql1 = " from BaseDicitem where dicCode in ('ZZMMM','XBM','CATEGORY')";
-		List<BaseDicitem> listBaseDicItems1 = dicitemService.queryByHql(hql1);
-		for (BaseDicitem baseDicitem : listBaseDicItems1) {
+		String hql1 = " from DataDictItem where dicCode in ('ZZMMM','XBM','CATEGORY')";
+		List<DataDictItem> listBaseDicItems1 = dicitemService.queryByHql(hql1);
+		for (DataDictItem baseDicitem : listBaseDicItems1) {
 			if (baseDicitem.getDicCode().equals("XBM"))
 				mapXbm.put(baseDicitem.getItemName(), baseDicitem.getItemCode());
 			else if (baseDicitem.getDicCode().equals("ZZMMM"))
@@ -844,7 +587,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		String doResult = "";
 		String title = "";
 		String errorLevel = "";
-		SysUser user = null;
+		User user = null;
 		for (int i = 0; i < listObject.size(); i++) {
 			try {
 
@@ -868,7 +611,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 					doResult = "导入失败；异常信息：已存在此用户名的帐号信息";
 					
 				}else{
-					user = new SysUser();
+					user = new User();
 					user.setUserName(String.valueOf(lo.get(0)));
 					user.setName(String.valueOf(lo.get(1)));
 					user.setSex(mapXbm.get(lo.get(2)));
@@ -906,11 +649,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser> implements SysU
 		
 	}
 	@Override
-	public String getUserOwnDeptids(SysUser currentUser) {
-		List<BaseOrg> rightOrg = orgService.getUserRightDeptList(currentUser);
+	public String getUserOwnDeptids(User currentUser) {
+		List<Department> rightOrg = orgService.getUserRightDeptList(currentUser);
 		StringBuffer orgids = new StringBuffer();
 		if (rightOrg.size() > 0) {
-			for (BaseOrg baseOrg : rightOrg) {
+			for (Department baseOrg : rightOrg) {
 				orgids.append("'" + baseOrg.getId() + "',");
 			}
 		}

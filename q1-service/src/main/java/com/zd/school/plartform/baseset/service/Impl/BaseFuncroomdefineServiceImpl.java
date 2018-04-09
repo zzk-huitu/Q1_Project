@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildFuncRoomDefine;
 import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.FuncRoomDefine;
 import com.zd.school.plartform.baseset.dao.BaseFuncRoomDefineDao;
 import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -28,7 +28,7 @@ import com.zd.school.plartform.baseset.service.BaseRoominfoService;
  */
 @Service
 @Transactional
-public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<BuildFuncRoomDefine>
+public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
 		implements BaseFuncRoomDefineService {
 
 	@Resource
@@ -40,9 +40,9 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<BuildFuncRoom
 	private BaseRoominfoService thisService; // service层接口
 
 	@Override
-	public BuildFuncRoomDefine getByRoomId(String roomId) {
-		BuildFuncRoomDefine entity;
-		String hql = "from BuildFuncRoomDefine where 1=1";
+	public FuncRoomDefine getByRoomId(String roomId) {
+		FuncRoomDefine entity;
+		String hql = "from FuncRoomDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
@@ -54,8 +54,8 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<BuildFuncRoom
 	@Override
 	public void addFunRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
 		BuildRoominfo roomInfo = null;
-		BuildFuncRoomDefine funRoom = null;// 功能室定义
-		funRoom = new BuildFuncRoomDefine();
+		FuncRoomDefine funRoom = null;// 功能室定义
+		funRoom = new FuncRoomDefine();
 		BeanUtils.copyPropertiesExceptNull(funRoom, entity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(funRoom);
@@ -80,7 +80,7 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<BuildFuncRoom
 	@Override
 	public Boolean delFunRoom(BuildRoominfo roomInfo, String delId, String xm) {
 		Boolean flag=false;
-		BuildFuncRoomDefine funRoom = null;// 功能室定义
+		FuncRoomDefine funRoom = null;// 功能室定义
 		funRoom = this.getByRoomId(delId);
 		
 		roomInfo.setUpdateTime(new Date());

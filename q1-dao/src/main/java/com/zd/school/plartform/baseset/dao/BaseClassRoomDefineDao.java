@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.build.define.model.BuildClassRoomDefine;
+import com.zd.school.build.define.model.ClassRoomDefine;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.build.define.model.BuildClassRoomDefine;
  * @since JDK 1.8
  */
  
-public interface BaseClassRoomDefineDao extends BaseDao<BuildClassRoomDefine> {
+public interface BaseClassRoomDefineDao extends BaseDao<ClassRoomDefine> {
 
 }

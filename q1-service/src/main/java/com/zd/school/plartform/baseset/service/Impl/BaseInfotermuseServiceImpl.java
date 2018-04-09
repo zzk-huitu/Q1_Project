@@ -14,11 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.core.util.StringUtils;
-import com.zd.school.oa.terminal.model.OaInfotermuse;
+import com.zd.school.oa.terminal.model.InfoTerminalHistory;
 import com.zd.school.plartform.baseset.dao.BaseInfotermuseDao;
 import com.zd.school.plartform.baseset.service.BaseInfotermuseService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 /**
  * 
  * ClassName: OaInfotermuseServiceImpl
@@ -33,7 +32,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class BaseInfotermuseServiceImpl extends BaseServiceImpl<OaInfotermuse> implements BaseInfotermuseService{
+public class BaseInfotermuseServiceImpl extends BaseServiceImpl<InfoTerminalHistory> implements BaseInfotermuseService{
 
     @Resource
     public void setOaInfotermuseDao(BaseInfotermuseDao dao) {
@@ -42,8 +41,8 @@ public class BaseInfotermuseServiceImpl extends BaseServiceImpl<OaInfotermuse> i
 	private static Logger logger = Logger.getLogger(BaseInfotermuseServiceImpl.class);
 	
 	@Override
-	public QueryResult<OaInfotermuse> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<OaInfotermuse> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<InfoTerminalHistory> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<InfoTerminalHistory> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -56,13 +55,13 @@ public class BaseInfotermuseServiceImpl extends BaseServiceImpl<OaInfotermuse> i
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isDelete", "updateUser", "updateTime" };
 			Object[] propertyValue = { 1, currentUser.getId(), new Date() };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -80,9 +79,9 @@ public class BaseInfotermuseServiceImpl extends BaseServiceImpl<OaInfotermuse> i
 	 * @return
 	 */
 	@Override
-	public OaInfotermuse doUpdateEntity(OaInfotermuse entity, SysUser currentUser) {
+	public InfoTerminalHistory doUpdateEntity(InfoTerminalHistory entity, User currentUser) {
 		// 先拿到已持久化的实体
-		OaInfotermuse saveEntity = this.get(entity.getId());
+		InfoTerminalHistory saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -109,11 +108,11 @@ public class BaseInfotermuseServiceImpl extends BaseServiceImpl<OaInfotermuse> i
 	 * @return
 	 */
 	@Override
-	public OaInfotermuse doAddEntity(OaInfotermuse entity, SysUser currentUser) {
-		OaInfotermuse saveEntity = new OaInfotermuse();
+	public InfoTerminalHistory doAddEntity(InfoTerminalHistory entity, User currentUser) {
+		InfoTerminalHistory saveEntity = new InfoTerminalHistory();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

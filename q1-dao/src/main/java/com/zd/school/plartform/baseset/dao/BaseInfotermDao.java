@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.oa.terminal.model.OaInfoterm;
+import com.zd.school.oa.terminal.model.InfoTerminal;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.oa.terminal.model.OaInfoterm;
  * @since JDK 1.8
  */
  
-public interface BaseInfotermDao extends BaseDao<OaInfoterm> {
+public interface BaseInfotermDao extends BaseDao<InfoTerminal> {
 
 }

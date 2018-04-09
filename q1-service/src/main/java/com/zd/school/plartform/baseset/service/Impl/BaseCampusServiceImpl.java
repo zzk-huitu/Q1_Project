@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +15,14 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoomarea;
 import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomArea;
 import com.zd.school.plartform.baseset.dao.BaseCampusDao;
-import com.zd.school.plartform.baseset.model.BaseCampus;
-import com.zd.school.plartform.baseset.model.BaseOrg;
+import com.zd.school.plartform.baseset.model.Campus;
+import com.zd.school.plartform.baseset.model.Department;
 import com.zd.school.plartform.baseset.service.BaseCampusService;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.redis.service.DeptRedisService;
 
@@ -38,7 +37,7 @@ import com.zd.school.redis.service.DeptRedisService;
  */
 @Service
 @Transactional
-public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implements BaseCampusService {
+public class BaseCampusServiceImpl extends BaseServiceImpl<Campus> implements BaseCampusService {
 
 	@Resource
 	public void setBaseCampusDao(BaseCampusDao dao) {
@@ -55,20 +54,20 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 	private DeptRedisService deptRedisService;
 	
 	@Override
-	public BaseCampus doAdd(BaseCampus entity, SysUser currentUser)
+	public Campus doAdd(Campus entity, User currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		// 增加区域表的数据
-		BaseCampus saveEntity = new BaseCampus();
+		Campus saveEntity = new Campus();
 		
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
+		excludedProp.add("id");
 		BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 
 		saveEntity.setCreateUser(currentUser.getId());
 		this.merge(saveEntity);
 		
 		// 增加到建筑物的区域
-		BuildRoomarea roomarea = new BuildRoomarea(saveEntity.getId());			
+		RoomArea roomarea = new RoomArea(saveEntity.getId());			
 		roomarea.setNodeText(saveEntity.getCampusName());
 		roomarea.setOrderIndex(saveEntity.getOrderIndex());
 		roomarea.setCreateTime(new Date());
@@ -81,7 +80,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		areaService.merge(roomarea);
 
 		// 增加到部门的第二级
-		BaseOrg orgSave = new BaseOrg(saveEntity.getId());
+		Department orgSave = new Department(saveEntity.getId());
 		orgSave.setNodeText(saveEntity.getCampusName()); // 部门名称
 		orgSave.setOrderIndex(saveEntity.getOrderIndex());
 		orgSave.setParentNode(saveEntity.getSchoolId()); // 上级节点
@@ -91,7 +90,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		orgSave.setIsSystem(true);
 		orgSave.setAllDeptName(saveEntity.getSchoolName()+"/"+saveEntity.getCampusName());
 
-		BaseOrg parEntity = orgService.get(saveEntity.getSchoolId());
+		Department parEntity = orgService.get(saveEntity.getSchoolId());
 		parEntity.setLeaf(false);
 		orgService.merge(parEntity);
 		
@@ -105,11 +104,11 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 	}
 
 	@Override
-	public BaseCampus doUpdate(BaseCampus entity, SysUser currentUser)
+	public Campus doUpdate(Campus entity, User currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		
 		// 先拿到已持久化的实体
-		BaseCampus perEntity = this.get(entity.getId());
+		Campus perEntity = this.get(entity.getId());
 		String oldCampusName=perEntity.getCampusName();
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -121,7 +120,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		
 		if(!oldCampusName.equals(entity.getCampusName())){			
 			// 更新建筑物区域中对应的名称
-			BuildRoomarea roomarea = areaService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,entity.getId()});
+			RoomArea roomarea = areaService.getByProerties(new String[]{"isDelete","id"} ,new Object[]{0,entity.getId()});
 			if (roomarea != null) {
 				roomarea.setNodeText(entity.getCampusName());
 				roomarea.setUpdateTime(new Date());
@@ -130,7 +129,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 			}
 	
 			// 更新部门名称
-			BaseOrg orgSave = orgService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,entity.getId()});
+			Department orgSave = orgService.getByProerties(new String[]{"isDelete","id"} ,new Object[]{0,entity.getId()});
 			if(orgSave!=null){
 				orgSave.setNodeText(entity.getCampusName());
 				orgSave.setOrderIndex(entity.getOrderIndex());
@@ -140,7 +139,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 				
 				//更新其他部门岗位之类的数据				
 				orgService.setDeptName(entity.getCampusName(), orgSave.getId());						
-				BaseOrg parentOrg = orgService.get(orgSave.getParentNode());
+				Department parentOrg = orgService.get(orgSave.getParentNode());
 				if(parentOrg!=null&&!orgSave.getParentNode().equals("ROOT"))
 					orgService.setChildAllDeptName(orgSave, parentOrg.getAllDeptName());
 				else
@@ -157,7 +156,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 	}
 
 	@Override
-	public boolean doDelete(String delIds, SysUser currentUser,Map hashMap)
+	public boolean doDelete(String delIds, User currentUser,Map hashMap)
 			throws IllegalAccessException, InvocationTargetException {
 		boolean rs = true;
 		String[] ids = delIds.split(",");
@@ -170,7 +169,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 		StringBuffer areaSb = new StringBuffer();
 		for (String uuid : ids) {
 			// 检查当前校区是否配置了下属的部门
-			BaseOrg orgSave = orgService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,uuid});		
+			Department orgSave = orgService.getByProerties(new String[]{"isDelete","id"} ,new Object[]{0,uuid});		
 			if(orgSave!=null){
 				childOrg = orgService.getChildCount(orgSave.getId());		
 				//检查是否此部门分配了岗位，或是其他部门岗位的上级部门岗位
@@ -178,7 +177,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 			}
 			
 			// 检查当前校区是否配置了下属的建筑物区域
-			BuildRoomarea roomarea = areaService.getByProerties(new String[]{"isDelete","uuid"} ,new Object[]{0,uuid});		
+			RoomArea roomarea = areaService.getByProerties(new String[]{"isDelete","id"} ,new Object[]{0,uuid});		
 			if(roomarea!=null)
 				childArea = areaService.getChildCount(roomarea.getId());
 
@@ -192,7 +191,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 				if(roomarea!=null)
 					areaSb.append(roomarea.getId() + ",");			
 			}else{//当校区信息关联了部门管理或者建筑物时 ，不能删除
-				BaseCampus baseCampus=this.get(uuid);
+				Campus baseCampus=this.get(uuid);
 				notSb.append(baseCampus.getCampusName()+",");
 			    hashMap.put("rs", false);
 			}
@@ -227,14 +226,14 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<BaseCampus> implement
 	//根据房间获取这个房间初中或者高中的ID（校区ID）
 	@Override
 	public String getCampusIdByRoom(BuildRoominfo roominfo) {
-		List<BaseCampus> campus = this.queryByHql("from BaseCampus where isDelete=0");
+		List<Campus> campus = this.queryByHql("from Campus where isDelete=0");
 		List<String> campusids = new ArrayList<String>();
-		for (BaseCampus baseCampus : campus) {
+		for (Campus baseCampus : campus) {
 			campusids.add(baseCampus.getId());
 		}
 		String parentId = roominfo.getAreaId();
 		while (true) {
-			BuildRoomarea roomarea = areaService.get(parentId);
+			RoomArea roomarea = areaService.get(parentId);
 			if (campusids.contains(roomarea.getId())) {
 				return roomarea.getId();
 			}

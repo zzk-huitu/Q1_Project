@@ -17,12 +17,12 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.oa.terminal.model.OaInfoterm;
-import com.zd.school.oa.terminal.model.OaInfotermuse;
+import com.zd.school.oa.terminal.model.InfoTerminal;
+import com.zd.school.oa.terminal.model.InfoTerminalHistory;
 import com.zd.school.plartform.baseset.dao.BaseInfotermDao;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
 import com.zd.school.plartform.baseset.service.BaseInfotermuseService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -36,7 +36,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> implements BaseInfotermService {
+public class BaseInfotermServiceImpl extends BaseServiceImpl<InfoTerminal> implements BaseInfotermService {
 
 	@Resource
 	public void setOaInfotermDao(BaseInfotermDao dao) {
@@ -49,8 +49,8 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 	private static Logger logger = Logger.getLogger(BaseInfotermServiceImpl.class);
 
 	@Override
-	public QueryResult<OaInfoterm> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-		QueryResult<OaInfoterm> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<InfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+		QueryResult<InfoTerminal> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -64,13 +64,13 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, SysUser currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
-			String[] propertyName = { "isUse", "updateUser", "updateTime", "roomId", "roomName", "houseNumb" };
+			String[] propertyName = { "isUse", "updateUser", "updateTime", "roomId", "roomName", "houseNo" };
 			Object[] propertyValue = { 0, currentUser.getId(), new Date(), "", "", "" };
-			this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -89,9 +89,9 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 	 * @return
 	 */
 	@Override
-	public OaInfoterm doUpdateEntity(OaInfoterm entity, SysUser currentUser) {
+	public InfoTerminal doUpdateEntity(InfoTerminal entity, User currentUser) {
 		// 先拿到已持久化的实体
-		OaInfoterm saveEntity = this.get(entity.getId());
+		InfoTerminal saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -122,14 +122,14 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 	 * @return
 	 */
 	@Override
-	public OaInfoterm doAddEntity(OaInfoterm entity, SysUser currentUser, Integer beforeNumber, Integer termCount) {
+	public InfoTerminal doAddEntity(InfoTerminal entity, User currentUser, Integer beforeNumber, Integer termCount) {
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("uuid");
-		OaInfoterm saveEntity = null;
+		InfoTerminal saveEntity = null;
 		Integer newNumber = beforeNumber;
 	
 		for (int i = 0; i < termCount; i++) {
-			saveEntity = new OaInfoterm();
+			saveEntity = new InfoTerminal();
 			try {
 				BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			} catch (IllegalAccessException | InvocationTargetException e) {
@@ -163,24 +163,24 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 	}
 
 	@Override
-	public Boolean doSetTerminal(List<OaInfoterm> terminals, String roomId, String roomName, SysUser currentUser) {
+	public Boolean doSetTerminal(List<InfoTerminal> terminals, String roomId, String roomName, User currentUser) {
 		
-		String[] propName = { "roomId", "houseNumb" };
+		String[] propName = { "roomId", "houseNo" };
 
-		for (OaInfoterm oaInfoterm : terminals) {
+		for (InfoTerminal oaInfoterm : terminals) {
 			String houseNumb = oaInfoterm.getHouseNo();
 			String termId = oaInfoterm.getId();
 			Object[] propValue = { roomId, houseNumb };
-			OaInfoterm saveEntity = this.getByProerties(propName, propValue);
+			InfoTerminal saveEntity = this.getByProerties(propName, propValue);
 			if (ModelUtil.isNotNull(saveEntity)) {
 				// 原来给此门牌分配过终端
 				if (!saveEntity.getId().equals(termId)) {
 					// 当前设置的和原来的不一致，需要清除原来的，再更新
 					String conditionValue = saveEntity.getId();
 					String[] propertyName = { "isUse", "updateUser", "updateTime", "roomId", "roomName",
-							"houseNumb" };
+							"houseNo" };
 					Object[] propertyValue = { 0, currentUser.getId(), new Date(), "", "", "" };
-					this.updateByProperties("uuid", conditionValue, propertyName, propertyValue);
+					this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 					saveEntity = this.get(oaInfoterm.getId());
 				}
 			} else {
@@ -198,7 +198,7 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<OaInfoterm> impleme
 			this.merge(saveEntity);// 执行修改方法
 
 			// 写入分配历史记录
-			OaInfotermuse useHistory = new OaInfotermuse();
+			InfoTerminalHistory useHistory = new InfoTerminalHistory();
 			useHistory.setTerminalId(oaInfoterm.getId());
 			useHistory.setTerminalNo(oaInfoterm.getTerminalNo());
 			useHistory.setRoomId(roomId);

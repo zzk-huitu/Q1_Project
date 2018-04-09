@@ -1,20 +1,21 @@
 package com.zd.school.plartform.baseset.service.Impl;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.school.plartform.baseset.dao.BaseDicDao;
-import com.zd.school.plartform.baseset.model.BaseDic;
-import com.zd.school.plartform.baseset.model.BaseDicTree;
+import com.zd.school.plartform.baseset.model.DataDict;
+import com.zd.school.plartform.baseset.model.DataDictTree;
 import com.zd.school.plartform.baseset.service.BaseDicService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.Resource;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
@@ -27,7 +28,7 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class BaseDicServiceImpl extends BaseServiceImpl<BaseDic> implements BaseDicService {
+public class BaseDicServiceImpl extends BaseServiceImpl<DataDict> implements BaseDicService {
 
     @Resource
     public void setBaseDicDao(BaseDicDao dao) {
@@ -35,34 +36,34 @@ public class BaseDicServiceImpl extends BaseServiceImpl<BaseDic> implements Base
     }
 
     @Override
-    public List<BaseDicTree> getDicTreeList(String whereSql) {
+    public List<DataDictTree> getDicTreeList(String whereSql) {
 
-        String hql = "from BaseDic where 1=1 " + whereSql + " order by orderIndex asc ";
-        List<BaseDic> lists = this.queryByHql(hql);// 执行查询方法
-        List<BaseDicTree> result = new ArrayList<BaseDicTree>();
+        String hql = "from DataDict where 1=1 " + whereSql + " order by orderIndex asc ";
+        List<DataDict> lists = this.queryByHql(hql);// 执行查询方法
+        List<DataDictTree> result = new ArrayList<DataDictTree>();
 
         // 构建Tree数据
-        createChild(new BaseDicTree(TreeVeriable.ROOT, new ArrayList<BaseDicTree>()), result, lists);
+        createChild(new DataDictTree(TreeVeriable.ROOT, new ArrayList<DataDictTree>()), result, lists);
 
         return result;
     }
 
-    private void createChild(BaseDicTree parentNode, List<BaseDicTree> result, List<BaseDic> list) {
-        List<BaseDic> childs = new ArrayList<BaseDic>();
-        for (BaseDic dic : list) {
+    private void createChild(DataDictTree parentNode, List<DataDictTree> result, List<DataDict> list) {
+        List<DataDict> childs = new ArrayList<DataDict>();
+        for (DataDict dic : list) {
             if (dic.getParentNode().equals(parentNode.getId())) {
                 childs.add(dic);
             }
         }
 
-        for (BaseDic dic : childs) {
-            BaseDicTree child = new BaseDicTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
-                    dic.getTreeIds(), new ArrayList<BaseDicTree>(), dic.getDicCode(), dic.getDicType(), dic.getParentNode(), dic.getOrderIndex());
+        for (DataDict dic : childs) {
+        	DataDictTree child = new DataDictTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
+                    dic.getTreeIds(), new ArrayList<DataDictTree>(), dic.getDicCode(), dic.getDicType(), dic.getParentNode(), dic.getOrderIndex());
 
             if (dic.getParentNode().equals(TreeVeriable.ROOT)) {
                 result.add(child);
             } else {
-                List<BaseDicTree> trees = parentNode.getChildren();
+                List<DataDictTree> trees = parentNode.getChildren();
                 trees.add(child);
                 parentNode.setChildren(trees);
             }
@@ -71,13 +72,13 @@ public class BaseDicServiceImpl extends BaseServiceImpl<BaseDic> implements Base
     }
 
 	@Override
-	public BaseDic doAdd(BaseDic entity, String xm) {
+	public DataDict doAdd(DataDict entity, String xm) {
 		// TODO Auto-generated method stub
 
         String parentNode = entity.getParentNode();
         
 		 //当前节点
-        BaseDic saveEntity = new BaseDic();
+        DataDict saveEntity = new DataDict();
         List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("uuid");
 		try {
@@ -93,7 +94,7 @@ public class BaseDicServiceImpl extends BaseServiceImpl<BaseDic> implements Base
 
         //BaseDic parEntity = thisService.get(parentNode);
         if (!parentNode.equals(TreeVeriable.ROOT)) {
-            BaseDic parEntity = this.get(parentNode);
+        	DataDict parEntity = this.get(parentNode);
             parEntity.setLeaf(false);
             this.merge(parEntity);
 

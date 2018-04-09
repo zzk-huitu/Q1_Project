@@ -11,12 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.jw.eduresources.model.JwCalender ;
-import com.zd.school.jw.eduresources.model.JwCalenderdetail;
-import com.zd.school.jw.eduresources.model.JwTGrade;
+import com.zd.school.jw.eduresources.model.Calender;
+import com.zd.school.jw.eduresources.model.Grade;
 import com.zd.school.plartform.baseset.dao.BaseCalenderDao;
 import com.zd.school.plartform.baseset.service.BaseCalenderService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -32,7 +31,7 @@ import com.zd.school.plartform.system.model.SysUser;
  */
 @Service
 @Transactional
-public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> implements BaseCalenderService{
+public class BaseCalenderServiceImpl extends BaseServiceImpl<Calender> implements BaseCalenderService{
 
     @Resource
     public void setJwCalenderDao(BaseCalenderDao dao) {
@@ -41,7 +40,7 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
     private static Logger logger = Logger.getLogger(BaseCalenderServiceImpl.class);
     
 	@Override
-	public JwCalender  findJwTcanderByClaiId(JwTGrade  jtg) {
+	public Calender  findJwTcanderByClaiId(Grade  jtg) {
 		if(jtg == null)
     		return null;
     	if(jtg.getSectionCode() == null || jtg.getSectionCode().trim().equals(""))
@@ -53,8 +52,8 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
 	public int updateStatu(String calenderIds,String campusNames) {
 		// TODO Auto-generated method stub
 		try{
-			String hql1="update JwCalender set activityState=0 where isDelete=0 and activityState=1 and campusName in('"+campusNames.replace(",","','")+"')";	//弃用
-			String hql2="update JwCalender set activityState=1 where uuid in('"+calenderIds.replace(",", "','")+"')";//1：启用
+			String hql1="update Calender set activityState=0 where isDelete=0 and activityState=1 and campusName in('"+campusNames.replace(",","','")+"')";	//弃用
+			String hql2="update Calender set activityState=1 where id in('"+calenderIds.replace(",", "','")+"')";//1：启用
 			this.doExecuteCountByHql(hql1);
 			this.doExecuteCountByHql(hql2);
 			return 1;
@@ -64,9 +63,9 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
 	}
 
 	@Override
-	public JwCalender doUpdateEntity(JwCalender entity, SysUser currentUser) {
+	public Calender doUpdateEntity(Calender entity, User currentUser) {
 
-		JwCalender perEntity = this.get(entity.getId());
+		Calender perEntity = this.get(entity.getId());
 
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -84,8 +83,8 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
 	}
 
 	@Override
-	public JwCalender doAddEntity(JwCalender entity, SysUser currentUser) {
-		JwCalender saveEntity = new JwCalender();
+	public Calender doAddEntity(Calender entity, User currentUser) {
+		Calender saveEntity = new Calender();
 		try {
 			BeanUtils.copyPropertiesExceptNull(entity, saveEntity);
 
@@ -116,10 +115,10 @@ public class BaseCalenderServiceImpl extends BaseServiceImpl<JwCalender> impleme
 		Boolean delResult = false;
 		try{
 			String doIds = "'" + delIds.replace(",", "','") + "'";
-			String hql = "DELETE FROM JwCalenderdetail j  WHERE j.canderId IN (" + doIds + ")";
+			String hql = "DELETE FROM CalenderDetail j  WHERE j.calenderId IN (" + doIds + ")";
 			this.doExecuteCountByHql(hql);
 
-			hql = "DELETE FROM JwCalender j  WHERE j.uuid IN (" + doIds + ")";
+			hql = "DELETE FROM Calender j  WHERE j.id IN (" + doIds + ")";
 			this.doExecuteCountByHql(hql);
 			delResult = true;
 		}catch(Exception e){
