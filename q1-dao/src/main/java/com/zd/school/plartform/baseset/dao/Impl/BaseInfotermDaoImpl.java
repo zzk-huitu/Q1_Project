@@ -4,7 +4,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.oa.terminal.model.OaInfoterm;
+import com.zd.school.oa.terminal.model.InfoTerminal;
 import com.zd.school.plartform.baseset.dao.BaseInfotermDao;
 
 
@@ -21,9 +21,9 @@ import com.zd.school.plartform.baseset.dao.BaseInfotermDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseInfotermDaoImpl extends BaseDaoImpl<OaInfoterm> implements BaseInfotermDao {
+public class BaseInfotermDaoImpl extends BaseDaoImpl<InfoTerminal> implements BaseInfotermDao {
     public BaseInfotermDaoImpl() {
-        super(OaInfoterm.class);
+        super(InfoTerminal.class);
         // TODO Auto-generated constructor stub
     }
 }

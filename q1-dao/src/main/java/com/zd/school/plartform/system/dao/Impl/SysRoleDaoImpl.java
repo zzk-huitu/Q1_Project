@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysRoleDao;
-import com.zd.school.plartform.system.model.SysRole;
+import com.zd.school.plartform.system.model.Role;
 
 /**
  * 
@@ -16,9 +16,9 @@ import com.zd.school.plartform.system.model.SysRole;
  * @since JDK 1.8
  */
 @Repository
-public class SysRoleDaoImpl extends BaseDaoImpl<SysRole> implements SysRoleDao {
+public class SysRoleDaoImpl extends BaseDaoImpl<Role> implements SysRoleDao {
     public SysRoleDaoImpl() {
-        super(SysRole.class);
+        super(Role.class);
         // TODO Auto-generated constructor stub
     }
 

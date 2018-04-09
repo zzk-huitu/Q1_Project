@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.baseset.dao.BaseCampusDao ;
-import com.zd.school.plartform.baseset.model.BaseCampus ;
+import com.zd.school.plartform.baseset.model.Campus;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.model.BaseCampus ;
  * @since JDK 1.8
  */
 @Repository
-public class BaseCampusDaoImpl extends BaseDaoImpl<BaseCampus> implements BaseCampusDao {
+public class BaseCampusDaoImpl extends BaseDaoImpl<Campus> implements BaseCampusDao {
     public BaseCampusDaoImpl() {
-        super(BaseCampus.class);
+        super(Campus.class);
         // TODO Auto-generated constructor stub
     }
 }

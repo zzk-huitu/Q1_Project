@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.OfficeDefine;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseOfficeDefineDao;
 import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -47,8 +47,8 @@ public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> i
 	}
 
 	@Override
-	public void addOffRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
-		BuildRoominfo roomInfo = null;
+	public void addOffRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+		RoomInfo roomInfo = null;
 		OfficeDefine offRoom = null;// 办公室定义
 		offRoom = new OfficeDefine();
 		BeanUtils.copyPropertiesExceptNull(offRoom, entity);
@@ -73,7 +73,7 @@ public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> i
 	}
 
 	@Override
-	public Boolean delOffRoom(BuildRoominfo roomInfo, String delId, String xm) {
+	public Boolean delOffRoom(RoomInfo roomInfo, String delId, String xm) {
 		Boolean flag=false;
 		OfficeDefine offRoom = null;// 办公室定义
 		offRoom = this.getByRoomId(delId);

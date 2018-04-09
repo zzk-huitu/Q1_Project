@@ -3,7 +3,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.oa.terminal.model.OaInfotermuse;
+import com.zd.school.oa.terminal.model.InfoTerminalHistory;
 import com.zd.school.plartform.baseset.dao.BaseInfotermuseDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.dao.BaseInfotermuseDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseInfotermuseDaoImpl extends BaseDaoImpl<OaInfotermuse> implements BaseInfotermuseDao {
+public class BaseInfotermuseDaoImpl extends BaseDaoImpl<InfoTerminalHistory> implements BaseInfotermuseDao {
     public BaseInfotermuseDaoImpl() {
-        super(OaInfotermuse.class);
+        super(InfoTerminalHistory.class);
         // TODO Auto-generated constructor stub
     }
 }

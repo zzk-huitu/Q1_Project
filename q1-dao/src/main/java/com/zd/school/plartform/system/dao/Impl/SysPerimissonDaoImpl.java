@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysPerimissonDao ;
-import com.zd.school.plartform.system.model.SysPermission ;
+import com.zd.school.plartform.system.model.Permission;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.plartform.system.model.SysPermission ;
  * @since JDK 1.8
  */
 @Repository
-public class SysPerimissonDaoImpl extends BaseDaoImpl<SysPermission> implements SysPerimissonDao {
+public class SysPerimissonDaoImpl extends BaseDaoImpl<Permission> implements SysPerimissonDao {
     public SysPerimissonDaoImpl() {
-        super(SysPermission.class);
+        super(Permission.class);
         // TODO Auto-generated constructor stub
     }
 }

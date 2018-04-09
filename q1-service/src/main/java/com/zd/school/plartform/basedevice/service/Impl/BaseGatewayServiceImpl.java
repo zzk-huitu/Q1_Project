@@ -1,7 +1,6 @@
 package com.zd.school.plartform.basedevice.service.Impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -22,7 +21,6 @@ import com.zd.school.plartform.basedevice.dao.BaseGatewayDao;
 import com.zd.school.plartform.basedevice.service.BaseGatewayService;
 import com.zd.school.plartform.system.model.User;
 
-import javassist.bytecode.ByteArray;
 
 /**
  * 网关表

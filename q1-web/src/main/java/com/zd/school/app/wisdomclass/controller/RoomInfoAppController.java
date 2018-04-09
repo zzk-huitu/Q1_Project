@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.jw.model.app.RoomInfoApp;
 import com.zd.school.oa.terminal.model.InfoTerminal;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
@@ -47,7 +47,7 @@ public class RoomInfoAppController {
 			return info;
 		}
 		
-		BuildRoominfo room  = thisService.get(roomTerm.getRoomId());;
+		RoomInfo room  = thisService.get(roomTerm.getRoomId());;
 		if (room == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端对应的房间！");

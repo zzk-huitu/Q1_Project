@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysDeptRightDao;
-import com.zd.school.plartform.system.model.SysDeptRight;
+import com.zd.school.plartform.system.model.UserDeptRight;
 
 /**
  * 
@@ -16,9 +16,9 @@ import com.zd.school.plartform.system.model.SysDeptRight;
  * @since JDK 1.8
  */
 @Repository
-public class SysDeptRightDaoImpl extends BaseDaoImpl<SysDeptRight> implements SysDeptRightDao {
+public class SysDeptRightDaoImpl extends BaseDaoImpl<UserDeptRight> implements SysDeptRightDao {
 	public SysDeptRightDaoImpl() {
-		super(SysDeptRight.class);
+		super(UserDeptRight.class);
 		// TODO Auto-generated constructor stub
 	}
 }

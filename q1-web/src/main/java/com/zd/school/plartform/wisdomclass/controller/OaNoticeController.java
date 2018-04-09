@@ -31,7 +31,7 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.build.define.model.RoomArea;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.jw.eduresources.model.ClassTeacher;
 import com.zd.school.jw.eduresources.service.JwClassteacherService;
 import com.zd.school.oa.notice.model.Notice;
@@ -448,8 +448,8 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 					//4.创建第四层（房间号）
 					if(StringUtils.isNotEmpty(childAreasStr)){
 						String fjHql="from BuildRoominfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
-						List<BuildRoominfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
-						for(BuildRoominfo roomInfo:roomInfoList){
+						List<RoomInfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
+						for(RoomInfo roomInfo:roomInfoList){
 							Map<String,Object> roomInfoMap=new HashMap<>();	//房间类型室
 							roomInfoMap.put("text",roomInfo.getRoomName());
 							roomInfoMap.put("leaf",true);

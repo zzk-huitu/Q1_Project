@@ -25,7 +25,7 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.SortListUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.build.define.model.FuncRoomDefine;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.jw.arrangecourse.model.CourseArrange;
 import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
@@ -101,7 +101,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			return arrangeForApp;
 		}
 		
-		BuildRoominfo roominfo = brService.get(roomTerm.getRoomId());
+		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo==null) {
 			arrangeForApp.setMessageInfo("没有找到该终端下的房间信息！");
 			arrangeForApp.setMessage(false);
@@ -217,7 +217,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			jtd.setMessageInfo("没有找到该终端设备！");
 			return jtd;
 		}
-		BuildRoominfo roominfo = brService.get(roomTerm.getRoomId());
+		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			jtd.setMessage(false);
 			jtd.setMessageInfo("没有找到设备对应房间！");
@@ -365,7 +365,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			jctd.setMessageInfo("没有找到该终端设备！");
 			return jctd;
 		}
-		BuildRoominfo roominfo = brService.get(roomTerm.getRoomId());
+		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			jctd.setMessage(false);
 			jctd.setMessageInfo("没有找到设备对应房间！");
@@ -537,7 +537,7 @@ public class CourseArrangeAppController extends FrameWorkController<CourseArrang
 			}
 				
 			//获取校区ID
-			BuildRoominfo roomInfo=brService.get(funcRoom.getRoomId());
+			RoomInfo roomInfo=brService.get(funcRoom.getRoomId());
 			String campusId = campusService.getCampusIdByRoom(roomInfo);	
 				
 			//根据校区，获取作息时间

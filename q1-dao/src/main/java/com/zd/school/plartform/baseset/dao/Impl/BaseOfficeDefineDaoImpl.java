@@ -3,7 +3,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.build.define.model.BuildOfficeDefine ;
+import com.zd.school.build.define.model.OfficeDefine;
 import com.zd.school.plartform.baseset.dao.BaseOfficeDefineDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.dao.BaseOfficeDefineDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseOfficeDefineDaoImpl extends BaseDaoImpl<BuildOfficeDefine> implements BaseOfficeDefineDao {
+public class BaseOfficeDefineDaoImpl extends BaseDaoImpl<OfficeDefine> implements BaseOfficeDefineDao {
     public BaseOfficeDefineDaoImpl() {
-        super(BuildOfficeDefine.class);
+        super(OfficeDefine.class);
         // TODO Auto-generated constructor stub
     }
 }

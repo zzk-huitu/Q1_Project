@@ -5,9 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysMenuPermissionDao;
-import com.zd.school.plartform.system.dao.SysPerimissonDao ;
-import com.zd.school.plartform.system.model.SysMenuPermission;
-import com.zd.school.plartform.system.model.SysPermission ;
+import com.zd.school.plartform.system.model.MenuPermission;
 
 
 /**
@@ -23,9 +21,9 @@ import com.zd.school.plartform.system.model.SysPermission ;
  * @since JDK 1.8
  */
 @Repository
-public class SysMenuPermissionDaoImpl extends BaseDaoImpl<SysMenuPermission> implements SysMenuPermissionDao {
+public class SysMenuPermissionDaoImpl extends BaseDaoImpl<MenuPermission> implements SysMenuPermissionDao {
     public SysMenuPermissionDaoImpl() {
-        super(SysMenuPermission.class);
+        super(MenuPermission.class);
         // TODO Auto-generated constructor stub
     }
 }

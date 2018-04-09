@@ -3,7 +3,7 @@ package com.zd.school.plartform.system.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.plartform.baseset.model.BaseOrg ;
+import com.zd.school.plartform.baseset.model.Department;
 import com.zd.school.plartform.system.dao.SysOrgDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.system.dao.SysOrgDao;
  * @since JDK 1.8
  */
 @Repository
-public class SysOrgDaoImpl extends BaseDaoImpl<BaseOrg> implements SysOrgDao {
+public class SysOrgDaoImpl extends BaseDaoImpl<Department> implements SysOrgDao {
     public SysOrgDaoImpl() {
-        super(BaseOrg.class);
+        super(Department.class);
         // TODO Auto-generated constructor stub
     }
 }

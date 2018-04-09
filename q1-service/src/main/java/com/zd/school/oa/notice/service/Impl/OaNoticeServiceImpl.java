@@ -29,7 +29,6 @@ import com.zd.school.jw.push.service.PushInfoService;
 import com.zd.school.oa.notice.dao.OaNoticeDao;
 import com.zd.school.oa.notice.model.Notice;
 import com.zd.school.oa.notice.model.NoticeOther;
-import com.zd.school.oa.notice.model.NoticeAuditor;
 import com.zd.school.oa.notice.service.OaNoticeService;
 import com.zd.school.oa.notice.service.OaNoticeauditorService;
 import com.zd.school.oa.terminal.model.InfoTerminal;
@@ -212,7 +211,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<Notice> implements OaNo
 					List<Object> roomInfo = null;
 
 					if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
-						String roomInfoHql = "select id from BuildRoominfo where isDelete=0";
+						String roomInfoHql = "select id from RoomInfo where isDelete=0";
 						roomInfo = this.queryEntityByHql(roomInfoHql);
 
 					} else {
@@ -408,7 +407,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<Notice> implements OaNo
 				List<String> roomInfo = null;
 
 				if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
-					String roomInfoHql = "select id from BuildRoominfo where isDelete=0";
+					String roomInfoHql = "select id from RoomInfo where isDelete=0";
 					roomInfo = this.queryEntityByHql(roomInfoHql);
 				} else {
 					propValue = terminalIds.split(",");

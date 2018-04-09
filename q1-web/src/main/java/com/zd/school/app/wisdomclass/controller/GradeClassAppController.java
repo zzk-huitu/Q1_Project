@@ -19,7 +19,7 @@ import com.zd.core.controller.core.BaseController;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
 import com.zd.school.jw.ecc.model.ClassRedFlag;
@@ -211,7 +211,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 			info.setMessageInfo("没有找到该终端设备！");
 			return info;
 		}
-		BuildRoominfo roominfo = brService.get(roomTerm.getRoomId());
+		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到设备对应房间！");

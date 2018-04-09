@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.baseset.dao.BaseDicDao ;
-import com.zd.school.plartform.baseset.model.BaseDic ;
+import com.zd.school.plartform.baseset.model.DataDict;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.model.BaseDic ;
  * @since JDK 1.8
  */
 @Repository
-public class BaseDicDaoImpl extends BaseDaoImpl<BaseDic> implements BaseDicDao {
+public class BaseDicDaoImpl extends BaseDaoImpl<DataDict> implements BaseDicDao {
     public BaseDicDaoImpl() {
-        super(BaseDic.class);
+        super(DataDict.class);
         // TODO Auto-generated constructor stub
     }
 }

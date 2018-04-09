@@ -45,7 +45,6 @@ com\zd\school\ykt\model\Card.class
 com\zd\school\student\studentinfo\model\StudentParents.class
 com\zd\school\excel\annotation\MapperCell.class
 com\zd\school\plartform\system\model\Role.class
-com\zd\school\build\define\model\BuildRoominfo.class
 com\zd\school\control\device\model\RoomBagRuleBind.class
 com\zd\school\jw\model\app\VideoApp.class
 com\zd\school\control\device\model\TLVModel.class
@@ -77,6 +76,7 @@ com\zd\school\control\device\model\RoomBagRule.class
 com\zd\school\plartform\system\model\RoleMenuPermission.class
 com\zd\school\oa\attendance\model\AttendTime.class
 com\zd\school\jw\model\app\PictureForApp.class
+com\zd\school\build\define\model\RoomInfo.class
 com\zd\school\jw\push\model\PushInfo.class
 com\zd\school\jw\model\app\DeviceListInClassApp.class
 com\zd\school\control\device\model\DkTermStatus.class
@@ -109,4 +109,5 @@ com\zd\school\oa\notice\model\NoticeAuditor.class
 com\zd\school\control\device\model\IrData.class
 com\zd\school\plartform\comm\model\CommTree.class
 com\zd\school\oa\notice\model\NoticeOther.class
+com\zd\school\student\studentclass\model\StandVClassStudent.class
 com\zd\school\control\device\model\PowerResidue.class

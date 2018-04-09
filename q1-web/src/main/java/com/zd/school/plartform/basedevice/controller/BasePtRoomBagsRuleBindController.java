@@ -25,7 +25,7 @@ import com.zd.core.util.StringUtils;
 import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.build.allot.model.ClassDormAllot;
 import com.zd.school.build.define.model.DormDefine;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.control.device.model.RoomBagRule;
 import com.zd.school.control.device.model.RoomBagRuleBind;
 import com.zd.school.control.device.model.SkMeterBind;
@@ -115,7 +115,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + roomId.substring(0, roomId.length() - 1)
 			+ "\",\"field\":\"uuid\"}]";
 		//String sor="[{\"property\":\"orderIndex\",\"direction\":\"DESC\"}]";
-		QueryResult<BuildRoominfo> termQr = roomInfoService.queryPageResult(0,0,null, filter, true);
+		QueryResult<RoomInfo> termQr = roomInfoService.queryPageResult(0,0,null, filter, true);
 		
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据

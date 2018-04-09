@@ -15,8 +15,8 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.RoomArea;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseCampusDao;
 import com.zd.school.plartform.baseset.model.Campus;
 import com.zd.school.plartform.baseset.model.Department;
@@ -225,7 +225,7 @@ public class BaseCampusServiceImpl extends BaseServiceImpl<Campus> implements Ba
 	
 	//根据房间获取这个房间初中或者高中的ID（校区ID）
 	@Override
-	public String getCampusIdByRoom(BuildRoominfo roominfo) {
+	public String getCampusIdByRoom(RoomInfo roominfo) {
 		List<Campus> campus = this.queryByHql("from Campus where isDelete=0");
 		List<String> campusids = new ArrayList<String>();
 		for (Campus baseCampus : campus) {

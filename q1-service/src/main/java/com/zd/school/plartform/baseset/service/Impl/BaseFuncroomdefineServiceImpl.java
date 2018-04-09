@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.FuncRoomDefine;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseFuncRoomDefineDao;
 import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -52,8 +52,8 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<FuncRoomDefin
 	}
 
 	@Override
-	public void addFunRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
-		BuildRoominfo roomInfo = null;
+	public void addFunRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+		RoomInfo roomInfo = null;
 		FuncRoomDefine funRoom = null;// 功能室定义
 		funRoom = new FuncRoomDefine();
 		BeanUtils.copyPropertiesExceptNull(funRoom, entity);
@@ -78,7 +78,7 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<FuncRoomDefin
 	}
 
 	@Override
-	public Boolean delFunRoom(BuildRoominfo roomInfo, String delId, String xm) {
+	public Boolean delFunRoom(RoomInfo roomInfo, String delId, String xm) {
 		Boolean flag=false;
 		FuncRoomDefine funRoom = null;// 功能室定义
 		funRoom = this.getByRoomId(delId);

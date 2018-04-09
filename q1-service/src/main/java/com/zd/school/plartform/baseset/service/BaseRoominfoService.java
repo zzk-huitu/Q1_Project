@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.build.define.model.BuildRoominfo ;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.system.model.User;
 
 
@@ -23,13 +23,13 @@ import com.zd.school.plartform.system.model.User;
  * @since JDK 1.8
  */
  
-public interface BaseRoominfoService extends BaseService<BuildRoominfo> {
+public interface BaseRoominfoService extends BaseService<RoomInfo> {
 	public Integer getCount(String roomName);
 
-	public Boolean doBatchAddRoom(BuildRoominfo roominfo, User currentUser);
+	public Boolean doBatchAddRoom(RoomInfo roominfo, User currentUser);
 
 	public Boolean doDeleteRoomDefine(String delIds, String xm, Map<String, Object> hashMap);
 
-	public Boolean doAddRoomDefine(BuildRoominfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException;
+	public Boolean doAddRoomDefine(RoomInfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException;
 
 }

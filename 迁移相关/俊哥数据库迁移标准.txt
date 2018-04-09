@@ -82,3 +82,5 @@ nullable  根据字段的重要性来设定 true或false
 柜子号等数值较小的内容，使用byte类型，其他的使用 short 或 int
 日期类型：@Column(name = "CREATE_TIME", nullable = true, columnDefinition = "datetime")
 可为空是数据，才需要加入默认值； 不可为空的数据，不用加默认值
+
+

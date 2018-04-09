@@ -169,7 +169,7 @@ public class JwClassteacherServiceImpl extends BaseServiceImpl<ClassTeacher> imp
 					userdeptjob.setUserId(user.getId());
 					userdeptjob.setDeptId(deptId);
 					userdeptjob.setJobId(job.getId());
-					userdeptjob.setDeptjobId(deptjob.getId());
+					userdeptjob.setDeptJobId(deptjob.getId());
 					userdeptjob.setIsMainDept(false);
 					userDeptJobService.merge(userdeptjob);
 					

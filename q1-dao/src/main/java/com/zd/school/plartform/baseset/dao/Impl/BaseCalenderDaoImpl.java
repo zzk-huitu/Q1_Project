@@ -3,7 +3,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.jw.eduresources.model.JwCalender ;
+import com.zd.school.jw.eduresources.model.Calender;
 import com.zd.school.plartform.baseset.dao.BaseCalenderDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.dao.BaseCalenderDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseCalenderDaoImpl extends BaseDaoImpl<JwCalender> implements BaseCalenderDao {
+public class BaseCalenderDaoImpl extends BaseDaoImpl<Calender> implements BaseCalenderDao {
     public BaseCalenderDaoImpl() {
-        super(JwCalender.class);
+        super(Calender.class);
         // TODO Auto-generated constructor stub
     }
 }

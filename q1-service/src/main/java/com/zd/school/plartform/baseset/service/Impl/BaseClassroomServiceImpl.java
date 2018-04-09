@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.ClassRoomDefine;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseClassRoomDefineDao;
 import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -49,8 +49,8 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 	}
 
 	@Override
-	public void addClassRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
-		BuildRoominfo roomInfo = null;
+	public void addClassRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+		RoomInfo roomInfo = null;
 		ClassRoomDefine classRoom = null;// 教室定义
 		roomInfo = thisService.get(id);
 		roomInfo.setUpdateTime(new Date());
@@ -75,7 +75,7 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 	}
 
 	@Override
-	public Boolean delClassRoom(BuildRoominfo roomInfo, String delId, String xm){
+	public Boolean delClassRoom(RoomInfo roomInfo, String delId, String xm){
 		Boolean flag=false;
 		ClassRoomDefine classRoom = null;// 教室定义
 		classRoom = this.getByRoomId(delId);

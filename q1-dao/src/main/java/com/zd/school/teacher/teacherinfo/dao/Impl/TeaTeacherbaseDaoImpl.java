@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.teacher.teacherinfo.dao.TeaTeacherbaseDao ;
-import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase ;
+import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.teacher.teacherinfo.model.TeaTeacherbase ;
  * @since JDK 1.8
  */
 @Repository
-public class TeaTeacherbaseDaoImpl extends BaseDaoImpl<TeaTeacherbase> implements TeaTeacherbaseDao {
+public class TeaTeacherbaseDaoImpl extends BaseDaoImpl<TeacherBaseInfo> implements TeaTeacherbaseDao {
     public TeaTeacherbaseDaoImpl() {
-        super(TeaTeacherbase.class);
+        super(TeacherBaseInfo.class);
         // TODO Auto-generated constructor stub
     }
 }

@@ -3,7 +3,7 @@ package com.zd.school.wisdomclass.ecc.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.jw.ecc.model.JwCheckrule ;
+import com.zd.school.jw.ecc.model.AttenceRule;
 import com.zd.school.wisdomclass.ecc.dao.JwCheckruleDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.wisdomclass.ecc.dao.JwCheckruleDao;
  * @since JDK 1.8
  */
 @Repository
-public class JwCheckruleDaoImpl extends BaseDaoImpl<JwCheckrule> implements JwCheckruleDao {
+public class JwCheckruleDaoImpl extends BaseDaoImpl<AttenceRule> implements JwCheckruleDao {
     public JwCheckruleDaoImpl() {
-        super(JwCheckrule.class);
+        super(AttenceRule.class);
         // TODO Auto-generated constructor stub
     }
 }

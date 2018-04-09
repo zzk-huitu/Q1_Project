@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
 import com.zd.school.jw.ecc.model.ClassMien;
@@ -95,7 +95,7 @@ public class ClassFileAppController {
 			return info;
 		}
 
-		BuildRoominfo roominfo = brService.get(roomTerm.getRoomId());
+		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该设备绑定的房间信息！");
@@ -243,7 +243,7 @@ public class ClassFileAppController {
 			return info;
 		}
 
-		BuildRoominfo roominfo = brService.get(roomTerm.getRoomId());
+		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该设备绑定的房间信息！");

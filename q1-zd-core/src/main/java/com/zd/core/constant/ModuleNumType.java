@@ -29,5 +29,5 @@ public class ModuleNumType {
 	public final static String TD="07";
 	
 	/**日志模块*/
-	public final static String RZ="08";
+	public final static String LOG="08";
 }
