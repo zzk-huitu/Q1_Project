@@ -47,7 +47,7 @@ public class BaseCalenderController extends FrameWorkController<Calender> implem
 
 		pageJson.append("[");
 
-		String hql = "from JwTCander j where 1=1 and j.isDelete=0";
+		String hql = "from Calender j where 1=1 and j.isDelete=0";
 		List<Calender> list = thisService.queryByHql(hql);
 		for (Calender jwTCander : list) {
 			pageJson.append("{");

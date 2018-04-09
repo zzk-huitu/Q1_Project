@@ -63,7 +63,8 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
-    @Auth("SPECIAL_COURSEATTEND_attendUse")
+
+	@Auth("SPECIAL_COURSEATTEND_attendUse")
 	@RequestMapping(value = { "/userAttendlist" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void userAttendlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -79,7 +80,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 			userId.append(attUser.getUserId() + ",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""
-				+ userId.substring(0, userId.length() - 1) + "\",\"field\":\"uuid\"}]";
+				+ userId.substring(0, userId.length() - 1) + "\",\"field\":\"id\"}]";
 
 		QueryResult<User> termQr = userService.queryPageResult(0, 0, null, filter, true);
 
@@ -172,7 +173,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 		} else {
 			String[] ids = userIds.split(",");
 			for (int i = 0; i < ids.length; i++) {
-				String hql = " from AttUser where userId = '" + ids[i] + "'";
+				String hql = " from AttendUser where userId = '" + ids[i] + "'";
 				AttendUser entity = thisService.getEntityByHql(hql);
 				thisService.delete(entity);
 			}

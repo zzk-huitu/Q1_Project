@@ -89,7 +89,7 @@ public class BasePtSkMeterController extends FrameWorkController<SkMeter> implem
 			return;
 		} else {
 			// 判断这些流量计是否正在被其他设备所绑定
-			String hql = "select count(a.uuid) from PtSkMeterbind as a where a.meterId in ('" + ids.replace(",", "','")
+			String hql = "select count(a.id) from SkMeterBind as a where a.meterId in ('" + ids.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {

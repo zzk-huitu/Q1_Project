@@ -149,7 +149,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 		String whereSql = request.getParameter("whereSql");
 		//List<CommTree> lists = treeService.getCommTree("JW_V_AREAROOMINFOTREE", whereSql);
 		//只显示已定义的房间
-		List<CommTree> lists = treeService.getCommTree("JW_V_AREAROOMINFOTREE_DEFINED", whereSql);
+		List<CommTree> lists = treeService.getCommTree("V_PT_AreaDefinedRoomInfoTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -216,7 +216,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 25, 20, 45 };
 		List<IrRoomDevice> roomDeviceList = null;
-		String hql = " from PtIrRoomDevice a where a.isDelete=0 ";
+		String hql = " from IrRoomDevice a where a.isDelete=0 ";
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
@@ -321,11 +321,11 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 		if (!StringUtils.isEmpty(roomid1)) {
 			String[] idStrings = roomid1.split(",");
 			for (String id : idStrings) {
-				String datahql = "select d.irDataNo as irDataNo  from PtIrData d ,PtIrRoomDevice rd  "
+				String datahql = "select d.irDataNo as irDataNo  from IrData d ,IrRoomDevice rd  "
 						+ "where d.brandId=rd.brandId and d.isDelete=0 and rd.isDelete=0 " + " and rd.roomId='" + id
 						+ "' and d.irDataName like '%" + opt + "%' ";
 				List<Long> irDataNos = thisService.getEntityByHql(datahql, new Object[] {});
-				List<Term> list = ptTermService.queryByProerties(new String[] { "roomId", "termTypeID", "isDelete" },
+				List<Term> list = ptTermService.queryByProerties(new String[] { "roomId", "termTypeId", "isDelete" },
 						new Object[] { id, "11", 0 });
 				List excued = new ArrayList<String>();
 				
@@ -384,12 +384,12 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

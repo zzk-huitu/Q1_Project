@@ -104,7 +104,7 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
             return;
         } else {
         	// 判断这些课程是否被部门学科中绑定
-			String hql = "select count(a.uuid) from BaseOrg as a where a.extField01 in ('" + delIds.replace(",", "','")
+			String hql = "select count(a.id) from Department as a where a.courseId in ('" + delIds.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {

@@ -762,7 +762,7 @@ public class OaNoticeServiceImpl extends BaseServiceImpl<Notice> implements OaNo
 	@Override
 	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, String termCode) {
 		try {
-			InfoTerminal term = oaInfotermService.getByProerties("termCode", termCode);
+			InfoTerminal term = oaInfotermService.getByProerties("terminalNo", termCode);
 			// 如果存在此终端
 			if (ModelUtil.isNotNull(term)) {
 				String termId = term.getId();

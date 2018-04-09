@@ -94,10 +94,10 @@ public class CourseArrangeController extends FrameWorkController<CourseArrange> 
 				if (StringUtils.isNotEmpty(filter)) {
 					filter = filter.substring(0, filter.length() - 1);
 					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}" + "]";
+							+ "\",\"field\":\"classId\"}" + "]";
 				} else {
 					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}]";
+							+ "\",\"field\":\"classId\"}]";
 				}
 
 			} else { // 当选择的区域不为班级时
@@ -110,10 +110,10 @@ public class CourseArrangeController extends FrameWorkController<CourseArrange> 
 					if (StringUtils.isNotEmpty(filter)) {
 						filter = filter.substring(0, filter.length() - 1);
 						filter += ",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}" + "]";
+								+ "\",\"field\":\"classId\"}" + "]";
 					} else {
 						filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}]";
+								+ "\",\"field\":\"classId\"}]";
 					}
 
 				} else { // 若区域之下没有班级，则直接返回空数据
@@ -193,8 +193,8 @@ public class CourseArrangeController extends FrameWorkController<CourseArrange> 
 		String[] idArr=ids.split(",");	
 		User sysuser = getCurrentSysUser();		
 		
-		thisService.updateByProperties("uuid", idArr,
-				new String[]{"extField05","updateUser","updateTime"},
+		thisService.updateByProperties("id", idArr,
+				new String[]{"isUse","updateUser","updateTime"},
 				new Object[]{"0",sysuser.getId(),new Date()});		
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"禁用课表成功\""));		

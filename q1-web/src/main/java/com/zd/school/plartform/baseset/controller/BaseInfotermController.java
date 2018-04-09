@@ -126,7 +126,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 		Integer beforeNumber = Integer.parseInt(request.getParameter("beforeNumber"));
 		Integer termCount = Integer.parseInt(request.getParameter("termCount"));
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		Integer isCount = thisService.getQueryCountByHql(" select count(uuid) from OaInfoterm where isDelete=0 ");
+		Integer isCount = thisService.getQueryCountByHql(" select count(id) from InfoTerminal where isDelete=0 ");
 		if (isCount >= beforeNumber) {
 			isCount++;
 			writeJSON(response, jsonBuilder.returnFailureJson("\"起始顺序号应该从[" + isCount.toString() + "]起\""));
@@ -215,7 +215,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 	@RequestMapping("/getRoomTermInfo")
 	public void getRoomInfo(String roomId, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		String sql = "select * from OA_V_ROOMTERM where roomId='" + roomId + "'";
+		String sql = "select * from V_PT_RoomTermList where roomId='" + roomId + "'";
 		List<RoomTerm> roomTerms = thisService.queryEntityBySql(sql, RoomTerm.class);
 		if (roomTerms.size() == 0) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"请选择房间！\""));
@@ -237,7 +237,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 35, };
 		List<InfoTerminal> terminfoList = null;
-		String hql = " from OaInfoterm where isDelete=0 and isUse=1 ";
+		String hql = " from InfoTerminal where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(roomName)) {
 			hql += " and roomName like '%" + roomName + "%' ";
 		}
@@ -285,9 +285,9 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 25, 25, 25 };
 		List<InfoTerminal> terminfoList = null;
-		String hql = " from OaInfoterm where isDelete=0 and isUse=1 ";
+		String hql = " from InfoTerminal where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(ids)) {
-			hql += " and uuid in ('" + ids.replace(",", "','") + "')";
+			hql += " and id in ('" + ids.replace(",", "','") + "')";
 		}
 		hql += " order by termCode";
 		terminfoList = thisService.queryByHql(hql);
@@ -349,12 +349,12 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

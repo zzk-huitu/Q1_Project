@@ -80,7 +80,7 @@ public class BaseDicitemController extends FrameWorkController<DataDictItem> imp
 		String dicId = entity.getDictId();
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		String hql = " o.dicId='" + dicId + "' and o.isDelete='0'";
+		String hql = " o.dictId='" + dicId + "' and o.isDelete='0'";
 		if (thisService.IsFieldExist("itemName", entity.getItemName(), "-1", hql)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"同一字典下的字典项名称不能相同！\""));
 			return;
@@ -167,7 +167,7 @@ public class BaseDicitemController extends FrameWorkController<DataDictItem> imp
 		String dicId = entity.getDictId();
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		String hql = " o.dicId='" + dicId + "' and o.isDelete='0'";
+		String hql = " o.dictId='" + dicId + "' and o.isDelete='0'";
 		if (thisService.IsFieldExist("itemName", entity.getItemName(), entity.getId(), hql)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"同一字典下的字典项名称不能相同！\""));
 			return;
@@ -207,7 +207,7 @@ public class BaseDicitemController extends FrameWorkController<DataDictItem> imp
 		if (baseDicItem == null) { // 若存在，则不需要设置
 		
 			DataDict dictionary = dictionaryService.getByProerties("dicCode", dicCode);
-			String hql = " from BaseDicitem where isDelete=0 and dicId='" + dictionary.getId()
+			String hql = " from DataDictItem where isDelete=0 and dictId='" + dictionary.getId()
 					+ "' order by orderIndex asc, itemCode asc ";
 			List<DataDictItem> lists = thisService.queryByHql(hql);
 			strData = jsonBuilder.buildObjListToJson(new Long(lists.size()), lists, false);

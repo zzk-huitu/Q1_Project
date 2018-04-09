@@ -53,7 +53,7 @@ public class FuncRoomCourseController extends FrameWorkController<FuncRoomCourse
 		String whereSql = request.getParameter("whereSql");
 		
 		//只显示功能室的房间
-		List<CommTree> lists = treeService.getCommTree("JW_V_FUNCROOMTREE", whereSql);
+		List<CommTree> lists = treeService.getCommTree("V_PT_FunRoomTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -130,9 +130,9 @@ public class FuncRoomCourseController extends FrameWorkController<FuncRoomCourse
 	public @ResponseBody List<CourseArrange> getCourseByClass(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String classId=request.getParameter("classId");
-		String hql = "from JwCourseArrange where 1=1 and extField05=1 and isDelete=0 ";
-		hql += " and claiId='"+classId+"'";
-		hql += " order by teachTime asc";
+		String hql = "from CourseArrange where 1=1 and isUse=1 and isDelete=0 ";
+		hql += " and classId='"+classId+"'";
+		hql += " order by sections asc";
 		List<CourseArrange> list = courseArrangeService.queryByHql(hql);
 		return list;
 	}
@@ -245,7 +245,7 @@ public class FuncRoomCourseController extends FrameWorkController<FuncRoomCourse
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String sql = "select a.id from JW_V_FUNCROOMTREE a where a.leaf='true' and a.treeIds like '%"
+		String sql = "select a.id from V_PT_FunRoomTree a where a.leaf='true' and a.treeIds like '%"
 				+ areaId + "%'";
 		result = thisService.queryEntityBySql(sql, null);
 

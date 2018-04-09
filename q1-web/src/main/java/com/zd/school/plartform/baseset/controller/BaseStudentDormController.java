@@ -40,6 +40,7 @@ import com.zd.school.plartform.comm.service.CommTreeService;
 import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.student.studentclass.model.ClassStudent;
+import com.zd.school.student.studentclass.model.StandVClassStudent;
 import com.zd.school.student.studentclass.service.JwClassstudentService;
 
 /**
@@ -98,10 +99,10 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 				if (StringUtils.isNotEmpty(filter)) {
 					filter = filter.substring(0, filter.length() - 1);
 					filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}" + "]";
+							+ "\",\"field\":\"classId\"}" + "]";
 				} else {
 					filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + deptId
-							+ "\",\"field\":\"claiId\"}]";
+							+ "\",\"field\":\"classId\"}]";
 				}
 
 			} else { // 当选择的区域不为班级时
@@ -114,10 +115,10 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 					if (StringUtils.isNotEmpty(filter)) {
 						filter = filter.substring(0, filter.length() - 1);
 						filter += ",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}" + "]";
+								+ "\",\"field\":\"classId\"}" + "]";
 					} else {
 						filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + classIds
-								+ "\",\"field\":\"claiId\"}]";
+								+ "\",\"field\":\"classId\"}]";
 					}
 
 				} else { // 若区域之下没有班级，则直接返回空数据
@@ -179,11 +180,11 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 		String whereSql = request.getParameter("whereSql");
 		String identity = request.getParameter("identity");
 		if (identity.equals("1")) {// 男生
-			lists = treeService.getCommTree("JW_V_STU_BOY_DORMALLOTTREE", whereSql);
+			lists = treeService.getCommTree("V_PT_StuBoyDormTree", whereSql);
 		} else if (identity.equals("2")) {// 女生
-			lists = treeService.getCommTree("JW_V_STU_GRIL_DORMALLOTTREE", whereSql);
+			lists = treeService.getCommTree("V_PT_StuGirlDormTree", whereSql);
 		} else {
-			lists = treeService.getCommTree("JW_V_STU_DORM_ARER_TREE", whereSql);
+			lists = treeService.getCommTree("V_PT_StudentDormAreaTree", whereSql);
 		}
 
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
@@ -257,7 +258,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 		if (classId == null) {
 			classId = "";
 		}
-		String hql = "select a.uuid from BaseOrg a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
+		String hql = "select a.id from Department a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
 				+ classId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		StringBuffer sb = new StringBuffer();
@@ -270,19 +271,18 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 
 		String sql = " select a.userId as userId,a.xm as xm,a.userNumb as userNumb,a.xbm as xbm,a.classId as classId,"
 				+ " a.className as className,a.gradeId as gradeId,a.gradeCode as gradeCode,a.gradeName as gradeName "
-				+ "from STAND_V_CLASSSTUDENT a where "
-				+ " a.userId not in (select STU_ID from DORM_T_STUDENTDORM  where isDelete=0)";
+				+ "from V_PT_ClassStudentList a where "
+				+ " a.userId not in (select studentId from T_PT_StudentDorm  where isDelete=0)";
 
-		String countSql = "select count(*) " + "from STAND_V_CLASSSTUDENT a where "
-				+ " a.userId not in (select STU_ID from DORM_T_STUDENTDORM  where isDelete=0)";
+		String countSql = "select count(*) " + "from V_PT_ClassStudentList a where "
+				+ " a.userId not in (select studentId from T_PT_StudentDorm  where isDelete=0)";
 
 		if (classId != null) {
 			sql += " and a.classId in ('" + str.replace(",", "','") + "')";
 			countSql += " and a.classId in ('" + str.replace(",", "','") + "')";
 		}
 
-		QueryResult<StandVClassStudent> qr = thisService.queryPageResultBySql(sql, super.start(request),
-				super.limit(request), StandVClassStudent.class, countSql);
+		QueryResult<StandVClassStudent> qr = thisService.queryPageResultBySql(sql, super.start(request),super.limit(request), StandVClassStudent.class, countSql);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 
@@ -378,7 +378,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 			ClassDormAllot jwTClassdorm = null;
 			for (int j = 0; j < ids.length; j++) {
 				jwTClassdorm = classDormService.get(ids[j]);
-				boolean flag = thisService.IsFieldExist("cdormId", jwTClassdorm.getId(), "-1", "isdelete=0");
+				boolean flag = thisService.IsFieldExist("classDormId", jwTClassdorm.getId(), "-1", "isdelete=0");
 				if (flag) {
 					++count;
 				}
@@ -499,7 +499,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 20, 35 };
 		List<StudentDorm> stuDormList = null;
-		String hql = " from DormStudentDorm where isDelete=0 and claiId='" + claiId + "' order by inTime ";
+		String hql = " from StudentDorm where isDelete=0 and classId='" + claiId + "' order by inTime ";
 		stuDormList = thisService.queryByHql(hql);
 
 		List<Map<String, String>> stuDormExpList = new ArrayList<>();

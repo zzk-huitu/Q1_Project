@@ -199,10 +199,10 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
     		return;
     	}
    
-    	String hql="from BaseAttachment b where b.recordId='"+setRecordId+"' ";
-    	if (StringUtils.isNotEmpty(attachIsMain)){
-    		hql += " and b.attachIsMain='" + attachIsMain + "' ";
-    	}
+    	String hql="from Attachment b where b.recordId='"+setRecordId+"' ";
+//    	if (StringUtils.isNotEmpty(attachIsMain)){
+//    		hql += " and b.attachIsMain='" + attachIsMain + "' ";
+//    	}
     	if(StringUtils.isNotEmpty(entityName)){
     		hql += " and b.entityName='" + entityName + "' ";
     	}

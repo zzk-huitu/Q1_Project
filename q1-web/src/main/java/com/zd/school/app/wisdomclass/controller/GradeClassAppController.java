@@ -106,15 +106,13 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 	@RequestMapping(value = { "/getGradeClassList" }, method = RequestMethod.GET)
 	public @ResponseBody CommonApp<Map<String, Object>> getGradeClassList() {
 		CommonApp<Map<String, Object>> info=new CommonApp<>();
-		String sql="select a.CLAI_ID,a.CLASS_NAME,b.GRADE_NAME from JW_T_GRADECLASS a join JW_T_GRADE b "
-				+ " on a.GRAI_ID=b.GRAI_ID where a.ISDELETE=0 and b.ISDELETE=0"
-				+ " order by b.SECTION_CODE asc,b.GRADE_CODE asc,a.ORDER_INDEX asc";
+		String sql="select a.classId,a.className,b.gradeName from T_PT_GradeClass a join T_PT_Grade b "
+				+ " on a.gradeId=b.gradeId where a.isDelete=0 and b.isDelete=0"
+				+ " order by b.sectionCode asc,b.gradeCode asc,a.orderIndex asc";
 		List<Map<String, Object>> classMap = thisService.queryMapBySql(sql);
-		
 		info.setMessage(true);
 		info.setMessageInfo("调用成功！");
 		info.setList(classMap);
-		
 		
 		return info;
 	}
@@ -139,7 +137,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		Map<String,String> sort = new HashMap<>();
 		sort.put("category", "asc");
 		ClassTeacher calssTeacher = classTeacherService.getByProerties(
-				new String[]{"claiId","isDelete"},
+				new String[]{"classId","isDelete"},
 				new Object[]{classId,0},sort);		//率先读取正班主任
 		if (calssTeacher == null) {
 			info.setMessage(false);
@@ -147,7 +145,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 			return info; 
 		}
 		String teacherId = calssTeacher.getTeacherId();
-		List<TeacherBaseInfo> teacherList = teacherService.queryByProerties("uuid", teacherId);
+		List<TeacherBaseInfo> teacherList = teacherService.queryByProerties("id", teacherId);
 		if (teacherList.isEmpty()) {
 			info.setMessage(false);
 			info.setMessageInfo("未找到该班级的班主任信息！");
@@ -160,7 +158,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		String today = DateUtil.formatDate(date);
 		
 		//查询班级星级信息
-		String hql = "from EccClassstar where isDelete=0 and claiId='" + classInfo.getId() + "' and beginDate<='"
+		String hql = "from ClassStar where isDelete=0 and classId='" + classInfo.getId() + "' and beginDate<='"
 				+ today + "' and endDate>='" + today + "'";
 		List<ClassStar> classstarList = starService.queryByHql(hql);
 		if (!classstarList.isEmpty()) {
@@ -169,8 +167,8 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		}
 		
 		//查询班级红旗信息(显示最新的红旗)
-		hql = "from EccClassredflag where isDelete=0 and claiId='" + classInfo.getId() + "' and beginDate<='" + today
-				+ "' and endDate>='" + today + "' order by redflagType";
+		hql = "from ClassRedFlag where isDelete=0 and classId='" + classInfo.getId() + "' and beginDate<='" + today
+				+ "' and endDate>='" + today + "' order by redFlagType";
 		List<ClassRedFlag> classflagList = flagService.queryByHql(hql);
 		if (classflagList != null && classflagList.size() > 0) {
 			if (classflagList.size() > 1) {
@@ -205,7 +203,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		
 		ClassStudentApp info = new ClassStudentApp();
 
-		InfoTerminal roomTerm = termService.getByProerties("termCode", termCode);
+		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
@@ -234,7 +232,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 				
 				//找到了作息时间
 				if(calender!=null){
-					propName = new String[] { "canderId", "isDelete" };
+					propName = new String[] { "calenderId", "isDelete" };
 					propValue = new Object[] { calender.getId(), 0 };
 					List<CalenderDetail> calenderDetails = calendarDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
 					
@@ -253,13 +251,13 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 					}
 					
 					//获取功能室的课程信息
-					propName = new String[] { "roomId", "teachTime","isDelete" };
+					propName = new String[] { "roomId", "sections","isDelete" };
 					propValue = new Object[] { roomTerm.getRoomId(), teachTime,0};
 					FuncRoomCourse funcroomcourses = funcCourseService.getByProerties(propName, propValue);
 					
 					//最后获取星期N的功能室课程的班级
 					if (funcroomcourses != null) {
-						classId = EntityUtil.getPropertyValue(funcroomcourses, "claiId0" + dayNum) + "";
+						classId = EntityUtil.getPropertyValue(funcroomcourses, "classId0" + dayNum) + "";
 					}
 				}
 			}	
@@ -280,7 +278,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		if (StringUtils.isNotEmpty(classId)) {
 		
 			//查询班级下的学生信息
-			String hql = "from JwClassstudent where claiId='" + classId + "' and isDelete=0";
+			String hql = "from ClassStudent where classId='" + classId + "' and isDelete=0";
 			List<ClassStudent> list = classStudentService.queryByHql(hql);
 		
 			//直接遍历修改各个数据的照片路径（加入虚拟目录名）

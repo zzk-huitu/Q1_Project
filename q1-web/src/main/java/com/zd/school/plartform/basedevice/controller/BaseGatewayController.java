@@ -80,7 +80,7 @@ public class BaseGatewayController extends FrameWorkController<Gateway> implemen
 	public void getGradeTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		List<CommTree> lists = treeService.getCommTree("JW_V_SYS_FRONTSERVER", whereSql);
+		List<CommTree> lists = treeService.getCommTree("V_PT_FrontServerTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}

@@ -176,7 +176,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 		} else {
 			
 			// 判断这些费率是否正在被其他设备所绑定
-			String hql = "select count(a.uuid) from PtPriceBind as a where a.priceId in ('" + ids.replace(",", "','")
+			String hql = "select count(a.id) from PriceBind as a where a.priceId in ('" + ids.replace(",", "','")
 					+ "') and a.isDelete=0";
 					
 			User currentUser = getCurrentSysUser();

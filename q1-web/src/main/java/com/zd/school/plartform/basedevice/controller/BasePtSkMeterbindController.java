@@ -73,7 +73,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 			termId.append(ptSkMeterbind.getTermId()+",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + termId.substring(0, termId.length() - 1)
-			+ "\",\"field\":\"uuid\"}]";
+			+ "\",\"field\":\"id\"}]";
 		//String sor="[{\"property\":\"orderIndex\",\"direction\":\"DESC\"}]";
 		QueryResult<Term> termQr = ptTermService.queryPageResult(0,0,null, filter, true);
 		
@@ -127,7 +127,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 		} else {
 			String[] ids =termIds.split(",");
 			for(int i=0;i<ids.length;i++){
-				 String hql = " from PtSkMeterbind where termId = '"+ ids[i]+"'";
+				 String hql = " from SkMeterBind where termId = '"+ ids[i]+"'";
 				 SkMeterBind entity = thisService.getEntityByHql(hql);
 				 thisService.delete(entity);
 			}

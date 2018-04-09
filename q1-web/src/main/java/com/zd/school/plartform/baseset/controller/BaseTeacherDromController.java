@@ -118,7 +118,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	public void getGradeTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		List<CommTree> lists = treeService.getCommTree("JW_V_DORMALLOTTREE", whereSql);
+		List<CommTree> lists = treeService.getCommTree(" V_PT_TeacherDromTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -229,7 +229,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	public @ResponseBody TeacherDorm getMax(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String dormId = request.getParameter("dormId");
-		String sql = "SELECT MAX(ARK_NUM) arkNum,MAX(BED_NUM) bedNum FROM DORM_T_TEACHERDORM WHERE ISDELETE=0 AND IN_OUT=0 and DORM_ID='" + dormId
+		String sql = "SELECT MAX(sarkNo) sarkNo, MAX(bedNo) bedNo FROM T_PT_TeacherDorm WHERE isDelete=0 AND inOutState=0 and dormId='" + dormId
 				+ "'";
 		List<Object[]> list = thisService.queryObjectBySql(sql);
 		TeacherDorm entity = new TeacherDorm();
@@ -246,7 +246,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	public @ResponseBody DormDefine getTeaDormXmb(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String roomId = request.getParameter("roomId");
-		String hql = " FROM  BuildDormDefine WHERE roomId='" + roomId + "'";
+		String hql = " FROM DormDefine WHERE roomId='" + roomId + "'";
 		DormDefine entity= thisService.getEntityByHql(hql);
 		return entity;
 	}
@@ -274,7 +274,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String sql = "select a.id from JW_V_DORMALLOTTREE a where a.leaf='true' and a.treeIds like '%"
+		String sql = "select a.id from V_PT_TeacherDromTree a where a.leaf='true' and a.treeIds like '%"
 				+ areaId + "%'";
 		result = thisService.queryEntityBySql(sql, null);
 		

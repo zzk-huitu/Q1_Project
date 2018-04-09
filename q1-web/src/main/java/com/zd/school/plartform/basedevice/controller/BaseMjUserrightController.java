@@ -77,7 +77,7 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 	public void getGradeTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		List<CommTree> lists = treeService.getCommTree("JW_V_AREAROOMINFOTREE", whereSql);
+		List<CommTree> lists = treeService.getCommTree("V_PT_AreaRoomInfoTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -93,7 +93,7 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 	public void getStuDormList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		List<CommTree> lists = treeService.getCommTree("JW_V_STU_DORMALLOTTREE", whereSql);
+		List<CommTree> lists = treeService.getCommTree("V_PT_StudentDromAllotTree", whereSql);
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -198,10 +198,10 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 		if (StringUtils.isNotEmpty(filter)) {
 			filter = filter.substring(0, filter.length() - 1);
 			filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + userId
-					+ "\",\"field\":\"stuId\"}" + "]";
+					+ "\",\"field\":\"studentId\"}" + "]";
 		} else {
 			filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + userId
-					+ "\",\"field\":\"stuId\"}]";
+					+ "\",\"field\":\"studentId\"}]";
 		}
 		
 		QueryResult<MjUserRight> qr = thisService.queryPageResult(super.start(request), super.limit(request),
@@ -322,12 +322,12 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 
@@ -337,10 +337,10 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 	private List<String> getPtTermIds(String roomIds){
 		List<String> result = new ArrayList<>();
 
-		String sql = "select b.TERM_ID from BUILD_T_ROOMINFO a join PT_TERM b "
-				+ "	on a.ROOM_ID=b.ROOM_ID"
-				+ " where a.ISDELETE=0 and a.ROOM_TYPE!=0 and b.ISDELETE=0 "
-				+ " and a.ROOM_ID in ('" + roomIds + "')";
+		String sql = "select b.termId from T_PT_RoomInfo a join Term b "
+				+ "	on a.roomId=b.roomId"
+				+ " where a.isDelete=0 and a.roomType!=0 and b.isDelete=0 "
+				+ " and a.roomId in ('" + roomIds + "')";
 		result = thisService.queryEntityBySql(sql,null);
 		
 		return result;

@@ -181,9 +181,9 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
 		String title = request.getParameter("campusName");
 
 		List<CalenderDetail> jwCalenderdetailList = null;
-		String hql = " from JwCalenderdetail where isDelete=0 ";
+		String hql = " from CalenderDetail where isDelete=0 ";
 		if (StringUtils.isNotEmpty(canderId)) {
-			hql +="and canderId ='" + canderId+"'";
+			hql +="and calenderId ='" + canderId+"'";
 		}
 		hql=hql+ " order by beginTime";
 		jwCalenderdetailList = thisService.queryByHql(hql);
