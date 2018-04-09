@@ -18,7 +18,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.ecc.model.ClassRedFlag;
-import com.zd.school.jw.ecc.model.ClassStar;
 import com.zd.school.plartform.system.model.User;
 import com.zd.school.wisdomclass.ecc.service.EccClassredflagService;
 
@@ -43,9 +42,9 @@ public class WisClassRedflagController extends FrameWorkController<ClassRedFlag>
 		}
 		if(StringUtils.isNotEmpty(filter)){
 			filter = filter.substring(0, filter.length()-1);
-			filter+=",{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redflagType\"}"+"]";
+			filter+=",{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redFlagType\"}"+"]";
 		}else{
-			filter="[{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redflagType\"}]";
+			filter="[{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redFlagType\"}]";
 		}
 	    //QueryResult<EccClassredflag> qResult =thisService.queryPageResult(super.start(request), super.limit(request),super.sort(request), filter, true);
 		QueryResult<ClassRedFlag> qResult = thisService.list(super.start(request), super.limit(request),super.sort(request), filter, whereSql, orderSql, currentUser);

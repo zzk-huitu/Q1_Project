@@ -125,7 +125,7 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
-				querySql += " and a.room_id = '" + roomId + "'";
+				querySql += " and a.roomId = '" + roomId + "'";
 
 			} else { // 当选择的区域不为房间时
 				List<String> roomList = getRoomIds(roomId, roomLeaf);
@@ -133,7 +133,7 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 				if (!roomList.isEmpty()) {
 					String roomIds = roomList.stream().collect(Collectors.joining("','","'","'"));
 					
-					querySql += " and a.room_id in (" + roomIds + ")";
+					querySql += " and a.roomId in (" + roomIds + ")";
 
 				} else { // 若区域之下没有房间，则直接返回空数据
 
@@ -144,15 +144,15 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 			}
 		}
 
-		String select = " select SUM(a.USELITER) as useliter,MIN(a.TOTALUSEDLITER) as TOTALUSEDLITERmin,MAX(a.TOTALUSEDLITER) as TOTALUSEDLITERmax,"
-				+ " c.TERMNAME,D.ROOM_NAME,a.TERMSN,f.NODE_TEXT,	e.GATEWAYNAME,c.TERMNO,c.TERMTYPEID	";
-		String sqlsub = " from dbo.PT_SK_TERMSTATUS a" + " JOIN dbo.PT_TERM C ON c.TERMSN=a.TERMSN	"
-				+ " JOIN dbo.BUILD_T_ROOMINFO D ON a.ROOM_ID=D.ROOM_ID	"
-				+ " LEFT JOIN dbo.BUILD_T_ROOMAREA F ON d.AREA_ID=f.AREA_ID	"
-				+ " LEFT JOIN dbo.PT_GATEWAY E ON c.GATEWAY_ID=e.GATEWAY_ID  " + "where 1=1 and D.ROOM_TYPE!='0' ";
+		String select = " select SUM(a.useLiter) as useliter,MIN(a.totalUsedLiter) as TOTALUSEDLITERmin,MAX(a.totalUsedLiter) as TOTALUSEDLITERmax,"
+				+ " c.termName,D.roomName,a.termSn,f.nodeText,	e.gatewayName,c.termNo,c.termTypeId	";
+		String sqlsub = " from T_SK_TermStatus a" + " JOIN T_PT_Term c ON c.termSn=a.termSn	"
+				+ " JOIN T_PT_RoomInfo D ON a.roomId=D.roomId	"
+				+ " LEFT JOIN T_PT_RoomArea F ON d.areaId=f.areaId	"
+				+ " LEFT JOIN T_PT_Gateway E ON c.gatewayId=e.gatewayId  " + "where 1=1 and D.roomType!='0' ";
 	
-		String groupBySql = " GROUP BY 	c.TERMNAME,D.ROOM_NAME,a.TERMSN,f.NODE_TEXT, e.GATEWAYNAME,c.TERMNO,c.TERMTYPEID ";
-		String orderBySql = " ORDER BY c.TERMNO ASC";
+		String groupBySql = " GROUP BY 	c.termName,D.roomName,a.termSn,f.nodeText, e.gatewayName,c.termNo,c.termTypeId ";
+		String orderBySql = " ORDER BY c.termNo ASC";
 		
 		String sqlCount="select count(*) "+sqlsub+querySql+groupBySql;
 		
@@ -180,7 +180,7 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 15, 15, 15, 15, 15, 20, 20, 15, 15, 15, 15 };
 		List<SkTermStatus> skTermStatusList = null;
-		String hql = " from PtSkTermStatus a where a.isDelete=0 ";
+		String hql = " from SkTermStatus a where a.isDelete=0 ";
 		
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
@@ -279,15 +279,16 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 		String statusDateStart = request.getParameter("statusDateStart");
 		String statusDateEnd = request.getParameter("statusDateEnd");
 
-		String sql = " select SUM(a.USELITER) as useliter,MIN(a.TOTALUSEDLITER) as TOTALUSEDLITERmin,MAX(a.TOTALUSEDLITER) as TOTALUSEDLITERmax,"
-				+ " c.TERMNAME,D.ROOM_NAME,a.TERMSN,f.NODE_TEXT,	e.GATEWAYNAME,c.TERMNO,c.TERMTYPEID	"
-				+ " from dbo.PT_SK_TERMSTATUS a" + " JOIN dbo.PT_TERM C ON c.TERMSN=a.TERMSN	"
-				+ " JOIN dbo.BUILD_T_ROOMINFO D ON a.ROOM_ID=D.ROOM_ID	"
-				+ " LEFT JOIN dbo.BUILD_T_ROOMAREA F ON d.AREA_ID=f.AREA_ID	"
-				+ " LEFT JOIN dbo.PT_GATEWAY E ON c.GATEWAY_ID=e.GATEWAY_ID  " + "where 1=1 and D.ROOM_TYPE!='0' ";
 		
-		String groupSql = " GROUP BY 	c.TERMNAME,D.ROOM_NAME,a.TERMSN,f.NODE_TEXT, e.GATEWAYNAME,c.TERMNO,c.TERMTYPEID ";
-		String orderBySql = " ORDER BY c.TERMNO ASC";
+		String sql = " select SUM(a.useLiter) as useliter,MIN(a.totalUsedLiter) as TOTALUSEDLITERmin,MAX(a.totalUsedLiter) as TOTALUSEDLITERmax,"
+				+ " c.termName,D.roomName,a.termSn,f.nodeText,	e.gatewayName,c.termNo,c.termTypeId	"
+				+ " from T_SK_TermStatus a" + " JOIN T_PT_Term C ON c.termSn=a.termSn	"
+				+ " JOIN T_PT_RoomInfo D ON a.roomId=D.roomId	"
+				+ " LEFT JOIN T_PT_RoomAreaF ON d.areaId=f.areaId	"
+				+ " LEFT JOIN T_PT_Gateway E ON c.gatewayId=e.gatewayId  " + "where 1=1 and D.roomType!='0' ";
+		
+		String groupSql = " GROUP BY c.termName,D.roomName,a.termSn,f.nodeText, e.gatewayName,c.termNo,c.termTypeId ";
+		String orderBySql = " ORDER BY c.termNo ASC";
 		
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 20, 20, 15, 15, 15, 15, 15, 20, 20 };
@@ -296,14 +297,14 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
-				sql += " and a.ROOM_ID ='" + roomId + "' ";
+				sql += " and a.roomId ='" + roomId + "' ";
 				
 			} else {					// 当选择的区域不为房间时
 				List<String> roomList = getRoomIds(roomId, roomLeaf);
 					
 				if(!roomList.isEmpty()){
 					String roomIds=roomList.stream().collect(Collectors.joining("','","'","'"));	
-					sql += " and a.ROOM_ID in (" + roomIds + ") ";
+					sql += " and a.roomId in (" + roomIds + ") ";
 					
 				}else{	// 若区域之下没有房间，则直接返回空数据				
 					sql += " and 1=2 ";
@@ -312,10 +313,10 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 		}
 		
 		if (StringUtils.isNotEmpty(statusDateStart)) {
-			sql += " and a.STATUSDATE>='" + statusDateStart + "'";
+			sql += " and a.statusDate>='" + statusDateStart + "'";
 		}
 		if (StringUtils.isNotEmpty(statusDateEnd)) {
-			sql += " and a.STATUSDATE<='" + statusDateEnd + "'";
+			sql += " and a.statusDate<='" + statusDateEnd + "'";
 		}
 		skTermStatusList = thisService.queryMapBySql(sql + groupSql+orderBySql);
 
@@ -388,12 +389,12 @@ public class PtSkTermStatusController extends FrameWorkController<SkTermStatus> 
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ roomId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

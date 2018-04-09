@@ -121,7 +121,7 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 		
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
-				querySql+=" and b.room_id = '"+roomId + "'";
+				querySql+=" and b.roomId = '"+roomId + "'";
 				
 			} else {					// 当选择的区域不为房间时
 				List<String> roomList = getRoomIds(roomId);
@@ -129,7 +129,7 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 				if(!roomList.isEmpty()){
 					String roomIds=roomList.stream().collect(Collectors.joining("','","'","'"));	
 
-					querySql+=" and b.room_id in ("+ roomIds + ")";
+					querySql+=" and b.roomId in ("+ roomIds + ")";
 					
 				}else{	// 若区域之下没有房间，则直接返回空数据
 					
@@ -142,7 +142,7 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 		
 		
 		// hql语句
-		StringBuffer sql = new StringBuffer("EXEC PT_EC_TERMSTATUS_INFO ");
+		StringBuffer sql = new StringBuffer("EXEC P_EC_TermStatusTotal ");
 		sql.append("'" + querySql.replace("'", "''") + "',");
 		sql.append("'" + pageIndex + "',");
 		sql.append("'" + limit + "'");
@@ -170,7 +170,7 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 15, 15, 20, 20,15,15,15,15, 15, 20, 20};
 		List<DkTermStatus> ecTermStatusList = null;
-		String hql = " from PtEcTermStatus a where a.isDelete=0 ";
+		String hql = " from DkTermStatus a where a.isDelete=0 ";
 		
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
@@ -271,14 +271,14 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
-				sql1 += " and b.room_id ='" + roomId + "' ";
+				sql1 += " and b.roomId ='" + roomId + "' ";
 				
 			} else {					// 当选择的区域不为房间时
 				List<String> roomList = getRoomIds(roomId);
 					
 				if(!roomList.isEmpty()){
 					String roomIds=roomList.stream().collect(Collectors.joining("','","'","'"));	
-					sql1 += " and b.room_id in (" + roomIds + ") ";
+					sql1 += " and b.roomId in (" + roomIds + ") ";
 					
 				}else{	// 若区域之下没有房间，则直接返回空数据				
 					sql1 += " and 1=2 ";
@@ -292,7 +292,7 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 		if (StringUtils.isNotEmpty(statusDateEnd)) {
 			sql1+=" and b.statusDate<='"+statusDateEnd+"'";
 		}
-		StringBuffer sql = new StringBuffer("EXEC PT_EC_TERMSTATUS_INFO ");
+		StringBuffer sql = new StringBuffer("EXEC P_EC_TermStatusTotal ");
 		sql.append("'" + sql1.replace("'", "''") + "',");
 		sql.append("'" + 1 + "',");
 		sql.append("'" + 20 + "'");
@@ -366,12 +366,12 @@ public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> 
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.uuid from BuildRoomarea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.uuid from BuildRoominfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

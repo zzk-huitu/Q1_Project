@@ -37,7 +37,7 @@ public class SysMenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission
 			hql+=" and a.roleId='"+roleId+"'";		
 		}
 		if(StringUtils.isNotEmpty(perId)){
-			hql+=" and a.perId='"+perId+"'";				
+			hql+=" and a.permissionId='"+perId+"'";				
 		}
 		List<String> menuPerIds = this.queryEntityByHql(hql);
 		if(menuPerIds.size()>0){

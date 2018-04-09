@@ -114,7 +114,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 		} else {
 
 			// 判断这些岗位是否正在被其他部门使用
-			String hql = "select count(a.uuid) from BaseDeptjob as a where a.jobId in ('" + delIds.replace(",", "','")
+			String hql = "select count(a.id) from DeptJob as a where a.jobId in ('" + delIds.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {
@@ -194,7 +194,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 	public void getJobDept(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData="";
 		String jobId = request.getParameter("jobId"); // 获得传过来的roleId
-		String hql=" from BaseDeptjob a where  a.isDelete=0 and a.jobId = '"+jobId+"'";
+		String hql=" from DeptJob a where  a.isDelete=0 and a.jobId = '"+jobId+"'";
 		List list = deptService.queryByHql(hql);
 	    strData = jsonBuilder.buildObjListToJson(new Long(list.size()), list, true);
 		writeJSON(response, strData);
@@ -208,7 +208,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
         String jobName = request.getParameter("jobName");
         
         //先获取数据
-        String hql = " from BaseJob where isDelete=0 ";
+        String hql = " from Job where isDelete=0 ";
         if(StringUtils.isNotEmpty(jobName)){
         	hql=hql+"and jobName like '%"+jobName+"%'";
         }

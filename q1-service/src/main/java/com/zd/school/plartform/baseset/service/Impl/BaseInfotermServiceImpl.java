@@ -124,7 +124,7 @@ public class BaseInfotermServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 	@Override
 	public InfoTerminal doAddEntity(InfoTerminal entity, User currentUser, Integer beforeNumber, Integer termCount) {
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
+		excludedProp.add("id");
 		InfoTerminal saveEntity = null;
 		Integer newNumber = beforeNumber;
 	

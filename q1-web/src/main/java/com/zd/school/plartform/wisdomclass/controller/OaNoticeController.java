@@ -248,7 +248,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		String strData = "";
 		String whereSql = "";
 
-		List<CommTree> lists = treeSerice.getCommTree("OA_V_NOTICETYPETREE", whereSql);
+		List<CommTree> lists = treeSerice.getCommTree("V_PT_NoticeTypeTree", whereSql);
 
 		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -274,16 +274,16 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		}
 	}
 
-	@RequestMapping("/getUserOaNotice")
+	/*@RequestMapping("/getUserOaNotice")
 	public @ResponseBody List<Notice> getUserOaNotice(HttpServletRequest request, HttpServletResponse response) {
 		User currentUser = getCurrentSysUser();
 		List<Notice> list = thisService.getUserOaNotice(currentUser);
 		return list;
 	}
-
+*/
 	@RequestMapping("/getOaNoticeById")
 	public @ResponseBody Notice getOaNoticeById(HttpServletRequest request, HttpServletResponse response) {
-		String uuid = request.getParameter("uuid");
+		String uuid = request.getParameter("id");
 		return thisService.get(uuid);
 	}
 	
@@ -340,7 +340,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 
 					// 插入数据
 					Attachment bt = new Attachment();
-					bt.setEntityName("OaNotice");
+					bt.setEntityName("Notice");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
 					bt.setFileName(myFileName);
@@ -364,7 +364,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 
 			String doIds = "'" + fileIds.replace(",", "','") + "'";
 
-			String hql = "DELETE FROM BaseAttachment b  WHERE b.uuid IN (" + doIds + ")";
+			String hql = "DELETE FROM Attachment b  WHERE b.id IN (" + doIds + ")";
 
 			int flag = baseTAttachmentService.doExecuteCountByHql(hql);
 
@@ -391,7 +391,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		
 	
 		//1.创建根目录（深大附中）
-		String hql1="from BuildRoomarea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
+		String hql1="from RoomArea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
 		List<RoomArea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
 		for(int i=0;i<rootAreas.size();i++){
 			Map<String,Object> rootAreaMap=new LinkedHashMap<>();
@@ -405,7 +405,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 			rootAreaMap.put("children",rootChildren);
 			
 			//2.创建第二层（初中、高中校区）
-			String hql2="from BuildRoomarea t where t.isDelete=0 and t.parentNode=?";
+			String hql2="from RoomArea t where t.isDelete=0 and t.parentNode=?";
 			List<RoomArea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
 			for(int j=0;j<rootAreasSecond.size();j++){
 				
@@ -420,7 +420,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 				tempMap.put("children",tempMapChildren);
 				
 				//查询初中或高中的所有子区域id		
-				String roomareaHql="from BuildRoomarea where isDelete=0 order by orderIndex asc ";
+				String roomareaHql="from RoomArea where isDelete=0 order by orderIndex asc ";
 				List<RoomArea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
 				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getId(),roomareaList,new StringBuffer());
 				String childAreasStr="";
@@ -429,8 +429,8 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 				}
 				
 				//3.创建第三层（功能室、办公室、教室、宿舍）
-				String fjlxHql="select a from BaseDicitem a,BaseDic b where "
-						+ " a.dicId=b.uuid and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
+				String fjlxHql="select a from DataDictItem a,DataDict b where "
+						+ " a.dictId=b.id and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
 						+ " and a.itemName in ('功能室','办公室','教室','宿舍') "
 						+ " order by a.itemCode asc";
 				List<DataDictItem> fjlxList=baseDicitemService.queryEntityByHql(fjlxHql, "FJLX");
@@ -447,7 +447,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 					
 					//4.创建第四层（房间号）
 					if(StringUtils.isNotEmpty(childAreasStr)){
-						String fjHql="from BuildRoominfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
+						String fjHql="from RoomInfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
 						List<RoomInfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
 						for(RoomInfo roomInfo:roomInfoList){
 							Map<String,Object> roomInfoMap=new HashMap<>();	//房间类型室
@@ -507,21 +507,21 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		
 		if (!isSchoolAdminRole) {
 				// 判断是否是班主任
-			String hql = "from JwClassteacher where isDelete=0 and tteacId='" + currentUser.getId() + "'";
+			String hql = "from ClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
 			List<ClassTeacher> classteachers = cTeacherService.queryByHql(hql);
 			if (classteachers != null && classteachers.size() > 0) {
 				ClassTeacher cTeacher = classteachers.get(0);
 				whereSql += " and level=1";
-				whereSql += " or id=(select parent from JW_V_GRADECLASSTREE where id='" + cTeacher.getClassId()
+				whereSql += " or id=(select parent from V_PT_GradeClassTree where id='" + cTeacher.getClassId()
 						+ "')";
 				whereSql += " or id='" + cTeacher.getClassId() + "'";
 			}
 			
 		}
 
-		List<CommTree> commTreeList = treeSerice.getCommTree("JW_V_GRADECLASSTREE", whereSql);		
+		List<CommTree> commTreeList = treeSerice.getCommTree("V_PT_GradeClassTree", whereSql);		
 		
-		String stuHql="from JwClassstudent where isDelete=0 order by orderIndex asc";
+		String stuHql="from ClassStudent where isDelete=0 order by orderIndex asc";
 		
 		
 		
