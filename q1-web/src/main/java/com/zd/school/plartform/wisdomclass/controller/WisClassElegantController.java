@@ -141,7 +141,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 					//String url = "/static/upload/OaNotice/" + sdf.format(System.currentTimeMillis()) + "/";
-					String url = "EccClasselegant/" + sdf.format(System.currentTimeMillis()) + "/";
+					String url = "ClassMien/" + sdf.format(System.currentTimeMillis()) + "/";
 					//String rootPath = request.getSession().getServletContext().getRealPath("/");
 					//rootPath = rootPath.replace("\\", "/");				
 					
