@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.zd.core.service.BaseService;
 import com.zd.school.build.define.model.BuildRoominfo ;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -26,7 +26,7 @@ import com.zd.school.plartform.system.model.SysUser;
 public interface BaseRoominfoService extends BaseService<BuildRoominfo> {
 	public Integer getCount(String roomName);
 
-	public Boolean doBatchAddRoom(BuildRoominfo roominfo, SysUser currentUser);
+	public Boolean doBatchAddRoom(BuildRoominfo roominfo, User currentUser);
 
 	public Boolean doDeleteRoomDefine(String delIds, String xm, Map<String, Object> hashMap);
 

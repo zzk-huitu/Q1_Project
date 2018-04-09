@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.dao;
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.build.allot.model.DormTeacherDorm;
+import com.zd.school.build.allot.model.TeacherDorm;
 
 
 /**
@@ -17,6 +17,6 @@ import com.zd.school.build.allot.model.DormTeacherDorm;
  * @since JDK 1.8
  */
  
-public interface BaseTeacherDormDao extends BaseDao<DormTeacherDorm> {
+public interface BaseTeacherDormDao extends BaseDao<TeacherDorm> {
 
 }

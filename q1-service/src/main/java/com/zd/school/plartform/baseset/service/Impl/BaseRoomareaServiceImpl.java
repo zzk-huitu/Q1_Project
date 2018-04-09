@@ -14,8 +14,8 @@ import com.zd.core.constant.TreeVeriable;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoomAreaTree;
-import com.zd.school.build.define.model.BuildRoomarea;
+import com.zd.school.build.define.model.RoomArea;
+import com.zd.school.build.define.model.RoomAreaTree;
 import com.zd.school.plartform.baseset.dao.BaseRoomareaDao;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
 
@@ -30,31 +30,31 @@ import com.zd.school.plartform.baseset.service.BaseRoomareaService;
  */
 @Service
 @Transactional
-public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> implements BaseRoomareaService {
+public class BaseRoomareaServiceImpl extends BaseServiceImpl<RoomArea> implements BaseRoomareaService {
 
 	@Resource
 	public void setBuildRoomareaDao(BaseRoomareaDao dao) {
 		this.dao = dao;
 	}
 
-	public List<BuildRoomAreaTree> getBuildAreaList(String whereSql) {
+	public List<RoomAreaTree> getBuildAreaList(String whereSql) {
 
-		String hql = "from BuildRoomarea where 1=1 ";
+		String hql = "from RoomArea where 1=1 ";
 		if (StringUtils.isNotEmpty(whereSql))
 			hql += whereSql;
 		hql += " order by orderIndex asc ";
-		List<BuildRoomarea> lists = this.queryByHql(hql);// 执行查询方法
-		List<BuildRoomAreaTree> result = new ArrayList<BuildRoomAreaTree>();
+		List<RoomArea> lists = this.queryByHql(hql);// 执行查询方法
+		List<RoomAreaTree> result = new ArrayList<RoomAreaTree>();
 
 		// 构建Tree数据
-		createChild(new BuildRoomAreaTree(TreeVeriable.ROOT, new ArrayList<BuildRoomAreaTree>()), result, lists);
+		createChild(new RoomAreaTree(TreeVeriable.ROOT, new ArrayList<RoomAreaTree>()), result, lists);
 
 		return result;
 	}
 
-	private void createChild(BuildRoomAreaTree parentNode, List<BuildRoomAreaTree> result, List<BuildRoomarea> list) {
-		List<BuildRoomarea> childs = new ArrayList<BuildRoomarea>();
-		for (BuildRoomarea dic : list) {
+	private void createChild(RoomAreaTree parentNode, List<RoomAreaTree> result, List<RoomArea> list) {
+		List<RoomArea> childs = new ArrayList<RoomArea>();
+		for (RoomArea dic : list) {
 			if (dic.getParentNode().equals(parentNode.getId())) {
 				childs.add(dic);
 			}
@@ -65,16 +65,16 @@ public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> impl
 		// Integer areaStatu, String areaDesc, String areaAddr,
 		// String parentArea, Integer orderIndex, Integer roomCount) {
 
-		for (BuildRoomarea dic : childs) {
-			BuildRoomAreaTree child = new BuildRoomAreaTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(),
-					dic.getNodeLevel(), dic.getTreeIds(), new ArrayList<BuildRoomAreaTree>(), dic.getAreaCode(),
+		for (RoomArea dic : childs) {
+			RoomAreaTree child = new RoomAreaTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(),
+					dic.getNodeLevel(), dic.getTreeIds(), new ArrayList<RoomAreaTree>(), dic.getAreaCode(),
 					dic.getAreaType(),  dic.getAreaExplain(), dic.getAreaAddress(), dic.getParentNode(),
 					dic.getOrderIndex(), dic.getRoomCount());
 
 			if (dic.getParentNode().equals(TreeVeriable.ROOT)) {
 				result.add(child);
 			} else {
-				List<BuildRoomAreaTree> trees = parentNode.getChildren();
+				List<RoomAreaTree> trees = parentNode.getChildren();
 				trees.add(child);
 				parentNode.setChildren(trees);
 			}
@@ -84,19 +84,19 @@ public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> impl
 
 	public Integer getChildCount(String areaId) {
 
-		String hql = " select count(*) from BuildRoomarea where isDelete=0 and parentNode='" + areaId + "'";
+		String hql = " select count(*) from RoomArea where isDelete=0 and parentNode='" + areaId + "'";
 		Integer childCount = this.getQueryCountByHql(hql);
 		// TODO Auto-generated method stub
 		return childCount;
 	}
 
 	@Override
-	public BuildRoomarea doAddEntity(BuildRoomarea entity, String operator) {
+	public RoomArea doAddEntity(RoomArea entity, String operator) {
 		// TODO Auto-generated method stub
 		String parentNode = entity.getParentNode();
-		BuildRoomarea perEntity = new BuildRoomarea();
+		RoomArea perEntity = new RoomArea();
 		List<String> exclude = new ArrayList<String>();
-		exclude.add("uuid");
+		exclude.add("id");
 		try {
 			BeanUtils.copyProperties(perEntity, entity, exclude);
 		} catch (IllegalAccessException | InvocationTargetException e) {
@@ -108,7 +108,7 @@ public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> impl
 		perEntity.setCreateUser(operator); // 创建人
 		perEntity.setLeaf(true);
 		if (!parentNode.equals(TreeVeriable.ROOT)) {
-			BuildRoomarea parEntity = this.get(parentNode);
+			RoomArea parEntity = this.get(parentNode);
 			parEntity.setLeaf(false);
 			this.merge(parEntity);
 			perEntity.BuildNode(parEntity);
@@ -125,12 +125,12 @@ public class BaseRoomareaServiceImpl extends BaseServiceImpl<BuildRoomarea> impl
 	}
 	
 	@Override
-	public BuildRoomarea doUpdateEntity(BuildRoomarea entity, String operator, List<String> excludedProp) {
+	public RoomArea doUpdateEntity(RoomArea entity, String operator, List<String> excludedProp) {
 		// TODO Auto-generated method stub
 
         //先拿到已持久化的实体
         //entity.getSchoolId()要自己修改成对应的获取主键的方法
-        BuildRoomarea perEntity = this.get(entity.getId());
+		RoomArea perEntity = this.get(entity.getId());
         Boolean isLeaf = perEntity.getLeaf();
         //将entity中不为空的字段动态加入到perEntity中去。
         try {

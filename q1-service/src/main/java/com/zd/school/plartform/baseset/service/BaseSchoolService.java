@@ -1,7 +1,7 @@
 package com.zd.school.plartform.baseset.service;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.plartform.baseset.model.BaseSchool ;
+import com.zd.school.plartform.baseset.model.School;
 
 
 /**
@@ -17,8 +17,8 @@ import com.zd.school.plartform.baseset.model.BaseSchool ;
  * @since JDK 1.8
  */
  
-public interface BaseSchoolService extends BaseService<BaseSchool> {
+public interface BaseSchoolService extends BaseService<School> {
 
-	BaseSchool doUpdate(BaseSchool entity, String xm);
+	School doUpdate(School entity, String xm);
 
 }

@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.build.allot.model.DormStudentDorm;
-import com.zd.school.build.allot.model.JwClassDormAllot;
+import com.zd.school.build.allot.model.ClassDormAllot;
+import com.zd.school.build.allot.model.StudentDorm;
 import com.zd.school.plartform.comm.model.CommTree;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -21,18 +21,18 @@ import com.zd.school.plartform.system.model.SysUser;
  * @since JDK 1.8
  */
 
-public interface BaseStudentDormService extends BaseService<DormStudentDorm> {
+public interface BaseStudentDormService extends BaseService<StudentDorm> {
 
 	//public CommTree getCommTree(String rootId, String deptType, SysUser currentUser);
-	public List<DormStudentDorm> oneKeyList(DormStudentDorm entity,String whereSql);
-	public Boolean doOneKeyAllotDorm(String gradId,String boyId,String girlId,SysUser currentUser);
-	public Integer doDormAutoAllot(String claiId,SysUser currentUser);
-	public Boolean doDormHandAllot(DormStudentDorm entity,Map hashMap,SysUser currentUser)throws IllegalAccessException, InvocationTargetException ;
-	public List<JwClassDormAllot>  mixDormList(JwClassDormAllot entity);
-	public List<JwClassDormAllot>  emptyMixDormList(JwClassDormAllot entity);
+	public List<StudentDorm> oneKeyList(StudentDorm entity,String whereSql);
+	public Boolean doOneKeyAllotDorm(String gradId,String boyId,String girlId,User currentUser);
+	public Integer doDormAutoAllot(String claiId,User currentUser);
+	public Boolean doDormHandAllot(StudentDorm entity,Map hashMap,User currentUser)throws IllegalAccessException, InvocationTargetException ;
+	public List<ClassDormAllot>  mixDormList(ClassDormAllot entity);
+	public List<ClassDormAllot>  emptyMixDormList(ClassDormAllot entity);
 	public Boolean doPushMessage(String classId);
 	public Boolean doDeleteDorm(String[] delIds, String userId);
 	public Integer doUpdateBedArkNum(String[] list, String userId);
-	public Boolean doAddClassDorm(String classId, String dormIds, SysUser currentUser);
-	public CommTree getUserRightDeptClassTree(String rootId, SysUser currentUser);
+	public Boolean doAddClassDorm(String classId, String dormIds, User currentUser);
+	public CommTree getUserRightDeptClassTree(String rootId, User currentUser);
 }

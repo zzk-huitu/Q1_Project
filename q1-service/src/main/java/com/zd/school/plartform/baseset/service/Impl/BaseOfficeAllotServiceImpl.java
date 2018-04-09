@@ -87,7 +87,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 				//Object[] propValue = { classStu.getClaiId(), 0 };
 				//roomId = classservice.getByProerties(propName, propValue).getRoomId();
 			}
-			String[] propName = { "termTypeID", "isDelete", "roomId" };
+			String[] propName = { "termTypeId", "isDelete", "roomId" };
 			Object[] propValue = { "4", 0, roomId };
 			MjUserRight userRight = null;
 			List<Term> list = ptTermService.queryByProerties(propName, propValue);//该房间是否有设备
@@ -96,7 +96,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 					String[] uId = userId.split(","); //房间分配解除门禁设置
 					for (int i = 0; i < list.size(); i++) {
 						for (int j = 0; j < uId.length; j++) {
-							String[] name = { "termId", "stuId" };
+							String[] name = { "termId", "userId" };
 							String[] value = { list.get(i).getId(), uId[j] };
 							userRight = mjService.getByProerties(name, value);
 							if (userRight != null) {
@@ -112,7 +112,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 			} else {//增加门禁权限
 				if (list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
-						String[] name = { "termId", "stuId" };
+						String[] name = { "termId", "userId" };
 						String[] value = { list.get(i).getId(), uuid };
 						userRight = mjService.getByProerties(name, value);//该学生或教师是否已经被分配了该房间的设备
 						if (userRight != null) {
@@ -120,8 +120,8 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 							userRight.setUpdateTime(new Date());
 							mjService.merge(userRight);
 						} else {
-							userRight = new MjUserright();
-							userRight.setDeviceId(list.get(i).getId());
+							userRight = new MjUserRight();
+							userRight.setTermId(list.get(i).getId());
 							userRight.setCreateUser("超级管理员");
 							userRight.setUserId(uuid);
 							mjService.merge(userRight);
@@ -151,7 +151,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 		strId = entity.getTeacherId().split(",");// 多个老师id
 		for (int i = 0; i < strId.length; i++) {
 			Object[] objValue = { entity.getRoomId(), strId[i], 0 };
-			String[] objName = { "roomId", "tteacId", "isDelete" };
+			String[] objName = { "roomId", "teacherId", "isDelete" };
 			valioff = this.getByProerties(objName, objValue);
 			if (valioff != null) {
 				xm.append(valioff.getName()+',');
@@ -237,9 +237,9 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 		String sql="";
 		//List list =new ArrayList<>();
 	    for (String officeRoomId : roomId) {
-	    	sql = "select count(*) from JW_T_OFFICEALLOT a join BUILD_T_OFFICEDEFINE b  "
-					+ " on  a.ROOM_ID = b.ROOM_ID "
-					+ " where a.ISDELETE=0 and b.ISDELETE=0 and b.ROOM_ID='"
+	    	sql = "select count(*) from T_PT_OfficeAllot a join T_PT_OfficeDefine b  "
+					+ " on  a.roomId = b.roomId "
+					+ " where a.isDelete=0 and b.isDelete=0 and b.roomId='"
 					+ officeRoomId + "'";
 			
 			Integer count = this.getQueryCountBySql(sql);

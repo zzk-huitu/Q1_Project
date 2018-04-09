@@ -3,8 +3,8 @@ package com.zd.school.plartform.baseset.service;
 import java.util.List;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.build.define.model.BuildRoomAreaTree;
-import com.zd.school.build.define.model.BuildRoomarea;
+import com.zd.school.build.define.model.RoomArea;
+import com.zd.school.build.define.model.RoomAreaTree;
 
 /**
  * 
@@ -16,9 +16,9 @@ import com.zd.school.build.define.model.BuildRoomarea;
  * @since JDK 1.8
  */
 
-public interface BaseRoomareaService extends BaseService<BuildRoomarea> {
+public interface BaseRoomareaService extends BaseService<RoomArea> {
 
-    public List<BuildRoomAreaTree> getBuildAreaList(String whereSql);
+    public List<RoomAreaTree> getBuildAreaList(String whereSql);
 
     public Integer getChildCount(String areaId);
 }

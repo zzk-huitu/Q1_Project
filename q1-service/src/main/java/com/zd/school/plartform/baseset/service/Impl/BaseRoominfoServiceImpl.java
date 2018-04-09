@@ -15,15 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildDormDefine;
 import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.DormDefine;
 import com.zd.school.plartform.baseset.dao.BaseRoominfoDao;
 import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.SysUser;
+import com.zd.school.plartform.system.model.User;
 
 /**
  * 
@@ -54,7 +54,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 	private BaseFuncRoomDefineService funRoomService; // 功能室service层接口
 	
 
-    public Boolean doBatchAddRoom(BuildRoominfo roominfo, SysUser currentUser) {
+    public Boolean doBatchAddRoom(BuildRoominfo roominfo, User currentUser) {
         String benginChar = roominfo.getRoomCode();
         Integer roomCount = roominfo.getRoomCount();
         String areaId = roominfo.getAreaId();
@@ -158,7 +158,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 					String dormPhone = request.getParameter("dormPhone");// 电话
 					String dormFax = request.getParameter("dormFax");// 传真
 
-					BuildDormDefine dormRoom = new BuildDormDefine();
+					DormDefine dormRoom = new DormDefine();
 					dormRoom.setDormType(dormType);
 					dormRoom.setDormCategory(dormTypeLb);
 					dormRoom.setBedCount(Integer.valueOf(dormBedCount));
