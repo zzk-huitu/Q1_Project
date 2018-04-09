@@ -323,7 +323,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 					//String url = "/static/upload/OaNotice/" + sdf.format(System.currentTimeMillis()) + "/";
-					String url = "OaNotice/" + sdf.format(System.currentTimeMillis()) + "/";
+					String url = "Notice/" + sdf.format(System.currentTimeMillis()) + "/";
 					//String rootPath = request.getSession().getServletContext().getRealPath("/");
 					//rootPath = rootPath.replace("\\", "/");				
 					
