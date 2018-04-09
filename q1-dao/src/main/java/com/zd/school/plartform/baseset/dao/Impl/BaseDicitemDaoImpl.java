@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.baseset.dao.BaseDicitemDao ;
-import com.zd.school.plartform.baseset.model.BaseDicitem ;
+import com.zd.school.plartform.baseset.model.DataDictItem;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.model.BaseDicitem ;
  * @since JDK 1.8
  */
 @Repository
-public class BaseDicitemDaoImpl extends BaseDaoImpl<BaseDicitem> implements BaseDicitemDao {
+public class BaseDicitemDaoImpl extends BaseDaoImpl<DataDictItem> implements BaseDicitemDao {
     public BaseDicitemDaoImpl() {
-        super(BaseDicitem.class);
+        super(DataDictItem.class);
         // TODO Auto-generated constructor stub
     }
 }

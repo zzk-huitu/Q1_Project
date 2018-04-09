@@ -3,7 +3,7 @@ package com.zd.school.wisdomclass.ecc.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.jw.ecc.model.EccClassparam ;
+import com.zd.school.jw.ecc.model.ClassParam;
 import com.zd.school.wisdomclass.ecc.dao.EccClassparamDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.wisdomclass.ecc.dao.EccClassparamDao;
  * @since JDK 1.8
  */
 @Repository
-public class EccClassparamDaoImpl extends BaseDaoImpl<EccClassparam> implements EccClassparamDao {
+public class EccClassparamDaoImpl extends BaseDaoImpl<ClassParam> implements EccClassparamDao {
     public EccClassparamDaoImpl() {
-        super(EccClassparam.class);
+        super(ClassParam.class);
         // TODO Auto-generated constructor stub
     }
 }

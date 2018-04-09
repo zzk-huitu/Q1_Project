@@ -3,7 +3,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.build.define.model.BuildRoominfo ;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseRoominfoDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.dao.BaseRoominfoDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseRoominfoDaoImpl extends BaseDaoImpl<BuildRoominfo> implements BaseRoominfoDao {
+public class BaseRoominfoDaoImpl extends BaseDaoImpl<RoomInfo> implements BaseRoominfoDao {
     public BaseRoominfoDaoImpl() {
-        super(BuildRoominfo.class);
+        super(RoomInfo.class);
         // TODO Auto-generated constructor stub
     }
 }

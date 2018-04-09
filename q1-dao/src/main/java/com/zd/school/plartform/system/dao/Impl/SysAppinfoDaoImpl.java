@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysAppinfoDao ;
-import com.zd.school.plartform.system.model.SysAppinfo ;
+import com.zd.school.plartform.system.model.AppInfo;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.plartform.system.model.SysAppinfo ;
  * @since JDK 1.8
  */
 @Repository
-public class SysAppinfoDaoImpl extends BaseDaoImpl<SysAppinfo> implements SysAppinfoDao {
+public class SysAppinfoDaoImpl extends BaseDaoImpl<AppInfo> implements SysAppinfoDao {
     public SysAppinfoDaoImpl() {
-        super(SysAppinfo.class);
+        super(AppInfo.class);
         // TODO Auto-generated constructor stub
     }
 }

@@ -3,8 +3,8 @@ package com.zd.school.plartform.baseset.service;
 import java.lang.reflect.InvocationTargetException;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.OfficeDefine;
+import com.zd.school.build.define.model.RoomInfo;
 
 
 /**
@@ -22,7 +22,7 @@ import com.zd.school.build.define.model.OfficeDefine;
 
 public interface BaseOfficeDefineService extends BaseService<OfficeDefine> {
 	public OfficeDefine getByRoomId(String roomId);
-	public void addOffRoom(BuildRoominfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException;
-	public Boolean delOffRoom(BuildRoominfo roomInfo,String delId, String xm);
+	public void addOffRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException;
+	public Boolean delOffRoom(RoomInfo roomInfo,String delId, String xm);
 	
 }

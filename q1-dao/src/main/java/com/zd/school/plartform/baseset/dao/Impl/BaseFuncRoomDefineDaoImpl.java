@@ -3,7 +3,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.build.define.model.BuildFuncRoomDefine ;
+import com.zd.school.build.define.model.FuncRoomDefine;
 import com.zd.school.plartform.baseset.dao.BaseFuncRoomDefineDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.dao.BaseFuncRoomDefineDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseFuncRoomDefineDaoImpl extends BaseDaoImpl<BuildFuncRoomDefine> implements BaseFuncRoomDefineDao {
+public class BaseFuncRoomDefineDaoImpl extends BaseDaoImpl<FuncRoomDefine> implements BaseFuncRoomDefineDao {
     public BaseFuncRoomDefineDaoImpl() {
-        super(BuildFuncRoomDefine.class);
+        super(FuncRoomDefine.class);
         // TODO Auto-generated constructor stub
     }
 }

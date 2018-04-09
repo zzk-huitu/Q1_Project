@@ -2,7 +2,6 @@ package com.zd.school.ykt.dao;
 
 
 import com.zd.core.dao.BaseDao;
-import com.zd.school.ykt.model.PtTask;
 import com.zd.school.ykt.model.Task;
 
 /**

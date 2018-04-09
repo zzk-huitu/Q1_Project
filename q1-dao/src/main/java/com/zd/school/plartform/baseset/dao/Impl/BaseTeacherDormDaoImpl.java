@@ -3,7 +3,7 @@ package com.zd.school.plartform.baseset.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.build.allot.model.DormTeacherDorm;
+import com.zd.school.build.allot.model.TeacherDorm;
 import com.zd.school.plartform.baseset.dao.BaseTeacherDormDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.plartform.baseset.dao.BaseTeacherDormDao;
  * @since JDK 1.8
  */
 @Repository
-public class BaseTeacherDormDaoImpl extends BaseDaoImpl<DormTeacherDorm> implements BaseTeacherDormDao {
+public class BaseTeacherDormDaoImpl extends BaseDaoImpl<TeacherDorm> implements BaseTeacherDormDao {
     public BaseTeacherDormDaoImpl() {
-        super(DormTeacherDorm.class);
+        super(TeacherDorm.class);
         // TODO Auto-generated constructor stub
     }
 }

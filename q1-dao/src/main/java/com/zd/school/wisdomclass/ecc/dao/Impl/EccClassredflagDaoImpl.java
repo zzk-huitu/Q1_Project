@@ -3,7 +3,7 @@ package com.zd.school.wisdomclass.ecc.dao.Impl;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
-import com.zd.school.jw.ecc.model.EccClassredflag ;
+import com.zd.school.jw.ecc.model.ClassRedFlag;
 import com.zd.school.wisdomclass.ecc.dao.EccClassredflagDao;
 
 
@@ -20,9 +20,9 @@ import com.zd.school.wisdomclass.ecc.dao.EccClassredflagDao;
  * @since JDK 1.8
  */
 @Repository
-public class EccClassredflagDaoImpl extends BaseDaoImpl<EccClassredflag> implements EccClassredflagDao {
+public class EccClassredflagDaoImpl extends BaseDaoImpl<ClassRedFlag> implements EccClassredflagDao {
     public EccClassredflagDaoImpl() {
-        super(EccClassredflag.class);
+        super(ClassRedFlag.class);
         // TODO Auto-generated constructor stub
     }
 }

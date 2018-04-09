@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.DormDefine;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseRoominfoDao;
 import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
@@ -27,7 +27,7 @@ import com.zd.school.plartform.system.model.User;
 
 /**
  * 
- * ClassName: BuildRoominfoServiceImpl Function: TODO ADD FUNCTION. Reason: TODO
+ * ClassName: RoomInfoServiceImpl Function: TODO ADD FUNCTION. Reason: TODO
  * ADD REASON(可选). Description: 教室信息实体Service接口实现类. date: 2016-08-23
  *
  * @author luoyibo 创建文件
@@ -36,11 +36,11 @@ import com.zd.school.plartform.system.model.User;
  */
 @Service
 @Transactional
-public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> implements BaseRoominfoService {
+public class BaseRoominfoServiceImpl extends BaseServiceImpl<RoomInfo> implements BaseRoominfoService {
 	private static Logger logger = Logger.getLogger(BaseRoominfoServiceImpl.class);
 
     @Resource
-    public void setBuildRoominfoDao(BaseRoominfoDao dao) {
+    public void setRoomInfoDao(BaseRoominfoDao dao) {
         this.dao = dao;
     }
     
@@ -54,13 +54,13 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 	private BaseFuncRoomDefineService funRoomService; // 功能室service层接口
 	
 
-    public Boolean doBatchAddRoom(BuildRoominfo roominfo, User currentUser) {
+    public Boolean doBatchAddRoom(RoomInfo roominfo, User currentUser) {
         String benginChar = roominfo.getRoomCode();
         Integer roomCount = roominfo.getRoomCount();
         String areaId = roominfo.getAreaId();
         String roomType = "0";	//默认为 未定义房间
         String createUser = currentUser.getId();
-        BuildRoominfo saveRoom = null;
+        RoomInfo saveRoom = null;
         String roomName = "";   
         int orderIndex=1;
         for (int i = 1; i <= roomCount; i++) {
@@ -68,7 +68,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
             	orderIndex = this.getDefaultOrderIndex(saveRoom);
         	
             roomName = benginChar + StringUtils.addString(String.valueOf(i), "0", 2, "L");
-            saveRoom = new BuildRoominfo();
+            saveRoom = new RoomInfo();
             saveRoom.setRoomName(roomName);
             saveRoom.setRoomCode(roomName);                      
             saveRoom.setOrderIndex(orderIndex++);
@@ -85,7 +85,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 	@Override
 	public Integer getCount(String roomName) {
 		Integer conut=0;
-		String hql=" select count(*) from BuildRoominfo where 1=1 ";
+		String hql=" select count(*) from RoomInfo where 1=1 ";
 		if(roomName!=null){
 			hql+=" and roomName = '"+roomName+"'";	
 		}
@@ -98,11 +98,11 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 		Boolean flag=true;
 		String[] ids = delIds.split(",");
 		String roomType = "";// 房间类型 1.宿舍，2.办公室，3.教室，5、功能室，0、未分配
-		BuildRoominfo roomInfo = null;
+		RoomInfo roomInfo = null;
 		
 		List<String> roomList=new ArrayList<>();
 		for (int j = 0; j < ids.length; j++) {
-			roomInfo = this.get(ids[j]); // 获取BuildRoominfo对象
+			roomInfo = this.get(ids[j]); // 获取RoomInfo对象
 			roomType = roomInfo.getRoomType();
 			if (roomType.equals("1")) {
 				flag = dormRoomService.delDormRoom(roomInfo, ids[j], xm);
@@ -138,13 +138,13 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<BuildRoominfo> impl
 	}
 
 	@Override
-	public Boolean doAddRoomDefine(BuildRoominfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException {
+	public Boolean doAddRoomDefine(RoomInfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException {
 		boolean flag=false;
 		String roomType = "";// 房间类型 1.宿舍，2.办公室，3.教室，5、功能室，0、未分配
-		String id = ""; // BuildRoominfo的主键
+		String id = ""; // RoomInfo的主键
 		
 		roomType = entity.getRoomType();
-		id = entity.getId();// BuildRoominfo的uuid
+		id = entity.getId();// RoomInfo的uuid
 		
 		if (id != null) {
 			if (roomType.equals("1")) {// 宿舍

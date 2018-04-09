@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.DormDefine;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.dao.BaseDormDefineDao;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
@@ -49,7 +49,7 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<DormDefine> imple
 
 	@Override
 	public DormDefine doUpdateEntity(DormDefine entity, User currentUser) throws Exception {
-		BuildRoominfo roomInfo = null;
+		RoomInfo roomInfo = null;
 		// 先拿到已持久化的实体
 		DormDefine perEntity = this.getByRoomId(entity.getId());
 		
@@ -72,8 +72,8 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<DormDefine> imple
 	}
 
 	@Override
-	public void addDormRoom(BuildRoominfo entity, DormDefine dormRoom, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
-		BuildRoominfo roomInfo = null;
+	public void addDormRoom(RoomInfo entity, DormDefine dormRoom, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+		RoomInfo roomInfo = null;
 
 		roomInfo = thisService.get(id);
 		roomInfo.setUpdateTime(new Date());
@@ -99,7 +99,7 @@ public class BaseDormDefineServiceImpl extends BaseServiceImpl<DormDefine> imple
 	}
 
 	@Override
-	public Boolean delDormRoom(BuildRoominfo roomInfo, String delId, String xm) {
+	public Boolean delDormRoom(RoomInfo roomInfo, String delId, String xm) {
 		Boolean flag=false;
 		DormDefine dormRoom = null;// 宿舍定义
 		dormRoom = this.getByRoomId(delId);// roomId

@@ -1,15 +1,10 @@
 package com.zd.school.plartform.system.dao.Impl;
 
-import javax.annotation.Resource;
-
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysUserDao ;
-import com.zd.school.plartform.system.model.SysUser ;
+import com.zd.school.plartform.system.model.User;
 
 
 /**
@@ -25,9 +20,9 @@ import com.zd.school.plartform.system.model.SysUser ;
  * @since JDK 1.8
  */
 @Repository
-public class SysUserDaoImpl extends BaseDaoImpl<SysUser> implements SysUserDao {
+public class SysUserDaoImpl extends BaseDaoImpl<User> implements SysUserDao {
     public SysUserDaoImpl() {
-        super(SysUser.class);
+        super(User.class);
         // TODO Auto-generated constructor stub
     }
 }

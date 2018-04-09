@@ -14,8 +14,8 @@ import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.school.build.allot.model.OfficeAllot;
 import com.zd.school.build.allot.model.StudentDorm;
-import com.zd.school.build.define.model.BuildRoominfo;
 import com.zd.school.build.define.model.OfficeDefine;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.control.device.model.MjUserRight;
 import com.zd.school.control.device.model.Term;
 import com.zd.school.jw.push.model.PushInfo;
@@ -195,7 +195,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 		Boolean flag=false;
 		List<OfficeAllot> offTeas = null;
 		PushInfo pushInfo = null;
-		BuildRoominfo roominfo = null;
+		RoomInfo roominfo = null;
 		String[] str = { "roomId", "isDelete" };
 		Object[] str2 = { roomId, 0 };
 		offTeas = this.queryByProerties(str, str2);//该办公室下的老师

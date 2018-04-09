@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.student.studentinfo.dao.StuParentsDao ;
-import com.zd.school.student.studentinfo.model.StuParents ;
+import com.zd.school.student.studentinfo.model.StudentParents;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.student.studentinfo.model.StuParents ;
  * @since JDK 1.8
  */
 @Repository
-public class StuParentsDaoImpl extends BaseDaoImpl<StuParents> implements StuParentsDao {
+public class StuParentsDaoImpl extends BaseDaoImpl<StudentParents> implements StuParentsDao {
     public StuParentsDaoImpl() {
-        super(StuParents.class);
+        super(StudentParents.class);
         // TODO Auto-generated constructor stub
     }
 }

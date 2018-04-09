@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import com.zd.core.service.BaseService;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.model.Campus;
 import com.zd.school.plartform.system.model.User;
 
@@ -29,5 +29,5 @@ public interface BaseCampusService extends BaseService<Campus> {
     public boolean doDelete(String delIds, User currentUser,Map hashMap)
             throws IllegalAccessException, InvocationTargetException;
 
-	public String getCampusIdByRoom(BuildRoominfo roominfo);
+	public String getCampusIdByRoom(RoomInfo roominfo);
 }

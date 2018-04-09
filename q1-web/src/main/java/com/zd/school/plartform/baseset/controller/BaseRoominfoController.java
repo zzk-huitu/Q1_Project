@@ -21,7 +21,7 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
@@ -34,7 +34,7 @@ import com.zd.school.plartform.system.model.User;
  */
 @Controller
 @RequestMapping("/BaseRoominfo")
-public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> implements Constant {
+public class BaseRoominfoController extends FrameWorkController<RoomInfo> implements Constant {
 
 	
 	@Resource
@@ -51,7 +51,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute BuildRoominfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -87,7 +87,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 			}
 		}
 		
-		QueryResult<BuildRoominfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<RoomInfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -104,7 +104,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 	 */
 	@Auth("JWTROOMINFO_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(BuildRoominfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String areaId = entity.getAreaId();
 		String roomCode = entity.getRoomCode();
@@ -143,7 +143,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 	 */
 	@Auth("JWTROOMINFO_batchAdd")
 	@RequestMapping("/doBatchAdd")
-	public void doBatchAdd(BuildRoominfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doBatchAdd(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		User currentUser = getCurrentSysUser();
 	
@@ -189,7 +189,7 @@ public class BaseRoominfoController extends FrameWorkController<BuildRoominfo> i
 	 */
 	@Auth("JWTROOMINFO_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(BuildRoominfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String areaId = entity.getAreaId();
 		String roomCode = entity.getRoomCode();

@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.baseset.dao.BaseAttachmentDao;
-import com.zd.school.plartform.baseset.model.BaseAttachment;
+import com.zd.school.plartform.baseset.model.Attachment;
 
 /**
  * 
@@ -16,9 +16,9 @@ import com.zd.school.plartform.baseset.model.BaseAttachment;
  * @since JDK 1.8
  */
 @Repository
-public class BaseAttachmentDaoImpl extends BaseDaoImpl<BaseAttachment> implements BaseAttachmentDao {
+public class BaseAttachmentDaoImpl extends BaseDaoImpl<Attachment> implements BaseAttachmentDao {
     public BaseAttachmentDaoImpl() {
-        super(BaseAttachment.class);
+        super(Attachment.class);
         // TODO Auto-generated constructor stub
     }
 }

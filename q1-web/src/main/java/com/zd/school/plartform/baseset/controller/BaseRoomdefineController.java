@@ -22,7 +22,7 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.school.build.define.model.DormDefine;
-import com.zd.school.build.define.model.BuildRoominfo;
+import com.zd.school.build.define.model.RoomInfo;
 import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
@@ -37,7 +37,7 @@ import com.zd.school.plartform.system.model.User;
  */
 @Controller
 @RequestMapping("/BaseRoomdefine")
-public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo> implements Constant {
+public class BaseRoomdefineController extends FrameWorkController<RoomInfo> implements Constant {
 
 	@Resource
 	private BaseRoominfoService thisService; // service层接口
@@ -61,7 +61,7 @@ public class BaseRoomdefineController extends FrameWorkController<BuildRoominfo>
 	 */
     @Auth("BASEROOMDEFINE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(BuildRoominfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws Exception, IllegalAccessException, InvocationTargetException {
 
 		boolean flag = true;

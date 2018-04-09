@@ -4,7 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import com.zd.core.dao.BaseDaoImpl;
 import com.zd.school.plartform.system.dao.SysMenuDao ;
-import com.zd.school.plartform.system.model.SysMenu ;
+import com.zd.school.plartform.system.model.Menu;
 
 
 /**
@@ -20,9 +20,9 @@ import com.zd.school.plartform.system.model.SysMenu ;
  * @since JDK 1.8
  */
 @Repository
-public class SysMenuDaoImpl extends BaseDaoImpl<SysMenu> implements SysMenuDao {
+public class SysMenuDaoImpl extends BaseDaoImpl<Menu> implements SysMenuDao {
     public SysMenuDaoImpl() {
-        super(SysMenu.class);
+        super(Menu.class);
         // TODO Auto-generated constructor stub
     }
 }

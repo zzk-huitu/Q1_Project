@@ -26,7 +26,7 @@ import com.zd.core.model.BaseEntity;
 @Entity
 @Table(name = "T_PT_RoomInfo")
 @AttributeOverride(name = "id", column = @Column(name = "roomId", length = 20, nullable = false) )
-public class BuildRoominfo extends BaseEntity implements Serializable {
+public class RoomInfo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@FieldInfo(name = "区域ID", type = "varchar(20) NOT NULL", explain = "区域ID")
@@ -228,11 +228,11 @@ public class BuildRoominfo extends BaseEntity implements Serializable {
 		this.houseNo05 = houseNo05;
 	}
 
-	public BuildRoominfo() {
+	public RoomInfo() {
 		super();
 	}
 
-	public BuildRoominfo(String id) {
+	public RoomInfo(String id) {
 		super(id);
 	}
 
