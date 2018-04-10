@@ -23,7 +23,7 @@ import com.zd.core.util.DateTimeSerializer;
  *
  */
 @Entity
-@Table(name = "T_PT_RoomBag")
+@Table(name = "T_XF_RoomBag")
 @AttributeOverride(name = "id", column = @Column(name = "roomBagId", length = 20, nullable = false) )
 public class RoomBag extends BaseEntity implements Serializable {
 

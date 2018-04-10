@@ -18,7 +18,7 @@ import com.zd.core.model.BaseEntity;
  *
  */
 @Entity
-@Table(name = "T_PT_RoomBagRuleBind")
+@Table(name = "T_XF_RoomBagRuleBind")
 @AttributeOverride(name = "id", column = @Column(name = "ruleBindId", length = 20, nullable = false))
 public class RoomBagRuleBind extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

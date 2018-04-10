@@ -24,7 +24,7 @@ import com.zd.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "T_PT_RoomBagRule")
+@Table(name = "T_XF_RoomBagRule")
 @AttributeOverride(name = "id", column = @Column(name = "roomBagRuleId", length = 20, nullable = false) )
 public class RoomBagRule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
