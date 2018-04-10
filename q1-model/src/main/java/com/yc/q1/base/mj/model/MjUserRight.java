@@ -14,6 +14,7 @@ import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
@@ -29,7 +30,8 @@ import com.zd.core.util.DateTimeSerializer;
 @AttributeOverride(name = "id", column = @Column(name = "userRightId", length = 20, nullable = false))
 public class MjUserRight extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.MJ;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "设备主键Id", type = "varchar(20)", explain = "设备主键Id")
 	@Column(name = "termId", length = 20, nullable = false)
 	private String termId;

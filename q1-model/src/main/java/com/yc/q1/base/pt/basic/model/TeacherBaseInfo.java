@@ -8,6 +8,7 @@ import javax.persistence.Table;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 
 /**
  * 教职工基本信息
@@ -19,7 +20,8 @@ import com.zd.core.annotation.FieldInfo;
 @Table(name = "T_PT_TeacherBaseInfo")
 public class TeacherBaseInfo extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "英文姓名", type = "varchar(32) DEFAULT ''", explain = "教师的英文姓名")
 	@Column(name = "englishName", columnDefinition = "nvarchar(32) DEFAULT ''", nullable = true)
 	private String englishName;

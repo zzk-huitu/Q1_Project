@@ -27,6 +27,7 @@ import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
@@ -41,7 +42,8 @@ import com.zd.core.util.DateTimeSerializer;
 @AttributeOverride(name = "id", column = @Column(name = "noticeId", length = 20, nullable = false) )
 public class Notice extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "公告标题", type = "nvarchar(64) NOT NULL", explain = "通知公告公告标题")
 	@Column(name = "noticeTitle", columnDefinition = "nvarchar(64)", nullable = false)
 	private String noticeTitle;

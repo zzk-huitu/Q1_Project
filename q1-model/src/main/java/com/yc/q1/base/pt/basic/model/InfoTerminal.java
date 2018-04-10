@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -22,7 +23,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "terminalId", length = 20, nullable = false) )
 public class InfoTerminal extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "终端号", type = "varchar(6) NOT NULL", explain = "信息终端的终端号")
 	@Column(name = "terminalNo", length = 6, nullable = false)
 	private String terminalNo;

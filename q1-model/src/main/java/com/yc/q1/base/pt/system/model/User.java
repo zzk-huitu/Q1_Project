@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeDeserializer;
 import com.zd.core.util.DateTimeSerializer;
@@ -44,7 +45,8 @@ import com.zd.core.util.DateTimeSerializer;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "账号", type = "varchar(16) NOT NULL", explain = "用户的账号")
 	@Column(name = "userName", length = 16, nullable = false)
 	private String userName;
