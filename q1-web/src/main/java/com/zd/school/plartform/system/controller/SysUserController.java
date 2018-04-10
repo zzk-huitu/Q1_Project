@@ -36,6 +36,12 @@ import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.model.UserDeptJob;
+import com.yc.q1.base.pt.system.service.BaseDicitemService;
+import com.yc.q1.base.pt.system.service.SysMenuService;
+import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.SysUserdeptjobService;
+import com.yc.q1.base.redis.service.UserRedisService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.AuthorType;
@@ -50,12 +56,6 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.PoiImportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.plartform.system.service.SysMenuService;
-import com.zd.school.plartform.system.service.SysOrgService;
-import com.zd.school.plartform.system.service.SysUserService;
-import com.zd.school.plartform.system.service.SysUserdeptjobService;
-import com.zd.school.redis.service.UserRedisService;
 
 /**
  * 用户管理

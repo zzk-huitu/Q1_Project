@@ -20,12 +20,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.ClassStudent;
+import com.yc.q1.base.pt.basic.service.CommTreeService;
+import com.yc.q1.base.pt.basic.service.JwClassstudentService;
 import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.StudentDorm;
+import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
+import com.yc.q1.base.pt.build.service.BaseDormDefineService;
+import com.yc.q1.base.pt.build.service.BaseOfficeAllotService;
+import com.yc.q1.base.pt.build.service.BaseStudentDormService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.pojo.StandVClassStudent;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.SysOrgService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -35,13 +42,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
-import com.zd.school.plartform.baseset.service.BaseDormDefineService;
-import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
-import com.zd.school.plartform.baseset.service.BaseStudentDormService;
-import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.service.SysOrgService;
-import com.zd.school.student.studentclass.service.JwClassstudentService;
 
 /**
  * 学生宿舍分配

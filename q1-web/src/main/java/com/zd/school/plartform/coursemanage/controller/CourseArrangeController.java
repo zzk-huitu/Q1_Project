@@ -26,9 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.CourseArrange;
+import com.yc.q1.base.pt.basic.service.JwCourseArrangeService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.SysOrgService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -38,8 +40,6 @@ import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.EntityExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
-import com.zd.school.plartform.system.service.SysOrgService;
 
 
 /**

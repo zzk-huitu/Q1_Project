@@ -3,7 +3,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.zd.school.wisdomclass.ecc.service.EccClassstarService;
+import com.yc.q1.base.pt.wisdomclass.service.EccClassstarService;
 
 import javax.annotation.Resource;
 

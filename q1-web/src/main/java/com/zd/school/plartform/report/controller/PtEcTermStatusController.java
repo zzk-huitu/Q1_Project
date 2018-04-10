@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.dk.model.DkTermStatus;
+import com.yc.q1.base.dk.service.PtEcTermStatusService;
+import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -23,8 +25,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.basedevice.service.PtEcTermStatusService;
-import com.zd.school.plartform.comm.service.CommTreeService;
 
 /**
  * 电控使用状态表

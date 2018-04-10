@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.GradeClass;
+import com.yc.q1.base.pt.basic.service.JwTGradeService;
+import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
 import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.SysUserService;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
+import com.yc.q1.base.pt.wisdomclass.service.JwClassteacherService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -26,11 +31,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.jw.eduresources.service.JwTGradeService;
-import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.system.service.SysOrgService;
-import com.zd.school.plartform.system.service.SysUserService;
 
 @Controller
 @RequestMapping("/GradeClass")

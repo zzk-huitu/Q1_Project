@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.pt.basic.model.CourseArrange;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
+import com.yc.q1.base.pt.basic.service.CommTreeService;
+import com.yc.q1.base.pt.basic.service.JwCourseArrangeService;
+import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -27,9 +30,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
-import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
-import com.zd.school.plartform.comm.service.CommTreeService;
 /**
  * 功能室课程
  * @author Administrator

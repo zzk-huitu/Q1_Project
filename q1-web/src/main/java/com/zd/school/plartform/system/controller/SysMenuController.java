@@ -17,15 +17,15 @@ import com.yc.q1.base.pt.pojo.MenuTree;
 import com.yc.q1.base.pt.system.model.Menu;
 import com.yc.q1.base.pt.system.model.Permission;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.SysMenuService;
+import com.yc.q1.base.pt.system.service.SysPerimissonService;
+import com.yc.q1.base.pt.system.service.SysUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.service.SysMenuService;
-import com.zd.school.plartform.system.service.SysPerimissonService;
-import com.zd.school.plartform.system.service.SysUserService;
 
 /**
  * 系统菜单管理

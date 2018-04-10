@@ -2,6 +2,7 @@
 package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.basic.model.Attachment;
+import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -9,7 +10,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.FileOperateUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseAttachmentService;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

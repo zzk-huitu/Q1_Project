@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yc.q1.base.pt.system.model.User;
-import com.zd.school.plartform.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.SysUserService;
 
 @Component
 public class CurrentUserInterceptor extends HandlerInterceptorAdapter {

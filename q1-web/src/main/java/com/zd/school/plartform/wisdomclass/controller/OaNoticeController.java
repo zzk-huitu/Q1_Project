@@ -24,14 +24,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.Attachment;
 import com.yc.q1.base.pt.basic.model.ClassStudent;
+import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
+import com.yc.q1.base.pt.basic.service.CommTreeService;
+import com.yc.q1.base.pt.basic.service.JwClassstudentService;
 import com.yc.q1.base.pt.build.model.RoomArea;
 import com.yc.q1.base.pt.build.model.RoomInfo;
+import com.yc.q1.base.pt.build.service.BaseRoomareaService;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.BaseDicitemService;
+import com.yc.q1.base.pt.system.service.SysUserService;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
 import com.yc.q1.base.pt.wisdomclass.model.Notice;
 import com.yc.q1.base.pt.wisdomclass.model.NoticeOther;
+import com.yc.q1.base.pt.wisdomclass.service.JwClassteacherService;
+import com.yc.q1.base.pt.wisdomclass.service.OaNoticeService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -40,15 +49,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.eduresources.service.JwClassteacherService;
-import com.zd.school.oa.notice.service.OaNoticeService;
-import com.zd.school.plartform.baseset.service.BaseAttachmentService;
-import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.plartform.baseset.service.BaseRoomareaService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.service.SysUserService;
-import com.zd.school.student.studentclass.service.JwClassstudentService;
 
 /**
  * 

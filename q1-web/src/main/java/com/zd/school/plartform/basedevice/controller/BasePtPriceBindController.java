@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.device.model.PriceBind;
 import com.yc.q1.base.pt.device.model.Term;
+import com.yc.q1.base.pt.device.service.BasePtTermService;
+import com.yc.q1.base.pt.device.service.PtPriceBindService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -23,8 +25,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.basedevice.service.BasePtTermService;
-import com.zd.school.plartform.basedevice.service.PtPriceBindService;
 
 /**
  * 水控、电控费率绑定表

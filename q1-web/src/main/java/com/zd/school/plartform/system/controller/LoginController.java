@@ -30,15 +30,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.q1.base.log.model.UserLoginLog;
+import com.yc.q1.base.log.service.SysUserLoginLogService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.SysRoleService;
+import com.yc.q1.base.pt.system.service.SysUserService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.ModelUtil;
-import com.zd.school.plartform.system.service.SysRoleService;
-import com.zd.school.plartform.system.service.SysUserLoginLogService;
-import com.zd.school.plartform.system.service.SysUserService;
 
 @Controller
 @RequestMapping("/login")

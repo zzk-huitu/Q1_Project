@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.app.pojo.RoomInfoApp;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
+import com.yc.q1.base.pt.basic.service.BaseInfotermService;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.zd.school.plartform.baseset.service.BaseInfotermService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 
 @Controller
 @RequestMapping("/app/RoomInfo")

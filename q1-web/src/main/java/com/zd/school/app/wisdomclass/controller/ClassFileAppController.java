@@ -28,21 +28,21 @@ import com.yc.q1.base.pt.basic.model.Attachment;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
+import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
+import com.yc.q1.base.pt.basic.service.BaseInfotermService;
+import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
+import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
 import com.yc.q1.base.pt.build.model.RoomInfo;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTime;
 import com.yc.q1.base.pt.wisdomclass.model.ClassMien;
+import com.yc.q1.base.pt.wisdomclass.service.AttTermService;
+import com.yc.q1.base.pt.wisdomclass.service.AttTimeService;
+import com.yc.q1.base.pt.wisdomclass.service.EccClasselegantService;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
-import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.oa.attendance.service.AttTermService;
-import com.zd.school.oa.attendance.service.AttTimeService;
-import com.zd.school.plartform.baseset.service.BaseAttachmentService;
-import com.zd.school.plartform.baseset.service.BaseInfotermService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.wisdomclass.ecc.service.EccClasselegantService;
 
 @Controller
 @RequestMapping("/app/ClassFile")

@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
+import com.yc.q1.base.pt.wisdomclass.service.JwCheckruleService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
 @Controller
 @RequestMapping("/ClassCheckrule")
 public class WisCheckruleController extends FrameWorkController<AttenceRule> implements Constant{

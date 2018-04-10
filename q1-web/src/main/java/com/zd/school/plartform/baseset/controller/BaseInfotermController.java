@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
+import com.yc.q1.base.pt.basic.service.BaseInfotermService;
 import com.yc.q1.base.pt.build.model.StudentDorm;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 import com.yc.q1.base.pt.pojo.RoomTerm;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.BaseDicitemService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -27,9 +30,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.plartform.baseset.service.BaseInfotermService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 
 /**
  * ClassName: OaInfotermController Function: ADD FUNCTION. Reason: ADD

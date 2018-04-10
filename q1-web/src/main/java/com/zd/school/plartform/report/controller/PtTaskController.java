@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.card.model.Task;
+import com.yc.q1.base.pt.card.service.PtTaskService;
 import com.yc.q1.base.pt.pojo.TLVModel;
 import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.BaseDicitemService;
 import com.yc.q1.base.sk.model.SkTermStatus;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -33,8 +35,6 @@ import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
 import com.zd.core.util.TagLenVal;
-import com.zd.school.plartform.baseset.service.BaseDicitemService;
-import com.zd.school.ykt.service.PtTaskService;
 
 /**
 * Created by zenglj on 2017-05-16.

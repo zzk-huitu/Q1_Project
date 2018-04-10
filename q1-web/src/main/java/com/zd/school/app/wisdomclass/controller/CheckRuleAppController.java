@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.app.pojo.CommonApp;
 import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
-import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
+import com.yc.q1.base.pt.wisdomclass.service.JwCheckruleService;
 
 @Controller
 @RequestMapping("/app/CheckRule")

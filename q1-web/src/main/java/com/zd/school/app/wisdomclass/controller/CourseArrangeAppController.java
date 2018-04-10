@@ -27,25 +27,25 @@ import com.yc.q1.base.pt.basic.model.CourseArrange;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
+import com.yc.q1.base.pt.basic.service.BaseCalenderService;
+import com.yc.q1.base.pt.basic.service.BaseCalenderdetailService;
+import com.yc.q1.base.pt.basic.service.BaseCampusService;
+import com.yc.q1.base.pt.basic.service.BaseInfotermService;
+import com.yc.q1.base.pt.basic.service.JwCourseArrangeService;
+import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
+import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
 import com.yc.q1.base.pt.build.model.FuncRoomDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
+import com.yc.q1.base.pt.build.service.BaseFuncRoomDefineService;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
+import com.yc.q1.base.pt.wisdomclass.service.JwCheckruleService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.SortListUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
-import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
-import com.zd.school.jw.eduresources.service.JwTGradeclassService;
-import com.zd.school.plartform.baseset.service.BaseCalenderService;
-import com.zd.school.plartform.baseset.service.BaseCalenderdetailService;
-import com.zd.school.plartform.baseset.service.BaseCampusService;
-import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
-import com.zd.school.plartform.baseset.service.BaseInfotermService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
 
 @Controller
 @RequestMapping("/app/CourseArrange")

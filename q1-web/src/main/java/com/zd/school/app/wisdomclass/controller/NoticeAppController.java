@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yc.q1.base.pt.wisdomclass.model.Notice;
+import com.yc.q1.base.pt.wisdomclass.service.OaNoticeService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
-import com.zd.school.oa.notice.service.OaNoticeService;
 
 @Controller
 @RequestMapping("/app/Notice")

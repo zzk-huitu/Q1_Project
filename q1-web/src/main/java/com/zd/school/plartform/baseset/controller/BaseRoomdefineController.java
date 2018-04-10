@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
+import com.yc.q1.base.pt.build.service.BaseClassRoomDefineService;
+import com.yc.q1.base.pt.build.service.BaseDormDefineService;
+import com.yc.q1.base.pt.build.service.BaseFuncRoomDefineService;
+import com.yc.q1.base.pt.build.service.BaseOfficeDefineService;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -24,11 +29,6 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseClassRoomDefineService;
-import com.zd.school.plartform.baseset.service.BaseDormDefineService;
-import com.zd.school.plartform.baseset.service.BaseFuncRoomDefineService;
-import com.zd.school.plartform.baseset.service.BaseOfficeDefineService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 
 /**
  * 房间定义

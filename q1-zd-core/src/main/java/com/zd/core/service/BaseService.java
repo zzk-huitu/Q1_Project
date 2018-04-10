@@ -1,16 +1,18 @@
 package com.zd.core.service;
 
-import com.zd.core.model.extjs.QueryResult;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 import org.hibernate.Session;
 
+import com.zd.core.dao.BaseDao;
+import com.zd.core.model.extjs.QueryResult;
+
 public interface BaseService<E> {
 	
-
+	public void setDao(BaseDao<E> dao);
+	
 	public Session getSession();
 	
     /**
@@ -498,6 +500,8 @@ public interface BaseService<E> {
      * @return 返回持久化对象
      */
     public E doUpdateEntity(E entity,String operator,List<String> excludedProp);
+
+
 
     
 }

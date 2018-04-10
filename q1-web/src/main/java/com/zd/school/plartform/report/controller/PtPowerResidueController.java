@@ -19,10 +19,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
+import com.yc.q1.base.pt.build.service.BaseDormDefineService;
+import com.yc.q1.base.pt.build.service.BaseStudentDormService;
 import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.device.model.TermBag;
+import com.yc.q1.base.pt.device.service.BasePtTermService;
+import com.yc.q1.base.pt.device.service.PtTermBagsService;
 import com.yc.q1.base.pt.pojo.PowerResidue;
+import com.yc.q1.base.pt.system.service.SysUserService;
 import com.yc.q1.base.xf.model.RoomBag;
+import com.yc.q1.base.xf.service.PtRoomBagsService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.controller.core.FrameWorkController;
@@ -30,13 +37,6 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.basedevice.service.BasePtTermService;
-import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
-import com.zd.school.plartform.basedevice.service.PtTermBagsService;
-import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
-import com.zd.school.plartform.baseset.service.BaseDormDefineService;
-import com.zd.school.plartform.baseset.service.BaseStudentDormService;
-import com.zd.school.plartform.system.service.SysUserService;
 
 @Controller
 @RequestMapping("/PtPowerResidue")

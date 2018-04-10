@@ -37,7 +37,13 @@ public class BaseServiceImpl<E> implements BaseService<E> {
 	 * The dao.
 	 */
 	protected BaseDao<E> dao;
-
+	
+	@Override
+	public void setDao(BaseDao<E> dao) {
+		// TODO Auto-generated method stub
+		this.dao=dao;
+	}
+	
 	@Override
 	public Session getSession() {
 		return this.dao.getSession();

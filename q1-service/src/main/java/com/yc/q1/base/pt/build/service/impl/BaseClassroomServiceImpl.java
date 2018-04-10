@@ -1,0 +1,98 @@
+package com.yc.q1.base.pt.build.service.impl;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.yc.q1.base.pt.build.dao.ClassRoomDefineDao;
+import com.yc.q1.base.pt.build.model.ClassRoomDefine;
+import com.yc.q1.base.pt.build.model.RoomInfo;
+import com.yc.q1.base.pt.build.service.BaseClassRoomDefineService;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.zd.core.service.BaseServiceImpl;
+import com.zd.core.util.BeanUtils;
+
+/**
+ * 
+ * ClassName: BuildClassroomServiceImpl Function: TODO ADD FUNCTION. Reason:
+ * TODO ADD REASON(可选). Description: 教室信息实体Service接口实现类. date: 2016-08-23
+ *
+ * @author luoyibo 创建文件
+ * @version 0.1
+ * @since JDK 1.8
+ */
+@Service
+@Transactional
+public class BaseClassroomServiceImpl extends BaseServiceImpl<ClassRoomDefine>
+		implements BaseClassRoomDefineService {
+
+	@Resource
+	public void setBuildClassroomDao(ClassRoomDefineDao dao) {
+		this.dao = dao;
+	}
+
+	@Resource
+	private BaseRoominfoService thisService; // service层接口
+
+	@Override
+	public ClassRoomDefine getByRoomId(String roomId) {
+		String hql = "from ClassRoomDefine where 1=1";
+		if (!roomId.isEmpty()) {
+			hql += " and roomId='" + roomId + "' ";
+		}
+		ClassRoomDefine entity = this.getEntityByHql(hql);
+		return entity;
+	}
+
+	@Override
+	public void addClassRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+		RoomInfo roomInfo = null;
+		ClassRoomDefine classRoom = null;// 教室定义
+		roomInfo = thisService.get(id);
+		roomInfo.setUpdateTime(new Date());
+		roomInfo.setUpdateUser(userCh);
+		roomInfo.setRoomName(entity.getRoomName());
+		roomInfo.setRoomType("3");// 设置房间类型 3.教室
+//		roomInfo.setAreaStatu("1");// 设置为已分配
+		// 执行更新方法
+		thisService.merge(roomInfo);
+
+		classRoom = new ClassRoomDefine();
+		BeanUtils.copyPropertiesExceptNull(classRoom, entity);
+		// 生成默认的orderindex
+		Integer orderIndex = this.getDefaultOrderIndex(classRoom);
+		classRoom.setRoomId(id);// 设置房间id
+		classRoom.setCreateTime(new Date());
+		classRoom.setCreateUser(userCh); // 创建人
+		classRoom.setUpdateUser(userCh); // 创建人的中文名
+		classRoom.setOrderIndex(orderIndex);// 排序
+		this.merge(classRoom); // 执行添加方法
+
+	}
+
+	@Override
+	public Boolean delClassRoom(RoomInfo roomInfo, String delId, String xm){
+		Boolean flag=false;
+		ClassRoomDefine classRoom = null;// 教室定义
+		classRoom = this.getByRoomId(delId);
+
+		roomInfo.setUpdateTime(new Date());
+		roomInfo.setUpdateUser(xm);
+		roomInfo.setRoomType("0");// 设置房间类型为空
+//		roomInfo.setAreaStatu("0");// 设置房间状态为未分配
+		roomInfo.setRoomName(roomInfo.getRoomCode());
+		thisService.merge(roomInfo);
+
+		this.delete(classRoom);
+		/*classRoom.setIsDelete(1);
+		classRoom.setUpdateTime(new Date());
+		classRoom.setUpdateUser(xm);
+		this.merge(classRoom);*/
+		return true;
+	}
+
+}

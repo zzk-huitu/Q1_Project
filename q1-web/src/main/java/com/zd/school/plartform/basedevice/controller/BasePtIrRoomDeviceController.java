@@ -25,8 +25,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.basic.service.CommTreeService;
+import com.yc.q1.base.pt.build.service.BaseOfficeAllotService;
+import com.yc.q1.base.pt.build.service.BaseRoominfoService;
 import com.yc.q1.base.pt.device.model.IrRoomDevice;
 import com.yc.q1.base.pt.device.model.Term;
+import com.yc.q1.base.pt.device.service.BasePtTermService;
+import com.yc.q1.base.pt.device.service.PtIrRoomDeviceService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -38,11 +43,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.basedevice.service.BasePtTermService;
-import com.zd.school.plartform.basedevice.service.PtIrRoomDeviceService;
-import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
-import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.comm.service.CommTreeService;
 
 import net.sf.json.JSONObject;
 

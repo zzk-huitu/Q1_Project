@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.InfoTerminalHistory;
+import com.yc.q1.base.pt.basic.service.BaseInfotermuseService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -22,7 +23,6 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseInfotermuseService;
 
 /**
  * 

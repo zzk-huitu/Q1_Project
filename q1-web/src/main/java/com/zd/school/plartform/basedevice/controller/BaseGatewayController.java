@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
+import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.device.model.FrontServer;
 import com.yc.q1.base.pt.device.model.Gateway;
 import com.yc.q1.base.pt.device.model.Term;
+import com.yc.q1.base.pt.device.service.BaseGatewayService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.pojo.TLVModel;
 import com.yc.q1.base.pt.system.model.User;
@@ -31,8 +33,6 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
-import com.zd.school.plartform.basedevice.service.BaseGatewayService;
-import com.zd.school.plartform.comm.service.CommTreeService;
 
 /**
  * 网关表

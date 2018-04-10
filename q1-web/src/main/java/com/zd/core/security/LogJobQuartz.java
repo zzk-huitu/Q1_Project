@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.yc.q1.base.log.model.OprateLog;
-import com.zd.school.plartform.system.service.SysOperateLogService;
+import com.yc.q1.base.log.service.SysOperateLogService;
 
 //@Component(value="LogJobQuartz")
 public class LogJobQuartz {

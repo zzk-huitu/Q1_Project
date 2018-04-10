@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.StudentDorm;
+import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
+import com.yc.q1.base.pt.build.service.BaseDormDefineService;
+import com.yc.q1.base.pt.build.service.BaseStudentDormService;
+import com.yc.q1.base.pt.device.service.PtTermBagsService;
 import com.yc.q1.base.xf.model.RoomBag;
+import com.yc.q1.base.xf.service.PtRoomBagsService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
-import com.zd.school.plartform.basedevice.service.PtTermBagsService;
-import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
-import com.zd.school.plartform.baseset.service.BaseDormDefineService;
-import com.zd.school.plartform.baseset.service.BaseStudentDormService;
 
 /**
  * 

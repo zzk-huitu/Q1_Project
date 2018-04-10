@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.Attachment;
+import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.model.ClassMien;
+import com.yc.q1.base.pt.wisdomclass.service.EccClasselegantService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -32,8 +34,6 @@ import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.service.BaseAttachmentService;
-import com.zd.school.wisdomclass.ecc.service.EccClasselegantService;
 
 /**
  * 班级风采

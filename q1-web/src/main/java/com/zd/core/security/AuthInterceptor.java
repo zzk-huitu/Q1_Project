@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.yc.q1.base.pt.system.service.SysUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.ModelUtil;
-import com.zd.school.plartform.system.service.SysUserService;
 
 @Component
 public class AuthInterceptor  extends HandlerInterceptorAdapter {

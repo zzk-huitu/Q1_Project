@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
-import com.zd.school.plartform.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.SysUserService;
 
 @Component
 public class ShiroSecurityRealm extends AuthorizingRealm {
