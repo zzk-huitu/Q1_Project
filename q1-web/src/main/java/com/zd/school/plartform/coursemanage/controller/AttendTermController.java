@@ -11,18 +11,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.basic.model.InfoTerminal;
+import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
+import com.yc.q1.base.pt.wisdomclass.model.AttendUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.oa.attendance.model.AttendTerm;
-import com.zd.school.oa.attendance.model.AttendUser;
 import com.zd.school.oa.attendance.service.AttTermService;
-import com.zd.school.oa.terminal.model.InfoTerminal;
 import com.zd.school.plartform.baseset.service.BaseInfotermService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 

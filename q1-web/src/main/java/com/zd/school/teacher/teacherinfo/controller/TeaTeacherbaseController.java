@@ -19,6 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yc.q1.base.pt.basic.model.TeacherBaseInfo;
+import com.yc.q1.base.pt.system.model.Department;
+import com.yc.q1.base.pt.system.model.Role;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -27,13 +31,9 @@ import com.zd.core.util.BeanUtils;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PinyinUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.Department;
 import com.zd.school.plartform.baseset.service.BaseAttachmentService;
-import com.zd.school.plartform.system.model.Role;
-import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 import com.zd.school.plartform.system.service.SysRoleService;
-import com.zd.school.teacher.teacherinfo.model.TeacherBaseInfo;
 import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;

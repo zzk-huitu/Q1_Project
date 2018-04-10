@@ -13,6 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.device.model.Term;
+import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.sk.model.SkMeterBind;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -20,11 +23,8 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.control.device.model.SkMeterBind;
-import com.zd.school.control.device.model.Term;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
 import com.zd.school.plartform.basedevice.service.PtSkMeterbindService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 水控流量记表绑定

@@ -21,11 +21,11 @@ import org.apache.shiro.web.util.WebUtils;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.yc.q1.base.pt.system.model.Role;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.ModelUtil;
-import com.zd.school.plartform.system.model.Role;
-import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysRoleService;
 import com.zd.school.plartform.system.service.SysUserService;
 

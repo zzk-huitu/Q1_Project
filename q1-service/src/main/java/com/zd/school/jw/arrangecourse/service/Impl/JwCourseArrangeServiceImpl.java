@@ -10,12 +10,12 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.base.pt.basic.model.CourseArrange;
+import com.yc.q1.base.pt.basic.model.CourseTeacher;
 import com.zd.core.model.ImportNotInfo;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 import com.zd.school.jw.arrangecourse.dao.JwCourseArrangeDao ;
-import com.zd.school.jw.arrangecourse.model.CourseArrange;
-import com.zd.school.jw.arrangecourse.model.CourseTeacher;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService ;
 import com.zd.school.jw.arrangecourse.service.JwCourseteacherService;
 import com.zd.school.jw.eduresources.model.BaseCourse;

@@ -6,7 +6,7 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
        xtype: "fieldset",
        title: '开关基础参数',
        layout:'form',
-       width:'99%',
+       width:'100%',
        style: {
             fontSize: '16px',
             color: '#C44444',
@@ -60,7 +60,7 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
     },{
         xtype: "container",
         layout: "column", // 从左往右的布局    
-        width:'99%',
+        width:'100%',
         items:[{
             ref: 'lItems1',
             margin:"5 5 5 0",
@@ -95,6 +95,20 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     xtype: "checkboxfield",
                     name: "on",
                     fieldLabel: "是否启用",
+                    listeners:{
+                        change :function(field,newValue){
+                            var fieldset=field.up("fieldset");
+                            var notesField=fieldset.down('field[name=notes]');
+                            if(newValue==false){                            
+                                //notesField.hide();
+                                notesField.allowBlank=true;
+                            }else{
+                                //notesField.show();
+                                notesField.allowBlank=false;
+                            }
+                        }
+                    }
+
                 }]
             },{
                 xtype: "container",
@@ -230,9 +244,12 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     }]
                 }]
             }, {
-                xtype: 'textarea',
+                xtype: 'textfield',
                 name: 'notes',
-                fieldLabel: '描述',
+                length:20,
+                fieldLabel: '开关名称',
+                //beforeLabelTextTpl: comm.get("required"),
+                allowBlank: true,
             }]
         },{
             ref: 'lItems2',
@@ -268,6 +285,19 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     xtype: "checkboxfield",
                     name: "on",
                     fieldLabel: "是否启用",
+                    listeners:{
+                        change :function(field,newValue){
+                            var fieldset=field.up("fieldset");
+                            var notesField=fieldset.down('field[name=notes]');
+                            if(newValue==false){                            
+                                //notesField.hide();
+                                notesField.allowBlank=true;
+                            }else{
+                                //notesField.show();
+                                notesField.allowBlank=false;
+                            }
+                        }
+                    }
                 }]
             },{
                 xtype: "container",
@@ -403,9 +433,11 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     }]
                 }]
             }, {
-                xtype: 'textarea',
+                xtype: 'textfield',
                 name: 'notes',
-                fieldLabel: '描述',
+                length:20,
+                fieldLabel: '开关名称',
+                allowBlank: true,
             }]
         },{
             ref: 'lItems3',
@@ -441,6 +473,19 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     xtype: "checkboxfield",
                     name: "on",
                     fieldLabel: "是否启用",
+                    listeners:{
+                        change :function(field,newValue){
+                            var fieldset=field.up("fieldset");
+                            var notesField=fieldset.down('field[name=notes]');
+                            if(newValue==false){                            
+                                //notesField.hide();
+                                notesField.allowBlank=true;
+                            }else{
+                                //notesField.show();
+                                notesField.allowBlank=false;
+                            }
+                        }
+                    }
                 }]
             },{
                 xtype: "container",
@@ -576,9 +621,11 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     }]
                 }]
             }, {
-                xtype: 'textarea',
+                xtype: 'textfield',
                 name: 'notes',
-                fieldLabel: '描述',
+                length:20,
+                fieldLabel: '开关名称',
+                allowBlank: true,
             }]
         },{
             ref: 'lItems4',
@@ -614,6 +661,19 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     xtype: "checkboxfield",
                     name: "on",
                     fieldLabel: "是否启用",
+                    listeners:{
+                        change :function(field,newValue){
+                            var fieldset=field.up("fieldset");
+                            var notesField=fieldset.down('field[name=notes]');
+                            if(newValue==false){                            
+                                //notesField.hide();
+                                notesField.allowBlank=true;
+                            }else{
+                                //notesField.show();
+                                notesField.allowBlank=false;
+                            }
+                        }
+                    }
                 }]
             },{
                 xtype: "container",
@@ -749,9 +809,11 @@ Ext.define("core.basedevice.smartdevice.view.AmpcontrolForm", {
                     }]
                 }]
             }, {
-                xtype: 'textarea',
+                xtype: 'textfield',
                 name: 'notes',
-                fieldLabel: '描述',
+                length:20,
+                fieldLabel: '开关名称',
+                allowBlank: true,
             }]
         }]
     },{

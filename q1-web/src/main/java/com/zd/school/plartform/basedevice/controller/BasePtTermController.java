@@ -17,6 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.device.model.Term;
+import com.yc.q1.base.pt.pojo.TLVModel;
+import com.yc.q1.base.pt.system.model.DataDictItem;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -27,14 +31,10 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
 import com.zd.core.util.TLVUtils;
-import com.zd.school.control.device.model.Term;
-import com.zd.school.control.device.model.TLVModel;
 import com.zd.school.plartform.basedevice.service.BasePtTermService;
-import com.zd.school.plartform.baseset.model.DataDictItem;
 import com.zd.school.plartform.baseset.service.BaseDicitemService;
 import com.zd.school.plartform.baseset.service.BaseOfficeAllotService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 房间设备

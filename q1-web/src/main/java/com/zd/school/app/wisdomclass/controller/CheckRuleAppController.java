@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zd.school.jw.ecc.model.AttenceRule;
-import com.zd.school.jw.model.app.CommonApp;
+import com.yc.q1.base.app.pojo.CommonApp;
+import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
 import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
 
 @Controller

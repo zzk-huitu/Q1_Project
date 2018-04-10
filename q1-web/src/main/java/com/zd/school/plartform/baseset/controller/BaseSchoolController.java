@@ -1,6 +1,8 @@
 
 package com.zd.school.plartform.baseset.controller;
 
+import com.yc.q1.base.pt.basic.model.School;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -8,9 +10,8 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.School;
 import com.zd.school.plartform.baseset.service.BaseSchoolService;
-import com.zd.school.plartform.system.model.User;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;

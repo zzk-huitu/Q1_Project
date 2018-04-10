@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.zd.school.plartform.system.model.User;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.school.plartform.system.service.SysUserService;
 
 @Component

@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.service.BaseService;
 import com.zd.core.util.CustomDateEditor;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.User;
 
 public class BaseControllerDateSoureTwo implements Constant{
 

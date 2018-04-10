@@ -15,6 +15,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.build.model.ClassDormAllot;
+import com.yc.q1.base.pt.build.model.DormDefine;
+import com.yc.q1.base.pt.build.model.RoomInfo;
+import com.yc.q1.base.pt.build.model.StudentDorm;
+import com.yc.q1.base.pt.device.model.Term;
+import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.sk.model.SkMeterBind;
+import com.yc.q1.base.xf.model.RoomBagRule;
+import com.yc.q1.base.xf.model.RoomBagRuleBind;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -22,20 +31,11 @@ import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.StudentDorm;
-import com.zd.school.build.allot.model.ClassDormAllot;
-import com.zd.school.build.define.model.DormDefine;
-import com.zd.school.build.define.model.RoomInfo;
-import com.zd.school.control.device.model.RoomBagRule;
-import com.zd.school.control.device.model.RoomBagRuleBind;
-import com.zd.school.control.device.model.SkMeterBind;
-import com.zd.school.control.device.model.Term;
 import com.zd.school.plartform.basedevice.service.PtRoomBagsRuleBindService;
 import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
 import com.zd.school.plartform.baseset.service.BaseDormDefineService;
 import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 import com.zd.school.plartform.baseset.service.BaseStudentDormService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 钱包规则绑定

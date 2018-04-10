@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yc.q1.base.pt.basic.model.StudentBaseInfo;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.PinyinUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.system.model.User;
-import com.zd.school.student.studentinfo.model.StudentBaseInfo;
 import com.zd.school.student.studentinfo.service.StuBaseinfoService;
 
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;

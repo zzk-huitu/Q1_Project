@@ -15,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.pojo.DepartmentTree;
+import com.yc.q1.base.pt.system.model.Department;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.TreeVeriable;
@@ -23,9 +26,6 @@ import com.zd.core.util.DBContextHolder;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.StringUtils;
-import com.zd.school.plartform.baseset.model.Department;
-import com.zd.school.plartform.baseset.model.DepartmentTree;
-import com.zd.school.plartform.system.model.User;
 import com.zd.school.plartform.system.service.SysOrgService;
 
 /**

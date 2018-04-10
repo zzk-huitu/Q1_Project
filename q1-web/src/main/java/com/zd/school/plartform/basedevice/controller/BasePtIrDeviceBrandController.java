@@ -17,6 +17,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.pt.build.model.StudentDorm;
+import com.yc.q1.base.pt.device.model.IrDeviceBrand;
+import com.yc.q1.base.pt.pojo.CommTree;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -26,13 +30,9 @@ import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.PoiExportExcel;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.allot.model.StudentDorm;
-import com.zd.school.control.device.model.IrDeviceBrand;
 import com.zd.school.plartform.basedevice.service.PtIrDeviceBrandService;
 import com.zd.school.plartform.basedevice.service.PtIrRoomDeviceService;
-import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 红外设备品牌型号

@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
 
-import com.zd.school.plartform.system.model.User;
-import com.zd.school.plartform.system.model.UserLoginLog;
+import com.yc.q1.base.log.model.UserLoginLog;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.school.plartform.system.service.SysUserLoginLogService;
 
 public class MySessionListener implements SessionListener { 

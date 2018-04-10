@@ -16,6 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yc.q1.base.pt.basic.model.Campus;
+import com.yc.q1.base.pt.basic.model.School;
+import com.yc.q1.base.pt.build.model.DormDefine;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -24,12 +28,8 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.DormDefine;
-import com.zd.school.plartform.baseset.model.Campus;
-import com.zd.school.plartform.baseset.model.School;
 import com.zd.school.plartform.baseset.service.BaseCampusService;
 import com.zd.school.plartform.baseset.service.BaseRoomareaService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 校区信息

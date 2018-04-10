@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.model.BaseEntity;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * ClassName:FrameWorkController Function: TODO ADD FUNCTION. Reason: TODO ADD

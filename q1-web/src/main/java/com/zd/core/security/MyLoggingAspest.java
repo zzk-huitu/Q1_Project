@@ -16,10 +16,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.yc.q1.base.log.model.OprateLog;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.JsonBuilder;
-import com.zd.school.plartform.system.model.OprateLog;
-import com.zd.school.plartform.system.model.User;
 
 @Component
 @Aspect

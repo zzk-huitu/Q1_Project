@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yc.q1.base.dk.model.DkPriceDefine;
+import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.sk.model.SkPriceDefine;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -18,11 +21,8 @@ import com.zd.core.model.BaseEntity;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.build.define.model.DkPriceDefine;
-import com.zd.school.build.define.model.SkPriceDefine;
 import com.zd.school.plartform.basedevice.service.BaseDkPriceDefineService;
 import com.zd.school.plartform.basedevice.service.BaseSkPriceDefineService;
-import com.zd.school.plartform.system.model.User;
 
 /**
  * 费率定义(水控与电控)

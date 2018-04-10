@@ -15,6 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yc.q1.base.pt.basic.model.CourseArrange;
+import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
+import com.yc.q1.base.pt.pojo.CommTree;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -23,13 +27,9 @@ import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.util.JsonBuilder;
 import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
-import com.zd.school.jw.arrangecourse.model.CourseArrange;
-import com.zd.school.jw.arrangecourse.model.FuncRoomCourse;
 import com.zd.school.jw.arrangecourse.service.JwCourseArrangeService;
 import com.zd.school.jw.arrangecourse.service.JwFuncroomcourseService;
-import com.zd.school.plartform.comm.model.CommTree;
 import com.zd.school.plartform.comm.service.CommTreeService;
-import com.zd.school.plartform.system.model.User;
 /**
  * 功能室课程
  * @author Administrator

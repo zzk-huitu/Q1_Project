@@ -14,8 +14,8 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
-import com.zd.school.plartform.system.model.Role;
-import com.zd.school.plartform.system.model.User;
+import com.yc.q1.base.pt.system.model.Role;
+import com.yc.q1.base.pt.system.model.User;
 import com.zd.school.plartform.system.service.SysUserService;
 
 @Component
