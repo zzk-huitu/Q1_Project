@@ -15,7 +15,7 @@ import com.zd.school.plartform.basedevice.service.PtEcTermStatusService;
 public class PtEcTermStatusServiceImpl extends BaseServiceImpl<DkTermStatus> implements PtEcTermStatusService{
 
     @Resource
-    public void setPtEcTermStatusDao(PtEcTermStatusDao dao) {
+    public void setPtEcTermStatusDao(DkTermStatusDao dao) {
         this.dao = dao;
     }
 

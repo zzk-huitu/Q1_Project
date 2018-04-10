@@ -44,7 +44,7 @@ import com.zd.school.redis.service.DeptRedisService;
 public class JwClassteacherServiceImpl extends BaseServiceImpl<ClassTeacher> implements JwClassteacherService {
 
     @Resource
-    public void setJwClassteacherDao(JwClassteacherDao dao) {
+    public void setJwClassteacherDao(ClassTeacherDao dao) {
         this.dao = dao;
     }
 

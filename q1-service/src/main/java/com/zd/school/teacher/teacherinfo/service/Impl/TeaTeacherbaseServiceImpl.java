@@ -41,7 +41,7 @@ import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 public class TeaTeacherbaseServiceImpl extends BaseServiceImpl<TeacherBaseInfo> implements TeaTeacherbaseService {
 
 	@Resource
-	public void setTeaTeacherbaseDao(TeaTeacherbaseDao dao) {
+	public void setTeaTeacherbaseDao(TeacherBaseInfoDao dao) {
 		this.dao = dao;
 	}
 

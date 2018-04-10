@@ -40,7 +40,7 @@ import com.zd.school.redis.service.DeptRedisService;
 public class BaseCampusServiceImpl extends BaseServiceImpl<Campus> implements BaseCampusService {
 
 	@Resource
-	public void setBaseCampusDao(BaseCampusDao dao) {
+	public void setBaseCampusDao(CampusDao dao) {
 		this.dao = dao;
 	}
 

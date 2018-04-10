@@ -42,7 +42,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseTeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> implements BaseTeacherDormService {
 
 	@Resource
-	public void setDormTeacherDormDao(BaseTeacherDormDao dao) {
+	public void setDormTeacherDormDao(TeacherDormDao dao) {
 		this.dao = dao;
 	}
 

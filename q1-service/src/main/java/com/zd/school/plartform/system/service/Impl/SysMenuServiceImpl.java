@@ -51,7 +51,7 @@ import com.zd.school.plartform.system.service.SysUserService;
 public class SysMenuServiceImpl extends BaseServiceImpl<Menu> implements SysMenuService {
 
 	@Resource
-	public void setBaseTMenuDao(SysMenuDao dao) {
+	public void setBaseTMenuDao(MenuDao dao) {
 		this.dao = dao;
 	}
 

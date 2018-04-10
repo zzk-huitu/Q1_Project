@@ -28,7 +28,7 @@ import com.zd.school.plartform.basedevice.service.PtIrRoomDeviceService;
 public class PtIrRoomDeviceServiceImpl extends BaseServiceImpl<IrRoomDevice> implements PtIrRoomDeviceService {
 
 	@Resource
-	public void setPtIrRoomDeviceDao(PtIrRoomDeviceDao dao) {
+	public void setPtIrRoomDeviceDao(IrRoomDeviceDao dao) {
 		this.dao = dao;
 	}
 

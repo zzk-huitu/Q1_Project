@@ -31,7 +31,7 @@ public class SysRoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPe
 	private UserRedisService userRedisService;
 	
 	@Resource
-	public void setSysRoleMenuPermissionDao(SysRoleMenuPermissionDao dao) {
+	public void setSysRoleMenuPermissionDao(RoleMenuPermissionDao dao) {
 		this.dao = dao;
 	}
 

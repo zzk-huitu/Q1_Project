@@ -31,7 +31,7 @@ public class BaseClassroomServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 		implements BaseClassRoomDefineService {
 
 	@Resource
-	public void setBuildClassroomDao(BaseClassRoomDefineDao dao) {
+	public void setBuildClassroomDao(ClassRoomDefineDao dao) {
 		this.dao = dao;
 	}
 

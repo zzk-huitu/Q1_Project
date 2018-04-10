@@ -26,7 +26,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseFrontServerServiceImpl extends BaseServiceImpl<FrontServer> implements BaseFrontServerService {
 
 	@Resource
-	public void setSysFrontServerDao(BaseFrontServerDao dao) {
+	public void setSysFrontServerDao(FrontServerDao dao) {
 		this.dao = dao;
 	}
 

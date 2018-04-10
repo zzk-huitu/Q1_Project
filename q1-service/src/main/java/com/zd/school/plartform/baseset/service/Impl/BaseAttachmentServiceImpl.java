@@ -24,7 +24,7 @@ import com.zd.school.plartform.baseset.service.BaseAttachmentService;
 public class BaseAttachmentServiceImpl extends BaseServiceImpl<Attachment> implements BaseAttachmentService {
 
     @Resource
-    public void setBaseTAttachmentDao(BaseAttachmentDao dao) {
+    public void setBaseTAttachmentDao(AttachmentDao dao) {
         this.dao = dao;
     }
 

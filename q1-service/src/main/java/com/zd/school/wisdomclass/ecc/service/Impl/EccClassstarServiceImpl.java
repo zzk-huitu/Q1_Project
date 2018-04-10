@@ -41,7 +41,7 @@ public class EccClassstarServiceImpl extends BaseServiceImpl<ClassStar> implemen
 	private SysUserService userService;
 	
     @Resource
-    public void setEccClassstarDao(EccClassstarDao dao) {
+    public void setEccClassstarDao(ClassStarDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(EccClassstarServiceImpl.class);

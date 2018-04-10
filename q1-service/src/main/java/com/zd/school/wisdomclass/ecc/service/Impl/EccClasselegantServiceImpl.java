@@ -30,7 +30,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClasselegantService;
 public class EccClasselegantServiceImpl extends BaseServiceImpl<ClassMien> implements EccClasselegantService{
 
     @Resource
-    public void setEccClasselegantDao(EccClasselegantDao dao) {
+    public void setEccClasselegantDao(ClassMienDao dao) {
         this.dao = dao;
     }
 

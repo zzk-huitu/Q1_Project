@@ -36,7 +36,7 @@ import com.zd.school.plartform.system.model.User;
 public class JwTGradeclassServiceImpl extends BaseServiceImpl<GradeClass> implements JwTGradeclassService {
 
 	@Resource
-	public void setJwTGradeclassDao(JwTGradeclassDao dao) {
+	public void setJwTGradeclassDao(GradeClassDao dao) {
 		this.dao = dao;
 	}
 

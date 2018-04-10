@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.model.User;
 public class JwFuncroomcourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> implements JwFuncroomcourseService {
 
 	@Resource
-	public void setJwFuncroomcourseDao(JwFuncroomcourseDao dao) {
+	public void setJwFuncroomcourseDao(FuncRoomCourseDao dao) {
 		this.dao = dao;
 	}
 

@@ -24,7 +24,7 @@ import com.zd.school.plartform.system.service.SysOperateLogService;
 public class SysOperateLogServiceImpl extends BaseServiceImpl<OprateLog> implements SysOperateLogService {
 
     @Resource
-    public void setSysOperateLogDao(SysOperateLogDao dao) {
+    public void setSysOperateLogDao(OprateLogDao dao) {
         this.dao = dao;
     }
 	@Resource

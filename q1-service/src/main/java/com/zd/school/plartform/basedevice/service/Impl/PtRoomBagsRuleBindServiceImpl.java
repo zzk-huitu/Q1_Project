@@ -23,7 +23,7 @@ import com.zd.school.plartform.basedevice.service.PtRoomBagsRuleBindService;
 public class PtRoomBagsRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind> implements PtRoomBagsRuleBindService{
 	
 	@Resource
-    public void setPtRoomBagsRuleBindDao(PtRoomBagsRuleBindDao dao) {
+    public void setPtRoomBagsRuleBindDao(RoomBagRuleBindDao dao) {
         this.dao = dao;
     }
 

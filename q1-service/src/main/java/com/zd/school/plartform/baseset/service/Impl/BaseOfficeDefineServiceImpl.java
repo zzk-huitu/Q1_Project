@@ -29,7 +29,7 @@ import com.zd.school.plartform.baseset.service.BaseRoominfoService;
 @Transactional
 public class BaseOfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> implements BaseOfficeDefineService {
 	@Resource
-	public void setBuildLaboratorydefinDao(BaseOfficeDefineDao dao) {
+	public void setBuildLaboratorydefinDao(OfficeDefineDao dao) {
 		this.dao = dao;
 	}
 

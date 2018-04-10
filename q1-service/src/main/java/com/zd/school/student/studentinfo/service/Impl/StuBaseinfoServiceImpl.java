@@ -42,7 +42,7 @@ import com.zd.school.student.studentinfo.service.StuBaseinfoService;
 public class StuBaseinfoServiceImpl extends BaseServiceImpl<StudentBaseInfo> implements StuBaseinfoService {
 
     @Resource
-    public void setStuBaseinfoDao(StuBaseinfoDao dao) {
+    public void setStuBaseinfoDao(StudentBaseInfoDao dao) {
         this.dao = dao;
     }
 

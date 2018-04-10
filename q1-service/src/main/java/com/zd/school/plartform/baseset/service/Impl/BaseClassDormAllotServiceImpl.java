@@ -28,7 +28,7 @@ import com.zd.school.plartform.baseset.service.BaseClassDormAllotService;
 public class BaseClassDormAllotServiceImpl extends BaseServiceImpl<ClassDormAllot> implements BaseClassDormAllotService{
 
     @Resource
-    public void setJwClassdormDao(BaseClassDormAllotDao dao) {
+    public void setJwClassdormDao(ClassDormAllotDao dao) {
         this.dao = dao;
     }
 

@@ -26,7 +26,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseDkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine> implements BaseDkPriceDefineService{
 
     @Resource
-    public void setDkPriceDefineDao(BaseDkPriceDefineDao dao) {
+    public void setDkPriceDefineDao(DkPriceDefineDao dao) {
         this.dao = dao;
     }
 

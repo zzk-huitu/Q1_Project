@@ -33,7 +33,7 @@ public class SysDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> impl
 	
 	//自动注入dao到service层中，并设置到dao变量中
 	@Resource
-	public void setSysDeptrightDao(SysDeptRightDao dao) {
+	public void setSysDeptrightDao(UserDeptRightDao dao) {
 		this.dao = dao;	
 	}
 	

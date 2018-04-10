@@ -28,7 +28,7 @@ import com.zd.school.redis.service.DicItemRedisService;
 public class BaseDicitemServiceImpl extends BaseServiceImpl<DataDictItem> implements BaseDicitemService {
 
 	@Resource
-	public void setBaseDicitemDao(BaseDicitemDao dao) {
+	public void setBaseDicitemDao(DataDictItemDao dao) {
 		this.dao = dao;
 	}
 

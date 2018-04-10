@@ -64,7 +64,7 @@ public class BaseOfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> imp
 	 BaseClassDormAllotService classDormService;
 
 	 @Resource
-	 public void setJwOfficeallotDao(BaseOfficeAllotDao dao) {
+	 public void setJwOfficeallotDao(OfficeAllotDao dao) {
 		this.dao = dao;
 	 }
 

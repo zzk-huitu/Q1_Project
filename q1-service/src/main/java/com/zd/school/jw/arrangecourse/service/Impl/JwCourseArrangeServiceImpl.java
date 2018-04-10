@@ -41,7 +41,7 @@ import com.zd.school.plartform.system.model.User;
 public class JwCourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> implements JwCourseArrangeService{
 
     @Resource
-    public void setJwCourseArrangeDao(JwCourseArrangeDao dao) {
+    public void setJwCourseArrangeDao(CourseArrangeDao dao) {
         this.dao = dao;
     }
     

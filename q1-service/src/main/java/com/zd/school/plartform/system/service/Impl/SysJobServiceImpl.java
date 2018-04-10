@@ -30,7 +30,7 @@ import com.zd.school.plartform.system.service.SysJobService;
 public class SysJobServiceImpl extends BaseServiceImpl<Job> implements SysJobService{
 
     @Resource
-    public void setBizTJobDao(SysJobDao dao) {
+    public void setBizTJobDao(JobDao dao) {
         this.dao = dao;
     }
 

@@ -34,7 +34,7 @@ public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 	private static Logger logger = Logger.getLogger(MjUserrightServiceImpl.class);
 
 	@Resource
-	public void setMjUserrightDao(MjUserrightDao dao) {
+	public void setMjUserrightDao(MjUserRightDao dao) {
 		this.dao = dao;
 	}
 

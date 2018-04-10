@@ -44,7 +44,7 @@ import com.zd.school.student.studentclass.service.JwClassstudentService;
 public class SysUserdeptjobServiceImpl extends BaseServiceImpl<UserDeptJob> implements SysUserdeptjobService {
 
 	@Resource
-	public void setBaseUserdeptjobDao(SysUserdeptjobDao dao) {
+	public void setBaseUserdeptjobDao(UserDeptJobDao dao) {
 		this.dao = dao;
 	}
 

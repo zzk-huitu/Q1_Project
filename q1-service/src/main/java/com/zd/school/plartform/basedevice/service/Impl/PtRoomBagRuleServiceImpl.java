@@ -15,7 +15,7 @@ import com.zd.school.plartform.basedevice.service.PtRoomBagRuleService;
 public class PtRoomBagRuleServiceImpl extends BaseServiceImpl<RoomBagRule> implements PtRoomBagRuleService{
 	
 	@Resource
-    public void setPtRoomBagRuleDao(PtRoomBagRuleDao dao) {
+    public void setPtRoomBagRuleDao(RoomBagRuleDao dao) {
         this.dao = dao;
     }
 }

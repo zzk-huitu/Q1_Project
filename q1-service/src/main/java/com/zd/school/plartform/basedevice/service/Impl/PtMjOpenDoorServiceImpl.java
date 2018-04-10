@@ -15,7 +15,7 @@ import com.zd.school.plartform.basedevice.service.PtMjOpenDoorService;
 public class PtMjOpenDoorServiceImpl extends BaseServiceImpl<MjOpenDoor> implements PtMjOpenDoorService{
 
     @Resource
-    public void setPtMjOpenDoorDao(PtMjOpenDoorDao dao) {
+    public void setPtMjOpenDoorDao(MjOpenDoorDao dao) {
         this.dao = dao;
     }
 

@@ -61,7 +61,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<User> implements SysUser
 	private static Logger logger = Logger.getLogger(SysUserServiceImpl.class);
 
 	@Resource
-	public void setBaseTUserDao(SysUserDao dao) {
+	public void setBaseTUserDao(UserDao dao) {
 		this.dao = dao;
 	}
 

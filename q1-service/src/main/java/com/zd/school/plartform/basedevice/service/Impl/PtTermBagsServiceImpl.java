@@ -26,7 +26,7 @@ import com.zd.school.plartform.basedevice.service.PtTermBagsService;
 public class PtTermBagsServiceImpl extends BaseServiceImpl<TermBag> implements PtTermBagsService{
 	
 	@Resource
-    public void setPtTermBagsDao(PtTermBagsDao dao) {
+    public void setPtTermBagsDao(TermBagDao dao) {
         this.dao = dao;
     }
 	@Resource

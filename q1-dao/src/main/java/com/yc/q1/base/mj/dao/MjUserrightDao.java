@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface MjUserrightDao extends BaseDao<MjUserRight> {
+public interface MjUserRightDao extends BaseDao<MjUserRight> {
 
 }

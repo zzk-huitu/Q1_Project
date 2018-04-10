@@ -30,7 +30,7 @@ import com.zd.school.wisdomclass.ecc.service.EccClassparamService;
 public class EccClassparamServiceImpl extends BaseServiceImpl<ClassParam> implements EccClassparamService{
 
     @Resource
-    public void setEccClassparamDao(EccClassparamDao dao) {
+    public void setEccClassparamDao(ClassParamDao dao) {
         this.dao = dao;
     }
 

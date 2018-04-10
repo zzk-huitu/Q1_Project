@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseGatewayServiceImpl extends BaseServiceImpl<Gateway> implements BaseGatewayService {
 
 	@Resource
-	public void setBaseGatewayDao(BaseGatewayDao dao) {
+	public void setBaseGatewayDao(GatewayDao dao) {
 		this.dao = dao;
 	}
 

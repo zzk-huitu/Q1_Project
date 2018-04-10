@@ -31,7 +31,7 @@ import com.zd.school.plartform.baseset.service.BaseDicService;
 public class BaseDicServiceImpl extends BaseServiceImpl<DataDict> implements BaseDicService {
 
     @Resource
-    public void setBaseDicDao(BaseDicDao dao) {
+    public void setBaseDicDao(DataDictDao dao) {
         this.dao = dao;
     }
 

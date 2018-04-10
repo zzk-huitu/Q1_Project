@@ -52,7 +52,7 @@ import com.zd.school.teacher.teacherinfo.service.TeaTeacherbaseService;
 public class JwCourseteacherServiceImpl extends BaseServiceImpl<CourseTeacher> implements JwCourseteacherService {
 
 	@Resource
-	public void setJwCourseteacherDao(JwCourseteacherDao dao) {
+	public void setJwCourseteacherDao(CourseTeacherDao dao) {
 		this.dao = dao;
 	}
 

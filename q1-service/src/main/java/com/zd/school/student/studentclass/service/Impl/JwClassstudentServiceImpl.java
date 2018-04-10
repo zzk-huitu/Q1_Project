@@ -35,7 +35,7 @@ import com.zd.school.student.studentclass.service.JwClassstudentService;
 public class JwClassstudentServiceImpl extends BaseServiceImpl<ClassStudent> implements JwClassstudentService {
 
     @Resource
-    public void setJwClassstudentDao(JwClassstudentDao dao) {
+    public void setJwClassstudentDao(ClassStudentDao dao) {
         this.dao = dao;
     }
 

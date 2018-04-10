@@ -37,7 +37,7 @@ import com.zd.school.oa.attendance.service.AttTimeService ;
 public class AttTimeServiceImpl extends BaseServiceImpl<AttendTime> implements AttTimeService{
 
     @Resource
-    public void setAttTimeDao(AttTimeDao dao) {
+    public void setAttTimeDao(AttendTimeDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(AttTimeServiceImpl.class);

@@ -36,7 +36,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseCalenderdetailServiceImpl extends BaseServiceImpl<CalenderDetail> implements BaseCalenderdetailService{
 
     @Resource
-    public void setJwCalenderdetailDao(BaseCalenderdetailDao dao) {
+    public void setJwCalenderdetailDao(CalenderDetailDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(BaseCalenderdetailServiceImpl.class);
