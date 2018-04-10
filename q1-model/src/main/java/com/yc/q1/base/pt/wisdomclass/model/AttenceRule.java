@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -22,7 +23,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "attenceRuleId", length = 20, nullable = false) )
 public class AttenceRule extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "规则名称", type = "nvarchar(16) NOT NULL", explain = "规则名称")
 	@Column(name = "ruleName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String ruleName;

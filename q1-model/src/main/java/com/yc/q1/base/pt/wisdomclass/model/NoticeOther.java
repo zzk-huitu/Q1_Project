@@ -15,7 +15,8 @@ public class NoticeOther implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	//public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "公告ID")
 	private String noticeId;
 

@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.TreeNodeEntity;
 
 /**
@@ -22,7 +23,8 @@ import com.zd.core.model.TreeNodeEntity;
 @AttributeOverride(name = "id", column = @Column(name = "dictId", length = 20, nullable = false) )
 public class DataDict extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "字典编码", type = "varchar(16) NOT NULL", explain = "字典编码")
 	@Column(name = "dicCode", columnDefinition = "varchar(16)", nullable = false)
 	private String dicCode;

@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Formula;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -23,7 +24,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "gatewayId", length = 20, nullable = false) )
 public class Gateway extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "机号", type = "int NOT NULL", explain = "机号")
 	@Column(name = "gatewayNo", nullable = false)
 	private Integer gatewayNo;

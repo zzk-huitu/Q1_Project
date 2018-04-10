@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -21,7 +22,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "meterId", length = 20, nullable = false) )
 public class SkMeter extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.SK;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "计量数（脉冲数/升）", type = "int NOT NULL", explain = "计量数（脉冲数/升）")
 	@Column(name = "measure", nullable = false)
 	private Integer measure;

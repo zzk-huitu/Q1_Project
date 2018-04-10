@@ -12,6 +12,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.util.DateTimeSerializer;
 
@@ -26,7 +27,8 @@ import com.zd.core.util.DateTimeSerializer;
 @AttributeOverride(name = "id", column = @Column(name = "attendTimeId", length = 20, nullable = false) )
 public class AttendTime extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "考勤主题ID", type = "varchar(20) NOT NULL", explain = "考勤主题Id")
 	@Column(name = "attendThemeId", length = 20, nullable = false)
 	private String attendThemeId;

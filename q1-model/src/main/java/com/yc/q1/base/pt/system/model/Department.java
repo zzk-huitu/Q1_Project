@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Formula;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.TreeNodeEntity;
 
 /**
@@ -26,7 +27,8 @@ import com.zd.core.model.TreeNodeEntity;
 @AttributeOverride(name = "id", column = @Column(name = "deptId", length = 20, nullable = false) )
 public class Department extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "是否系统内置", type = "bit NOT NULL", explain = "部门是否系统内置（ 0-非系统内置 1-系统内置 ）")
 	@Column(name = "isSystem", nullable = false)
 	private Boolean isSystem;

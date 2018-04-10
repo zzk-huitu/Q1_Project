@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -18,7 +19,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "uuid", column = @Column(name = "parentsId", length = 20, nullable = false) )
 public class StudentParents extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "学生ID", type = "varchar(20) NOT NULL", explain = "学生id")
 	@Column(name = "stuId", length = 20, nullable = false)
 	private String stuId;

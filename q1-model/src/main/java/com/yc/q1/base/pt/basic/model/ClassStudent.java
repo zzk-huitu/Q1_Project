@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Formula;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -23,7 +24,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "classStudentId", length = 20, nullable = false) )
 public class ClassStudent extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "班级ID", type = "varchar(20) NOT NULL", explain = "学生分班后的班级Id")
 	@Column(name = "classId", length = 20, nullable = false)
 	private String classId;

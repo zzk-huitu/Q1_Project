@@ -20,6 +20,7 @@ import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 /**
@@ -34,7 +35,8 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "permissionId", length = 20, nullable = false) )
 public class Permission extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "权限菜单类型", type = "varchar(10) NOT NULL", explain = "权限类型（MENU）")
 	@Column(name = "permissionType", columnDefinition = "varchar(10)", nullable = false)
 	private String permissionType;

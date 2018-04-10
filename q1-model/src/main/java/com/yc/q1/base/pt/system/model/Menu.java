@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Formula;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.TreeNodeEntity;
 
 /**
@@ -25,7 +26,8 @@ import com.zd.core.model.TreeNodeEntity;
 @AttributeOverride(name = "id", column = @Column(name = "menuId", length = 20, nullable = false) )
 public class Menu extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "菜单编码", type = "varchar(16) NOT NULL", explain = "菜单编码")
 	@Column(name = "menuCode", columnDefinition = "varchar(16)", nullable = false)
 	private String menuCode;

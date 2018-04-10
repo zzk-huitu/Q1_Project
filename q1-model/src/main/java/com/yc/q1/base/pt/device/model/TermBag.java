@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Formula;
 
 import com.zd.core.annotation.FieldInfo;
+import com.zd.core.constant.ModuleNumType;
 import com.zd.core.model.BaseEntity;
 
 @Entity
@@ -19,7 +20,8 @@ import com.zd.core.model.BaseEntity;
 public class TermBag extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
+	
 	@FieldInfo(name = "termSn", type = "varchar(14) NOT NULL", explain = "设备序列号")
 	@Column(name = "termSn", length = 14, nullable = false)
 	private String termSn;
