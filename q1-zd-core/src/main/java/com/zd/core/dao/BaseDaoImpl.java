@@ -1,6 +1,7 @@
 package com.zd.core.dao;
 
 import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -34,10 +35,9 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 
 public class BaseDaoImpl<E> implements BaseDao<E> {
-	// private final Logger logger = Logger.getLogger(entityClass);
-	// protected final Logger log = Logger.getLogger(BaseDao.class);
-	// private static Map<String, Method> MAP_METHOD = new HashMap();
-	private SessionFactory sessionFactory;
+
+	@Resource(name = "sessionFactory")	//默认为正常的sessionFactory
+	protected SessionFactory sessionFactory;
 
 	protected Class<E> entityClass;
 
@@ -45,30 +45,24 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 		return this.sessionFactory;
 	}
 
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
 	public Session getSession() {
 		return this.sessionFactory.getCurrentSession();
 	}
 
-	@Resource(name = "sessionFactory")
-	public void setSF(SessionFactory sessionFactory) {
-		setSessionFactory(sessionFactory);
+	@SuppressWarnings("unchecked")
+	public BaseDaoImpl() { 	// 当此类被子类继承而创建对象时，通过反射来获取T的类型变量（子类构造方法先调用父类构造方法）
+		// 获取当前new的对象的泛型的父类类型
+		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+		// 获取第一个类型参数的真实类型
+		this.entityClass = (Class<E>) pt.getActualTypeArguments()[0];
 	}
+
 
 	public BaseDaoImpl(Class<E> entityClass) {
-		this.entityClass = entityClass;
+		this.entityClass = entityClass;	//子类手动调用父类构造函数的方式
 	}
-	// public BaseDaoImpl() { //直接new BaseDaoImpl<CLASS>()的方式。
-	// // 获取当前new的对象的泛型的父类类型
-	// ParameterizedType pt = (ParameterizedType) this.getClass()
-	// .getGenericSuperclass();
-	// // 获取第一个类型参数的真实类型
-	// this.clazz = (Class<E>) pt.getActualTypeArguments()[0];
-	// }
 
+	
 	/**
 	 * 持久化对象实体
 	 *
@@ -1005,13 +999,13 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 		// 如果存在countHql，就使用count(*)查询
 		if (StringUtils.isNotEmpty(countHql)) {
 			Query query2 = this.getSession().createQuery(countHql);
-			
+
 			Object count = query2.uniqueResult();
-			if (null != count) 
+			if (null != count)
 				qr.setTotalCount(Long.valueOf(count.toString()));
 			else
 				qr.setTotalCount((long) 0);
-			
+
 		} else {
 			qr.setTotalCount((long) query.list().size());
 		}
@@ -1050,11 +1044,11 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			String groupBy, String orderBy) {
 		// String hql = "select new
 		// com.zd.school.good.model.good.GoodSignupCount(g.empName,count(g.actTime),sum(g.actTime),sum(g.rewardTime))
-		// FROM GoodSignup g GROUP BY g.empName";	
+		// FROM GoodSignup g GROUP BY g.empName";
 		StringBuffer hqlStringBuffer = new StringBuffer();
-		StringBuffer countHqlStringBuffer = new StringBuffer();	
-		hqlStringBuffer.append(hql);		
-		
+		StringBuffer countHqlStringBuffer = new StringBuffer();
+		hqlStringBuffer.append(hql);
+
 		// hqlStringBuffer.append(" where 1=1 ");
 		try {
 			// 设置 了过滤条件，需要组装这些过滤条件
@@ -1075,12 +1069,13 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 							hqlStringBuffer.append(" and g." + field + " like ?");
 						} else {
 							hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
-							//hqlStringBuffer.append(" and g." + field + " = ?");
+							// hqlStringBuffer.append(" and g." + field + " =
+							// ?");
 						}
 						break;
 					case "boolean":
 						hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
-						//hqlStringBuffer.append(" and g." + field + " = ?");
+						// hqlStringBuffer.append(" and g." + field + " = ?");
 						break;
 					case "numeric":
 						hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
@@ -1096,7 +1091,8 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 						break;
 					case "list":// list的设置参数方式只能使用具名方式
 						hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
-						//hqlStringBuffer.append(" and g." + field + " in :lists");
+						// hqlStringBuffer.append(" and g." + field + " in
+						// :lists");
 						break;
 					default:// 不在其中，则表示为实体类型
 						char c = type.charAt(0);
@@ -1122,12 +1118,11 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			if (StringUtils.isNotEmpty(groupBy)) {
 				hqlStringBuffer.append(" " + groupBy);
 			}
-			
-			//如果不以select开头，则在前缀加入count(*)
-			if(!hql.trim().startsWith("select")){
-				countHqlStringBuffer.append("select count(*) "+hqlStringBuffer.toString());
+
+			// 如果不以select开头，则在前缀加入count(*)
+			if (!hql.trim().startsWith("select")) {
+				countHqlStringBuffer.append("select count(*) " + hqlStringBuffer.toString());
 			}
-			
 
 			// 是否设置了排序条件字符串
 			if (StringUtils.isNotEmpty(orderBy)) {
@@ -1172,9 +1167,9 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			// System.out.println(hqlStringBuffer.toString());
 			Query query = getSession().createQuery(hqlStringBuffer.toString());
 			Query countQuery = null;
-			if(countHqlStringBuffer.length()!=0) 
-				countQuery=getSession().createQuery(countHqlStringBuffer.toString());
-			
+			if (countHqlStringBuffer.length() != 0)
+				countQuery = getSession().createQuery(countHqlStringBuffer.toString());
+
 			// 设置了过滤条件，在读数据之前需要给hql赋值
 			if (listFilters != null) {
 				int temp = 0;
@@ -1189,37 +1184,37 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 						String comparison = extDataFilter.getComparison();
 						if (StringUtils.isEmpty(comparison) || comparison == "like") {
 							query.setParameter(temp, "%" + value + "%");
-							if(countQuery!=null)
+							if (countQuery != null)
 								countQuery.setParameter(temp, "%" + value + "%");
 						} else {
 							query.setParameter(temp, value);
-							if(countQuery!=null)
+							if (countQuery != null)
 								countQuery.setParameter(temp, value);
 						}
 						break;
 					case "boolean":
 						query.setParameter(temp, Boolean.parseBoolean(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, Boolean.parseBoolean(value));
 						break;
 					case "numeric":
 						query.setParameter(temp, Integer.parseInt(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, Integer.parseInt(value));
 						break;
 					case "float":
 						query.setParameter(temp, Float.parseFloat(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, Float.parseFloat(value));
 						break;
 					case "date":
 						query.setParameter(temp, DateUtil.getDate(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, DateUtil.getDate(value));
 						break;
 					case "time":
 						query.setParameter(temp, DateUtil.getTime(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, DateUtil.getTime(value));
 						break;
 					case "list": // 如果为list的话
@@ -1230,7 +1225,7 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 							valuelist.add(s.trim());
 						}
 						query.setParameterList(field, valuelist);
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameterList(field, valuelist);
 						temp--;
 						break;
@@ -1240,7 +1235,7 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 							String hqlTemp = "from " + type + " g where g." + field + "=" + value;
 							Object o = getSession().createQuery(hqlTemp).uniqueResult();
 							query.setParameter(temp, o);
-							if(countQuery!=null)
+							if (countQuery != null)
 								countQuery.setParameter(temp, o);
 						} catch (Exception e) {
 							System.out.println("实体参数转换出错了！");
@@ -1251,23 +1246,23 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			}
 
 			QueryResult<T> qr = new QueryResult<T>();
-			
+
 			long totalCount = 0;
-			if(countQuery!=null){
+			if (countQuery != null) {
 				Object count = countQuery.uniqueResult();
-				if (null != count) 
-					totalCount=Long.valueOf(count.toString());
+				if (null != count)
+					totalCount = Long.valueOf(count.toString());
 				else
-					totalCount=(long) 0;
-				
-				//totalCount=Long.valueOf(countQuery.uniqueResult().toString());
-			}else{
+					totalCount = (long) 0;
+
+				// totalCount=Long.valueOf(countQuery.uniqueResult().toString());
+			} else {
 				ScrollableResults scrollableResults = query.scroll(ScrollMode.SCROLL_SENSITIVE);
 				scrollableResults.last();
 				// rowNumber从0开始，为空时则为-1,因此计算totalCount时应+1
-				totalCount=scrollableResults.getRowNumber() + 1;
+				totalCount = scrollableResults.getRowNumber() + 1;
 			}
-			
+
 			qr.setTotalCount(totalCount);
 
 			if (totalCount > 0) {
@@ -1310,9 +1305,9 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	public <T> QueryResult<T> doQueryCountToHql(Integer start, Integer limit, String sort, String filter, String hql,
 			String groupBy, String orderBy, String where) {
-		
+
 		StringBuffer hqlStringBuffer = new StringBuffer();
-		StringBuffer countHqlStringBuffer = new StringBuffer();	
+		StringBuffer countHqlStringBuffer = new StringBuffer();
 		hqlStringBuffer.append(hql);
 		hqlStringBuffer.append(" where 1=1 ");
 		if (StringUtils.isNotEmpty(where)) {
@@ -1337,12 +1332,13 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 							hqlStringBuffer.append(" and g." + field + " like ?");
 						} else {
 							hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
-							//hqlStringBuffer.append(" and g." + field + " = ?");
+							// hqlStringBuffer.append(" and g." + field + " =
+							// ?");
 						}
 						break;
 					case "boolean":
 						hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
-						//hqlStringBuffer.append(" and g." + field + " = ?");
+						// hqlStringBuffer.append(" and g." + field + " = ?");
 						break;
 					case "numeric":
 						hqlStringBuffer.append(" and g." + GetComparisonString(comparison, field));
@@ -1384,10 +1380,10 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 				hqlStringBuffer.append(" " + groupBy);
 
 			}
-			
-			//如果不以select开头，则在前缀加入count(*)
-			if(!hql.trim().startsWith("select")){
-				countHqlStringBuffer.append("select count(*) "+hqlStringBuffer.toString());
+
+			// 如果不以select开头，则在前缀加入count(*)
+			if (!hql.trim().startsWith("select")) {
+				countHqlStringBuffer.append("select count(*) " + hqlStringBuffer.toString());
 			}
 
 			// 是否设置了排序条件字符串
@@ -1433,9 +1429,9 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			// System.out.println(hqlStringBuffer.toString());
 			Query query = getSession().createQuery(hqlStringBuffer.toString());
 			Query countQuery = null;
-			if(countHqlStringBuffer.length()!=0)
-				countQuery=getSession().createQuery(countHqlStringBuffer.toString());
-			
+			if (countHqlStringBuffer.length() != 0)
+				countQuery = getSession().createQuery(countHqlStringBuffer.toString());
+
 			// 设置了过滤条件，在读数据之前需要给hql赋值
 			if (listFilters != null) {
 				int temp = 0;
@@ -1450,37 +1446,37 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 						String comparison = extDataFilter.getComparison();
 						if (StringUtils.isEmpty(comparison) || comparison == "like") {
 							query.setParameter(temp, "%" + value + "%");
-							if(countQuery!=null)
+							if (countQuery != null)
 								countQuery.setParameter(temp, "%" + value + "%");
 						} else {
 							query.setParameter(temp, value);
-							if(countQuery!=null)
+							if (countQuery != null)
 								countQuery.setParameter(temp, value);
 						}
 						break;
 					case "boolean":
 						query.setParameter(temp, Boolean.parseBoolean(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, Boolean.parseBoolean(value));
 						break;
 					case "numeric":
 						query.setParameter(temp, Integer.parseInt(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, Integer.parseInt(value));
 						break;
 					case "float":
 						query.setParameter(temp, Float.parseFloat(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, Float.parseFloat(value));
 						break;
 					case "date":
 						query.setParameter(temp, DateUtil.getDate(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, DateUtil.getDate(value));
 						break;
 					case "time":
 						query.setParameter(temp, DateUtil.getTime(value));
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameter(temp, DateUtil.getTime(value));
 						break;
 					case "list": // 如果为list的话
@@ -1491,7 +1487,7 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 							valuelist.add(s.trim());
 						}
 						query.setParameterList(field, valuelist);
-						if(countQuery!=null)
+						if (countQuery != null)
 							countQuery.setParameterList(field, valuelist);
 						temp--;
 						break;
@@ -1501,7 +1497,7 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 							String hqlTemp = "from " + type + " g where g." + field + "=" + value;
 							Object o = getSession().createQuery(hqlTemp).uniqueResult();
 							query.setParameter(temp, o);
-							if(countQuery!=null)
+							if (countQuery != null)
 								countQuery.setParameter(temp, o);
 						} catch (Exception e) {
 							System.out.println("实体参数转换出错了！");
@@ -1512,22 +1508,22 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			}
 
 			QueryResult<T> qr = new QueryResult<T>();
-			
+
 			long totalCount = 0;
-			if(countQuery!=null){
+			if (countQuery != null) {
 				Object count = countQuery.uniqueResult();
-				if (null != count) 
-					totalCount=Long.valueOf(count.toString());
+				if (null != count)
+					totalCount = Long.valueOf(count.toString());
 				else
-					totalCount=(long) 0;
-				
-				//totalCount=Long.parseLong(countQuery.uniqueResult().toString());
-			}else{
+					totalCount = (long) 0;
+
+				// totalCount=Long.parseLong(countQuery.uniqueResult().toString());
+			} else {
 				ScrollableResults scrollableResults = query.scroll(ScrollMode.SCROLL_SENSITIVE);
 				scrollableResults.last();
 				// rowNumber从0开始，为空时则为-1,因此计算totalCount时应+1
-				totalCount=scrollableResults.getRowNumber() + 1;
-			}			
+				totalCount = scrollableResults.getRowNumber() + 1;
+			}
 
 			qr.setTotalCount(totalCount);
 
@@ -1568,17 +1564,17 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 			res = field + " <= ?";
 			break;
 		case ">=": // 大于等于
-			res = field + " >= ?";		
+			res = field + " >= ?";
 			break;
 		case "in":
-			res = field + " in :"+field;
+			res = field + " in :" + field;
 		case "not in":
-			res = field + " not in :"+field;
+			res = field + " not in :" + field;
 		default: // 默认为等于
 			res = field + " = ?";
 			break;
-		}		
-	
+		}
+
 		return res;
 	}
 
@@ -1764,22 +1760,22 @@ public class BaseDaoImpl<E> implements BaseDao<E> {
 	 * @return 返回转换后的结果
 	 */
 	@Override
-	public <T> QueryResult<T> queryPageResultBySql(String sql,Integer start, Integer limit,
-			Class<T> clz, String countSql) {
+	public <T> QueryResult<T> queryPageResultBySql(String sql, Integer start, Integer limit, Class<T> clz,
+			String countSql) {
 		Query query = this.getSession().createSQLQuery(sql);
 		QueryResult<T> qr = new QueryResult<T>();
 
 		if (StringUtils.isNotEmpty(countSql)) {
 			Query query2 = this.getSession().createSQLQuery(countSql);
-			
+
 			Object count = query2.uniqueResult();
-			if (null != count) 
+			if (null != count)
 				qr.setTotalCount(Long.valueOf(count.toString()));
 			else
 				qr.setTotalCount((long) 0);
-			
-			//qr.setTotalCount(Long.parseLong(query2.uniqueResult().toString()));
-			
+
+			// qr.setTotalCount(Long.parseLong(query2.uniqueResult().toString()));
+
 		} else {
 			qr.setTotalCount((long) query.list().size());
 		}
