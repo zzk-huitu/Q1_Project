@@ -9,10 +9,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.mj.dao.MjUserRightDao;
 import com.yc.q1.base.mj.model.MjUserRight;
-import com.yc.q1.base.mj.service.MjUserrightService;
+import com.yc.q1.base.mj.service.MjUserRightService;
 import com.yc.q1.base.pt.system.model.User;
+import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
 import com.zd.core.util.StringUtils;
@@ -29,13 +29,13 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class MjUserrightServiceImpl extends BaseServiceImpl<MjUserRight> implements MjUserrightService {
+public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> implements MjUserRightService {
 
-	private static Logger logger = Logger.getLogger(MjUserrightServiceImpl.class);
+	private static Logger logger = Logger.getLogger(MjUserRightServiceImpl.class);
 
-	@Resource
-	public void setMjUserrightDao(MjUserRightDao dao) {
-		this.dao = dao;
+	@Resource(name = "MjUserRightDao") // 将具体的dao注入进来
+	public void setDao(BaseDao<MjUserRight> dao) {
+		super.setDao(dao);
 	}
 
 	@Override

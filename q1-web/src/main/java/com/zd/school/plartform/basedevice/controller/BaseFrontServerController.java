@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.device.model.FrontServer;
-import com.yc.q1.base.pt.device.service.BaseFrontServerService;
-import com.yc.q1.base.pt.device.service.BaseGatewayService;
+import com.yc.q1.base.pt.device.service.FrontServerService;
+import com.yc.q1.base.pt.device.service.GatewayService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -34,9 +34,9 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BaseFrontServer")
 public class BaseFrontServerController extends FrameWorkController<FrontServer> implements Constant {
 	@Resource
-	BaseFrontServerService thisService; // service层接口
+	FrontServerService thisService; // service层接口
 	@Resource
-	BaseGatewayService gateWayService; // service层接口
+	GatewayService gateWayService; // service层接口
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity
 	 * 实体类 @param @param request @param @param response @param @throws

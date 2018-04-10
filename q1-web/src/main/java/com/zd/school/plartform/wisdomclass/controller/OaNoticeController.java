@@ -24,23 +24,23 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.Attachment;
 import com.yc.q1.base.pt.basic.model.ClassStudent;
-import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
+import com.yc.q1.base.pt.basic.service.AttachmentService;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.basic.service.JwClassstudentService;
+import com.yc.q1.base.pt.basic.service.ClassStudentService;
 import com.yc.q1.base.pt.build.model.RoomArea;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.build.service.BaseRoomareaService;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.RoomAreaService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.BaseDicitemService;
-import com.yc.q1.base.pt.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.DataDictItemService;
+import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
 import com.yc.q1.base.pt.wisdomclass.model.Notice;
 import com.yc.q1.base.pt.wisdomclass.model.NoticeOther;
-import com.yc.q1.base.pt.wisdomclass.service.JwClassteacherService;
-import com.yc.q1.base.pt.wisdomclass.service.OaNoticeService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
+import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -64,31 +64,31 @@ import com.zd.core.util.StringUtils;
 public class OaNoticeController extends FrameWorkController<Notice> implements Constant {
 
 	@Resource
-	OaNoticeService thisService; // service层接口
+	NoticeService thisService; // service层接口
 
 	@Resource
 	private CommTreeService treeSerice;
 
 	@Resource
-	private BaseAttachmentService  baseTAttachmentService;
+	private AttachmentService  baseTAttachmentService;
 
 	@Resource
-	private BaseRoomareaService buildRoomareaService;
+	private RoomAreaService buildRoomareaService;
 	
 	@Resource
-	private BaseDicitemService baseDicitemService;
+	private DataDictItemService baseDicitemService;
 	
 	@Resource
-	private BaseRoominfoService buildRoominfoService;
+	private RoomInfoService buildRoominfoService;
 	
 	@Resource
-	private JwClassstudentService jwClassstudentService;
+	private ClassStudentService jwClassstudentService;
 	
 	@Resource
-	private SysUserService userService;
+	private UserService userService;
 	
 	@Resource
-	private JwClassteacherService cTeacherService;
+	private ClassTeacherService cTeacherService;
 	
 	@Value("${realFileUrl}")  
     private String realFileUrl; //文件目录物理路径

@@ -2,7 +2,7 @@
 package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.basic.model.Attachment;
-import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
+import com.yc.q1.base.pt.basic.service.AttachmentService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -39,7 +39,7 @@ import java.util.*;
 public class BaseAttachmentController extends FrameWorkController<Attachment> implements Constant {
 
     @Resource
-    BaseAttachmentService thisService; // service层接口
+    AttachmentService thisService; // service层接口
 
     @Value("${virtualFileUrl}")  
     private String virtualFileUrl; //文件目录虚拟路径

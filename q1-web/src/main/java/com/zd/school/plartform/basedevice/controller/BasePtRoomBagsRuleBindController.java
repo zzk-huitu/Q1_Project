@@ -19,16 +19,16 @@ import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.model.StudentDorm;
-import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
-import com.yc.q1.base.pt.build.service.BaseDormDefineService;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
-import com.yc.q1.base.pt.build.service.BaseStudentDormService;
+import com.yc.q1.base.pt.build.service.ClassDormAllotService;
+import com.yc.q1.base.pt.build.service.DormDefineService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
+import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.sk.model.SkMeterBind;
 import com.yc.q1.base.xf.model.RoomBagRule;
 import com.yc.q1.base.xf.model.RoomBagRuleBind;
-import com.yc.q1.base.xf.service.PtRoomBagsRuleBindService;
+import com.yc.q1.base.xf.service.RoomBagRuleBindService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -48,18 +48,18 @@ import com.zd.core.util.StringUtils;
 public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBagRuleBind> implements Constant {
 
 	@Resource
-	PtRoomBagsRuleBindService thisService; // service层接口
+	RoomBagRuleBindService thisService; // service层接口
 
 	@Resource
-	BaseDormDefineService dormDefinService;// 宿舍定义
+	DormDefineService dormDefinService;// 宿舍定义
 
 	@Resource
-	BaseClassDormAllotService classDormService; // 班级宿舍
+	ClassDormAllotService classDormService; // 班级宿舍
 
 	@Resource
-	BaseStudentDormService dormStuService; // 学生宿舍
+	StudentDormService dormStuService; // 学生宿舍
 	@Resource
-	BaseRoominfoService roomInfoService; // 房间信息
+	RoomInfoService roomInfoService; // 房间信息
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

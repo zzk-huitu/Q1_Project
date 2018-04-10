@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -38,7 +38,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 
 	
 	@Resource
-	private BaseRoominfoService thisService; // service层接口
+	private RoomInfoService thisService; // service层接口
 	@Resource
 	private CommTreeService treeService; // 生成树
 	

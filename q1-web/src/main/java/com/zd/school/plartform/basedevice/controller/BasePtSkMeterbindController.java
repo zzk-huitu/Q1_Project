@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.device.model.Term;
-import com.yc.q1.base.pt.device.service.BasePtTermService;
+import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.sk.model.SkMeterBind;
-import com.yc.q1.base.sk.service.PtSkMeterbindService;
+import com.yc.q1.base.sk.service.SkMeterBindService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -36,9 +36,9 @@ import com.zd.core.util.StringUtils;
 public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind> implements Constant {
 
 	@Resource
-	PtSkMeterbindService thisService; // service层接口
+	SkMeterBindService thisService; // service层接口
 	@Resource
-	BasePtTermService ptTermService; // service层接口
+	TermService ptTermService; // service层接口
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity
 	 * 实体类 @param @param request @param @param response @param @throws

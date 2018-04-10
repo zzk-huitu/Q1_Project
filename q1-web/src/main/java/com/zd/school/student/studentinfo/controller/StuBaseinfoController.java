@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.StudentBaseInfo;
-import com.yc.q1.base.pt.basic.service.StuBaseinfoService;
+import com.yc.q1.base.pt.basic.service.StudentBaseInfoService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -43,7 +43,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 public class StuBaseinfoController extends FrameWorkController<StudentBaseInfo> implements Constant {
 
 	@Resource
-	StuBaseinfoService thisService; // service层接口
+	StudentBaseInfoService thisService; // service层接口
 	
 	@Value("${realFileUrl}")
 	private String realFileUrl; // 文件目录物理路径

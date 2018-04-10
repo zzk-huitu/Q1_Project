@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
-import com.yc.q1.base.pt.basic.service.BaseInfotermService;
+import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.build.model.StudentDorm;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.pojo.RoomTerm;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.BaseDicitemService;
+import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -44,13 +44,13 @@ import com.zd.core.util.StringUtils;
 public class BaseInfotermController extends FrameWorkController<InfoTerminal> implements Constant {
 
 	@Resource
-	BaseInfotermService thisService; // service层接口
+	InfoTerminalService thisService; // service层接口
 
 	@Resource
-	private BaseRoominfoService roomService;
+	private RoomInfoService roomService;
 
 	@Resource
-	BaseDicitemService dicitemService;
+	DataDictItemService dicitemService;
 
 	/**
 	 * @param entity

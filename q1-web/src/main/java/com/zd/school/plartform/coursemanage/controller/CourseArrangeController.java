@@ -26,11 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.CourseArrange;
-import com.yc.q1.base.pt.basic.service.JwCourseArrangeService;
+import com.yc.q1.base.pt.basic.service.CourseArrangeService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -56,10 +56,10 @@ import com.zd.core.util.StringUtils;
 public class CourseArrangeController extends FrameWorkController<CourseArrange> implements Constant {
 
 	@Resource
-	JwCourseArrangeService thisService; // service层接口。。。
+	CourseArrangeService thisService; // service层接口。。。
 	
 	@Resource
-	private SysOrgService sysOrgService;
+	private DepartmentService sysOrgService;
 
 	/**
 	 * 标准的查询列表功能

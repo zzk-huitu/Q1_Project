@@ -21,18 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.ClassStudent;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.basic.service.JwClassstudentService;
+import com.yc.q1.base.pt.basic.service.ClassStudentService;
 import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.StudentDorm;
-import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
-import com.yc.q1.base.pt.build.service.BaseDormDefineService;
-import com.yc.q1.base.pt.build.service.BaseOfficeAllotService;
-import com.yc.q1.base.pt.build.service.BaseStudentDormService;
+import com.yc.q1.base.pt.build.service.ClassDormAllotService;
+import com.yc.q1.base.pt.build.service.DormDefineService;
+import com.yc.q1.base.pt.build.service.OfficeAllotService;
+import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.pojo.StandVClassStudent;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -51,19 +51,19 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BaseStudentDorm")
 public class BaseStudentDormController extends FrameWorkController<StudentDorm> implements Constant {
 	@Resource
-	BaseStudentDormService thisService; // service层接口
+	StudentDormService thisService; // service层接口
 	@Resource
 	CommTreeService treeService;
 	@Resource
-	BaseClassDormAllotService classDormService;// 班级宿舍
+	ClassDormAllotService classDormService;// 班级宿舍
 	@Resource
-	JwClassstudentService classStuService; // 学生分班
+	ClassStudentService classStuService; // 学生分班
 	@Resource
-	BaseDormDefineService dormDefineService;// 宿舍定义
+	DormDefineService dormDefineService;// 宿舍定义
 	@Resource
-	private BaseOfficeAllotService roomaAllotService;// 房间分配 办公室
+	private OfficeAllotService roomaAllotService;// 房间分配 办公室
 	@Resource
-	SysOrgService sysOrgService;
+	DepartmentService sysOrgService;
 
 	/**
 	 * 已入住的学生列表

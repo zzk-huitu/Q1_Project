@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.model.UserDeptJob;
-import com.yc.q1.base.pt.system.service.SysUserdeptjobService;
+import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
@@ -28,7 +28,7 @@ import com.zd.core.util.StringUtils;
 public class SysUserdeptjobController extends FrameWorkController<UserDeptJob> implements Constant {
 
 	@Resource
-	SysUserdeptjobService thisService; // service层接口
+	UserDeptJobService thisService; // service层接口
 
 	
 	//获取此部门岗位的用户列表

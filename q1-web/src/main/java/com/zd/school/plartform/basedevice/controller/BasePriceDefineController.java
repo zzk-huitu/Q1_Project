@@ -11,10 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.dk.model.DkPriceDefine;
-import com.yc.q1.base.dk.service.BaseDkPriceDefineService;
+import com.yc.q1.base.dk.service.DkPriceDefineService;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.sk.model.SkPriceDefine;
-import com.yc.q1.base.sk.service.BaseSkPriceDefineService;
+import com.yc.q1.base.sk.service.SkPriceDefineService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -32,9 +32,9 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BasePriceDefine")
 public class BasePriceDefineController extends FrameWorkController<BaseEntity> implements Constant  {
 	@Resource
-	BaseSkPriceDefineService skPriceDefineService; // service层接口
+	SkPriceDefineService skPriceDefineService; // service层接口
 	@Resource
-	BaseDkPriceDefineService dkPriceDefineService; // service层接口
+	DkPriceDefineService dkPriceDefineService; // service层接口
 	
 	/**
 	 * list查询 @Title: list @Description: TODO 

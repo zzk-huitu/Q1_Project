@@ -20,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.TeacherBaseInfo;
-import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
-import com.yc.q1.base.pt.basic.service.TeaTeacherbaseService;
+import com.yc.q1.base.pt.basic.service.AttachmentService;
+import com.yc.q1.base.pt.basic.service.TeacherBaseInfoService;
 import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
-import com.yc.q1.base.pt.system.service.SysRoleService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
+import com.yc.q1.base.pt.system.service.RoleService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -42,13 +42,13 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 @RequestMapping("/TeacherBase")
 public class TeaTeacherbaseController extends FrameWorkController<TeacherBaseInfo> implements Constant {
 	@Resource
-	private TeaTeacherbaseService thisService; // service层接口
+	private TeacherBaseInfoService thisService; // service层接口
 
 	@Resource
-	private SysOrgService sysOrgService;
+	private DepartmentService sysOrgService;
 
 	@Resource
-	private SysRoleService roleService;
+	private RoleService roleService;
 
 	@Value("${realFileUrl}")
 	private String realFileUrl; // 文件目录物理路径
@@ -57,7 +57,7 @@ public class TeaTeacherbaseController extends FrameWorkController<TeacherBaseInf
 	private String virtualFileUrl; // 文件目录虚拟路径
 
 	@Resource
-	private BaseAttachmentService baseTAttachmentService;// service层接口
+	private AttachmentService baseTAttachmentService;// service层接口
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.device.model.PriceBind;
 import com.yc.q1.base.pt.device.model.Term;
-import com.yc.q1.base.pt.device.service.BasePtTermService;
-import com.yc.q1.base.pt.device.service.PtPriceBindService;
+import com.yc.q1.base.pt.device.service.TermService;
+import com.yc.q1.base.pt.device.service.PriceBindService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -36,9 +36,9 @@ import com.zd.core.util.StringUtils;
 public class BasePtPriceBindController extends FrameWorkController<PriceBind> implements Constant {
 
 	@Resource
-	PtPriceBindService thisService; // service层接口
+	PriceBindService thisService; // service层接口
 	@Resource
-	BasePtTermService ptTermService; // service层接口
+	TermService ptTermService; // service层接口
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity
 	 * 实体类 @param @param request @param @param response @param @throws

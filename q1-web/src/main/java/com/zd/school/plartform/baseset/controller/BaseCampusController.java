@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.pt.basic.model.Campus;
 import com.yc.q1.base.pt.basic.model.School;
-import com.yc.q1.base.pt.basic.service.BaseCampusService;
+import com.yc.q1.base.pt.basic.service.CampusService;
 import com.yc.q1.base.pt.build.model.DormDefine;
-import com.yc.q1.base.pt.build.service.BaseRoomareaService;
+import com.yc.q1.base.pt.build.service.RoomAreaService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -41,10 +41,10 @@ import com.zd.core.util.StringUtils;
 public class BaseCampusController extends FrameWorkController<Campus> implements Constant {
 
     @Resource
-    BaseCampusService thisService; // service层接口
+    CampusService thisService; // service层接口
 
     @Resource
-    private BaseRoomareaService areaService;
+    private RoomAreaService areaService;
 
     /**
      * 校区列表

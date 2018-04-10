@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.dk.model.DkTermStatus;
-import com.yc.q1.base.dk.service.PtEcTermStatusService;
+import com.yc.q1.base.dk.service.DkTermStatusService;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -37,7 +37,7 @@ import com.zd.core.util.StringUtils;
 public class PtEcTermStatusController extends FrameWorkController<DkTermStatus> implements Constant {
 
 	@Resource
-	PtEcTermStatusService thisService; // service层接口
+	DkTermStatusService thisService; // service层接口
 
 	@Resource
 	CommTreeService treeService; // 生成树

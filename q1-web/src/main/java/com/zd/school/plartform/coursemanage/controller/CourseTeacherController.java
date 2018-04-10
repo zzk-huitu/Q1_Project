@@ -15,11 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.CourseTeacher;
-import com.yc.q1.base.pt.basic.service.JwCourseteacherService;
-import com.yc.q1.base.pt.basic.service.TeaTeacherbaseService;
+import com.yc.q1.base.pt.basic.service.CourseTeacherService;
+import com.yc.q1.base.pt.basic.service.TeacherBaseInfoService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -40,11 +40,11 @@ import com.zd.core.util.StringUtils;
 public class CourseTeacherController extends FrameWorkController<CourseTeacher> implements Constant {
 
 	@Resource
-	private JwCourseteacherService thisService; // service层接口
+	private CourseTeacherService thisService; // service层接口
 	@Resource
-	private TeaTeacherbaseService teacherService;
+	private TeacherBaseInfoService teacherService;
 	@Resource
-	private SysOrgService sysOrgService;
+	private DepartmentService sysOrgService;
 
 	/**
 	 * 任课信息列表(查询用户有权限的班级的数据）

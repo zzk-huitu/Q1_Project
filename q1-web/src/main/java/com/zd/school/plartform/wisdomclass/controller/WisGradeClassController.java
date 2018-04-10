@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.GradeClass;
-import com.yc.q1.base.pt.basic.service.JwTGradeService;
-import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
+import com.yc.q1.base.pt.basic.service.GradeService;
+import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
-import com.yc.q1.base.pt.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
+import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
-import com.yc.q1.base.pt.wisdomclass.service.JwClassteacherService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -36,16 +36,16 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/GradeClass")
 public class WisGradeClassController extends FrameWorkController<GradeClass> implements Constant {
 	@Resource
-	private JwTGradeclassService thisService;
+	private GradeClassService thisService;
 	@Resource
-	private SysOrgService orgService;
+	private DepartmentService orgService;
 	@Resource
-	private JwTGradeService gradeService;
+	private GradeService gradeService;
 	@Resource
-	private SysUserService userService;
+	private UserService userService;
 
 	@Resource
-	private JwClassteacherService cTeacherService;
+	private ClassTeacherService cTeacherService;
 
 	// 获取数据
 	@RequestMapping(value = "/classmottolist", method = { org.springframework.web.bind.annotation.RequestMethod.GET,

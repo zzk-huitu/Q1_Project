@@ -19,7 +19,7 @@ import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.device.model.FrontServer;
 import com.yc.q1.base.pt.device.model.Gateway;
 import com.yc.q1.base.pt.device.model.Term;
-import com.yc.q1.base.pt.device.service.BaseGatewayService;
+import com.yc.q1.base.pt.device.service.GatewayService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.pojo.TLVModel;
 import com.yc.q1.base.pt.system.model.User;
@@ -44,7 +44,7 @@ import com.zd.core.util.TLVUtils;
 public class BaseGatewayController extends FrameWorkController<Gateway> implements Constant  {
 
 	@Resource
-	BaseGatewayService thisService; // service层接口
+	GatewayService thisService; // service层接口
 
 	@Resource
 	CommTreeService treeService; // 生成树

@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysDeptjobService;
-import com.yc.q1.base.pt.system.service.SysJobService;
+import com.yc.q1.base.pt.system.service.DeptJobService;
+import com.yc.q1.base.pt.system.service.JobService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -37,9 +37,9 @@ import com.zd.core.util.StringUtils;
 public class SysJobController extends FrameWorkController<Job> implements Constant {
 
 	@Resource
-	SysJobService thisService; // service层接口
+	JobService thisService; // service层接口
 	@Resource
-	SysDeptjobService deptService; // service层接口
+	DeptJobService deptService; // service层接口
 
 	/**
 	 * 标准的查询列表功能

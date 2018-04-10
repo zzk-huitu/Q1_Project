@@ -23,8 +23,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysRoleService;
-import com.yc.q1.base.pt.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.RoleService;
+import com.yc.q1.base.pt.system.service.UserService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.ModelUtil;
@@ -36,10 +36,10 @@ public class AjaxRequestAuthorizationFilter extends PassThruAuthenticationFilter
 	private RedisTemplate<String, Object> redisTemplate;  	  
 	
 	@Resource
-	private SysUserService sysUserService;
+	private UserService sysUserService;
 	
 	@Resource
-	private SysRoleService roleService; // 角色数据服务接口
+	private RoleService roleService; // 角色数据服务接口
 	
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		if (isLoginRequest(request, response)) {

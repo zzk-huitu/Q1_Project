@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.xf.model.RoomBagRule;
-import com.yc.q1.base.xf.service.PtRoomBagRuleService;
+import com.yc.q1.base.xf.service.RoomBagRuleService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -31,7 +31,7 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BasePtRoomBagRule")
 public class BasePtRoomBagRuleController extends FrameWorkController<RoomBagRule> implements Constant {
 	@Resource
-	PtRoomBagRuleService thisService; // service层接口
+	RoomBagRuleService thisService; // service层接口
 
 	/**
 	 * 房间钱包规则列表

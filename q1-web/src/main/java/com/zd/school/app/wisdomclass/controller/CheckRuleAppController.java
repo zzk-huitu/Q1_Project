@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.app.pojo.CommonApp;
 import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
-import com.yc.q1.base.pt.wisdomclass.service.JwCheckruleService;
+import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
 
 @Controller
 @RequestMapping("/app/CheckRule")
 public class CheckRuleAppController {
 
 	@Resource
-	private JwCheckruleService thisService; // 考勤规则
+	private AttenceRuleService thisService; // 考勤规则
 
 	@ResponseBody
 	@RequestMapping(value = { "/getRule" }, method = RequestMethod.GET)

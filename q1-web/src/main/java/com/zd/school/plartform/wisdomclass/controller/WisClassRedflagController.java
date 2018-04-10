@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.model.ClassRedFlag;
-import com.yc.q1.base.pt.wisdomclass.service.EccClassredflagService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassRedFlagService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -25,7 +25,7 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/ClassRedflag")
 public class WisClassRedflagController extends FrameWorkController<ClassRedFlag> implements Constant{
 	@Resource
-	EccClassredflagService thisService; // service层接口
+	ClassRedFlagService thisService; // service层接口
 	
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })

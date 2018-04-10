@@ -25,24 +25,24 @@ import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
 import com.yc.q1.base.pt.basic.model.TeacherBaseInfo;
-import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
-import com.yc.q1.base.pt.basic.service.BaseCalenderService;
-import com.yc.q1.base.pt.basic.service.BaseCalenderdetailService;
-import com.yc.q1.base.pt.basic.service.BaseCampusService;
-import com.yc.q1.base.pt.basic.service.BaseInfotermService;
-import com.yc.q1.base.pt.basic.service.JwClassstudentService;
-import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
-import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
-import com.yc.q1.base.pt.basic.service.TeaTeacherbaseService;
+import com.yc.q1.base.pt.basic.service.AttachmentService;
+import com.yc.q1.base.pt.basic.service.CalenderService;
+import com.yc.q1.base.pt.basic.service.CalenderDetailService;
+import com.yc.q1.base.pt.basic.service.CampusService;
+import com.yc.q1.base.pt.basic.service.InfoTerminalService;
+import com.yc.q1.base.pt.basic.service.ClassStudentService;
+import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
+import com.yc.q1.base.pt.basic.service.GradeClassService;
+import com.yc.q1.base.pt.basic.service.TeacherBaseInfoService;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.wisdomclass.model.ClassRedFlag;
 import com.yc.q1.base.pt.wisdomclass.model.ClassStar;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
-import com.yc.q1.base.pt.wisdomclass.service.EccClasselegantService;
-import com.yc.q1.base.pt.wisdomclass.service.EccClassredflagService;
-import com.yc.q1.base.pt.wisdomclass.service.EccClassstarService;
-import com.yc.q1.base.pt.wisdomclass.service.JwClassteacherService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassRedFlagService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassStarService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.zd.core.controller.core.BaseController;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
@@ -56,46 +56,46 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 	private String virtualFileUrl; 	//文件目录虚拟路径
 	
 	@Resource
-	JwTGradeclassService thisService;
+	GradeClassService thisService;
 
 	@Resource
-	TeaTeacherbaseService teacherService;
+	TeacherBaseInfoService teacherService;
 
 	@Resource
-	JwClassteacherService classTeacherService;
+	ClassTeacherService classTeacherService;
 
 	@Resource
-	JwClassstudentService classStudentService;
+	ClassStudentService classStudentService;
 
 	@Resource
-	BaseRoominfoService brService;
+	RoomInfoService brService;
 
 	// @Resource
 	// JwClassRoomAllotService jraService;
 
 	@Resource
-	EccClassstarService starService;
+	ClassStarService starService;
 
 	@Resource
-	EccClassredflagService flagService;
+	ClassRedFlagService flagService;
 
 	@Resource
-	EccClasselegantService elegantService; // service层接口
+	ClassMienService elegantService; // service层接口
 
 	@Resource
-	BaseAttachmentService baseTAttachmentService;// service层接口
+	AttachmentService baseTAttachmentService;// service层接口
 
 	@Resource
-	private BaseInfotermService termService; // 终端设备serice层接口
+	private InfoTerminalService termService; // 终端设备serice层接口
 
 	@Resource
-	private JwFuncroomcourseService funcCourseService; // 功能室课表
+	private FuncRoomCourseService funcCourseService; // 功能室课表
 	@Resource
-	private BaseCampusService campusService; // 校区信息
+	private CampusService campusService; // 校区信息
 	@Resource
-	private BaseCalenderService calendarService; // 校历
+	private CalenderService calendarService; // 校历
 	@Resource
-	private BaseCalenderdetailService calendarDetailService; // 校历详情
+	private CalenderDetailService calendarDetailService; // 校历详情
 
 
 	/**

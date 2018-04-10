@@ -18,7 +18,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface MjUserrightService extends BaseService<MjUserRight> {
+public interface MjUserRightService extends BaseService<MjUserRight> {
 
 	public MjUserRight doAddEntity(MjUserRight entity, User currentUser);
 

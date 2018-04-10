@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.pojo.DpetJobTree;
 import com.yc.q1.base.pt.system.model.DeptJob;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysDeptjobService;
+import com.yc.q1.base.pt.system.service.DeptJobService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.TreeVeriable;
@@ -35,7 +35,7 @@ import com.zd.core.util.StringUtils;
 public class SysDeptjobController extends FrameWorkController<DeptJob> implements Constant {
 
 	@Resource
-	SysDeptjobService thisService; // service层接口
+	DeptJobService thisService; // service层接口
 	
 	/**
 	 * @Title: list

@@ -26,12 +26,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.build.service.BaseOfficeAllotService;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.OfficeAllotService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.device.model.IrRoomDevice;
 import com.yc.q1.base.pt.device.model.Term;
-import com.yc.q1.base.pt.device.service.BasePtTermService;
-import com.yc.q1.base.pt.device.service.PtIrRoomDeviceService;
+import com.yc.q1.base.pt.device.service.TermService;
+import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -58,19 +58,19 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 	private static Logger logger = Logger.getLogger(BasePtIrRoomDeviceController.class);
 	
 	@Resource
-	PtIrRoomDeviceService thisService; // service层接口
+	IrRoomDeviceService thisService; // service层接口
 
 	@Resource
-	BaseOfficeAllotService baseOfficeAllotService; // service层接口
+	OfficeAllotService baseOfficeAllotService; // service层接口
 
 	@Resource
-	BaseRoominfoService baseRoominfoService;
+	RoomInfoService baseRoominfoService;
 
 	@Resource
 	CommTreeService treeService;
 
 	@Resource
-	BasePtTermService ptTermService;
+	TermService ptTermService;
 
 	@Value("${irsendurl}")  
     private String irsendurl; 

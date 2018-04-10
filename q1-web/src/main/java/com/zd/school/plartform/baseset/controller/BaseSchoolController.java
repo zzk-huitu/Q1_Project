@@ -2,7 +2,7 @@
 package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.basic.model.School;
-import com.yc.q1.base.pt.basic.service.BaseSchoolService;
+import com.yc.q1.base.pt.basic.service.SchoolService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -32,7 +32,7 @@ import java.util.Date;
 public class BaseSchoolController extends FrameWorkController<School> implements Constant {
 
 	@Resource
-	BaseSchoolService thisService; // service层接口
+	SchoolService thisService; // service层接口
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

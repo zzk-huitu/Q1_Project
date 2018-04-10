@@ -1,7 +1,7 @@
 	package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.build.model.RoomArea;
-import com.yc.q1.base.pt.build.service.BaseRoomareaService;
+import com.yc.q1.base.pt.build.service.RoomAreaService;
 import com.yc.q1.base.pt.pojo.RoomAreaTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -37,7 +37,7 @@ import java.util.List;
 public class BaseRoomareaController extends FrameWorkController<RoomArea> implements Constant {
 
     @Resource
-    BaseRoomareaService thisService; // service层接口
+    RoomAreaService thisService; // service层接口
 
     /**
      * 区域的树列表

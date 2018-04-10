@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
-import com.yc.q1.base.pt.wisdomclass.service.JwClassteacherService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -39,13 +39,13 @@ import com.zd.core.util.StringUtils;
 public class WisClassTeacherController extends FrameWorkController<ClassTeacher> implements Constant {
 
 	@Resource
-	JwClassteacherService thisService; // service层接口
+	ClassTeacherService thisService; // service层接口
 
 	@Resource
 	private CommTreeService treeSerice;
 
 	@Resource
-	private SysOrgService sysOrgService;
+	private DepartmentService sysOrgService;
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

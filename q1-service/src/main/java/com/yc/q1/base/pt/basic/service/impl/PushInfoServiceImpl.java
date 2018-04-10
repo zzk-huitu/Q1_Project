@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.dao.PushInfoDao;
 import com.yc.q1.base.pt.basic.model.PushInfo;
 import com.yc.q1.base.pt.basic.service.PushInfoService;
 import com.yc.q1.base.pt.system.model.User;
+import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 
@@ -18,10 +18,10 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PushInfoServiceImpl extends BaseServiceImpl<PushInfo> implements PushInfoService {
 
-    @Resource
-    public void setPushInfoDao(PushInfoDao dao) {
-        this.dao = dao;
-    }
+	@Resource(name = "PushInfoDao") // 将具体的dao注入进来
+	public void setDao(BaseDao<PushInfo> dao) {
+		super.setDao(dao);
+	}
 
     @Override
 	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus,User currentUser) {

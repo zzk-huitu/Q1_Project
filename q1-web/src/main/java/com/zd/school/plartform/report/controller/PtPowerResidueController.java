@@ -19,17 +19,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
-import com.yc.q1.base.pt.build.service.BaseDormDefineService;
-import com.yc.q1.base.pt.build.service.BaseStudentDormService;
+import com.yc.q1.base.pt.build.service.ClassDormAllotService;
+import com.yc.q1.base.pt.build.service.DormDefineService;
+import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.device.model.TermBag;
-import com.yc.q1.base.pt.device.service.BasePtTermService;
-import com.yc.q1.base.pt.device.service.PtTermBagsService;
+import com.yc.q1.base.pt.device.service.TermService;
+import com.yc.q1.base.pt.device.service.TermBagService;
 import com.yc.q1.base.pt.pojo.PowerResidue;
-import com.yc.q1.base.pt.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.xf.model.RoomBag;
-import com.yc.q1.base.xf.service.PtRoomBagsService;
+import com.yc.q1.base.xf.service.RoomBagService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.controller.core.FrameWorkController;
@@ -45,19 +45,19 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 	private static Logger logger = Logger.getLogger(PtPowerResidueController.class);
 
 	@Resource
-	private BasePtTermService termService;
+	private TermService termService;
 	@Resource
-	private PtRoomBagsService roomBagsService;
+	private RoomBagService roomBagsService;
 	@Resource
-	private PtTermBagsService termBagsService;
+	private TermBagService termBagsService;
 	@Resource
-	private BaseDormDefineService dormDefineService;
+	private DormDefineService dormDefineService;
 	@Resource
-	private BaseClassDormAllotService classDormAllotService;
+	private ClassDormAllotService classDormAllotService;
 	@Resource
-	private BaseStudentDormService stuDormService;
+	private StudentDormService stuDormService;
 	@Resource
-	private SysUserService userService;
+	private UserService userService;
 
 	/*
 	 * 待迁移UP库

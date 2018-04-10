@@ -20,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.build.model.StudentDorm;
 import com.yc.q1.base.pt.device.model.IrDeviceBrand;
-import com.yc.q1.base.pt.device.service.PtIrDeviceBrandService;
-import com.yc.q1.base.pt.device.service.PtIrRoomDeviceService;
+import com.yc.q1.base.pt.device.service.IrDeviceBrandService;
+import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -44,9 +44,9 @@ import com.zd.core.util.StringUtils;
 public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceBrand> implements Constant  {
 	
 	@Resource
-	PtIrDeviceBrandService thisService; // service层接口
+	IrDeviceBrandService thisService; // service层接口
 	@Resource
-	PtIrRoomDeviceService deveiceService; // service层接口
+	IrRoomDeviceService deveiceService; // service层接口
 	@Resource
 	CommTreeService treeService;
 

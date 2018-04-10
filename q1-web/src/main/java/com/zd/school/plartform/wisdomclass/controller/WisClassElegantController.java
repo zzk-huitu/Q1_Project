@@ -22,11 +22,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.model.Attachment;
-import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
+import com.yc.q1.base.pt.basic.service.AttachmentService;
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.model.ClassMien;
-import com.yc.q1.base.pt.wisdomclass.service.EccClasselegantService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -44,10 +44,10 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/ClassElegant")
 public class WisClassElegantController extends FrameWorkController<ClassMien> implements Constant{
 	@Resource
-	EccClasselegantService thisService; // service层接口
+	ClassMienService thisService; // service层接口
 	
 	@Resource
-	BaseAttachmentService baseTAttachmentService;// service层接口
+	AttachmentService baseTAttachmentService;// service层接口
 	
 	@Value("${realFileUrl}")  
     private String realFileUrl; //文件目录物理路径

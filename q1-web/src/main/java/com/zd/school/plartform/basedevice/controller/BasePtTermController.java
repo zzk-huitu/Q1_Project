@@ -17,14 +17,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.build.service.BaseOfficeAllotService;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.OfficeAllotService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.device.model.Term;
-import com.yc.q1.base.pt.device.service.BasePtTermService;
+import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.pt.pojo.TLVModel;
 import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.BaseDicitemService;
+import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -44,16 +44,16 @@ import com.zd.core.util.TLVUtils;
 @RequestMapping("/BasePtTerm")
 public class BasePtTermController extends FrameWorkController<Term> implements Constant {
 	@Resource
-	BasePtTermService thisService; // service层接口
+	TermService thisService; // service层接口
 
 	@Resource
-	BaseOfficeAllotService baseOfficeAllotService; // service层接口
+	OfficeAllotService baseOfficeAllotService; // service层接口
 
 	@Resource
-	BaseRoominfoService baseRoominfoService;
+	RoomInfoService baseRoominfoService;
 
 	@Resource
-	BaseDicitemService dicitemService;
+	DataDictItemService dicitemService;
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

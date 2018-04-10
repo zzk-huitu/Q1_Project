@@ -28,18 +28,18 @@ import com.yc.q1.base.pt.basic.model.Attachment;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
-import com.yc.q1.base.pt.basic.service.BaseAttachmentService;
-import com.yc.q1.base.pt.basic.service.BaseInfotermService;
-import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
-import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
+import com.yc.q1.base.pt.basic.service.AttachmentService;
+import com.yc.q1.base.pt.basic.service.InfoTerminalService;
+import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
+import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTime;
 import com.yc.q1.base.pt.wisdomclass.model.ClassMien;
-import com.yc.q1.base.pt.wisdomclass.service.AttTermService;
-import com.yc.q1.base.pt.wisdomclass.service.AttTimeService;
-import com.yc.q1.base.pt.wisdomclass.service.EccClasselegantService;
+import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
+import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
+import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.StringUtils;
@@ -53,27 +53,27 @@ public class ClassFileAppController {
 
 	    
 	@Resource
-	private JwTGradeclassService thisService;
+	private GradeClassService thisService;
 
 	@Resource
-	private BaseRoominfoService brService;
+	private RoomInfoService brService;
 	
 	@Resource
-	private EccClasselegantService elegantService; // service层接口
+	private ClassMienService elegantService; // service层接口
 
 	@Resource
-	private BaseAttachmentService baseTAttachmentService;// service层接口
+	private AttachmentService baseTAttachmentService;// service层接口
 
 	@Resource
-	private BaseInfotermService termService; // 终端设备serice层接口
+	private InfoTerminalService termService; // 终端设备serice层接口
 
 	@Resource
-	private JwFuncroomcourseService funcCourseService; // 功能室课表
+	private FuncRoomCourseService funcCourseService; // 功能室课表
 
 	@Resource
-	private AttTimeService attTimeService;
+	private AttendTimeService attTimeService;
 	@Resource
-	private AttTermService attTermService;
+	private AttendTermService attTermService;
 	
 	/**
 	 * 获取班级的图片信息

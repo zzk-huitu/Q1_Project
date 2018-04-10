@@ -27,19 +27,19 @@ import com.yc.q1.base.pt.basic.model.CourseArrange;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
-import com.yc.q1.base.pt.basic.service.BaseCalenderService;
-import com.yc.q1.base.pt.basic.service.BaseCalenderdetailService;
-import com.yc.q1.base.pt.basic.service.BaseCampusService;
-import com.yc.q1.base.pt.basic.service.BaseInfotermService;
-import com.yc.q1.base.pt.basic.service.JwCourseArrangeService;
-import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
-import com.yc.q1.base.pt.basic.service.JwTGradeclassService;
+import com.yc.q1.base.pt.basic.service.CalenderService;
+import com.yc.q1.base.pt.basic.service.CalenderDetailService;
+import com.yc.q1.base.pt.basic.service.CampusService;
+import com.yc.q1.base.pt.basic.service.InfoTerminalService;
+import com.yc.q1.base.pt.basic.service.CourseArrangeService;
+import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
+import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.build.model.FuncRoomDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.build.service.BaseFuncRoomDefineService;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.FuncRoomDefineService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
-import com.yc.q1.base.pt.wisdomclass.service.JwCheckruleService;
+import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.DateUtil;
@@ -52,34 +52,34 @@ import com.zd.core.util.StringUtils;
 public class CourseArrangeAppController extends FrameWorkController<CourseArrange> implements Constant {
 
 	@Resource
-	JwCourseArrangeService thisService; // service层接口。。。
+	CourseArrangeService thisService; // service层接口。。。
 
 	@Resource
-	JwTGradeclassService classService;
+	GradeClassService classService;
 
 	@Resource
-	BaseCalenderService canderService;
+	CalenderService canderService;
 
 	@Resource
-	BaseCalenderdetailService canderDetailService;
+	CalenderDetailService canderDetailService;
 
 	@Resource
-	BaseRoominfoService brService;
+	RoomInfoService brService;
 
 	@Resource
-	JwFuncroomcourseService funcroomService;
+	FuncRoomCourseService funcroomService;
 
 	@Resource
-	BaseFuncRoomDefineService bFuncRoomDefineService;
+	FuncRoomDefineService bFuncRoomDefineService;
 
 	@Resource
-	private BaseInfotermService termService; // 终端设备serice层接口
+	private InfoTerminalService termService; // 终端设备serice层接口
 
 	@Resource
-	private JwCheckruleService checkruleService;
+	private AttenceRuleService checkruleService;
 
 	@Resource
-	private BaseCampusService campusService; // 校区信息
+	private CampusService campusService; // 校区信息
 	
 	/**
 	 * 获取课程信息

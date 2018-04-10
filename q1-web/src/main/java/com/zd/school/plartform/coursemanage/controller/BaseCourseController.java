@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.BaseCourse;
-import com.yc.q1.base.pt.basic.service.JwTBasecourseService;
+import com.yc.q1.base.pt.basic.service.BaseCourseService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -31,7 +31,7 @@ import com.zd.core.util.StringUtils;
 public class BaseCourseController extends FrameWorkController<BaseCourse> implements Constant {
 
     @Resource
-    private JwTBasecourseService thisService;
+    private BaseCourseService thisService;
 
     //获取列表数据
     @RequestMapping(value = "/list", method = { org.springframework.web.bind.annotation.RequestMethod.GET,

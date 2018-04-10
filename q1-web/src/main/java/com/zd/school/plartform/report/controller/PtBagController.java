@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.StudentDorm;
-import com.yc.q1.base.pt.build.service.BaseClassDormAllotService;
-import com.yc.q1.base.pt.build.service.BaseDormDefineService;
-import com.yc.q1.base.pt.build.service.BaseStudentDormService;
-import com.yc.q1.base.pt.device.service.PtTermBagsService;
+import com.yc.q1.base.pt.build.service.ClassDormAllotService;
+import com.yc.q1.base.pt.build.service.DormDefineService;
+import com.yc.q1.base.pt.build.service.StudentDormService;
+import com.yc.q1.base.pt.device.service.TermBagService;
 import com.yc.q1.base.xf.model.RoomBag;
-import com.yc.q1.base.xf.service.PtRoomBagsService;
+import com.yc.q1.base.xf.service.RoomBagService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
@@ -43,16 +43,16 @@ import com.zd.core.util.StringUtils;
 public class PtBagController extends FrameWorkController implements Constant {
 
 	@Resource
-	PtTermBagsService termBagsService; // service层接口
+	TermBagService termBagsService; // service层接口
 	@Resource
-	PtRoomBagsService roomBagsService;
+	RoomBagService roomBagsService;
 
 	@Resource
-	BaseStudentDormService studentdormService;
+	StudentDormService studentdormService;
 	@Resource
-	BaseClassDormAllotService classDormAllotService;
+	ClassDormAllotService classDormAllotService;
 	@Resource
-	BaseDormDefineService dormDefineService;
+	DormDefineService dormDefineService;
 
 	/**
 	 * @Title: list

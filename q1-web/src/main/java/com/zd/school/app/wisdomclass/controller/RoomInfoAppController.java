@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.app.pojo.RoomInfoApp;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
-import com.yc.q1.base.pt.basic.service.BaseInfotermService;
+import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.build.service.BaseRoominfoService;
+import com.yc.q1.base.pt.build.service.RoomInfoService;
 
 @Controller
 @RequestMapping("/app/RoomInfo")
 public class RoomInfoAppController {
 	@Resource
-	private BaseRoominfoService thisService;
+	private RoomInfoService thisService;
 	
 	@Resource
-	private BaseInfotermService termService; // 终端设备serice层接口
+	private InfoTerminalService termService; // 终端设备serice层接口
 	
 	/**
 	 * 获取房间信息

@@ -13,6 +13,7 @@ import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.pojo.CommBase;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.zd.core.constant.TreeVeriable;
+import com.zd.core.dao.BaseDao;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
@@ -30,10 +31,10 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class CommTreeServiceImpl extends BaseServiceImpl<BaseEntity> implements CommTreeService {
 
-    @Resource
-    public void setDao(CommTreeDao dao) {
-        this.dao = dao;
-    }
+    @Resource(name = "CommTreeDao") // 将具体的dao注入进来
+	public void setDao(BaseDao<BaseEntity> dao) {
+		super.setDao(dao);
+	}
 
 
     @Override

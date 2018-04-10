@@ -12,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.model.Calender;
-import com.yc.q1.base.pt.basic.service.BaseCalenderService;
+import com.yc.q1.base.pt.basic.service.CalenderService;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -32,7 +32,7 @@ import com.zd.core.util.StringUtils;
 public class BaseCalenderController extends FrameWorkController<Calender> implements Constant {
 
 	@Resource
-	BaseCalenderService thisService; // service层接口
+	CalenderService thisService; // service层接口
 	
 	/**
 	 * 获取目录树列表

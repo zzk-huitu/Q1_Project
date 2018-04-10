@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.TeacherDorm;
-import com.yc.q1.base.pt.build.service.BaseDormDefineService;
-import com.yc.q1.base.pt.build.service.BaseTeacherDormService;
+import com.yc.q1.base.pt.build.service.DormDefineService;
+import com.yc.q1.base.pt.build.service.TeacherDormService;
 import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysUserService;
+import com.yc.q1.base.pt.system.service.UserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -42,13 +42,13 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BaseTeacherDrom")
 public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> implements Constant {
 	@Resource
-	BaseTeacherDormService thisService; // service层接口
+	TeacherDormService thisService; // service层接口
 	@Resource
 	CommTreeService treeService; // 生成树
 	@Resource
-	BaseDormDefineService dormService; // service层接口
+	DormDefineService dormService; // service层接口
     @Resource
-	SysUserService userService; // service层接口
+	UserService userService; // service层接口
   
     
     /**

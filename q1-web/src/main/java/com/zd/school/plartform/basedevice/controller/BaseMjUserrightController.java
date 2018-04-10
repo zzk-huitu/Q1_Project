@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yc.q1.base.mj.model.MjUserRight;
-import com.yc.q1.base.mj.service.MjUserrightService;
+import com.yc.q1.base.mj.service.MjUserRightService;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
@@ -40,7 +40,7 @@ import com.zd.core.util.StringUtils;
 public class BaseMjUserrightController extends FrameWorkController<MjUserRight> implements Constant {
 
 	@Resource
-	MjUserrightService thisService; // service层接口
+	MjUserRightService thisService; // service层接口
 
 	@Resource
 	CommTreeService treeService; // 生成树

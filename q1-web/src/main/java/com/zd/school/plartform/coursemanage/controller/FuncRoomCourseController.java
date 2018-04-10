@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yc.q1.base.pt.basic.model.CourseArrange;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.basic.service.JwCourseArrangeService;
-import com.yc.q1.base.pt.basic.service.JwFuncroomcourseService;
+import com.yc.q1.base.pt.basic.service.CourseArrangeService;
+import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
 import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.system.model.User;
 import com.zd.core.annotation.Auth;
@@ -42,10 +42,10 @@ public class FuncRoomCourseController extends FrameWorkController<FuncRoomCourse
 	@Resource
 	CommTreeService treeService; // 生成树
 	@Resource
-	JwFuncroomcourseService thisService; // service层接口
+	FuncRoomCourseService thisService; // service层接口
 
 	@Resource
-	JwCourseArrangeService courseArrangeService; // service层接口。。。
+	CourseArrangeService courseArrangeService; // service层接口。。。
 
 	@RequestMapping("/treelist")
 	public void getTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {

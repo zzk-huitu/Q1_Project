@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.pojo.DepartmentTree;
 import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.service.SysOrgService;
+import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.TreeVeriable;
@@ -38,7 +38,7 @@ import com.zd.core.util.StringUtils;
 public class SysOrgController extends FrameWorkController<Department> implements Constant {
 
 	@Resource
-	private SysOrgService thisService; // service层接口
+	private DepartmentService thisService; // service层接口
 
     /**
      * 获取所有部门信息
