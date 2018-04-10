@@ -24,7 +24,7 @@ import com.zd.school.plartform.system.service.SysMenuPermissionService;
 public class SysMenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> implements SysMenuPermissionService{
 
     @Resource
-    public void setSysMenuPermissionDao(SysMenuPermissionDao dao) {
+    public void setSysMenuPermissionDao(MenuPermissionDao dao) {
         this.dao = dao;
     }
 

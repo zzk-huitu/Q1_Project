@@ -33,7 +33,7 @@ import com.zd.school.plartform.baseset.service.BaseRoomareaService;
 public class BaseRoomareaServiceImpl extends BaseServiceImpl<RoomArea> implements BaseRoomareaService {
 
 	@Resource
-	public void setBuildRoomareaDao(BaseRoomareaDao dao) {
+	public void setBuildRoomareaDao(RoomAreaDao dao) {
 		this.dao = dao;
 	}
 

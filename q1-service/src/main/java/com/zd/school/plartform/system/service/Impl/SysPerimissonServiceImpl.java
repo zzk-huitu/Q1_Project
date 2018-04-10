@@ -27,7 +27,7 @@ import com.zd.school.plartform.system.service.SysPerimissonService ;
 public class SysPerimissonServiceImpl extends BaseServiceImpl<Permission> implements SysPerimissonService{
 
     @Resource
-    public void setBaseTPerimissonDao(SysPerimissonDao dao) {
+    public void setBaseTPerimissonDao(PermissionDao dao) {
         this.dao = dao;
     }
 

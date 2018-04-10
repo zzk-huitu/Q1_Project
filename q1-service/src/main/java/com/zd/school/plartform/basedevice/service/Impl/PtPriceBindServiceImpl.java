@@ -23,7 +23,7 @@ import com.zd.school.plartform.basedevice.service.PtPriceBindService;
 public class PtPriceBindServiceImpl extends BaseServiceImpl<PriceBind> implements PtPriceBindService {
 
 	@Resource
-	public void setPtPriceBindDao(PtPriceBindDao dao) {
+	public void setPtPriceBindDao(PriceBindDao dao) {
 		this.dao = dao;
 	}
 

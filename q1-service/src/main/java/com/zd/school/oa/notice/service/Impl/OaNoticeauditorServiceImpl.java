@@ -39,7 +39,7 @@ import com.zd.school.plartform.system.model.User;
 public class OaNoticeauditorServiceImpl extends BaseServiceImpl<NoticeAuditor> implements OaNoticeauditorService{
 
     @Resource
-    public void setOaNoticeauditorDao(OaNoticeauditorDao dao) {
+    public void setOaNoticeauditorDao(NoticeAuditorDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(OaNoticeauditorServiceImpl.class);

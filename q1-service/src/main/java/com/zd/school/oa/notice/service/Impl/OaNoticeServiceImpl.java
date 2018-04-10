@@ -54,7 +54,7 @@ import com.zd.school.plartform.system.service.SysUserService;
 public class OaNoticeServiceImpl extends BaseServiceImpl<Notice> implements OaNoticeService {
 
 	@Resource
-	public void setOaNoticeDao(OaNoticeDao dao) {
+	public void setOaNoticeDao(NoticeDao dao) {
 		this.dao = dao;
 	}
 

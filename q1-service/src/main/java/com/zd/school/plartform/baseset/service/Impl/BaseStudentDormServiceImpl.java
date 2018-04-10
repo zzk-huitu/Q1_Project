@@ -57,7 +57,7 @@ import com.zd.school.student.studentinfo.service.StuBaseinfoService;
 public class BaseStudentDormServiceImpl extends BaseServiceImpl<StudentDorm> implements BaseStudentDormService {
 
 	@Resource
-	public void setDormStudentdormDao(BaseStudentDormDao dao) {
+	public void setDormStudentdormDao(StudentDormDao dao) {
 		this.dao = dao;
 	}
 	

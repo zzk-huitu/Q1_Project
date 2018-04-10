@@ -27,7 +27,7 @@ import com.zd.school.student.studentinfo.service.StuParentsService ;
 public class StuParentsServiceImpl extends BaseServiceImpl<StudentParents> implements StuParentsService{
 
     @Resource
-    public void setStuParentsDao(StuParentsDao dao) {
+    public void setStuParentsDao(StudentParentsDao dao) {
         this.dao = dao;
     }
 

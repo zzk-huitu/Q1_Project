@@ -28,7 +28,7 @@ public class BasePtTermServiceImpl extends BaseServiceImpl<Term> implements Base
 	private static Logger logger = Logger.getLogger(BasePtTermServiceImpl.class);
 
 	@Resource
-	public void setPtTermDao(BasePtTermDao dao) {
+	public void setPtTermDao(TermDao dao) {
 		this.dao = dao;
 	}
 

@@ -38,7 +38,7 @@ import com.zd.school.oa.attendance.service.AttTermService ;
 public class AttTermServiceImpl extends BaseServiceImpl<AttendTerm> implements AttTermService{
 
     @Resource
-    public void setAttTermDao(AttTermDao dao) {
+    public void setAttTermDao(AttendTermDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(AttTermServiceImpl.class);

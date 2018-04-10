@@ -29,7 +29,7 @@ import com.zd.school.plartform.system.service.SysUserService;
 public class SysRoleServiceImpl extends BaseServiceImpl<Role> implements SysRoleService {
 
 	@Resource
-	public void setBaseTRoleDao(SysRoleDao dao) {
+	public void setBaseTRoleDao(RoleDao dao) {
 		this.dao = dao;
 	}
 

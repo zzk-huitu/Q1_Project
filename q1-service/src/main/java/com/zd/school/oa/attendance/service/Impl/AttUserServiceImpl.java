@@ -38,7 +38,7 @@ import com.zd.school.oa.attendance.service.AttUserService ;
 public class AttUserServiceImpl extends BaseServiceImpl<AttendUser> implements AttUserService{
 
     @Resource
-    public void setAttUserDao(AttUserDao dao) {
+    public void setAttUserDao(AttendUserDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(AttUserServiceImpl.class);

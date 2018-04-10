@@ -51,7 +51,7 @@ import com.zd.school.redis.service.DeptRedisService;
 public class SysOrgServiceImpl extends BaseServiceImpl<Department> implements SysOrgService {
 
 	@Resource
-	public void setBaseOrgDao(SysOrgDao dao) {
+	public void setBaseOrgDao(DepartmentDao dao) {
 		this.dao = dao;
 	}
 	

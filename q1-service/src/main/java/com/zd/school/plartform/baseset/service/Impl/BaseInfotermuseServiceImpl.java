@@ -35,7 +35,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseInfotermuseServiceImpl extends BaseServiceImpl<InfoTerminalHistory> implements BaseInfotermuseService{
 
     @Resource
-    public void setOaInfotermuseDao(BaseInfotermuseDao dao) {
+    public void setOaInfotermuseDao(InfoTerminalHistoryDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(BaseInfotermuseServiceImpl.class);

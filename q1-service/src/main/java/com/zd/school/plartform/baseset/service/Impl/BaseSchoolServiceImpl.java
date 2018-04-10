@@ -33,7 +33,7 @@ import com.zd.school.plartform.system.service.SysOrgService;
 public class BaseSchoolServiceImpl extends BaseServiceImpl<School> implements BaseSchoolService{
 
     @Resource
-    public void setBaseSchoolDao(BaseSchoolDao dao) {
+    public void setBaseSchoolDao(SchoolDao dao) {
         this.dao = dao;
     }
     @Resource

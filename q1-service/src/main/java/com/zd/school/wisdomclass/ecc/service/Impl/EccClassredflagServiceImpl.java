@@ -41,7 +41,7 @@ public class EccClassredflagServiceImpl extends BaseServiceImpl<ClassRedFlag> im
 	private SysUserService userService;
 	
     @Resource
-    public void setEccClassregflagDao(EccClassredflagDao dao) {
+    public void setEccClassregflagDao(ClassRedFlagDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(EccClassredflagServiceImpl.class);

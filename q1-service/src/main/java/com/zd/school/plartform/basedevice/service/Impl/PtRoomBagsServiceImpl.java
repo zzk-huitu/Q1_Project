@@ -20,7 +20,7 @@ import com.zd.school.plartform.basedevice.service.PtRoomBagsService;
 public class PtRoomBagsServiceImpl extends BaseServiceImpl<RoomBag> implements PtRoomBagsService{
 	
 	@Resource
-    public void setPtRoomBagsDao(PtRoomBagsDao dao) {
+    public void setPtRoomBagsDao(RoomBagDao dao) {
         this.dao = dao;
     }
 }

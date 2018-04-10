@@ -27,7 +27,7 @@ import com.zd.school.oa.notice.service.OaNoticetypeService ;
 public class OaNoticetypeServiceImpl extends BaseServiceImpl<NoticeType> implements OaNoticetypeService{
 
     @Resource
-    public void setOaNoticetypeDao(OaNoticetypeDao dao) {
+    public void setOaNoticetypeDao(NoticeTypeDao dao) {
         this.dao = dao;
     }
 

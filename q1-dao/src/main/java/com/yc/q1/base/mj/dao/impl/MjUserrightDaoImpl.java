@@ -2,7 +2,7 @@ package com.yc.q1.base.mj.dao.impl;
 
 import org.springframework.stereotype.Repository;
 
-import com.yc.q1.base.mj.dao.MjUserrightDao;
+import com.yc.q1.base.mj.dao.MjUserRightDao;
 import com.yc.q1.base.mj.model.MjUserRight;
 import com.zd.core.dao.BaseDaoImpl;
 
@@ -20,9 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class MjUserrightDaoImpl extends BaseDaoImpl<MjUserRight> implements MjUserrightDao {
-    public MjUserrightDaoImpl() {
-        super(MjUserRight.class);
-        // TODO Auto-generated constructor stub
-    }
+public class MjUserRightDaoImpl extends BaseDaoImpl<MjUserRight> implements MjUserRightDao {
 }

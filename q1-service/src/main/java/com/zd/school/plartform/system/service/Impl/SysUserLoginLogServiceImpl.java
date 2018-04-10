@@ -15,7 +15,7 @@ import com.zd.school.plartform.system.service.SysUserLoginLogService;
 public class SysUserLoginLogServiceImpl extends BaseServiceImpl<UserLoginLog> implements SysUserLoginLogService {
 
     @Resource
-    public void setSysUserLoginLogDao(SysUserLoginLogDao dao) {
+    public void setSysUserLoginLogDao(UserLoginLogDao dao) {
         this.dao = dao;
     }
     

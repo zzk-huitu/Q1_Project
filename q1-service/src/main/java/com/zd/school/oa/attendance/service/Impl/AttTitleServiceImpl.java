@@ -47,7 +47,7 @@ public class AttTitleServiceImpl extends BaseServiceImpl<AttendTheme> implements
 	@Resource
 	AttTimeService attTimeService;
     @Resource
-    public void setAttTitleDao(AttTitleDao dao) {
+    public void setAttTitleDao(AttendThemeDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(AttTitleServiceImpl.class);

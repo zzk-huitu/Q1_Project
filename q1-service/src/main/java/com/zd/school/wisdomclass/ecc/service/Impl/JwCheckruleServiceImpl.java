@@ -36,7 +36,7 @@ import com.zd.school.wisdomclass.ecc.service.JwCheckruleService;
 public class JwCheckruleServiceImpl extends BaseServiceImpl<AttenceRule> implements JwCheckruleService{
 
     @Resource
-    public void setJwCheckruleDao(JwCheckruleDao dao) {
+    public void setJwCheckruleDao(AttenceRuleDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(JwCheckruleServiceImpl.class);

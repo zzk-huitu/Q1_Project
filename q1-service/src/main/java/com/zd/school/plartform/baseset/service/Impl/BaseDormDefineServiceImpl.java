@@ -30,7 +30,7 @@ import com.zd.school.plartform.system.model.User;
 @Transactional
 public class BaseDormDefineServiceImpl extends BaseServiceImpl<DormDefine> implements BaseDormDefineService {
 	@Resource
-	public void setBuildLaboratorydefinDao(BaseDormDefineDao dao) {
+	public void setBuildLaboratorydefinDao(DormDefineDao dao) {
 		this.dao = dao;
 	}
 

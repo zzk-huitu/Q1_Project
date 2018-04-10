@@ -24,7 +24,7 @@ import com.zd.school.jw.eduresources.service.JwTBasecourseService;
 public class JwTBasecourseServiceImpl extends BaseServiceImpl<BaseCourse> implements JwTBasecourseService {
 
     @Resource
-    public void setJwTBasecourseDao(JwTBasecourseDao dao) {
+    public void setJwTBasecourseDao(BaseCourseDao dao) {
         this.dao = dao;
     }
 

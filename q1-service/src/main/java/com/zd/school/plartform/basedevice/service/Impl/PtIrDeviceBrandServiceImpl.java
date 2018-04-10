@@ -33,7 +33,7 @@ import com.zd.school.control.device.model.IrDeviceBrand;
 public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<IrDeviceBrand> implements PtIrDeviceBrandService {
 
 	@Resource
-	public void setPtIrDeviceBrandDao(PtIrDeviceBrandDao dao) {
+	public void setPtIrDeviceBrandDao(IrDeviceBrandDao dao) {
 		this.dao = dao;
 	}
 

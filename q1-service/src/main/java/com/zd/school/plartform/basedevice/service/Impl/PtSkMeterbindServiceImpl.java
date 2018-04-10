@@ -16,7 +16,7 @@ import com.zd.school.plartform.basedevice.service.PtSkMeterbindService;
 public class PtSkMeterbindServiceImpl  extends BaseServiceImpl<SkMeterBind> implements PtSkMeterbindService{
 	
 	@Resource
-    public void setPtSkMeterbindDao(PtSkMeterbindDao dao) {
+    public void setPtSkMeterbindDao(SkMeterBindDao dao) {
         this.dao = dao;
     }
 

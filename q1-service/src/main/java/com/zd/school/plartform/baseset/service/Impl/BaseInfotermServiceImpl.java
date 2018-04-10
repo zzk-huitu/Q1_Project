@@ -39,7 +39,7 @@ import com.zd.school.plartform.system.model.User;
 public class BaseInfotermServiceImpl extends BaseServiceImpl<InfoTerminal> implements BaseInfotermService {
 
 	@Resource
-	public void setOaInfotermDao(BaseInfotermDao dao) {
+	public void setOaInfotermDao(InfoTerminalDao dao) {
 		this.dao = dao;
 	}
 

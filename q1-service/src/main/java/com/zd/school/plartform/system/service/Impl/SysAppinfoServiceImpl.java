@@ -36,7 +36,7 @@ import com.zd.school.plartform.system.service.SysAppinfoService ;
 public class SysAppinfoServiceImpl extends BaseServiceImpl<AppInfo> implements SysAppinfoService{
 
     @Resource
-    public void setSysAppinfoDao(SysAppinfoDao dao) {
+    public void setSysAppinfoDao(AppInfoDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(SysAppinfoServiceImpl.class);

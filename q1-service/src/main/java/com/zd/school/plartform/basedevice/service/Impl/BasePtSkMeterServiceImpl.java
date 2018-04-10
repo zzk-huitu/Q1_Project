@@ -23,7 +23,7 @@ public class BasePtSkMeterServiceImpl extends BaseServiceImpl<SkMeter> implement
 	private static Logger logger = Logger.getLogger(BasePtSkMeterServiceImpl.class);
 	
 	@Resource
-	public void setBasePtSkMeterDao(BasePtSkMeterDao dao) {
+	public void setBasePtSkMeterDao(SkMeterDao dao) {
 		this.dao = dao;
 	}
 	

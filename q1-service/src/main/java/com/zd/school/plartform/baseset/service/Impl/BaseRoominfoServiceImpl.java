@@ -40,7 +40,7 @@ public class BaseRoominfoServiceImpl extends BaseServiceImpl<RoomInfo> implement
 	private static Logger logger = Logger.getLogger(BaseRoominfoServiceImpl.class);
 
     @Resource
-    public void setRoomInfoDao(BaseRoominfoDao dao) {
+    public void setRoomInfoDao(RoomInfoDao dao) {
         this.dao = dao;
     }
     

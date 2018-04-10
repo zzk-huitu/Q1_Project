@@ -45,7 +45,7 @@ import com.zd.school.redis.service.DeptRedisService;
 public class SysDeptjobServiceImpl extends BaseServiceImpl<DeptJob> implements SysDeptjobService {
 
 	@Resource
-	public void setBaseDeptjobDao(SysDeptjobDao dao) {
+	public void setBaseDeptjobDao(DeptJobDao dao) {
 		this.dao = dao;
 	}
 

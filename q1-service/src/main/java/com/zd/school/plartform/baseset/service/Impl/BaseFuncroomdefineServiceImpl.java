@@ -32,7 +32,7 @@ public class BaseFuncroomdefineServiceImpl extends BaseServiceImpl<FuncRoomDefin
 		implements BaseFuncRoomDefineService {
 
 	@Resource
-	public void setBuildFuncroomdefinDao(BaseFuncRoomDefineDao dao) {
+	public void setBuildFuncroomdefinDao(FuncRoomDefineDao dao) {
 		this.dao = dao;
 	}
 

@@ -32,7 +32,7 @@ import com.zd.school.ykt.service.PtTaskService;
 public class PtTaskServiceImpl extends BaseServiceImpl<Task> implements PtTaskService{
 
     @Resource
-    public void setPtTaskDao(PtTaskDao dao) {
+    public void setPtTaskDao(TaskDao dao) {
         this.dao = dao;
     }
 	private static Logger logger = Logger.getLogger(PtTaskServiceImpl.class);
