@@ -13,6 +13,7 @@ com\yc\q1\base\pt\system\model\Permission.class
 com\yc\q1\base\dk\model\DkTermStatus.class
 com\yc\q1\base\pt\system\model\AppInfo.class
 com\yc\q1\base\pt\basic\model\InfoTerminal.class
+com\yc\q1\base\pt\basic\model\PushInfo.class
 com\yc\q1\base\pt\basic\model\Campus.class
 com\yc\q1\base\pt\system\model\DeptJob.class
 com\yc\q1\base\pt\pojo\MenuTree.class
@@ -82,7 +83,6 @@ com\yc\q1\base\xf\model\RoomBag.class
 com\yc\q1\base\pt\basic\model\CourseArrange.class
 com\yc\q1\base\pt\device\model\FrontServer.class
 com\yc\q1\base\pt\wisdomclass\model\AttendTheme.class
-com\yc\q1\base\log\model\PushInfo.class
 com\yc\q1\base\pt\system\model\Job.class
 com\yc\q1\base\app\pojo\CommonApp.class
 com\yc\q1\base\pt\basic\model\ClassStudent.class

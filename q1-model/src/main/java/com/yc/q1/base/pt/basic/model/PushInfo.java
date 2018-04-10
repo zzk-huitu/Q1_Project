@@ -1,4 +1,4 @@
-package com.yc.q1.base.log.model;
+package com.yc.q1.base.pt.basic.model;
 
 import java.io.Serializable;
 import java.util.Date;

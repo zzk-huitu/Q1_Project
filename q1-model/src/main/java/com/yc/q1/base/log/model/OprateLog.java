@@ -23,7 +23,7 @@ import com.zd.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "T_PT_OprateLog")
+@Table(name = "T_LOG_OprateLog")
 @AttributeOverride(name = "id", column = @Column(name = "oprateLogId", length = 20, nullable = false) )
 public class OprateLog extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

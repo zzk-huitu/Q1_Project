@@ -22,7 +22,7 @@ import com.zd.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "priceId", length = 20, nullable = false) )
 public class DkPriceDefine extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String ModuleNum = ModuleNumType.PT;
+	public static final String ModuleNum = ModuleNumType.DK;	//指定此对象生成的模块编码值。
 
 	@FieldInfo(name = "费率名称", type = "nvarchar(16) NOT NULL", explain = "费率名称")
 	@Column(name = "priceName", columnDefinition = "nvarchar(16)", nullable = false)
