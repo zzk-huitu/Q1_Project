@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.dao.IrRoomDeviceDao;
 import com.yc.q1.base.pt.device.model.IrRoomDevice;
 import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -34,6 +34,9 @@ public class IrRoomDeviceServiceImpl extends BaseServiceImpl<IrRoomDevice> imple
 	}
 
 	private static Logger logger = Logger.getLogger(IrRoomDeviceServiceImpl.class);
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public void doBindRoomBrand(String roomIds, String brandIds, String xm) {
@@ -59,6 +62,7 @@ public class IrRoomDeviceServiceImpl extends BaseServiceImpl<IrRoomDevice> imple
 					roomDevice.setRoomId(roomId[j]);
 					roomDevice.setCreateTime(new Date());
 					roomDevice.setCreateUser(xm);
+					roomDevice.setId(keyRedisService.getId(IrRoomDevice.ModuleType));	//手动设置id
 					this.merge(roomDevice);
 				}
 			}

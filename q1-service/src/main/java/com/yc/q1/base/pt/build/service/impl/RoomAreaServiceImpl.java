@@ -10,10 +10,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.build.dao.RoomAreaDao;
 import com.yc.q1.base.pt.build.model.RoomArea;
 import com.yc.q1.base.pt.build.service.RoomAreaService;
 import com.yc.q1.base.pt.pojo.RoomAreaTree;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -37,6 +37,9 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 	public void setDao(BaseDao<RoomArea> dao) {
 		super.setDao(dao);
 	}
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	public List<RoomAreaTree> getBuildAreaList(String whereSql) {
 
@@ -67,10 +70,10 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 		// String parentArea, Integer orderIndex, Integer roomCount) {
 
 		for (RoomArea dic : childs) {
-			RoomAreaTree child = new RoomAreaTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(),
-					dic.getNodeLevel(), dic.getTreeIds(), new ArrayList<RoomAreaTree>(), dic.getAreaCode(),
-					dic.getAreaType(),  dic.getAreaExplain(), dic.getAreaAddress(), dic.getParentNode(),
-					dic.getOrderIndex(), dic.getRoomCount());
+			RoomAreaTree child = new RoomAreaTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
+					dic.getTreeIds(), new ArrayList<RoomAreaTree>(), dic.getAreaCode(), dic.getAreaType(),
+					dic.getAreaExplain(), dic.getAreaAddress(), dic.getParentNode(), dic.getOrderIndex(),
+					dic.getRoomCount());
 
 			if (dic.getParentNode().equals(TreeVeriable.ROOT)) {
 				result.add(child);
@@ -116,36 +119,37 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 		} else
 			perEntity.BuildNode(null);
 
+		perEntity.setId(keyRedisService.getId(RoomArea.ModuleType));	//手动设置id
 		perEntity = this.merge(perEntity);
 
-//		perEntity.setParentName(parentName);
-//		perEntity.setAreaType(parentType);
-//		perEntity.setParentNode(parentNode);
+		// perEntity.setParentName(parentName);
+		// perEntity.setAreaType(parentType);
+		// perEntity.setParentNode(parentNode);
 
 		return perEntity;
 	}
-	
+
 	@Override
 	public RoomArea doUpdateEntity(RoomArea entity, String operator, List<String> excludedProp) {
 		// TODO Auto-generated method stub
 
-        //先拿到已持久化的实体
-        //entity.getSchoolId()要自己修改成对应的获取主键的方法
+		// 先拿到已持久化的实体
+		// entity.getSchoolId()要自己修改成对应的获取主键的方法
 		RoomArea perEntity = this.get(entity.getId());
-        Boolean isLeaf = perEntity.getLeaf();
-        //将entity中不为空的字段动态加入到perEntity中去。
-        try {
+		Boolean isLeaf = perEntity.getLeaf();
+		// 将entity中不为空的字段动态加入到perEntity中去。
+		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-        perEntity.setUpdateTime(new Date()); //设置修改时间
-        perEntity.setUpdateUser(operator); //设置修改人的中文名
-        perEntity.setLeaf(isLeaf);
-        perEntity = this.merge(perEntity);//执行修改方法
+		perEntity.setUpdateTime(new Date()); // 设置修改时间
+		perEntity.setUpdateUser(operator); // 设置修改人的中文名
+		perEntity.setLeaf(isLeaf);
+		perEntity = this.merge(perEntity);// 执行修改方法
 
-        return perEntity;
+		return perEntity;
 	}
 }

@@ -28,6 +28,7 @@ import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -44,57 +45,63 @@ import com.zd.core.util.BeanUtils;
 @Service
 @Transactional
 public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> implements OfficeAllotService {
+	
+	@Resource(name = "OfficeAllotDao") // 将具体的dao注入进来
+	public void setDao(BaseDao<OfficeAllot> dao) {
+		super.setDao(dao);
+	}
+	
 	@Resource
 	OfficeDefineService offRoomService; // 办公室service层接口
+	
 	@Resource
 	RoomInfoService infoService;// 房间
+	
 	@Resource
 	PushInfoService pushService; // 推送
+	
 	@Resource
 	MjUserRightService mjService; // 门禁权限
+	
 	@Resource
 	TermService ptTermService; // 设备表接口
-	
-	/* @Resource
-	 JwClassRoomAllotService classservice;*/
-	
-	 @Resource
-	 DormDefineService dormDefine;
-	
-	 @Resource
-	 ClassDormAllotService classDormService;
 
-	 @Resource(name = "OfficeAllotDao") // 将具体的dao注入进来
-		public void setDao(BaseDao<OfficeAllot> dao) {
-			super.setDao(dao);
-		}
+	/*
+	 * @Resource JwClassRoomAllotService classservice;
+	 */
+
+	@Resource
+	DormDefineService dormDefine;
+
+	@Resource
+	ClassDormAllotService classDormService;
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	/**
-	 * uuid：需要进行设置门禁权限的学生ID或教师ID；
-	 * roomId：需要设置门禁的房间id；
-	 * userId：需要取消门禁权限的学生ID或教师ID；
-	 * dorm：在学生宿舍分配门禁使用，通过它来找到roomId；
-	 * classStu：班级学生，暂时不设置，已经取消了班级的方式。
+	 * uuid：需要进行设置门禁权限的学生ID或教师ID； roomId：需要设置门禁的房间id； userId：需要取消门禁权限的学生ID或教师ID；
+	 * dorm：在学生宿舍分配门禁使用，通过它来找到roomId； classStu：班级学生，暂时不设置，已经取消了班级的方式。
 	 */
 	@Override
-	public boolean mjUserRight(String uuid, String roomId, String userId, StudentDorm dorm,
-			ClassStudent classStu) {
+	public boolean mjUserRight(String uuid, String roomId, String userId, StudentDorm dorm, ClassStudent classStu) {
 		try {
-			if (dorm != null) {//学生宿舍门禁分配
-				String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); //班级宿舍id
+			if (dorm != null) {// 学生宿舍门禁分配
+				String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); // 班级宿舍id
 				roomId = dormDefine.get(dormId).getRoomId();
-			} else if (classStu != null) { //班级的教师分配门禁 #目前还未增加教师分配该模块
-				//String[] propName = { "claiId", "isDelete" };
-				//Object[] propValue = { classStu.getClaiId(), 0 };
-				//roomId = classservice.getByProerties(propName, propValue).getRoomId();
+			} else if (classStu != null) { // 班级的教师分配门禁 #目前还未增加教师分配该模块
+				// String[] propName = { "claiId", "isDelete" };
+				// Object[] propValue = { classStu.getClaiId(), 0 };
+				// roomId = classservice.getByProerties(propName,
+				// propValue).getRoomId();
 			}
 			String[] propName = { "termTypeId", "isDelete", "roomId" };
 			Object[] propValue = { "4", 0, roomId };
 			MjUserRight userRight = null;
-			List<Term> list = ptTermService.queryByProerties(propName, propValue);//该房间是否有设备
+			List<Term> list = ptTermService.queryByProerties(propName, propValue);// 该房间是否有设备
 			if (uuid == null || uuid.equals("")) {
-				if (list.size() > 0) {//解除门禁权限
-					String[] uId = userId.split(","); //房间分配解除门禁设置
+				if (list.size() > 0) {// 解除门禁权限
+					String[] uId = userId.split(","); // 房间分配解除门禁设置
 					for (int i = 0; i < list.size(); i++) {
 						for (int j = 0; j < uId.length; j++) {
 							String[] name = { "termId", "userId" };
@@ -110,12 +117,12 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 						}
 					}
 				}
-			} else {//增加门禁权限
+			} else {// 增加门禁权限
 				if (list.size() > 0) {
 					for (int i = 0; i < list.size(); i++) {
 						String[] name = { "termId", "userId" };
 						String[] value = { list.get(i).getId(), uuid };
-						userRight = mjService.getByProerties(name, value);//该学生或教师是否已经被分配了该房间的设备
+						userRight = mjService.getByProerties(name, value);// 该学生或教师是否已经被分配了该房间的设备
 						if (userRight != null) {
 							userRight.setIsDelete(0);
 							userRight.setUpdateTime(new Date());
@@ -125,6 +132,8 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 							userRight.setTermId(list.get(i).getId());
 							userRight.setCreateUser("超级管理员");
 							userRight.setUserId(uuid);
+							
+							userRight.setId(keyRedisService.getId(MjUserRight.ModuleType));	//手动设置id
 							mjService.merge(userRight);
 						}
 					}
@@ -136,8 +145,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			return false;
 		}
 	}
-	
-	
+
 	@Override
 	public Boolean doAddRoom(OfficeAllot entity, Map hashMap, User currentUser)
 			throws IllegalAccessException, InvocationTargetException {
@@ -147,16 +155,16 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 		OfficeAllot perEntity = null;
 		OfficeAllot valioff = null;
 		String[] strId = null;// 多个老师id
-		StringBuffer xm =new StringBuffer();
-		StringBuffer roomName =new StringBuffer();
+		StringBuffer xm = new StringBuffer();
+		StringBuffer roomName = new StringBuffer();
 		strId = entity.getTeacherId().split(",");// 多个老师id
 		for (int i = 0; i < strId.length; i++) {
 			Object[] objValue = { entity.getRoomId(), strId[i], 0 };
 			String[] objName = { "roomId", "teacherId", "isDelete" };
 			valioff = this.getByProerties(objName, objValue);
 			if (valioff != null) {
-				xm.append(valioff.getName()+',');
-				roomName.append(valioff.getRoomName()+',');
+				xm.append(valioff.getName() + ',');
+				roomName.append(valioff.getRoomName() + ',');
 				flag = false;
 				hashMap.put("flag", flag);
 				continue;
@@ -168,21 +176,21 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			entity.setCreateUser(currentUser.getId()); // 创建人
 			entity.setTeacherId(strId[i]);
 			entity.setOrderIndex(orderIndex);// 排序
-			this.merge(entity); // 执行添加方法
 			
-			qxflag=this.mjUserRight(strId[i], entity.getRoomId(), entity.getId(), null, null);
-			/*if(!qxflag){ 
-				flag = false;
-				hashMap.put("flag", flag);
-				hashMap.put("qx", "qx");
-				continue;
-			}*/
-			//将办公室设置为已分配
-			String hql=" from OfficeDefine a where a.roomId='"+entity.getRoomId()+"' ";
-			OfficeDefine office=this.getEntityByHql(hql);
-			if(office!=null){
+			entity.setId(keyRedisService.getId(OfficeAllot.ModuleType));	//手动设置id
+			this.merge(entity); // 执行添加方法
+
+			qxflag = this.mjUserRight(strId[i], entity.getRoomId(), entity.getId(), null, null);
+			/*
+			 * if(!qxflag){ flag = false; hashMap.put("flag", flag);
+			 * hashMap.put("qx", "qx"); continue; }
+			 */
+			// 将办公室设置为已分配
+			String hql = " from OfficeDefine a where a.roomId='" + entity.getRoomId() + "' ";
+			OfficeDefine office = this.getEntityByHql(hql);
+			if (office != null) {
 				office.setIsAllot(true);
-				offRoomService.merge(office); 
+				offRoomService.merge(office);
 			}
 			flag = true;
 		}
@@ -193,14 +201,14 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 
 	@Override
 	public Boolean doPushMessage(String roomId) {
-		Boolean flag=false;
+		Boolean flag = false;
 		List<OfficeAllot> offTeas = null;
 		PushInfo pushInfo = null;
 		RoomInfo roominfo = null;
 		String[] str = { "roomId", "isDelete" };
 		Object[] str2 = { roomId, 0 };
-		offTeas = this.queryByProerties(str, str2);//该办公室下的老师
-	    for (OfficeAllot jwTOfficeAllot : offTeas) {
+		offTeas = this.queryByProerties(str, str2);// 该办公室下的老师
+		for (OfficeAllot jwTOfficeAllot : offTeas) {
 			pushInfo = new PushInfo();
 			pushInfo.setEmpleeName(jwTOfficeAllot.getName());// 姓名
 			pushInfo.setEmpleeNo(jwTOfficeAllot.getUserNumb());// 学号
@@ -211,64 +219,60 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			roominfo = infoService.get(jwTOfficeAllot.getRoomId());
 			pushInfo.setRegStatus(pushInfo.getEmpleeName() + "您好，你的办公室分配在" + roominfo.getAreaUpName() + "，"
 					+ roominfo.getAreaName() + "，" + jwTOfficeAllot.getRoomName() + "房");
+			
+			pushInfo.setId(keyRedisService.getId(PushInfo.ModuleType));	//手动设置id
 			pushService.merge(pushInfo);
 		}
-		flag=true;
+		flag = true;
 		return flag;
 	}
 
 	@Override
-	public Boolean doDeleteOff(String delIds,String roomId,String tteacId) {
-		OfficeAllot offAllot = null ;
-		Boolean flag =false;
+	public Boolean doDeleteOff(String delIds, String roomId, String tteacId) {
+		OfficeAllot offAllot = null;
+		Boolean flag = false;
 		String offRoomId = "";
 		String[] delId = delIds.split(",");
 		for (String id : delId) {
 			offAllot = this.get(id);
-			offRoomId += offAllot.getRoomId()+',';
+			offRoomId += offAllot.getRoomId() + ',';
 			this.mjUserRight(null, offAllot.getRoomId(), offAllot.getTeacherId(), null, null);
-			flag = this.deleteByPK(id);	
-	    }
+			flag = this.deleteByPK(id);
+		}
 		return flag;
-  }
+	}
+
 	@Override
 	public void doOffSetOff(String roomIds) {
 		String[] roomId = roomIds.split(",");
-		OfficeDefine office =null;
-		String sql="";
-		//List list =new ArrayList<>();
-	    for (String officeRoomId : roomId) {
-	    	sql = "select count(*) from T_PT_OfficeAllot a join T_PT_OfficeDefine b  "
-					+ " on  a.roomId = b.roomId "
-					+ " where a.isDelete=0 and b.isDelete=0 and b.roomId='"
-					+ officeRoomId + "'";
-			
+		OfficeDefine office = null;
+		String sql = "";
+		// List list =new ArrayList<>();
+		for (String officeRoomId : roomId) {
+			sql = "select count(*) from T_PT_OfficeAllot a join T_PT_OfficeDefine b  " + " on  a.roomId = b.roomId "
+					+ " where a.isDelete=0 and b.isDelete=0 and b.roomId='" + officeRoomId + "'";
+
 			Integer count = this.getQueryCountBySql(sql);
-			if(count==0){	
+			if (count == 0) {
 				office = offRoomService.get(officeRoomId);
-				if (office.getIsAllot()==true) {
+				if (office.getIsAllot() == true) {
 					office.setIsAllot(false);
 					office.setUpdateTime(new Date());
-					offRoomService.merge(office);			
+					offRoomService.merge(office);
 				}
 			}
 			/*
-			sql="select a.ROOM_ID ,b.OFFICE_ID from JW_T_OFFICEALLOT a right join BUILD_T_OFFICEDEFINE b  on  a.ROOM_ID = b.ROOM_ID where b.ROOM_ID='"+officeRoomId+"'";
-			list = this.querySql(sql);
-			for(int j=0; j<list.size();j++){
-				Object[] object= (Object[]) list.get(j);
-				if(object[0]==null){
-					String dormId= (String) object[1];
-					office = offRoomService.get(dormId);
-					if(office.getRoomStatus().equals("1")){
-						office.setRoomStatus("0");
-						office.setUpdateTime(new Date());
-						offRoomService.merge(office);
-					}
-					
-				}
-			}
-			*/
-	    }
+			 * sql="select a.ROOM_ID ,b.OFFICE_ID from JW_T_OFFICEALLOT a right join BUILD_T_OFFICEDEFINE b  on  a.ROOM_ID = b.ROOM_ID where b.ROOM_ID='"
+			 * +officeRoomId+"'"; list = this.querySql(sql); for(int j=0;
+			 * j<list.size();j++){ Object[] object= (Object[]) list.get(j);
+			 * if(object[0]==null){ String dormId= (String) object[1]; office =
+			 * offRoomService.get(dormId);
+			 * if(office.getRoomStatus().equals("1")){
+			 * office.setRoomStatus("0"); office.setUpdateTime(new Date());
+			 * offRoomService.merge(office); }
+			 * 
+			 * } }
+			 */
+		}
 	}
 }

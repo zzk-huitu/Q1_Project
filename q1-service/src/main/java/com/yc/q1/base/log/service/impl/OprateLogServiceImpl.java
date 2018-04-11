@@ -14,6 +14,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.yc.q1.base.log.model.OprateLog;
 import com.yc.q1.base.log.service.OprateLogService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -28,6 +29,9 @@ public class OprateLogServiceImpl extends BaseServiceImpl<OprateLog> implements 
 
 	@Resource
 	private RedisTemplate<String, OprateLog> redisTemplate;
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	private static Logger logger = Logger.getLogger(OprateLogServiceImpl.class);
 
@@ -43,6 +47,7 @@ public class OprateLogServiceImpl extends BaseServiceImpl<OprateLog> implements 
 				s = lists.get(i);
 				// s.setUuid(UUID.randomUUID().toString());
 				// s.setVersion(0);
+				s.setId(keyRedisService.getId(OprateLog.ModuleType));	//手动设置id
 				this.persist(s);
 
 				if ((i + 1) % 50 == 0) { // 每50条数据，入一次库

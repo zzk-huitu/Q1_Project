@@ -20,6 +20,7 @@ import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
@@ -55,6 +56,9 @@ public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo>
 
 	@Resource
 	private UserDeptJobService userDeptJobService;
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -130,6 +134,7 @@ public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo>
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 
 		// 持久化到数据库
+		saveEntity.setId(keyRedisService.getId(StudentBaseInfo.ModuleType));	//手动设置id
 		entity = this.merge(saveEntity);
 
 		String userIds = entity.getId();

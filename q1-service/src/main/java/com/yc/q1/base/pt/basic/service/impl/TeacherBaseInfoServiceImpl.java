@@ -21,6 +21,7 @@ import com.yc.q1.base.pt.system.service.JobService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.dao.BaseDao;
@@ -60,6 +61,9 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 
 	@Resource
 	private UserDeptJobService userDeptJobService;
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public QueryResult<TeacherBaseInfo> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
@@ -378,6 +382,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 
 		// 持久化到数据库
+		saveEntity.setId(keyRedisService.getId(TeacherBaseInfo.ModuleType));	//手动设置id
 		entity = this.merge(saveEntity);
 
 		String userIds = entity.getId();

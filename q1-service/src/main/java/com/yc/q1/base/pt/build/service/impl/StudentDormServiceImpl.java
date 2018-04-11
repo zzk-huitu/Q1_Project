@@ -25,7 +25,6 @@ import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.basic.service.PushInfoService;
 import com.yc.q1.base.pt.basic.service.StudentBaseInfoService;
-import com.yc.q1.base.pt.build.dao.StudentDormDao;
 import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.StudentDorm;
@@ -38,6 +37,7 @@ import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.pojo.StandVClassStudent;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -67,13 +67,16 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	
 	@Resource
 	private CommTreeService commTreeService;
+	
 	@Resource
 	private GradeClassService gradeClassService; // 班级
+	
 	@Resource
 	private DormDefineService dormDefineService;// 宿舍定义
 
 	@Resource
 	private OfficeAllotService roomaAllotService;// 房间分配 办公室
+	
 	@Resource
 	private ClassDormAllotService classDormService;
 	// 班级宿舍
@@ -82,12 +85,18 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 */
 	@Resource
 	private StudentBaseInfoService stuBaseinfoService;// 学生
+	
 	@Resource
 	private RoomAreaService roomAreaService;// 区域
+	
 	@Resource
 	private PushInfoService pushService; // 推送
+	
 	@Resource
 	private DepartmentService orgService; // 推送
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 	
 	/**
 	 * 获取用户有权限的部门班级树
@@ -904,6 +913,8 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 					dormStudentDorm.setInTime(new Date());
 					dormStudentDorm.setStudentId(stuList.get(0).getUserId());
 					stuList.remove(0);
+					
+					dormStudentDorm.setId(keyRedisService.getId(StudentDorm.ModuleType));	//手动设置id
 					dorm = this.merge(dormStudentDorm);
 
 					roomaAllotService.mjUserRight(dorm.getStudentId(), null, null, dorm, null);
@@ -940,6 +951,8 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 						dormStudentDorm.setInTime(new Date());
 						dormStudentDorm.setStudentId(stuList.get(0).getUserId());
 						stuList.remove(0);
+						
+						dormStudentDorm.setId(keyRedisService.getId(StudentDorm.ModuleType));	//手动设置id
 						dorm = this.merge(dormStudentDorm);
 
 						roomaAllotService.mjUserRight(dorm.getStudentId(), null, null, dorm, null);
@@ -977,6 +990,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		if (flag) {
 			dormDefEntity.setIsMixed(true);// 设置为混合宿舍
 		}
+//		dormDefEntity.setId(keyRedisService.getId(DormDefine.ModuleType));	//手动设置id
 		dormDefineService.merge(dormDefEntity);
 	}
 
@@ -993,6 +1007,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		studentDorm.setCreateUser(userCh);
 		studentDorm.setInTime(new Date());// 设置入住时间
 
+		studentDorm.setId(keyRedisService.getId(StudentDorm.ModuleType));	//手动设置id
 		studentDorm = this.merge(studentDorm);
 	}
 
@@ -1159,6 +1174,8 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 			jwTClassdorm.setDormId(dormIdArray[i]);
 			jwTClassdorm.setIsMixed(false);	//非混合宿舍
 			jwTClassdorm.setCreateUser(currentUser.getId());
+			
+			jwTClassdorm.setId(keyRedisService.getId(ClassDormAllot.ModuleType));	//手动设置id
 			classDormService.merge(jwTClassdorm); //持久化		
 		}
 		

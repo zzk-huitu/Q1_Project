@@ -14,6 +14,7 @@ import com.yc.q1.base.pt.basic.service.ClassStudentService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;
@@ -42,6 +43,7 @@ public class ClassStudentServiceImpl extends BaseServiceImpl<ClassStudent> imple
 
 	@Resource
 	private DepartmentService orgService;
+	
 	@Resource
 	private GradeClassService classService;
 

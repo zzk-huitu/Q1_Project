@@ -11,12 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.dao.InfoTerminalDao;
 import com.yc.q1.base.pt.basic.model.InfoTerminal;
 import com.yc.q1.base.pt.basic.model.InfoTerminalHistory;
 import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.basic.service.InfoTerminalHistoryService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -38,6 +38,8 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> implements InfoTerminalService {
 
+	private static Logger logger = Logger.getLogger(InfoTerminalServiceImpl.class);
+	
 	@Resource(name = "InfoTerminalDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<InfoTerminal> dao) {
 		super.setDao(dao);
@@ -45,8 +47,9 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 
 	@Resource
 	private InfoTerminalHistoryService useHistoryService;
-
-	private static Logger logger = Logger.getLogger(InfoTerminalServiceImpl.class);
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public QueryResult<InfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
@@ -141,6 +144,7 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 			saveEntity.setTerminalNo(StringUtils.addString(newNumber.toString(), "0", 6, "L"));
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 
+			saveEntity.setId(keyRedisService.getId(InfoTerminal.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
 			newNumber++;
 		}
@@ -203,7 +207,8 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 			useHistory.setRoomId(roomId);
 			useHistory.setRoomName(roomName);
 			useHistory.setCreateUser(currentUser.getId());
-
+			
+			useHistory.setId(keyRedisService.getId(InfoTerminalHistory.ModuleType));	//手动设置id
 			useHistoryService.persist(useHistory);
 		}
 		// 若上面处理失败，自动跳转到异常处理程序，中断此方法代码运行

@@ -13,6 +13,7 @@ import com.yc.q1.base.pt.build.model.OfficeDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.OfficeDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -29,6 +30,7 @@ import com.zd.core.util.BeanUtils;
 @Service
 @Transactional
 public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> implements OfficeDefineService {
+
 	@Resource(name = "OfficeDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<OfficeDefine> dao) {
 		super.setDao(dao);
@@ -36,6 +38,9 @@ public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> imple
 
 	@Resource
 	private RoomInfoService thisService; // service层接口
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public OfficeDefine getByRoomId(String roomId) {
@@ -61,6 +66,8 @@ public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> imple
 		offRoom.setUpdateUser(userCh); // 创建人的中文名
 		offRoom.setCreateTime(new Date());
 		offRoom.setOrderIndex(orderIndex);// 排序
+		
+		offRoom.setId(keyRedisService.getId(OfficeDefine.ModuleType));	//手动设置id
 		this.merge(offRoom); // 执行添加方法
 
 		roomInfo = thisService.get(id);

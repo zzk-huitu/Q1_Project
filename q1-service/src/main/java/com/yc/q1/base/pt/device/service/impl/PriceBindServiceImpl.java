@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.device.dao.PriceBindDao;
 import com.yc.q1.base.pt.device.model.PriceBind;
 import com.yc.q1.base.pt.device.service.PriceBindService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -27,6 +28,10 @@ public class PriceBindServiceImpl extends BaseServiceImpl<PriceBind> implements 
 	public void setDao(BaseDao<PriceBind> dao) {
 		super.setDao(dao);
 	}
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
+	
 	@Override
 	public void doPriceBind(String[] termId, String[] termSn, String meterId, String xm) {
 		// TODO Auto-generated method stub
@@ -47,6 +52,7 @@ public class PriceBindServiceImpl extends BaseServiceImpl<PriceBind> implements 
 				perEntity.setTermSn(termSn[i]);
 				perEntity.setCreateUser(xm);
 				perEntity.setCreateTime(date);
+				perEntity.setId(keyRedisService.getId(PriceBind.ModuleType));	//手动设置id
 				this.merge(perEntity);
 			}
 		}

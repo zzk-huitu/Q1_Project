@@ -10,11 +10,11 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.dao.CalenderDetailDao;
 import com.yc.q1.base.pt.basic.model.Calender;
 import com.yc.q1.base.pt.basic.model.CalenderDetail;
 import com.yc.q1.base.pt.basic.service.CalenderDetailService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -33,12 +33,15 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> implements CalenderDetailService {
 
+	private static Logger logger = Logger.getLogger(CalenderDetailServiceImpl.class);
+	
 	@Resource(name = "CalenderDetailDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<CalenderDetail> dao) {
 		super.setDao(dao);
 	}
-
-	private static Logger logger = Logger.getLogger(CalenderDetailServiceImpl.class);
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public List<CalenderDetail> queryJwTCanderdetailByJwTCander(Calender jtc) {
@@ -53,7 +56,6 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 
 	@Override
 	public CalenderDetail doUpdateEntity(CalenderDetail entity, User currentUser) {
-
 		CalenderDetail perEntity = this.get(entity.getId());
 
 		try {
@@ -80,11 +82,11 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 			// 如果界面有了排序号的输入，则不需要取默认的了
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			entity.setOrderIndex(orderIndex);// 排序
-
 			// 增加时要设置创建人
 			entity.setCreateUser(currentUser.getId()); // 创建人
 
 			// 持久化到数据库
+			entity.setId(keyRedisService.getId(CalenderDetail.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {

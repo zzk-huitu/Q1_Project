@@ -15,6 +15,8 @@ import com.yc.q1.base.pt.basic.dao.InfoTerminalHistoryDao;
 import com.yc.q1.base.pt.basic.model.InfoTerminalHistory;
 import com.yc.q1.base.pt.basic.service.InfoTerminalHistoryService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -34,13 +36,15 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminalHistory>
 		implements InfoTerminalHistoryService {
+	private static Logger logger = Logger.getLogger(InfoTerminalHistoryServiceImpl.class);
 
 	@Resource(name = "InfoTerminalHistoryDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<InfoTerminalHistory> dao) {
 		super.setDao(dao);
 	}
 
-	private static Logger logger = Logger.getLogger(InfoTerminalHistoryServiceImpl.class);
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public QueryResult<InfoTerminalHistory> list(Integer start, Integer limit, String sort, String filter,
@@ -120,8 +124,10 @@ public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminal
 			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
-			entity = this.merge(saveEntity);// 执行修改方法
-
+			
+			//持久化到数据库
+			entity.setId(keyRedisService.getId(InfoTerminalHistory.ModuleType));	//手动设置id
+			entity = this.merge(saveEntity);
 			return entity;
 		} catch (IllegalAccessException e) {
 			logger.error(e.getMessage());

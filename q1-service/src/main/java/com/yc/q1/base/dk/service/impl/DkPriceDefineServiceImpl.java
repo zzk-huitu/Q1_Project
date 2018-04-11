@@ -9,10 +9,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.dk.dao.DkPriceDefineDao;
 import com.yc.q1.base.dk.model.DkPriceDefine;
 import com.yc.q1.base.dk.service.DkPriceDefineService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -31,6 +31,9 @@ public class DkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine> imp
 	public void setDao(BaseDao<DkPriceDefine> dao) {
 		super.setDao(dao);
 	}
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	private static Logger logger = Logger.getLogger(DkPriceDefineServiceImpl.class);
 
@@ -43,7 +46,9 @@ public class DkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine> imp
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
+			
 			// 持久化到数据库
+			entity.setId(keyRedisService.getId(DkPriceDefine.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			entity.setPriceValue(priceValue);
 			return entity;

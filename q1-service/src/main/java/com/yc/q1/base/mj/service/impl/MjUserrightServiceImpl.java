@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.mj.model.MjUserRight;
 import com.yc.q1.base.mj.service.MjUserRightService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -38,6 +39,9 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 		super.setDao(dao);
 	}
 
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
+
 	@Override
 	public MjUserRight doAddEntity(MjUserRight entity, User currentUser) {
 		try {
@@ -47,6 +51,7 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			// 持久化到数据库
+			entity.setId(keyRedisService.getId(MjUserRight.ModuleType)); // 手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -85,6 +90,8 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 					mjUserright.setTermId(termIds[j]);
 					mjUserright.setCreateUser(currentUser.getId());
 					mjUserright.setCreateTime(new Date());
+					mjUserright.setId(keyRedisService.getId(MjUserRight.ModuleType));	//手动设置id
+
 				}
 				this.merge(mjUserright);
 			}

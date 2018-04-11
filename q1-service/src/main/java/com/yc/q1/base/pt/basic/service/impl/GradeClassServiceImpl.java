@@ -14,6 +14,7 @@ import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;
@@ -42,11 +43,10 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 
 	@Resource
 	private GradeService gradeService;
-
-
-
+	
 	@Resource
 	private ClassTeacherService classTTeaService;
+
 
 	/**
 	 * 根据班级ID得到年级对象
@@ -83,20 +83,21 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 		ExtDataFilter selfFilter = new ExtDataFilter();
 		String propName[] = { "studyYear", "semester", "teacherId", "isDelete" };
 		Object[] propValue = { studyYear, smester, currentUser.getId(), 0 };
-		
-		//（zzk:新版本中取消了年级组长概念）当前人是否年级组长,如果是年级组长则取年级下的所有班级
-//		List<JwGradeteacher> gt = gradeTeaService.queryByProerties(propName, propValue);
-//		for (JwGradeteacher jgt : gt) {
-//			sb.append(jgt.getGraiId() + ",");
-//		}
-//		if (sb.length() > 0) {
-//			sb.deleteCharAt(sb.length() - 1);
-//			String st = sb.toString();
-//			List<JwTGradeclass> gcList = this.queryByProerties("graiId", st);
-//			for (JwTGradeclass gc : gcList) {
-//				sbClass.append(gc.getId() + ",");
-//			}
-//		}
+
+		// （zzk:新版本中取消了年级组长概念）当前人是否年级组长,如果是年级组长则取年级下的所有班级
+		// List<JwGradeteacher> gt = gradeTeaService.queryByProerties(propName,
+		// propValue);
+		// for (JwGradeteacher jgt : gt) {
+		// sb.append(jgt.getGraiId() + ",");
+		// }
+		// if (sb.length() > 0) {
+		// sb.deleteCharAt(sb.length() - 1);
+		// String st = sb.toString();
+		// List<JwTGradeclass> gcList = this.queryByProerties("graiId", st);
+		// for (JwTGradeclass gc : gcList) {
+		// sbClass.append(gc.getId() + ",");
+		// }
+		// }
 		// 当前人是否班主任，如是则取所在的班级
 		List<ClassTeacher> jct = classTTeaService.queryByProerties(propName, propValue);
 		if (jct.size() > 0) {
@@ -162,8 +163,7 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 			}
 			break;
 		case "3": // 查询班级
-			queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + claiId
-					+ "\",\"field\":\"id\"}]";
+			queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + claiId + "\",\"field\":\"id\"}]";
 			break;
 		}
 		QueryResult<GradeClass> qr = this.getGradeClassList(start, limit, sort, queryFilter, true, currentUser);

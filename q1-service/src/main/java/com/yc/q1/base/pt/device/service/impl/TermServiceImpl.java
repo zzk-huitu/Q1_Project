@@ -11,12 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.dao.TermDao;
 import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.pt.pojo.CommBase;
 import com.yc.q1.base.pt.pojo.TLVModel;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -32,6 +32,9 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 	public void setDao(BaseDao<Term> dao) {
 		super.setDao(dao);
 	}
+
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	// 已废弃
 	@Override
@@ -64,7 +67,9 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
+			
 			// 持久化到数据库
+			entity.setId(keyRedisService.getId(Term.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {

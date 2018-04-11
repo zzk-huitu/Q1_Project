@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.card.model.Task;
 import com.yc.q1.base.pt.card.service.TaskService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -28,11 +29,15 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskService{
 
+	private static Logger logger = Logger.getLogger(TaskServiceImpl.class);
+	
 	@Resource(name = "TaskDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<Task> dao) {
 		super.setDao(dao);
 	}
-	private static Logger logger = Logger.getLogger(TaskServiceImpl.class);
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 	
 	@Override
 	public QueryResult<Task> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
@@ -124,8 +129,9 @@ public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskServic
 			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
+			
+			saveEntity.setId(keyRedisService.getId(Task.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
-
 			return entity;
 		} catch (IllegalAccessException e) {
 			logger.error(e.getMessage());

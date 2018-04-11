@@ -13,7 +13,6 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.build.dao.RoomInfoDao;
 import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.ClassRoomDefineService;
@@ -22,6 +21,7 @@ import com.yc.q1.base.pt.build.service.FuncRoomDefineService;
 import com.yc.q1.base.pt.build.service.OfficeDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
@@ -47,14 +47,26 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
     
 	@Resource
 	private ClassRoomDefineService classRoomService;// 教室service层接口
+	
 	@Resource
 	private DormDefineService dormRoomService; // 宿舍service层接口
+	
 	@Resource
 	private OfficeDefineService offRoomService; // 办公室service层接口
+	
 	@Resource
 	private FuncRoomDefineService funRoomService; // 功能室service层接口
 	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
+	/**
+     * 批量添加房间信息
+     * @param roominfo 房间信息实体
+     * @param currentUser 当前操作用户
+     * @return
+     * 
+     */
     public Boolean doBatchAddRoom(RoomInfo roominfo, User currentUser) {
         String benginChar = roominfo.getRoomCode();
         Integer roomCount = roominfo.getRoomCount();
@@ -78,7 +90,8 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
             saveRoom.setAreaId(areaId);
             saveRoom.setRoomType(roomType);
             saveRoom.setCreateUser(createUser);
-
+            
+            saveRoom.setId(keyRedisService.getId(RoomInfo.ModuleType));	//手动设置id
             this.merge(saveRoom);
         }
         return true;       

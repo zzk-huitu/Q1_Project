@@ -14,6 +14,7 @@ import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -37,6 +38,9 @@ public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implement
 
 	@Resource
 	private RoomInfoService thisService; // service层接口
+
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public DormDefine getByRoomId(String roomId) {
@@ -82,6 +86,7 @@ public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implement
 		roomInfo.setRoomName(entity.getRoomName());
 		roomInfo.setRoomType("1");// 设置房间类型 1.宿舍
 		// roomInfo.setAreaStatu(1);// 设置为已分配
+		
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -94,6 +99,8 @@ public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implement
 		dormRoom.setCreateUser(userCh); // 创建人
 		dormRoom.setUpdateUser(userCh); // 创建人的中文名
 		dormRoom.setOrderIndex(orderIndex);// 排序
+		
+		dormRoom.setId(keyRedisService.getId(DormDefine.ModuleType));	//手动设置id
 		this.merge(dormRoom); // 执行添加方法
 
 	}

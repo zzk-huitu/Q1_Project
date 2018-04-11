@@ -21,6 +21,7 @@ import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -53,6 +54,9 @@ public class CampusServiceImpl extends BaseServiceImpl<Campus> implements Campus
 	@Resource
 	private DeptRedisService deptRedisService;
 
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
+
 	@Override
 	public Campus doAdd(Campus entity, User currentUser) throws IllegalAccessException, InvocationTargetException {
 		// 增加区域表的数据
@@ -61,8 +65,9 @@ public class CampusServiceImpl extends BaseServiceImpl<Campus> implements Campus
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		BeanUtils.copyProperties(saveEntity, entity, excludedProp);
-
 		saveEntity.setCreateUser(currentUser.getId());
+		
+		saveEntity.setId(keyRedisService.getId(Campus.ModuleType));	//手动设置id
 		this.merge(saveEntity);
 
 		// 增加到建筑物的区域

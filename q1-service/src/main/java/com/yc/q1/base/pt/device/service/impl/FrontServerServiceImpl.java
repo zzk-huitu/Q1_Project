@@ -8,10 +8,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.dao.FrontServerDao;
 import com.yc.q1.base.pt.device.model.FrontServer;
 import com.yc.q1.base.pt.device.service.FrontServerService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -26,12 +26,15 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class FrontServerServiceImpl extends BaseServiceImpl<FrontServer> implements FrontServerService {
 
+	private static Logger logger = Logger.getLogger(FrontServerServiceImpl.class);
+	
 	@Resource(name = "FrontServerDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<FrontServer> dao) {
 		super.setDao(dao);
 	}
 
-	private static Logger logger = Logger.getLogger(FrontServerServiceImpl.class);
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public FrontServer doUpdateEntity(FrontServer entity, User currentUser) {
@@ -65,7 +68,9 @@ public class FrontServerServiceImpl extends BaseServiceImpl<FrontServer> impleme
 			// perEntity.setPriceValue(entity.getPriceValue());
 			// perEntity.setPriceStatus(entity.getPriceStatus());
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
+			
 			// 持久化到数据库
+			entity.setId(keyRedisService.getId(FrontServer.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {

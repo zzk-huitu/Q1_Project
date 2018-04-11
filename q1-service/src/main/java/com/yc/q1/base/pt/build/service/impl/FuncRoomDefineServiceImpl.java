@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.build.dao.FuncRoomDefineDao;
 import com.yc.q1.base.pt.build.model.FuncRoomDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.FuncRoomDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -29,8 +29,7 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
-		implements FuncRoomDefineService {
+public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine> implements FuncRoomDefineService {
 
 	@Resource(name = "FuncRoomDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<FuncRoomDefine> dao) {
@@ -39,6 +38,9 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
 
 	@Resource
 	private RoomInfoService thisService; // service层接口
+
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public FuncRoomDefine getByRoomId(String roomId) {
@@ -53,7 +55,8 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
 	}
 
 	@Override
-	public void addFunRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+	public void addFunRoom(RoomInfo entity, String id, String userCh)
+			throws IllegalAccessException, InvocationTargetException {
 		RoomInfo roomInfo = null;
 		FuncRoomDefine funRoom = null;// 功能室定义
 		funRoom = new FuncRoomDefine();
@@ -65,6 +68,8 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
 		funRoom.setCreateUser(userCh); // 创建人
 		funRoom.setUpdateUser(userCh); // 创建人的中文名
 		funRoom.setOrderIndex(orderIndex);// 排序
+
+		entity.setId(keyRedisService.getId(FuncRoomDefine.ModuleType)); // 手动设置id
 		this.merge(funRoom); // 执行添加方法
 
 		roomInfo = thisService.get(id);
@@ -72,7 +77,7 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(userCh);
 		roomInfo.setRoomType("5");// 设置房间类型 5、功能室
-//		roomInfo.setAreaStatu("1");// 设置为已分配
+		// roomInfo.setAreaStatu("1");// 设置为已分配
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -80,22 +85,22 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine>
 
 	@Override
 	public Boolean delFunRoom(RoomInfo roomInfo, String delId, String xm) {
-		Boolean flag=false;
+		Boolean flag = false;
 		FuncRoomDefine funRoom = null;// 功能室定义
 		funRoom = this.getByRoomId(delId);
-		
+
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(xm);
 		roomInfo.setRoomType("0");// 设置房间类型为空
-//		roomInfo.setAreaStatu("0");// 设置房间状态为未分配
+		// roomInfo.setAreaStatu("0");// 设置房间状态为未分配
 		roomInfo.setRoomName(roomInfo.getRoomCode());
 		thisService.merge(roomInfo);
-		
+
 		this.delete(funRoom);
-		/*funRoom.setIsDelete(1);
-		funRoom.setUpdateTime(new Date());
-		funRoom.setUpdateUser(xm);
-		this.merge(funRoom);*/
+		/*
+		 * funRoom.setIsDelete(1); funRoom.setUpdateTime(new Date());
+		 * funRoom.setUpdateUser(xm); this.merge(funRoom);
+		 */
 		return true;
 	}
 

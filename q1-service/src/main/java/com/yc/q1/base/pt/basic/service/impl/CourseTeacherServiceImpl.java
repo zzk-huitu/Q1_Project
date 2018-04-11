@@ -29,6 +29,7 @@ import com.yc.q1.base.pt.system.service.DeptJobService;
 import com.yc.q1.base.pt.system.service.JobService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
@@ -50,7 +51,7 @@ import com.zd.core.util.StringUtils;
 @Service
 @Transactional
 public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> implements CourseTeacherService {
-	
+
 	@Resource(name = "CourseTeacherDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<CourseTeacher> dao) {
 		super.setDao(dao);
@@ -58,10 +59,10 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 
 	@Resource
 	private JobService jobService;
-	
+
 	@Resource
 	private DeptJobService deptJobService;
-	
+
 	@Resource
 	private UserDeptJobService userDeptJobService;
 
@@ -82,6 +83,9 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	/**
 	 * 
@@ -122,6 +126,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 			// 增加时要设置创建人
 			addTeacher.setCreateUser(currentUser.getId()); // 创建人
 			// 持久化到数据库
+			addTeacher.setId(keyRedisService.getId(CourseTeacher.ModuleType));	//手动设置id
 			this.merge(addTeacher);
 
 			// 根据设置的班级和课程来处理教师所在的部门
@@ -146,6 +151,8 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 						userdeptjob.setJobId(job.getId());
 						userdeptjob.setDeptJobId(deptjob.getId());
 						userdeptjob.setIsMainDept(false);
+						
+						userdeptjob.setId(keyRedisService.getId(UserDeptJob.ModuleType));//手动设置id
 						userDeptJobService.merge(userdeptjob);
 
 						user.setUpdateTime(new Date());
@@ -459,6 +466,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 			userdeptjob2.setJobId(job.getId());
 			userdeptjob2.setDeptJobId(jct.getId());
 			userdeptjob2.setIsMainDept(false);
+			userdeptjob2.setId(keyRedisService.getId(UserDeptJob.ModuleType));	//手动设置id
 			userDeptJobService.merge(userdeptjob2);
 
 			// 清除这个用户的部门树缓存，以至于下次读取时更新缓存

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -32,12 +33,15 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> implements FuncRoomCourseService {
 
+	private static Logger logger = Logger.getLogger(FuncRoomCourseServiceImpl.class);
+
 	@Resource(name = "FuncRoomCourseDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<FuncRoomCourse> dao) {
 		super.setDao(dao);
 	}
-
-	private static Logger logger = Logger.getLogger(FuncRoomCourseServiceImpl.class);
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public QueryResult<FuncRoomCourse> list(Integer start, Integer limit, String sort, String filter,
@@ -127,6 +131,8 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 			}
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
+			
+			entity.setId(keyRedisService.getId(FuncRoomCourse.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -138,31 +144,43 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 		}
 	}
 
+	/**
+	 * 批量增加功能室课程
+	 * 
+	 * @param funcRoomCourseList
+	 *            传入的要更新的实体对象集合
+	 * @param currentUser
+	 *            当前操作用户
+	 * @return
+	 */
 	@Override
-	public Integer doAddEntityList(List<FuncRoomCourse> funcRoomCourseList, User currentUser) throws IllegalAccessException, InvocationTargetException {
-		Integer count=0;
-		
+	public Integer doAddEntityList(List<FuncRoomCourse> funcRoomCourseList, User currentUser)
+			throws IllegalAccessException, InvocationTargetException {
+		Integer count = 0;
+
 		FuncRoomCourse saveEntity;
-		for(int i=0;i<funcRoomCourseList.size();i++){
-			
-			FuncRoomCourse entity=funcRoomCourseList.get(i);
-			
+		for (int i = 0; i < funcRoomCourseList.size(); i++) {
+
+			FuncRoomCourse entity = funcRoomCourseList.get(i);
+
 			String[] propName = { "funcRoomId", "sections", "isDelete" };
 			Object[] propValue = { entity.getFuncRoomId(), entity.getSections(), 0 };
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
 				saveEntity = new FuncRoomCourse();
-			}else{
+			} else {
 				entity.setId(null);
-			}			
+			}
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
-			entity = this.merge(saveEntity);// 执行修改方法
 			
+			entity.setId(keyRedisService.getId(FuncRoomCourse.ModuleType));	//手动设置id
+			entity = this.merge(saveEntity);// 执行修改方法
+
 			count++;
 		}
 		return count;
-		
+
 	}
 }

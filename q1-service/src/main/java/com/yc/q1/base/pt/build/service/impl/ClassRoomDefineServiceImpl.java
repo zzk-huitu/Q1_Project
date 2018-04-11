@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.build.dao.ClassRoomDefineDao;
 import com.yc.q1.base.pt.build.model.ClassRoomDefine;
 import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.ClassRoomDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -28,8 +28,7 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
-		implements ClassRoomDefineService {
+public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine> implements ClassRoomDefineService {
 
 	@Resource(name = "ClassRoomDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<ClassRoomDefine> dao) {
@@ -38,6 +37,9 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 
 	@Resource
 	private RoomInfoService thisService; // service层接口
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public ClassRoomDefine getByRoomId(String roomId) {
@@ -50,7 +52,8 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 	}
 
 	@Override
-	public void addClassRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException {
+	public void addClassRoom(RoomInfo entity, String id, String userCh)
+			throws IllegalAccessException, InvocationTargetException {
 		RoomInfo roomInfo = null;
 		ClassRoomDefine classRoom = null;// 教室定义
 		roomInfo = thisService.get(id);
@@ -58,7 +61,7 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 		roomInfo.setUpdateUser(userCh);
 		roomInfo.setRoomName(entity.getRoomName());
 		roomInfo.setRoomType("3");// 设置房间类型 3.教室
-//		roomInfo.setAreaStatu("1");// 设置为已分配
+		// roomInfo.setAreaStatu("1");// 设置为已分配
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
@@ -71,28 +74,29 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 		classRoom.setCreateUser(userCh); // 创建人
 		classRoom.setUpdateUser(userCh); // 创建人的中文名
 		classRoom.setOrderIndex(orderIndex);// 排序
+		
+		classRoom.setId(keyRedisService.getId(ClassRoomDefine.ModuleType));	//手动设置id
 		this.merge(classRoom); // 执行添加方法
 
 	}
 
 	@Override
-	public Boolean delClassRoom(RoomInfo roomInfo, String delId, String xm){
-		Boolean flag=false;
+	public Boolean delClassRoom(RoomInfo roomInfo, String delId, String xm) {
 		ClassRoomDefine classRoom = null;// 教室定义
 		classRoom = this.getByRoomId(delId);
 
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(xm);
 		roomInfo.setRoomType("0");// 设置房间类型为空
-//		roomInfo.setAreaStatu("0");// 设置房间状态为未分配
+		// roomInfo.setAreaStatu("0");// 设置房间状态为未分配
 		roomInfo.setRoomName(roomInfo.getRoomCode());
 		thisService.merge(roomInfo);
 
 		this.delete(classRoom);
-		/*classRoom.setIsDelete(1);
-		classRoom.setUpdateTime(new Date());
-		classRoom.setUpdateUser(xm);
-		this.merge(classRoom);*/
+		/*
+		 * classRoom.setIsDelete(1); classRoom.setUpdateTime(new Date());
+		 * classRoom.setUpdateUser(xm); this.merge(classRoom);
+		 */
 		return true;
 	}
 

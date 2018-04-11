@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.dao.IrDeviceBrandDao;
 import com.yc.q1.base.pt.device.model.IrDeviceBrand;
 import com.yc.q1.base.pt.device.service.IrDeviceBrandService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -40,6 +40,9 @@ public class IrDeviceBrandServiceImpl extends BaseServiceImpl<IrDeviceBrand> imp
 
 	private static Logger logger = Logger.getLogger(IrDeviceBrandServiceImpl.class);
 
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
+
 	@Override
 	public IrDeviceBrand doAddEntity(IrDeviceBrand entity, User currentUser) {
 		IrDeviceBrand saveEntity = new IrDeviceBrand();
@@ -53,10 +56,9 @@ public class IrDeviceBrandServiceImpl extends BaseServiceImpl<IrDeviceBrand> imp
 			e.printStackTrace();
 		}
 		saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
+		entity.setId(keyRedisService.getId(IrDeviceBrand.ModuleType));	//手动设置id
 		entity = this.merge(saveEntity);// 执行修改方法
-
 		return entity;
-
 	}
 
 	@Override

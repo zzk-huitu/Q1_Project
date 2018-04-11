@@ -13,6 +13,7 @@ import com.yc.q1.base.pt.basic.model.Calender;
 import com.yc.q1.base.pt.basic.model.Grade;
 import com.yc.q1.base.pt.basic.service.CalenderService;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -31,12 +32,15 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements CalenderService {
 
+	private static Logger logger = Logger.getLogger(CalenderServiceImpl.class);
+
 	@Resource(name = "CalenderDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<Calender> dao) {
 		super.setDao(dao);
 	}
-
-	private static Logger logger = Logger.getLogger(CalenderServiceImpl.class);
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public Calender findJwTcanderByClaiId(Grade jtg) {
@@ -64,7 +68,6 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 
 	@Override
 	public Calender doUpdateEntity(Calender entity, User currentUser) {
-
 		Calender perEntity = this.get(entity.getId());
 
 		try {
@@ -95,10 +98,10 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 
 			// 增加时要设置创建人
 			entity.setCreateUser(currentUser.getId()); // 创建人
-
 			entity.setActivityState(false);
 
 			// 持久化到数据库
+			entity.setId(keyRedisService.getId(Calender.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {
