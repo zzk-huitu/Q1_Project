@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.base.pt.wisdomclass.model.ClassStar;
+import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
 import com.zd.core.dao.BaseDao;
 
 

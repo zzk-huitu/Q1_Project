@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.DormDefineDao;
-import com.yc.q1.base.pt.build.model.DormDefine;
+import com.yc.q1.model.base.pt.build.DormDefine;
 import com.zd.core.dao.BaseDaoImpl;
 
 

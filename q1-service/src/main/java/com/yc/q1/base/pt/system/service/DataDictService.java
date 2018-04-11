@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.List;
 
-import com.yc.q1.base.pt.pojo.DataDictTree;
-import com.yc.q1.base.pt.system.model.DataDict;
+import com.yc.q1.model.base.pt.system.DataDict;
+import com.yc.q1.pojo.base.pt.DataDictTree;
 import com.zd.core.service.BaseService;
 
 

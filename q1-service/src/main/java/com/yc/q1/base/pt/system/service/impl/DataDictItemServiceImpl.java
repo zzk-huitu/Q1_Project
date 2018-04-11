@@ -6,13 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.dao.DataDictItemDao;
-import com.yc.q1.base.pt.system.model.AppInfo;
-import com.yc.q1.base.pt.system.model.DataDict;
-import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.service.DataDictService;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.yc.q1.base.redis.service.DicItemRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.system.AppInfo;
+import com.yc.q1.model.base.pt.system.DataDict;
+import com.yc.q1.model.base.pt.system.DataDictItem;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;

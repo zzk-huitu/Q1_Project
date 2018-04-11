@@ -4,7 +4,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.MenuPermissionDao;
-import com.yc.q1.base.pt.system.model.MenuPermission;
+import com.yc.q1.model.base.pt.system.MenuPermission;
 import com.zd.core.dao.BaseDaoImpl;
 
 

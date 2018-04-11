@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yc.q1.base.app.pojo.RoomInfoApp;
-import com.yc.q1.base.pt.basic.model.InfoTerminal;
 import com.yc.q1.base.pt.basic.service.InfoTerminalService;
-import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
+import com.yc.q1.model.base.pt.basic.InfoTerminal;
+import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.pojo.base.app.RoomInfoApp;
 
 @Controller
 @RequestMapping("/app/RoomInfo")

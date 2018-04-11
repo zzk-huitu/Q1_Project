@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.base.pt.basic.model.CalenderDetail;
+import com.yc.q1.model.base.pt.basic.CalenderDetail;
 import com.zd.core.dao.BaseDao;
 
 

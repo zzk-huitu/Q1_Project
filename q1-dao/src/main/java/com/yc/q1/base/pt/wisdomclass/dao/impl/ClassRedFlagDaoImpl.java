@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.ClassRedFlagDao;
-import com.yc.q1.base.pt.wisdomclass.model.ClassRedFlag;
+import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
 import com.zd.core.dao.BaseDaoImpl;
 
 

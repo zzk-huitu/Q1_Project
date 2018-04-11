@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.sk.model.SkMeter;
 import com.yc.q1.base.sk.service.SkMeterService;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.sk.SkMeter;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

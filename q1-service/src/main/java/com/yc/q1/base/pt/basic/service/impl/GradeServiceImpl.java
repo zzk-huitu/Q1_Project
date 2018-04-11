@@ -5,10 +5,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.model.Grade;
 import com.yc.q1.base.pt.basic.service.GradeService;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.JobService;
+import com.yc.q1.model.base.pt.basic.Grade;
+import com.yc.q1.model.base.pt.system.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;

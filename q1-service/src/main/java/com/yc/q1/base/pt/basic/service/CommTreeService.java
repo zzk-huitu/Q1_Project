@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.basic.service;
 
 import java.util.List;
 
-import com.yc.q1.base.pt.pojo.CommTree;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.model.BaseEntity;
 import com.zd.core.service.BaseService;
 

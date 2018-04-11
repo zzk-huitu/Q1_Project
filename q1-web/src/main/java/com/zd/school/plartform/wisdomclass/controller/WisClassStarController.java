@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.model.ClassStar;
 import com.yc.q1.base.pt.wisdomclass.service.ClassStarService;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;

@@ -10,10 +10,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.build.model.RoomArea;
 import com.yc.q1.base.pt.build.service.RoomAreaService;
-import com.yc.q1.base.pt.pojo.RoomAreaTree;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.build.RoomArea;
+import com.yc.q1.pojo.base.pt.RoomAreaTree;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;

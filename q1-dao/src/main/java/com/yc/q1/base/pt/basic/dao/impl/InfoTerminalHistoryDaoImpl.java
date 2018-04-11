@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.InfoTerminalHistoryDao;
-import com.yc.q1.base.pt.basic.model.InfoTerminalHistory;
+import com.yc.q1.model.base.pt.basic.InfoTerminalHistory;
 import com.zd.core.dao.BaseDaoImpl;
 
 

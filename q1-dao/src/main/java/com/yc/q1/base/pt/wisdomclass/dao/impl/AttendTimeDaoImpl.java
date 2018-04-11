@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttendTimeDao;
-import com.yc.q1.base.pt.wisdomclass.model.AttendTime;
+import com.yc.q1.model.base.pt.wisdomclass.AttendTime;
 import com.zd.core.dao.BaseDaoImpl;
 
 

@@ -2,9 +2,9 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.List;
 
-import com.yc.q1.base.pt.pojo.DpetJobTree;
-import com.yc.q1.base.pt.system.model.DeptJob;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.system.DeptJob;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.DpetJobTree;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

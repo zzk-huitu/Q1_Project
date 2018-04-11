@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.RoomAreaDao;
-import com.yc.q1.base.pt.build.model.RoomArea;
+import com.yc.q1.model.base.pt.build.RoomArea;
 import com.zd.core.dao.BaseDaoImpl;
 
 

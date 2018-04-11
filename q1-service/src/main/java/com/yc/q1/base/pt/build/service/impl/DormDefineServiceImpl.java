@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.build.dao.DormDefineDao;
-import com.yc.q1.base.pt.build.model.DormDefine;
-import com.yc.q1.base.pt.build.model.RoomInfo;
 import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.build.DormDefine;
+import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

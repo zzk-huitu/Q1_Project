@@ -11,12 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.device.service.TermService;
-import com.yc.q1.base.pt.pojo.CommBase;
-import com.yc.q1.base.pt.pojo.TLVModel;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.device.Term;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.CommBase;
+import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

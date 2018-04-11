@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.base.pt.basic.model.GradeClass;
+import com.yc.q1.model.base.pt.basic.GradeClass;
 import com.zd.core.dao.BaseDao;
 
 /**

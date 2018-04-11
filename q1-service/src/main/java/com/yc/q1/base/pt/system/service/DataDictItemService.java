@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.base.pt.system.model.DataDictItem;
+import com.yc.q1.model.base.pt.system.DataDictItem;
 import com.zd.core.service.BaseService;
 
 

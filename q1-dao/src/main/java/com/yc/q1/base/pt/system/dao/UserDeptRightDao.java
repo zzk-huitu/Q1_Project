@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.base.pt.system.model.UserDeptRight;
+import com.yc.q1.model.base.pt.system.UserDeptRight;
 import com.zd.core.dao.BaseDao;
 
 /**

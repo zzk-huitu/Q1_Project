@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.pojo.MenuTree;
-import com.yc.q1.base.pt.system.model.Menu;
-import com.yc.q1.base.pt.system.model.Permission;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.MenuService;
 import com.yc.q1.base.pt.system.service.PermissionService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.model.base.pt.system.Menu;
+import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.MenuTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

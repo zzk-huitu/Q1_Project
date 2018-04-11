@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.system.model.MenuPermission;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.MenuPermissionService;
+import com.yc.q1.model.base.pt.system.MenuPermission;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

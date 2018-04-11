@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.Map;
 
-import com.yc.q1.base.pt.system.model.Role;
+import com.yc.q1.model.base.pt.system.Role;
 import com.zd.core.service.BaseService;
 
 /**

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.build.dao.ClassDormAllotDao;
-import com.yc.q1.base.pt.build.model.ClassDormAllot;
 import com.yc.q1.base.pt.build.service.ClassDormAllotService;
+import com.yc.q1.model.base.pt.build.ClassDormAllot;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 

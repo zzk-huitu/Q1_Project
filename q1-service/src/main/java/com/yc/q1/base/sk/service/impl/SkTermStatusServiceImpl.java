@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.base.sk.model.SkTermStatus;
 import com.yc.q1.base.sk.service.SkTermStatusService;
+import com.yc.q1.model.storage.sk.SkTermStatus;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 

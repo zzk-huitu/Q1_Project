@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.model.Term;
-import com.yc.q1.base.pt.device.model.TermBag;
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.device.Term;
+import com.yc.q1.model.base.pt.device.TermBag;
 import com.yc.q1.base.pt.device.service.TermBagService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;

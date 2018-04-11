@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.yc.q1.base.pt.build.model.RoomInfo;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.service.BaseService;
 
 

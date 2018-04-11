@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yc.q1.base.pt.basic.model.Campus;
-import com.yc.q1.base.pt.basic.model.School;
 import com.yc.q1.base.pt.basic.service.CampusService;
-import com.yc.q1.base.pt.build.model.DormDefine;
 import com.yc.q1.base.pt.build.service.RoomAreaService;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.basic.Campus;
+import com.yc.q1.model.base.pt.basic.School;
+import com.yc.q1.model.base.pt.build.DormDefine;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

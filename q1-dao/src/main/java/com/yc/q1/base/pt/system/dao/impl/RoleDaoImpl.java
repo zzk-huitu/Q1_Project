@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.RoleDao;
-import com.yc.q1.base.pt.system.model.Role;
+import com.yc.q1.model.base.pt.system.Role;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**

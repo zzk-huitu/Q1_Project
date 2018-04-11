@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.base.pt.system.model.Menu;
+import com.yc.q1.model.base.pt.system.Menu;
 import com.zd.core.dao.BaseDao;
 
 

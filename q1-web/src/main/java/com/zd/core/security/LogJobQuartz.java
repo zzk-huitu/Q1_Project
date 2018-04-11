@@ -9,8 +9,8 @@ import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yc.q1.base.log.model.OprateLog;
 import com.yc.q1.base.log.service.OprateLogService;
+import com.yc.q1.model.storage.log.OprateLog;
 
 //@Component(value="LogJobQuartz")
 public class LogJobQuartz {

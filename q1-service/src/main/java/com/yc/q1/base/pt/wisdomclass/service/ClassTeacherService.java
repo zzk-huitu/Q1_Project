@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.wisdomclass.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
 import com.zd.core.service.BaseService;
 
 /**

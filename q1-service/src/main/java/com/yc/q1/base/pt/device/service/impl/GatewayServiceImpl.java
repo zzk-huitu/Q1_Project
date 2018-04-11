@@ -11,11 +11,11 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.device.model.Gateway;
 import com.yc.q1.base.pt.device.service.GatewayService;
-import com.yc.q1.base.pt.pojo.TLVModel;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.device.Gateway;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

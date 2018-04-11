@@ -7,14 +7,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.model.Grade;
-import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.service.GradeService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.basic.Grade;
+import com.yc.q1.model.base.pt.basic.GradeClass;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;

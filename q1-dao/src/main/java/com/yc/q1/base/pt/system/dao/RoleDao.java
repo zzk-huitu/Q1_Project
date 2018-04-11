@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.base.pt.system.model.Role;
+import com.yc.q1.model.base.pt.system.Role;
 import com.zd.core.dao.BaseDao;
 
 /**

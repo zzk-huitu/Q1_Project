@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.basic.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

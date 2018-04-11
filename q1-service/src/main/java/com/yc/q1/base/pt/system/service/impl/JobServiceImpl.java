@@ -8,9 +8,9 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.yc.q1.base.pt.system.dao.JobDao;
-import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.service.JobService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.system.Job;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

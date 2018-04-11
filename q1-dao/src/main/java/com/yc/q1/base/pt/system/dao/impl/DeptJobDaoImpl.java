@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.DeptJobDao;
-import com.yc.q1.base.pt.system.model.DeptJob;
+import com.yc.q1.model.base.pt.system.DeptJob;
 import com.zd.core.dao.BaseDaoImpl;
 
 

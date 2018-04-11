@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.base.pt.system.model.AppInfo;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.system.AppInfo;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

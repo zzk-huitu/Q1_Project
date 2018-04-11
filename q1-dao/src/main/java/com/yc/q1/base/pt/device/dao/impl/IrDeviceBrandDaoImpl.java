@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.device.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.device.dao.IrDeviceBrandDao;
-import com.yc.q1.base.pt.device.model.IrDeviceBrand;
+import com.yc.q1.model.base.pt.device.IrDeviceBrand;
 import com.zd.core.dao.BaseDaoImpl;
 
 

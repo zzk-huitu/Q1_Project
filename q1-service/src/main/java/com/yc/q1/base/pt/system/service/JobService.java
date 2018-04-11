@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.base.pt.system.model.Job;
+import com.yc.q1.model.base.pt.system.Job;
 import com.zd.core.service.BaseService;
 
 

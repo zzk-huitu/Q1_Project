@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.base.pt.wisdomclass.model.AttendUser;
+import com.yc.q1.model.base.pt.wisdomclass.AttendUser;
 import com.zd.core.dao.BaseDao;
 
 

@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.device.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.device.dao.PriceBindDao;
-import com.yc.q1.base.pt.device.model.PriceBind;
+import com.yc.q1.model.base.pt.device.PriceBind;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**

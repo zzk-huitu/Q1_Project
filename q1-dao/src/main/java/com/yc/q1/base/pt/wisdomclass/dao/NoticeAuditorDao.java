@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.base.pt.wisdomclass.model.NoticeAuditor;
+import com.yc.q1.model.base.pt.wisdomclass.NoticeAuditor;
 import com.zd.core.dao.BaseDao;
 
 

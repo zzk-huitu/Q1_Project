@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.build.service;
 
 
-import com.yc.q1.base.pt.build.model.ClassDormAllot;
+import com.yc.q1.model.base.pt.build.ClassDormAllot;
 import com.zd.core.service.BaseService;
 
 

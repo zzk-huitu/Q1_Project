@@ -1,6 +1,6 @@
 package com.yc.q1.base.sk.service;
 
-import com.yc.q1.base.sk.model.SkMeterBind;
+import com.yc.q1.model.base.sk.SkMeterBind;
 import com.zd.core.service.BaseService;
 
 /**

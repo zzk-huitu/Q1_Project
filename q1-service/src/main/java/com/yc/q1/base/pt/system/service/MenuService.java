@@ -3,9 +3,9 @@ package com.yc.q1.base.pt.system.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.yc.q1.base.pt.pojo.MenuTree;
-import com.yc.q1.base.pt.system.model.Menu;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.system.Menu;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.MenuTree;
 import com.zd.core.service.BaseService;
 
 /**

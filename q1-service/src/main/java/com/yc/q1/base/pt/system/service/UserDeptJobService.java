@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.system.service;
 import java.util.List;
 import java.util.Map;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.system.model.UserDeptJob;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.UserDeptJob;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

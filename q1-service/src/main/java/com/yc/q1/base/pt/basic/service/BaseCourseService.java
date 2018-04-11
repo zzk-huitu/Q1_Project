@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.base.pt.basic.model.BaseCourse;
+import com.yc.q1.model.base.pt.basic.BaseCourse;
 import com.zd.core.service.BaseService;
 
 /**

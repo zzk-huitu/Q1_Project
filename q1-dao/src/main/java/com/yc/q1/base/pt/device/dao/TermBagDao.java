@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.dao;
 
-import com.yc.q1.base.pt.device.model.TermBag;
+import com.yc.q1.model.base.pt.device.TermBag;
 import com.zd.core.dao.BaseDao;
 
 /**

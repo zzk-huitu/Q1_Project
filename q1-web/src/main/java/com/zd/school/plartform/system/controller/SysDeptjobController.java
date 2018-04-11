@@ -14,10 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.pojo.DpetJobTree;
-import com.yc.q1.base.pt.system.model.DeptJob;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DeptJobService;
+import com.yc.q1.model.base.pt.system.DeptJob;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.DpetJobTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.TreeVeriable;

@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.model.PushInfo;
 import com.yc.q1.base.pt.basic.service.PushInfoService;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.basic.PushInfo;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.service.BaseService;
 import com.zd.core.util.CustomDateEditor;

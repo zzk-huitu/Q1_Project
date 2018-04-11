@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.base.pt.device.model.PriceBind;
+import com.yc.q1.model.base.pt.device.PriceBind;
 import com.zd.core.service.BaseService;
 
 /**

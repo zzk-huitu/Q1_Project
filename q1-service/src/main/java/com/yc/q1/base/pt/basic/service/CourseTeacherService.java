@@ -2,9 +2,9 @@ package com.yc.q1.base.pt.basic.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.base.pt.basic.model.CourseTeacher;
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.basic.CourseTeacher;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

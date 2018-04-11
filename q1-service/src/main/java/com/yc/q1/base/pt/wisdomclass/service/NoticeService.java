@@ -1,8 +1,8 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.model.Notice;
-import com.yc.q1.base.pt.wisdomclass.model.NoticeOther;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.Notice;
+import com.yc.q1.model.base.pt.wisdomclass.NoticeOther;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

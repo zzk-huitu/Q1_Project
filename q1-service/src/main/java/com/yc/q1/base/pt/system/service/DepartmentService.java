@@ -15,10 +15,10 @@ import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.pojo.DepartmentTree;
-import com.yc.q1.base.pt.system.model.Department;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.system.Department;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.pojo.base.pt.DepartmentTree;
 import com.zd.core.service.BaseService;
 
 /**

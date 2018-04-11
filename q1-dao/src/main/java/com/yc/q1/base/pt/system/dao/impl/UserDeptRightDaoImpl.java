@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.UserDeptRightDao;
-import com.yc.q1.base.pt.system.model.UserDeptRight;
+import com.yc.q1.model.base.pt.system.UserDeptRight;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**

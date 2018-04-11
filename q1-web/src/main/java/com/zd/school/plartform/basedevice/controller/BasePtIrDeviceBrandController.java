@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.build.model.StudentDorm;
-import com.yc.q1.base.pt.device.model.IrDeviceBrand;
 import com.yc.q1.base.pt.device.service.IrDeviceBrandService;
 import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.build.StudentDorm;
+import com.yc.q1.model.base.pt.device.IrDeviceBrand;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

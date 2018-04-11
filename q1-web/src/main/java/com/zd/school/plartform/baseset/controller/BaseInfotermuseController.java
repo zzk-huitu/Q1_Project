@@ -13,9 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.basic.model.InfoTerminalHistory;
 import com.yc.q1.base.pt.basic.service.InfoTerminalHistoryService;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.basic.InfoTerminalHistory;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;

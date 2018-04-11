@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.base.xf.model.RoomBagRuleBind;
 import com.yc.q1.base.xf.service.RoomBagRuleBindService;
+import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;

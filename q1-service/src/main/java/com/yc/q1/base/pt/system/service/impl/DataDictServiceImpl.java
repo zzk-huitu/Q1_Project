@@ -9,11 +9,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.pojo.DataDictTree;
 import com.yc.q1.base.pt.system.dao.DataDictDao;
-import com.yc.q1.base.pt.system.model.DataDict;
 import com.yc.q1.base.pt.system.service.DataDictService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.system.DataDict;
+import com.yc.q1.pojo.base.pt.DataDictTree;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;

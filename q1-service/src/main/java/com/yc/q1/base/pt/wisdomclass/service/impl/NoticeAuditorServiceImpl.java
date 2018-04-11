@@ -11,12 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.model.Notice;
-import com.yc.q1.base.pt.wisdomclass.model.NoticeAuditor;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeAuditorService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.Notice;
+import com.yc.q1.model.base.pt.wisdomclass.NoticeAuditor;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;

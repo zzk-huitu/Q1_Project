@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.basic.model.School;
 import com.yc.q1.base.pt.basic.service.SchoolService;
-import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.service.DepartmentService;
+import com.yc.q1.model.base.pt.basic.School;
+import com.yc.q1.model.base.pt.system.Department;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

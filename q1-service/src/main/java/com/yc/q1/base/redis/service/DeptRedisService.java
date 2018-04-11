@@ -2,8 +2,8 @@ package com.yc.q1.base.redis.service;
 
 import java.util.List;
 
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.pojo.DepartmentTree;
+import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.pojo.base.pt.DepartmentTree;
 
 public interface DeptRedisService {
 	

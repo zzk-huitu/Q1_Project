@@ -1,6 +1,6 @@
 package com.yc.q1.base.xf.dao;
 
-import com.yc.q1.base.xf.model.RoomBagRule;
+import com.yc.q1.model.base.pt.device.RoomBagRule;
 import com.zd.core.dao.BaseDao;
 
 /**

@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 

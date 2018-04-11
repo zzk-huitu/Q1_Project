@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.base.pt.basic.model.InfoTerminalHistory;
+import com.yc.q1.model.base.pt.basic.InfoTerminalHistory;
 import com.zd.core.dao.BaseDao;
 
 

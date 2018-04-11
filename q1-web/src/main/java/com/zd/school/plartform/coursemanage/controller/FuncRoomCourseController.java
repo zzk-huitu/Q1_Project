@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yc.q1.base.pt.basic.model.CourseArrange;
-import com.yc.q1.base.pt.basic.model.FuncRoomCourse;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.basic.service.CourseArrangeService;
 import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.basic.CourseArrange;
+import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

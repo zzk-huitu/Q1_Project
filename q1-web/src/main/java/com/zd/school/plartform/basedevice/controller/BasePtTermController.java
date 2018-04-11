@@ -19,12 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.build.service.OfficeAllotService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
-import com.yc.q1.base.pt.device.model.Term;
 import com.yc.q1.base.pt.device.service.TermService;
-import com.yc.q1.base.pt.pojo.TLVModel;
-import com.yc.q1.base.pt.system.model.DataDictItem;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
+import com.yc.q1.model.base.pt.device.Term;
+import com.yc.q1.model.base.pt.system.DataDictItem;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.ClassStarDao;
-import com.yc.q1.base.pt.wisdomclass.model.ClassStar;
+import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
 import com.zd.core.dao.BaseDaoImpl;
 
 

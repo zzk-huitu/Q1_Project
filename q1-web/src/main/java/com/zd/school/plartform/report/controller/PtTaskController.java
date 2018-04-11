@@ -18,13 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.card.model.Task;
 import com.yc.q1.base.pt.card.service.TaskService;
-import com.yc.q1.base.pt.pojo.TLVModel;
-import com.yc.q1.base.pt.system.model.DataDictItem;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
-import com.yc.q1.base.sk.model.SkTermStatus;
+import com.yc.q1.model.base.pt.card.Task;
+import com.yc.q1.model.base.pt.system.DataDictItem;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.storage.sk.SkTermStatus;
+import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;

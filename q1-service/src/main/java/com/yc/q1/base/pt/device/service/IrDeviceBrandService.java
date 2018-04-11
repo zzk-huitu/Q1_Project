@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.base.pt.device.model.IrDeviceBrand;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.device.IrDeviceBrand;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.service.BaseService;
 
 

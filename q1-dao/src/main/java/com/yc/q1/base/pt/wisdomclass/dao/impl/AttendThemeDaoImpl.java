@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttendThemeDao;
-import com.yc.q1.base.pt.wisdomclass.model.AttendTheme;
+import com.yc.q1.model.base.pt.wisdomclass.AttendTheme;
 import com.zd.core.dao.BaseDaoImpl;
 
 

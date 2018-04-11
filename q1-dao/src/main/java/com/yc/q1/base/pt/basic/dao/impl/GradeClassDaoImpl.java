@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.GradeClassDao;
-import com.yc.q1.base.pt.basic.model.GradeClass;
+import com.yc.q1.model.base.pt.basic.GradeClass;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**

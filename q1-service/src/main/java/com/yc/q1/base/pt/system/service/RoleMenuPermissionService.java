@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.List;
 
-import com.yc.q1.base.pt.system.model.Permission;
-import com.yc.q1.base.pt.system.model.RoleMenuPermission;
+import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.RoleMenuPermission;
 import com.zd.core.service.BaseService;
 
 

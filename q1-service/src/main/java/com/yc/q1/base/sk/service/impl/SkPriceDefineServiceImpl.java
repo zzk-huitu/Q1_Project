@@ -8,11 +8,11 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.base.sk.model.SkMeter;
-import com.yc.q1.base.sk.model.SkPriceDefine;
 import com.yc.q1.base.sk.service.SkPriceDefineService;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.sk.SkMeter;
+import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

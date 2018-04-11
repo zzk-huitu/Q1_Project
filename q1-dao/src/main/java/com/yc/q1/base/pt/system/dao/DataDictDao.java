@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.base.pt.system.model.DataDict;
+import com.yc.q1.model.base.pt.system.DataDict;
 import com.zd.core.dao.BaseDao;
 
 

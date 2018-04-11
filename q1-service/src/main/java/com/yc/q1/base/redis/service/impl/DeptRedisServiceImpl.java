@@ -8,9 +8,9 @@ import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.pojo.DepartmentTree;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.pojo.base.pt.DepartmentTree;
 
 @Service
 public class DeptRedisServiceImpl implements DeptRedisService{

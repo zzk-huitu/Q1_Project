@@ -2,9 +2,9 @@ package com.yc.q1.base.pt.device.service;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.yc.q1.base.pt.device.model.Gateway;
-import com.yc.q1.base.pt.pojo.TLVModel;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.device.Gateway;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.service.BaseService;
 
 /**

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.dao.CommTreeDao;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.pojo.CommBase;
-import com.yc.q1.base.pt.pojo.CommTree;
+import com.yc.q1.pojo.base.pt.CommBase;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.BaseEntity;

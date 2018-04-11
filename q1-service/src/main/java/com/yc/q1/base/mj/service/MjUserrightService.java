@@ -1,7 +1,7 @@
 package com.yc.q1.base.mj.service;
 
-import com.yc.q1.base.mj.model.MjUserRight;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.mj.MjUserRight;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.service.BaseService;
 
 

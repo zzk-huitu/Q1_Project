@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.build.dao;
 
-import com.yc.q1.base.pt.build.model.RoomArea;
+import com.yc.q1.model.base.pt.build.RoomArea;
 import com.zd.core.dao.BaseDao;
 
 

@@ -7,9 +7,9 @@ import java.util.Set;
 
 import org.apache.shiro.session.Session;
 
-import com.yc.q1.base.pt.system.model.Department;
-import com.yc.q1.base.pt.system.model.Permission;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.system.Department;
+import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;

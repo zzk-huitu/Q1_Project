@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.dao.ClassStudentDao;
-import com.yc.q1.base.pt.basic.model.ClassStudent;
-import com.yc.q1.base.pt.basic.model.GradeClass;
 import com.yc.q1.base.pt.basic.service.ClassStudentService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.basic.ClassStudent;
+import com.yc.q1.model.base.pt.basic.GradeClass;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;

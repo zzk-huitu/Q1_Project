@@ -1,9 +1,9 @@
 	package com.zd.school.plartform.baseset.controller;
 
-import com.yc.q1.base.pt.build.model.RoomArea;
 import com.yc.q1.base.pt.build.service.RoomAreaService;
-import com.yc.q1.base.pt.pojo.RoomAreaTree;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.build.RoomArea;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.pojo.base.pt.RoomAreaTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

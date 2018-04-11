@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.build.dao;
 
-import com.yc.q1.base.pt.build.model.OfficeDefine;
+import com.yc.q1.model.base.pt.build.OfficeDefine;
 import com.zd.core.dao.BaseDao;
 
 

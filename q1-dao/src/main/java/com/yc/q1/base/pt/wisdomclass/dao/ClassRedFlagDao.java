@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.base.pt.wisdomclass.model.ClassRedFlag;
+import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
 import com.zd.core.dao.BaseDao;
 
 

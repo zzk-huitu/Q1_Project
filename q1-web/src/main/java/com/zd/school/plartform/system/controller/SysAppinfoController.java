@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.yc.q1.base.pt.system.model.AppInfo;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.AppInfoService;
+import com.yc.q1.model.base.pt.system.AppInfo;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;

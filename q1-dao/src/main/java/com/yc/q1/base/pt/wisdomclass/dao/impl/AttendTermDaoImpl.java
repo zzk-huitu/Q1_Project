@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttendTermDao;
-import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
+import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
 import com.zd.core.dao.BaseDaoImpl;
 
 

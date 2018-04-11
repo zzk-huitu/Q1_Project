@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.pojo.CommTree;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
-import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

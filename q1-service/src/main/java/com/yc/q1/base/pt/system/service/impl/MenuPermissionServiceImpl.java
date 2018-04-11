@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.dao.MenuPermissionDao;
-import com.yc.q1.base.pt.system.model.Menu;
-import com.yc.q1.base.pt.system.model.MenuPermission;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.MenuPermissionService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.model.base.pt.system.Menu;
+import com.yc.q1.model.base.pt.system.MenuPermission;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;

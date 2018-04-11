@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttenceRuleDao;
-import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
+import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
 import com.zd.core.dao.BaseDaoImpl;
 
 

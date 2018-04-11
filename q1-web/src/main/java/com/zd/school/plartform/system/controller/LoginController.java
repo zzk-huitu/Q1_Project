@@ -29,11 +29,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.yc.q1.base.log.model.UserLoginLog;
 import com.yc.q1.base.log.service.UserLoginLogService;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.storage.log.UserLoginLog;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;

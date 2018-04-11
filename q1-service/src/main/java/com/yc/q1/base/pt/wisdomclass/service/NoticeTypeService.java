@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.base.pt.wisdomclass.model.NoticeType;
+import com.yc.q1.model.base.pt.wisdomclass.NoticeType;
 import com.zd.core.service.BaseService;
 
 

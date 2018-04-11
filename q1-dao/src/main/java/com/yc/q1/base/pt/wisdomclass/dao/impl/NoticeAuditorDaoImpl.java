@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.NoticeAuditorDao;
-import com.yc.q1.base.pt.wisdomclass.model.NoticeAuditor;
+import com.yc.q1.model.base.pt.wisdomclass.NoticeAuditor;
 import com.zd.core.dao.BaseDaoImpl;
 
 

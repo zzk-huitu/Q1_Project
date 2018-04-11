@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.basic.dao;
 
 
 
-import com.yc.q1.base.pt.basic.model.CourseArrange;
+import com.yc.q1.model.base.pt.basic.CourseArrange;
 import com.zd.core.dao.BaseDao;
 
 

@@ -3,10 +3,10 @@ package com.yc.q1.base.pt.build.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import com.yc.q1.base.pt.basic.model.ClassStudent;
-import com.yc.q1.base.pt.build.model.OfficeAllot;
-import com.yc.q1.base.pt.build.model.StudentDorm;
-import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.model.base.pt.basic.ClassStudent;
+import com.yc.q1.model.base.pt.build.OfficeAllot;
+import com.yc.q1.model.base.pt.build.StudentDorm;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.service.BaseService;
 
 

@@ -18,12 +18,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.system.model.Role;
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.MenuService;
 import com.yc.q1.base.pt.system.service.RoleMenuPermissionService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.model.base.pt.system.Role;
+import com.yc.q1.model.base.pt.system.User;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

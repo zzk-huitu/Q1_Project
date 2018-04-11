@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.build.dao;
 
-import com.yc.q1.base.pt.build.model.DormDefine;
+import com.yc.q1.model.base.pt.build.DormDefine;
 import com.zd.core.dao.BaseDao;
 
 

@@ -11,13 +11,13 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.dao.AttendTermDao;
-import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
-import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.base.xf.model.RoomBagRuleBind;
+import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
+import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;

@@ -1,6 +1,6 @@
 package com.yc.q1.base.xf.service;
 
-import com.yc.q1.base.xf.model.RoomBag;
+import com.yc.q1.model.base.pt.device.RoomBag;
 import com.zd.core.service.BaseService;
 
 /**

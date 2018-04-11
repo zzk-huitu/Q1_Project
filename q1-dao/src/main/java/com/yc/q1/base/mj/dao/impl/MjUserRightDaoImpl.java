@@ -3,7 +3,7 @@ package com.yc.q1.base.mj.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.mj.dao.MjUserRightDao;
-import com.yc.q1.base.mj.model.MjUserRight;
+import com.yc.q1.model.base.mj.MjUserRight;
 import com.zd.core.dao.BaseDaoImpl;
 
 

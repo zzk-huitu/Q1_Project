@@ -11,12 +11,12 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.dao.AttenceRuleDao;
-import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
 import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.base.sk.model.SkPriceDefine;
+import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
+import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;

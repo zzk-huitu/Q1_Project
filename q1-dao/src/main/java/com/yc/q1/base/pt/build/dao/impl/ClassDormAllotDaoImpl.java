@@ -4,7 +4,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.ClassDormAllotDao;
-import com.yc.q1.base.pt.build.model.ClassDormAllot;
+import com.yc.q1.model.base.pt.build.ClassDormAllot;
 import com.zd.core.dao.BaseDaoImpl;
 
 

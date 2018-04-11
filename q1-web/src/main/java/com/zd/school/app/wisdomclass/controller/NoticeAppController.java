@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.yc.q1.base.pt.wisdomclass.model.Notice;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
+import com.yc.q1.model.base.pt.wisdomclass.Notice;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
