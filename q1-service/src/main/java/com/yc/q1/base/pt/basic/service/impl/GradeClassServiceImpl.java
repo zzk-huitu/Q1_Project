@@ -57,7 +57,7 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 	 */
 	@Override
 	public Grade findJwTGradeByClassId(String classId) {
-		GradeClass jtgClass = this.dao.getByProerties("id", classId);
+		GradeClass jtgClass = this.getByProerties("id", classId);
 		if (jtgClass == null)
 			return null;
 		Grade grade = gradeService.get(jtgClass.getGradeId());

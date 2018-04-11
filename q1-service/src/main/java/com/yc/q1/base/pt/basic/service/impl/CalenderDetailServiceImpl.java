@@ -48,7 +48,7 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 			return null;
 		StringBuffer hql = new StringBuffer(" from CalenderDetail where isDelete=0 and calenderId='");
 		hql.append(jtc.getId()).append("'");
-		return this.dao.queryByHql(hql.toString());
+		return this.queryByHql(hql.toString());
 	}
 
 	@Override

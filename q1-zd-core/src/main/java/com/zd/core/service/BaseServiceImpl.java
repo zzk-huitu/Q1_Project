@@ -36,7 +36,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
 	/**
 	 * The dao.
 	 */
-	protected BaseDao<E> dao;
+	private BaseDao<E> dao;
 	
 	@Override
 	public void setDao(BaseDao<E> dao) {

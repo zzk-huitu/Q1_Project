@@ -44,7 +44,7 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 			return null;
 		if (jtg.getSectionCode() == null || jtg.getSectionCode().trim().equals(""))
 			return null;
-		return this.dao.getByProerties("sectionCode", jtg.getSectionCode());
+		return this.getByProerties("sectionCode", jtg.getSectionCode());
 	}
 
 	@Override

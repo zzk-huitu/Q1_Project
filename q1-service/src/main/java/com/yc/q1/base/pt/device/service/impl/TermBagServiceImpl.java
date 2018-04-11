@@ -43,8 +43,8 @@ public class TermBagServiceImpl extends BaseServiceImpl<TermBag> implements Term
 		String select = "select new Map(t.uuid as termid,g.termSn as  termSn,g.termTypeId as termTypeId ,"
 				+ "		g.bagValue as bagValue,		g.totalBoughtValue as totalBoughtValue,		g.totalUsedValue as totalUsedValue,"
 				+ "		g.totalClearValue  as totalClearValue,		g.subValue as subValue,t.termName as termName ) ";
-		QueryResult<Map> qResult = this.dao.doQueryCountToHql(start, limit, sort, filter, select + hql, null, null);
-
+		QueryResult<Map> qResult = this.queryCountToHql(start, limit, sort, filter, select + hql, null, null);
+		
 		String sql = "select count(*) from T_PT_RoomBagRuleBind where roomId='" + roomId
 				+ "' and (isDelete=0 or isDelete is null)";
 		Integer bdrole = pttermService.getQueryCountBySql(sql);
