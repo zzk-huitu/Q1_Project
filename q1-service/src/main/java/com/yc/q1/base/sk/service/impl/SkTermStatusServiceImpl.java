@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.sk.model.SkTermStatus;
 import com.yc.q1.base.sk.service.SkTermStatusService;
 import com.zd.core.dao.BaseDao;
@@ -18,6 +19,8 @@ public class SkTermStatusServiceImpl extends BaseServiceImpl<SkTermStatus> imple
 	public void setDao(BaseDao<SkTermStatus> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 
 //	@Override
 //	public BaseDao<SkTermStatus> getDao() {

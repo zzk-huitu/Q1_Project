@@ -12,14 +12,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.dao.AttendThemeDao;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTheme;
 import com.yc.q1.base.pt.wisdomclass.model.AttendUser;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
-import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendThemeService;
+import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendUserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -52,6 +52,8 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	public void setDao(BaseDao<AttendTheme> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	private static Logger logger = Logger.getLogger(AttendThemeServiceImpl.class);
 	
 	@Override
@@ -130,6 +132,7 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(AttendTheme.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -149,7 +152,8 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	
 		for (int i = 0; i < userIds.length; i++) {
 			AttendUser attUser = new AttendUser();
-			attUser.setAttendThemeId(titleId);
+			attUser.setId(keyRedisService.getId(AttendUser.ModuleType));
+            attUser.setAttendThemeId(titleId);
 			attUser.setUserId(userIds[i]);
 			attUser.setName(userNames[i]);
 			attUser.setUserNumb(userNumbs[i]);
@@ -170,6 +174,7 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 		
 		for (int i = 0; i < termCodes.length; i++) {
 			AttendTerm attTerm = new AttendTerm();
+			attTerm.setId(keyRedisService.getId(AttendTerm.ModuleType));
 			attTerm.setAttendThemeId(titleId);
 			attTerm.setTerminalNo(termCodes[i]);
 			attTerm.setRoomId(roomIds[i]);

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.base.sk.model.SkMeter;
 import com.yc.q1.base.sk.model.SkPriceDefine;
 import com.yc.q1.base.sk.service.SkPriceDefineService;
 import com.zd.core.dao.BaseDao;
@@ -28,7 +30,8 @@ public class SkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine> imp
 	public void setDao(BaseDao<SkPriceDefine> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
     private static Logger logger = Logger.getLogger(SkPriceDefineServiceImpl.class);
     
     @Override
@@ -39,6 +42,7 @@ public class SkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine> imp
 			SkPriceDefine perEntity = new SkPriceDefine();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
+			perEntity.setId(keyRedisService.getId(SkPriceDefine.ModuleType));
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			// 持久化到数据库
 			entity = this.merge(entity);

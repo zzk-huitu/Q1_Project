@@ -13,8 +13,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.dao.AttendTermDao;
+import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
 import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.base.xf.model.RoomBagRuleBind;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -40,6 +43,8 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 	public void setDao(BaseDao<AttendTerm> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	private static Logger logger = Logger.getLogger(AttendTermServiceImpl.class);
 	
 	@Override
@@ -115,6 +120,7 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(AttendTerm.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -142,6 +148,7 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 				this.merge(perEntity);
 			} else {
 				perEntity = new AttendTerm();
+				perEntity.setId(keyRedisService.getId(AttendTerm.ModuleType));
 				perEntity.setAttendThemeId(titleId);
 				perEntity.setId(termIds[i]);
 			    perEntity.setCreateUser(xm);

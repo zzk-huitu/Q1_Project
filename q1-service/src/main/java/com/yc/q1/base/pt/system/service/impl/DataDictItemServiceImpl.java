@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.dao.DataDictItemDao;
+import com.yc.q1.base.pt.system.model.AppInfo;
 import com.yc.q1.base.pt.system.model.DataDict;
 import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.service.DataDictService;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.yc.q1.base.redis.service.DicItemRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -32,7 +34,8 @@ public class DataDictItemServiceImpl extends BaseServiceImpl<DataDictItem> imple
 	public void setDao(BaseDao<DataDictItem> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private DataDictService dictionaryService;
 
@@ -44,6 +47,7 @@ public class DataDictItemServiceImpl extends BaseServiceImpl<DataDictItem> imple
 		// TODO Auto-generated method stub
 
 		// 当前节点
+		entity.setId(keyRedisService.getId(DataDictItem.ModuleType));
 		entity = this.doAddEntity(entity, xm);
 
 		if (entity != null) {

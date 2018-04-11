@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.sk.model.SkMeter;
+import com.yc.q1.base.sk.model.SkMeterBind;
 import com.yc.q1.base.sk.service.SkMeterService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -26,12 +28,15 @@ public class SkMeterServiceImpl extends BaseServiceImpl<SkMeter> implements SkMe
 	public void setDao(BaseDao<SkMeter> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	
 	 @Override
 		public SkMeter doAddEntity(SkMeter entity, User currentUser) {
 			try {
 				Integer orderIndex = this.getDefaultOrderIndex(entity);
 				SkMeter perEntity = new SkMeter();
+				perEntity.setId(keyRedisService.getId(SkMeter.ModuleType));
 				perEntity.setCreateUser(currentUser.getId());
 				perEntity.setOrderIndex(orderIndex);
 				BeanUtils.copyPropertiesExceptNull(entity, perEntity);

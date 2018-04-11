@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.basic.model.ClassStudent;
 import com.yc.q1.base.pt.basic.service.ClassStudentService;
 import com.yc.q1.base.pt.system.dao.UserDeptJobDao;
+import com.yc.q1.base.pt.system.model.DataDictItem;
 import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.DeptJob;
 import com.yc.q1.base.pt.system.model.User;
@@ -24,6 +25,7 @@ import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -48,7 +50,8 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 	public void setDao(BaseDao<UserDeptJob> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private DeptRedisService deptRedisService;
 
@@ -153,6 +156,7 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 				if (userHasJobMap.get(uuid) == null) {
 					// 如果当用户还没有设置的此部门岗位
 					UserDeptJob userDeptJob = new UserDeptJob();
+					userDeptJob.setId(keyRedisService.getId(UserDeptJob.ModuleType));
 					userDeptJob.setDeptId(deptjob.getDeptId());
 					userDeptJob.setJobId(deptjob.getJobId());
 					userDeptJob.setDeptJobId(uuid);

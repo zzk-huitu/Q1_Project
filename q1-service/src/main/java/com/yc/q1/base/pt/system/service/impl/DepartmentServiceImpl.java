@@ -26,10 +26,12 @@ import com.yc.q1.base.pt.pojo.CommTree;
 import com.yc.q1.base.pt.pojo.DepartmentTree;
 import com.yc.q1.base.pt.system.dao.DepartmentDao;
 import com.yc.q1.base.pt.system.model.Department;
+import com.yc.q1.base.pt.system.model.MenuPermission;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
@@ -55,7 +57,8 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	public void setDao(BaseDao<Department> dao) {
 		super.setDao(dao);
 	}
-	
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Autowired
 	private  HttpServletRequest request;
 	
@@ -292,7 +295,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		Integer orderIndex = entity.getOrderIndex();
 		String deptType = entity.getDeptType();
 		String parentType = entity.getParentType();
-
+		entity.setId(keyRedisService.getId(Department.ModuleType));
 		// 插入部门数据
 		// BaseOrg saveEntity = null;
 		String courseId = null;

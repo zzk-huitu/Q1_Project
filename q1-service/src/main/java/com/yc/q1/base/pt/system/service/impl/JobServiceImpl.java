@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.yc.q1.base.pt.system.dao.JobDao;
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.service.JobService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -34,7 +35,8 @@ public class JobServiceImpl extends BaseServiceImpl<Job> implements JobService{
 	public void setDao(BaseDao<Job> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Override
 	public Job doUpdate(Job entity, String xm) {
 		// TODO Auto-generated method stub		

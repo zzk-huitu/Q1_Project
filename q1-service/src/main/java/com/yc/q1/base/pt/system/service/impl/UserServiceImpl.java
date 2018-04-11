@@ -29,12 +29,14 @@ import com.yc.q1.base.pt.system.model.MenuPermission;
 import com.yc.q1.base.pt.system.model.Permission;
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.model.UserDeptRight;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.yc.q1.base.pt.system.service.MenuPermissionService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.redis.service.UserRedisService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -65,7 +67,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	public void setDao(BaseDao<User> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private RoleService roleService; // 角色数据服务接口
 
@@ -96,6 +99,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 		// 根据身份来做不同的处理
 		User saveEntity = null;
+		saveEntity.setId(keyRedisService.getId(User.ModuleType));
 		String category = entity.getCategory();
 		if (category.equals("1")) { // 老师
 			TeacherBaseInfo t = new TeacherBaseInfo();

@@ -15,17 +15,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.yc.q1.base.pt.pojo.DpetJobTree;
-import com.yc.q1.base.pt.system.dao.DeptJobDao;
 import com.yc.q1.base.pt.system.model.Department;
 import com.yc.q1.base.pt.system.model.DeptJob;
 import com.yc.q1.base.pt.system.model.Job;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.DeptJobService;
 import com.yc.q1.base.pt.system.service.JobService;
-import com.yc.q1.base.pt.system.service.DepartmentService;
-import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
+import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -49,7 +49,8 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	public void setDao(BaseDao<DeptJob> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private DeptRedisService deptRedisService;
 

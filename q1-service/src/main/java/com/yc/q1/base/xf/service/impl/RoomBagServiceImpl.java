@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.xf.model.RoomBag;
 import com.yc.q1.base.xf.service.RoomBagService;
 import com.zd.core.dao.BaseDao;
@@ -23,4 +24,6 @@ public class RoomBagServiceImpl extends BaseServiceImpl<RoomBag> implements Room
 	public void setDao(BaseDao<RoomBag> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 }

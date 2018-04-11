@@ -13,6 +13,7 @@ import com.yc.q1.base.pt.pojo.DataDictTree;
 import com.yc.q1.base.pt.system.dao.DataDictDao;
 import com.yc.q1.base.pt.system.model.DataDict;
 import com.yc.q1.base.pt.system.service.DataDictService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -35,7 +36,8 @@ public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements Da
 	public void setDao(BaseDao<DataDict> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
     @Override
     public List<DataDictTree> getDicTreeList(String whereSql) {
 
@@ -81,7 +83,8 @@ public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements Da
 		 //当前节点
         DataDict saveEntity = new DataDict();
         List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
+		excludedProp.add("id");
+		entity.setId(keyRedisService.getId(DataDict.ModuleType));
 		try {
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {

@@ -15,6 +15,8 @@ import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.dao.AttenceRuleDao;
 import com.yc.q1.base.pt.wisdomclass.model.AttenceRule;
 import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
+import com.yc.q1.base.sk.model.SkPriceDefine;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -40,7 +42,8 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 	public void setDao(BaseDao<AttenceRule> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	private static Logger logger = Logger.getLogger(AttenceRuleServiceImpl.class);
 	
 	@Override
@@ -116,6 +119,7 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(AttenceRule.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

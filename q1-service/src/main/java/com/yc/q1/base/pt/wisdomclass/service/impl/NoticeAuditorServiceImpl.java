@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.model.User;
-import com.yc.q1.base.pt.wisdomclass.dao.NoticeAuditorDao;
 import com.yc.q1.base.pt.wisdomclass.model.Notice;
 import com.yc.q1.base.pt.wisdomclass.model.NoticeAuditor;
-import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeAuditorService;
+import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -43,6 +43,8 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 	public void setDao(BaseDao<NoticeAuditor> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	
 	private static Logger logger = Logger.getLogger(NoticeAuditorServiceImpl.class);
 	
@@ -122,6 +124,7 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(NoticeAuditor.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

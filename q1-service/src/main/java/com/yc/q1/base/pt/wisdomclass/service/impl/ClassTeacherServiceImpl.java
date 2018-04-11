@@ -22,9 +22,11 @@ import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassTeacherDao;
+import com.yc.q1.base.pt.wisdomclass.model.ClassStar;
 import com.yc.q1.base.pt.wisdomclass.model.ClassTeacher;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -46,7 +48,8 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 	public void setDao(BaseDao<ClassTeacher> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
     @Resource
     private DepartmentService orgService;
 
@@ -115,6 +118,7 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 			throws IllegalAccessException, InvocationTargetException {
 
 		ClassTeacher perEntity = new ClassTeacher();
+		perEntity.setId(keyRedisService.getId(ClassTeacher.ModuleType));
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(entity);
@@ -163,6 +167,7 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 				UserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 				if(userdeptjob==null){
 					userdeptjob = new UserDeptJob();
+					userdeptjob.setId(keyRedisService.getId(UserDeptJob.ModuleType));
 					userdeptjob.setCreateUser(currentUser.getId());
 					userdeptjob.setCreateTime(new Date());
 					userdeptjob.setUserId(user.getId());

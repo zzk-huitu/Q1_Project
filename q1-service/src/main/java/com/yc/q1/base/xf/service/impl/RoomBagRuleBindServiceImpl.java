@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.xf.model.RoomBagRuleBind;
 import com.yc.q1.base.xf.service.RoomBagRuleBindService;
 import com.zd.core.dao.BaseDao;
@@ -26,6 +27,8 @@ public class RoomBagRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind>
 	public void setDao(BaseDao<RoomBagRuleBind> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 
 	@Override
 	public void doAddRuleBind(String roomRuleId, String roomIds, String deductionUserIds,
@@ -67,6 +70,7 @@ public class RoomBagRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind>
 			} else {
 				Integer orderIndex = this.getDefaultOrderIndex(new RoomBagRuleBind());
 				perEntity = new RoomBagRuleBind();
+				perEntity.setId(keyRedisService.getId(RoomBagRuleBind.ModuleType));
 				perEntity.setDeductionUserId(getDeductionUserId);
 				perEntity.setRoomRuleId(roomRuleId);
 				perEntity.setRoomId(rooms[i]);

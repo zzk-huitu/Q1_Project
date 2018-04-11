@@ -18,6 +18,7 @@ import com.yc.q1.base.pt.system.service.PermissionService;
 import com.yc.q1.base.pt.system.service.RoleMenuPermissionService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.redis.service.UserRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -35,7 +36,8 @@ public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermi
 	public void setDao(BaseDao<RoleMenuPermission> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private RoleService sysRoleService;
 	
