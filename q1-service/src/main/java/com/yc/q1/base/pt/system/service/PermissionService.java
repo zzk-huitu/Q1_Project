@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.PtPermission;
 import com.zd.core.service.BaseService;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface PermissionService extends BaseService<Permission> {
+public interface PermissionService extends BaseService<PtPermission> {
 
 }

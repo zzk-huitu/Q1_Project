@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.sk.service.SkMeterBindService;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkMeterBind;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -75,7 +75,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + termId.substring(0, termId.length() - 1)
 			+ "\",\"field\":\"id\"}]";
 		//String sor="[{\"property\":\"orderIndex\",\"direction\":\"DESC\"}]";
-		QueryResult<Term> termQr = ptTermService.queryPageResult(0,0,null, filter, true);
+		QueryResult<PtTerm> termQr = ptTermService.queryPageResult(0,0,null, filter, true);
 		
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -90,7 +90,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 	public void doAdd(String[] termId, String[] termSn, String meterId, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		thisService.doMeterBind(termId, termSn, meterId, currentUser.getId());
 
@@ -109,7 +109,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -146,7 +146,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -169,7 +169,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 
 		// 获取当前的操作用户
 		String userCh = "超级管理员";
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
 

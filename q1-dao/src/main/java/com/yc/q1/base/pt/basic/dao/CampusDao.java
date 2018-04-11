@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.model.base.pt.basic.Campus;
+import com.yc.q1.model.base.pt.basic.PtCampus;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface CampusDao extends BaseDao<Campus> {
+public interface CampusDao extends BaseDao<PtCampus> {
 
 }

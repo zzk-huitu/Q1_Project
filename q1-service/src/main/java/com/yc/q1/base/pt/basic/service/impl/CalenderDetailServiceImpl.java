@@ -12,9 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.CalenderDetailService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.Calender;
-import com.yc.q1.model.base.pt.basic.CalenderDetail;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCalender;
+import com.yc.q1.model.base.pt.basic.PtCalenderDetail;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -31,12 +31,12 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> implements CalenderDetailService {
+public class CalenderDetailServiceImpl extends BaseServiceImpl<PtCalenderDetail> implements CalenderDetailService {
 
 	private static Logger logger = Logger.getLogger(CalenderDetailServiceImpl.class);
 	
 	@Resource(name = "CalenderDetailDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<CalenderDetail> dao) {
+	public void setDao(BaseDao<PtCalenderDetail> dao) {
 		super.setDao(dao);
 	}
 	
@@ -44,7 +44,7 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public List<CalenderDetail> queryJwTCanderdetailByJwTCander(Calender jtc) {
+	public List<PtCalenderDetail> queryJwTCanderdetailByJwTCander(PtCalender jtc) {
 		if (jtc == null)
 			return null;
 		if (jtc.getId() == null || jtc.getId().trim().equals(""))
@@ -55,8 +55,8 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 	}
 
 	@Override
-	public CalenderDetail doUpdateEntity(CalenderDetail entity, User currentUser) {
-		CalenderDetail perEntity = this.get(entity.getId());
+	public PtCalenderDetail doUpdateEntity(PtCalenderDetail entity, PtUser currentUser) {
+		PtCalenderDetail perEntity = this.get(entity.getId());
 
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -74,8 +74,8 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 	}
 
 	@Override
-	public CalenderDetail doAddEntity(CalenderDetail entity, User currentUser) {
-		CalenderDetail saveEntity = new CalenderDetail();
+	public PtCalenderDetail doAddEntity(PtCalenderDetail entity, PtUser currentUser) {
+		PtCalenderDetail saveEntity = new PtCalenderDetail();
 		try {
 			BeanUtils.copyPropertiesExceptNull(entity, saveEntity);
 			// 生成默认的orderindex
@@ -86,7 +86,7 @@ public class CalenderDetailServiceImpl extends BaseServiceImpl<CalenderDetail> i
 			entity.setCreateUser(currentUser.getId()); // 创建人
 
 			// 持久化到数据库
-			entity.setId(keyRedisService.getId(CalenderDetail.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtCalenderDetail.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {

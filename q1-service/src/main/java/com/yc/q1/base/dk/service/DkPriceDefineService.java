@@ -1,7 +1,7 @@
 package com.yc.q1.base.dk.service;
 
 import com.yc.q1.model.base.dk.DkPriceDefine;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -11,6 +11,6 @@ import com.zd.core.service.BaseService;
  *
  */
 public interface DkPriceDefineService extends BaseService<DkPriceDefine> {
-	public DkPriceDefine doAddEntity(DkPriceDefine entity, User currentUser);
-	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, User currentUser);
+	public DkPriceDefine doAddEntity(DkPriceDefine entity, PtUser currentUser);
+	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, PtUser currentUser);
 }

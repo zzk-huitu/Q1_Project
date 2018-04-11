@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.build.dao;
 
 
 
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
 import com.zd.core.dao.BaseDao;
 
 
@@ -19,6 +19,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface ClassDormAllotDao extends BaseDao<ClassDormAllot> {
+public interface ClassDormAllotDao extends BaseDao<PtClassDormAllot> {
 
 }

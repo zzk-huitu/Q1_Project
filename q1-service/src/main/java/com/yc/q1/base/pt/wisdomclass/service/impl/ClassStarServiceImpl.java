@@ -15,9 +15,9 @@ import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassStarDao;
 import com.yc.q1.base.pt.wisdomclass.service.ClassStarService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
-import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -38,21 +38,21 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements ClassStarService{
+public class ClassStarServiceImpl extends BaseServiceImpl<PtClassStar> implements ClassStarService{
 
 	@Resource
 	private UserService userService;
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Resource(name="ClassStarDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<ClassStar> dao) {
+	public void setDao(BaseDao<PtClassStar> dao) {
 		super.setDao(dao);
 	}
 	private static Logger logger = Logger.getLogger(ClassStarServiceImpl.class);
 	
 	@Override
-	public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<ClassStar> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtClassStar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtClassStar> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -65,7 +65,7 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -89,9 +89,9 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 	 * @return
 	 */
 	@Override
-	public ClassStar doUpdateEntity(ClassStar entity, User currentUser) {
+	public PtClassStar doUpdateEntity(PtClassStar entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		ClassStar saveEntity = this.get(entity.getId());
+		PtClassStar saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -118,7 +118,7 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 	 * @return
 	 */
 	@Override
-	public ClassStar doAddEntity(ClassStar entity, User currentUser) {
+	public PtClassStar doAddEntity(PtClassStar entity, PtUser currentUser) {
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		excludedProp.add("classId");
@@ -127,8 +127,8 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 			String [] claiIds = entity.getClassId().split(",");
 			String [] classNames = entity.getClassName().split(",");
 			for (int i = 0; i < claiIds.length; i++) {
-				ClassStar saveEntity = new ClassStar();
-				entity.setId(keyRedisService.getId(ClassStar.ModuleType));
+				PtClassStar saveEntity = new PtClassStar();
+				entity.setId(keyRedisService.getId(PtClassStar.ModuleType));
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 				saveEntity.setClassId(claiIds[i]);
@@ -145,8 +145,8 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 		}
 	}
 	@Override
-	public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, User currentUser) {
+	public QueryResult<PtClassStar> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, PtUser currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
@@ -171,7 +171,7 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
         		hql.append(" order by  " + sortSql);
         }
         
-        QueryResult<ClassStar> qResult = this.queryResult(hql.toString(), start, limit);
+        QueryResult<PtClassStar> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.model.base.pt.wisdomclass.AttendTime;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface AttendTimeDao extends BaseDao<AttendTime> {
+public interface AttendTimeDao extends BaseDao<PtAttendTime> {
 
 }

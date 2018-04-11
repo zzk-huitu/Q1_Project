@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.system.dao.DataDictDao;
 import com.yc.q1.base.pt.system.service.DataDictService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.DataDict;
+import com.yc.q1.model.base.pt.system.PtDataDict;
 import com.yc.q1.pojo.base.pt.DataDictTree;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
@@ -30,10 +30,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements DataDictService {
+public class DataDictServiceImpl extends BaseServiceImpl<PtDataDict> implements DataDictService {
 
 	@Resource(name = "DataDictDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<DataDict> dao) {
+	public void setDao(BaseDao<PtDataDict> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -42,7 +42,7 @@ public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements Da
     public List<DataDictTree> getDicTreeList(String whereSql) {
 
         String hql = "from DataDict where 1=1 " + whereSql + " order by orderIndex asc ";
-        List<DataDict> lists = this.queryByHql(hql);// 执行查询方法
+        List<PtDataDict> lists = this.queryByHql(hql);// 执行查询方法
         List<DataDictTree> result = new ArrayList<DataDictTree>();
 
         // 构建Tree数据
@@ -51,15 +51,15 @@ public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements Da
         return result;
     }
 
-    private void createChild(DataDictTree parentNode, List<DataDictTree> result, List<DataDict> list) {
-        List<DataDict> childs = new ArrayList<DataDict>();
-        for (DataDict dic : list) {
+    private void createChild(DataDictTree parentNode, List<DataDictTree> result, List<PtDataDict> list) {
+        List<PtDataDict> childs = new ArrayList<PtDataDict>();
+        for (PtDataDict dic : list) {
             if (dic.getParentNode().equals(parentNode.getId())) {
                 childs.add(dic);
             }
         }
 
-        for (DataDict dic : childs) {
+        for (PtDataDict dic : childs) {
         	DataDictTree child = new DataDictTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
                     dic.getTreeIds(), new ArrayList<DataDictTree>(), dic.getDicCode(), dic.getDicType(), dic.getParentNode(), dic.getOrderIndex());
 
@@ -75,16 +75,16 @@ public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements Da
     }
 
 	@Override
-	public DataDict doAdd(DataDict entity, String xm) {
+	public PtDataDict doAdd(PtDataDict entity, String xm) {
 		// TODO Auto-generated method stub
 
         String parentNode = entity.getParentNode();
         
 		 //当前节点
-        DataDict saveEntity = new DataDict();
+        PtDataDict saveEntity = new PtDataDict();
         List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
-		entity.setId(keyRedisService.getId(DataDict.ModuleType));
+		entity.setId(keyRedisService.getId(PtDataDict.ModuleType));
 		try {
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {
@@ -98,7 +98,7 @@ public class DataDictServiceImpl extends BaseServiceImpl<DataDict> implements Da
 
         //BaseDic parEntity = thisService.get(parentNode);
         if (!parentNode.equals(TreeVeriable.ROOT)) {
-        	DataDict parEntity = this.get(parentNode);
+        	PtDataDict parEntity = this.get(parentNode);
             parEntity.setLeaf(false);
             this.merge(parEntity);
 

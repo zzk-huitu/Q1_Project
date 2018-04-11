@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.model.base.pt.device.IrDeviceBrand;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -18,8 +18,8 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface IrDeviceBrandService extends BaseService<IrDeviceBrand> {
-	public IrDeviceBrand doAddEntity(IrDeviceBrand entity, User currentUser);
-	public IrDeviceBrand doUpdateEntity(IrDeviceBrand entity, User currentUser);
+public interface IrDeviceBrandService extends BaseService<PtIrDeviceBrand> {
+	public PtIrDeviceBrand doAddEntity(PtIrDeviceBrand entity, PtUser currentUser);
+	public PtIrDeviceBrand doUpdateEntity(PtIrDeviceBrand entity, PtUser currentUser);
 	
 }

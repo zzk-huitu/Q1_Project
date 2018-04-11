@@ -13,8 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.PermissionService;
-import com.yc.q1.model.base.pt.system.Permission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
@@ -33,7 +33,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysPermisson")
-public class SysPermissionController extends FrameWorkController<Permission> implements Constant {
+public class SysPermissionController extends FrameWorkController<PtPermission> implements Constant {
 
     @Resource
     PermissionService thisService; // service层接口
@@ -54,7 +54,7 @@ public class SysPermissionController extends FrameWorkController<Permission> imp
    public void list( HttpServletRequest request, HttpServletResponse response)
            throws IOException {
        String strData = ""; // 返回给js的数据
-       QueryResult<Permission> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+       QueryResult<PtPermission> qr = thisService.queryPageResult(super.start(request), super.limit(request),
                super.sort(request), super.filter(request), true);
 
        strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -73,18 +73,18 @@ public class SysPermissionController extends FrameWorkController<Permission> imp
      * @throws
     */
    @RequestMapping("/doAdd")
-   public void doAdd(Permission entity, HttpServletRequest request, HttpServletResponse response)
+   public void doAdd(PtPermission entity, HttpServletRequest request, HttpServletResponse response)
            throws IOException, IllegalAccessException, InvocationTargetException {
        
 		//此处为放在入库前的一些检查的代码，如唯一校验等
 		
 		//获取当前操作用户
 		String userCh = "超级管理员";
-       User currentUser = getCurrentSysUser();
+       PtUser currentUser = getCurrentSysUser();
        if (currentUser != null)
            userCh = currentUser.getId();
 
-       Permission perEntity = new Permission();
+       PtPermission perEntity = new PtPermission();
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 		// 生成默认的orderindex
 		//如果界面有了排序号的输入，则不需要取默认的了
@@ -118,7 +118,7 @@ public class SysPermissionController extends FrameWorkController<Permission> imp
            writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
            return;
        } else {
-           User currentUser = getCurrentSysUser();
+           PtUser currentUser = getCurrentSysUser();
            boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
            if (flag) {
                writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -140,21 +140,21 @@ public class SysPermissionController extends FrameWorkController<Permission> imp
     * @throws
    */
    @RequestMapping("/doUpdate")
-   public void doUpdate(Permission entity, HttpServletRequest request, HttpServletResponse response)
+   public void doUpdate(PtPermission entity, HttpServletRequest request, HttpServletResponse response)
            throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		//入库前检查代码
 		
 		//获取当前的操作用户
        String userCh = "超级管理员";
-       User currentUser = getCurrentSysUser();
+       PtUser currentUser = getCurrentSysUser();
        if (currentUser != null)
            userCh = currentUser.getId();
 			
 			
        //先拿到已持久化的实体
 		//entity.getSchoolId()要自己修改成对应的获取主键的方法
-       Permission perEntity = thisService.get(entity.getId());
+       PtPermission perEntity = thisService.get(entity.getId());
 
        //将entity中不为空的字段动态加入到perEntity中去。
        

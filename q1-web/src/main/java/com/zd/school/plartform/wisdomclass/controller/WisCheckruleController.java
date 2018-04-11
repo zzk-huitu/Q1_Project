@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -22,7 +22,7 @@ import com.zd.core.util.ModelUtil;
 import com.zd.core.util.StringUtils;
 @Controller
 @RequestMapping("/ClassCheckrule")
-public class WisCheckruleController extends FrameWorkController<AttenceRule> implements Constant{
+public class WisCheckruleController extends FrameWorkController<PtAttenceRule> implements Constant{
 	  @Resource
 	  AttenceRuleService thisService; // service层接口
 	  
@@ -37,10 +37,10 @@ public class WisCheckruleController extends FrameWorkController<AttenceRule> imp
 	     */
 	    @RequestMapping(value = {"/list"}, method = {org.springframework.web.bind.annotation.RequestMethod.GET,
 	            org.springframework.web.bind.annotation.RequestMethod.POST})
-	    public void list(@ModelAttribute AttenceRule entity, HttpServletRequest request, HttpServletResponse response)
+	    public void list(@ModelAttribute PtAttenceRule entity, HttpServletRequest request, HttpServletResponse response)
 	            throws IOException {
 	        String strData = ""; // 返回给js的数据
-	        QueryResult<AttenceRule> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+	        QueryResult<PtAttenceRule> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), true);
 
 			strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -48,12 +48,12 @@ public class WisCheckruleController extends FrameWorkController<AttenceRule> imp
 	    }
 	    @Auth("ECCSET_add")
 	    @RequestMapping("/doAdd")
-	    public void doAdd(AttenceRule entity, HttpServletRequest request, HttpServletResponse response)
+	    public void doAdd(PtAttenceRule entity, HttpServletRequest request, HttpServletResponse response)
 	            throws IOException, IllegalAccessException, InvocationTargetException {
 
 	        //此处为放在入库前的一些检查的代码，如唯一校验等
 	        //获取当前操作用户
-	        User currentUser = getCurrentSysUser();
+	        PtUser currentUser = getCurrentSysUser();
 	        try {
 	            entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 	            if (ModelUtil.isNotNull(entity))
@@ -72,7 +72,7 @@ public class WisCheckruleController extends FrameWorkController<AttenceRule> imp
 	            writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 	            return;
 	        } else {
-	            User currentUser = getCurrentSysUser();
+	            PtUser currentUser = getCurrentSysUser();
 	            try {
 	                boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 	                if (flag) {
@@ -87,13 +87,13 @@ public class WisCheckruleController extends FrameWorkController<AttenceRule> imp
 	    }
 	    @Auth("ECCSET_update")
 	    @RequestMapping("/doUpdate")
-	    public void doUpdates(AttenceRule entity, HttpServletRequest request, HttpServletResponse response)
+	    public void doUpdates(PtAttenceRule entity, HttpServletRequest request, HttpServletResponse response)
 	            throws IOException, IllegalAccessException, InvocationTargetException {
 
 	        //入库前检查代码
 
 	        //获取当前的操作用户
-	        User currentUser = getCurrentSysUser();
+	        PtUser currentUser = getCurrentSysUser();
 	        try {
 	            entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 	            if (ModelUtil.isNotNull(entity))
@@ -109,7 +109,7 @@ public class WisCheckruleController extends FrameWorkController<AttenceRule> imp
 	    @RequestMapping("/doUsingorNo")
 	    public void doUsingOrno(HttpServletRequest request, HttpServletResponse response) throws IOException {
 	        //获取当前的操作用户
-	        User currentUser = getCurrentSysUser();
+	        PtUser currentUser = getCurrentSysUser();
 	        String ids = request.getParameter("ids");
 	        String usingStatu = request.getParameter("using");
 	        try {

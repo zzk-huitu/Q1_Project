@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.BaseCourseService;
-import com.yc.q1.model.base.pt.basic.BaseCourse;
+import com.yc.q1.model.base.pt.basic.PtBaseCourse;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -21,10 +21,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class BaseCourseServiceImpl extends BaseServiceImpl<BaseCourse> implements BaseCourseService {
+public class BaseCourseServiceImpl extends BaseServiceImpl<PtBaseCourse> implements BaseCourseService {
 
 	@Resource(name = "BaseCourseDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<BaseCourse> dao) {
+	public void setDao(BaseDao<PtBaseCourse> dao) {
 		super.setDao(dao);
 	}
 

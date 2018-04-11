@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.model.base.pt.device.FrontServer;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtFrontServer;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -10,7 +10,7 @@ import com.zd.core.service.BaseService;
  * @author hucy
  *
  */
-public interface FrontServerService extends BaseService<FrontServer> {
+public interface FrontServerService extends BaseService<PtFrontServer> {
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
 	 * 
@@ -20,7 +20,7 @@ public interface FrontServerService extends BaseService<FrontServer> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public FrontServer doUpdateEntity(FrontServer entity, User currentUser);
+	public PtFrontServer doUpdateEntity(PtFrontServer entity, PtUser currentUser);
 	/**
 	 * 将传入的实体对象持久化到数据
 	 * 
@@ -31,6 +31,6 @@ public interface FrontServerService extends BaseService<FrontServer> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public FrontServer doAddEntity(FrontServer entity, User currentUser);
+	public PtFrontServer doAddEntity(PtFrontServer entity, PtUser currentUser);
 
 }

@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
+import com.yc.q1.model.base.pt.basic.PtFuncRoomCourse;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface FuncRoomCourseDao extends BaseDao<FuncRoomCourse> {
+public interface FuncRoomCourseDao extends BaseDao<PtFuncRoomCourse> {
 
 }

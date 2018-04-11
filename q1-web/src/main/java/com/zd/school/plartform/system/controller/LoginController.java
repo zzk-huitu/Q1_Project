@@ -32,8 +32,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.q1.base.log.service.UserLoginLogService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.storage.log.UserLoginLog;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.storage.log.LogUserLoginLog;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -42,9 +42,9 @@ import com.zd.core.util.ModelUtil;
 
 @Controller
 @RequestMapping("/login")
-public class LoginController extends FrameWorkController<User> implements Constant {
+public class LoginController extends FrameWorkController<PtUser> implements Constant {
 
-	private static final Logger logger = LoggerFactory.getLogger(User.class);
+	private static final Logger logger = LoggerFactory.getLogger(PtUser.class);
 	@Resource
 	private UserService sysUserService;
 
@@ -71,9 +71,9 @@ public class LoginController extends FrameWorkController<User> implements Consta
 	// private StringRedisTemplate stringRedisTemplate;
 
 	@RequestMapping("/login")
-	public void login(User sysUserModel, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void login(PtUser sysUserModel, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Map<String, Object> result = new HashMap<String, Object>();
-		User sysUser = sysUserService.getByProerties("userName", sysUserModel.getUserName());
+		PtUser sysUser = sysUserService.getByProerties("userName", sysUserModel.getUserName());
 		// if (sysUser == null || "1".equals(sysUser.getState())) { //
 		// 用户名有误或已被禁用
 		if (sysUser == null) { // 用户名有误,根据编号进行查询
@@ -119,7 +119,7 @@ public class LoginController extends FrameWorkController<User> implements Consta
 			sysUserLoginLogService.doExecuteCountByHql(updateHql);
 
 			if (!sysUserLoginLogService.IsFieldExist("userId", userId, "-1", " o.sessionId='" + sessionId + "'")) {
-				UserLoginLog loginLog = new UserLoginLog();
+				LogUserLoginLog loginLog = new LogUserLoginLog();
 				loginLog.setUserId(userId);
 				loginLog.setSessionId(sessionId);
 				loginLog.setUserName(sysUser.getUserName());
@@ -204,7 +204,7 @@ public class LoginController extends FrameWorkController<User> implements Consta
 
 	@RequestMapping("/getCurrentUser")
 	public void getCurrentUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		User sysUser = getCurrentSysUser();
+		PtUser sysUser = getCurrentSysUser();
 		if (sysUser != null) {
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(sysUser)));
 		} else
@@ -218,7 +218,7 @@ public class LoginController extends FrameWorkController<User> implements Consta
 		if (session.getAttribute(SESSION_SYS_USER) == null) {
 			return new ModelAndView();
 		} else {
-			User sysUser = (User) session.getAttribute(SESSION_SYS_USER);
+			PtUser sysUser = (PtUser) session.getAttribute(SESSION_SYS_USER);
 			try {
 				// List<Authority> allMenuList =
 				// authorityService.queryAllMenuList(globalRoleKey);
@@ -241,7 +241,7 @@ public class LoginController extends FrameWorkController<User> implements Consta
 			writeJSON(response, jsonBuilder.returnFailureJson("0"));
 			return;
 		}
-		User sysUser = sysUserService.getByProerties(propName, propValue);
+		PtUser sysUser = sysUserService.getByProerties(propName, propValue);
 		if (ModelUtil.isNotNull(sysUser)) {
 			// 更新到数据库
 			sysUserService.updateByProperties(propName, propValue, "userPwd", new Sha256Hash(newUserPwd).toHex());
@@ -354,7 +354,7 @@ public class LoginController extends FrameWorkController<User> implements Consta
 	@RequestMapping("/clearCache")
 	public void clearCache(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// DictionaryItemCache.clearAll();
-		User sysUser = getCurrentSysUser();
+		PtUser sysUser = getCurrentSysUser();
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
 		hashOper.delete("userMenuTree", sysUser.getId());
 		hashOper.delete("userAuth", sysUser.getId());

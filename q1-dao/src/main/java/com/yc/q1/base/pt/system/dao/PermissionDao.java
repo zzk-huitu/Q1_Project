@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.PtPermission;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface PermissionDao extends BaseDao<Permission> {
+public interface PermissionDao extends BaseDao<PtPermission> {
 
 }

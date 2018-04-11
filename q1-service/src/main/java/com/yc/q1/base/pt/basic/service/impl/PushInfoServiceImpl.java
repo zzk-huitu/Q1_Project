@@ -9,18 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.PushInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.PushInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtPushInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 
 @Service
 @Transactional
-public class PushInfoServiceImpl extends BaseServiceImpl<PushInfo> implements PushInfoService {
+public class PushInfoServiceImpl extends BaseServiceImpl<PtPushInfo> implements PushInfoService {
 
 	@Resource(name = "PushInfoDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<PushInfo> dao) {
+	public void setDao(BaseDao<PtPushInfo> dao) {
 		super.setDao(dao);
 	}
 	
@@ -28,14 +28,14 @@ public class PushInfoServiceImpl extends BaseServiceImpl<PushInfo> implements Pu
 	private PrimaryKeyRedisService keyRedisService;
 
     @Override
-	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus,User currentUser) {
+	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus,PtUser currentUser) {
 		return this.pushInfo(empName, empNo, eventType, regStatus,null, currentUser);
 	}
 
 	@Override
-	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus, String pushUrl,User currentUser) {
+	public boolean pushInfo(String empName, String empNo, String eventType, String regStatus, String pushUrl,PtUser currentUser) {
 		Boolean br = false;
-		PushInfo pushInfo = new PushInfo();
+		PtPushInfo pushInfo = new PtPushInfo();
 		pushInfo.setEmpleeName(empName);
 		pushInfo.setEmpleeNo(empNo);
 		pushInfo.setRegTime(new Date());
@@ -49,7 +49,7 @@ public class PushInfoServiceImpl extends BaseServiceImpl<PushInfo> implements Pu
 		else
 			pushInfo.setPushUrl(pushUrl);
 		
-		pushInfo.setId(keyRedisService.getId(PushInfo.ModuleType));	//手动设置id
+		pushInfo.setId(keyRedisService.getId(PtPushInfo.ModuleType));	//手动设置id
 		this.persist(pushInfo);
 		br = true;
 		return br;

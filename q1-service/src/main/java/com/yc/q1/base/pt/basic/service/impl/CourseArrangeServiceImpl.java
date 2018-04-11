@@ -15,11 +15,11 @@ import com.yc.q1.base.pt.basic.service.CourseTeacherService;
 import com.yc.q1.base.pt.basic.service.BaseCourseService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.BaseCourse;
-import com.yc.q1.model.base.pt.basic.CourseArrange;
-import com.yc.q1.model.base.pt.basic.CourseTeacher;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtBaseCourse;
+import com.yc.q1.model.base.pt.basic.PtCourseArrange;
+import com.yc.q1.model.base.pt.basic.PtCourseTeacher;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.ImportNotInfo;
 import com.zd.core.service.BaseServiceImpl;
@@ -36,10 +36,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> implements CourseArrangeService {
+public class CourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange> implements CourseArrangeService {
 
 	@Resource(name = "CourseArrangeDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<CourseArrange> dao) {
+	public void setDao(BaseDao<PtCourseArrange> dao) {
 		super.setDao(dao);
 	}
 
@@ -56,7 +56,7 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public List<ImportNotInfo> doImportCourse(Map<String, List<String>> gccMap, User currentUser) {
+	public List<ImportNotInfo> doImportCourse(Map<String, List<String>> gccMap, PtUser currentUser) {
 
 		List<ImportNotInfo> listNotExit = new ArrayList<>();
 		ImportNotInfo notExits = null;
@@ -79,7 +79,7 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 
 			try {
 
-				List<CourseArrange> courseArranges = new ArrayList<CourseArrange>(); // 排课课程表对象
+				List<PtCourseArrange> courseArranges = new ArrayList<PtCourseArrange>(); // 排课课程表对象
 
 				// key为年级班级名称
 				/*
@@ -103,8 +103,8 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 
 				// 查询此班级信息
 				hql = "from GradeClass where className='" + className + "'" + andIsDelete;
-				List<GradeClass> gcList = jwClassService.queryByHql(hql);
-				GradeClass gc = null;
+				List<PtGradeClass> gcList = jwClassService.queryByHql(hql);
+				PtGradeClass gc = null;
 
 				if (gcList.size() == 1) {
 					gc = gcList.get(0);
@@ -139,11 +139,11 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 						break;
 
 					for (int i = 0; i < 9; i++) {
-						CourseArrange jca; // 每天的课程，都一次性录入到同一条数据中
+						PtCourseArrange jca; // 每天的课程，都一次性录入到同一条数据中
 						if (courseArranges.size() > i) {
 							jca = courseArranges.get(i);
 						} else {
-							jca = new CourseArrange();
+							jca = new PtCourseArrange();
 							courseArranges.add(jca);
 						}
 
@@ -152,8 +152,8 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 
 						// 查询课程信息
 						hql = "from BaseCourse where courseName='" + cousreName + "'" + andIsDelete;
-						List<BaseCourse> baseCourseList = jtbService.queryByHql(hql);
-						BaseCourse basecourse = null;
+						List<PtBaseCourse> baseCourseList = jtbService.queryByHql(hql);
+						PtBaseCourse basecourse = null;
 						if (baseCourseList.size() == 1) {
 							basecourse = baseCourseList.get(0);
 						} else {
@@ -174,11 +174,11 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 						hql = "from CourseTeacher where courseId='" + basecourse.getId() + "' and classId='"
 								+ gc.getId() + "'" + andIsDelete;
 
-						List<CourseTeacher> courseteachers = courseTeacherService.queryByHql(hql);
+						List<PtCourseTeacher> courseteachers = courseTeacherService.queryByHql(hql);
 						String teacherGh = "";
 						String teacherName = "";
 						String teacherId = "";
-						for (CourseTeacher courseteacher : courseteachers) {
+						for (PtCourseTeacher courseteacher : courseteachers) {
 							teacherId += courseteacher.getTeacherId() + ",";
 							teacherGh += courseteacher.getUserNumb() + ",";
 							teacherName += courseteacher.getName() + ",";
@@ -252,8 +252,8 @@ public class CourseArrangeServiceImpl extends BaseServiceImpl<CourseArrange> imp
 
 				// 当此班级的课表信息不出现错误时，那就入库
 				if (isError == false) {
-					for (CourseArrange jwCourseArrange : courseArranges) {
-						jwCourseArrange.setId(keyRedisService.getId(CourseArrange.ModuleType));	//手动设置id
+					for (PtCourseArrange jwCourseArrange : courseArranges) {
+						jwCourseArrange.setId(keyRedisService.getId(PtCourseArrange.ModuleType));	//手动设置id
 						this.merge(jwCourseArrange);
 					}
 				}

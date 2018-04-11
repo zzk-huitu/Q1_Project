@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.DeptJobService;
 import com.yc.q1.base.pt.system.service.JobService;
-import com.yc.q1.model.base.pt.system.Job;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtJob;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -34,7 +34,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysJob")
-public class SysJobController extends FrameWorkController<Job> implements Constant {
+public class SysJobController extends FrameWorkController<PtJob> implements Constant {
 
 	@Resource
 	JobService thisService; // service层接口
@@ -50,9 +50,9 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(Job entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void list(PtJob entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<Job> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtJob> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -70,7 +70,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 	 */
 	@Auth("JOBINFO_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(Job entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtJob entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String jobCode = entity.getJobCode();
 		String jobName = entity.getJobName();
@@ -88,7 +88,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 		}
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
@@ -122,7 +122,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 				return;
 			}
 
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -145,7 +145,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -166,13 +166,13 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
 	 */
 	@Auth("JOBINFO_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(Job entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(PtJob entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		//entity = thisService.doUpdateEntity(entity, currentUser.getXm(), null);
 		entity = thisService.doUpdate(entity, currentUser.getId());
@@ -212,7 +212,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
         if(StringUtils.isNotEmpty(jobName)){
         	hql=hql+"and jobName like '%"+jobName+"%'";
         }
-        List<Job> baseJobList = thisService.queryByHql(hql);
+        List<PtJob> baseJobList = thisService.queryByHql(hql);
           
         List<Map<String, Object>> allList = new ArrayList<>();//存处理后的数据，有的一个sheet里面可能有多张表，所以用list
   		Integer[] columnWidth = new Integer[] { 20, 20, 20};//每个列宽
@@ -220,7 +220,7 @@ public class SysJobController extends FrameWorkController<Job> implements Consta
   		//处理数据，选择我们要导出的字段
   		List<Map<String, String>> jobInfoList = new ArrayList<>();//多条数据
 		Map<String, String> jobInfoMap = null;//用map去存每一个数据
-		for (Job baseJob : baseJobList) {
+		for (PtJob baseJob : baseJobList) {
 			jobInfoMap = new LinkedHashMap<>();
 			jobInfoMap.put("jobName", baseJob.getJobName());
 			jobInfoMap.put("jobCode", baseJob.getJobCode());

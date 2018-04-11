@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.wisdomclass.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.zd.core.service.BaseService;
 
 /**
@@ -16,7 +16,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface ClassTeacherService extends BaseService<ClassTeacher> {
+public interface ClassTeacherService extends BaseService<PtClassTeacher> {
 
 	/**
 //	 * 
@@ -38,10 +38,10 @@ public interface ClassTeacherService extends BaseService<ClassTeacher> {
 //	 */
 //	public String getClassLeaderList(String userId);
 
-	public ClassTeacher doAddClassTeacher(ClassTeacher entity, User currentUser)
+	public PtClassTeacher doAddClassTeacher(PtClassTeacher entity, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException;
 
-	public Boolean doDelete(String delIds, User currentUser);
+	public Boolean doDelete(String delIds, PtUser currentUser);
 
 	public boolean doDeleteByPK(String id);
 }

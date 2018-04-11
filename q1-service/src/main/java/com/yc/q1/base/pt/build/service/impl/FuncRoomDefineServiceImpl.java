@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.build.service.FuncRoomDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.FuncRoomDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.build.PtFuncRoomDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -29,10 +29,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine> implements FuncRoomDefineService {
+public class FuncRoomDefineServiceImpl extends BaseServiceImpl<PtFuncRoomDefine> implements FuncRoomDefineService {
 
 	@Resource(name = "FuncRoomDefineDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<FuncRoomDefine> dao) {
+	public void setDao(BaseDao<PtFuncRoomDefine> dao) {
 		super.setDao(dao);
 	}
 
@@ -43,8 +43,8 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine> i
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public FuncRoomDefine getByRoomId(String roomId) {
-		FuncRoomDefine entity;
+	public PtFuncRoomDefine getByRoomId(String roomId) {
+		PtFuncRoomDefine entity;
 		String hql = "from FuncRoomDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
@@ -55,11 +55,11 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine> i
 	}
 
 	@Override
-	public void addFunRoom(RoomInfo entity, String id, String userCh)
+	public void addFunRoom(PtRoomInfo entity, String id, String userCh)
 			throws IllegalAccessException, InvocationTargetException {
-		RoomInfo roomInfo = null;
-		FuncRoomDefine funRoom = null;// 功能室定义
-		funRoom = new FuncRoomDefine();
+		PtRoomInfo roomInfo = null;
+		PtFuncRoomDefine funRoom = null;// 功能室定义
+		funRoom = new PtFuncRoomDefine();
 		BeanUtils.copyPropertiesExceptNull(funRoom, entity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(funRoom);
@@ -69,7 +69,7 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine> i
 		funRoom.setUpdateUser(userCh); // 创建人的中文名
 		funRoom.setOrderIndex(orderIndex);// 排序
 
-		entity.setId(keyRedisService.getId(FuncRoomDefine.ModuleType)); // 手动设置id
+		entity.setId(keyRedisService.getId(PtFuncRoomDefine.ModuleType)); // 手动设置id
 		this.merge(funRoom); // 执行添加方法
 
 		roomInfo = thisService.get(id);
@@ -84,9 +84,9 @@ public class FuncRoomDefineServiceImpl extends BaseServiceImpl<FuncRoomDefine> i
 	}
 
 	@Override
-	public Boolean delFunRoom(RoomInfo roomInfo, String delId, String xm) {
+	public Boolean delFunRoom(PtRoomInfo roomInfo, String delId, String xm) {
 		Boolean flag = false;
-		FuncRoomDefine funRoom = null;// 功能室定义
+		PtFuncRoomDefine funRoom = null;// 功能室定义
 		funRoom = this.getByRoomId(delId);
 
 		roomInfo.setUpdateTime(new Date());

@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.model.base.pt.wisdomclass.ClassMien;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface ClassMienDao extends BaseDao<ClassMien> {
+public interface ClassMienDao extends BaseDao<PtClassMien> {
 
 }

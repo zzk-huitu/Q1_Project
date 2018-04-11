@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.device.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.device.dao.TermBagDao;
-import com.yc.q1.model.base.pt.device.TermBag;
+import com.yc.q1.model.base.pt.device.PtTermBag;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**
@@ -12,5 +12,5 @@ import com.zd.core.dao.BaseDaoImpl;
  *
  */
 @Repository
-public class TermBagDaoImpl extends BaseDaoImpl<TermBag> implements TermBagDao{
+public class TermBagDaoImpl extends BaseDaoImpl<PtTermBag> implements TermBagDao{
 }

@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeAuditorService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeAuditor;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeAuditor;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -37,10 +37,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> implements NoticeAuditorService{
+public class NoticeAuditorServiceImpl extends BaseServiceImpl<PtNoticeAuditor> implements NoticeAuditorService{
 
 	@Resource(name="NoticeAuditorDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<NoticeAuditor> dao) {
+	public void setDao(BaseDao<PtNoticeAuditor> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -52,8 +52,8 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 	private NoticeService noticeService;
 	
 	@Override
-	public QueryResult<NoticeAuditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<NoticeAuditor> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtNoticeAuditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtNoticeAuditor> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -66,7 +66,7 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -90,9 +90,9 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 	 * @return
 	 */
 	@Override
-	public NoticeAuditor doUpdateEntity(NoticeAuditor entity, User currentUser) {
+	public PtNoticeAuditor doUpdateEntity(PtNoticeAuditor entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		NoticeAuditor saveEntity = this.get(entity.getId());
+		PtNoticeAuditor saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -119,12 +119,12 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 	 * @return
 	 */
 	@Override
-	public NoticeAuditor doAddEntity(NoticeAuditor entity, User currentUser) {
-		NoticeAuditor saveEntity = new NoticeAuditor();
+	public PtNoticeAuditor doAddEntity(PtNoticeAuditor entity, PtUser currentUser) {
+		PtNoticeAuditor saveEntity = new PtNoticeAuditor();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(NoticeAuditor.ModuleType));
+			entity.setId(keyRedisService.getId(PtNoticeAuditor.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -139,8 +139,8 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 		}
 	}
 	@Override
-	public QueryResult<Notice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, User currentUser) {
+	public QueryResult<PtNotice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, PtUser currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 		StringBuffer hql = new StringBuffer("from Notice where 1=1 ");
@@ -157,7 +157,7 @@ public class NoticeAuditorServiceImpl extends BaseServiceImpl<NoticeAuditor> imp
 				hql.append(" order by  " + sortSql);
 		}
 
-		QueryResult<Notice> qResult = noticeService.queryResult(hql.toString(), start, limit);
+		QueryResult<PtNotice> qResult = noticeService.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

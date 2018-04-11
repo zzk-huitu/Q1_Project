@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.card.service.TaskService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.storage.pt.Task;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.storage.pt.PtTask;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -27,12 +27,12 @@ import com.zd.core.util.BeanUtils;
 */
 @Service
 @Transactional
-public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskService{
+public class TaskServiceImpl extends BaseServiceImpl<PtTask> implements TaskService{
 
 	private static Logger logger = Logger.getLogger(TaskServiceImpl.class);
 	
 	@Resource(name = "TaskDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Task> dao) {
+	public void setDao(BaseDao<PtTask> dao) {
 		super.setDao(dao);
 	}
 	
@@ -40,18 +40,18 @@ public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskServic
 	private PrimaryKeyRedisService keyRedisService;
 	
 	@Override
-	public QueryResult<Task> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+	public QueryResult<PtTask> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
 		String hql1=" select g" ;
 		String hql= " from Task g where g.executeTime= "
 				+ "(select Max(executeTime) from Task s1 where s1.termSn=g.termSn)  ";
-		QueryResult<Task> qResult = this.queryCountToHql(start, limit, sort, filter,
+		QueryResult<PtTask> qResult = this.queryCountToHql(start, limit, sort, filter,
 				   hql1+ hql, null, null);
 		return qResult;
 		
 	}
 	
 	@Override
-	public QueryResult<Task> tasklistbyTermId(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+	public QueryResult<PtTask> tasklistbyTermId(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
 		/*String hql1=" select g " ;
 		String hql= " from PtTask g,PtTerm t where  g.termsn =t.termSN  ";
 		//QueryResult<PtTask> qResult = this.dao.doQueryCountToHqlCountSql(start, limit, sort, filter,
@@ -69,7 +69,7 @@ public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskServic
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -93,9 +93,9 @@ public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskServic
 	 * @return
 	 */
 	@Override
-	public Task doUpdateEntity(Task entity, User currentUser) {
+	public PtTask doUpdateEntity(PtTask entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		Task saveEntity = this.get(entity.getId());
+		PtTask saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -122,15 +122,15 @@ public class TaskServiceImpl extends BaseServiceImpl<Task> implements TaskServic
 	 * @return
 	 */
 	@Override
-	public Task doAddEntity(Task entity, User currentUser) {
-		Task saveEntity = new Task();
+	public PtTask doAddEntity(PtTask entity, PtUser currentUser) {
+		PtTask saveEntity = new PtTask();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			
-			saveEntity.setId(keyRedisService.getId(Task.ModuleType));	//手动设置id
+			saveEntity.setId(keyRedisService.getId(PtTask.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {

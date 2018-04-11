@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.service.PermissionService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.PtPermission;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -25,10 +25,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class PermissionServiceImpl extends BaseServiceImpl<Permission> implements PermissionService{
+public class PermissionServiceImpl extends BaseServiceImpl<PtPermission> implements PermissionService{
 
 	@Resource(name = "PermissionDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Permission> dao) {
+	public void setDao(BaseDao<PtPermission> dao) {
 		super.setDao(dao);
 	}
 	@Resource

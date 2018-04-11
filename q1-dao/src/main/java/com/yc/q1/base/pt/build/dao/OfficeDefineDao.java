@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.build.dao;
 
-import com.yc.q1.model.base.pt.build.OfficeDefine;
+import com.yc.q1.model.base.pt.build.PtOfficeDefine;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface OfficeDefineDao extends BaseDao<OfficeDefine> {
+public interface OfficeDefineDao extends BaseDao<PtOfficeDefine> {
 
 }

@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptRight;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.zd.core.service.BaseService;
 
 
@@ -18,11 +18,11 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface UserDeptRightService extends BaseService<UserDeptRight> {
+public interface UserDeptRightService extends BaseService<PtUserDeptRight> {
 
 	boolean doDelete(String delIds);
 
-	Boolean doUserRightDept(String userIds, String deptIds, User currentUser);
+	Boolean doUserRightDept(String userIds, String deptIds, PtUser currentUser);
 
 	
 

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.sk.service.SkMeterService;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkMeter;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -66,7 +66,7 @@ public class BasePtSkMeterController extends FrameWorkController<SkMeter> implem
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前操作用户
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
       
         entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
         if (ModelUtil.isNotNull(entity))
@@ -97,7 +97,7 @@ public class BasePtSkMeterController extends FrameWorkController<SkMeter> implem
 				return;
 			}
 			
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE,currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -116,7 +116,7 @@ public class BasePtSkMeterController extends FrameWorkController<SkMeter> implem
 	@RequestMapping("/doUpdate")
 	public void doUpdates(SkMeter entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		 entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 	        if (ModelUtil.isNotNull(entity))
 	            writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));

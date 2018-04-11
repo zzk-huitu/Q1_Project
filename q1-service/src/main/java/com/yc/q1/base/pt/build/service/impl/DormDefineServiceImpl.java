@@ -12,9 +12,9 @@ import com.yc.q1.base.pt.build.dao.DormDefineDao;
 import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -30,9 +30,9 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implements DormDefineService {
+public class DormDefineServiceImpl extends BaseServiceImpl<PtDormDefine> implements DormDefineService {
 	@Resource(name = "DormDefineDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<DormDefine> dao) {
+	public void setDao(BaseDao<PtDormDefine> dao) {
 		super.setDao(dao);
 	}
 
@@ -43,20 +43,20 @@ public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implement
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public DormDefine getByRoomId(String roomId) {
+	public PtDormDefine getByRoomId(String roomId) {
 		String hql = "from DormDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
-		DormDefine entity = this.getEntityByHql(hql);
+		PtDormDefine entity = this.getEntityByHql(hql);
 		return entity;
 	}
 
 	@Override
-	public DormDefine doUpdateEntity(DormDefine entity, User currentUser) throws Exception {
-		RoomInfo roomInfo = null;
+	public PtDormDefine doUpdateEntity(PtDormDefine entity, PtUser currentUser) throws Exception {
+		PtRoomInfo roomInfo = null;
 		// 先拿到已持久化的实体
-		DormDefine perEntity = this.getByRoomId(entity.getId());
+		PtDormDefine perEntity = this.getByRoomId(entity.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -76,9 +76,9 @@ public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implement
 	}
 
 	@Override
-	public void addDormRoom(RoomInfo entity, DormDefine dormRoom, String id, String userCh)
+	public void addDormRoom(PtRoomInfo entity, PtDormDefine dormRoom, String id, String userCh)
 			throws IllegalAccessException, InvocationTargetException {
-		RoomInfo roomInfo = null;
+		PtRoomInfo roomInfo = null;
 
 		roomInfo = thisService.get(id);
 		roomInfo.setUpdateTime(new Date());
@@ -100,15 +100,15 @@ public class DormDefineServiceImpl extends BaseServiceImpl<DormDefine> implement
 		dormRoom.setUpdateUser(userCh); // 创建人的中文名
 		dormRoom.setOrderIndex(orderIndex);// 排序
 		
-		dormRoom.setId(keyRedisService.getId(DormDefine.ModuleType));	//手动设置id
+		dormRoom.setId(keyRedisService.getId(PtDormDefine.ModuleType));	//手动设置id
 		this.merge(dormRoom); // 执行添加方法
 
 	}
 
 	@Override
-	public Boolean delDormRoom(RoomInfo roomInfo, String delId, String xm) {
+	public Boolean delDormRoom(PtRoomInfo roomInfo, String delId, String xm) {
 		Boolean flag = false;
-		DormDefine dormRoom = null;// 宿舍定义
+		PtDormDefine dormRoom = null;// 宿舍定义
 		dormRoom = this.getByRoomId(delId);// roomId
 		if (!dormRoom.getIsAllot() == true) {// 0：未分配 1:已分配
 			roomInfo.setUpdateTime(new Date());

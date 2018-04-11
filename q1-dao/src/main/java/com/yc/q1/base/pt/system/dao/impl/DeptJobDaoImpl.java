@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.DeptJobDao;
-import com.yc.q1.model.base.pt.system.DeptJob;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class DeptJobDaoImpl extends BaseDaoImpl<DeptJob> implements DeptJobDao {
+public class DeptJobDaoImpl extends BaseDaoImpl<PtDeptJob> implements DeptJobDao {
 }

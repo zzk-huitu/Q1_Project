@@ -2,8 +2,8 @@
 package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.basic.service.SchoolService;
-import com.yc.q1.model.base.pt.basic.School;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtSchool;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -29,7 +29,7 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping("/BaseSchool")
-public class BaseSchoolController extends FrameWorkController<School> implements Constant {
+public class BaseSchoolController extends FrameWorkController<PtSchool> implements Constant {
 
 	@Resource
 	SchoolService thisService; // service层接口
@@ -41,10 +41,10 @@ public class BaseSchoolController extends FrameWorkController<School> implements
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute School entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtSchool entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<School> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtSchool> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -58,18 +58,18 @@ public class BaseSchoolController extends FrameWorkController<School> implements
 	 * IOException 设定参数 @return void 返回类型 @throws
 	 */
 	@RequestMapping("/doAdd")
-	public void doAdd(School entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtSchool entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
 		String userCh = "超级管理员";
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		if (currentUser != null)
 			userCh = currentUser.getId();
 
-		School perEntity = new School();
+		PtSchool perEntity = new PtSchool();
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 		// 生成默认的orderindex
 		// 如果界面有了排序号的输入，则不需要取默认的了
@@ -98,7 +98,7 @@ public class BaseSchoolController extends FrameWorkController<School> implements
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -120,7 +120,7 @@ public class BaseSchoolController extends FrameWorkController<School> implements
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -137,11 +137,11 @@ public class BaseSchoolController extends FrameWorkController<School> implements
 	 */
 	@Auth("SCHOOLINFO_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(School entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtSchool entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		// entity = thisService.doUpdateEntity(entity, currentUser.getId(),
 		// null);

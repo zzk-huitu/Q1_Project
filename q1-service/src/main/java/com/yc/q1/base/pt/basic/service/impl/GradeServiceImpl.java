@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.GradeService;
 import com.yc.q1.base.pt.system.service.JobService;
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
@@ -25,10 +25,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class GradeServiceImpl extends BaseServiceImpl<Grade> implements GradeService {
+public class GradeServiceImpl extends BaseServiceImpl<PtGrade> implements GradeService {
 
 	@Resource(name = "GradeDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Grade> dao) {
+	public void setDao(BaseDao<PtGrade> dao) {
 		super.setDao(dao);
 	}
 
@@ -41,8 +41,8 @@ public class GradeServiceImpl extends BaseServiceImpl<Grade> implements GradeSer
 
     @SuppressWarnings("unchecked")
     @Override
-    public QueryResult<Grade> getGradeList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, User currentUser) {
+    public QueryResult<PtGrade> getGradeList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, PtUser currentUser) {
         String queryFilter = filter;
 /*        String jobId = currentUser.getJobId();
         String jobName = currentUser.getJobName();
@@ -80,7 +80,7 @@ public class GradeServiceImpl extends BaseServiceImpl<Grade> implements GradeSer
         }*/
         if (currentUser.getUserName().equals("schooladmin"))
             queryFilter = "";
-        QueryResult<Grade> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
+        QueryResult<PtGrade> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
         return qr;
     }
 

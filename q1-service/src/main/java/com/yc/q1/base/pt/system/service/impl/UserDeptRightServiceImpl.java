@@ -14,9 +14,9 @@ import com.yc.q1.base.pt.system.service.UserDeptRightService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.DeptRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
-import com.yc.q1.model.base.pt.system.UserDeptRight;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
+import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -32,11 +32,11 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class UserDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> implements UserDeptRightService {
+public class UserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight> implements UserDeptRightService {
 	
 	//自动注入dao到service层中，并设置到dao变量中
 	@Resource(name = "UserDeptRightDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<UserDeptRight> dao) {
+	public void setDao(BaseDao<PtUserDeptRight> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -48,7 +48,7 @@ public class UserDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> imp
 	private UserService userService;
 	
 	@Override
-	public Boolean doUserRightDept(String userId, String deptId, User currentUser) {
+	public Boolean doUserRightDept(String userId, String deptId, PtUser currentUser) {
 		Date date=new Date();
 		String[] userIds = userId.split(",");
 		String[] deptIds = deptId.split(",");
@@ -56,14 +56,14 @@ public class UserDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> imp
 		Object[] propertyValue = { currentUser.getId(), date, 1 };
 		
 		String hql="select deptId from UserDeptRight where isDelete=0 and userId=?";
-		UserDeptRight deptright = null;
+		PtUserDeptRight deptright = null;
 		for (String ui : userIds) {
 			//一次性查询出这个用户的所有部门权限，判断是否要入库		
 			List<Object> deptIdList = this.queryEntityByHql(hql, ui);		
 			for (String di : deptIds) {
 				if(!deptIdList.contains(di)){			
-					deptright = new UserDeptRight();
-					deptright.setId(keyRedisService.getId(UserDeptRight.ModuleType));
+					deptright = new PtUserDeptRight();
+					deptright.setId(keyRedisService.getId(PtUserDeptRight.ModuleType));
 					deptright.setUserId(ui);
 					deptright.setDeptId(di);
 					//deptright.setRightSource(1);取消了此字段

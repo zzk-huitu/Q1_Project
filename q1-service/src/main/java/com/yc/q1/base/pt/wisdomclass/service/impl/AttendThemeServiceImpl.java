@@ -16,10 +16,10 @@ import com.yc.q1.base.pt.wisdomclass.service.AttendThemeService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendUserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTheme;
-import com.yc.q1.model.base.pt.wisdomclass.AttendUser;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -39,7 +39,7 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> implements AttendThemeService{
+public class AttendThemeServiceImpl extends BaseServiceImpl<PtAttendTheme> implements AttendThemeService{
 
 	@Resource
 	AttendUserService attUserService;
@@ -49,7 +49,7 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	AttendTimeService attTimeService;
 	
 	@Resource(name="AttendThemeDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<AttendTheme> dao) {
+	public void setDao(BaseDao<PtAttendTheme> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -57,8 +57,8 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	private static Logger logger = Logger.getLogger(AttendThemeServiceImpl.class);
 	
 	@Override
-	public QueryResult<AttendTheme> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<AttendTheme> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtAttendTheme> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtAttendTheme> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -71,7 +71,7 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -98,9 +98,9 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	 * @return
 	 */
 	@Override
-	public AttendTheme doUpdateEntity(AttendTheme entity, User currentUser) {
+	public PtAttendTheme doUpdateEntity(PtAttendTheme entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		AttendTheme saveEntity = this.get(entity.getId());
+		PtAttendTheme saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -127,12 +127,12 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 	 * @return
 	 */
 	@Override
-	public AttendTheme doAddEntity(AttendTheme entity, User currentUser) {
-		AttendTheme saveEntity = new AttendTheme();
+	public PtAttendTheme doAddEntity(PtAttendTheme entity, PtUser currentUser) {
+		PtAttendTheme saveEntity = new PtAttendTheme();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(AttendTheme.ModuleType));
+			entity.setId(keyRedisService.getId(PtAttendTheme.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -151,8 +151,8 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 		Integer count=0;
 	
 		for (int i = 0; i < userIds.length; i++) {
-			AttendUser attUser = new AttendUser();
-			attUser.setId(keyRedisService.getId(AttendUser.ModuleType));
+			PtAttendUser attUser = new PtAttendUser();
+			attUser.setId(keyRedisService.getId(PtAttendUser.ModuleType));
             attUser.setAttendThemeId(titleId);
 			attUser.setUserId(userIds[i]);
 			attUser.setName(userNames[i]);
@@ -173,8 +173,8 @@ public class AttendThemeServiceImpl extends BaseServiceImpl<AttendTheme> impleme
 		Integer count=0;
 		
 		for (int i = 0; i < termCodes.length; i++) {
-			AttendTerm attTerm = new AttendTerm();
-			attTerm.setId(keyRedisService.getId(AttendTerm.ModuleType));
+			PtAttendTerm attTerm = new PtAttendTerm();
+			attTerm.setId(keyRedisService.getId(PtAttendTerm.ModuleType));
 			attTerm.setAttendThemeId(titleId);
 			attTerm.setTerminalNo(termCodes[i]);
 			attTerm.setRoomId(roomIds[i]);

@@ -36,10 +36,10 @@ import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.redis.service.UserRedisService;
-import com.yc.q1.model.base.pt.system.DataDictItem;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.yc.q1.pojo.base.pt.DepartmentTree;
 import com.yc.q1.pojo.base.pt.MenuTree;
 import com.zd.core.annotation.Auth;
@@ -65,7 +65,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysUser")
-public class SysUserController extends FrameWorkController<User> implements Constant {
+public class SysUserController extends FrameWorkController<PtUser> implements Constant {
 
 	private static Logger logger = Logger.getLogger(SysUserController.class);
 
@@ -111,12 +111,12 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		// 若当前用户是超级管理员/学校管理员，并且为学校部门，则查询出所有的用户
 		if ((isAdmin == 1 || isSchoolAdmin == 1) && deptId.equals(AdminType.ADMIN_ORG_ID)) {
 
-			QueryResult<User> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+			QueryResult<PtUser> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), true);
 			strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			// 其他非管理员的，并且点击了学校部门，则查询出它有权限的部门
 			if (deptId.equals(AdminType.ADMIN_ORG_ID)) {
 				List<DepartmentTree> baseOrgList = sysOrgService.getUserRightDeptTreeList(currentUser);
@@ -130,7 +130,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 						+ "	select distinct userId  from UserDeptJob where isDelete=0 and deptId in ('" + deptId
 						+ "')" + ")"; // and masterDept=1 目前显示部门的全部用户
 
-				QueryResult<User> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
+				QueryResult<PtUser> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
 						super.sort(request), super.filter(request), hql, null, null);
 
 				strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -154,7 +154,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	 */
 	@Auth("SYSUSER_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(User entity, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void doAdd(PtUser entity, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String userName = entity.getUserName();
 		String userNumb = entity.getUserNumb();
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
@@ -171,7 +171,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		}
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String deptJobId = request.getParameter("deptJobId");
 		// 给学生或教师加入角色
 		entity = thisService.doAddUser(entity, currentUser/* , deptJobId */);
@@ -195,7 +195,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -215,7 +215,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	 */
 	@Auth("SYSUSER_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(User entity, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void doUpdates(PtUser entity, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		String userName = entity.getUserName();
 		String userNumb = entity.getUserNumb();
@@ -233,7 +233,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			}
 		}
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateUser(entity, currentUser);
 
@@ -251,7 +251,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	public void getUserMenuTree(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
-		User currentUser = (User) session.getAttribute(SESSION_SYS_USER);
+		PtUser currentUser = (PtUser) session.getAttribute(SESSION_SYS_USER);
 		String strData = null;
 
 		// 获取缓存数据
@@ -299,15 +299,15 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void getUserRolelist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String userId = request.getParameter("userId"); // 获得传过来的roleId
-		User sysUser = thisService.get(userId);
+		PtUser sysUser = thisService.get(userId);
 		Integer count = 0;
-		Set<Role> userRole = new HashSet<Role>();
+		Set<PtRole> userRole = new HashSet<PtRole>();
 		if (ModelUtil.isNotNull(sysUser)) {
 
 			// 排除isdelet为1的角色(在获取菜单列表的方法中，排除删除的角色)
-			Iterator<Role> sysRoles = sysUser.getSysRoles().iterator();
+			Iterator<PtRole> sysRoles = sysUser.getSysRoles().iterator();
 			while (sysRoles.hasNext()) {
-				Role currentRole = sysRoles.next();
+				PtRole currentRole = sysRoles.next();
 				if (currentRole.getIsDelete() != null && currentRole.getIsDelete() != 1) {
 					userRole.add(currentRole);
 				}
@@ -338,7 +338,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 
 		String userId = request.getParameter("userId"); // 获得传过来的用户ID
 		String ids = request.getParameter("ids");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		if (StringUtils.isEmpty(ids) || StringUtils.isEmpty(userId)) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入要删除的数据'"));
@@ -351,7 +351,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 
 				// 当操作了当前用户的角色，则更新roleKey的session值
 				if (userId.indexOf(currentUser.getId()) != -1) {
-					User sysUser = thisService.get(currentUser.getId());
+					PtUser sysUser = thisService.get(currentUser.getId());
 					String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0)
 							.map(x -> x.getRoleCode()).collect(Collectors.joining(","));
 					request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
@@ -384,7 +384,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 
 		String userId = request.getParameter("userId"); // 获得传过来的用户ID
 		String ids = request.getParameter("ids");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		if (StringUtils.isEmpty(ids) || StringUtils.isEmpty(userId)) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要添加的数据\""));
@@ -397,7 +397,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 
 				// 当操作了当前用户的角色，则更新roleKey的session值
 				if (userId.indexOf(currentUser.getId()) != -1) {
-					User sysUser = thisService.get(currentUser.getId());
+					PtUser sysUser = thisService.get(currentUser.getId());
 					String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0)
 							.map(x -> x.getRoleCode()).collect(Collectors.joining(","));
 					request.getSession().setAttribute(Constant.SESSION_SYS_USER, sysUser);
@@ -458,7 +458,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void getUserlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<User> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtUser> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -472,7 +472,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		String strData = ""; // 返回给js的数据
 		String ids = request.getParameter("ids");
 		String hql = "from User a where id in ('" + ids.replace(",", "','") + "')";
-		List<User> userList = thisService.queryByHql(hql);
+		List<PtUser> userList = thisService.queryByHql(hql);
 
 		strData = jsonBuilder.buildObjListToJson((long) userList.size(), userList, true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -496,7 +496,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 
 		String propName[] = { "isDelete", "userId" };
 		Object propValue[] = { 0, userId };
-		List<UserDeptJob> list = userDeptjobService.queryByProerties(propName, propValue);
+		List<PtUserDeptJob> list = userDeptjobService.queryByProerties(propName, propValue);
 
 		strData = jsonBuilder.buildObjListToJson((long) list.size(), list, true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -518,7 +518,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入设置的参数'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = userDeptjobService.doAddUserToDeptJob(deptJobId, userId, currentUser);
 			if (flag)
 				writeJSON(response, jsonBuilder.returnSuccessJson("'设置成功'"));
@@ -541,7 +541,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入要解除绑定的部门岗位'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = userDeptjobService.doRemoveUserFromDeptJob(delIds, currentUser);
 			if (flag)
 				writeJSON(response, jsonBuilder.returnSuccessJson("'解除绑定成功'"));
@@ -565,7 +565,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入要设置部门岗位'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = userDeptjobService.doSetMasterDeptJob(delIds, userId, currentUser);
 			if (flag)
 				writeJSON(response, jsonBuilder.returnSuccessJson("'设置主部门成功'"));
@@ -595,7 +595,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		String sort = StringUtils.convertSortToSql(super.sort(request));
 		String filter = StringUtils.convertFilterToSql(super.filter(request));
 
-		QueryResult<User> qr = thisService.getUserNotInRoleId(roleId, start, limit, sort, filter);
+		QueryResult<PtUser> qr = thisService.getUserNotInRoleId(roleId, start, limit, sort, filter);
 		strData = jsonBuilder.buildObjListToJson(new Long(qr.getTotalCount()), qr.getResultList(), true);// 处理数据
 
 		writeJSON(response, strData);// 返回数据
@@ -626,13 +626,13 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		String mapKey = null;
 		String[] propValue = { "XBM", "CATEGORY", "ZXXBZLB", "ACCOUNTSTATE", "CARDSTATE" };
 		Map<String, String> mapDicItem = new HashMap<>();
-		List<DataDictItem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
-		for (DataDictItem baseDicitem : listDicItem) {
+		List<PtDataDictItem> listDicItem = dicitemService.queryByProerties("dicCode", propValue);
+		for (PtDataDictItem baseDicitem : listDicItem) {
 			mapKey = baseDicitem.getItemCode() + baseDicitem.getDicCode();
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
 
-		List<User> sysUserList = null;
+		List<PtUser> sysUserList = null;
 		String hql = " from User a where a.isDelete=0 ";
 		if (StringUtils.isNotEmpty(deptId)) {
 			if (!deptId.equals(AdminType.ADMIN_ORG_ID)) {
@@ -655,7 +655,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 		Map<String, String> traineeMap = null;
 		String ClassName = "";
 		int i = 1;
-		for (User sysUser : sysUserList) {
+		for (PtUser sysUser : sysUserList) {
 			traineeMap = new LinkedHashMap<>();
 			ClassName = sysUser.getDeptName();
 			traineeMap.put("xh", i + "");
@@ -725,7 +725,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	public void setUserDeskFunc(@RequestParam("menuCodes") String menuCodes, HttpServletResponse response)
 			throws IOException {
 		try {
-			User sysUser = getCurrentSysUser();
+			PtUser sysUser = getCurrentSysUser();
 
 			// 获取缓存数据
 			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getId());
@@ -761,7 +761,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	public void cancelUserDeskFunc(@RequestParam("menuCodes") String menuCodes, HttpServletResponse response)
 			throws IOException {
 		try {
-			User sysUser = getCurrentSysUser();
+			PtUser sysUser = getCurrentSysUser();
 
 			// 获取缓存数据
 			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getId());
@@ -796,7 +796,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 	@RequestMapping("/getUserDeskFunc")
 	public void getUserDeskFunc(HttpServletResponse response) throws IOException {
 		try {
-			User sysUser = getCurrentSysUser();
+			PtUser sysUser = getCurrentSysUser();
 
 			// 获取缓存数据
 			Object userDeskFunc = userRedisService.getDeskFuncByUser(sysUser.getId());
@@ -822,7 +822,7 @@ public class SysUserController extends FrameWorkController<User> implements Cons
 			HttpServletResponse response) throws Exception {
 		try {
 
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 
 			InputStream in = null;
 			List<List<Object>> listObject = null;

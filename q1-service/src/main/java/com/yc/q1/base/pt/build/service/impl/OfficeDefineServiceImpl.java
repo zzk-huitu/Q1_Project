@@ -12,8 +12,8 @@ import com.yc.q1.base.pt.build.dao.OfficeDefineDao;
 import com.yc.q1.base.pt.build.service.OfficeDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.OfficeDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.build.PtOfficeDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -29,10 +29,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> implements OfficeDefineService {
+public class OfficeDefineServiceImpl extends BaseServiceImpl<PtOfficeDefine> implements OfficeDefineService {
 
 	@Resource(name = "OfficeDefineDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<OfficeDefine> dao) {
+	public void setDao(BaseDao<PtOfficeDefine> dao) {
 		super.setDao(dao);
 	}
 
@@ -43,21 +43,21 @@ public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> imple
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public OfficeDefine getByRoomId(String roomId) {
+	public PtOfficeDefine getByRoomId(String roomId) {
 		String hql = "from OfficeDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
-		OfficeDefine entity = this.getEntityByHql(hql);
+		PtOfficeDefine entity = this.getEntityByHql(hql);
 		return entity;
 	}
 
 	@Override
-	public void addOffRoom(RoomInfo entity, String id, String userCh)
+	public void addOffRoom(PtRoomInfo entity, String id, String userCh)
 			throws IllegalAccessException, InvocationTargetException {
-		RoomInfo roomInfo = null;
-		OfficeDefine offRoom = null;// 办公室定义
-		offRoom = new OfficeDefine();
+		PtRoomInfo roomInfo = null;
+		PtOfficeDefine offRoom = null;// 办公室定义
+		offRoom = new PtOfficeDefine();
 		BeanUtils.copyPropertiesExceptNull(offRoom, entity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(offRoom);
@@ -67,7 +67,7 @@ public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> imple
 		offRoom.setCreateTime(new Date());
 		offRoom.setOrderIndex(orderIndex);// 排序
 		
-		offRoom.setId(keyRedisService.getId(OfficeDefine.ModuleType));	//手动设置id
+		offRoom.setId(keyRedisService.getId(PtOfficeDefine.ModuleType));	//手动设置id
 		this.merge(offRoom); // 执行添加方法
 
 		roomInfo = thisService.get(id);
@@ -82,9 +82,9 @@ public class OfficeDefineServiceImpl extends BaseServiceImpl<OfficeDefine> imple
 	}
 
 	@Override
-	public Boolean delOffRoom(RoomInfo roomInfo, String delId, String xm) {
+	public Boolean delOffRoom(PtRoomInfo roomInfo, String delId, String xm) {
 		Boolean flag = false;
-		OfficeDefine offRoom = null;// 办公室定义
+		PtOfficeDefine offRoom = null;// 办公室定义
 		offRoom = this.getByRoomId(delId);
 		if (!offRoom.getIsAllot() == true) {
 			roomInfo.setUpdateTime(new Date());

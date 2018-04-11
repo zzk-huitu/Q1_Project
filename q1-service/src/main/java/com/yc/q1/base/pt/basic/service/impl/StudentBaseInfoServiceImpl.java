@@ -17,10 +17,10 @@ import com.yc.q1.base.pt.basic.service.StudentBaseInfoService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.basic.StudentBaseInfo;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.constant.AdminType;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
@@ -41,10 +41,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo> implements StudentBaseInfoService {
+public class StudentBaseInfoServiceImpl extends BaseServiceImpl<PtStudentBaseInfo> implements StudentBaseInfoService {
 
 	@Resource(name = "StudentBaseInfoDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<StudentBaseInfo> dao) {
+	public void setDao(BaseDao<PtStudentBaseInfo> dao) {
 		super.setDao(dao);
 	}
 
@@ -62,16 +62,16 @@ public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo>
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public QueryResult<StudentBaseInfo> getStudentList(Integer start, Integer limit, String sort, String filter,
-			Boolean isDelete, String claiId, User currentUser) {
+	public QueryResult<PtStudentBaseInfo> getStudentList(Integer start, Integer limit, String sort, String filter,
+			Boolean isDelete, String claiId, PtUser currentUser) {
 		String queryFilter = filter;
 		String qrClassId = claiId;
 		// 当前用户有权限的班级列表
-		QueryResult<GradeClass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
-		List<GradeClass> jgClass = qr.getResultList();
+		QueryResult<PtGradeClass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
+		List<PtGradeClass> jgClass = qr.getResultList();
 		StringBuffer sb = new StringBuffer();
 		if (jgClass.size() > 0) {
-			for (GradeClass jwTGrade : jgClass) {
+			for (PtGradeClass jwTGrade : jgClass) {
 				sb.append(jwTGrade.getId() + ",");
 			}
 			sb.deleteCharAt(sb.length() - 1);
@@ -94,14 +94,14 @@ public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo>
 			queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId
 					+ "\",\"field\":\"classId\"}]";
 		}
-		QueryResult<StudentBaseInfo> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
+		QueryResult<PtStudentBaseInfo> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
 		return qrReturn;
 	}
 
 	@Override
-	public StudentBaseInfo doAddStudent(StudentBaseInfo entity,
-			User currentUser/* , String deptJobId */) {
-		StudentBaseInfo saveEntity = new StudentBaseInfo();
+	public PtStudentBaseInfo doAddStudent(PtStudentBaseInfo entity,
+			PtUser currentUser/* , String deptJobId */) {
+		PtStudentBaseInfo saveEntity = new PtStudentBaseInfo();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("uuid");
 		try {
@@ -122,8 +122,8 @@ public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo>
 		saveEntity.setSchoolId(AdminType.ADMIN_ORG_ID);
 
 		// 增加角色
-		Set<Role> theUserRoler = saveEntity.getSysRoles();
-		Role role = roleService.getByProerties(new String[] { "roleCode", "isDelete" }, new Object[] { "STUDENT", 0 });
+		Set<PtRole> theUserRoler = saveEntity.getSysRoles();
+		PtRole role = roleService.getByProerties(new String[] { "roleCode", "isDelete" }, new Object[] { "STUDENT", 0 });
 
 		if (role != null) {
 			theUserRoler.add(role);
@@ -134,7 +134,7 @@ public class StudentBaseInfoServiceImpl extends BaseServiceImpl<StudentBaseInfo>
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 
 		// 持久化到数据库
-		saveEntity.setId(keyRedisService.getId(StudentBaseInfo.ModuleType));	//手动设置id
+		saveEntity.setId(keyRedisService.getId(PtStudentBaseInfo.ModuleType));	//手动设置id
 		entity = this.merge(saveEntity);
 
 		String userIds = entity.getId();

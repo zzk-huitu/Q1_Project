@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.Attachment;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
 import com.zd.core.service.BaseService;
 
 /**
@@ -13,6 +13,6 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface AttachmentService extends BaseService<Attachment> {
+public interface AttachmentService extends BaseService<PtAttachment> {
 
 }

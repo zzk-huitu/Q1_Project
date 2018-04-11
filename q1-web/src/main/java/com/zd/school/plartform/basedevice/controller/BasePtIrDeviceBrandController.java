@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.device.service.IrDeviceBrandService;
 import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.device.IrDeviceBrand;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -41,7 +41,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BasePtIrDeviceBrand")
-public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceBrand> implements Constant  {
+public class BasePtIrDeviceBrandController extends FrameWorkController<PtIrDeviceBrand> implements Constant  {
 	
 	@Resource
 	IrDeviceBrandService thisService; // service层接口
@@ -77,7 +77,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute IrDeviceBrand entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtIrDeviceBrand entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -119,7 +119,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 				return;
 			}
 		}
-		QueryResult<IrDeviceBrand> qResult = thisService.queryPageResult(super.start(request), super.limit(request),super.sort(request), filter, true);
+		QueryResult<PtIrDeviceBrand> qResult = thisService.queryPageResult(super.start(request), super.limit(request),super.sort(request), filter, true);
         strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
         writeJSON(response, strData);// 返回数据
 	}
@@ -128,7 +128,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 	 * 
 	 * @Title: doadd
 	 * @Description: 增加新实体信息至数据库
-	 * @param IrDeviceBrand
+	 * @param PtIrDeviceBrand
 	 *            实体类
 	 * @param request
 	 * @param response
@@ -138,14 +138,14 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 	 */
 	@Auth("IRDEVICE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(IrDeviceBrand entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtIrDeviceBrand entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		IrDeviceBrand bar = null;
-		User currentUser = getCurrentSysUser();
+		PtIrDeviceBrand bar = null;
+		PtUser currentUser = getCurrentSysUser();
 		Integer level = entity.getLevel();
 		if (level != 4)
 			if (thisService.IsFieldExist("brandName", entity.getBrandName(), "-1"," isDelete=0")) {
@@ -177,7 +177,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 	/**
 	 * @Title: doUpdate
 	 * @Description: 编辑指定记录
-	 * @param IrDeviceBrand
+	 * @param PtIrDeviceBrand
 	 * @param request
 	 * @param response
 	 * @return void 返回类型
@@ -186,13 +186,13 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 	 */
 	@Auth("IRDEVICE_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(IrDeviceBrand entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtIrDeviceBrand entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))
@@ -222,7 +222,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			String hql = " from IrRoomDevice a where a.isDelete=0 and a.brandId  in ('" + ids.replace(",", "','")
 					+ "')";
 			List lists = deveiceService.queryByHql(hql);
@@ -252,7 +252,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 25, 15, 40};
-		List<IrDeviceBrand> deviceBrandList = null;
+		List<PtIrDeviceBrand> deviceBrandList = null;
 		String hql = " from PtIrDeviceBrand a where a.isDelete=0 ";
 	
 		if(StringUtils.isNotEmpty(level)&&level.equals("3")){
@@ -275,7 +275,7 @@ public class BasePtIrDeviceBrandController extends FrameWorkController<IrDeviceB
 		List<Map<String, String>> deviceBrandExpList = new ArrayList<>();
 		Map<String, String> deviceBrandMap = null;
 		int i=1;
-		for (IrDeviceBrand deviceBrand : deviceBrandList) {
+		for (PtIrDeviceBrand deviceBrand : deviceBrandList) {
 			deviceBrandMap = new LinkedHashMap<>();
 			deviceBrandMap.put("xh", i+"");
 			deviceBrandMap.put("productModel", deviceBrand.getProductModel());

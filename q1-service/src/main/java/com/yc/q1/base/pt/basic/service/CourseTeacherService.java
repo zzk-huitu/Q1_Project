@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.basic.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.model.base.pt.basic.CourseTeacher;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCourseTeacher;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
@@ -19,7 +19,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface CourseTeacherService extends BaseService<CourseTeacher> {
+public interface CourseTeacherService extends BaseService<PtCourseTeacher> {
 
     /**
      * 
@@ -39,11 +39,11 @@ public interface CourseTeacherService extends BaseService<CourseTeacher> {
      * @throws @since
      *             JDK 1.8
      */
-    public Boolean doAddCourseTeacher(String jsonData, User currentUser) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException;
+    public Boolean doAddCourseTeacher(String jsonData, PtUser currentUser) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException;
 
-    public Boolean doDelCourseTeacher(String delIds, User currentUser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+    public Boolean doDelCourseTeacher(String delIds, PtUser currentUser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
     
-    public QueryResult<CourseTeacher> getClassCourseTeacherList(Integer start, Integer limit, String sort, String filter,
+    public QueryResult<PtCourseTeacher> getClassCourseTeacherList(Integer start, Integer limit, String sort, String filter,
             Boolean isDelete, String classId, Integer classLevel);   
     
 	/**
@@ -51,7 +51,7 @@ public interface CourseTeacherService extends BaseService<CourseTeacher> {
 	 */
 	public String updateZjsByClassId(String classId,String courseid,int zjs);
 
-	public Integer doReplaceCourseTeacher(String jctUuid, String teacherId, User sysser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	public Integer doReplaceCourseTeacher(String jctUuid, String teacherId, PtUser sysser) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
 	public void updatePubliceClass(String classId, String courseId, String publicClassId);
 	
@@ -61,5 +61,5 @@ public interface CourseTeacherService extends BaseService<CourseTeacher> {
 	 * @param currentUser
 	 * @return
 	 */
-	public CommTree getUserRightDeptDisciplineTree(String rootId, User currentUser);
+	public CommTree getUserRightDeptDisciplineTree(String rootId, PtUser currentUser);
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.sk.service.SkTermStatusService;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.sk.SkTermStatus;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;

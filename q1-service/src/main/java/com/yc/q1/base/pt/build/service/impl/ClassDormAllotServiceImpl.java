@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.build.dao.ClassDormAllotDao;
 import com.yc.q1.base.pt.build.service.ClassDormAllotService;
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -26,10 +26,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class ClassDormAllotServiceImpl extends BaseServiceImpl<ClassDormAllot> implements ClassDormAllotService{
+public class ClassDormAllotServiceImpl extends BaseServiceImpl<PtClassDormAllot> implements ClassDormAllotService{
 
 	@Resource(name = "ClassDormAllotDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<ClassDormAllot> dao) {
+	public void setDao(BaseDao<PtClassDormAllot> dao) {
 		super.setDao(dao);
 	}
 

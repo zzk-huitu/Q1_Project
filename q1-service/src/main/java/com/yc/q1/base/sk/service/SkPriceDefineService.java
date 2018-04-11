@@ -1,6 +1,6 @@
 package com.yc.q1.base.sk.service;
 
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.zd.core.service.BaseService;
 
@@ -12,7 +12,7 @@ import com.zd.core.service.BaseService;
  */
 public interface SkPriceDefineService extends BaseService<SkPriceDefine> {
 
-	public SkPriceDefine doAddEntity(SkPriceDefine entity, User currentUser);
-	public SkPriceDefine doUpdateEntity(SkPriceDefine entity, User currentUser);
+	public SkPriceDefine doAddEntity(SkPriceDefine entity, PtUser currentUser);
+	public SkPriceDefine doUpdateEntity(SkPriceDefine entity, PtUser currentUser);
 	
 }

@@ -1,8 +1,8 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeOther;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeOther;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -16,7 +16,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface NoticeService extends BaseService<Notice> {
+public interface NoticeService extends BaseService<PtNotice> {
 
 	/**
 	 * 数据列表
@@ -33,7 +33,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	public QueryResult<PtNotice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -44,7 +44,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -55,7 +55,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public Notice doUpdateEntity(Notice entity, User currentUser);
+	public PtNotice doUpdateEntity(PtNotice entity, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -75,7 +75,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 * @param terminalIds 
 	 * @return
 	 */
-	public Notice doUpdateEntity(Notice entity, User currentUser, String deptIds, String roleIds,
+	public PtNotice doUpdateEntity(PtNotice entity, PtUser currentUser, String deptIds, String roleIds,
 			String userIds, String terminalIds, String stuIds, String isNoticeParent);
 
 	/**
@@ -87,7 +87,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public Notice doAddEntity(Notice entity, User currentUser);
+	public PtNotice doAddEntity(PtNotice entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -107,7 +107,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 * @param stuIds 
 	 * @return
 	 */
-	public Notice doAddEntity(Notice entity, User currentUser, String deptIds, String roleIds, String userIds, String terminalIds, String stuIds, String isNoticeParent);
+	public PtNotice doAddEntity(PtNotice entity, PtUser currentUser, String deptIds, String roleIds, String userIds, String terminalIds, String stuIds, String isNoticeParent);
 
 	/**
 	 * 获取指定公告的通知部门、角色、人员的信息
@@ -116,7 +116,7 @@ public interface NoticeService extends BaseService<Notice> {
 	 *            指定的公告id
 	 * @return
 	 */
-	public NoticeOther getNoticeOther(String id);
+	public PtNoticeOther getNoticeOther(String id);
 	
 //	public  List<Notice> getUserOaNotice(User currentUser);
 	
@@ -135,5 +135,5 @@ public interface NoticeService extends BaseService<Notice> {
 	 *            指定的终端号
 	 * @return
 	 */
-	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, String  termCode);
+	public QueryResult<PtNotice> list(Integer start, Integer limit, String sort, String filter, String  termCode);
 }

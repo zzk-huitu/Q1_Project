@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommBase;
 import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.dao.BaseDao;
@@ -24,12 +24,12 @@ import com.zd.core.util.TLVUtils;
 
 @Service
 @Transactional
-public class TermServiceImpl extends BaseServiceImpl<Term> implements TermService {
+public class TermServiceImpl extends BaseServiceImpl<PtTerm> implements TermService {
 
 	private static Logger logger = Logger.getLogger(TermServiceImpl.class);
 
 	@Resource(name = "TermDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Term> dao) {
+	public void setDao(BaseDao<PtTerm> dao) {
 		super.setDao(dao);
 	}
 
@@ -39,7 +39,7 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 	// 已废弃
 	@Override
 	public void batchUpdate(int termTypeID, String termid, String areaType, String[] strings, Object[] objects) {
-		Term term = this.get(termid);
+		PtTerm term = this.get(termid);
 		String roomid = term.getRoomId();
 		int area = Integer.parseInt(areaType);
 		for (int level = 5; level > area; level--) {
@@ -60,16 +60,16 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 	}
 
 	@Override
-	public Term doAddEntity(Term entity, User currentUser) {
+	public PtTerm doAddEntity(PtTerm entity, PtUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			Term perEntity = new Term();
+			PtTerm perEntity = new PtTerm();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			
 			// 持久化到数据库
-			entity.setId(keyRedisService.getId(Term.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtTerm.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -82,9 +82,9 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 	}
 
 	@Override
-	public Term doUpdateEntity(Term entity, User currentUser) {
+	public PtTerm doUpdateEntity(PtTerm entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		Term perEntity = this.get(entity.getId());
+		PtTerm perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -111,7 +111,7 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 		// TODO Auto-generated method stub
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs());
-		Term perEntity = this.get(tlvs.getId());
+		PtTerm perEntity = this.get(tlvs.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
@@ -127,7 +127,7 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs());
 
-		Term term = this.get(uuid);
+		PtTerm term = this.get(uuid);
 		String roomid = term.getRoomId();
 		int area = Integer.parseInt(areaType);
 		// 最多5层，但也可能为4层（无校区的情况）
@@ -183,7 +183,7 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 		byte[] baseResult = null;
 		baseResult = TLVUtils.encode(tlvs.getTlvs());
 
-		Term perEntity = this.get(tlvs.getId());
+		PtTerm perEntity = this.get(tlvs.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
 		perEntity.setUpdateTime(new Date());
@@ -201,7 +201,7 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 		byte[] baseResult = null;
 		baseResult = TLVUtils.encode(tlvs.getTlvs());
 
-		Term term = this.get(uuid);
+		PtTerm term = this.get(uuid);
 		String roomid = term.getRoomId();
 		int area = Integer.parseInt(areaType);
 		// 最多5层，但也可能为4层（无校区的情况）
@@ -244,11 +244,11 @@ public class TermServiceImpl extends BaseServiceImpl<Term> implements TermServic
 	}
 
 	@Override
-	public void doSetPtTerm(String roomId, String uuid, User currentUser) {
+	public void doSetPtTerm(String roomId, String uuid, PtUser currentUser) {
 		// TODO Auto-generated method stub
 		String uuids[] = uuid.split(",");
 		String roomIds[] = roomId.split(",");
-		Term entity = null;
+		PtTerm entity = null;
 		for (int i = 0; i < uuids.length; i++) {
 			entity = this.get(uuids[i]);
 			entity.setRoomId(roomIds[i]);

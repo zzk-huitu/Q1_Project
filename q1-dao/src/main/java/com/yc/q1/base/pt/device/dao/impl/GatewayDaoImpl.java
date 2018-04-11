@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.device.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.device.dao.GatewayDao;
-import com.yc.q1.model.base.pt.device.Gateway;
+import com.yc.q1.model.base.pt.device.PtGateway;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**
@@ -12,5 +12,5 @@ import com.zd.core.dao.BaseDaoImpl;
  *
  */
 @Repository
-public class GatewayDaoImpl extends BaseDaoImpl<Gateway> implements GatewayDao{
+public class GatewayDaoImpl extends BaseDaoImpl<PtGateway> implements GatewayDao{
 }

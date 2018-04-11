@@ -7,9 +7,9 @@ import java.util.Set;
 
 import org.apache.shiro.session.Session;
 
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.Permission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.ImportNotInfo;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
@@ -24,7 +24,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface UserService extends BaseService<User> {
+public interface UserService extends BaseService<PtUser> {
 
     /**
      * 
@@ -40,7 +40,7 @@ public interface UserService extends BaseService<User> {
      * @throws @since
      *             JDK 1.8
      */
-    public User doAddUser(User entity, User currentUser/*, String deptJobId*/) throws Exception, InvocationTargetException;
+    public PtUser doAddUser(PtUser entity, PtUser currentUser/*, String deptJobId*/) throws Exception, InvocationTargetException;
 
     /**
      * 
@@ -56,7 +56,7 @@ public interface UserService extends BaseService<User> {
      * @throws @since
      *             JDK 1.8
      */
-    public User doUpdateUser(User entity, User currentUser) throws Exception, InvocationTargetException;
+    public PtUser doUpdateUser(PtUser entity, PtUser currentUser) throws Exception, InvocationTargetException;
 
     /**
      * 
@@ -73,7 +73,7 @@ public interface UserService extends BaseService<User> {
      * @throws @since
      *             JDK 1.8
      */
-    public Boolean doDeleteUserRole(String userId, String delRoleIds, User currentUser);
+    public Boolean doDeleteUserRole(String userId, String delRoleIds, PtUser currentUser);
 
     /**
      * 
@@ -90,7 +90,7 @@ public interface UserService extends BaseService<User> {
      * @throws @since
      *             JDK 1.8
      */
-    public Boolean doAddUserRole(String userId, String addRoleIds, User currentUser);
+    public Boolean doAddUserRole(String userId, String addRoleIds, PtUser currentUser);
 
     /**
      * 
@@ -111,8 +111,8 @@ public interface UserService extends BaseService<User> {
      * @throws @since
      *             JDK 1.8
      */
-    public QueryResult<User> getDeptUser(Integer start, Integer limit, String sort, String filter, Boolean isDelete,
-            String userIds, User currentUser);
+    public QueryResult<PtUser> getDeptUser(Integer start, Integer limit, String sort, String filter, Boolean isDelete,
+            String userIds, PtUser currentUser);
 
     /**
      * 
@@ -128,7 +128,7 @@ public interface UserService extends BaseService<User> {
      */
     //    public Boolean batchSetDept(String deptId, String userIds, SysUser cuurentUser);
 
-    public List<User> getUserByRoleName(String roleName);
+    public List<PtUser> getUserByRoleName(String roleName);
 
     /**
      * 
@@ -144,28 +144,28 @@ public interface UserService extends BaseService<User> {
      * @throws @since
      *             JDK 1.8
      */
-    public Boolean doDeleteUser(String delIds, String orgId, User currentUser);
+    public Boolean doDeleteUser(String delIds, String orgId, PtUser currentUser);
 
-    public QueryResult<User> getUserByRoleId(String roleId);
+    public QueryResult<PtUser> getUserByRoleId(String roleId);
     
     
 
 
-	public HashMap<String, Set<String>> getUserRoleMenuPermission(User sysUser, Session session);
+	public HashMap<String, Set<String>> getUserRoleMenuPermission(PtUser sysUser, Session session);
 
-	public void deleteUserMenuTreeRedis(Permission sysPermission);
+	public void deleteUserMenuTreeRedis(PtPermission sysPermission);
 
 	public void deleteUserMenuTreeRedis(String[] roleIds);
 
-	public QueryResult<User> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter);
+	public QueryResult<PtUser> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter);
 
-	public List<User> getUserByDeptId(String id);
+	public List<PtUser> getUserByDeptId(String id);
 
-	public List<ImportNotInfo> doImportUser(List<List<Object>> listObject, User currentUser);
+	public List<ImportNotInfo> doImportUser(List<List<Object>> listObject, PtUser currentUser);
 
-	public Set<Department> getDeptByUserId(String userId);
+	public Set<PtDepartment> getDeptByUserId(String userId);
 	
-	public String getUserOwnDeptids(User currentUser) ;
+	public String getUserOwnDeptids(PtUser currentUser) ;
 
 	public void deleteUserRoleRedis(String ... userId);
 }

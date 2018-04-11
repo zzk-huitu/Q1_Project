@@ -11,10 +11,10 @@ import com.yc.q1.base.pt.basic.service.GradeService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;
@@ -34,10 +34,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implements GradeClassService {
+public class GradeClassServiceImpl extends BaseServiceImpl<PtGradeClass> implements GradeClassService {
 
 	@Resource(name = "GradeClassDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<GradeClass> dao) {
+	public void setDao(BaseDao<PtGradeClass> dao) {
 		super.setDao(dao);
 	}
 
@@ -56,11 +56,11 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 	 * @author huangzc
 	 */
 	@Override
-	public Grade findJwTGradeByClassId(String classId) {
-		GradeClass jtgClass = this.getByProerties("id", classId);
+	public PtGrade findJwTGradeByClassId(String classId) {
+		PtGradeClass jtgClass = this.getByProerties("id", classId);
 		if (jtgClass == null)
 			return null;
-		Grade grade = gradeService.get(jtgClass.getGradeId());
+		PtGrade grade = gradeService.get(jtgClass.getGradeId());
 
 		if (ModelUtil.isNotNull(grade))
 			return grade;
@@ -70,8 +70,8 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-			Boolean isDelete, User currentUser) {
+	public QueryResult<PtGradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+			Boolean isDelete, PtUser currentUser) {
 		String queryFilter = filter;
 		// String jobId = currentUser.getJobId();
 		// String jobName = currentUser.getJobName();
@@ -99,9 +99,9 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 		// }
 		// }
 		// 当前人是否班主任，如是则取所在的班级
-		List<ClassTeacher> jct = classTTeaService.queryByProerties(propName, propValue);
+		List<PtClassTeacher> jct = classTTeaService.queryByProerties(propName, propValue);
 		if (jct.size() > 0) {
-			for (ClassTeacher jt : jct) {
+			for (PtClassTeacher jt : jct) {
 				sbClass.append(jt.getClassId() + ",");
 			}
 		}
@@ -128,21 +128,21 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 		}
 		// if (currentUser.getUserName().equals("schooladmin"))
 		// queryFilter = "";
-		QueryResult<GradeClass> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
+		QueryResult<PtGradeClass> qr = this.queryPageResult(start, limit, sort, queryFilter, true);
 		return qr;
 	}
 
 	@Override
-	public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-			Boolean isDelete, User currentUser, String claiId, String claiLevel) {
+	public QueryResult<PtGradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+			Boolean isDelete, PtUser currentUser, String claiId, String claiLevel) {
 
 		String queryFilter = "";
 		StringBuffer sbClass = new StringBuffer();
-		List<GradeClass> gcList = null;
+		List<PtGradeClass> gcList = null;
 		switch (claiLevel) {
 		case "1": // 查询学校
 			gcList = this.queryByProerties("isDelete", 0);
-			for (GradeClass gc : gcList) {
+			for (PtGradeClass gc : gcList) {
 				sbClass.append(gc.getId() + ",");
 			}
 			if (sbClass.length() > 0) {
@@ -153,7 +153,7 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 			break;
 		case "2": // 查询年级
 			gcList = this.queryByProerties("gradeId", claiId);
-			for (GradeClass gc : gcList) {
+			for (PtGradeClass gc : gcList) {
 				sbClass.append(gc.getId() + ",");
 			}
 			if (sbClass.length() > 0) {
@@ -166,7 +166,7 @@ public class GradeClassServiceImpl extends BaseServiceImpl<GradeClass> implement
 			queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + claiId + "\",\"field\":\"id\"}]";
 			break;
 		}
-		QueryResult<GradeClass> qr = this.getGradeClassList(start, limit, sort, queryFilter, true, currentUser);
+		QueryResult<PtGradeClass> qr = this.getGradeClassList(start, limit, sort, queryFilter, true, currentUser);
 
 		return qr;
 	}

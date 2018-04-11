@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.OfficeDefineDao;
-import com.yc.q1.model.base.pt.build.OfficeDefine;
+import com.yc.q1.model.base.pt.build.PtOfficeDefine;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class OfficeDefineDaoImpl extends BaseDaoImpl<OfficeDefine> implements OfficeDefineDao {
+public class OfficeDefineDaoImpl extends BaseDaoImpl<PtOfficeDefine> implements OfficeDefineDao {
 }

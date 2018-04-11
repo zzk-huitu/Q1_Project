@@ -1,14 +1,14 @@
 package com.yc.q1.base.pt.card.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.storage.pt.Task;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.storage.pt.PtTask;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
 /**
 * Created by zenglj on 2017-05-16.
 */
-public interface  TaskService extends BaseService< Task> {
+public interface  TaskService extends BaseService< PtTask> {
 
 	/**
 	 * 数据列表
@@ -25,7 +25,7 @@ public interface  TaskService extends BaseService< Task> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult< Task> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult< PtTask> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -36,7 +36,7 @@ public interface  TaskService extends BaseService< Task> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -47,7 +47,7 @@ public interface  TaskService extends BaseService< Task> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public  Task doUpdateEntity( Task entity, User currentUser);
+	public  PtTask doUpdateEntity( PtTask entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -58,8 +58,8 @@ public interface  TaskService extends BaseService< Task> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public  Task doAddEntity( Task entity, User currentUser);
+	public  PtTask doAddEntity( PtTask entity, PtUser currentUser);
 
 
-	QueryResult<Task> tasklistbyTermId(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	QueryResult<PtTask> tasklistbyTermId(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 }

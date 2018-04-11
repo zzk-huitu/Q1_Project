@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.model.base.pt.system.Department;
+import com.yc.q1.model.base.pt.system.PtDepartment;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface DepartmentDao extends BaseDao<Department> {
+public interface DepartmentDao extends BaseDao<PtDepartment> {
 
 }

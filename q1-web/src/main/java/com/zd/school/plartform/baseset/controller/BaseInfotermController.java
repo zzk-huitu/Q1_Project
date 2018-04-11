@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.RoomTerm;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -41,7 +41,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseInfoterm")
-public class BaseInfotermController extends FrameWorkController<InfoTerminal> implements Constant {
+public class BaseInfotermController extends FrameWorkController<PtInfoTerminal> implements Constant {
 
 	@Resource
 	InfoTerminalService thisService; // service层接口
@@ -105,7 +105,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 			}
 		}
 		
-		QueryResult<InfoTerminal> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtInfoTerminal> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request),filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -121,7 +121,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 	 */
 	@Auth("INFOTERM_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(InfoTerminal entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtInfoTerminal entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		Integer beforeNumber = Integer.parseInt(request.getParameter("beforeNumber"));
@@ -134,7 +134,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 			return;
 		}
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser, beforeNumber, termCount);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -160,7 +160,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 
 			boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 			if (flag) {
@@ -180,13 +180,13 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 	 * @throws InvocationTargetException
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(InfoTerminal entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtInfoTerminal entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))
@@ -202,9 +202,9 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 		String setTerminals = request.getParameter("terminals");
 		String roomId = request.getParameter("roomId");
 		String roomName = request.getParameter("roomName");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
-		List<InfoTerminal> entityTerminals = (List<InfoTerminal>) jsonBuilder.fromJsonArray(setTerminals, InfoTerminal.class);
+		List<PtInfoTerminal> entityTerminals = (List<PtInfoTerminal>) jsonBuilder.fromJsonArray(setTerminals, PtInfoTerminal.class);
 		Boolean result = thisService.doSetTerminal(entityTerminals, roomId, roomName, currentUser);
 		if (result)
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功\""));
@@ -237,7 +237,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 35, };
-		List<InfoTerminal> terminfoList = null;
+		List<PtInfoTerminal> terminfoList = null;
 		String hql = " from InfoTerminal where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(roomName)) {
 			hql += " and roomName like '%" + roomName + "%' ";
@@ -247,7 +247,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 
 		List<Map<String, String>> terminfoExpList = new ArrayList<>();
 		Map<String, String> terminfoMap = null;
-		for (InfoTerminal terminfo : terminfoList) {
+		for (PtInfoTerminal terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
 			terminfoMap.put("termCode", terminfo.getTerminalNo());
 			terminfoMap.put("termType", terminfo.getTerminalType());
@@ -285,7 +285,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 25, 25, 25 };
-		List<InfoTerminal> terminfoList = null;
+		List<PtInfoTerminal> terminfoList = null;
 		String hql = " from InfoTerminal where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(ids)) {
 			hql += " and id in ('" + ids.replace(",", "','") + "')";
@@ -294,7 +294,7 @@ public class BaseInfotermController extends FrameWorkController<InfoTerminal> im
 		terminfoList = thisService.queryByHql(hql);
 		List<Map<String, String>> terminfoExpList = new ArrayList<>();
 		Map<String, String> terminfoMap = null;
-		for (InfoTerminal terminfo : terminfoList) {
+		for (PtInfoTerminal terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
 			terminfoMap.put("termCode", terminfo.getTerminalNo());
 			terminfoMap.put("houseNumb", terminfo.getHouseNo());

@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttendThemeDao;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTheme;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class AttendThemeDaoImpl extends BaseDaoImpl<AttendTheme> implements AttendThemeDao {
+public class AttendThemeDaoImpl extends BaseDaoImpl<PtAttendTheme> implements AttendThemeDao {
 }

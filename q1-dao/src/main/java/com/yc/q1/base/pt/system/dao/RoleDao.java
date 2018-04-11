@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.model.base.pt.system.Role;
+import com.yc.q1.model.base.pt.system.PtRole;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -13,6 +13,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
 
-public interface RoleDao extends BaseDao<Role> {
+public interface RoleDao extends BaseDao<PtRole> {
     //public List<SysRole> doQueryForIn(String hql, Integer start, Integer limit,Object[] objs);
 }

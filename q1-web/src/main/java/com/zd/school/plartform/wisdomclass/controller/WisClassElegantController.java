@@ -23,10 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.basic.service.AttachmentService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
-import com.yc.q1.model.base.pt.basic.Attachment;
-import com.yc.q1.model.base.pt.system.Job;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassMien;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
+import com.yc.q1.model.base.pt.system.PtJob;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -42,7 +42,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/ClassElegant")
-public class WisClassElegantController extends FrameWorkController<ClassMien> implements Constant{
+public class WisClassElegantController extends FrameWorkController<PtClassMien> implements Constant{
 	@Resource
 	ClassMienService thisService; // service层接口
 	
@@ -57,7 +57,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 	
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute ClassMien entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtClassMien entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter=request.getParameter("filter");;
@@ -101,7 +101,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 			}
 		}	
 
-		QueryResult<ClassMien> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtClassMien> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -157,7 +157,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 					
 
 					// 插入数据
-					Attachment bt = new Attachment();
+					PtAttachment bt = new PtAttachment();
 					bt.setEntityName("ClassMien");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
@@ -202,11 +202,11 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 	
 	@Auth("CLASSELEGANT_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(ClassMien entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtClassMien entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
@@ -225,7 +225,7 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 			return;
 		} else {
 
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -237,13 +237,13 @@ public class WisClassElegantController extends FrameWorkController<ClassMien> im
 	
 	@Auth("CLASSELEGANT_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(ClassMien entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(PtClassMien entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 

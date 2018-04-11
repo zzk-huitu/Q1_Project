@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTime;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -36,7 +36,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/AttendTime")
-public class AttendTimeController extends FrameWorkController<AttendTime> implements Constant {
+public class AttendTimeController extends FrameWorkController<PtAttendTime> implements Constant {
 
 	@Resource
 	AttendTimeService thisService; // service层接口
@@ -55,10 +55,10 @@ public class AttendTimeController extends FrameWorkController<AttendTime> implem
 	@Auth("SPECIAL_COURSEATTEND_attendTime")
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute AttendTime entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtAttendTime entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<AttendTime> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtAttendTime> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -68,7 +68,7 @@ public class AttendTimeController extends FrameWorkController<AttendTime> implem
 	 * 
 	 * @Title: doadd
 	 * @Description: 增加新实体信息至数据库
-	 * @param AttendTime
+	 * @param PtAttendTime
 	 *            实体类
 	 * @param request
 	 * @param response
@@ -77,13 +77,13 @@ public class AttendTimeController extends FrameWorkController<AttendTime> implem
 	 *             抛出异常
 	 */
 	@RequestMapping("/doAdd")
-	public void doAdd(AttendTime entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtAttendTime entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String beginTime = "2008-01-01 " + request.getParameter("beginTime") + ":00";
 		String endTime = "2008-01-01 " + request.getParameter("endTime") + ":00";
 		entity.setBeginTime(DateUtil.getTime(beginTime));
@@ -116,7 +116,7 @@ public class AttendTimeController extends FrameWorkController<AttendTime> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -154,7 +154,7 @@ public class AttendTimeController extends FrameWorkController<AttendTime> implem
 	/**
 	 * @Title: doUpdate
 	 * @Description: 编辑指定记录
-	 * @param AttendTime
+	 * @param PtAttendTime
 	 * @param request
 	 * @param response
 	 * @return void 返回类型
@@ -162,13 +162,13 @@ public class AttendTimeController extends FrameWorkController<AttendTime> implem
 	 *             抛出异常
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(AttendTime entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtAttendTime entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String beginTime = "2008-01-01 " + request.getParameter("beginTime") + ":00";
 		String endTime = "2008-01-01 " + request.getParameter("endTime") + ":00";
 		entity.setBeginTime(DateUtil.getTime(beginTime));

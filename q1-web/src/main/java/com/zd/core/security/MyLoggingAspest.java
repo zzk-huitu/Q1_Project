@@ -16,8 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.storage.log.OprateLog;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.storage.log.LogUserOprate;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.JsonBuilder;
 
@@ -27,7 +27,7 @@ public class MyLoggingAspest {
 	private static Logger logger = Logger.getLogger(MyLoggingAspest.class);
 
 	@Resource
-	private RedisTemplate<String, OprateLog> redisTemplate;
+	private RedisTemplate<String, LogUserOprate> redisTemplate;
 	
 	@Pointcut("execution(* *..service..*.do*(..))")
 	public void pointService() {
@@ -41,7 +41,7 @@ public class MyLoggingAspest {
 		Object result = null;
 		String methodName = pjd.getSignature().getName();
 		String targetName = pjd.getTarget().getClass().getName();  
-		OprateLog operteLog = new OprateLog();
+		LogUserOprate operteLog = new LogUserOprate();
 		operteLog.setId(null);
 		try {
 			HttpServletRequest request = this.getHttpServletRequest();
@@ -57,7 +57,7 @@ public class MyLoggingAspest {
 					methodParams += jsonBuilder.toJson(args[i]) + ";";
 				}
 			}
-			User sysUser = (User) request.getSession().getAttribute(Constant.SESSION_SYS_USER);
+			PtUser sysUser = (PtUser) request.getSession().getAttribute(Constant.SESSION_SYS_USER);
 			if (sysUser != null) {
 				userName = sysUser.getUserName();
 				userId = sysUser.getId();

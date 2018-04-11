@@ -8,8 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassMienDao;
 import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassMien;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -29,17 +29,17 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class ClassMienServiceImpl extends BaseServiceImpl<ClassMien> implements ClassMienService{
+public class ClassMienServiceImpl extends BaseServiceImpl<PtClassMien> implements ClassMienService{
 
 	@Resource(name="ClassMienDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<ClassMien> dao) {
+	public void setDao(BaseDao<PtClassMien> dao) {
 		super.setDao(dao);
 	}
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Override
-	public QueryResult<ClassMien> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql,User currentUser) {
+	public QueryResult<PtClassMien> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql,PtUser currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
@@ -56,7 +56,7 @@ public class ClassMienServiceImpl extends BaseServiceImpl<ClassMien> implements 
         		hql.append(" order by  " + sortSql);
         }
         
-        QueryResult<ClassMien> qResult = this.queryResult(hql.toString(), start, limit);
+        QueryResult<PtClassMien> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

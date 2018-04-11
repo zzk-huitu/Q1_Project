@@ -25,14 +25,14 @@ import com.yc.q1.base.pt.wisdomclass.dao.NoticeDao;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeAuditor;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeOther;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeAuditor;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeOther;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeAuditorService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.StringVeriable;
@@ -55,10 +55,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements NoticeService {
+public class NoticeServiceImpl extends BaseServiceImpl<PtNotice> implements NoticeService {
 
 	@Resource(name="NoticeDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<Notice> dao) {
+	public void setDao(BaseDao<PtNotice> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -88,8 +88,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	private ClassTeacherService cTeacherService;
 
 	@Override
-	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-		QueryResult<Notice> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtNotice> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+		QueryResult<PtNotice> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -103,7 +103,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -128,9 +128,9 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return
 	 */
 	@Override
-	public Notice doUpdateEntity(Notice entity, User currentUser) {
+	public PtNotice doUpdateEntity(PtNotice entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		Notice saveEntity = this.get(entity.getId());
+		PtNotice saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -160,22 +160,22 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return
 	 */
 	@Override
-	public Notice doUpdateEntity(Notice entity, User currentUser, String deptIds, String roleIds, String userIds,
+	public PtNotice doUpdateEntity(PtNotice entity, PtUser currentUser, String deptIds, String roleIds, String userIds,
 			String terminalIds, String stuIds, String isNoticeParent) {
 		Object[] propValue = {};
 		// 先拿到已持久化的实体
-		Notice saveEntity = this.get(entity.getId());
+		PtNotice saveEntity = this.get(entity.getId());
 		try {
 			// 根据传入的部门、人员与角色的id处理
-			NoticeOther otherInfo = this.getNoticeOther(entity.getId());
+			PtNoticeOther otherInfo = this.getNoticeOther(entity.getId());
 
 			// 当不为不通知的时候，则更新
 			if (!"3".equals(entity.getDeptRadio())) {
 
 				if (!deptIds.equals(otherInfo.getDeptIds())) {
 					propValue = deptIds.split(",");
-					Set<Department> orgs = saveEntity.getNoticeDepts();
-					List<Department> setOrgs = null;
+					Set<PtDepartment> orgs = saveEntity.getNoticeDepts();
+					List<PtDepartment> setOrgs = null;
 
 					if (deptIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
 						setOrgs = orgService.getOrgList(" and isLeaf=true ", " order by orderIndex asc ", currentUser);
@@ -188,21 +188,21 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 				}
 
 			} else { // 当为3时，就处理为空
-				saveEntity.setNoticeDepts(new HashSet<Department>());
+				saveEntity.setNoticeDepts(new HashSet<PtDepartment>());
 			}
 
 			if (!roleIds.equals(otherInfo.getRoleIds())) {
 				propValue = roleIds.split(",");
-				Set<Role> roles = saveEntity.getNoticeRoles();
-				List<Role> setRoles = roleService.queryByProerties("id", propValue);
+				Set<PtRole> roles = saveEntity.getNoticeRoles();
+				List<PtRole> setRoles = roleService.queryByProerties("id", propValue);
 				roles.addAll(setRoles);
 				saveEntity.setNoticeRoles(roles);
 			}
 
 			if (!userIds.equals(otherInfo.getUserIds())) {
 				propValue = userIds.split(",");
-				Set<User> users = saveEntity.getNoticeUsers();
-				List<User> setUsers = userService.queryByProerties("id", propValue);
+				Set<PtUser> users = saveEntity.getNoticeUsers();
+				List<PtUser> setUsers = userService.queryByProerties("id", propValue);
 				users.addAll(setUsers);
 				saveEntity.setNoticeUsers(users);
 			}
@@ -211,8 +211,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 			if (!"3".equals(entity.getTerminalRadio())) {
 				if (!terminalIds.equals(otherInfo.getTermIds())) {
 					// 现在前台修改时，传来的是房间id，所以，要用房间roomId去查询设备。
-					Set<InfoTerminal> oaInfoTrems = saveEntity.getNoticeTerms();
-					List<InfoTerminal> oaInfotermsSet = new ArrayList<>();
+					Set<PtInfoTerminal> oaInfoTrems = saveEntity.getNoticeTerms();
+					List<PtInfoTerminal> oaInfotermsSet = new ArrayList<>();
 					List<Object> roomInfo = null;
 
 					if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
@@ -242,14 +242,14 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 
 				}
 			} else { // 当为3时，就处理为空
-				saveEntity.setNoticeTerms(new HashSet<InfoTerminal>());
+				saveEntity.setNoticeTerms(new HashSet<PtInfoTerminal>());
 			}
 
 			// 当不为不通知的时候，则更新
 			if (!"3".equals(entity.getStudentRadio())) {
 				if (!stuIds.equals(otherInfo.getStuIds())) {
-					Set<User> stus = saveEntity.getNoticeStus();
-					List<User> setStus = new ArrayList<>();
+					Set<PtUser> stus = saveEntity.getNoticeStus();
+					List<PtUser> setStus = new ArrayList<>();
 					if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
 						String hql1 = " from User where isDelete=0 and category=2 ";
 						setStus = userService.queryByHql(hql1);
@@ -273,7 +273,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 					saveEntity.setNoticeStus(stus);
 				}
 			} else { // 当为3时，就处理为空
-				saveEntity.setNoticeStus(new HashSet<User>());
+				saveEntity.setNoticeStus(new HashSet<PtUser>());
 			}
 
 			List<String> excludedProp = new ArrayList<>();
@@ -306,12 +306,12 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return
 	 */
 	@Override
-	public Notice doAddEntity(Notice entity, User currentUser) {
-		Notice saveEntity = new Notice();
+	public PtNotice doAddEntity(PtNotice entity, PtUser currentUser) {
+		PtNotice saveEntity = new PtNotice();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(Notice.ModuleType));
+			entity.setId(keyRedisService.getId(PtNotice.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -339,13 +339,13 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return
 	 */
 	@Override
-	public Notice doAddEntity(Notice entity, User currentUser, String deptIds, String roleIds, String userIds,
+	public PtNotice doAddEntity(PtNotice entity, PtUser currentUser, String deptIds, String roleIds, String userIds,
 			String terminalIds, String stuIds, String isNoticeParent) {
-		Notice saveEntity = new Notice();
-		saveEntity.setId(keyRedisService.getId(Notice.ModuleType));
+		PtNotice saveEntity = new PtNotice();
+		saveEntity.setId(keyRedisService.getId(PtNotice.ModuleType));
 		try {
-			List<User> userList = new ArrayList<User>();
-			List<User> stuList = new ArrayList<User>();
+			List<PtUser> userList = new ArrayList<PtUser>();
+			List<PtUser> stuList = new ArrayList<PtUser>();
 
 			String ids;
 			String hql;
@@ -358,8 +358,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 			// 如果通知部门不为空时处理
 			if (StringUtils.isNotEmpty(deptIds)) {
 				propValue = deptIds.split(",");
-				Set<Department> orgs = saveEntity.getNoticeDepts();
-				List<Department> setOrgs = null;
+				Set<PtDepartment> orgs = saveEntity.getNoticeDepts();
+				List<PtDepartment> setOrgs = null;
 				ids = "";
 
 				if (deptIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
@@ -368,7 +368,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 
 				} else {
 					setOrgs = orgService.queryByProerties("id", propValue);
-					ids = setOrgs.stream().map(Department::getId).collect(Collectors.joining("','", "'", "'"));
+					ids = setOrgs.stream().map(PtDepartment::getId).collect(Collectors.joining("','", "'", "'"));
 				}
 
 				orgs.addAll(setOrgs);
@@ -381,8 +381,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 			// 如果通知人员不为空时处理
 			if (StringUtils.isNotEmpty(userIds)) {
 				propValue = userIds.split(",");
-				Set<User> users = saveEntity.getNoticeUsers();
-				List<User> setUsers = userService.queryByProerties(new String[] { "id", "isDelete", "category" },
+				Set<PtUser> users = saveEntity.getNoticeUsers();
+				List<PtUser> setUsers = userService.queryByProerties(new String[] { "id", "isDelete", "category" },
 						new Object[] { propValue, 0, "1" });
 				users.addAll(setUsers);
 				userList.addAll(setUsers);
@@ -391,8 +391,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 			// 如果通知角色不为空时处理
 			if (StringUtils.isNotEmpty(roleIds)) {
 				propValue = roleIds.split(",");
-				Set<Role> roles = saveEntity.getNoticeRoles();
-				List<Role> setRoles = roleService.queryByProerties("id", propValue);
+				Set<PtRole> roles = saveEntity.getNoticeRoles();
+				List<PtRole> setRoles = roleService.queryByProerties("id", propValue);
 				roles.addAll(setRoles);
 				saveEntity.setNoticeRoles(roles);
 
@@ -409,8 +409,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 
 			// 如果终端不为空时的处理
 			if (StringUtils.isNotEmpty(terminalIds)) {
-				Set<InfoTerminal> setOaInfoterm = saveEntity.getNoticeTerms();
-				List<InfoTerminal> oaInfoterms = new ArrayList<>();
+				Set<PtInfoTerminal> setOaInfoterm = saveEntity.getNoticeTerms();
+				List<PtInfoTerminal> oaInfoterms = new ArrayList<>();
 				List<String> roomInfo = null;
 
 				if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
@@ -442,8 +442,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 
 			// 如果通知学生不为空时处理
 			if (StringUtils.isNotEmpty(stuIds)) {
-				Set<User> stus = saveEntity.getNoticeStus();
-				List<User> setStus = new ArrayList<>();
+				Set<PtUser> stus = saveEntity.getNoticeStus();
+				List<PtUser> setStus = new ArrayList<>();
 				if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
 
 					String hql1 = " from User where isDelete=0 and category=2 ";
@@ -511,9 +511,9 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 
 			// 通知家长
 			if (isNoticeParent.equals("1")) {
-				Set<User> filterStu = new HashSet<User>(stuList);
-				stuList = new ArrayList<User>(filterStu);
-				for (User sysUser : filterStu) {
+				Set<PtUser> filterStu = new HashSet<PtUser>(stuList);
+				stuList = new ArrayList<PtUser>(filterStu);
+				for (PtUser sysUser : filterStu) {
 					String regStatus = "您好," + sysUser.getName() + "同学的家长,有通知公告需要您查看!";
 					pushService.pushInfo(sysUser.getName(), sysUser.getUserNumb(), "通知公告查看",
 							regStatus, StringVeriable.WEB_URL
@@ -523,9 +523,9 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 			}
 
 			// 通知老师
-			Set<User> filterUser = new HashSet<User>(userList);
-			userList = new ArrayList<User>(filterUser);
-			for (User sysUser : filterUser) {
+			Set<PtUser> filterUser = new HashSet<PtUser>(userList);
+			userList = new ArrayList<PtUser>(filterUser);
+			for (PtUser sysUser : filterUser) {
 				String regStatus = "您好," + sysUser.getName() + "老师,有通知公告需要您查看!";
 				pushService.pushInfo(sysUser.getName(), sysUser.getUserNumb(),
 						"通知公告查看", regStatus, StringVeriable.WEB_URL
@@ -566,14 +566,14 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return
 	 */
 	@Override
-	public NoticeOther getNoticeOther(String id) {
+	public PtNoticeOther getNoticeOther(String id) {
 
-		NoticeOther otherEntity = new NoticeOther();
-		NoticeOther otherDept = this.getNoticeDeptInfo(id);
-		NoticeOther otherRole = this.getNoticeRoleInfo(id);
-		NoticeOther otherUser = this.getNoticeUserInfo(id);
-		NoticeOther otherTerm = this.getNoticeTermsInfo(id);
-		NoticeOther otherStu = this.getNoticeStuInfo(id);
+		PtNoticeOther otherEntity = new PtNoticeOther();
+		PtNoticeOther otherDept = this.getNoticeDeptInfo(id);
+		PtNoticeOther otherRole = this.getNoticeRoleInfo(id);
+		PtNoticeOther otherUser = this.getNoticeUserInfo(id);
+		PtNoticeOther otherTerm = this.getNoticeTermsInfo(id);
+		PtNoticeOther otherStu = this.getNoticeStuInfo(id);
 
 		otherEntity.setNoticeId(id);
 		otherEntity.setDeptNames(otherDept.getDeptNames());
@@ -592,18 +592,18 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	}
 
 	// 获取部门信息
-	public NoticeOther getNoticeDeptInfo(String id) {
+	public PtNoticeOther getNoticeDeptInfo(String id) {
 
-		NoticeOther otherEntity = new NoticeOther();
-		Notice getEntity = this.get(id);
+		PtNoticeOther otherEntity = new PtNoticeOther();
+		PtNotice getEntity = this.get(id);
 
 		// 当为指定部门时，才去查询，否则不查询
 		if ("2".equals(getEntity.getDeptRadio())) {
 
 			// 通知部门信息
-			Set<Department> orgs = getEntity.getNoticeDepts();
+			Set<PtDepartment> orgs = getEntity.getNoticeDepts();
 			String sbIds = orgs.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
-			String sbNames = orgs.stream().map(Department::getNodeText).collect(Collectors.joining(","));
+			String sbNames = orgs.stream().map(PtDepartment::getNodeText).collect(Collectors.joining(","));
 
 			otherEntity.setDeptIds(sbIds);
 			otherEntity.setDeptNames(sbNames);
@@ -619,14 +619,14 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @param id
 	 * @return
 	 */
-	public NoticeOther getNoticeRoleInfo(String id) {
+	public PtNoticeOther getNoticeRoleInfo(String id) {
 
-		NoticeOther otherEntity = new NoticeOther();
-		Notice getEntity = this.get(id);
+		PtNoticeOther otherEntity = new PtNoticeOther();
+		PtNotice getEntity = this.get(id);
 
-		Set<Role> roles = getEntity.getNoticeRoles();
+		Set<PtRole> roles = getEntity.getNoticeRoles();
 		String sbIds = roles.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
-		String sbNames = roles.stream().map(Role::getRoleName).collect(Collectors.joining(","));
+		String sbNames = roles.stream().map(PtRole::getRoleName).collect(Collectors.joining(","));
 
 		otherEntity.setRoleIds(sbIds);
 		otherEntity.setRoleNames(sbNames);
@@ -635,14 +635,14 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 		return otherEntity;
 	}
 
-	public NoticeOther getNoticeUserInfo(String id) {
+	public PtNoticeOther getNoticeUserInfo(String id) {
 
-		NoticeOther otherEntity = new NoticeOther();
-		Notice getEntity = this.get(id);
+		PtNoticeOther otherEntity = new PtNoticeOther();
+		PtNotice getEntity = this.get(id);
 
-		Set<User> users = getEntity.getNoticeUsers();
+		Set<PtUser> users = getEntity.getNoticeUsers();
 		String sbIds = users.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
-		String sbNames = users.stream().map(User::getName).collect(Collectors.joining(","));
+		String sbNames = users.stream().map(PtUser::getName).collect(Collectors.joining(","));
 
 		otherEntity.setUserIds(sbIds);
 		otherEntity.setUserNames(sbNames);
@@ -651,16 +651,16 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 		return otherEntity;
 	}
 
-	public NoticeOther getNoticeTermsInfo(String id) {
-		NoticeOther otherEntity = new NoticeOther();
-		Notice getEntity = this.get(id);
+	public PtNoticeOther getNoticeTermsInfo(String id) {
+		PtNoticeOther otherEntity = new PtNoticeOther();
+		PtNotice getEntity = this.get(id);
 
 		// 当为指定终端时，才去查询，否则不查询(注：set集合里面的是设备数据，而显示的应该是房间的数据，所以直接去实体类的数据，做特殊冗余)
 		if ("2".equals(getEntity.getTerminalRadio())) {
 
-			Set<InfoTerminal> infos = getEntity.getNoticeTerms();
+			Set<PtInfoTerminal> infos = getEntity.getNoticeTerms();
 			String sbIds = infos.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
-			String sbNames = infos.stream().map(InfoTerminal::getRoomName).collect(Collectors.joining(","));
+			String sbNames = infos.stream().map(PtInfoTerminal::getRoomName).collect(Collectors.joining(","));
 
 			otherEntity.setTermIds(sbIds);
 			otherEntity.setTermNames(sbNames);
@@ -670,17 +670,17 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 		return otherEntity;
 	}
 
-	public NoticeOther getNoticeStuInfo(String id) {
+	public PtNoticeOther getNoticeStuInfo(String id) {
 
-		NoticeOther otherEntity = new NoticeOther();
-		Notice getEntity = this.get(id);
+		PtNoticeOther otherEntity = new PtNoticeOther();
+		PtNotice getEntity = this.get(id);
 
 		// 当为指定学生时，才去查询，否则不查询
 		if ("2".equals(getEntity.getStudentRadio())) {
 
-			Set<User> stus = getEntity.getNoticeStus();
+			Set<PtUser> stus = getEntity.getNoticeStus();
 			String sbIds = stus.stream().map((x) -> x.getId()).collect(Collectors.joining(","));
-			String sbNames = stus.stream().map(User::getName).collect(Collectors.joining(","));
+			String sbNames = stus.stream().map(PtUser::getName).collect(Collectors.joining(","));
 
 			otherEntity.setStuIds(sbIds);
 			otherEntity.setStuNames(sbNames);
@@ -767,9 +767,9 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	 * @return
 	 */
 	@Override
-	public QueryResult<Notice> list(Integer start, Integer limit, String sort, String filter, String termCode) {
+	public QueryResult<PtNotice> list(Integer start, Integer limit, String sort, String filter, String termCode) {
 		try {
-			InfoTerminal term = oaInfotermService.getByProerties("terminalNo", termCode);
+			PtInfoTerminal term = oaInfotermService.getByProerties("terminalNo", termCode);
 			// 如果存在此终端
 			if (ModelUtil.isNotNull(term)) {
 				String termId = term.getId();
@@ -780,7 +780,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 				hql.append(MessageFormat.format(" and o.beginDate<=''{0}'' and o.endDate>=''{1}'' ", justDateStr,
 						justDateStr));
 				hql.append("order by o.createTime desc");
-				QueryResult<Notice> qr = this.queryResult(hql.toString(), start, limit);
+				QueryResult<PtNotice> qr = this.queryResult(hql.toString(), start, limit);
 				if (qr.getTotalCount() > 0)
 					return qr;
 				else

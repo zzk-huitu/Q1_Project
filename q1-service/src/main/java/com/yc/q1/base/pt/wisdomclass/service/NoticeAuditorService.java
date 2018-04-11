@@ -1,8 +1,8 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeAuditor;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeAuditor;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -20,7 +20,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface NoticeAuditorService extends BaseService<NoticeAuditor> {
+public interface NoticeAuditorService extends BaseService<PtNoticeAuditor> {
 
 	/**
 	 * 数据列表
@@ -37,7 +37,7 @@ public interface NoticeAuditorService extends BaseService<NoticeAuditor> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<NoticeAuditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<PtNoticeAuditor> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -48,7 +48,7 @@ public interface NoticeAuditorService extends BaseService<NoticeAuditor> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -59,7 +59,7 @@ public interface NoticeAuditorService extends BaseService<NoticeAuditor> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public NoticeAuditor doUpdateEntity(NoticeAuditor entity, User currentUser);
+	public PtNoticeAuditor doUpdateEntity(PtNoticeAuditor entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -70,8 +70,8 @@ public interface NoticeAuditorService extends BaseService<NoticeAuditor> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public NoticeAuditor doAddEntity(NoticeAuditor entity, User currentUser);
+	public PtNoticeAuditor doAddEntity(PtNoticeAuditor entity, PtUser currentUser);
 
-	public QueryResult<Notice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, User currentUser);
+	public QueryResult<PtNotice> userlist(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, PtUser currentUser);
 }

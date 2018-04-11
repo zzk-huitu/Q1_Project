@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.system.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.yc.q1.model.base.pt.system.Menu;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtMenu;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.MenuTree;
 import com.zd.core.service.BaseService;
 
@@ -18,7 +18,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface MenuService extends BaseService<Menu> {
+public interface MenuService extends BaseService<PtMenu> {
 
     /**
      * 
@@ -106,9 +106,9 @@ public interface MenuService extends BaseService<Menu> {
      */
     public List<MenuTree> getUserPermissionToRole(String roleId, String userId);
 
-    public Menu addMenu(Menu menu, User currentUser) throws IllegalAccessException, InvocationTargetException;
+    public PtMenu addMenu(PtMenu menu, PtUser currentUser) throws IllegalAccessException, InvocationTargetException;
 
-	public Menu doUpdateMenu(Menu entity, String xm);
+	public PtMenu doUpdateMenu(PtMenu entity, String xm);
     
     //public
 }

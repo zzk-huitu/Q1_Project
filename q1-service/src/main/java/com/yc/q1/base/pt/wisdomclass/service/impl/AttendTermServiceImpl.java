@@ -14,10 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.wisdomclass.dao.AttendTermDao;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
+import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -37,10 +37,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implements AttendTermService{
+public class AttendTermServiceImpl extends BaseServiceImpl<PtAttendTerm> implements AttendTermService{
 
 	@Resource(name="AttendTermDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<AttendTerm> dao) {
+	public void setDao(BaseDao<PtAttendTerm> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -48,8 +48,8 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 	private static Logger logger = Logger.getLogger(AttendTermServiceImpl.class);
 	
 	@Override
-	public QueryResult<AttendTerm> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<AttendTerm> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtAttendTerm> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtAttendTerm> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -62,7 +62,7 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -86,9 +86,9 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 	 * @return
 	 */
 	@Override
-	public AttendTerm doUpdateEntity(AttendTerm entity, User currentUser) {
+	public PtAttendTerm doUpdateEntity(PtAttendTerm entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		AttendTerm saveEntity = this.get(entity.getId());
+		PtAttendTerm saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -115,12 +115,12 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 	 * @return
 	 */
 	@Override
-	public AttendTerm doAddEntity(AttendTerm entity, User currentUser) {
-		AttendTerm saveEntity = new AttendTerm();
+	public PtAttendTerm doAddEntity(PtAttendTerm entity, PtUser currentUser) {
+		PtAttendTerm saveEntity = new PtAttendTerm();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(AttendTerm.ModuleType));
+			entity.setId(keyRedisService.getId(PtAttendTerm.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -137,7 +137,7 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 	@Override
 	public void doTermAttendAdd(String[] termIds, String titleId,String xm) {
 		Date date=new Date();
-		AttendTerm perEntity = null;
+		PtAttendTerm perEntity = null;
 		for (int i = 0; i < termIds.length; i++) {
 			perEntity =this.get(termIds[i]);
 			//perEntity = this.getByProerties("uuid",termIds[i]);
@@ -147,8 +147,8 @@ public class AttendTermServiceImpl extends BaseServiceImpl<AttendTerm> implement
 				perEntity.setUpdateUser(xm);
 				this.merge(perEntity);
 			} else {
-				perEntity = new AttendTerm();
-				perEntity.setId(keyRedisService.getId(AttendTerm.ModuleType));
+				perEntity = new PtAttendTerm();
+				perEntity.setId(keyRedisService.getId(PtAttendTerm.ModuleType));
 				perEntity.setAttendThemeId(titleId);
 				perEntity.setId(termIds[i]);
 			    perEntity.setCreateUser(xm);

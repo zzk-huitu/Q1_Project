@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -23,13 +23,13 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface RoomInfoService extends BaseService<RoomInfo> {
+public interface RoomInfoService extends BaseService<PtRoomInfo> {
 	public Integer getCount(String roomName);
 
-	public Boolean doBatchAddRoom(RoomInfo roominfo, User currentUser);
+	public Boolean doBatchAddRoom(PtRoomInfo roominfo, PtUser currentUser);
 
 	public Boolean doDeleteRoomDefine(String delIds, String xm, Map<String, Object> hashMap);
 
-	public Boolean doAddRoomDefine(RoomInfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException;
+	public Boolean doAddRoomDefine(PtRoomInfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException;
 
 }

@@ -12,9 +12,9 @@ import com.yc.q1.base.pt.basic.service.ClassStudentService;
 import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;
@@ -34,10 +34,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class ClassStudentServiceImpl extends BaseServiceImpl<ClassStudent> implements ClassStudentService {
+public class ClassStudentServiceImpl extends BaseServiceImpl<PtClassStudent> implements ClassStudentService {
 
 	@Resource(name = "ClassStudentDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<ClassStudent> dao) {
+	public void setDao(BaseDao<PtClassStudent> dao) {
 		super.setDao(dao);
 	}
 
@@ -49,16 +49,16 @@ public class ClassStudentServiceImpl extends BaseServiceImpl<ClassStudent> imple
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public QueryResult<ClassStudent> getclassStudent(Integer start, Integer limit, String sort, String filter,
-			Boolean isDelete, String claiId, User currentUser) {
+	public QueryResult<PtClassStudent> getclassStudent(Integer start, Integer limit, String sort, String filter,
+			Boolean isDelete, String claiId, PtUser currentUser) {
 		String queryFilter = filter;
 		String qrClassId = claiId;
 		// 当前用户有权限的班级列表
-		QueryResult<GradeClass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
-		List<GradeClass> jgClass = qr.getResultList();
+		QueryResult<PtGradeClass> qr = classService.getGradeClassList(0, 0, "", "", true, currentUser);
+		List<PtGradeClass> jgClass = qr.getResultList();
 		StringBuffer sb = new StringBuffer();
 		if (jgClass.size() > 0) {
-			for (GradeClass jwTGrade : jgClass) {
+			for (PtGradeClass jwTGrade : jgClass) {
 				sb.append(jwTGrade.getId() + ",");
 			}
 			sb.deleteCharAt(sb.length() - 1);
@@ -81,7 +81,7 @@ public class ClassStudentServiceImpl extends BaseServiceImpl<ClassStudent> imple
 			queryFilter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\"" + qrClassId
 					+ "\",\"field\":\"classId\"}]";
 		}
-		QueryResult<ClassStudent> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
+		QueryResult<PtClassStudent> qrReturn = this.queryPageResult(start, limit, sort, queryFilter, true);
 		return qrReturn;
 	}
 }

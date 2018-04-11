@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.BaseCourseService;
-import com.yc.q1.model.base.pt.basic.BaseCourse;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtBaseCourse;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -28,7 +28,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseCourse")
-public class BaseCourseController extends FrameWorkController<BaseCourse> implements Constant {
+public class BaseCourseController extends FrameWorkController<PtBaseCourse> implements Constant {
 
     @Resource
     private BaseCourseService thisService;
@@ -36,10 +36,10 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
     //获取列表数据
     @RequestMapping(value = "/list", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void getList(@ModelAttribute BaseCourse entity, HttpServletRequest request, HttpServletResponse response)
+    public void getList(@ModelAttribute PtBaseCourse entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
-        QueryResult<BaseCourse> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+        QueryResult<PtBaseCourse> qr = thisService.queryPageResult(super.start(request), super.limit(request),
                 super.sort(request), super.filter(request), true);
 
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -49,10 +49,10 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
     //获取列表数据
     @RequestMapping(value = "/listNoPage", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void listNoPage(@ModelAttribute BaseCourse entity, HttpServletRequest request, HttpServletResponse response)
+    public void listNoPage(@ModelAttribute PtBaseCourse entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
-        QueryResult<BaseCourse> qr = thisService.queryPageResult(super.start(request), 0,
+        QueryResult<PtBaseCourse> qr = thisService.queryPageResult(super.start(request), 0,
                 super.sort(request), super.filter(request), true);
 
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -70,7 +70,7 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
      */
     @Auth("COURSEINFO_add")
     @RequestMapping("/doAdd")
-    public void doAdd(BaseCourse entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(PtBaseCourse entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         //String courseCode = entity.getCourseCode();
         String courseName = entity.getCourseName();
@@ -84,7 +84,7 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
         // 获取当前操作用户
         String userCh =  getCurrentSysUser().getId();
         
-        BaseCourse resultEntity=thisService.doAddEntity(entity, userCh);          
+        PtBaseCourse resultEntity=thisService.doAddEntity(entity, userCh);          
 
         // 返回实体到前端界面
         writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(resultEntity)));
@@ -111,7 +111,7 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
 				writeJSON(response, jsonBuilder.returnFailureJson("\"这些课程目前绑定到了学科中，解绑后才能删除！\""));
 				return;
 			}
-        	User currentUser=getCurrentSysUser();
+        	PtUser currentUser=getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -128,7 +128,7 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
      */
     @Auth("COURSEINFO_update")
     @RequestMapping("/doUpdate")
-    public void doUpdates(BaseCourse entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdates(PtBaseCourse entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         //String courseCode = entity.getCourseCode();
         String courseName = entity.getCourseName();
@@ -143,7 +143,7 @@ public class BaseCourseController extends FrameWorkController<BaseCourse> implem
         // 获取当前的操作用户
         String userCh = getCurrentSysUser().getId();
 
-        BaseCourse resultEntity=thisService.doUpdateEntity(entity, userCh, null);      
+        PtBaseCourse resultEntity=thisService.doUpdateEntity(entity, userCh, null);      
 
         writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(resultEntity)));
     }

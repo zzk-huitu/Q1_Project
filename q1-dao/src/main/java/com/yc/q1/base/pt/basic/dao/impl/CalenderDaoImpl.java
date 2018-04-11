@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.CalenderDao;
-import com.yc.q1.model.base.pt.basic.Calender;
+import com.yc.q1.model.base.pt.basic.PtCalender;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class CalenderDaoImpl extends BaseDaoImpl<Calender> implements CalenderDao {
+public class CalenderDaoImpl extends BaseDaoImpl<PtCalender> implements CalenderDao {
 }

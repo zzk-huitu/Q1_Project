@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.sk.service.SkMeterService;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkMeter;
 import com.yc.q1.model.base.sk.SkMeterBind;
 import com.zd.core.dao.BaseDao;
@@ -32,7 +32,7 @@ public class SkMeterServiceImpl extends BaseServiceImpl<SkMeter> implements SkMe
     private PrimaryKeyRedisService keyRedisService;
 	
 	 @Override
-		public SkMeter doAddEntity(SkMeter entity, User currentUser) {
+		public SkMeter doAddEntity(SkMeter entity, PtUser currentUser) {
 			try {
 				Integer orderIndex = this.getDefaultOrderIndex(entity);
 				SkMeter perEntity = new SkMeter();
@@ -53,7 +53,7 @@ public class SkMeterServiceImpl extends BaseServiceImpl<SkMeter> implements SkMe
 		}
 	
 	@Override
-	public SkMeter doUpdateEntity(SkMeter entity, User currentUser) {
+	public SkMeter doUpdateEntity(SkMeter entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
 		SkMeter perEntity = this.get(entity.getId());
 		try {

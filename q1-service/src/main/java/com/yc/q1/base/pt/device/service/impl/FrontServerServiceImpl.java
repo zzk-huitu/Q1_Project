@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.device.service.FrontServerService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.FrontServer;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtFrontServer;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -24,12 +24,12 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class FrontServerServiceImpl extends BaseServiceImpl<FrontServer> implements FrontServerService {
+public class FrontServerServiceImpl extends BaseServiceImpl<PtFrontServer> implements FrontServerService {
 
 	private static Logger logger = Logger.getLogger(FrontServerServiceImpl.class);
 	
 	@Resource(name = "FrontServerDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<FrontServer> dao) {
+	public void setDao(BaseDao<PtFrontServer> dao) {
 		super.setDao(dao);
 	}
 
@@ -37,11 +37,11 @@ public class FrontServerServiceImpl extends BaseServiceImpl<FrontServer> impleme
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public FrontServer doUpdateEntity(FrontServer entity, User currentUser) {
+	public PtFrontServer doUpdateEntity(PtFrontServer entity, PtUser currentUser) {
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		FrontServer perEntity = this.get(entity.getId());
+		PtFrontServer perEntity = this.get(entity.getId());
 		perEntity.setUpdateUser(currentUser.getId());
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		try {
@@ -59,10 +59,10 @@ public class FrontServerServiceImpl extends BaseServiceImpl<FrontServer> impleme
 	}
 
 	@Override
-	public FrontServer doAddEntity(FrontServer entity, User currentUser) {
+	public PtFrontServer doAddEntity(PtFrontServer entity, PtUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			FrontServer perEntity = new FrontServer();
+			PtFrontServer perEntity = new PtFrontServer();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			// perEntity.setPriceValue(entity.getPriceValue());
@@ -70,7 +70,7 @@ public class FrontServerServiceImpl extends BaseServiceImpl<FrontServer> impleme
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			
 			// 持久化到数据库
-			entity.setId(keyRedisService.getId(FrontServer.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtFrontServer.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {

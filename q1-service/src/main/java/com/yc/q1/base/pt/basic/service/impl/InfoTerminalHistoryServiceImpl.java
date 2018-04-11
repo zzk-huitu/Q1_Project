@@ -15,8 +15,8 @@ import com.yc.q1.base.pt.basic.dao.InfoTerminalHistoryDao;
 import com.yc.q1.base.pt.basic.service.InfoTerminalHistoryService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.InfoTerminalHistory;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminalHistory;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -34,12 +34,12 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminalHistory>
+public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<PtInfoTerminalHistory>
 		implements InfoTerminalHistoryService {
 	private static Logger logger = Logger.getLogger(InfoTerminalHistoryServiceImpl.class);
 
 	@Resource(name = "InfoTerminalHistoryDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<InfoTerminalHistory> dao) {
+	public void setDao(BaseDao<PtInfoTerminalHistory> dao) {
 		super.setDao(dao);
 	}
 
@@ -47,9 +47,9 @@ public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminal
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public QueryResult<InfoTerminalHistory> list(Integer start, Integer limit, String sort, String filter,
+	public QueryResult<PtInfoTerminalHistory> list(Integer start, Integer limit, String sort, String filter,
 			Boolean isDelete) {
-		QueryResult<InfoTerminalHistory> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+		QueryResult<PtInfoTerminalHistory> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -63,7 +63,7 @@ public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminal
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -88,9 +88,9 @@ public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminal
 	 * @return
 	 */
 	@Override
-	public InfoTerminalHistory doUpdateEntity(InfoTerminalHistory entity, User currentUser) {
+	public PtInfoTerminalHistory doUpdateEntity(PtInfoTerminalHistory entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		InfoTerminalHistory saveEntity = this.get(entity.getId());
+		PtInfoTerminalHistory saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -117,8 +117,8 @@ public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminal
 	 * @return
 	 */
 	@Override
-	public InfoTerminalHistory doAddEntity(InfoTerminalHistory entity, User currentUser) {
-		InfoTerminalHistory saveEntity = new InfoTerminalHistory();
+	public PtInfoTerminalHistory doAddEntity(PtInfoTerminalHistory entity, PtUser currentUser) {
+		PtInfoTerminalHistory saveEntity = new PtInfoTerminalHistory();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
@@ -126,7 +126,7 @@ public class InfoTerminalHistoryServiceImpl extends BaseServiceImpl<InfoTerminal
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			
 			//持久化到数据库
-			entity.setId(keyRedisService.getId(InfoTerminalHistory.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtInfoTerminalHistory.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);
 			return entity;
 		} catch (IllegalAccessException e) {

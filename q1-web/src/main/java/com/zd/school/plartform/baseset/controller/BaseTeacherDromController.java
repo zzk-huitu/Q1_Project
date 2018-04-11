@@ -21,10 +21,10 @@ import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.TeacherDormService;
 import com.yc.q1.base.pt.system.service.UserService;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.TeacherDorm;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtTeacherDorm;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -40,7 +40,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseTeacherDrom")
-public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> implements Constant {
+public class BaseTeacherDromController extends FrameWorkController<PtTeacherDorm> implements Constant {
 	@Resource
 	TeacherDormService thisService; // service层接口
 	@Resource
@@ -60,7 +60,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute TeacherDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtTeacherDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
     	    
     	String strData = ""; // 返回给js的数据
@@ -100,7 +100,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 			}
 		}
 		
-		QueryResult<TeacherDorm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtTeacherDorm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -134,7 +134,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	 * @throws InvocationTargetException
 	 */
 	@RequestMapping("/getDefineInfo")
-	public @ResponseBody DormDefine getDefineInfo(TeacherDorm entity, HttpServletRequest request,
+	public @ResponseBody PtDormDefine getDefineInfo(PtTeacherDorm entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
 		String dormId = request.getParameter("dormId");
 		return dormService.get(dormId);
@@ -151,11 +151,11 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	 */
     @Auth("BASETEACHERDORM_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(TeacherDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtTeacherDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		Boolean flag=false;
 		Map<String, Object> hashMap = new HashMap<String, Object>();
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		flag=thisService.doAddDormTea(entity, hashMap, request, currentUser);
 		flag =(Boolean) hashMap.get("flag")==null?true:(Boolean) hashMap.get("flag");
@@ -211,7 +211,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	public void out(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		boolean flag = false;
 	    String outIds = request.getParameter("ids");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		if (StringUtils.isEmpty(outIds)) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入退住主键\""));
 			return;
@@ -226,13 +226,13 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	}
 
 	@RequestMapping("/getMax")
-	public @ResponseBody TeacherDorm getMax(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody PtTeacherDorm getMax(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String dormId = request.getParameter("dormId");
 		String sql = "SELECT MAX(sarkNo) sarkNo, MAX(bedNo) bedNo FROM T_PT_TeacherDorm WHERE isDelete=0 AND inOutState=0 and dormId='" + dormId
 				+ "'";
 		List<Object[]> list = thisService.queryObjectBySql(sql);
-		TeacherDorm entity = new TeacherDorm();
+		PtTeacherDorm entity = new PtTeacherDorm();
 		try {
 			entity.setSarkNo(Integer.parseInt(list.get(0)[0] + ""));
 			entity.setBedNo(Integer.parseInt(list.get(0)[1] + ""));
@@ -243,11 +243,11 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 		return entity;
 	}
 	@RequestMapping("/getTeaDormXmb")
-	public @ResponseBody DormDefine getTeaDormXmb(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody PtDormDefine getTeaDormXmb(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String roomId = request.getParameter("roomId");
 		String hql = " FROM DormDefine WHERE roomId='" + roomId + "'";
-		DormDefine entity= thisService.getEntityByHql(hql);
+		PtDormDefine entity= thisService.getEntityByHql(hql);
 		return entity;
 	}
 	@RequestMapping(value = { "/getTeacherInUser" }, method = {
@@ -256,7 +256,7 @@ public class BaseTeacherDromController extends FrameWorkController<TeacherDorm> 
 	public void getTeacherInUser(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<User> qr = userService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtUser> qr = userService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据

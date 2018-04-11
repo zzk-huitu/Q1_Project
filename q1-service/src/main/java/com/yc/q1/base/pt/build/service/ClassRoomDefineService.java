@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.build.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.model.base.pt.build.ClassRoomDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.build.PtClassRoomDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.zd.core.service.BaseService;
 
 
@@ -20,8 +20,8 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface ClassRoomDefineService extends BaseService<ClassRoomDefine> {
-	public ClassRoomDefine getByRoomId(String roomId);
-	public void addClassRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException;
-	public Boolean delClassRoom(RoomInfo roomInfo,String delId, String xm);
+public interface ClassRoomDefineService extends BaseService<PtClassRoomDefine> {
+	public PtClassRoomDefine getByRoomId(String roomId);
+	public void addClassRoom(PtRoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException;
+	public Boolean delClassRoom(PtRoomInfo roomInfo,String delId, String xm);
 }

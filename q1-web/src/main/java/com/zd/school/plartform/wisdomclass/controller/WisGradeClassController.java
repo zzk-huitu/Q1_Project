@@ -20,10 +20,10 @@ import com.yc.q1.base.pt.basic.service.GradeClassService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -34,7 +34,7 @@ import com.zd.core.util.StringUtils;
 
 @Controller
 @RequestMapping("/GradeClass")
-public class WisGradeClassController extends FrameWorkController<GradeClass> implements Constant {
+public class WisGradeClassController extends FrameWorkController<PtGradeClass> implements Constant {
 	@Resource
 	private GradeClassService thisService;
 	@Resource
@@ -93,7 +93,7 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 			}
 		}
 
-		QueryResult<GradeClass> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtGradeClass> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -101,12 +101,12 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 
 	@Auth("CLASSMOTTO_update")
 	@RequestMapping("/doUpdate")
-	public void doupdate(GradeClass entity, HttpServletRequest request, HttpServletResponse response)
+	public void doupdate(PtGradeClass entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
-		GradeClass perEntity = thisService.get(entity.getId());
+		PtGradeClass perEntity = thisService.get(entity.getId());
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 
 		perEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,24 +114,24 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 
 		entity = thisService.merge(perEntity);// 执行修改方法
 
-		Department org = orgService.get(entity.getId());
+		PtDepartment org = orgService.get(entity.getId());
 		org.setNodeText(perEntity.getClassName());
 		writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(perEntity)));
 	}
 
 	@RequestMapping(value = "/listUser", method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void listUser(@ModelAttribute GradeClass entity, HttpServletRequest request, HttpServletResponse response)
+	public void listUser(@ModelAttribute PtGradeClass entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 
 		String hql = "from GradeClass where isDelete=0";
 		Boolean isSchoolAdminRole = false;
-		List<User> roleUsers = userService.getUserByRoleName("学校管理员");
-		for (User su : roleUsers) {
+		List<PtUser> roleUsers = userService.getUserByRoleName("学校管理员");
+		for (PtUser su : roleUsers) {
 			if (su.getId().equals(currentUser.getId())) {
 				isSchoolAdminRole = true;
 				break;
@@ -140,15 +140,15 @@ public class WisGradeClassController extends FrameWorkController<GradeClass> imp
 		if (!isSchoolAdminRole) {
 			// 判断是否是班主任
 			String ghql = "from ClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
-			List<ClassTeacher> classteachers = cTeacherService.queryByHql(ghql);
+			List<PtClassTeacher> classteachers = cTeacherService.queryByHql(ghql);
 			if (classteachers != null && classteachers.size() > 0) {
-				ClassTeacher cTeacher = classteachers.get(0);
+				PtClassTeacher cTeacher = classteachers.get(0);
 				hql += " and id='" + cTeacher.getClassId() + "'";
 			}
 
 		}
 
-		QueryResult<GradeClass> qr = thisService.queryResult(hql, start, limit);
+		QueryResult<PtGradeClass> qr = thisService.queryResult(hql, start, limit);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据

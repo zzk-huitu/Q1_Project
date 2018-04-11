@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttendTimeDao;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTime;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class AttendTimeDaoImpl extends BaseDaoImpl<AttendTime> implements AttendTimeDao {
+public class AttendTimeDaoImpl extends BaseDaoImpl<PtAttendTime> implements AttendTimeDao {
 }

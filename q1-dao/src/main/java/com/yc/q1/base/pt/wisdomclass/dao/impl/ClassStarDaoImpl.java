@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.ClassStarDao;
-import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class ClassStarDaoImpl extends BaseDaoImpl<ClassStar> implements ClassStarDao {
+public class ClassStarDaoImpl extends BaseDaoImpl<PtClassStar> implements ClassStarDao {
 }

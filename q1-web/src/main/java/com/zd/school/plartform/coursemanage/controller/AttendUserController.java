@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendUserService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendUser;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -34,7 +34,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/AttUser")
-public class AttendUserController extends FrameWorkController<AttendUser> implements Constant {
+public class AttendUserController extends FrameWorkController<PtAttendUser> implements Constant {
 
 	@Resource
 	AttendUserService thisService; // service层接口
@@ -54,11 +54,11 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute AttendUser entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtAttendUser entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 
-		QueryResult<AttendUser> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtAttendUser> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -69,20 +69,20 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void userAttendlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<AttendUser> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtAttendUser> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		if (qr.getTotalCount() == 0) {
 			writeJSON(response, strData);// 返回数据
 			return;
 		}
 		StringBuffer userId = new StringBuffer();
-		for (AttendUser attUser : qr.getResultList()) {
+		for (PtAttendUser attUser : qr.getResultList()) {
 			userId.append(attUser.getUserId() + ",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""
 				+ userId.substring(0, userId.length() - 1) + "\",\"field\":\"id\"}]";
 
-		QueryResult<User> termQr = userService.queryPageResult(0, 0, null, filter, true);
+		QueryResult<PtUser> termQr = userService.queryPageResult(0, 0, null, filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -92,7 +92,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 	 * 
 	 * @Title: doadd
 	 * @Description: 增加新实体信息至数据库
-	 * @param AttendUser
+	 * @param PtAttendUser
 	 *            实体类
 	 * @param request
 	 * @param response
@@ -101,13 +101,13 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 	 *             抛出异常
 	 */
 	@RequestMapping("/doAdd")
-	public void doAdd(AttendUser entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtAttendUser entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 			if (ModelUtil.isNotNull(entity))
@@ -126,7 +126,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		thisService.doUserAttendBind(userIds, titleId, currentUser.getId());// 执行增加方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功'"));
@@ -150,7 +150,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -174,7 +174,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 			String[] ids = userIds.split(",");
 			for (int i = 0; i < ids.length; i++) {
 				String hql = " from AttendUser where userId = '" + ids[i] + "'";
-				AttendUser entity = thisService.getEntityByHql(hql);
+				PtAttendUser entity = thisService.getEntityByHql(hql);
 				thisService.delete(entity);
 			}
 		}
@@ -184,7 +184,7 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 	/**
 	 * @Title: doUpdate
 	 * @Description: 编辑指定记录
-	 * @param AttendUser
+	 * @param PtAttendUser
 	 * @param request
 	 * @param response
 	 * @return void 返回类型
@@ -192,13 +192,13 @@ public class AttendUserController extends FrameWorkController<AttendUser> implem
 	 *             抛出异常
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(AttendUser entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtAttendUser entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))

@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.PermissionDao;
-import com.yc.q1.model.base.pt.system.Permission;
+import com.yc.q1.model.base.pt.system.PtPermission;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class PermissionDaoImpl extends BaseDaoImpl<Permission> implements PermissionDao {
+public class PermissionDaoImpl extends BaseDaoImpl<PtPermission> implements PermissionDao {
 }

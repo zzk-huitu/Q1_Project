@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.wisdomclass.NoticeType;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeType;
 import com.zd.core.service.BaseService;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface NoticeTypeService extends BaseService<NoticeType> {
+public interface NoticeTypeService extends BaseService<PtNoticeType> {
 
 }

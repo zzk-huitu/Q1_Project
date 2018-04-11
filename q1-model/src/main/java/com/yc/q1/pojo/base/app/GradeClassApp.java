@@ -1,13 +1,13 @@
 package com.yc.q1.pojo.base.app;
 
-import com.yc.q1.model.base.pt.basic.GradeClass;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
 
 
 public class GradeClassApp {
 	
 	private boolean message;//掉用结果 ture&false
 	private String messageInfo;//返回状态信息
-	private GradeClass gradeClass;//班级信息对象
+	private PtGradeClass gradeClass;//班级信息对象
 	public boolean getMessage() {
 		return message;
 	}
@@ -20,10 +20,10 @@ public class GradeClassApp {
 	public void setMessageInfo(String messageInfo) {
 		this.messageInfo = messageInfo;
 	}
-	public GradeClass getGradeClass() {
+	public PtGradeClass getGradeClass() {
 		return gradeClass;
 	}
-	public void setGradeClass(GradeClass gradeClass) {
+	public void setGradeClass(PtGradeClass gradeClass) {
 		this.gradeClass = gradeClass;
 	}
 	

@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.AttenceRuleDao;
-import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class AttenceRuleDaoImpl extends BaseDaoImpl<AttenceRule> implements AttenceRuleDao {
+public class AttenceRuleDaoImpl extends BaseDaoImpl<PtAttenceRule> implements AttenceRuleDao {
 }

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.wisdomclass.dao.NoticeTypeDao;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeTypeService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeType;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeType;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -26,10 +26,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class NoticeTypeServiceImpl extends BaseServiceImpl<NoticeType> implements NoticeTypeService{
+public class NoticeTypeServiceImpl extends BaseServiceImpl<PtNoticeType> implements NoticeTypeService{
 
 	@Resource(name="NoticeTypeDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<NoticeType> dao) {
+	public void setDao(BaseDao<PtNoticeType> dao) {
 		super.setDao(dao);
 	}
 	@Resource

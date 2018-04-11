@@ -1,8 +1,8 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.Calender;
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCalender;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -19,7 +19,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface CalenderService extends BaseService<Calender> {
+public interface CalenderService extends BaseService<PtCalender> {
 	
 	/**
      * 
@@ -28,10 +28,10 @@ public interface CalenderService extends BaseService<Calender> {
      * @return
      * @author huangzc
      */
-	public Calender findJwTcanderByClaiId(Grade  jtg);
+	public PtCalender findJwTcanderByClaiId(PtGrade  jtg);
 	
 	public int updateStatu(String calenderIds,String campusNames);
-	public Calender  doUpdateEntity(Calender entity, User currentUser);
-	public Calender  doAddEntity(Calender entity, User currentUser);
+	public PtCalender  doUpdateEntity(PtCalender entity, PtUser currentUser);
+	public PtCalender  doAddEntity(PtCalender entity, PtUser currentUser);
 	public Boolean  doDeleteEntity(String delIds);
 }

@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.device.dao;
 
 
 
-import com.yc.q1.model.base.pt.device.FrontServer;
+import com.yc.q1.model.base.pt.device.PtFrontServer;
 import com.zd.core.dao.BaseDao;
 
 
@@ -12,6 +12,6 @@ import com.zd.core.dao.BaseDao;
  * @author hucy
  *
  */
-public interface FrontServerDao extends BaseDao<FrontServer> {
+public interface FrontServerDao extends BaseDao<PtFrontServer> {
 
 }

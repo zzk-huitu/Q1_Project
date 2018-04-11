@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.model.base.pt.system.DataDictItem;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
 import com.zd.core.service.BaseService;
 
 
@@ -17,11 +17,11 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface DataDictItemService extends BaseService<DataDictItem> {
+public interface DataDictItemService extends BaseService<PtDataDictItem> {
 
-	DataDictItem doAdd(DataDictItem entity, String xm);
+	PtDataDictItem doAdd(PtDataDictItem entity, String xm);
 
-	DataDictItem doUpdate(DataDictItem entity, String xm);
+	PtDataDictItem doUpdate(PtDataDictItem entity, String xm);
 
 	boolean doDeleteOrRestore(String delIds, String isdelete, String xm);
 

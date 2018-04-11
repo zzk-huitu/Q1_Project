@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.DormDefineDao;
-import com.yc.q1.model.base.pt.build.DormDefine;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class DormDefineDaoImpl extends BaseDaoImpl<DormDefine> implements DormDefineDao {
+public class DormDefineDaoImpl extends BaseDaoImpl<PtDormDefine> implements DormDefineDao {
 }

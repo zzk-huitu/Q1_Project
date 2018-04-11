@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.device.dao.PriceBindDao;
 import com.yc.q1.base.pt.device.service.PriceBindService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.PriceBind;
+import com.yc.q1.model.base.pt.device.PtPriceBind;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -22,10 +22,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class PriceBindServiceImpl extends BaseServiceImpl<PriceBind> implements PriceBindService {
+public class PriceBindServiceImpl extends BaseServiceImpl<PtPriceBind> implements PriceBindService {
 
 	@Resource(name = "PriceBindDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<PriceBind> dao) {
+	public void setDao(BaseDao<PtPriceBind> dao) {
 		super.setDao(dao);
 	}
 	
@@ -37,7 +37,7 @@ public class PriceBindServiceImpl extends BaseServiceImpl<PriceBind> implements 
 		// TODO Auto-generated method stub
 
 		Date date = new Date();
-		PriceBind perEntity = null;
+		PtPriceBind perEntity = null;
 		for (int i = 0; i < termId.length; i++) {
 			perEntity = this.getByProerties("termId", termId[i]);
 			if (perEntity != null) {
@@ -46,13 +46,13 @@ public class PriceBindServiceImpl extends BaseServiceImpl<PriceBind> implements 
 				perEntity.setUpdateUser(xm);
 				this.merge(perEntity);
 			} else {
-				perEntity = new PriceBind();
+				perEntity = new PtPriceBind();
 				perEntity.setPriceId(meterId);
 				perEntity.setTermId(termId[i]);
 				perEntity.setTermSn(termSn[i]);
 				perEntity.setCreateUser(xm);
 				perEntity.setCreateTime(date);
-				perEntity.setId(keyRedisService.getId(PriceBind.ModuleType));	//手动设置id
+				perEntity.setId(keyRedisService.getId(PtPriceBind.ModuleType));	//手动设置id
 				this.merge(perEntity);
 			}
 		}

@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.wisdomclass.dao.AttenceRuleDao;
 import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
@@ -36,10 +36,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> implements AttenceRuleService{
+public class AttenceRuleServiceImpl extends BaseServiceImpl<PtAttenceRule> implements AttenceRuleService{
 
 	@Resource(name="AttenceRuleDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<AttenceRule> dao) {
+	public void setDao(BaseDao<PtAttenceRule> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -47,8 +47,8 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 	private static Logger logger = Logger.getLogger(AttenceRuleServiceImpl.class);
 	
 	@Override
-	public QueryResult<AttenceRule> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<AttenceRule> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtAttenceRule> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtAttenceRule> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -61,7 +61,7 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -85,9 +85,9 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 	 * @return
 	 */
 	@Override
-	public AttenceRule doUpdateEntity(AttenceRule entity, User currentUser) {
+	public PtAttenceRule doUpdateEntity(PtAttenceRule entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		AttenceRule saveEntity = this.get(entity.getId());
+		PtAttenceRule saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,12 +114,12 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 	 * @return
 	 */
 	@Override
-	public AttenceRule doAddEntity(AttenceRule entity, User currentUser) {
-		AttenceRule saveEntity = new AttenceRule();
+	public PtAttenceRule doAddEntity(PtAttenceRule entity, PtUser currentUser) {
+		PtAttenceRule saveEntity = new PtAttenceRule();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(AttenceRule.ModuleType));
+			entity.setId(keyRedisService.getId(PtAttenceRule.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -135,7 +135,7 @@ public class AttenceRuleServiceImpl extends BaseServiceImpl<AttenceRule> impleme
 	}
 
 	@Override
-	public Boolean doUsingOrno(String ids, String usingStatu,User currentUser) {
+	public Boolean doUsingOrno(String ids, String usingStatu,PtUser currentUser) {
 		String conditionName = "id";
 		String[] propertyName = {"startUsing","updateUser","updateTime"};
 		Object[] properyValue = {0,currentUser.getId(),new Date()};

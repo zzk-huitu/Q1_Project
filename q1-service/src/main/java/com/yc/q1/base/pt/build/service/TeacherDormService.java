@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.yc.q1.model.base.pt.build.TeacherDorm;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtTeacherDorm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -23,12 +23,12 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface TeacherDormService extends BaseService<TeacherDorm> {
+public interface TeacherDormService extends BaseService<PtTeacherDorm> {
 	
-	public QueryResult<TeacherDorm> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
-			User currentUser); 
-	public Boolean doOut(String ids,User currentUser);
-	public Boolean doAddDormTea(TeacherDorm entity,Map hashMap,HttpServletRequest request,User currentUser)throws IllegalAccessException, InvocationTargetException;
+	public QueryResult<PtTeacherDorm> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
+			PtUser currentUser); 
+	public Boolean doOut(String ids,PtUser currentUser);
+	public Boolean doAddDormTea(PtTeacherDorm entity,Map hashMap,HttpServletRequest request,PtUser currentUser)throws IllegalAccessException, InvocationTargetException;
     public Boolean doDelete(String delIds);
     public void doSettingOff(String roomIds);
 }

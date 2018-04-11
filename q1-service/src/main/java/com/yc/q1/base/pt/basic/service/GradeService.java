@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -15,8 +15,8 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface GradeService extends BaseService<Grade> {
+public interface GradeService extends BaseService<PtGrade> {
 
-    public QueryResult<Grade> getGradeList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, User currentUser);
+    public QueryResult<PtGrade> getGradeList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, PtUser currentUser);
 }

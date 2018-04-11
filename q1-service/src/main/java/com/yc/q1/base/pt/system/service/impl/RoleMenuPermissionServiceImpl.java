@@ -16,24 +16,24 @@ import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.redis.service.UserRedisService;
-import com.yc.q1.model.base.pt.system.Permission;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.RoleMenuPermission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtPermission;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtRoleMenuPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
 
 @Service
 @Transactional
-public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermission>
+public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuPermission>
 		implements RoleMenuPermissionService {
 	
 	@Resource  
 	private UserRedisService userRedisService;
 	
 	@Resource(name = "RoleMenuPermissionDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<RoleMenuPermission> dao) {
+	public void setDao(BaseDao<PtRoleMenuPermission> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -63,9 +63,9 @@ public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermi
 			String[] roleMenuPerIds = roleMenuPers.split(",");
 	
 			// 要增加权限菜单的角色及已有权限菜单信息
-			Role addRoleEntity = sysRoleService.get(roleId);
-			Permission sysPermission = perimissonSevice.get(perId);
-			Set<Permission> rolePermission = addRoleEntity.getSysPermissions();
+			PtRole addRoleEntity = sysRoleService.get(roleId);
+			PtPermission sysPermission = perimissonSevice.get(perId);
+			Set<PtPermission> rolePermission = addRoleEntity.getSysPermissions();
 	
 			// 判断此角色是否拥有此菜单权限
 			if (!rolePermission.contains(sysPermission)) {
@@ -76,7 +76,7 @@ public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermi
 				String menuPerId = roleMenuPerIds[i];
 				if (currentRoleMenuPerIds.contains(menuPerId))
 					continue;
-				RoleMenuPermission rmp = new RoleMenuPermission();
+				PtRoleMenuPermission rmp = new PtRoleMenuPermission();
 				rmp.setRoleId(roleId); // 角色id
 				rmp.setPermissionId(perId); // 角色菜单id
 				rmp.setMenuPermissionId(menuPerId); // 菜单功能id			
@@ -103,7 +103,7 @@ public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermi
 		}
 		
 		//删除此role的相关用户的redis功能权限数据
-		List<User> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
+		List<PtUser> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
 		Object[] userIds=new String[roleUsers.size()];
 		for(int i=0;i<roleUsers.size();i++){
 			userIds[i]=roleUsers.get(i).getId();			
@@ -122,7 +122,7 @@ public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermi
 	}
 
 	@Override
-	public void removeRoleMenuPermission(String roleId, List<Permission> cancelPerimission) {
+	public void removeRoleMenuPermission(String roleId, List<PtPermission> cancelPerimission) {
 		int row=0;
 		for(int i=0;i< cancelPerimission.size();i++){
 			// 删除角色菜单所有功能
@@ -132,7 +132,7 @@ public class RoleMenuPermissionServiceImpl extends BaseServiceImpl<RoleMenuPermi
 		
 		
 		//删除此role的相关用户的redis功能权限数据				
-		List<User> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
+		List<PtUser> roleUsers = userSerive.getUserByRoleId(roleId).getResultList();
 		Object[] userIds=new String[roleUsers.size()];
 		for(int i=0;i<roleUsers.size();i++){
 			userIds[i]=roleUsers.get(i).getId();			

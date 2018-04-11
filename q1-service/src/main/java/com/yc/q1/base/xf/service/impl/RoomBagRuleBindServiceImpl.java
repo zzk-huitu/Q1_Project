@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.xf.service.RoomBagRuleBindService;
-import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
+import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
@@ -21,10 +21,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class RoomBagRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind> implements RoomBagRuleBindService{
+public class RoomBagRuleBindServiceImpl extends BaseServiceImpl<PtRoomBagRuleBind> implements RoomBagRuleBindService{
 	
 	@Resource(name="RoomBagRuleBindDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<RoomBagRuleBind> dao) {
+	public void setDao(BaseDao<PtRoomBagRuleBind> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -45,7 +45,7 @@ public class RoomBagRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind>
 		if(StringUtils.isNotEmpty(deductionRoomIds))
 			deductionRooms=deductionRoomIds.split(",");
 		
-		RoomBagRuleBind perEntity = null;
+		PtRoomBagRuleBind perEntity = null;
 		String getDeductionUserId=null;
 		
 		for(int i=0;i<rooms.length;i++){
@@ -68,9 +68,9 @@ public class RoomBagRuleBindServiceImpl extends BaseServiceImpl<RoomBagRuleBind>
 				perEntity.setCreateUser(xm);
 				perEntity.setIsDelete(0);
 			} else {
-				Integer orderIndex = this.getDefaultOrderIndex(new RoomBagRuleBind());
-				perEntity = new RoomBagRuleBind();
-				perEntity.setId(keyRedisService.getId(RoomBagRuleBind.ModuleType));
+				Integer orderIndex = this.getDefaultOrderIndex(new PtRoomBagRuleBind());
+				perEntity = new PtRoomBagRuleBind();
+				perEntity.setId(keyRedisService.getId(PtRoomBagRuleBind.ModuleType));
 				perEntity.setDeductionUserId(getDeductionUserId);
 				perEntity.setRoomRuleId(roomRuleId);
 				perEntity.setRoomId(rooms[i]);

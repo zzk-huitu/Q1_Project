@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.StudentParents;
+import com.yc.q1.model.base.pt.basic.PtStudentParents;
 import com.zd.core.service.BaseService;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface StudentParentsService extends BaseService<StudentParents> {
+public interface StudentParentsService extends BaseService<PtStudentParents> {
 
 }

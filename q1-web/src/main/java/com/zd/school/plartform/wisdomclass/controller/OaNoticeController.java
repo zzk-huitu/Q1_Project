@@ -31,15 +31,15 @@ import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
-import com.yc.q1.model.base.pt.basic.Attachment;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
-import com.yc.q1.model.base.pt.build.RoomArea;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.DataDictItem;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
-import com.yc.q1.model.base.pt.wisdomclass.NoticeOther;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
+import com.yc.q1.model.base.pt.build.PtRoomArea;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNoticeOther;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -61,7 +61,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/OaNotice")
-public class OaNoticeController extends FrameWorkController<Notice> implements Constant {
+public class OaNoticeController extends FrameWorkController<PtNotice> implements Constant {
 
 	@Resource
 	NoticeService thisService; // service层接口
@@ -105,7 +105,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute Notice entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtNotice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -120,7 +120,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 						+ "\",\"field\":\"noticeType\"}]";
 			}
 		}
-		QueryResult<Notice> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtNotice> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -134,7 +134,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	 */
 	@Auth("OANOTICE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(Notice entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtNotice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等		
@@ -156,7 +156,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 			terminalIds=AdminType.ADMIN_ORG_ID;
 		
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 	
 		entity = thisService.doAddEntity(entity, currentUser, deptIds, roleIds, userIds,terminalIds,stuIds,isNoticeParent);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -179,7 +179,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 	
 			boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 			if (flag) {
@@ -195,7 +195,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	 * 
 	 * @Title: doUpdate
 	 * @Description:
-	 * @param Notice
+	 * @param PtNotice
 	 * @param request
 	 * @param response
 	 * @throws IOException
@@ -203,7 +203,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	 */
 	@Auth("OANOTICE_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(Notice entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtNotice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String deptIds = request.getParameter("deptIds");
 		String roleIds = request.getParameter("roleIds");
@@ -224,7 +224,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		
 		
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser, deptIds, roleIds, userIds,terminalIds,stuIds,isNoticeParent);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))
@@ -266,7 +266,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		String strData = "";
 		String id = request.getParameter("noticeId");
 		if (StringUtils.isNotEmpty(id)) {
-			NoticeOther other = thisService.getNoticeOther(id);
+			PtNoticeOther other = thisService.getNoticeOther(id);
 			strData = jsonBuilder.toJson(other);// 处理数据
 			writeJSON(response, jsonBuilder.returnSuccessJson(strData));// 返回数据
 		} else {
@@ -282,7 +282,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	}
 */
 	@RequestMapping("/getOaNoticeById")
-	public @ResponseBody Notice getOaNoticeById(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody PtNotice getOaNoticeById(HttpServletRequest request, HttpServletResponse response) {
 		String uuid = request.getParameter("id");
 		return thisService.get(uuid);
 	}
@@ -339,7 +339,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 					
 
 					// 插入数据
-					Attachment bt = new Attachment();
+					PtAttachment bt = new PtAttachment();
 					bt.setEntityName("Notice");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
@@ -392,7 +392,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	
 		//1.创建根目录（深大附中）
 		String hql1="from RoomArea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
-		List<RoomArea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
+		List<PtRoomArea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
 		for(int i=0;i<rootAreas.size();i++){
 			Map<String,Object> rootAreaMap=new LinkedHashMap<>();
 			rootAreaMap.put("text",rootAreas.get(i).getNodeText());
@@ -406,7 +406,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 			
 			//2.创建第二层（初中、高中校区）
 			String hql2="from RoomArea t where t.isDelete=0 and t.parentNode=?";
-			List<RoomArea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
+			List<PtRoomArea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
 			for(int j=0;j<rootAreasSecond.size();j++){
 				
 				Map<String,Object> tempMap=new LinkedHashMap<>();
@@ -421,7 +421,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 				
 				//查询初中或高中的所有子区域id		
 				String roomareaHql="from RoomArea where isDelete=0 order by orderIndex asc ";
-				List<RoomArea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
+				List<PtRoomArea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
 				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getId(),roomareaList,new StringBuffer());
 				String childAreasStr="";
 				if(childAreasSB.length()>0){
@@ -433,8 +433,8 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 						+ " a.dictId=b.id and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
 						+ " and a.itemName in ('功能室','办公室','教室','宿舍') "
 						+ " order by a.itemCode asc";
-				List<DataDictItem> fjlxList=baseDicitemService.queryEntityByHql(fjlxHql, "FJLX");
-				for(DataDictItem baseDicitem : fjlxList){
+				List<PtDataDictItem> fjlxList=baseDicitemService.queryEntityByHql(fjlxHql, "FJLX");
+				for(PtDataDictItem baseDicitem : fjlxList){
 					Map<String,Object> labMap=new LinkedHashMap<>();	//房间类型室
 					labMap.put("text",baseDicitem.getItemName());
 					labMap.put("leaf",false);					
@@ -448,8 +448,8 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 					//4.创建第四层（房间号）
 					if(StringUtils.isNotEmpty(childAreasStr)){
 						String fjHql="from RoomInfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
-						List<RoomInfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
-						for(RoomInfo roomInfo:roomInfoList){
+						List<PtRoomInfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
+						for(PtRoomInfo roomInfo:roomInfoList){
 							Map<String,Object> roomInfoMap=new HashMap<>();	//房间类型室
 							roomInfoMap.put("text",roomInfo.getRoomName());
 							roomInfoMap.put("leaf",true);
@@ -477,9 +477,9 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	}
 
 	@SuppressWarnings("unused")
-	private StringBuffer searchChildArea(String parentId,List<RoomArea> list,StringBuffer sb){
+	private StringBuffer searchChildArea(String parentId,List<PtRoomArea> list,StringBuffer sb){
 	
-		for(RoomArea br : list ){
+		for(PtRoomArea br : list ){
 			if(br.getParentNode().equals(parentId)){
 				sb.append("'"+br.getId()+"',");
 				sb=searchChildArea(br.getId(),list,sb);		
@@ -494,11 +494,11 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	public void getAllClassStuTreelist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		
 		Boolean isSchoolAdminRole = false;
-		List<User> roleUsers = userService.getUserByRoleName("学校管理员");
-		for (User su : roleUsers) {
+		List<PtUser> roleUsers = userService.getUserByRoleName("学校管理员");
+		for (PtUser su : roleUsers) {
 			if (su.getId().equals(currentUser.getId())) {
 				isSchoolAdminRole = true;
 				break;
@@ -508,9 +508,9 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		if (!isSchoolAdminRole) {
 				// 判断是否是班主任
 			String hql = "from ClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
-			List<ClassTeacher> classteachers = cTeacherService.queryByHql(hql);
+			List<PtClassTeacher> classteachers = cTeacherService.queryByHql(hql);
 			if (classteachers != null && classteachers.size() > 0) {
-				ClassTeacher cTeacher = classteachers.get(0);
+				PtClassTeacher cTeacher = classteachers.get(0);
 				whereSql += " and level=1";
 				whereSql += " or id=(select parent from V_PT_GradeClassTree where id='" + cTeacher.getClassId()
 						+ "')";
@@ -526,7 +526,7 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 		
 		
 		
-		List<ClassStudent> stus=jwClassstudentService.queryByHql(stuHql);
+		List<PtClassStudent> stus=jwClassstudentService.queryByHql(stuHql);
 		
 		addStuInTree(commTreeList,stus);
 		
@@ -535,13 +535,13 @@ public class OaNoticeController extends FrameWorkController<Notice> implements C
 	}
 	
 	@SuppressWarnings("unused")
-	private void addStuInTree(List<CommTree> commTrees,List<ClassStudent> stus){
+	private void addStuInTree(List<CommTree> commTrees,List<PtClassStudent> stus){
 		for(CommTree ct:commTrees){
 			List<CommTree> ctc=ct.getChildren();
 			if(ctc.size()==0){
 				ct.setLeaf(false);
 				ctc=new ArrayList<CommTree>();
-				for(ClassStudent stu:stus){
+				for(PtClassStudent stu:stus){
 					if(stu.getClassId().equals(ct.getId())){					
 						CommTree child = new CommTree(stu.getStudentId(), stu.getName(), "", true,
 								ct.getLevel()+1, "",  ct.getId(),ct.getOrderIndex(),new ArrayList<CommTree>());

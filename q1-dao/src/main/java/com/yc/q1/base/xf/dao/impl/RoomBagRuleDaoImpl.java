@@ -3,7 +3,7 @@ package com.yc.q1.base.xf.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.xf.dao.RoomBagRuleDao;
-import com.yc.q1.model.base.pt.device.RoomBagRule;
+import com.yc.q1.model.base.pt.device.PtRoomBagRule;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**
@@ -12,5 +12,5 @@ import com.zd.core.dao.BaseDaoImpl;
  *
  */
 @Repository
-public class RoomBagRuleDaoImpl extends BaseDaoImpl<RoomBagRule> implements RoomBagRuleDao{
+public class RoomBagRuleDaoImpl extends BaseDaoImpl<PtRoomBagRule> implements RoomBagRuleDao{
 }

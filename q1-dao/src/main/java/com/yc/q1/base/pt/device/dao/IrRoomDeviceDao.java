@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.dao;
 
-import com.yc.q1.model.base.pt.device.IrRoomDevice;
+import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface IrRoomDeviceDao extends BaseDao<IrRoomDevice> {
+public interface IrRoomDeviceDao extends BaseDao<PtIrRoomDevice> {
 
 }

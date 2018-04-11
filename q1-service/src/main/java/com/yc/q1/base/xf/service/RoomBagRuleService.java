@@ -1,6 +1,6 @@
 package com.yc.q1.base.xf.service;
 
-import com.yc.q1.model.base.pt.device.RoomBagRule;
+import com.yc.q1.model.base.pt.device.PtRoomBagRule;
 import com.zd.core.service.BaseService;
 
 /**
@@ -8,6 +8,6 @@ import com.zd.core.service.BaseService;
  * @author hucy
  *
  */
-public interface RoomBagRuleService extends BaseService<RoomBagRule>{
+public interface RoomBagRuleService extends BaseService<PtRoomBagRule>{
 
 }

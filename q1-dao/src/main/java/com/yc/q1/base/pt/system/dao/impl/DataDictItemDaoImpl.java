@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.DataDictItemDao;
-import com.yc.q1.model.base.pt.system.DataDictItem;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class DataDictItemDaoImpl extends BaseDaoImpl<DataDictItem> implements DataDictItemDao {
+public class DataDictItemDaoImpl extends BaseDaoImpl<PtDataDictItem> implements DataDictItemDao {
 }

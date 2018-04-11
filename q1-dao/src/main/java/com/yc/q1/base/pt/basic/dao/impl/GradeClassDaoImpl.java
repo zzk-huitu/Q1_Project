@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.GradeClassDao;
-import com.yc.q1.model.base.pt.basic.GradeClass;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**
@@ -16,5 +16,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class GradeClassDaoImpl extends BaseDaoImpl<GradeClass> implements GradeClassDao {
+public class GradeClassDaoImpl extends BaseDaoImpl<PtGradeClass> implements GradeClassDao {
 }

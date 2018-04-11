@@ -21,10 +21,10 @@ import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.DeptRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.DeptJob;
-import com.yc.q1.model.base.pt.system.Job;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
+import com.yc.q1.model.base.pt.system.PtJob;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.DpetJobTree;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
@@ -43,10 +43,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements DeptJobService {
+public class DeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements DeptJobService {
 
 	@Resource(name = "DeptJobDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<DeptJob> dao) {
+	public void setDao(BaseDao<PtDeptJob> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -69,8 +69,8 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	private static Logger logger = Logger.getLogger(DeptJobServiceImpl.class);
 
 	@Override
-	public QueryResult<DeptJob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-		QueryResult<DeptJob> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtDeptJob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+		QueryResult<PtDeptJob> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -84,7 +84,7 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -111,38 +111,38 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	 * @return
 	 */
 	@Override
-	public Boolean doBatchSetDeptJob(String deptId, String jobId, User currentUser) {
+	public Boolean doBatchSetDeptJob(String deptId, String jobId, PtUser currentUser) {
 		String[] jobIds = jobId.split(",");
 		String[] deptIds = deptId.split(",");
 		try {
 			// 待设置的部门清单
-			List<Department> setDeptList = deptService.queryByProerties("id", deptIds);
+			List<PtDepartment> setDeptList = deptService.queryByProerties("id", deptIds);
 
 			// 待设置部门的主负责岗位清单
 			String[] propName = { "deptId", "jobType" };
 			Object[] propValue = { deptIds, 0 };
-			List<DeptJob> mainJob = this.queryByProerties(propName, propValue);
-			Map<String, DeptJob> maps = new HashMap<String, DeptJob>();
-			for (DeptJob baseDeptjob : mainJob) {
+			List<PtDeptJob> mainJob = this.queryByProerties(propName, propValue);
+			Map<String, PtDeptJob> maps = new HashMap<String, PtDeptJob>();
+			for (PtDeptJob baseDeptjob : mainJob) {
 				maps.put(baseDeptjob.getDeptId(), baseDeptjob);
 			}
 			// 待设置部门已有岗位清单
 			Map<String, String> mapHasJob = new HashMap<String, String>();
-			List<DeptJob> deptHasJob = this.queryByProerties("deptId", deptIds);
+			List<PtDeptJob> deptHasJob = this.queryByProerties("deptId", deptIds);
 			String key = "";
-			for (DeptJob baseDeptjob : deptHasJob) {
+			for (PtDeptJob baseDeptjob : deptHasJob) {
 				key = baseDeptjob.getDeptId() + "," + baseDeptjob.getJobId();
 				mapHasJob.put(key, baseDeptjob.getJobId());
 				key = "";
 			}
 
-			DeptJob deptjob = null;
-			for (Department setDept : setDeptList) {
+			PtDeptJob deptjob = null;
+			for (PtDepartment setDept : setDeptList) {
 				for (int i = 0; i < jobIds.length; i++) {
 					key = setDept.getId() + "," + jobIds[i];
 					if (mapHasJob.get(key) == null) {
-						Job setJob = jobService.get(jobIds[i]);
-						deptjob = new DeptJob();
+						PtJob setJob = jobService.get(jobIds[i]);
+						deptjob = new PtDeptJob();
 						deptjob.setDeptId(setDept.getId()); // 部门ID
 						deptjob.setDeptName(setDept.getNodeText()); // 部门名称
 						deptjob.setParentDeptId(setDept.getSuperDept());// 上级部门Id,默认为所在部门的上级主管岗位
@@ -185,7 +185,7 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	 * @return
 	 */
 	@Override
-	public Boolean delDeptJob(String deptJobId, User currentUser) {
+	public Boolean delDeptJob(String deptJobId, PtUser currentUser) {
 		try {
 			this.deleteByPK(deptJobId);
 			return true;
@@ -213,7 +213,7 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 
 	@Override
 	public String chkIsSuperJob(String deptJobId) {
-		DeptJob deptjob = this.get(deptJobId);
+		PtDeptJob deptjob = this.get(deptJobId);
 
 		return this.chkIsSuperJob(deptjob.getDeptId(), deptjob.getJobId());
 	}
@@ -225,15 +225,15 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 		// 检查指定部门的指定岗位是否其它部门岗位的上级
 		String[] propName = { "parentDeptId", "parentJobId" };
 		Object[] propValue = { deptid, jobId };
-		List<DeptJob> isParentJob = this.queryByProerties(propName, propValue);
-		for (DeptJob baseDeptjob : isParentJob) {
+		List<PtDeptJob> isParentJob = this.queryByProerties(propName, propValue);
+		for (PtDeptJob baseDeptjob : isParentJob) {
 			sbCheck.append(MessageFormat.format("{0},", baseDeptjob.getAllDeptJobName()));
 		}
 		// 检查指定部门的指定岗位是否其它部门的上级
 		propName[0] = "superDept";
 		propName[1] = "superJob";
-		List<Department> isSuperJob = deptService.queryByProerties(propName, propValue);
-		for (Department baseOrg : isSuperJob) {
+		List<PtDepartment> isSuperJob = deptService.queryByProerties(propName, propValue);
+		for (PtDepartment baseOrg : isSuperJob) {
 			sbCheck.append(MessageFormat.format("{0},", baseOrg.getAllDeptName()));
 		}
 		if (sbCheck.length() > 0)
@@ -243,7 +243,7 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	}
 
 	@Override
-	public Boolean doSetDeptLeaderJob(String deptId, String deptJobId, User currentUser) {
+	public Boolean doSetDeptLeaderJob(String deptId, String deptJobId, PtUser currentUser) {
 		try {
 			String[] conditionName = { "deptId", "jobType" };
 			Object[] conditionValue = { deptId, 0 };
@@ -351,20 +351,20 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	 * @return
 	 */
 	@Override
-	public Boolean doSetSuperJob(String ids, String setIds, String setType, User currentUser) {
+	public Boolean doSetSuperJob(String ids, String setIds, String setType, PtUser currentUser) {
 		String[] setId = setIds.split(",");
-		DeptJob deptjob = this.get(ids);
+		PtDeptJob deptjob = this.get(ids);
 		String deptId = deptjob.getDeptId();
 		String deptName = deptjob.getDeptName();
 		String jobId = deptjob.getJobId();
 		String jobName = deptjob.getJobName();
 		try {
 			if ("dept".equals(setType)) {
-				List<Department> depts = deptService.queryByProerties("id", setId);
-				for (Department baseOrg : depts) {
+				List<PtDepartment> depts = deptService.queryByProerties("id", setId);
+				for (PtDepartment baseOrg : depts) {
 
 					// 获取旧的部门岗位数据，然后清除这个部门的用户部门树缓存
-					DeptJob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
+					PtDeptJob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
 							new Object[] { 0, baseOrg.getSuperDept(), baseOrg.getSuperJob() });
 					if(oldDeptJob!=null)
 					this.delDeptTreeByDeptJob(oldDeptJob);
@@ -379,11 +379,11 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 					deptService.merge(baseOrg);
 				}
 			} else {
-				List<DeptJob> setDeptJob = this.queryByProerties("id", setId);
-				for (DeptJob baseDeptjob : setDeptJob) {
+				List<PtDeptJob> setDeptJob = this.queryByProerties("id", setId);
+				for (PtDeptJob baseDeptjob : setDeptJob) {
 
 					// 获取旧的部门岗位数据，然后清除这个部门的用户部门树缓存
-					DeptJob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
+					PtDeptJob oldDeptJob = this.getByProerties(new String[] { "isDelete", "deptId", "jobId" },
 							new Object[] { 0, baseDeptjob.getParentDeptId(), baseDeptjob.getParentJobId() });
 					if(oldDeptJob!=null)
 						this.delDeptTreeByDeptJob(oldDeptJob);
@@ -412,7 +412,7 @@ public class DeptJobServiceImpl extends BaseServiceImpl<DeptJob> implements Dept
 	 * 
 	 * @param userIds
 	 */
-	public void delDeptTreeByDeptJob(DeptJob deptJob) {
+	public void delDeptTreeByDeptJob(PtDeptJob deptJob) {
 		// TODO Auto-generated method stub
 		/* 删除用户的菜单redis数据，以至于下次刷新或请求时，可以加载最新数据 */
 		String hql = "select userId from UserDeptJob o where o.deptJobId=? and o.isDelete=0 ";

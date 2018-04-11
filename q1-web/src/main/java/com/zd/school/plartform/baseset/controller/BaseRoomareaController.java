@@ -1,8 +1,8 @@
 	package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.build.service.RoomAreaService;
-import com.yc.q1.model.base.pt.build.RoomArea;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtRoomArea;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.RoomAreaTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -34,7 +34,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/BaseRoomarea")
-public class BaseRoomareaController extends FrameWorkController<RoomArea> implements Constant {
+public class BaseRoomareaController extends FrameWorkController<PtRoomArea> implements Constant {
 
     @Resource
     RoomAreaService thisService; // service层接口
@@ -48,7 +48,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute RoomArea entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute PtRoomArea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
         String excludes = request.getParameter("excludes");
@@ -70,7 +70,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
      */
     @Auth("JWTROOMINFO_add")
     @RequestMapping("/doAdd")
-    public void doAdd(RoomArea entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(PtRoomArea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         String parentNode = entity.getParentNode();      
         String nodeText = entity.getNodeText();
@@ -105,7 +105,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
         	defaultOrderIndex=1;
         
 		entity.setOrderIndex(defaultOrderIndex);
-        User currentUser = getCurrentSysUser();    
+        PtUser currentUser = getCurrentSysUser();    
         
         entity = thisService.doAddEntity(entity, currentUser.getId());
         
@@ -139,7 +139,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
 				return;
 			}
         				
-        	User currentUser = getCurrentSysUser();
+        	PtUser currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -161,7 +161,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
             return;
         } else {
-        	User currentUser = getCurrentSysUser();
+        	PtUser currentUser = getCurrentSysUser();
         	boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -182,7 +182,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
      */
     @Auth("JWTROOMINFO_update")
     @RequestMapping("/doUpdate")
-    public void doUpdate(RoomArea entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdate(PtRoomArea entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         String uuid = entity.getId();
         String parentNode = entity.getParentNode();     
@@ -201,7 +201,7 @@ public class BaseRoomareaController extends FrameWorkController<RoomArea> implem
         }
 
         //获取当前的操作用户
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
  
         entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         

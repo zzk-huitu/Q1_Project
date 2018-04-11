@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.DataDictService;
 import com.yc.q1.base.redis.service.DicItemRedisService;
-import com.yc.q1.model.base.pt.system.DataDict;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtDataDict;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.DataDictTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -33,7 +33,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseDic")
-public class BaseDicController extends FrameWorkController<DataDict> implements Constant {
+public class BaseDicController extends FrameWorkController<PtDataDict> implements Constant {
 
 	@Resource
 	private DataDictService thisService; // service层接口
@@ -51,7 +51,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute DataDict entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtDataDict entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 
@@ -73,7 +73,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 	 */
 	@Auth("DICTIONARY_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(DataDict entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtDataDict entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String parentNode = entity.getParentNode();
@@ -96,7 +96,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 			return;
 		}
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doAdd(entity, currentUser.getId());
 
@@ -120,7 +120,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -142,7 +142,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -164,7 +164,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 	 */
 	@Auth("DICTIONARY_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(DataDict entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtDataDict entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String parentNode = entity.getParentNode();
@@ -189,7 +189,7 @@ public class BaseDicController extends FrameWorkController<DataDict> implements 
 		}
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 
 		if (entity == null)

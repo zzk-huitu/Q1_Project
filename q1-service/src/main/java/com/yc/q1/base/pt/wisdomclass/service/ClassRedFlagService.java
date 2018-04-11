@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -19,7 +19,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface ClassRedFlagService extends BaseService<ClassRedFlag> {
+public interface ClassRedFlagService extends BaseService<PtClassRedFlag> {
 
 	/**
 	 * 数据列表
@@ -36,10 +36,10 @@ public interface ClassRedFlagService extends BaseService<ClassRedFlag> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<PtClassRedFlag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
-    public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
-            User currentUser); 
+    public QueryResult<PtClassRedFlag> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
+            PtUser currentUser); 
 	/**
 	 * 根据主键逻辑删除数据
 	 * 
@@ -49,7 +49,7 @@ public interface ClassRedFlagService extends BaseService<ClassRedFlag> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -60,7 +60,7 @@ public interface ClassRedFlagService extends BaseService<ClassRedFlag> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public ClassRedFlag doUpdateEntity(ClassRedFlag entity,User currentUser);
+	public PtClassRedFlag doUpdateEntity(PtClassRedFlag entity,PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -71,5 +71,5 @@ public interface ClassRedFlagService extends BaseService<ClassRedFlag> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public ClassRedFlag doAddEntity(ClassRedFlag entity, User currentUser);
+	public PtClassRedFlag doAddEntity(PtClassRedFlag entity, PtUser currentUser);
 }

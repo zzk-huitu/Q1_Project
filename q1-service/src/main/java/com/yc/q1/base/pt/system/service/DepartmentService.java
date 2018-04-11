@@ -15,8 +15,8 @@ import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.DepartmentTree;
 import com.zd.core.service.BaseService;
@@ -31,7 +31,7 @@ import com.zd.core.service.BaseService;
  * @see
  */
 @Transactional
-public interface DepartmentService extends BaseService<Department> {
+public interface DepartmentService extends BaseService<PtDepartment> {
 
     /**
      * 
@@ -48,7 +48,7 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, User currentUser);
+    public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, PtUser currentUser);
 
     /**
      * 
@@ -63,7 +63,7 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public String delOrg(String delIds, User currentUser);
+    public String delOrg(String delIds, PtUser currentUser);
 
     /**
      * 
@@ -81,7 +81,7 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public Department addOrg(Department entity, User currentUser) throws IllegalAccessException, InvocationTargetException;
+    public PtDepartment addOrg(PtDepartment entity, PtUser currentUser) throws IllegalAccessException, InvocationTargetException;
 
     /**
      * 
@@ -95,7 +95,7 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<Department> getOrgList(String whereSql, String orderSql, User currentUser);
+    public List<PtDepartment> getOrgList(String whereSql, String orderSql, PtUser currentUser);
 
     /**
      * 
@@ -114,7 +114,7 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<Department> getOrgAndChildList(String deptId, String orderSql, User currentUser, Boolean isRight);
+    public List<PtDepartment> getOrgAndChildList(String deptId, String orderSql, PtUser currentUser, Boolean isRight);
 
     public Integer getChildCount(String deptId);
 
@@ -130,7 +130,7 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, User currentUser);
+    public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, PtUser currentUser);
 
     /**
      * 
@@ -158,15 +158,15 @@ public interface DepartmentService extends BaseService<Department> {
      * @throws @since
      *             JDK 1.8
      */
-    public Map<String, Department> getOrgChildMaps(String OrgId, boolean isSelf);
+    public Map<String, PtDepartment> getOrgChildMaps(String OrgId, boolean isSelf);
 
-	public Department doUpdate(Department entity, String xm);
+	public PtDepartment doUpdate(PtDepartment entity, String xm);
 
 	public Integer getDeptJobCount(String uuid);
 
 	public void setDeptName(String deptName, String uuid);
 
-	public void setChildAllDeptName(Department dept, String parentAllDeptName);
+	public void setChildAllDeptName(PtDepartment dept, String parentAllDeptName);
 
 	//新版本不需要这个副IDpublic void doCreateFuId();
 
@@ -179,27 +179,27 @@ public interface DepartmentService extends BaseService<Department> {
 	 *            指定的用户对象
 	 * @return
 	 */
-	public List<Department> getUserRightDeptList(User currentUser);
+	public List<PtDepartment> getUserRightDeptList(PtUser currentUser);
 
-	public DepartmentTree getUserRightDeptTree(User currentUser, String node);
+	public DepartmentTree getUserRightDeptTree(PtUser currentUser, String node);
 	
 	/**
 	 * 用户有权限的部门列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<DepartmentTree> getUserRightDeptTreeList(User currentUser);
+	public List<DepartmentTree> getUserRightDeptTreeList(PtUser currentUser);
 	/**
 	 * 用户有权限的班级列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<CommTree> getUserRightDeptClassTreeList(User currentUser);
+	public List<CommTree> getUserRightDeptClassTreeList(PtUser currentUser);
 	/**
 	 * 用户有权限的学科列表
 	 * @param currentUser
 	 * @return
 	 */
-	public List<CommTree> getUserRightDeptDisciplineTreeList(User currentUser);
+	public List<CommTree> getUserRightDeptDisciplineTreeList(PtUser currentUser);
 	
 }

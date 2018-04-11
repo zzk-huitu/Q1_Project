@@ -2,9 +2,9 @@ package com.yc.q1.base.pt.build.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 /**
@@ -17,9 +17,9 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface DormDefineService extends BaseService<DormDefine> {
-	public DormDefine getByRoomId(String roomId);
-    public void addDormRoom(RoomInfo entity, DormDefine dormRoom,String id, String userCh) throws IllegalAccessException, InvocationTargetException;
-	public Boolean delDormRoom(RoomInfo roomInfo,String delIds, String xm);
-	public DormDefine doUpdateEntity(DormDefine entity, User currentUser) throws Exception;
+public interface DormDefineService extends BaseService<PtDormDefine> {
+	public PtDormDefine getByRoomId(String roomId);
+    public void addDormRoom(PtRoomInfo entity, PtDormDefine dormRoom,String id, String userCh) throws IllegalAccessException, InvocationTargetException;
+	public Boolean delDormRoom(PtRoomInfo roomInfo,String delIds, String xm);
+	public PtDormDefine doUpdateEntity(PtDormDefine entity, PtUser currentUser) throws Exception;
 }

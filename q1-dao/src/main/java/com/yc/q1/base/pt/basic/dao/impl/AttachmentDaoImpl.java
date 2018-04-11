@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.AttachmentDao;
-import com.yc.q1.model.base.pt.basic.Attachment;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**
@@ -16,5 +16,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class AttachmentDaoImpl extends BaseDaoImpl<Attachment> implements AttachmentDao {
+public class AttachmentDaoImpl extends BaseDaoImpl<PtAttachment> implements AttachmentDao {
 }

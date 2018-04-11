@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.system.dao.MenuPermissionDao;
 import com.yc.q1.base.pt.system.service.MenuPermissionService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.Menu;
-import com.yc.q1.model.base.pt.system.MenuPermission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtMenu;
+import com.yc.q1.model.base.pt.system.PtMenuPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -24,17 +24,17 @@ import com.zd.core.util.StringUtils;
 
 @Service
 @Transactional
-public class MenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> implements MenuPermissionService{
+public class MenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermission> implements MenuPermissionService{
 
 	@Resource(name = "MenuPermissionDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<MenuPermission> dao) {
+	public void setDao(BaseDao<PtMenuPermission> dao) {
 		super.setDao(dao);
 	}
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Override
-	public List<MenuPermission> getRoleMenuPerlist(String roleId, String perId) {
-		List<MenuPermission> returnList=null;
+	public List<PtMenuPermission> getRoleMenuPerlist(String roleId, String perId) {
+		List<PtMenuPermission> returnList=null;
 		//查询此菜单的功能权限	
 		String hql = "select menuPermissionId from RoleMenuPermission a where a.isDelete=0 ";
 		if(StringUtils.isNotEmpty(roleId)){
@@ -54,13 +54,13 @@ public class MenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> i
 	}
 
 	@Override
-	public MenuPermission doAddEntity(MenuPermission entity, User currentUser) {
+	public PtMenuPermission doAddEntity(PtMenuPermission entity, PtUser currentUser) {
 		// TODO Auto-generated method stub	
-		MenuPermission saveEntity = new MenuPermission();
+		PtMenuPermission saveEntity = new PtMenuPermission();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(MenuPermission.ModuleType));
+			entity.setId(keyRedisService.getId(PtMenuPermission.ModuleType));
 			BeanUtils.copyProperties(saveEntity,entity,excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
@@ -82,10 +82,10 @@ public class MenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> i
 	}
 	
 	@Override
-	public MenuPermission doUpdateEntity(MenuPermission entity, User currentUser) {
+	public PtMenuPermission doUpdateEntity(PtMenuPermission entity, PtUser currentUser) {
 		// TODO Auto-generated method stub	
 		// 先拿到已持久化的实体	
-		MenuPermission perEntity = this.get(entity.getId());
+		PtMenuPermission perEntity = this.get(entity.getId());
 	
 		try {
 			// 将entity中不为空的字段动态加入到perEntity中去。

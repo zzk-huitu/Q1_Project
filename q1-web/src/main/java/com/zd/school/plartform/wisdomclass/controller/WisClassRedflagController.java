@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.wisdomclass.service.ClassRedFlagService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -23,16 +23,16 @@ import com.zd.core.util.StringUtils;
 
 @Controller
 @RequestMapping("/ClassRedflag")
-public class WisClassRedflagController extends FrameWorkController<ClassRedFlag> implements Constant{
+public class WisClassRedflagController extends FrameWorkController<PtClassRedFlag> implements Constant{
 	@Resource
 	ClassRedFlagService thisService; // service层接口
 	
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute ClassRedFlag entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtClassRedFlag entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String redflagType = request.getParameter("redflagType");
 		String filter = request.getParameter("filter");
 		String whereSql = super.whereSql(request);
@@ -47,19 +47,19 @@ public class WisClassRedflagController extends FrameWorkController<ClassRedFlag>
 			filter="[{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redFlagType\"}]";
 		}
 	    //QueryResult<EccClassredflag> qResult =thisService.queryPageResult(super.start(request), super.limit(request),super.sort(request), filter, true);
-		QueryResult<ClassRedFlag> qResult = thisService.list(super.start(request), super.limit(request),super.sort(request), filter, whereSql, orderSql, currentUser);
+		QueryResult<PtClassRedFlag> qResult = thisService.list(super.start(request), super.limit(request),super.sort(request), filter, whereSql, orderSql, currentUser);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
 	@Auth("REDFLAG_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(ClassRedFlag entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtClassRedFlag entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 			if (ModelUtil.isNotNull(entity))
@@ -78,7 +78,7 @@ public class WisClassRedflagController extends FrameWorkController<ClassRedFlag>
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -93,13 +93,13 @@ public class WisClassRedflagController extends FrameWorkController<ClassRedFlag>
 	}
 	@Auth("REDFLAG_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(ClassRedFlag entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtClassRedFlag entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))

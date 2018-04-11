@@ -1,11 +1,11 @@
 package com.yc.q1.pojo.base.app;
 
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 
 public class RoomInfoApp {
 	private boolean message;//调用结果 ture&false
 	private String messageInfo;//返回状态信息
-	private RoomInfo obj;
+	private PtRoomInfo obj;
 	public boolean isMessage() {
 		return message;
 	}
@@ -18,10 +18,10 @@ public class RoomInfoApp {
 	public void setMessageInfo(String messageInfo) {
 		this.messageInfo = messageInfo;
 	}
-	public RoomInfo getObj() {
+	public PtRoomInfo getObj() {
 		return obj;
 	}
-	public void setObj(RoomInfo obj) {
+	public void setObj(PtRoomInfo obj) {
 		this.obj = obj;
 	}
 }

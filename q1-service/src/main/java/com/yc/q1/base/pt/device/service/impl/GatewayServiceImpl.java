@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.device.service.GatewayService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.Gateway;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtGateway;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -30,12 +30,12 @@ import com.zd.core.util.TLVUtils;
  */
 @Service
 @Transactional
-public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements GatewayService {
+public class GatewayServiceImpl extends BaseServiceImpl<PtGateway> implements GatewayService {
 
 	private static Logger logger = Logger.getLogger(GatewayServiceImpl.class);
 
 	@Resource(name = "GatewayDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Gateway> dao) {
+	public void setDao(BaseDao<PtGateway> dao) {
 		super.setDao(dao);
 	}
 
@@ -43,9 +43,9 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public Gateway doUpdateEntity(Gateway entity, User currentUser) {
+	public PtGateway doUpdateEntity(PtGateway entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		Gateway perEntity = this.get(entity.getId());
+		PtGateway perEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
 			perEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -63,10 +63,10 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 	}
 
 	@Override
-	public Gateway doAddEntity(Gateway entity, User currentUser) {
+	public PtGateway doAddEntity(PtGateway entity, PtUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			Gateway perEntity = new Gateway();
+			PtGateway perEntity = new PtGateway();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);
 			// perEntity.setPriceValue(entity.getPriceValue());
@@ -74,7 +74,7 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			
 			// 持久化到数据库
-			entity.setId(keyRedisService.getId(Gateway.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtGateway.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -94,7 +94,7 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 	public void doSetGatewayParam(HttpServletRequest request, TLVModel tlvs, String userCh) {
 		// TODO Auto-generated method stub
 		byte[] result = null;
-		Gateway perEntity = this.get(tlvs.getId());
+		PtGateway perEntity = this.get(tlvs.getId());
 		result = TLVUtils.encode(tlvs.getTlvs());
 		perEntity.setNetParam(result);
 		perEntity.setGatewayIP(request.getParameter("gatewayIp"));
@@ -124,7 +124,7 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 		byte[] advResult = null;
 		advResult = TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 
-		Gateway perEntity = this.get(tlvs.getId());
+		PtGateway perEntity = this.get(tlvs.getId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		perEntity.setUpdateUser(xm);
@@ -179,7 +179,7 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 	@Override
 	public void doUpdateBaseHighParamToAll(TLVModel tlvs, String xm) {
 		// TODO Auto-generated method stub
-		Gateway perEntity = this.get(tlvs.getId());
+		PtGateway perEntity = this.get(tlvs.getId());
 		String frontServerId = perEntity.getFrontServerId();
 
 		byte[] baseResult = TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
@@ -199,7 +199,7 @@ public class GatewayServiceImpl extends BaseServiceImpl<Gateway> implements Gate
 	 * 批量设置前置服务器
 	 */
 	@Override
-	public void doUpdateBatchFront(Gateway entity, String xm) {
+	public void doUpdateBatchFront(PtGateway entity, String xm) {
 		// TODO Auto-generated method stub
 		String uuids[] = entity.getId().split(",");
 

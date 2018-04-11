@@ -2,8 +2,8 @@
 package com.zd.school.plartform.baseset.controller;
 
 import com.yc.q1.base.pt.basic.service.AttachmentService;
-import com.yc.q1.model.base.pt.basic.Attachment;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
@@ -36,7 +36,7 @@ import java.util.*;
  */
 @Controller
 @RequestMapping("/BaseAttachment")
-public class BaseAttachmentController extends FrameWorkController<Attachment> implements Constant {
+public class BaseAttachmentController extends FrameWorkController<PtAttachment> implements Constant {
 
     @Resource
     AttachmentService thisService; // service层接口
@@ -51,7 +51,7 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(@ModelAttribute Attachment entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(@ModelAttribute PtAttachment entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
         // hql语句
@@ -72,7 +72,7 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
         countHql.append(whereSql);
         countHql.append(querySql);
         countHql.append(parentSql);
-        List<Attachment> lists = thisService.queryByHql(hql.toString(), start, limit);// 执行查询方法
+        List<PtAttachment> lists = thisService.queryByHql(hql.toString(), start, limit);// 执行查询方法
         Integer count = thisService.getQueryCountByHql(countHql.toString());// 查询总记录数
         strData = jsonBuilder.buildObjListToJson(new Long(count), lists, true);// 处理数据
         writeJSON(response, strData);// 返回数据
@@ -85,14 +85,14 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
      * IOException 设定参数 @return void 返回类型 @throws
      */
     @RequestMapping("/doadd")
-    public void doAdd(Attachment entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(PtAttachment entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
         // 此处为放在入库前的一些检查的代码，如唯一校验等
 
         // 获取当前操作用户
         String userCh = "超级管理员";
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         if (currentUser != null)
             userCh = currentUser.getId();
 
@@ -123,7 +123,7 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
             writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
             return;
         } else {
-            User currentUser = getCurrentSysUser();
+            PtUser currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("'删除成功'"));
@@ -145,7 +145,7 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
             writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
             return;
         } else {
-            User currentUser = getCurrentSysUser();
+            PtUser currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -161,20 +161,20 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
      * response @param @throws IOException 设定参数 @return void 返回类型 @throws
      */
     @RequestMapping("/doUpdate")
-    public void doUpdates(Attachment entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdates(PtAttachment entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         // 入库前检查代码
 
         // 获取当前的操作用户
         String userCh = "超级管理员";
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         if (currentUser != null)
             userCh = currentUser.getId();
 
         // 先拿到已持久化的实体
         // entity.getSchoolId()要自己修改成对应的获取主键的方法
-        Attachment perEntity = thisService.get(entity.getId());
+        PtAttachment perEntity = thisService.get(entity.getId());
 
         // 将entity中不为空的字段动态加入到perEntity中去。
         BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -208,11 +208,11 @@ public class BaseAttachmentController extends FrameWorkController<Attachment> im
     	}
     	
     	hql += " order by b.createTime asc";
-    	List<Attachment> list = thisService.queryByHql(hql);
+    	List<PtAttachment> list = thisService.queryByHql(hql);
     	
     	List<HashMap<String, Object>> lists=new ArrayList<>();
     	HashMap<String, Object> maps=null;
-    	for(Attachment bt : list){
+    	for(PtAttachment bt : list){
     		maps = new LinkedHashMap<>();
     		maps.put("id", "SWFUpload_" + bt.getId());
     		maps.put("name", bt.getFileName());

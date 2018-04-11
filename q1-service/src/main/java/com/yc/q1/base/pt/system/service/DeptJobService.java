@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.List;
 
-import com.yc.q1.model.base.pt.system.DeptJob;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.DpetJobTree;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
@@ -18,7 +18,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface DeptJobService extends BaseService<DeptJob> {
+public interface DeptJobService extends BaseService<PtDeptJob> {
 
 	/**
 	 * 数据列表
@@ -35,7 +35,7 @@ public interface DeptJobService extends BaseService<DeptJob> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-	public QueryResult<DeptJob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	public QueryResult<PtDeptJob> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -46,7 +46,7 @@ public interface DeptJobService extends BaseService<DeptJob> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 设置部门所包含的岗位
@@ -59,7 +59,7 @@ public interface DeptJobService extends BaseService<DeptJob> {
 	 *            当前操作员
 	 * @return
 	 */
-	public Boolean doBatchSetDeptJob(String deptId, String jobId, User currentUser);
+	public Boolean doBatchSetDeptJob(String deptId, String jobId, PtUser currentUser);
 
 	/**
 	 * 删除部门的岗位
@@ -70,7 +70,7 @@ public interface DeptJobService extends BaseService<DeptJob> {
 	 *            当前操作员
 	 * @return
 	 */
-	public Boolean delDeptJob(String deptJobId,User currentUser);
+	public Boolean delDeptJob(String deptJobId,PtUser currentUser);
 
 	/**
 	 * 检查指定的部门岗位是否其它部门或岗位的上级
@@ -99,7 +99,7 @@ public interface DeptJobService extends BaseService<DeptJob> {
 	 * @param currentUser
 	 * @return
 	 */
-	public Boolean doSetDeptLeaderJob(String deptid, String deptJobId, User currentUser);
+	public Boolean doSetDeptLeaderJob(String deptid, String deptJobId, PtUser currentUser);
 
 	/**
 	 * 获取部门岗位的树形结构
@@ -132,6 +132,6 @@ public interface DeptJobService extends BaseService<DeptJob> {
 	 *            设置类型，是设置的岗位的还是部门的
 	 * @return
 	 */
-	public Boolean doSetSuperJob(String ids, String setIds, String setType,User currentUser);
+	public Boolean doSetSuperJob(String ids, String setIds, String setType,PtUser currentUser);
 
 }

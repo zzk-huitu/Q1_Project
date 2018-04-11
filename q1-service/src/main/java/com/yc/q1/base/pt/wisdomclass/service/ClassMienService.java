@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassMien;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -16,8 +16,8 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface ClassMienService extends BaseService<ClassMien> {
+public interface ClassMienService extends BaseService<PtClassMien> {
 
-	public QueryResult<ClassMien> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, User currentUser);
+	public QueryResult<PtClassMien> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, PtUser currentUser);
 }

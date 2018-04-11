@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.ClassStudentDao;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class ClassStudentDaoImpl extends BaseDaoImpl<ClassStudent> implements ClassStudentDao {
+public class ClassStudentDaoImpl extends BaseDaoImpl<PtClassStudent> implements ClassStudentDao {
 }

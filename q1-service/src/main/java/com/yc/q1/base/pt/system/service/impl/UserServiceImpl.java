@@ -29,15 +29,15 @@ import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.redis.service.UserRedisService;
-import com.yc.q1.model.base.pt.basic.StudentBaseInfo;
-import com.yc.q1.model.base.pt.basic.TeacherBaseInfo;
-import com.yc.q1.model.base.pt.system.DataDictItem;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.MenuPermission;
-import com.yc.q1.model.base.pt.system.Permission;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptRight;
+import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
+import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtMenuPermission;
+import com.yc.q1.model.base.pt.system.PtPermission;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.dao.BaseDao;
@@ -59,12 +59,12 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class UserServiceImpl extends BaseServiceImpl<User> implements UserService {
+public class UserServiceImpl extends BaseServiceImpl<PtUser> implements UserService {
 
 	private static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
 	@Resource(name = "UserDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<User> dao) {
+	public void setDao(BaseDao<PtUser> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -92,21 +92,21 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 	
 	@Override
-	public User doAddUser(User entity, User currentUser/*, String deptJobId*/) throws Exception, InvocationTargetException {
+	public PtUser doAddUser(PtUser entity, PtUser currentUser/*, String deptJobId*/) throws Exception, InvocationTargetException {
 
 		String userPwd = entity.getUserPwd();
 		userPwd = new Sha256Hash(userPwd).toHex();
 
 		// 根据身份来做不同的处理
-		User saveEntity = null;
-		saveEntity.setId(keyRedisService.getId(User.ModuleType));
+		PtUser saveEntity = null;
+		saveEntity.setId(keyRedisService.getId(PtUser.ModuleType));
 		String category = entity.getCategory();
 		if (category.equals("1")) { // 老师
-			TeacherBaseInfo t = new TeacherBaseInfo();
+			PtTeacherBaseInfo t = new PtTeacherBaseInfo();
 			saveEntity = t;
 			//增加角色
-			Set<Role>  theUserRoler = saveEntity.getSysRoles();
-			Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"TEACHER",0});
+			Set<PtRole>  theUserRoler = saveEntity.getSysRoles();
+			PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"TEACHER",0});
 			
 			if(role!=null){
 				theUserRoler.add(role);
@@ -114,14 +114,14 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 			}
 
 		} else if (category.equals("2")) { // 学生
-			StudentBaseInfo t = new StudentBaseInfo();
+			PtStudentBaseInfo t = new PtStudentBaseInfo();
 			// t.setSchoolId("2851655E-3390-4B80-B00C-52C7CA62CB39");
 			// t.setClassId(entity.getDeptId());
 
 			saveEntity = t;
 			//增加角色
-			Set<Role>  theUserRoler = saveEntity.getSysRoles();
-			Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
+			Set<PtRole>  theUserRoler = saveEntity.getSysRoles();
+			PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
 			
 			if(role!=null){
 				theUserRoler.add(role);
@@ -129,7 +129,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 			}
 
 		} else {
-			saveEntity = new User();
+			saveEntity = new PtUser();
 		}
 
 		entity.setId(null);
@@ -160,12 +160,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public User doUpdateUser(User entity, User currentUser) throws Exception, InvocationTargetException {
+	public PtUser doUpdateUser(PtUser entity, PtUser currentUser) throws Exception, InvocationTargetException {
 
 		// 先拿到已持久化的实体
-		User perEntity = this.get(entity.getId());
+		PtUser perEntity = this.get(entity.getId());
 
-		Set<Role> isUserRoles = perEntity.getSysRoles();
+		Set<PtRole> isUserRoles = perEntity.getSysRoles();
 		/* Set<BaseOrg> userDept = perEntity.getUserDepts(); */
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
@@ -209,14 +209,14 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public Boolean doDeleteUserRole(String userId, String delRoleIds, User currentUser) {
+	public Boolean doDeleteUserRole(String userId, String delRoleIds, PtUser currentUser) {
 		Boolean delReurn = false;
 		// 获取当前用户的信息
-		User theUser = this.get(userId);
-		Set<Role> theUserRole = theUser.getSysRoles();
+		PtUser theUser = this.get(userId);
+		Set<PtRole> theUserRole = theUser.getSysRoles();
 
 		String[] delId = delRoleIds.split(",");
-		List<Role> delRoles = roleService.queryByProerties("id", delId);
+		List<PtRole> delRoles = roleService.queryByProerties("id", delId);
 
 		theUserRole.removeAll(delRoles);
 
@@ -230,15 +230,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public Boolean doAddUserRole(String userId, String addRoleIds, User currentUser) {
+	public Boolean doAddUserRole(String userId, String addRoleIds, PtUser currentUser) {
 
 		Boolean addResult = false;
 		// 获取当前用户的信息
-		User theUser = this.get(userId);
-		Set<Role> theUserRole = theUser.getSysRoles();
+		PtUser theUser = this.get(userId);
+		Set<PtRole> theUserRole = theUser.getSysRoles();
 
 		String[] addId = addRoleIds.split(",");
-		List<Role> addRoles = roleService.queryByProerties("id", addId);
+		List<PtRole> addRoles = roleService.queryByProerties("id", addId);
 
 		theUserRole.addAll(addRoles);
 
@@ -253,8 +253,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public QueryResult<User> getDeptUser(Integer start, Integer limit, String sort, String filter, Boolean isDelete,
-			String userIds, User currentUser) {
+	public QueryResult<PtUser> getDeptUser(Integer start, Integer limit, String sort, String filter, Boolean isDelete,
+			String userIds, PtUser currentUser) {
 
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String userId = userIds;
@@ -283,7 +283,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 			
 			if(StringUtils.isNotEmpty(sortSql))
 				hql.append(" order by "+sortSql);
-			QueryResult<User> qr = this.queryResult(hql.toString(), start, limit);
+			QueryResult<PtUser> qr = this.queryResult(hql.toString(), start, limit);
 
 			return qr;
 		}
@@ -325,7 +325,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	// }
 
 	@Override
-	public List<User> getUserByRoleName(String roleName) {
+	public List<PtUser> getUserByRoleName(String roleName) {
 		/*
 		 * String sql =
 		 * "SELECT USER_ID FROM SYS_T_USER WHERE USER_ID IN(SELECT USER_ID FROM SYS_T_ROLEUSER WHERE ROLE_ID IN(SELECT ROLE_ID FROM SYS_T_ROLE WHERE ROLE_NAME='"
@@ -340,7 +340,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public Boolean doDeleteUser(String delIds, String orgId, User currentUser) {
+	public Boolean doDeleteUser(String delIds, String orgId, PtUser currentUser) {
 		String[] ids = delIds.split(",");
 		boolean flag = false;
 		/*
@@ -360,13 +360,13 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public QueryResult<User> getUserByRoleId(String roleId) {
-		QueryResult<User> qr = new QueryResult<User>();
+	public QueryResult<PtUser> getUserByRoleId(String roleId) {
+		QueryResult<PtUser> qr = new QueryResult<PtUser>();
 		String hql = "from User as u inner join fetch u.sysRoles as r where r.id='" + roleId
 				+ "' and r.isDelete=0 and u.isDelete=0 ";
-		List<User> list = this.queryByHql(hql);
+		List<PtUser> list = this.queryByHql(hql);
 
-		SortListUtil<User> sortJob = new SortListUtil<User>();
+		SortListUtil<PtUser> sortJob = new SortListUtil<PtUser>();
 		sortJob.Sort(list, "jobCode", "String");
 		qr.setResultList(list);
 		qr.setTotalCount((long) list.size());
@@ -398,7 +398,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 
 	@Override
-	public HashMap<String, Set<String>> getUserRoleMenuPermission(User sysUser, Session session) {
+	public HashMap<String, Set<String>> getUserRoleMenuPermission(PtUser sysUser, Session session) {
 		// TODO Auto-generated method stub
 		HashMap<String, Set<String>> map = new HashMap<>();
 
@@ -419,16 +419,16 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		Set<String> userRMP_AUTH = new HashSet<>(); // 接口
 		Set<String> userRMP_BTN = new HashSet<>(); // 按钮
 
-		Set<Role> sysRoleSet = sysUser.getSysRoles();
-		Iterator<Role> iterator = sysRoleSet.iterator();
+		Set<PtRole> sysRoleSet = sysUser.getSysRoles();
+		Iterator<PtRole> iterator = sysRoleSet.iterator();
 		while (iterator.hasNext()) {
-			Role sysRole = iterator.next();
+			PtRole sysRole = iterator.next();
 			if (sysRole.getIsDelete() == 0) { // 只加入正常状态的角色数据
-				List<MenuPermission> menuPerLists = menuPermissionService.getRoleMenuPerlist(sysRole.getId(),
+				List<PtMenuPermission> menuPerLists = menuPermissionService.getRoleMenuPerlist(sysRole.getId(),
 						null);
 
 				for (int i = 0; i < menuPerLists.size(); i++) {
-					MenuPermission smp = menuPerLists.get(i);
+					PtMenuPermission smp = menuPerLists.get(i);
 					userRMP_AUTH.add(smp.getAuthPrefix() + "_" + smp.getAuthPostfix()); // 前缀+后缀
 					userRMP_BTN.add(smp.getMenuCode() + "_" + smp.getButtonName()); // 菜单编码+按钮ref名称
 				}
@@ -456,12 +456,12 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	 * 通过SysPermission权限菜单，这个参数，来获取相关的角色的用户ID，然后清除redis
 	 */
 	@Override
-	public void deleteUserMenuTreeRedis(Permission sysPermission) {
+	public void deleteUserMenuTreeRedis(PtPermission sysPermission) {
 		// TODO Auto-generated method stub
-		Set<Role> sysRoleSet = sysPermission.getSysRoles();
+		Set<PtRole> sysRoleSet = sysPermission.getSysRoles();
 		Set<String> setUserId = new HashSet<>();
-		for (Role sysRole : sysRoleSet) {
-			List<User> listUser = this.getUserByRoleId(sysRole.getId()).getResultList();
+		for (PtRole sysRole : sysRoleSet) {
+			List<PtUser> listUser = this.getUserByRoleId(sysRole.getId()).getResultList();
 			for (int j = 0; j < listUser.size(); j++) {
 				setUserId.add(listUser.get(j).getId());
 			}
@@ -478,7 +478,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		// TODO Auto-generated method stub
 		Set<String> setUserId = new HashSet<>();
 		for (int i = 0; i < roleIds.length; i++) {
-			List<User> listUser = this.getUserByRoleId(roleIds[i]).getResultList();
+			List<PtUser> listUser = this.getUserByRoleId(roleIds[i]).getResultList();
 			for (int j = 0; j < listUser.size(); j++) {
 				setUserId.add(listUser.get(j).getId());
 			}
@@ -499,15 +499,15 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	}
 
 	@Override
-	public QueryResult<User> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter) {
+	public QueryResult<PtUser> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter) {
 		String hql = "from User as o where o.isDelete=0  and state='0' "; // 只列出状态正常的用户
 		if (StringUtils.isNotEmpty(roleId)) {
 			String hql1 = " from User as u inner join fetch u.sysRoles as k where k.id='" + roleId
 					+ "' and k.isDelete=0 and u.isDelete=0 ";
-			List<User> tempList = this.queryByHql(hql1);
+			List<PtUser> tempList = this.queryByHql(hql1);
 			if (tempList.size() > 0) {
 				StringBuilder sb = new StringBuilder();
-				for (User sysUser : tempList) {
+				for (PtUser sysUser : tempList) {
 					sb.append(sysUser.getId());
 					sb.append(",");
 				}
@@ -523,7 +523,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 			hql += " order by ";
 			hql += sort;
 		}
-		QueryResult<User> qr = this.queryResult(hql, start, limit);
+		QueryResult<PtUser> qr = this.queryResult(hql, start, limit);
 		return qr;
 	}
 
@@ -535,7 +535,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	 * @return
 	 */
 	@Override
-	public List<User> getUserByDeptId(String deptId) {
+	public List<PtUser> getUserByDeptId(String deptId) {
 		String hql = "select u.id from User as u,UserDeptJob as r where u.id=r.userId and r.deptId='"
 				+ deptId + "' and r.isDelete=0 and u.isDelete=0";
 		return this.queryByHql(hql);
@@ -549,18 +549,18 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 	 * @return
 	 */
 	@Override
-	public Set<Department> getDeptByUserId(String userId) {
+	public Set<PtDepartment> getDeptByUserId(String userId) {
 		String hql = "select u.id from User as u,UserDeptJob as r,Department o where u.id=r.userId and r.id='"
 				+ userId + "' and r.deptId=o.id and r.isDelete=0 and u.isDelete=0 and o.isDelete=0";
-		List<Department>  orgs= orgService.queryByHql(hql);
+		List<PtDepartment>  orgs= orgService.queryByHql(hql);
 		
-		Set<Department> set=new HashSet<>(orgs);      
+		Set<PtDepartment> set=new HashSet<>(orgs);      
 	
 		return set;
 	}
 	
 	@Override
-	public List<ImportNotInfo> doImportUser(List<List<Object>> listObject, User currentUser) {
+	public List<ImportNotInfo> doImportUser(List<List<Object>> listObject, PtUser currentUser) {
 		// TODO Auto-generated method stub
 		
 		List<ImportNotInfo> listNotExit = new ArrayList<>();
@@ -573,8 +573,8 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		Map<String, String> mapXbm = new HashMap<>();
 		Map<String, String> mapCategory = new HashMap<>();
 		String hql1 = " from DataDictItem where dicCode in ('ZZMMM','XBM','CATEGORY')";
-		List<DataDictItem> listBaseDicItems1 = dicitemService.queryByHql(hql1);
-		for (DataDictItem baseDicitem : listBaseDicItems1) {
+		List<PtDataDictItem> listBaseDicItems1 = dicitemService.queryByHql(hql1);
+		for (PtDataDictItem baseDicitem : listBaseDicItems1) {
 			if (baseDicitem.getDicCode().equals("XBM"))
 				mapXbm.put(baseDicitem.getItemName(), baseDicitem.getItemCode());
 			else if (baseDicitem.getDicCode().equals("ZZMMM"))
@@ -592,7 +592,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		String doResult = "";
 		String title = "";
 		String errorLevel = "";
-		User user = null;
+		PtUser user = null;
 		for (int i = 0; i < listObject.size(); i++) {
 			try {
 
@@ -616,7 +616,7 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 					doResult = "导入失败；异常信息：已存在此用户名的帐号信息";
 					
 				}else{
-					user = new User();
+					user = new PtUser();
 					user.setUserName(String.valueOf(lo.get(0)));
 					user.setName(String.valueOf(lo.get(1)));
 					user.setSex(mapXbm.get(lo.get(2)));
@@ -654,11 +654,11 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 		
 	}
 	@Override
-	public String getUserOwnDeptids(User currentUser) {
-		List<Department> rightOrg = orgService.getUserRightDeptList(currentUser);
+	public String getUserOwnDeptids(PtUser currentUser) {
+		List<PtDepartment> rightOrg = orgService.getUserRightDeptList(currentUser);
 		StringBuffer orgids = new StringBuffer();
 		if (rightOrg.size() > 0) {
-			for (Department baseOrg : rightOrg) {
+			for (PtDepartment baseOrg : rightOrg) {
 				orgids.append("'" + baseOrg.getId() + "',");
 			}
 		}

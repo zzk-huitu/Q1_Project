@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.dao;
 
-import com.yc.q1.model.base.pt.device.Gateway;
+import com.yc.q1.model.base.pt.device.PtGateway;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -8,6 +8,6 @@ import com.zd.core.dao.BaseDao;
  * @author hucy
  *
  */
-public interface GatewayDao extends BaseDao<Gateway>{
+public interface GatewayDao extends BaseDao<PtGateway>{
 
 }

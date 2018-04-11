@@ -3,17 +3,17 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.List;
 
-import com.yc.q1.model.base.pt.system.MenuPermission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtMenuPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
-public interface MenuPermissionService extends BaseService<MenuPermission> {
+public interface MenuPermissionService extends BaseService<PtMenuPermission> {
 
-	List<MenuPermission> getRoleMenuPerlist(String roleId, String perId);
+	List<PtMenuPermission> getRoleMenuPerlist(String roleId, String perId);
 
-	MenuPermission doAddEntity(MenuPermission entity, User currentUser);
+	PtMenuPermission doAddEntity(PtMenuPermission entity, PtUser currentUser);
 
-	MenuPermission doUpdateEntity(MenuPermission entity, User currentUser);
+	PtMenuPermission doUpdateEntity(PtMenuPermission entity, PtUser currentUser);
 
 }

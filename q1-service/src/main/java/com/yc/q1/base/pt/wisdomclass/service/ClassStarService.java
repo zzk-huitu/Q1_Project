@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -19,7 +19,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface ClassStarService extends BaseService<ClassStar> {
+public interface ClassStarService extends BaseService<PtClassStar> {
 
 	/**
 	 * 数据列表
@@ -36,10 +36,10 @@ public interface ClassStarService extends BaseService<ClassStar> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<PtClassStar> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
-    public QueryResult<ClassStar> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
-    		User currentUser); 
+    public QueryResult<PtClassStar> list(Integer start, Integer limit, String sort, String filter, String whereSql,String orderSql,
+    		PtUser currentUser); 
 	/**
 	 * 根据主键逻辑删除数据
 	 * 
@@ -49,7 +49,7 @@ public interface ClassStarService extends BaseService<ClassStar> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -60,7 +60,7 @@ public interface ClassStarService extends BaseService<ClassStar> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public ClassStar doUpdateEntity(ClassStar entity, User currentUser);
+	public PtClassStar doUpdateEntity(PtClassStar entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -71,5 +71,5 @@ public interface ClassStarService extends BaseService<ClassStar> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public ClassStar doAddEntity(ClassStar entity, User currentUser);
+	public PtClassStar doAddEntity(PtClassStar entity, PtUser currentUser);
 }

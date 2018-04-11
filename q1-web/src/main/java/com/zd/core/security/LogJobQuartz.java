@@ -10,21 +10,21 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.yc.q1.base.log.service.OprateLogService;
-import com.yc.q1.model.storage.log.OprateLog;
+import com.yc.q1.model.storage.log.LogUserOprate;
 
 //@Component(value="LogJobQuartz")
 public class LogJobQuartz {
 	
 	@Resource
-	private RedisTemplate<String, OprateLog> redisTemplate;
+	private RedisTemplate<String, LogUserOprate> redisTemplate;
 
 	@Resource
 	private OprateLogService logService; 
 	
 	protected void execute() {
 		try{
-			ListOperations<String, OprateLog> listOper = redisTemplate.opsForList();
-			List<OprateLog> lists = listOper.range("SysOperateLog",0,-1);
+			ListOperations<String, LogUserOprate> listOper = redisTemplate.opsForList();
+			List<LogUserOprate> lists = listOper.range("SysOperateLog",0,-1);
 			redisTemplate.delete("SysOperateLog");
 			
 			logService.multiAddEntity(lists);

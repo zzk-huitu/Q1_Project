@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.model.base.pt.device.PriceBind;
+import com.yc.q1.model.base.pt.device.PtPriceBind;
 import com.zd.core.service.BaseService;
 
 /**
@@ -8,7 +8,7 @@ import com.zd.core.service.BaseService;
  * @author hucy
  *
  */
-public interface PriceBindService extends BaseService<PriceBind>{
+public interface PriceBindService extends BaseService<PtPriceBind>{
 
 	void doPriceBind(String[] termId, String[] termSn, String meterId,String xm);
 

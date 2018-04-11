@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.build.service.ClassRoomDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.ClassRoomDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.build.PtClassRoomDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -28,10 +28,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine> implements ClassRoomDefineService {
+public class ClassRoomDefineServiceImpl extends BaseServiceImpl<PtClassRoomDefine> implements ClassRoomDefineService {
 
 	@Resource(name = "ClassRoomDefineDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<ClassRoomDefine> dao) {
+	public void setDao(BaseDao<PtClassRoomDefine> dao) {
 		super.setDao(dao);
 	}
 
@@ -42,20 +42,20 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public ClassRoomDefine getByRoomId(String roomId) {
+	public PtClassRoomDefine getByRoomId(String roomId) {
 		String hql = "from ClassRoomDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
-		ClassRoomDefine entity = this.getEntityByHql(hql);
+		PtClassRoomDefine entity = this.getEntityByHql(hql);
 		return entity;
 	}
 
 	@Override
-	public void addClassRoom(RoomInfo entity, String id, String userCh)
+	public void addClassRoom(PtRoomInfo entity, String id, String userCh)
 			throws IllegalAccessException, InvocationTargetException {
-		RoomInfo roomInfo = null;
-		ClassRoomDefine classRoom = null;// 教室定义
+		PtRoomInfo roomInfo = null;
+		PtClassRoomDefine classRoom = null;// 教室定义
 		roomInfo = thisService.get(id);
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(userCh);
@@ -65,7 +65,7 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 		// 执行更新方法
 		thisService.merge(roomInfo);
 
-		classRoom = new ClassRoomDefine();
+		classRoom = new PtClassRoomDefine();
 		BeanUtils.copyPropertiesExceptNull(classRoom, entity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(classRoom);
@@ -75,14 +75,14 @@ public class ClassRoomDefineServiceImpl extends BaseServiceImpl<ClassRoomDefine>
 		classRoom.setUpdateUser(userCh); // 创建人的中文名
 		classRoom.setOrderIndex(orderIndex);// 排序
 		
-		classRoom.setId(keyRedisService.getId(ClassRoomDefine.ModuleType));	//手动设置id
+		classRoom.setId(keyRedisService.getId(PtClassRoomDefine.ModuleType));	//手动设置id
 		this.merge(classRoom); // 执行添加方法
 
 	}
 
 	@Override
-	public Boolean delClassRoom(RoomInfo roomInfo, String delId, String xm) {
-		ClassRoomDefine classRoom = null;// 教室定义
+	public Boolean delClassRoom(PtRoomInfo roomInfo, String delId, String xm) {
+		PtClassRoomDefine classRoom = null;// 教室定义
 		classRoom = this.getByRoomId(delId);
 
 		roomInfo.setUpdateTime(new Date());

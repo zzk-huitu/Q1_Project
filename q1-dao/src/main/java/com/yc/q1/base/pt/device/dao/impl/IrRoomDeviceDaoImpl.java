@@ -4,7 +4,7 @@ package com.yc.q1.base.pt.device.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.device.dao.IrRoomDeviceDao;
-import com.yc.q1.model.base.pt.device.IrRoomDevice;
+import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -21,5 +21,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class IrRoomDeviceDaoImpl extends BaseDaoImpl<IrRoomDevice> implements IrRoomDeviceDao {
+public class IrRoomDeviceDaoImpl extends BaseDaoImpl<PtIrRoomDevice> implements IrRoomDeviceDao {
 }

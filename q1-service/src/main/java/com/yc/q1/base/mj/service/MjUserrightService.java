@@ -1,7 +1,7 @@
 package com.yc.q1.base.mj.service;
 
 import com.yc.q1.model.base.mj.MjUserRight;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -20,8 +20,8 @@ import com.zd.core.service.BaseService;
  
 public interface MjUserRightService extends BaseService<MjUserRight> {
 
-	public MjUserRight doAddEntity(MjUserRight entity, User currentUser);
+	public MjUserRight doAddEntity(MjUserRight entity, PtUser currentUser);
 
-	public void doAddMj(String userId, String termId, User currentUser);
+	public void doAddMj(String userId, String termId, PtUser currentUser);
 	
 }

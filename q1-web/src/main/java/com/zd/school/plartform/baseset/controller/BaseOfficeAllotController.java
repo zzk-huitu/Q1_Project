@@ -20,9 +20,9 @@ import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.build.service.OfficeAllotService;
 import com.yc.q1.base.pt.build.service.OfficeDefineService;
 import com.yc.q1.base.pt.system.service.UserService;
-import com.yc.q1.model.base.pt.build.OfficeAllot;
-import com.yc.q1.model.base.pt.build.OfficeDefine;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtOfficeAllot;
+import com.yc.q1.model.base.pt.build.PtOfficeDefine;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -38,7 +38,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseOfficeAllot")
-public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> implements Constant {
+public class BaseOfficeAllotController extends FrameWorkController<PtOfficeAllot> implements Constant {
 	@Resource
 	OfficeAllotService thisService; // service层接口
 	@Resource
@@ -57,7 +57,7 @@ public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> 
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute OfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtOfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -97,7 +97,7 @@ public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> 
 			}
 		}
 
-		QueryResult<OfficeAllot> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtOfficeAllot> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -131,16 +131,16 @@ public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> 
 	 */
 	@Auth("BASEROOMALLOT_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(OfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtOfficeAllot entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
-		OfficeDefine off = null;
+		PtOfficeDefine off = null;
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String[] name = { "roomId", "isDelete" };
 		Object[] value = { entity.getRoomId(), 0 };
 		off = offdService.getByProerties(name, value);
 		if (off != null) {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			flag = thisService.doAddRoom(entity, hashMap, currentUser);// 执行增加方法
 			flag = (Boolean) hashMap.get("flag") == null ? true : (Boolean) hashMap.get("flag");
 			if (flag) {
@@ -198,10 +198,10 @@ public class BaseOfficeAllotController extends FrameWorkController<OfficeAllot> 
 	 */
 	@RequestMapping(value = { "/teacherAllot" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void teacherAllot(@ModelAttribute User entity, HttpServletRequest request, HttpServletResponse response)
+	public void teacherAllot(@ModelAttribute PtUser entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<User> qr = sysUserService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtUser> qr = sysUserService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据

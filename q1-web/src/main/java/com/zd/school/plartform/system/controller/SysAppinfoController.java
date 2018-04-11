@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.base.pt.system.service.AppInfoService;
-import com.yc.q1.model.base.pt.system.AppInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtAppInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -39,7 +39,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysAppinfo")
-public class SysAppinfoController extends FrameWorkController<AppInfo> implements Constant {
+public class SysAppinfoController extends FrameWorkController<PtAppInfo> implements Constant {
 
     @Resource
     AppInfoService thisService; // service层接口
@@ -55,12 +55,12 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute AppInfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtAppInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		// QueryResult<SysAppinfo> qResult = thisService.list(start, limit,
 		// sort, filter,true);
-		QueryResult<AppInfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtAppInfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -77,7 +77,7 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
     @Auth("APPUPDATE_add")
      @RequestMapping(value = {"/doUploadApp"}, method = {org.springframework.web.bind.annotation.RequestMethod.GET,
              org.springframework.web.bind.annotation.RequestMethod.POST})
-     public void doUpload(AppInfo entity,@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response)
+     public void doUpload(PtAppInfo entity,@RequestParam("file") MultipartFile file, HttpServletRequest request, HttpServletResponse response)
              throws IOException {
  		try{
  	        if (!file.isEmpty()) {
@@ -111,11 +111,11 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
  	    		
  	            // 获取当前操作用户
  	            String userCh = "超级管理员";
- 	            User currentUser = getCurrentSysUser();
+ 	            PtUser currentUser = getCurrentSysUser();
  	            if (currentUser != null)
  	                userCh = currentUser.getId();
 
- 	            AppInfo perEntity = new AppInfo();
+ 	            PtAppInfo perEntity = new PtAppInfo();
  	            BeanUtils.copyPropertiesExceptNull(entity, perEntity);
  	            Integer orderIndex = thisService.getDefaultOrderIndex(entity);
  	            entity.setOrderIndex(orderIndex);// 排序
@@ -158,7 +158,7 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
     		
     		// 获取当前的操作用户
             String userCh = "超级管理员";
-            User currentUser = getCurrentSysUser();
+            PtUser currentUser = getCurrentSysUser();
             if (currentUser != null)
                 userCh = currentUser.getId();
         
@@ -257,20 +257,20 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
      * 
       * @Title: doadd
       * @Description: 增加新实体信息至数据库
-      * @param AppInfo 实体类
+      * @param PtAppInfo 实体类
       * @param request
       * @param response
       * @return void    返回类型
       * @throws IOException    抛出异常
      */
     @RequestMapping("/doAdd")
-    public void doAdd(AppInfo entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(PtAppInfo entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
         
 		//此处为放在入库前的一些检查的代码，如唯一校验等
 		
 		//获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 			if (ModelUtil.isNotNull(entity))
@@ -298,7 +298,7 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
             writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
             return;
         } else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -314,20 +314,20 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
     /**
      * @Title: doUpdate
      * @Description: 编辑指定记录
-     * @param AppInfo
+     * @param PtAppInfo
      * @param request
      * @param response
      * @return void    返回类型
      * @throws IOException  抛出异常
     */
     @RequestMapping("/doUpdate")
-    public void doUpdate(AppInfo entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdate(PtAppInfo entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		//入库前检查代码
 		
 		//获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))
@@ -346,7 +346,7 @@ public class SysAppinfoController extends FrameWorkController<AppInfo> implement
      */
     @RequestMapping("/up/{type}")
     public void getUp(HttpServletResponse response,HttpServletRequest request,@PathVariable("type") Integer type) throws IOException{
-    	AppInfo appinfo = this.thisService.queryByHql("FROM AppInfo WHERE appIsuse = "+1+" and appType ="+type).get(0);
+    	PtAppInfo appinfo = this.thisService.queryByHql("FROM AppInfo WHERE appIsuse = "+1+" and appType ="+type).get(0);
     	String requestURL = request.getRequestURL()+"";
 		String [] strs= requestURL.split("/");
     	String url =strs[0]+strs[1]+"//"+strs[2]+appinfo.getAppUrl();

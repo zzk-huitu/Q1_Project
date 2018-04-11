@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -34,7 +34,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseRoominfo")
-public class BaseRoominfoController extends FrameWorkController<RoomInfo> implements Constant {
+public class BaseRoominfoController extends FrameWorkController<PtRoomInfo> implements Constant {
 
 	
 	@Resource
@@ -51,7 +51,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtRoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -87,7 +87,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 			}
 		}
 		
-		QueryResult<RoomInfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtRoomInfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -104,7 +104,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 	 */
 	@Auth("JWTROOMINFO_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtRoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String areaId = entity.getAreaId();
 		String roomCode = entity.getRoomCode();
@@ -116,7 +116,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 			return;
 		}
 
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		Integer orderIndex = thisService.getDefaultOrderIndex(entity);
 		entity.setOrderIndex(orderIndex);
@@ -143,9 +143,9 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 	 */
 	@Auth("JWTROOMINFO_batchAdd")
 	@RequestMapping("/doBatchAdd")
-	public void doBatchAdd(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doBatchAdd(PtRoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 	
 		Boolean bResult = thisService.doBatchAddRoom(entity, currentUser);
 		if (bResult) {
@@ -168,7 +168,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -189,7 +189,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 	 */
 	@Auth("JWTROOMINFO_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdate(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(PtRoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String areaId = entity.getAreaId();
 		String roomCode = entity.getRoomCode();
@@ -201,7 +201,7 @@ public class BaseRoominfoController extends FrameWorkController<RoomInfo> implem
 			return;
 		}
 	
-		User currentUser = getCurrentSysUser();	
+		PtUser currentUser = getCurrentSysUser();	
 		
 		entity=thisService.doUpdateEntity(entity, currentUser.getId(), null);
         

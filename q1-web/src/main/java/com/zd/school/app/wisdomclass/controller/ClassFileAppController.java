@@ -26,14 +26,14 @@ import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
-import com.yc.q1.model.base.pt.basic.Attachment;
-import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTime;
-import com.yc.q1.model.base.pt.wisdomclass.ClassMien;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
+import com.yc.q1.model.base.pt.basic.PtFuncRoomCourse;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.yc.q1.pojo.base.app.PictureApp;
 import com.yc.q1.pojo.base.app.PictureForApp;
 import com.yc.q1.pojo.base.app.PictureReturnApp;
@@ -88,14 +88,14 @@ public class ClassFileAppController {
 		
 		PictureApp info = new PictureApp();
 
-		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
+		PtInfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
 			return info;
 		}
 
-		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
+		PtRoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该设备绑定的房间信息！");
@@ -105,13 +105,13 @@ public class ClassFileAppController {
 		// 格式
 		String[] inType = { "JPG", "JPEG", "BMP", "PNG" };
 		int maxSize = 300 * 1024 * 1024;
-		List<Attachment> attList = new ArrayList<Attachment>();
+		List<PtAttachment> attList = new ArrayList<PtAttachment>();
 
 		if (roominfo.getRoomType().equals("5")) { // 当为功能室的时候
 			
 			String[] propName = new String[] { "terminalNo", "isDelete" };
 			Object[] propValue = new Object[] { termCode, 0 };
-			List<AttendTerm> attTerms = attTermService.queryByProerties(propName, propValue); // 查询特殊考勤终端
+			List<PtAttendTerm> attTerms = attTermService.queryByProerties(propName, propValue); // 查询特殊考勤终端
 			int dayNum = DateUtil.mathWeekDay(new Date());// 星期参数
 			
 			// 如果当前设备被分配到了特殊课程里
@@ -126,12 +126,12 @@ public class ClassFileAppController {
 
 				// 每周都需要考勤（查询集合1）
 				String hql2 = " and beginTime is null and endTime is null";
-				List<AttendTime> everyWeek = attTimeService.queryByHql(hql.toString() + hql2);
+				List<PtAttendTime> everyWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				// 某一时间段的周几需要考勤（查询集合2）
 				String today = DateUtil.formatDate(new Date());
 				hql2 = " and beginTime<='" + today + "' and endTime>='" + today + "'";
-				List<AttendTime> sometimeWeek = attTimeService.queryByHql(hql.toString() + hql2);
+				List<PtAttendTime> sometimeWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				everyWeek.addAll(sometimeWeek); // 融合
 
@@ -167,10 +167,10 @@ public class ClassFileAppController {
 				Map<String, String> map = new HashMap<String, String>();
 				map.clear();
 				map.put("sections", "asc");
-				List<FuncRoomCourse> funcroomcoursesList = funcCourseService.queryByProerties(propName, propValue,
+				List<PtFuncRoomCourse> funcroomcoursesList = funcCourseService.queryByProerties(propName, propValue,
 						map);
 				Set<String> classIds = new HashSet<String>();
-				for (FuncRoomCourse jwFuncroomcourse : funcroomcoursesList) {
+				for (PtFuncRoomCourse jwFuncroomcourse : funcroomcoursesList) {
 					String claid = EntityUtil.getPropertyValue(jwFuncroomcourse, "classId0" + dayNum) + "";	//查询星期N的班级课程
 					if (StringUtils.isNotEmpty(claid)) {
 						classIds.add(claid);
@@ -183,7 +183,7 @@ public class ClassFileAppController {
 
 		} else { // 当为教室的时候
 
-			GradeClass classInfo = thisService.get(classId);
+			PtGradeClass classInfo = thisService.get(classId);
 			if (classInfo == null) {
 				info.setMessage(false);
 				info.setMessageInfo("未找到该班级信息！");
@@ -199,7 +199,7 @@ public class ClassFileAppController {
 		}
 		List<PictureForApp> picList = new ArrayList<PictureForApp>();
 		PictureForApp pic=null;
-		for (Attachment baseAttachment : attList) {
+		for (PtAttachment baseAttachment : attList) {
 			pic = new PictureForApp();
 					
 			/*文件地址，方式一：使用接口的方式下载文件*/
@@ -236,14 +236,14 @@ public class ClassFileAppController {
 		
 		VideoApp info = new VideoApp();
 
-		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
+		PtInfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
 			return info;
 		}
 
-		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
+		PtRoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该设备绑定的房间信息！");
@@ -252,13 +252,13 @@ public class ClassFileAppController {
 
 		String[] inType = { "avi", "mp4", "3gp" };
 		int maxSize = 800 * 1024 * 1024;
-		List<Attachment> attList = new ArrayList<Attachment>();
+		List<PtAttachment> attList = new ArrayList<PtAttachment>();
 
 		if (roominfo.getRoomType().equals("5")) { // 当为功能室的时候
 			
 			String[] propName = new String[] { "terminalNo", "isDelete" };
 			Object[] propValue = new Object[] { termCode, 0 };
-			List<AttendTerm> attTerms = attTermService.queryByProerties(propName, propValue); // 查询特殊考勤终端
+			List<PtAttendTerm> attTerms = attTermService.queryByProerties(propName, propValue); // 查询特殊考勤终端
 			int dayNum = DateUtil.mathWeekDay(new Date());// 星期参数
 			
 			// 如果当前设备被分配到了特殊课程里
@@ -273,12 +273,12 @@ public class ClassFileAppController {
 
 				// 每周都需要考勤（查询集合1）
 				String hql2 = " and beginTime is null and endTime is null";
-				List<AttendTime> everyWeek = attTimeService.queryByHql(hql.toString() + hql2);
+				List<PtAttendTime> everyWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				// 某一时间段的周几需要考勤（查询集合2）
 				String today = DateUtil.formatDate(new Date());
 				hql2 = " and beginTime<='" + today + "' and endTime>='" + today + "'";
-				List<AttendTime> sometimeWeek = attTimeService.queryByHql(hql.toString() + hql2);
+				List<PtAttendTime> sometimeWeek = attTimeService.queryByHql(hql.toString() + hql2);
 
 				everyWeek.addAll(sometimeWeek); // 融合
 
@@ -314,10 +314,10 @@ public class ClassFileAppController {
 				Map<String, String> map = new HashMap<String, String>();
 				map.clear();
 				map.put("sections", "asc");
-				List<FuncRoomCourse> funcroomcoursesList = funcCourseService.queryByProerties(propName, propValue,
+				List<PtFuncRoomCourse> funcroomcoursesList = funcCourseService.queryByProerties(propName, propValue,
 						map);
 				Set<String> classIds = new HashSet<String>();
-				for (FuncRoomCourse jwFuncroomcourse : funcroomcoursesList) {
+				for (PtFuncRoomCourse jwFuncroomcourse : funcroomcoursesList) {
 					String claid = EntityUtil.getPropertyValue(jwFuncroomcourse, "classId0" + dayNum) + "";	//查询星期N的班级课程
 					if (StringUtils.isNotEmpty(claid)) {
 						classIds.add(claid);
@@ -330,7 +330,7 @@ public class ClassFileAppController {
 
 		} else { // 当为教室的时候
 
-			GradeClass classInfo = thisService.get(classId);
+			PtGradeClass classInfo = thisService.get(classId);
 			if (classInfo == null) {
 				info.setMessage(false);
 				info.setMessageInfo("未找到该班级信息！");
@@ -346,7 +346,7 @@ public class ClassFileAppController {
 		}
 		List<VideoForApp> videoList = new ArrayList<VideoForApp>();
 		VideoForApp vd=null;
-		for (Attachment baseAttachment : attList) {
+		for (PtAttachment baseAttachment : attList) {
 			vd = new VideoForApp();
 					
 			/*文件地址，方式一：使用接口的方式下载文件*/
@@ -372,15 +372,15 @@ public class ClassFileAppController {
 	}
 
 	// 查询文件信息
-	private List<Attachment> filterFile(String claiId, String[] inType, int maxSize) {
-		List<Attachment> returnList = new ArrayList<Attachment>();
+	private List<PtAttachment> filterFile(String claiId, String[] inType, int maxSize) {
+		List<PtAttachment> returnList = new ArrayList<PtAttachment>();
 		StringBuffer types = new StringBuffer();
 		for (String type : inType) {
 			types.append("'." + type + "',");
 		}
 		types = types.deleteCharAt(types.length() - 1);
 		String hql = "from ClassMien where isDelete=0 and classId='" + claiId + "' order by createTime desc";
-		List<ClassMien> eleganeList = elegantService.queryByHql(hql);
+		List<PtClassMien> eleganeList = elegantService.queryByHql(hql);
 		int size = 0;
 		
 		if(!eleganeList.isEmpty()){
@@ -388,8 +388,8 @@ public class ClassFileAppController {
 			
 			hql = "from Attachment where isDelete=0 and recordId in (" + recordIds + ") and fileType in(" + types
 					+ ") order by createTime desc";
-			List<Attachment> attList = baseTAttachmentService.queryByHql(hql);
-			for (Attachment baseAttachment : attList) {
+			List<PtAttachment> attList = baseTAttachmentService.queryByHql(hql);
+			for (PtAttachment baseAttachment : attList) {
 				if (size + baseAttachment.getFileSize() <= maxSize) {
 					returnList.add(baseAttachment);
 					size += baseAttachment.getFileSize();

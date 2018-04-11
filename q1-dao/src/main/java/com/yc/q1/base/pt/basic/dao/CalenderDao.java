@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.model.base.pt.basic.Calender;
+import com.yc.q1.model.base.pt.basic.PtCalender;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface CalenderDao extends BaseDao<Calender> {
+public interface CalenderDao extends BaseDao<PtCalender> {
 
 }

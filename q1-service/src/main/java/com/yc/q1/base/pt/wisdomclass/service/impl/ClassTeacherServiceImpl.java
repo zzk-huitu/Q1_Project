@@ -20,13 +20,13 @@ import com.yc.q1.base.pt.wisdomclass.dao.ClassTeacherDao;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.redis.service.DeptRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.DeptJob;
-import com.yc.q1.model.base.pt.system.Job;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
-import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
+import com.yc.q1.model.base.pt.system.PtJob;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -42,10 +42,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> implements ClassTeacherService {
+public class ClassTeacherServiceImpl extends BaseServiceImpl<PtClassTeacher> implements ClassTeacherService {
 
 	@Resource(name="ClassTeacherDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<ClassTeacher> dao) {
+	public void setDao(BaseDao<PtClassTeacher> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -114,11 +114,11 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 //	}
 
 	@Override
-	public ClassTeacher doAddClassTeacher(ClassTeacher entity, User currentUser)
+	public PtClassTeacher doAddClassTeacher(PtClassTeacher entity, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 
-		ClassTeacher perEntity = new ClassTeacher();
-		perEntity.setId(keyRedisService.getId(ClassTeacher.ModuleType));
+		PtClassTeacher perEntity = new PtClassTeacher();
+		perEntity.setId(keyRedisService.getId(PtClassTeacher.ModuleType));
 		BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 		// 生成默认的orderindex
 		Integer orderIndex = this.getDefaultOrderIndex(entity);
@@ -143,10 +143,10 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 		String teacherId = entity.getTeacherId(); // 教师ID
 		String deptId = entity.getClassId(); // 班级ID,对应部门ID
 
-		User user = userService.get(teacherId);
+		PtUser user = userService.get(teacherId);
 		// 设置增加默认的班主任角色
-		Set<Role> theUserRole = user.getSysRoles();
-		Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"},new Object[]{ "CLASSLEADER",0});
+		Set<PtRole> theUserRole = user.getSysRoles();
+		PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"},new Object[]{ "CLASSLEADER",0});
 		if (role!=null) {
 			theUserRole.add(role);
 			user.setSysRoles(theUserRole);
@@ -155,19 +155,19 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 		//设置部门岗位
 		String[] propName = new String[] { "jobName", "isDelete" };
 		Object[] propValue = new Object[] { "班主任", 0 };
-		Job job = jobService.getByProerties(propName, propValue);
+		PtJob job = jobService.getByProerties(propName, propValue);
 		if(job!=null){
 			propName = new String[] { "jobId", "deptId", "isDelete" };
 			propValue = new Object[] { job.getId(), deptId, 0 };
-			DeptJob deptjob = deptJobService.getByProerties(propName, propValue);
+			PtDeptJob deptjob = deptJobService.getByProerties(propName, propValue);
 			
 			if(deptjob!=null){
 				propName = new String[] { "userId", "deptjobId", "isDelete" };
 				propValue = new Object[] { user.getId(), deptjob.getId(), 0 };
-				UserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
+				PtUserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 				if(userdeptjob==null){
-					userdeptjob = new UserDeptJob();
-					userdeptjob.setId(keyRedisService.getId(UserDeptJob.ModuleType));
+					userdeptjob = new PtUserDeptJob();
+					userdeptjob.setId(keyRedisService.getId(PtUserDeptJob.ModuleType));
 					userdeptjob.setCreateUser(currentUser.getId());
 					userdeptjob.setCreateTime(new Date());
 					userdeptjob.setUserId(user.getId());
@@ -196,11 +196,11 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 	 * 逻辑删除班主任信息
 	 */
 	@Override
-	public Boolean doDelete(String delIds, User currentUser) {
+	public Boolean doDelete(String delIds, PtUser currentUser) {
 		Boolean result = false;
 		String[] dels = delIds.split(",");
-		List<ClassTeacher> list = this.queryByProerties("id", dels);
-		for (ClassTeacher gt : list) {
+		List<PtClassTeacher> list = this.queryByProerties("id", dels);
+		for (PtClassTeacher gt : list) {
 			gt.setEndTime(new Date());
 			gt.setIsDelete(1);
 			gt.setUpdateTime(new Date());
@@ -209,11 +209,11 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 			
 			String[] propName = new String[] { "jobName", "isDelete" };
 			Object[] propValue = new Object[] { "班主任", 0 };
-			Job job = jobService.getByProerties(propName, propValue);
+			PtJob job = jobService.getByProerties(propName, propValue);
 			if(job!=null){
 				propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
 				propValue = new Object[] { gt.getTeacherId(), gt.getClassId(), job.getId(), 0 };
-				UserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
+				PtUserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 				if(userdeptjob!=null){
 					userdeptjob.setIsDelete(1);
 					userdeptjob.setUpdateTime(new Date());
@@ -229,9 +229,9 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 			Boolean isExit = this.IsFieldExist("teacherId", teacherId, "-1", where);
 			if (!isExit) {
 				// 移除班主任角色
-				User user = userService.get(teacherId);
-				Set<Role> theUserRole = user.getSysRoles();
-				Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"},new Object[]{ "CLASSLEADER",0});
+				PtUser user = userService.get(teacherId);
+				Set<PtRole> theUserRole = user.getSysRoles();
+				PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"},new Object[]{ "CLASSLEADER",0});
 				if (role!=null) {
 					theUserRole.remove(role);
 					user.setSysRoles(theUserRole);
@@ -259,17 +259,17 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 	public boolean doDeleteByPK(String delIds) {
 		Boolean result = false;
 		String[] dels = delIds.split(",");
-		List<ClassTeacher> list = this.queryByProerties("id", dels);
-		for (ClassTeacher gt : list) {
+		List<PtClassTeacher> list = this.queryByProerties("id", dels);
+		for (PtClassTeacher gt : list) {
 			this.delete(gt);
 			
 			String[] propName = new String[] { "jobName", "isDelete" };
 			Object[] propValue = new Object[] { "班主任", 0 };
-			Job job = jobService.getByProerties(propName, propValue);
+			PtJob job = jobService.getByProerties(propName, propValue);
 			if(job!=null){
 				propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
 				propValue = new Object[] { gt.getTeacherId(), gt.getClassId(), job.getId(), 0 };
-				UserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
+				PtUserDeptJob userdeptjob=userDeptJobService.getByProerties(propName, propValue);
 				if(userdeptjob!=null)
 					userDeptJobService.delete(userdeptjob);
 			}
@@ -280,9 +280,9 @@ public class ClassTeacherServiceImpl extends BaseServiceImpl<ClassTeacher> imple
 			Boolean isExit = this.IsFieldExist("teacherId", teacherId, "-1", where);
 			if (!isExit) {
 				// 移除班主任角色
-				User user = userService.get(teacherId);
-				Set<Role> theUserRole = user.getSysRoles();
-				Role role = roleService.getByProerties(new String[]{"roleCode","isDelete"},new Object[]{ "CLASSLEADER",0});
+				PtUser user = userService.get(teacherId);
+				Set<PtRole> theUserRole = user.getSysRoles();
+				PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"},new Object[]{ "CLASSLEADER",0});
 				if (role!=null) {
 					theUserRole.remove(role);
 					user.setSysRoles(theUserRole);

@@ -18,10 +18,10 @@ import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.TeacherBaseInfo;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.dao.BaseDao;
@@ -40,10 +40,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo> implements TeacherBaseInfoService {
+public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<PtTeacherBaseInfo> implements TeacherBaseInfoService {
 
 	@Resource(name = "TeacherBaseInfoDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<TeacherBaseInfo> dao) {
+	public void setDao(BaseDao<PtTeacherBaseInfo> dao) {
 		super.setDao(dao);
 	}
 
@@ -66,8 +66,8 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public QueryResult<TeacherBaseInfo> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
-			String qureyFilter, Boolean isDelete, String deptId, User currentUser) {
+	public QueryResult<PtTeacherBaseInfo> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
+			String qureyFilter, Boolean isDelete, String deptId, PtUser currentUser) {
 		StringBuilder hql = new StringBuilder();
 		StringBuilder countHql = new StringBuilder();
 		String filterHql = "";
@@ -148,14 +148,14 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 			}
 		}
 		if (hql.length() > 0) {
-			QueryResult<TeacherBaseInfo> qr = this.queryResult(hql.toString(), start, limit);
+			QueryResult<PtTeacherBaseInfo> qr = this.queryResult(hql.toString(), start, limit);
 			List<?> alist = qr.getResultList();
 			Integer lenth = alist.size();
 			// Set<TeaTeacherbase> tt = new LinkedHashSet<TeaTeacherbase>();
-			List<TeacherBaseInfo> tt = new ArrayList<>();
+			List<PtTeacherBaseInfo> tt = new ArrayList<>();
 			for (int i = 0; i < lenth; i++) {
 				Object[] obj = (Object[]) alist.get(i);
-				TeacherBaseInfo teacherbase = (TeacherBaseInfo) obj[0];
+				PtTeacherBaseInfo teacherbase = (PtTeacherBaseInfo) obj[0];
 				teacherbase.setJobName((String) obj[1]);
 				tt.add(teacherbase);
 			}
@@ -169,7 +169,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public Boolean batchSetDept(String deptId, String userIds, User currentUser) {
+	public Boolean batchSetDept(String deptId, String userIds, PtUser currentUser) {
 		Boolean reResult = false;
 		/*
 		 * String[] delId = userIds.split(","); List<TeaTeacherbase> list =
@@ -188,7 +188,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public Boolean delTeaFromDept(String deptId, String userIds, User currentUser) {
+	public Boolean delTeaFromDept(String deptId, String userIds, PtUser currentUser) {
 		Boolean reResult = false;
 		/*
 		 * String[] delId = userIds.split(","); List<BaseOrg> all =
@@ -208,7 +208,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public Boolean setTeaToJob(String jobId, String userIds, User currentUser) {
+	public Boolean setTeaToJob(String jobId, String userIds, PtUser currentUser) {
 		Boolean reResult = false;
 		/*
 		 * String[] delId = userIds.split(","); String[] jobIds =
@@ -231,7 +231,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public Boolean delTeaFromJob(String jobId, String userIds, User currentUser) {
+	public Boolean delTeaFromJob(String jobId, String userIds, PtUser currentUser) {
 		Boolean reResult = false;
 		/*
 		 * String[] delId = userIds.split(","); Object[] propValue =
@@ -261,7 +261,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public QueryResult<Department> getTeahcerJobList(TeacherBaseInfo teahcher, User currentUser) {
+	public QueryResult<PtDepartment> getTeahcerJobList(PtTeacherBaseInfo teahcher, PtUser currentUser) {
 		/*
 		 * String hql =
 		 * "from SysUser as u inner join fetch u.userJobs as r where u.uuid='" +
@@ -281,7 +281,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public String getTeacherJobs(TeacherBaseInfo teacher) {
+	public String getTeacherJobs(PtTeacherBaseInfo teacher) {
 		/*
 		 * String hql =
 		 * "from SysUser as u inner join fetch u.userJobs as r where u.uuid='" +
@@ -303,7 +303,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public String getTeacherDepts(TeacherBaseInfo teacher) {
+	public String getTeacherDepts(PtTeacherBaseInfo teacher) {
 		/*
 		 * Set<BaseOrg> userDepts = teacher.getUserDepts(); List<BaseOrg> list =
 		 * new ArrayList<>(); list.addAll(userDepts); SortListUtil<BaseOrg>
@@ -320,16 +320,16 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public QueryResult<TeacherBaseInfo> getCourseTeacherlist(Integer start, Integer limit, String sort, String filter,
+	public QueryResult<PtTeacherBaseInfo> getCourseTeacherlist(Integer start, Integer limit, String sort, String filter,
 			String whereSql, String orderSql, String querySql, Boolean isDelete) {
-		QueryResult<TeacherBaseInfo> qr = this.queryPageResult(start, limit, sort, filter, true);
+		QueryResult<PtTeacherBaseInfo> qr = this.queryPageResult(start, limit, sort, filter, true);
 
 		return this.setTeacherJobAndDept(qr);
 	}
 
-	public QueryResult<TeacherBaseInfo> setTeacherJobAndDept(QueryResult<TeacherBaseInfo> qr) {
-		QueryResult<TeacherBaseInfo> qrr = new QueryResult<TeacherBaseInfo>();
-		List<TeacherBaseInfo> newList = new ArrayList<TeacherBaseInfo>();
+	public QueryResult<PtTeacherBaseInfo> setTeacherJobAndDept(QueryResult<PtTeacherBaseInfo> qr) {
+		QueryResult<PtTeacherBaseInfo> qrr = new QueryResult<PtTeacherBaseInfo>();
+		List<PtTeacherBaseInfo> newList = new ArrayList<PtTeacherBaseInfo>();
 		/*
 		 * for (TeaTeacherbase teaTeacherbase : qr.getResultList()) { String
 		 * jobInfo = this.getTeacherJobs(teaTeacherbase); String[] strings =
@@ -347,9 +347,9 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 	}
 
 	@Override
-	public TeacherBaseInfo doAddTeacher(TeacherBaseInfo entity,
-			User currentUser/* , String deptJobId */) {
-		TeacherBaseInfo saveEntity = new TeacherBaseInfo();
+	public PtTeacherBaseInfo doAddTeacher(PtTeacherBaseInfo entity,
+			PtUser currentUser/* , String deptJobId */) {
+		PtTeacherBaseInfo saveEntity = new PtTeacherBaseInfo();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		try {
@@ -371,8 +371,8 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 		saveEntity.setSchoolId(AdminType.ADMIN_ORG_ID);
 
 		// 增加角色
-		Set<Role> theUserRoler = saveEntity.getSysRoles();
-		Role role = roleService.getByProerties(new String[] { "roleCode", "isDelete" }, new Object[] { "TEACHER", 0 });
+		Set<PtRole> theUserRoler = saveEntity.getSysRoles();
+		PtRole role = roleService.getByProerties(new String[] { "roleCode", "isDelete" }, new Object[] { "TEACHER", 0 });
 		if (role != null) {
 			theUserRoler.add(role);
 			saveEntity.setSysRoles(theUserRoler);
@@ -382,7 +382,7 @@ public class TeacherBaseInfoServiceImpl extends BaseServiceImpl<TeacherBaseInfo>
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 
 		// 持久化到数据库
-		saveEntity.setId(keyRedisService.getId(TeacherBaseInfo.ModuleType));	//手动设置id
+		saveEntity.setId(keyRedisService.getId(PtTeacherBaseInfo.ModuleType));	//手动设置id
 		entity = this.merge(saveEntity);
 
 		String userIds = entity.getId();

@@ -20,12 +20,12 @@ import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.yc.q1.base.redis.service.DeptRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
-import com.yc.q1.model.base.pt.system.DataDictItem;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.DeptJob;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -44,10 +44,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> implements UserDeptJobService {
+public class UserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> implements UserDeptJobService {
 
 	@Resource(name = "UserDeptJobDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<UserDeptJob> dao) {
+	public void setDao(BaseDao<PtUserDeptJob> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -70,34 +70,34 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 	private static Logger logger = Logger.getLogger(UserDeptJobServiceImpl.class);
 
 	@Override
-	public List<UserDeptJob> getUserDeptJobList(User currentUser) {
+	public List<PtUserDeptJob> getUserDeptJobList(PtUser currentUser) {
 		Map<String, String> sortedCondition = new HashMap<>();
 		sortedCondition.put("isMainDept", "desc");
 		sortedCondition.put("orderIndex", "asc");
 		String[] propName = { "userId", "isDelete" };
 		Object[] propValue = { currentUser.getId(), 0 };
 
-		List<UserDeptJob> list = this.queryByProerties(propName, propValue, sortedCondition);
+		List<PtUserDeptJob> list = this.queryByProerties(propName, propValue, sortedCondition);
 
 		return list;
 	}
 
 	@Override
-	public Map<String, UserDeptJob> getUserDeptJobMaps(User currentUser) {
-		Map<String, UserDeptJob> maps = new HashMap<>();
-		List<UserDeptJob> list = this.getUserDeptJobList(currentUser);
-		for (UserDeptJob job : list) {
+	public Map<String, PtUserDeptJob> getUserDeptJobMaps(PtUser currentUser) {
+		Map<String, PtUserDeptJob> maps = new HashMap<>();
+		List<PtUserDeptJob> list = this.getUserDeptJobList(currentUser);
+		for (PtUserDeptJob job : list) {
 			maps.put(job.getDeptJobId(), job);
 		}
 		return maps;
 	}
 
 	@Override
-	public UserDeptJob getUserMasterDeptJob(User currentUser) {
+	public PtUserDeptJob getUserMasterDeptJob(PtUser currentUser) {
 		String[] propName = { "userId", "isMainDept", "isDelete" };
 		Object[] propValue = { currentUser.getId(), 1, 0 };
 
-		UserDeptJob isMasterDeptJob = this.getByProerties(propName, propValue);
+		PtUserDeptJob isMasterDeptJob = this.getByProerties(propName, propValue);
 		return isMasterDeptJob;
 
 	}
@@ -119,7 +119,7 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -135,28 +135,28 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 	}
 
 	@Override
-	public boolean doAddUserToDeptJob(String deptJobId, String userId, User currentUser) {
+	public boolean doAddUserToDeptJob(String deptJobId, String userId, PtUser currentUser) {
 		Boolean reResult = false;
 		String[] userIds = userId.split(",");
 
 		// 所有要设置的用户
-		List<User> users = userService.queryByProerties("id", userIds);
+		List<PtUser> users = userService.queryByProerties("id", userIds);
 
 		String hql = " select a from DeptJob a  where a.id in ('" + deptJobId.replace(",", "','")
 				+ "') order by a.orderIndex asc ";
-		List<DeptJob> deptjobs = baseDeptjobService.queryByHql(hql);
+		List<PtDeptJob> deptjobs = baseDeptjobService.queryByHql(hql);
 
-		for (User user : users) {
+		for (PtUser user : users) {
 			// 查询当前用户已有的部门岗位
-			Map<String, UserDeptJob> userHasJobMap = this.getUserDeptJobMaps(user);
-			UserDeptJob isMasterDeptJob = this.getUserMasterDeptJob(user);
+			Map<String, PtUserDeptJob> userHasJobMap = this.getUserDeptJobMaps(user);
+			PtUserDeptJob isMasterDeptJob = this.getUserMasterDeptJob(user);
 			for (int i = 0; i < deptjobs.size(); i++) {
-				DeptJob deptjob=deptjobs.get(i);
+				PtDeptJob deptjob=deptjobs.get(i);
 				String uuid = deptjob.getId(); // 选择的部门岗位Id
 				if (userHasJobMap.get(uuid) == null) {
 					// 如果当用户还没有设置的此部门岗位
-					UserDeptJob userDeptJob = new UserDeptJob();
-					userDeptJob.setId(keyRedisService.getId(UserDeptJob.ModuleType));
+					PtUserDeptJob userDeptJob = new PtUserDeptJob();
+					userDeptJob.setId(keyRedisService.getId(PtUserDeptJob.ModuleType));
 					userDeptJob.setDeptId(deptjob.getDeptId());
 					userDeptJob.setJobId(deptjob.getJobId());
 					userDeptJob.setDeptJobId(uuid);
@@ -170,15 +170,15 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 						//--------判断是否要更新班级学生表(2018-3-15加入)-----------						
 						//是否为学生
 						if(user.getCategory().equals("2")){							
-							Department dept=orgService.get(deptjob.getDeptId());	
+							PtDepartment dept=orgService.get(deptjob.getDeptId());	
 							//是否为班级部门、学生岗位
 							if(dept.getDeptType().equals("05")&&deptjob.getJobName().equals("学生")){
 								
-								ClassStudent classStudent=classstudentService.getByProerties(
+								PtClassStudent classStudent=classstudentService.getByProerties(
 										new String[]{"studentId","isDelete"}, 		//新版本暂不根据学年学期来查
 										new Object[]{user.getId(),0});
 								if(classStudent==null){
-									classStudent=new ClassStudent();
+									classStudent=new PtClassStudent();
 									classStudent.setClassId(deptjob.getDeptId());
 									classStudent.setStudentId(user.getId());
 									classStudent.setCreateUser(currentUser.getId());
@@ -218,11 +218,11 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 	}
 
 	@Override
-	public boolean doRemoveUserFromDeptJob(String delIds, User currentUser) {
+	public boolean doRemoveUserFromDeptJob(String delIds, PtUser currentUser) {
 		String[] uuids = delIds.split(",");
 		
 		// 所有要设置的用户	
-		List<UserDeptJob> baseUserdeptjobs = this.queryByProerties("id", uuids);	
+		List<PtUserDeptJob> baseUserdeptjobs = this.queryByProerties("id", uuids);	
 		List<String> userIds = baseUserdeptjobs.stream().map((x)->x.getUserId()).distinct().collect(Collectors.toList());		
 		// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
 		if(userIds.size()>0)
@@ -231,12 +231,12 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 		
 		/*---------判断是否要更新班级学生表(2018-3-15加入)-----------*/
 		for(int i=0;i<baseUserdeptjobs.size();i++){
-			UserDeptJob userdeptjob=baseUserdeptjobs.get(i);
+			PtUserDeptJob userdeptjob=baseUserdeptjobs.get(i);
 			//若为主部门、班级部门、学生岗位，就执行更新操作
 			if(userdeptjob.getIsMainDept()==true&&userdeptjob.getDeptType().equals("05")
 					&&userdeptjob.getJobName().equals("学生")){
 				
-				User user=userService.get(userdeptjob.getUserId());
+				PtUser user=userService.get(userdeptjob.getUserId());
 				//是否为学生
 				if(user!=null&&user.getCategory().equals("2")){
 					//将JwClassstudent设置为isDelete
@@ -254,11 +254,11 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 
 
 	@Override
-	public boolean doSetMasterDeptJob(String delIds, String userId, User currentUser) {
+	public boolean doSetMasterDeptJob(String delIds, String userId, PtUser currentUser) {
 
 		// 先将原来的主部门岗位设置成非主部门岗位
-		User user = userService.get(userId);
-		UserDeptJob oldMaster = this.getUserMasterDeptJob(user);
+		PtUser user = userService.get(userId);
+		PtUserDeptJob oldMaster = this.getUserMasterDeptJob(user);
 		if (ModelUtil.isNotNull(oldMaster)) {
 			oldMaster.setIsMainDept(false);
 			oldMaster.setUpdateTime(new Date());
@@ -284,13 +284,13 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 			}
 			
 			//判断新的部门岗位是否为班级学生岗位
-			UserDeptJob	newMaster=this.get(delIds);
+			PtUserDeptJob	newMaster=this.get(delIds);
 			if(newMaster.getDeptType().equals("05")&&newMaster.getJobName().equals("学生")){
-				ClassStudent classStudent=classstudentService.getByProerties(
+				PtClassStudent classStudent=classstudentService.getByProerties(
 						new String[]{"studentId","isDelete"}, 		//新版本暂不根据学年学期来查
 						new Object[]{userId,0});
 				if(classStudent==null){
-					classStudent=new ClassStudent();
+					classStudent=new PtClassStudent();
 					classStudent.setClassId(newMaster.getDeptId());
 					classStudent.setStudentId(userId);
 					classStudent.setCreateUser(currentUser.getId());
@@ -315,7 +315,7 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 	 * 获取部门岗位的用户信息 zzk
 	 */
 	@Override
-	public QueryResult<UserDeptJob> getUserByDeptJobId(String deptJobId, Integer start, Integer limit,
+	public QueryResult<PtUserDeptJob> getUserByDeptJobId(String deptJobId, Integer start, Integer limit,
 			String sort) {
 		// TODO Auto-generated method stub
 
@@ -326,14 +326,14 @@ public class UserDeptJobServiceImpl extends BaseServiceImpl<UserDeptJob> impleme
 			hql += sort;
 		}
 
-		QueryResult<UserDeptJob> qr = this.queryResult(hql, start, limit);
+		QueryResult<PtUserDeptJob> qr = this.queryResult(hql, start, limit);
 
 		return qr;
 
 	}
 
 	@Override
-	public boolean doSetMasterDeptJobFromUser(String userIds, String deptJobId, User currentUser) {
+	public boolean doSetMasterDeptJobFromUser(String userIds, String deptJobId, PtUser currentUser) {
 
 		// 先将原来的主部门岗位设置成非主部门岗位
 		Object[] userArray = userIds.split(",");

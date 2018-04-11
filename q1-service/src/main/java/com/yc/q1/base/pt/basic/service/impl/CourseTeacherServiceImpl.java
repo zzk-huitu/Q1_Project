@@ -21,14 +21,14 @@ import com.yc.q1.base.pt.system.service.JobService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.CourseArrange;
-import com.yc.q1.model.base.pt.basic.CourseTeacher;
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.DeptJob;
-import com.yc.q1.model.base.pt.system.Job;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
+import com.yc.q1.model.base.pt.basic.PtCourseArrange;
+import com.yc.q1.model.base.pt.basic.PtCourseTeacher;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
+import com.yc.q1.model.base.pt.system.PtJob;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
 import com.zd.core.dao.BaseDao;
@@ -50,10 +50,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> implements CourseTeacherService {
+public class CourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher> implements CourseTeacherService {
 
 	@Resource(name = "CourseTeacherDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<CourseTeacher> dao) {
+	public void setDao(BaseDao<PtCourseTeacher> dao) {
 		super.setDao(dao);
 	}
 
@@ -112,38 +112,38 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Boolean doAddCourseTeacher(String jsonData, User currentUser)
+	public Boolean doAddCourseTeacher(String jsonData, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Boolean strData = false;
 
-		List<CourseTeacher> addList = (List<CourseTeacher>) JsonBuilder.getInstance().fromJsonArray(jsonData,
-				CourseTeacher.class);
+		List<PtCourseTeacher> addList = (List<PtCourseTeacher>) JsonBuilder.getInstance().fromJsonArray(jsonData,
+				PtCourseTeacher.class);
 
-		for (CourseTeacher addTeacher : addList) {
-			CourseTeacher saveEntity = new CourseTeacher();
+		for (PtCourseTeacher addTeacher : addList) {
+			PtCourseTeacher saveEntity = new PtCourseTeacher();
 			BeanUtils.copyPropertiesExceptNull(addTeacher, saveEntity);
 			addTeacher.setOrderIndex(0);// 排序
 			// 增加时要设置创建人
 			addTeacher.setCreateUser(currentUser.getId()); // 创建人
 			// 持久化到数据库
-			addTeacher.setId(keyRedisService.getId(CourseTeacher.ModuleType));	//手动设置id
+			addTeacher.setId(keyRedisService.getId(PtCourseTeacher.ModuleType));	//手动设置id
 			this.merge(addTeacher);
 
 			// 根据设置的班级和课程来处理教师所在的部门
-			User user = userService.get(addTeacher.getTeacherId());
+			PtUser user = userService.get(addTeacher.getTeacherId());
 			String[] propName = new String[] { "jobName", "isDelete" };
 			Object[] propValue = new Object[] { "教师", 0 };
-			Job job = jobService.getByProerties(propName, propValue);
+			PtJob job = jobService.getByProerties(propName, propValue);
 			if (job != null) {
 				propName = new String[] { "jobId", "deptId", "isDelete" };
 				propValue = new Object[] { job.getId(), addTeacher.getClassId(), 0 };
-				DeptJob deptjob = deptJobService.getByProerties(propName, propValue);
+				PtDeptJob deptjob = deptJobService.getByProerties(propName, propValue);
 				if (deptjob != null) {
 					propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
 					propValue = new Object[] { user.getId(), addTeacher.getClassId(), job.getId(), 0 };
-					UserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
+					PtUserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
 					if (userdeptjob == null) {
-						userdeptjob = new UserDeptJob();
+						userdeptjob = new PtUserDeptJob();
 						userdeptjob.setCreateUser(currentUser.getId());
 						userdeptjob.setCreateTime(new Date());
 						userdeptjob.setUserId(user.getId());
@@ -152,7 +152,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 						userdeptjob.setDeptJobId(deptjob.getId());
 						userdeptjob.setIsMainDept(false);
 						
-						userdeptjob.setId(keyRedisService.getId(UserDeptJob.ModuleType));//手动设置id
+						userdeptjob.setId(keyRedisService.getId(PtUserDeptJob.ModuleType));//手动设置id
 						userDeptJobService.merge(userdeptjob);
 
 						user.setUpdateTime(new Date());
@@ -176,7 +176,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 				List<Object[]> objects = this.queryObjectBySql(str);
 				String uuid = objects.get(0) + "";
 				if (!uuid.equals("null")) {
-					CourseArrange courseArrange = courseArrangeService.get(uuid);
+					PtCourseArrange courseArrange = courseArrangeService.get(uuid);
 					Class clazz = courseArrange.getClass();
 
 					String methodName = "getTeacherId0" + i;
@@ -209,12 +209,12 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 		return strData;
 	}
 
-	public Department getCourseDept(String classId, String courseId) {
-		Department couseDept = null;
-		Department classDept = orgService.get(classId);
+	public PtDepartment getCourseDept(String classId, String courseId) {
+		PtDepartment couseDept = null;
+		PtDepartment classDept = orgService.get(classId);
 		String[] classDeptTreIds = classDept.getTreeIds().split(",");
-		List<Department> courseDeptList = orgService.queryByProerties("courseId", courseId);
-		for (Department baseOrg : courseDeptList) {
+		List<PtDepartment> courseDeptList = orgService.queryByProerties("courseId", courseId);
+		for (PtDepartment baseOrg : courseDeptList) {
 			String[] treeIds = baseOrg.getTreeIds().split(",");
 			if (classDeptTreIds[1].equals(treeIds[1])) {
 				couseDept = baseOrg;
@@ -225,22 +225,22 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 	}
 
 	@Override
-	public Boolean doDelCourseTeacher(String delIds, User currentUser) throws NoSuchMethodException, SecurityException,
+	public Boolean doDelCourseTeacher(String delIds, PtUser currentUser) throws NoSuchMethodException, SecurityException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		Boolean reResult = false;
 		String[] idStrings = delIds.split(",");
-		List<CourseTeacher> relaceList = this.queryByProerties("id", idStrings);
-		for (CourseTeacher jwCourseteacher : relaceList) {
+		List<PtCourseTeacher> relaceList = this.queryByProerties("id", idStrings);
+		for (PtCourseTeacher jwCourseteacher : relaceList) {
 
 			// 删除部门岗位（存在问题，当一名教师能教授多门课程时，若删除了一门，那么这个教师在此班级的部门岗位也被删除了）
 			String[] propName = new String[] { "jobName", "isDelete" };
 			Object[] propValue = new Object[] { "教师", 0 };
-			Job job = jobService.getByProerties(propName, propValue);
+			PtJob job = jobService.getByProerties(propName, propValue);
 			if (job != null) {
 				propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
 				propValue = new Object[] { jwCourseteacher.getTeacherId(), jwCourseteacher.getClassId(), job.getId(),
 						0 };
-				UserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
+				PtUserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
 				if (userdeptjob != null) { // 在事务中，若第一次循环设置为了isdelete=1，那么第二次同样的条件查询是查不到该数据，即会预先执行。
 					// 查询此人员是否在此班级任课多门
 					String hql = "select count(*) from CourseTeacher a where a.isDelete=0 " + " and a.classId='"
@@ -281,7 +281,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 				List<Object[]> objects = this.queryObjectBySql(str);
 				String uuid = objects.get(0) + "";
 				if (!uuid.equals("null")) {
-					CourseArrange courseArrange = courseArrangeService.get(uuid);
+					PtCourseArrange courseArrange = courseArrangeService.get(uuid);
 					Class clazz = courseArrange.getClass();
 					String methodName = "getTeacherId0" + i;
 					Method method = clazz.getDeclaredMethod(methodName);
@@ -325,7 +325,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 
 	@Override
 	public String updateZjsByClassId(String classId, String courseId, int zjs) {
-		Grade grade = gradeClassService.findJwTGradeByClassId(classId);
+		PtGrade grade = gradeClassService.findJwTGradeByClassId(classId);
 		String hql = "update CourseTeacher ct set ct.courseCountWeek=" + zjs + " where "
 				+ " ct.classId in( select gc.id from GradeClass gc where gc.gradeId"
 				+ " in (select id from Grade where sectionCode='" + grade.getSectionCode() + "' )) and  ct.courseId='"
@@ -337,7 +337,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 	@Override
 	public void updatePubliceClass(String classId, String courseId, String publicClassId) {
 		// TODO Auto-generated method stub
-		Grade grade = gradeClassService.findJwTGradeByClassId(courseId);
+		PtGrade grade = gradeClassService.findJwTGradeByClassId(courseId);
 		String hql = "update CourseTeacher ct set ct.classId='" + publicClassId + "'  where ct.id in ("
 				+ " select c.id from GradeClass g, CourseTeacher c where" + " c.classId=g.id and c.courseId='"
 				+ courseId + "'  and g.gradeId   ='" + grade.getId() + "' ) ";
@@ -346,7 +346,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 	}
 
 	@Override
-	public CommTree getUserRightDeptDisciplineTree(String rootId, User currentUser) {
+	public CommTree getUserRightDeptDisciplineTree(String rootId, PtUser currentUser) {
 		// 1.查询部门的数据，并封装到实体类中
 		List<CommTree> list = orgService.getUserRightDeptDisciplineTreeList(currentUser);
 
@@ -402,24 +402,24 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 	}
 
 	@Override
-	public QueryResult<CourseTeacher> getClassCourseTeacherList(Integer start, Integer limit, String sort,
+	public QueryResult<PtCourseTeacher> getClassCourseTeacherList(Integer start, Integer limit, String sort,
 			String filter, Boolean isDelete, String claiId, Integer claiLevel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Integer doReplaceCourseTeacher(String jctUuid, String teaId, User sysUser) throws NoSuchMethodException,
+	public Integer doReplaceCourseTeacher(String jctUuid, String teaId, PtUser sysUser) throws NoSuchMethodException,
 			SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// TODO Auto-generated method stub
-		CourseTeacher jct = this.get(jctUuid);
-		User teaInfo = userService.get(teaId);
+		PtCourseTeacher jct = this.get(jctUuid);
+		PtUser teaInfo = userService.get(teaId);
 
 		// 1.判断新教师，是否有在此班级上任课
 		String[] propName = new String[] { "classId", "teacherId", "studyYear", "semester", "courseId", "isDelete" };
 		Object[] propValue = new Object[] { jct.getClassId(), teaId, jct.getStudyYear(), jct.getSemester(),
 				jct.getCourseId(), 0 };
-		CourseTeacher tempJct = this.getByProerties(propName, propValue);
+		PtCourseTeacher tempJct = this.getByProerties(propName, propValue);
 		if (tempJct != null)
 			return -1;
 
@@ -427,11 +427,11 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 		// 删除部门岗位（存在问题，当一名教师能教授多门课程时，若删除了一门，那么这个教师在此班级的部门岗位也被删除了）
 		propName = new String[] { "jobName", "isDelete" };
 		propValue = new Object[] { "教师", 0 };
-		Job job = jobService.getByProerties(propName, propValue);
+		PtJob job = jobService.getByProerties(propName, propValue);
 		if (job != null) {
 			propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
 			propValue = new Object[] { jct.getTeacherId(), jct.getClassId(), job.getId(), 0 };
-			UserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
+			PtUserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
 			if (userdeptjob != null) {
 				// 查询此人员是否在此班级任课多门
 				String hql = "select count(*) from CourseTeacher a where a.isDelete=0 " + " and a.classId='"
@@ -456,9 +456,9 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 		// 3.判断新教师是否已有此部门岗位，并确定是否加入部门岗位，
 		propName = new String[] { "userId", "deptId", "jobId", "isDelete" };
 		propValue = new Object[] { teaId, jct.getClassId(), job.getId(), 0 };
-		UserDeptJob userdeptjob2 = userDeptJobService.getByProerties(propName, propValue);
+		PtUserDeptJob userdeptjob2 = userDeptJobService.getByProerties(propName, propValue);
 		if (userdeptjob2 == null) {
-			userdeptjob2 = new UserDeptJob();
+			userdeptjob2 = new PtUserDeptJob();
 			userdeptjob2.setCreateUser(sysUser.getId());
 			userdeptjob2.setCreateTime(new Date());
 			userdeptjob2.setUserId(teaId);
@@ -466,7 +466,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 			userdeptjob2.setJobId(job.getId());
 			userdeptjob2.setDeptJobId(jct.getId());
 			userdeptjob2.setIsMainDept(false);
-			userdeptjob2.setId(keyRedisService.getId(UserDeptJob.ModuleType));	//手动设置id
+			userdeptjob2.setId(keyRedisService.getId(PtUserDeptJob.ModuleType));	//手动设置id
 			userDeptJobService.merge(userdeptjob2);
 
 			// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
@@ -484,7 +484,7 @@ public class CourseTeacherServiceImpl extends BaseServiceImpl<CourseTeacher> imp
 			List<Object[]> objects = this.queryObjectBySql(str);
 			String uuid = objects.get(0) + "";
 			if (!uuid.equals("null")) {
-				CourseArrange courseArrange = courseArrangeService.get(uuid);
+				PtCourseArrange courseArrange = courseArrangeService.get(uuid);
 				Class clazz = courseArrange.getClass();
 				String methodName = "getTeacherId0" + i;
 				Method method = clazz.getDeclaredMethod(methodName);

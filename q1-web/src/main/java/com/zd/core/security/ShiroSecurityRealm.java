@@ -15,8 +15,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.stereotype.Component;
 
 import com.yc.q1.base.pt.system.service.UserService;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
 
 @Component
 public class ShiroSecurityRealm extends AuthorizingRealm {
@@ -35,7 +35,7 @@ public class ShiroSecurityRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-        User user = sysUserService.getByProerties("userName", token.getUsername());
+        PtUser user = sysUserService.getByProerties("userName", token.getUsername());
         if (user != null) {
             return new SimpleAuthenticationInfo(user.getId(), user.getUserPwd(), getName());
         } else {
@@ -49,10 +49,10 @@ public class ShiroSecurityRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         Long userId = (Long) principals.fromRealm(getName()).iterator().next();
-        User user = sysUserService.get(userId);
+        PtUser user = sysUserService.get(userId);
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-            for (Role role : user.getSysRoles()) {
+            for (PtRole role : user.getSysRoles()) {
                 info.addRole(role.getRoleCode());
                 // info.addStringPermissions(role.getRolePerimissions());
             }

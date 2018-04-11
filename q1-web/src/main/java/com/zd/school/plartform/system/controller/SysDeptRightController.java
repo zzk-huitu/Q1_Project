@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.UserDeptRightService;
 import com.yc.q1.base.pt.system.service.UserService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptRight;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -28,7 +28,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysDeptright")
-public class SysDeptRightController extends FrameWorkController<UserDeptRight> implements Constant {
+public class SysDeptRightController extends FrameWorkController<PtUserDeptRight> implements Constant {
 
 	@Resource
 	UserDeptRightService thisService; // service层接口
@@ -56,7 +56,7 @@ public class SysDeptRightController extends FrameWorkController<UserDeptRight> i
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-		QueryResult<UserDeptRight> qResult = thisService.queryPageResult(start, limit, sort, filter, true);
+		QueryResult<PtUserDeptRight> qResult = thisService.queryPageResult(start, limit, sort, filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -99,7 +99,7 @@ public class SysDeptRightController extends FrameWorkController<UserDeptRight> i
 			writeJSON(response, jsonBuilder.returnFailureJson("\"没有传入设置的参数\""));
 			return;
 		}
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 	
 		Boolean flag = thisService.doUserRightDept(userIds, deptIds, currentUser);
 		if (flag)
@@ -110,7 +110,7 @@ public class SysDeptRightController extends FrameWorkController<UserDeptRight> i
 	@Auth("SYSUSER_doUpdateRightType")
 	@RequestMapping("/doUpdateRightType")
 	public void doUpdateRightType(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		User  currentUser=getCurrentSysUser();
+		PtUser  currentUser=getCurrentSysUser();
 		
 		String uuid=request.getParameter("userId");
 		String rightType=request.getParameter("rightType");

@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.wisdomclass.service;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTheme;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -19,7 +19,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface AttendThemeService extends BaseService<AttendTheme> {
+public interface AttendThemeService extends BaseService<PtAttendTheme> {
 
 	/**
 	 * 数据列表
@@ -36,7 +36,7 @@ public interface AttendThemeService extends BaseService<AttendTheme> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<AttendTheme> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<PtAttendTheme> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -47,7 +47,7 @@ public interface AttendThemeService extends BaseService<AttendTheme> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -58,7 +58,7 @@ public interface AttendThemeService extends BaseService<AttendTheme> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public AttendTheme doUpdateEntity(AttendTheme entity, User currentUser);
+	public PtAttendTheme doUpdateEntity(PtAttendTheme entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -69,7 +69,7 @@ public interface AttendThemeService extends BaseService<AttendTheme> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public AttendTheme doAddEntity(AttendTheme entity, User currentUser);
+	public PtAttendTheme doAddEntity(PtAttendTheme entity, PtUser currentUser);
 
 	public Integer doAddUsers(String titleId, String[] userIds, String[] userNames, String[] userNumbs, String xm);
 

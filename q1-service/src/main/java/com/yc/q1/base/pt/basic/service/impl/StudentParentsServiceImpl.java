@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.dao.StudentParentsDao;
 import com.yc.q1.base.pt.basic.service.StudentParentsService;
-import com.yc.q1.model.base.pt.basic.StudentParents;
+import com.yc.q1.model.base.pt.basic.PtStudentParents;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -25,10 +25,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class StudentParentsServiceImpl extends BaseServiceImpl<StudentParents> implements StudentParentsService{
+public class StudentParentsServiceImpl extends BaseServiceImpl<PtStudentParents> implements StudentParentsService{
 
 	@Resource(name = "StudentParentsDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<StudentParents> dao) {
+	public void setDao(BaseDao<PtStudentParents> dao) {
 		super.setDao(dao);
 	}
 

@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.IrRoomDevice;
+import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -26,10 +26,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class IrRoomDeviceServiceImpl extends BaseServiceImpl<IrRoomDevice> implements IrRoomDeviceService {
+public class IrRoomDeviceServiceImpl extends BaseServiceImpl<PtIrRoomDevice> implements IrRoomDeviceService {
 
 	@Resource(name = "IrRoomDeviceDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<IrRoomDevice> dao) {
+	public void setDao(BaseDao<PtIrRoomDevice> dao) {
 		super.setDao(dao);
 	}
 
@@ -44,7 +44,7 @@ public class IrRoomDeviceServiceImpl extends BaseServiceImpl<IrRoomDevice> imple
 		String[] roomId = roomIds.split(",");
 		String[] brandId = brandIds.split(",");
 		// TODO Auto-generated method stub
-		IrRoomDevice roomDevice = null;
+		PtIrRoomDevice roomDevice = null;
 		for (int i = 0; i < brandId.length; i++) {
 			for (int j = 0; j < roomId.length; j++) {
 				String[] name = { "roomId", "brandId" };
@@ -57,12 +57,12 @@ public class IrRoomDeviceServiceImpl extends BaseServiceImpl<IrRoomDevice> imple
 					roomDevice.setUpdateUser(xm);
 					this.merge(roomDevice);
 				} else {
-					roomDevice = new IrRoomDevice();
+					roomDevice = new PtIrRoomDevice();
 					roomDevice.setBrandId(brandId[i]);
 					roomDevice.setRoomId(roomId[j]);
 					roomDevice.setCreateTime(new Date());
 					roomDevice.setCreateUser(xm);
-					roomDevice.setId(keyRedisService.getId(IrRoomDevice.ModuleType));	//手动设置id
+					roomDevice.setId(keyRedisService.getId(PtIrRoomDevice.ModuleType));	//手动设置id
 					this.merge(roomDevice);
 				}
 			}

@@ -14,14 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
 
 @Controller
 @RequestMapping("/app/Notice")
-public class NoticeAppController extends FrameWorkController<Notice> implements Constant {
+public class NoticeAppController extends FrameWorkController<PtNotice> implements Constant {
 	@Resource
 	private NoticeService thisService; // service层接口
 	
@@ -34,9 +34,9 @@ public class NoticeAppController extends FrameWorkController<Notice> implements 
 		String sort = super.sort(request);
 		String filter = super.filter(request);
 
-		QueryResult<Notice> qResult = thisService.list(start, limit, sort, filter, termCode);
+		QueryResult<PtNotice> qResult = thisService.list(start, limit, sort, filter, termCode);
 		if(qResult!=null){
-			for (Notice notice : qResult.getResultList()) {
+			for (PtNotice notice : qResult.getResultList()) {
 				String content = notice.getNoticeContent();
 				// 过滤文章内容中的html
 				content = content.replaceAll("</?[^<]+>", "");

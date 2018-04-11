@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.pojo.base.app.RoomInfoApp;
 
 @Controller
@@ -39,7 +39,7 @@ public class RoomInfoAppController {
 	public  RoomInfoApp getRoomInfo(@RequestParam(value="termCode") String termCode){
 		RoomInfoApp info=new RoomInfoApp();
 		
-		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
+		PtInfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		
 		if (roomTerm==null) {
 			info.setMessage(false);
@@ -47,7 +47,7 @@ public class RoomInfoAppController {
 			return info;
 		}
 		
-		RoomInfo room  = thisService.get(roomTerm.getRoomId());;
+		PtRoomInfo room  = thisService.get(roomTerm.getRoomId());;
 		if (room == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端对应的房间！");

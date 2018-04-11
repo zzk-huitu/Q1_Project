@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.basic.service.InfoTerminalHistoryService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.basic.InfoTerminalHistory;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminalHistory;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -36,12 +36,12 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> implements InfoTerminalService {
+public class InfoTerminalServiceImpl extends BaseServiceImpl<PtInfoTerminal> implements InfoTerminalService {
 
 	private static Logger logger = Logger.getLogger(InfoTerminalServiceImpl.class);
 	
 	@Resource(name = "InfoTerminalDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<InfoTerminal> dao) {
+	public void setDao(BaseDao<PtInfoTerminal> dao) {
 		super.setDao(dao);
 	}
 
@@ -52,8 +52,8 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public QueryResult<InfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-		QueryResult<InfoTerminal> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtInfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+		QueryResult<PtInfoTerminal> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -67,7 +67,7 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -92,9 +92,9 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 	 * @return
 	 */
 	@Override
-	public InfoTerminal doUpdateEntity(InfoTerminal entity, User currentUser) {
+	public PtInfoTerminal doUpdateEntity(PtInfoTerminal entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		InfoTerminal saveEntity = this.get(entity.getId());
+		PtInfoTerminal saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -125,14 +125,14 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 	 * @return
 	 */
 	@Override
-	public InfoTerminal doAddEntity(InfoTerminal entity, User currentUser, Integer beforeNumber, Integer termCount) {
+	public PtInfoTerminal doAddEntity(PtInfoTerminal entity, PtUser currentUser, Integer beforeNumber, Integer termCount) {
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
-		InfoTerminal saveEntity = null;
+		PtInfoTerminal saveEntity = null;
 		Integer newNumber = beforeNumber;
 
 		for (int i = 0; i < termCount; i++) {
-			saveEntity = new InfoTerminal();
+			saveEntity = new PtInfoTerminal();
 			try {
 				BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			} catch (IllegalAccessException | InvocationTargetException e) {
@@ -144,7 +144,7 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 			saveEntity.setTerminalNo(StringUtils.addString(newNumber.toString(), "0", 6, "L"));
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 
-			saveEntity.setId(keyRedisService.getId(InfoTerminal.ModuleType));	//手动设置id
+			saveEntity.setId(keyRedisService.getId(PtInfoTerminal.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
 			newNumber++;
 		}
@@ -167,15 +167,15 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 	}
 
 	@Override
-	public Boolean doSetTerminal(List<InfoTerminal> terminals, String roomId, String roomName, User currentUser) {
+	public Boolean doSetTerminal(List<PtInfoTerminal> terminals, String roomId, String roomName, PtUser currentUser) {
 
 		String[] propName = { "roomId", "houseNo" };
 
-		for (InfoTerminal oaInfoterm : terminals) {
+		for (PtInfoTerminal oaInfoterm : terminals) {
 			String houseNumb = oaInfoterm.getHouseNo();
 			String termId = oaInfoterm.getId();
 			Object[] propValue = { roomId, houseNumb };
-			InfoTerminal saveEntity = this.getByProerties(propName, propValue);
+			PtInfoTerminal saveEntity = this.getByProerties(propName, propValue);
 			if (ModelUtil.isNotNull(saveEntity)) {
 				// 原来给此门牌分配过终端
 				if (!saveEntity.getId().equals(termId)) {
@@ -201,14 +201,14 @@ public class InfoTerminalServiceImpl extends BaseServiceImpl<InfoTerminal> imple
 			this.merge(saveEntity);// 执行修改方法
 
 			// 写入分配历史记录
-			InfoTerminalHistory useHistory = new InfoTerminalHistory();
+			PtInfoTerminalHistory useHistory = new PtInfoTerminalHistory();
 			useHistory.setTerminalId(oaInfoterm.getId());
 			useHistory.setTerminalNo(oaInfoterm.getTerminalNo());
 			useHistory.setRoomId(roomId);
 			useHistory.setRoomName(roomName);
 			useHistory.setCreateUser(currentUser.getId());
 			
-			useHistory.setId(keyRedisService.getId(InfoTerminalHistory.ModuleType));	//手动设置id
+			useHistory.setId(keyRedisService.getId(PtInfoTerminalHistory.ModuleType));	//手动设置id
 			useHistoryService.persist(useHistory);
 		}
 		// 若上面处理失败，自动跳转到异常处理程序，中断此方法代码运行

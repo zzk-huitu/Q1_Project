@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.dao;
 
-import com.yc.q1.model.base.pt.device.PriceBind;
+import com.yc.q1.model.base.pt.device.PtPriceBind;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -8,6 +8,6 @@ import com.zd.core.dao.BaseDao;
  * @author hucy
  *
  */
-public interface PriceBindDao extends BaseDao<PriceBind>{
+public interface PriceBindDao extends BaseDao<PtPriceBind>{
 
 }

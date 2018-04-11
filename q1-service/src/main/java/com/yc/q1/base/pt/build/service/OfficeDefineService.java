@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.build.service;
 
 import java.lang.reflect.InvocationTargetException;
 
-import com.yc.q1.model.base.pt.build.OfficeDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
+import com.yc.q1.model.base.pt.build.PtOfficeDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.zd.core.service.BaseService;
 
 
@@ -20,9 +20,9 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface OfficeDefineService extends BaseService<OfficeDefine> {
-	public OfficeDefine getByRoomId(String roomId);
-	public void addOffRoom(RoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException;
-	public Boolean delOffRoom(RoomInfo roomInfo,String delId, String xm);
+public interface OfficeDefineService extends BaseService<PtOfficeDefine> {
+	public PtOfficeDefine getByRoomId(String roomId);
+	public void addOffRoom(PtRoomInfo entity, String id, String userCh) throws IllegalAccessException, InvocationTargetException;
+	public Boolean delOffRoom(PtRoomInfo roomInfo,String delId, String xm);
 	
 }

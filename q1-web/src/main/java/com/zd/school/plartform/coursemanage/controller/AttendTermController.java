@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.InfoTerminalService;
 import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTerm;
-import com.yc.q1.model.base.pt.wisdomclass.AttendUser;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -35,7 +35,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/AttendTerm")
-public class AttendTermController extends FrameWorkController<AttendTerm> implements Constant {
+public class AttendTermController extends FrameWorkController<PtAttendTerm> implements Constant {
 
 	@Resource
 	AttendTermService thisService; // service层接口
@@ -55,11 +55,11 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute AttendTerm entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtAttendTerm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 
-		QueryResult<AttendTerm> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtAttendTerm> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -70,20 +70,20 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void termAttendlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<AttendTerm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtAttendTerm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		if (qr.getTotalCount() == 0) {
 			writeJSON(response, strData);// 返回数据
 			return;
 		}
 		StringBuffer termId = new StringBuffer();
-		for (AttendTerm attTerm : qr.getResultList()) {
+		for (PtAttendTerm attTerm : qr.getResultList()) {
 			termId.append(attTerm.getId() + ",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""
 				+ termId.substring(0, termId.length() - 1) + "\",\"field\":\"id\"}]";
 
-		QueryResult<InfoTerminal> termQr = InfoTermService.queryPageResult(0, 0, null, filter, true);
+		QueryResult<PtInfoTerminal> termQr = InfoTermService.queryPageResult(0, 0, null, filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -93,7 +93,7 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 	 * 
 	 * @Title: doadd
 	 * @Description: 增加新实体信息至数据库
-	 * @param AttendTerm
+	 * @param PtAttendTerm
 	 *            实体类
 	 * @param request
 	 * @param response
@@ -102,13 +102,13 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 	 *             抛出异常
 	 */
 	@RequestMapping("/doAdd")
-	public void doAdd(AttendTerm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtAttendTerm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 			if (ModelUtil.isNotNull(entity))
@@ -127,7 +127,7 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		thisService.doTermAttendAdd(userIds, titleId, currentUser.getId());// 执行增加方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功'"));
@@ -151,7 +151,7 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDeleteByIds(delIds, currentUser);
 				if (flag) {
@@ -195,7 +195,7 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 	/**
 	 * @Title: doUpdate
 	 * @Description: 编辑指定记录
-	 * @param AttendTerm
+	 * @param PtAttendTerm
 	 * @param request
 	 * @param response
 	 * @return void 返回类型
@@ -203,13 +203,13 @@ public class AttendTermController extends FrameWorkController<AttendTerm> implem
 	 *             抛出异常
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(AttendTerm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtAttendTerm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		try {
 			entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 			if (ModelUtil.isNotNull(entity))

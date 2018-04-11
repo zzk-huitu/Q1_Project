@@ -29,13 +29,13 @@ import com.yc.q1.base.pt.build.service.RoomAreaService;
 import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.basic.PushInfo;
-import com.yc.q1.model.base.pt.basic.StudentBaseInfo;
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.basic.PtPushInfo;
+import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.StandVClassStudent;
 import com.zd.core.constant.StatuVeriable;
@@ -55,10 +55,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> implements StudentDormService {
+public class StudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> implements StudentDormService {
 
 	@Resource(name = "StudentDormDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<StudentDorm> dao) {
+	public void setDao(BaseDao<PtStudentDorm> dao) {
 		super.setDao(dao);
 	}
 	
@@ -102,7 +102,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * 获取用户有权限的部门班级树
 	 */
 	@Override
-	public CommTree getUserRightDeptClassTree(String rootId, User currentUser) {
+	public CommTree getUserRightDeptClassTree(String rootId, PtUser currentUser) {
 		//1.查询部门的数据，并封装到实体类中
 		List<CommTree> list = orgService.getUserRightDeptClassTreeList(currentUser);
 		
@@ -141,7 +141,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 
 	
 	@Override
-	public List<StudentDorm> oneKeyList(StudentDorm entity, String whereSql) {
+	public List<PtStudentDorm> oneKeyList(PtStudentDorm entity, String whereSql) {
 		/*
 		 * 不知其意义 List<DormStudentDorm> newlists = null;// 执行查询方法
 		 * List<StandVClassStudent> classStuList = null; // 某年级下全部学生
@@ -150,8 +150,8 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		 * List<StandVClassStudent> girlList = new ArrayList<>(); // 某年级下的所有女生
 		 */
 		// 查询出该年级下所有的有效宿舍
-		List<StudentDorm> lists = this.queryEntityBySql("EXEC JW_P_DORMCOUNT '" + whereSql + "'",
-				StudentDorm.class);// 需要修改
+		List<PtStudentDorm> lists = this.queryEntityBySql("EXEC JW_P_DORMCOUNT '" + whereSql + "'",
+				PtStudentDorm.class);// 需要修改
 		// 获取该年级下的所有班级没有分配宿舍的总人数
 		/*
 		 * String sql = "select a.* from STAND_V_CLASSSTUDENT a" +
@@ -210,12 +210,12 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * 一键分配整个年级的班级宿舍
 	 */
 	@Override
-	public Boolean doOneKeyAllotDorm(String gradId, String boyId, String girlId, User currentUser) {
+	public Boolean doOneKeyAllotDorm(String gradId, String boyId, String girlId, PtUser currentUser) {
 		Boolean flag = false;
 		String boyDormId[] = null;
 		String girDormId[] = null;
 		List<StandVClassStudent> classStuList = null; // 某年级下全部学生
-		List<GradeClass> gradeClassList = null; // 某年级下的所有班级
+		List<PtGradeClass> gradeClassList = null; // 某年级下的所有班级
 		List<StandVClassStudent> boyList = new ArrayList<>(); // 某年级下的所有男生
 		List<StandVClassStudent> girlList = new ArrayList<>(); // 某年级下的所有女生
 		List<String> dormBoyList = new ArrayList<>(); // 某年级下的所有男宿舍集合
@@ -261,15 +261,15 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * 手动分配宿舍
 	 */
 	@Override
-	public Boolean doDormHandAllot(StudentDorm entity, Map hashMap, User currentUser)
+	public Boolean doDormHandAllot(PtStudentDorm entity, Map hashMap, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
-		DormDefine buildDormDefine = null;// 宿舍信息
+		PtDormDefine buildDormDefine = null;// 宿舍信息
 		boolean isMixed=false;	//是否为混合宿舍
 		String[] studentId = null;
 		Integer inAllotCount = 0;// 该宿舍目前已经入住的人数
 		Integer canInAllotCount = 0;// 该宿舍目前还可以入住的人数
-		ClassDormAllot jwClassDormAllot = null;// 班级宿舍
+		PtClassDormAllot jwClassDormAllot = null;// 班级宿舍
 		//List<DormStudentDorm> liStudentdorms = null;
 		
 		// 获取该宿舍下入住的人数
@@ -296,9 +296,9 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 			return flag;
 		}
 		
-		StudentDorm studentDorm=null;
+		PtStudentDorm studentDorm=null;
 		for (int i = 0; i < studentId.length; i++) {
-			studentDorm=new StudentDorm();
+			studentDorm=new PtStudentDorm();
 			this.allotStudentDorm(studentDorm, jwClassDormAllot, studentId[i], inAllotCount++, currentUser.getId());
 			
 			roomaAllotService.mjUserRight(studentDorm.getStudentId(), null, null, studentDorm, null);				
@@ -335,8 +335,8 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * 获取未住满人的宿舍
 	 */
 	@Override
-	public List<ClassDormAllot> mixDormList(ClassDormAllot entity) {
-		List<ClassDormAllot> dormAllotList = null;
+	public List<PtClassDormAllot> mixDormList(PtClassDormAllot entity) {
+		List<PtClassDormAllot> dormAllotList = null;
 		List list = this.querySql(
 				"SELECT A.classDormId,D.roomName,F.className,C.dormType,C.bedCount,COUNT(*) counts,F.classId,B.isMixed FROM T_PT_StudentDorm A "
 						+ "JOIN T_PT_ClassDormAllot B ON A.classDormId=B.classDormId "
@@ -348,7 +348,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		for (int i = 0; i < list.size(); i++) {
 			Object[] objArray = (Object[]) list.get(i);
 			if (objArray != null) {
-				entity = new ClassDormAllot();
+				entity = new PtClassDormAllot();
 				entity.setId(objArray[0].toString());
 				entity.setDormName(objArray[1].toString());
 				entity.setClainame(objArray[2].toString());
@@ -364,8 +364,8 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	}
 
 	@Override
-	public List<ClassDormAllot> emptyMixDormList(ClassDormAllot entity) {
-		List<ClassDormAllot> dormAllotList = null;
+	public List<PtClassDormAllot> emptyMixDormList(PtClassDormAllot entity) {
+		List<PtClassDormAllot> dormAllotList = null;
 		List list = this
 				.querySql("SELECT A.classDormId,D.roomName,F.className,C.dormType,C.bedCount,F.classId,B.isMixed FROM "
 						+ " T_PT_ClassDormAllot A JOIN dbo.T_PT_ClassDormAllot B ON A.classDormId=B.classDormId "
@@ -377,7 +377,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		for (int i = 0; i < list.size(); i++) {
 			Object[] objArray = (Object[]) list.get(i);
 			if (objArray != null) {
-				entity = new ClassDormAllot();
+				entity = new PtClassDormAllot();
 				entity.setId(objArray[0].toString());
 				entity.setDormName(objArray[1].toString());
 				entity.setClainame(objArray[2].toString());
@@ -394,11 +394,11 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	@Override
 	public Boolean doPushMessage(String classId) {
 		Boolean flag = false;
-		List<StudentDorm> claStudentList = null;
-		PushInfo pushInfo = null;
-		StudentBaseInfo stuBaseinfo = null;
-	    DormDefine dormDefin = null;
-	    ClassDormAllot jwClassDormAllot = null;
+		List<PtStudentDorm> claStudentList = null;
+		PtPushInfo pushInfo = null;
+		PtStudentBaseInfo stuBaseinfo = null;
+	    PtDormDefine dormDefin = null;
+	    PtClassDormAllot jwClassDormAllot = null;
 		String roomName = null;
 		String areaName = null;// 楼栋名
 		String areaLc = null;// 楼层
@@ -407,14 +407,14 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		Object[] str2 = { classId, 0 };
 		claStudentList = this.queryByProerties(str, str2);// 班级下的已经入住宿舍的学生
 		int i=0;
-		for (StudentDorm pushMesStuDorm : claStudentList) {
+		for (PtStudentDorm pushMesStuDorm : claStudentList) {
 			stuBaseinfo = stuBaseinfoService.get(pushMesStuDorm.getStudentId()); // 学生信息
 			roomName = pushMesStuDorm.getRoomName();// 房间名
 			jwClassDormAllot = classDormService.getByProerties("id", pushMesStuDorm.getClassDormId());
 			dormDefin = dormDefineService.get(jwClassDormAllot.getDormId());
 			areaLc = jwClassDormAllot.getAreaName();// 楼层名
 			areaName = roomAreaService.getByProerties("id", dormDefin.getAreaId()).getParentName();
-			pushInfo = new PushInfo();
+			pushInfo = new PtPushInfo();
 			pushInfo.setEmpleeName(stuBaseinfo.getName());// 姓名
 			pushInfo.setEmpleeNo(stuBaseinfo.getUserNumb());// 学号
 			pushInfo.setRegTime(new Date());
@@ -442,14 +442,14 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * 自动分配宿舍
 	 */
 	@Override
-	public Integer doDormAutoAllot(String classId, User currentUser) {
+	public Integer doDormAutoAllot(String classId, PtUser currentUser) {
 		Integer resultCount=0;
 		
-		List<ClassDormAllot> classDormList = null;// 获取该班级下所有有效宿舍
-		List<ClassDormAllot> boydormList = new ArrayList<>(); // 男宿舍
-		List<ClassDormAllot> girldormList = new ArrayList<>(); // 女宿舍
-		List<ClassDormAllot> boyMixdormList = new ArrayList<>(); // 男混班宿舍
-		List<ClassDormAllot> girlMixdormList = new ArrayList<>(); // 男混班宿舍
+		List<PtClassDormAllot> classDormList = null;// 获取该班级下所有有效宿舍
+		List<PtClassDormAllot> boydormList = new ArrayList<>(); // 男宿舍
+		List<PtClassDormAllot> girldormList = new ArrayList<>(); // 女宿舍
+		List<PtClassDormAllot> boyMixdormList = new ArrayList<>(); // 男混班宿舍
+		List<PtClassDormAllot> girlMixdormList = new ArrayList<>(); // 男混班宿舍
 		List<StandVClassStudent> boyList = new ArrayList<>(); // 有效男学生
 		List<StandVClassStudent> girlList = new ArrayList<>(); // 有效女学生
 		List<StandVClassStudent> classStulist = null;// 获取该班级下所有有效学生且未分配宿舍的
@@ -458,7 +458,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		Object[] propValue = { classId, 0 };
 		classDormList = classDormService.queryByProerties(propName, propValue);
 		// 将班级下所有宿舍分类
-		for (ClassDormAllot jwClassDormAllot : classDormList) {
+		for (PtClassDormAllot jwClassDormAllot : classDormList) {
 			if (jwClassDormAllot.getDormType().equals("1")) { // 男
 				if (jwClassDormAllot.getIsMixed()==true) {
 					boyMixdormList.add(jwClassDormAllot);// 混班
@@ -515,13 +515,13 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * @param userCh
 	 *            //创建人
 	 */
-	public void onKeyAllot(List<GradeClass> gradeClassList, List<StandVClassStudent> studentList,
+	public void onKeyAllot(List<PtGradeClass> gradeClassList, List<StandVClassStudent> studentList,
 			List<String> allDormList, String userCh) {
-		List<StudentDorm> mixDorm = new ArrayList<>();// 混合宿舍
+		List<PtStudentDorm> mixDorm = new ArrayList<>();// 混合宿舍
 		Map<String, Integer> mixDormBedCount = new HashMap<String, Integer>();// 混合宿舍床位数
-		StudentDorm studentDorm = null; // 学生宿舍（均是该班级的学生）
-		ClassDormAllot classDormEntity = null; // 班级宿舍
-		DormDefine dormDefEntity = null; // 宿舍定义
+		PtStudentDorm studentDorm = null; // 学生宿舍（均是该班级的学生）
+		PtClassDormAllot classDormEntity = null; // 班级宿舍
+		PtDormDefine dormDefEntity = null; // 宿舍定义
 		String dormId = "";// 宿舍id BuildDormDefine的uuid
 
 		List<StandVClassStudent> tempList = null; // 用来存储临时数据,存放某个班级的所有男生或女生
@@ -552,11 +552,11 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 				dormBedCount = dormDefEntity.getBedCount(); // 获取床位数
 				count += dormBedCount;
 				if (count <= classStuCount) { // 1.此条件内，将住满各个宿舍；
-					classDormEntity = new ClassDormAllot();
+					classDormEntity = new PtClassDormAllot();
 					this.allotClassDorm(classDormEntity, dormId, classId, userCh, false);// 给该班级分配宿舍
 					this.merDormDefEntity(dormDefEntity, userCh, false);// 将宿舍状态设置为已分配
 					for (int m = 0; m < dormBedCount; m++) {
-						studentDorm = new StudentDorm();// 存放的是宿舍和学生对应关系
+						studentDorm = new PtStudentDorm();// 存放的是宿舍和学生对应关系
 						stuId = tempList.get(count - dormBedCount + m).getUserId();
 						this.allotStudentDorm(studentDorm, classDormEntity, stuId, m, userCh);
 
@@ -576,11 +576,11 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 
 						overCount = count - classStuCount;// 分配之后，该混合宿舍剩余床位
 						notAllotBedCount = classStuCount - (count - dormBedCount);// 该班级还没有分配宿舍床位的人数
-						classDormEntity = new ClassDormAllot();
+						classDormEntity = new PtClassDormAllot();
 						this.allotClassDorm(classDormEntity, dormId, classId, userCh, true);// 给该班级分配宿舍（混合宿舍）
 						this.merDormDefEntity(dormDefEntity, userCh, true);// 将宿舍状态设置为已分配
 						for (int n = 0; n < notAllotBedCount; n++) {// 该班级的还未分配宿舍的人数循环
-							studentDorm = new StudentDorm();
+							studentDorm = new PtStudentDorm();
 							stuId = tempList.get(count - dormBedCount + n).getUserId();
 							this.allotStudentDorm(studentDorm, classDormEntity, stuId, n, userCh);
 
@@ -629,11 +629,11 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 						 */
 						if (index == 0 && allDormList.size() > 0 && notAllotBedCount > 0) {
 							overCount = count - classStuCount;// 表示的这个宿舍还有几个床位剩余
-							classDormEntity = new ClassDormAllot();
+							classDormEntity = new PtClassDormAllot();
 							this.allotClassDorm(classDormEntity, dormId, classId, userCh, true);// 给该班级分配宿舍
 							this.merDormDefEntity(dormDefEntity, userCh, true);// 将宿舍状态设置为已分配
 							for (int n1 = 0; n1 < notAllotBedCount; n1++) {
-								studentDorm = new StudentDorm();
+								studentDorm = new PtStudentDorm();
 								stuId = tempList.get(count - dormBedCount + n1).getUserId();
 								this.allotStudentDorm(studentDorm, classDormEntity, stuId, n1, userCh);
 
@@ -659,7 +659,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 							int bedNum = studentDorm.getBedNo();
 							for (int n2 = 0; n2 < notAllotBedCount; n2++) {
 
-								studentDorm = new StudentDorm();
+								studentDorm = new PtStudentDorm();
 								stuId = tempList.get(count - dormBedCount + n2).getUserId();
 								this.allotStudentDorm(studentDorm, classDormEntity, stuId, bedNum + n2, userCh);
 
@@ -691,7 +691,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 						int bedNum = studentDorm.getBedNo();
 						for (int n3 = 0; n3 < notAllotBedCount; n3++) {
 
-							studentDorm = new StudentDorm();
+							studentDorm = new PtStudentDorm();
 							stuId = tempList.get(count + n3).getUserId();// 该班级已经入住的人数
 							this.allotStudentDorm(studentDorm, classDormEntity, stuId, bedNum + n3, userCh);
 
@@ -705,7 +705,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 						int bedNum = studentDorm.getBedNo();
 						for (int n4 = 0; n4 < mixInBedCount; n4++) {
 
-							studentDorm = new StudentDorm();
+							studentDorm = new PtStudentDorm();
 							stuId = tempList.get(count + n4).getUserId();
 							this.allotStudentDorm(studentDorm, classDormEntity, stuId, bedNum + n4, userCh);
 
@@ -738,14 +738,14 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * @param userCh
 	 *            //创建人
 	 */
-	public void onKeyAllot2(List<GradeClass> gradeClassList, List<StandVClassStudent> studentList,
+	public void onKeyAllot2(List<PtGradeClass> gradeClassList, List<StandVClassStudent> studentList,
 			List<String> allDormList, String userCh) {
-		StudentDorm mixDorm = null;// 混合宿舍
+		PtStudentDorm mixDorm = null;// 混合宿舍
 		Integer mixDormBedCount = 0;// 混合宿舍床位数
 
-		StudentDorm studentDorm = null; // 学生宿舍（均是该班级的学生）
-		ClassDormAllot classDormEntity = null; // 班级宿舍
-		DormDefine dormDefEntity = null; // 宿舍定义
+		PtStudentDorm studentDorm = null; // 学生宿舍（均是该班级的学生）
+		PtClassDormAllot classDormEntity = null; // 班级宿舍
+		PtDormDefine dormDefEntity = null; // 宿舍定义
 		String dormId = "";// 宿舍id BuildDormDefine的uuid
 
 		List<StandVClassStudent> tempList = null; // 用来存储临时数据,存放某个班级的所有男生或女生
@@ -782,7 +782,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 				int bedNum = mixDorm.getBedNo(); // 床位号
 				for (int n1 = 0; n1 < count; n1++) {
 
-					studentDorm = new StudentDorm();
+					studentDorm = new PtStudentDorm();
 					stuId = tempList.get(n1).getUserId();
 					this.allotStudentDorm(studentDorm, classDormEntity, stuId, bedNum + n1, userCh);
 
@@ -809,11 +809,11 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 					dormBedCount = dormDefEntity.getBedCount(); // 获取床位数
 					count += dormBedCount;
 					if (count <= classStuCount) { // 3.此条件内，将住满各个新宿舍；
-						classDormEntity = new ClassDormAllot();
+						classDormEntity = new PtClassDormAllot();
 						this.allotClassDorm(classDormEntity, dormId, classId, userCh, false);// 给该班级分配宿舍
 						this.merDormDefEntity(dormDefEntity, userCh, false);// 将宿舍状态设置为已分配
 						for (int m = 0; m < dormBedCount; m++) {
-							studentDorm = new StudentDorm();// 存放的是宿舍和学生对应关系
+							studentDorm = new PtStudentDorm();// 存放的是宿舍和学生对应关系
 							stuId = tempList.get(count - dormBedCount + m).getUserId();
 							this.allotStudentDorm(studentDorm, classDormEntity, stuId, m, userCh);
 
@@ -833,11 +833,11 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 
 						overCount = count - classStuCount;// 分配之后，该混合宿舍剩余床位
 						notAllotBedCount = classStuCount - (count - dormBedCount);// 该班级还没有分配宿舍床位的人数
-						classDormEntity = new ClassDormAllot();
+						classDormEntity = new PtClassDormAllot();
 						this.allotClassDorm(classDormEntity, dormId, classId, userCh, true);// 给该班级分配宿舍（混合宿舍）
 						this.merDormDefEntity(dormDefEntity, userCh, true);// 将宿舍状态设置为已分配
 						for (int n = 0; n < notAllotBedCount; n++) {// 该班级的还未分配宿舍的人数循环
-							studentDorm = new StudentDorm();
+							studentDorm = new PtStudentDorm();
 							stuId = tempList.get(count - dormBedCount + n).getUserId();
 							this.allotStudentDorm(studentDorm, classDormEntity, stuId, n, userCh);
 
@@ -877,12 +877,12 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 *            （班级id）
 	 */
 
-	private Integer handAllot(List<ClassDormAllot> dormList, List<ClassDormAllot> hunDormList,
+	private Integer handAllot(List<PtClassDormAllot> dormList, List<PtClassDormAllot> hunDormList,
 			List<StandVClassStudent> stuList, String classId) {
 		int resultCount=0;
 		
-		StudentDorm dormStudentDorm = null;
-		StudentDorm dorm = null;
+		PtStudentDorm dormStudentDorm = null;
+		PtStudentDorm dorm = null;
 		int bs = 0; // 标识用了几个宿舍
 		Integer bedCount = 0;
 		String roomCount = "";
@@ -904,7 +904,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 
 			for (int j = 0; j < list.size(); j++) {
 				if (stuList.size() > 0) {
-					dormStudentDorm = new StudentDorm();
+					dormStudentDorm = new PtStudentDorm();
 					dormBedCount = Integer.valueOf(list.get(j).toString()); // 获取到床位
 					dormStudentDorm.setBedNo(dormBedCount); // 设置床位
 					dormStudentDorm.setSarkNo(dormBedCount); // 设置柜号
@@ -914,7 +914,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 					dormStudentDorm.setStudentId(stuList.get(0).getUserId());
 					stuList.remove(0);
 					
-					dormStudentDorm.setId(keyRedisService.getId(StudentDorm.ModuleType));	//手动设置id
+					dormStudentDorm.setId(keyRedisService.getId(PtStudentDorm.ModuleType));	//手动设置id
 					dorm = this.merge(dormStudentDorm);
 
 					roomaAllotService.mjUserRight(dorm.getStudentId(), null, null, dorm, null);
@@ -942,7 +942,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 						+ hunDormList.get(j).getId() + "'))");
 				for (int k = 0; k < hunList.size(); k++) {
 					if (stuList.size() > 0) {
-						dormStudentDorm = new StudentDorm();
+						dormStudentDorm = new PtStudentDorm();
 						dormBedCount = Integer.valueOf(hunList.get(k).toString()); // 获取到床位
 						dormStudentDorm.setBedNo(dormBedCount); // 设置床位
 						dormStudentDorm.setSarkNo(dormBedCount); // 设置柜号
@@ -952,7 +952,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 						dormStudentDorm.setStudentId(stuList.get(0).getUserId());
 						stuList.remove(0);
 						
-						dormStudentDorm.setId(keyRedisService.getId(StudentDorm.ModuleType));	//手动设置id
+						dormStudentDorm.setId(keyRedisService.getId(PtStudentDorm.ModuleType));	//手动设置id
 						dorm = this.merge(dormStudentDorm);
 
 						roomaAllotService.mjUserRight(dorm.getStudentId(), null, null, dorm, null);
@@ -967,7 +967,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		return resultCount;
 	}
 
-	private void allotClassDorm(ClassDormAllot classDormEntity, String dormId, String classId, String userCh,
+	private void allotClassDorm(PtClassDormAllot classDormEntity, String dormId, String classId, String userCh,
 			Boolean flag) {
 		Integer orderIndex = 0; // 排序号
 		orderIndex = classDormService.getDefaultOrderIndex(classDormEntity);
@@ -983,7 +983,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 
 	}
 
-	public void merDormDefEntity(DormDefine dormDefEntity, String userCh, Boolean flag) {
+	public void merDormDefEntity(PtDormDefine dormDefEntity, String userCh, Boolean flag) {
 		dormDefEntity.setIsAllot(true);// 将宿舍状态设置为已分配
 		dormDefEntity.setCreateTime(new Date());
 		dormDefEntity.setCreateUser(userCh);
@@ -994,7 +994,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		dormDefineService.merge(dormDefEntity);
 	}
 
-	public void allotStudentDorm(StudentDorm studentDorm, ClassDormAllot classDormEntity, String stuId,
+	public void allotStudentDorm(PtStudentDorm studentDorm, PtClassDormAllot classDormEntity, String stuId,
 			int dormBedCount, String userCh) {
 		Integer orderIndex = 0; // 排序号
 		orderIndex = this.getDefaultOrderIndex(studentDorm);
@@ -1007,7 +1007,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		studentDorm.setCreateUser(userCh);
 		studentDorm.setInTime(new Date());// 设置入住时间
 
-		studentDorm.setId(keyRedisService.getId(StudentDorm.ModuleType));	//手动设置id
+		studentDorm.setId(keyRedisService.getId(PtStudentDorm.ModuleType));	//手动设置id
 		studentDorm = this.merge(studentDorm);
 	}
 
@@ -1021,7 +1021,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	 * @return
 	 */
 	// 需修改
-	private int countDorm(List<GradeClass> gradeClassList, List<StandVClassStudent> studentList) {
+	private int countDorm(List<PtGradeClass> gradeClassList, List<StandVClassStudent> studentList) {
 		String classId = "";
 		int zc = 0;
 		List<Integer> ys = new ArrayList<>();
@@ -1081,7 +1081,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	public Boolean doDeleteDorm(String[] delIds, String userId) {
 		// TODO Auto-generated method stub
 		Set<String> classDormSet=new HashSet<>();
-		StudentDorm dorm = null;
+		PtStudentDorm dorm = null;
 		for (int i = 0; i < delIds.length; i++) {
 			dorm = this.get(delIds[i]);
 			roomaAllotService.mjUserRight(null, null, dorm.getStudentId(), dorm, null);
@@ -1095,7 +1095,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		while(itera.hasNext()){
 			String cDormId=itera.next();
 			
-			ClassDormAllot jwClassDormAllot = classDormService.get(cDormId);
+			PtClassDormAllot jwClassDormAllot = classDormService.get(cDormId);
 			if(jwClassDormAllot.getIsMixed()==true){
 				
 				String hql="select classId from StudentDorm where isDelete=0 and classDormId='"+cDormId+"'";						
@@ -1104,7 +1104,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 				classIds = classIds.stream().distinct().collect(Collectors.toList());
 				if(classIds.isEmpty()||(classIds.size()==1&&classIds.get(0).equals(jwClassDormAllot.getClassId()))){
 
-					DormDefine buildDormDefine = dormDefineService.get(jwClassDormAllot.getDormId());
+					PtDormDefine buildDormDefine = dormDefineService.get(jwClassDormAllot.getDormId());
 					
 					buildDormDefine.setIsMixed(false);
 					buildDormDefine.setUpdateTime(new Date());
@@ -1129,7 +1129,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	@Override
 	public Integer doUpdateBedArkNum(String[] list, String userId) {
 		int count=0;
-		StudentDorm perEntity = null;
+		PtStudentDorm perEntity = null;
 		for (int i = 0; i < list.length; i++) {
 			String[] id = list[i].split(",");
 			if (id != null && id.length > 0) {
@@ -1159,7 +1159,7 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 	}
 
 	@Override
-	public Boolean doAddClassDorm(String classId, String dormIds, User currentUser) {
+	public Boolean doAddClassDorm(String classId, String dormIds, PtUser currentUser) {
 		// TODO Auto-generated method stub
 		
 		if(StringUtils.isEmpty(dormIds))
@@ -1167,15 +1167,15 @@ public class StudentDormServiceImpl extends BaseServiceImpl<StudentDorm> impleme
 		
 		String[] dormIdArray = dormIds.split(",");
 		
-		ClassDormAllot jwTClassdorm = null;
+		PtClassDormAllot jwTClassdorm = null;
 		for (int i = 0; i < dormIdArray.length; i++) {			
-			jwTClassdorm = new ClassDormAllot();
+			jwTClassdorm = new PtClassDormAllot();
 			jwTClassdorm.setClassId(classId);
 			jwTClassdorm.setDormId(dormIdArray[i]);
 			jwTClassdorm.setIsMixed(false);	//非混合宿舍
 			jwTClassdorm.setCreateUser(currentUser.getId());
 			
-			jwTClassdorm.setId(keyRedisService.getId(ClassDormAllot.ModuleType));	//手动设置id
+			jwTClassdorm.setId(keyRedisService.getId(PtClassDormAllot.ModuleType));	//手动设置id
 			classDormService.merge(jwTClassdorm); //持久化		
 		}
 		

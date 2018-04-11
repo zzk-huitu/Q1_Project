@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.School;
+import com.yc.q1.model.base.pt.basic.PtSchool;
 import com.zd.core.service.BaseService;
 
 
@@ -17,8 +17,8 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface SchoolService extends BaseService<School> {
+public interface SchoolService extends BaseService<PtSchool> {
 
-	School doUpdate(School entity, String xm);
+	PtSchool doUpdate(PtSchool entity, String xm);
 
 }

@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.system.service.MenuService;
 import com.yc.q1.base.pt.system.service.PermissionService;
 import com.yc.q1.base.pt.system.service.UserService;
-import com.yc.q1.model.base.pt.system.Menu;
-import com.yc.q1.model.base.pt.system.Permission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtMenu;
+import com.yc.q1.model.base.pt.system.PtPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.MenuTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -34,7 +34,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysMenu")
-public class SysMenuController extends FrameWorkController<Menu> implements Constant {
+public class SysMenuController extends FrameWorkController<PtMenu> implements Constant {
 
     @Resource
     private MenuService thisService; // service层接口
@@ -56,7 +56,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
         String whereSql = request.getParameter("whereSql");
         String orderSql = request.getParameter("orderSql");
 
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         List<MenuTree> lists = new ArrayList<MenuTree>();
         if (currentUser.getUserName().equals(AdminType.ADMIN_USER_NAME)||getIsAdmin()==1)
             lists = thisService.getTreeList(whereSql, orderSql);
@@ -112,7 +112,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
         	 writeJSON(response,strData);// 返回数据
         	 return;
         }
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
 
         List<MenuTree> lists = thisService.getUserPermissionToRole(roleId, currentUser.getId());
 
@@ -131,7 +131,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
      */
     @Auth("MENUMANAGE_add")
     @RequestMapping("/doAdd")
-    public void doAdd(Menu entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(PtMenu entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
     	
         Integer orderIndex = entity.getOrderIndex();
@@ -155,7 +155,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
             return;
         }
         //获取当前操作用户
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         
         //持久化到数据库
         entity = thisService.addMenu(entity, currentUser);
@@ -178,7 +178,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
      */
     @Auth("MENUMANAGE_update")
     @RequestMapping("/doUpdate")
-    public void doUpdate(Menu entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdate(PtMenu entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         Integer orderIndex = entity.getOrderIndex();
@@ -203,7 +203,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
         }
 
         //获取当前的操作用户     
-        User currentUser = getCurrentSysUser();      
+        PtUser currentUser = getCurrentSysUser();      
         entity=thisService.doUpdateMenu(entity, currentUser.getId());
         
         if(entity==null)
@@ -237,7 +237,7 @@ public class SysMenuController extends FrameWorkController<Menu> implements Cons
             //删除有权限的角色的用户的redis数据
             String[] delIdArr=delIds.split(",");
             for(int i=0;i<delIdArr.length;i++){
-            	Permission sysPermission= perimissonSevice.getByProerties("permissionCode", delIdArr[i]);
+            	PtPermission sysPermission= perimissonSevice.getByProerties("permissionCode", delIdArr[i]);
             	if(sysPermission!=null)
             		userSerive.deleteUserMenuTreeRedis(sysPermission);
             }

@@ -20,10 +20,10 @@ import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.pt.device.service.TermBagService;
 import com.yc.q1.base.xf.service.RoomBagService;
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.device.RoomBag;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.device.PtRoomBag;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
@@ -87,7 +87,7 @@ public class PtBagController extends FrameWorkController implements Constant {
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void roombaglist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<RoomBag> qResult = roomBagsService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtRoomBag> qResult = roomBagsService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), false);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -149,16 +149,16 @@ public class PtBagController extends FrameWorkController implements Constant {
 
 	@RequestMapping(value = { "/getUserRoomId" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public @ResponseBody DormDefine getUserRoomId(HttpServletRequest request, HttpServletResponse response)
+	public @ResponseBody PtDormDefine getUserRoomId(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		DormDefine dormDefine = null;
+		PtDormDefine dormDefine = null;
 		String querySql = super.querySql(request);
 		String hql = "from StudentDorm where isDelete=0 ";
 		hql += querySql;
-		List<StudentDorm> studentDorms = studentdormService.queryByHql(hql);
+		List<PtStudentDorm> studentDorms = studentdormService.queryByHql(hql);
 		if (studentDorms.size() != 0) {
-			StudentDorm studentDormfirst = studentDorms.get(0);
-			ClassDormAllot classDormAllot = classDormAllotService.get(studentDormfirst.getClassDormId());
+			PtStudentDorm studentDormfirst = studentDorms.get(0);
+			PtClassDormAllot classDormAllot = classDormAllotService.get(studentDormfirst.getClassDormId());
 			dormDefine = dormDefineService.get(classDormAllot.getDormId());
 		}
 		return dormDefine;

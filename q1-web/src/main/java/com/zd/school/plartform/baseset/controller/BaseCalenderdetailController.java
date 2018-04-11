@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.basic.service.CalenderDetailService;
-import com.yc.q1.model.base.pt.basic.CalenderDetail;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCalenderDetail;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -35,7 +35,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseCalenderdetail")
-public class BaseCalenderdetailController extends FrameWorkController<CalenderDetail> implements Constant {
+public class BaseCalenderdetailController extends FrameWorkController<PtCalenderDetail> implements Constant {
 
     @Resource
     CalenderDetailService thisService; // service层接口
@@ -49,12 +49,12 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
      */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute CalenderDetail entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtCalenderDetail entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		
 		String strData = ""; // 返回给js的数据
 
-		QueryResult<CalenderDetail> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtCalenderDetail> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -73,14 +73,14 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
 	 */
 	@Auth("SCHOOLCALENDAR_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(CalenderDetail entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtCalenderDetail entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
 
 		// 获取当前操作用户
 		
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
         entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
         if (ModelUtil.isNotNull(entity))
@@ -130,7 +130,7 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -151,14 +151,14 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
 	 */
 	@Auth("SCHOOLCALENDAR_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(CalenderDetail entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtCalenderDetail entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
 		
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 	
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))
@@ -180,7 +180,7 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
 		String sheetTitle = request.getParameter("canderName");
 		String title = request.getParameter("campusName");
 
-		List<CalenderDetail> jwCalenderdetailList = null;
+		List<PtCalenderDetail> jwCalenderdetailList = null;
 		String hql = " from CalenderDetail where isDelete=0 ";
 		if (StringUtils.isNotEmpty(canderId)) {
 			hql +="and calenderId ='" + canderId+"'";
@@ -193,7 +193,7 @@ public class BaseCalenderdetailController extends FrameWorkController<CalenderDe
 		Map<String, String> jwCalenderMap = null;
 		String ClassName="";
 		int i=1;
-		for (CalenderDetail jwCalenderdetail : jwCalenderdetailList) {
+		for (PtCalenderDetail jwCalenderdetail : jwCalenderdetailList) {
 			jwCalenderMap = new LinkedHashMap<>();
 			jwCalenderMap.put("xh",i+"");
 			String isAfgernoon = jwCalenderdetail.getTimeInterval();

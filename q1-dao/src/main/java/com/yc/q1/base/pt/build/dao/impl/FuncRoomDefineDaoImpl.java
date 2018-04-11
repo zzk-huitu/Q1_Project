@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.FuncRoomDefineDao;
-import com.yc.q1.model.base.pt.build.FuncRoomDefine;
+import com.yc.q1.model.base.pt.build.PtFuncRoomDefine;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class FuncRoomDefineDaoImpl extends BaseDaoImpl<FuncRoomDefine> implements FuncRoomDefineDao {
+public class FuncRoomDefineDaoImpl extends BaseDaoImpl<PtFuncRoomDefine> implements FuncRoomDefineDao {
 }

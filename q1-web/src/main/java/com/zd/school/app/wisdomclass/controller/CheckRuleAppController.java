@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
-import com.yc.q1.model.base.pt.wisdomclass.AttenceRule;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.yc.q1.pojo.base.app.CommonApp;
 
 @Controller
@@ -20,9 +20,9 @@ public class CheckRuleAppController {
 
 	@ResponseBody
 	@RequestMapping(value = { "/getRule" }, method = RequestMethod.GET)
-	public CommonApp<AttenceRule> getRule() {
+	public CommonApp<PtAttenceRule> getRule() {
 
-		CommonApp<AttenceRule> app = new CommonApp<AttenceRule>();
+		CommonApp<PtAttenceRule> app = new CommonApp<PtAttenceRule>();
 
 		/* 暂不需要 */
 		// OaInfoterm roomTerm = termService.getByProerties("termCode",
@@ -42,7 +42,7 @@ public class CheckRuleAppController {
 
 		String[] propName = new String[] { "startUsing", "isDelete" };
 		Object[] propValue = new Object[] { 1, 0 };
-		AttenceRule rule = thisService.getByProerties(propName, propValue); // 查出启用的考勤规则
+		PtAttenceRule rule = thisService.getByProerties(propName, propValue); // 查出启用的考勤规则
 
 		if (rule == null) {
 			app.setMessage(false);

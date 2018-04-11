@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.TeacherBaseInfoDao;
-import com.yc.q1.model.base.pt.basic.TeacherBaseInfo;
+import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class TeacherBaseInfoDaoImpl extends BaseDaoImpl<TeacherBaseInfo> implements TeacherBaseInfoDao {
+public class TeacherBaseInfoDaoImpl extends BaseDaoImpl<PtTeacherBaseInfo> implements TeacherBaseInfoDao {
 }

@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.device.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.device.dao.IrDeviceBrandDao;
-import com.yc.q1.model.base.pt.device.IrDeviceBrand;
+import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class IrDeviceBrandDaoImpl extends BaseDaoImpl<IrDeviceBrand> implements IrDeviceBrandDao {
+public class IrDeviceBrandDaoImpl extends BaseDaoImpl<PtIrDeviceBrand> implements IrDeviceBrandDao {
 }

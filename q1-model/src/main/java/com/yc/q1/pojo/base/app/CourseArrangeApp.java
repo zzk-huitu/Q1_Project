@@ -3,13 +3,13 @@ package com.yc.q1.pojo.base.app;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yc.q1.model.base.pt.basic.CourseArrange;
+import com.yc.q1.model.base.pt.basic.PtCourseArrange;
 
 
 public class CourseArrangeApp {
 	private boolean message;//调用结果 ture&false
 	private String messageInfo;//返回状态信息
-	private List<CourseArrange> list;
+	private List<PtCourseArrange> list;
 	
 	public boolean isMessage() {
 		return message;
@@ -23,10 +23,10 @@ public class CourseArrangeApp {
 	public void setMessageInfo(String messageInfo) {
 		this.messageInfo = messageInfo;
 	}
-	public List<CourseArrange> getList() {
+	public List<PtCourseArrange> getList() {
 		return list;
 	}
-	public void setList(List<CourseArrange> list) {
+	public void setList(List<PtCourseArrange> list) {
 		this.list = list;
 	}
 	

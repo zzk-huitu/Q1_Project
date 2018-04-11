@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.basic.service;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtFuncRoomCourse;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -22,7 +22,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface FuncRoomCourseService extends BaseService<FuncRoomCourse> {
+public interface FuncRoomCourseService extends BaseService<PtFuncRoomCourse> {
 
 	/**
 	 * 数据列表
@@ -39,7 +39,7 @@ public interface FuncRoomCourseService extends BaseService<FuncRoomCourse> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-    public QueryResult<FuncRoomCourse> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
+    public QueryResult<PtFuncRoomCourse> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete); 
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -50,7 +50,7 @@ public interface FuncRoomCourseService extends BaseService<FuncRoomCourse> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -61,7 +61,7 @@ public interface FuncRoomCourseService extends BaseService<FuncRoomCourse> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public FuncRoomCourse doUpdateEntity(FuncRoomCourse entity, User currentUser);
+	public PtFuncRoomCourse doUpdateEntity(PtFuncRoomCourse entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -72,7 +72,7 @@ public interface FuncRoomCourseService extends BaseService<FuncRoomCourse> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public FuncRoomCourse doAddEntity(FuncRoomCourse entity, User currentUser);
+	public PtFuncRoomCourse doAddEntity(PtFuncRoomCourse entity, PtUser currentUser);
 
-	public Integer doAddEntityList(List<FuncRoomCourse> funcRoomCourseList, User currentUser) throws IllegalAccessException, InvocationTargetException;
+	public Integer doAddEntityList(List<PtFuncRoomCourse> funcRoomCourseList, PtUser currentUser) throws IllegalAccessException, InvocationTargetException;
 }

@@ -15,9 +15,9 @@ import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassRedFlagDao;
 import com.yc.q1.base.pt.wisdomclass.service.ClassRedFlagService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTheme;
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -38,21 +38,21 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> implements ClassRedFlagService{
+public class ClassRedFlagServiceImpl extends BaseServiceImpl<PtClassRedFlag> implements ClassRedFlagService{
 
 	@Resource
 	private UserService userService;
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Resource(name="ClassRedFlagDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<ClassRedFlag> dao) {
+	public void setDao(BaseDao<PtClassRedFlag> dao) {
 		super.setDao(dao);
 	}
 	private static Logger logger = Logger.getLogger(ClassRedFlagServiceImpl.class);
 	
 	@Override
-	public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<ClassRedFlag> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtClassRedFlag> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtClassRedFlag> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -65,7 +65,7 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -89,9 +89,9 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 	 * @return
 	 */
 	@Override
-	public ClassRedFlag doUpdateEntity(ClassRedFlag entity, User currentUser) {
+	public PtClassRedFlag doUpdateEntity(PtClassRedFlag entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		ClassRedFlag saveEntity = this.get(entity.getId());
+		PtClassRedFlag saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -118,7 +118,7 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 	 * @return
 	 */
 	@Override
-	public ClassRedFlag doAddEntity(ClassRedFlag entity, User currentUser) {
+	public PtClassRedFlag doAddEntity(PtClassRedFlag entity, PtUser currentUser) {
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		excludedProp.add("classId");
@@ -127,8 +127,8 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 			String [] claiIds = entity.getClassId().split(",");
 			String [] classNames = entity.getClassName().split(",");	
 			for (int i = 0; i < claiIds.length; i++) {
-				ClassRedFlag saveEntity = new ClassRedFlag();
-				entity.setId(keyRedisService.getId(ClassRedFlag.ModuleType));
+				PtClassRedFlag saveEntity = new PtClassRedFlag();
+				entity.setId(keyRedisService.getId(PtClassRedFlag.ModuleType));
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 				saveEntity.setClassId(claiIds[i]);
@@ -146,8 +146,8 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 		}
 	}
 	@Override
-	public QueryResult<ClassRedFlag> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, User currentUser) {
+	public QueryResult<PtClassRedFlag> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, PtUser currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
@@ -172,7 +172,7 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
         		hql.append(" order by  " + sortSql);
         }
         
-        QueryResult<ClassRedFlag> qResult = this.queryResult(hql.toString(), start, limit);
+        QueryResult<PtClassRedFlag> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 }

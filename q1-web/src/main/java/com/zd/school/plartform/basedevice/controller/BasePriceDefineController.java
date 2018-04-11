@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.dk.service.DkPriceDefineService;
 import com.yc.q1.base.sk.service.SkPriceDefineService;
 import com.yc.q1.model.base.dk.DkPriceDefine;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -82,7 +82,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
             throws IOException, IllegalAccessException, InvocationTargetException {
 		String categroy = request.getParameter("categroy");
 		 // 获取当前操作用户
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         
 		if(categroy.equals("0")){		
 			String hql1 = " o.isDelete='0' ";
@@ -129,7 +129,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String categroy = request.getParameter("categroy");
 		
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		if(categroy.equals("0")){
 			String hql1 = " o.isDelete='0' ";
 			// 此处为放在入库前的一些检查的代码，如唯一校验等
@@ -179,7 +179,7 @@ public class BasePriceDefineController extends FrameWorkController<BaseEntity> i
 			String hql = "select count(a.id) from PriceBind as a where a.priceId in ('" + ids.replace(",", "','")
 					+ "') and a.isDelete=0";
 					
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag =false;
 			if(categroy.equals("水控")){
 				int count = skPriceDefineService.getQueryCountByHql(hql);

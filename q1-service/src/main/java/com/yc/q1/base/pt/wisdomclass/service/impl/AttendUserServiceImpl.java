@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.wisdomclass.dao.AttendUserDao;
 import com.yc.q1.base.pt.wisdomclass.service.AttendUserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.AttendTime;
-import com.yc.q1.model.base.pt.wisdomclass.AttendUser;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
+import com.yc.q1.model.base.pt.wisdomclass.PtAttendUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -36,10 +36,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implements AttendUserService{
+public class AttendUserServiceImpl extends BaseServiceImpl<PtAttendUser> implements AttendUserService{
 
 	@Resource(name="AttendUserDao")	//将具体的dao注入进来
-	public void setDao(BaseDao<AttendUser> dao) {
+	public void setDao(BaseDao<PtAttendUser> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -47,8 +47,8 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 	private static Logger logger = Logger.getLogger(AttendUserServiceImpl.class);
 	
 	@Override
-	public QueryResult<AttendUser> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-        QueryResult<AttendUser> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtAttendUser> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+        QueryResult<PtAttendUser> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 	/**
@@ -61,7 +61,7 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -85,9 +85,9 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 	 * @return
 	 */
 	@Override
-	public AttendUser doUpdateEntity(AttendUser entity, User currentUser) {
+	public PtAttendUser doUpdateEntity(PtAttendUser entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		AttendUser saveEntity = this.get(entity.getId());
+		PtAttendUser saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,12 +114,12 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 	 * @return
 	 */
 	@Override
-	public AttendUser doAddEntity(AttendUser entity, User currentUser) {
-		AttendUser saveEntity = new AttendUser();
+	public PtAttendUser doAddEntity(PtAttendUser entity, PtUser currentUser) {
+		PtAttendUser saveEntity = new PtAttendUser();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(AttendUser.ModuleType));
+			entity.setId(keyRedisService.getId(PtAttendUser.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -136,7 +136,7 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 	@Override
 	public void doUserAttendBind(String[] userIds, String titleId,String xm) {
 		Date date=new Date();
-		AttendUser perEntity = null;
+		PtAttendUser perEntity = null;
 		for (int i = 0; i < userIds.length; i++) {
 			perEntity = this.getByProerties("userId",userIds[i]);
 			if (perEntity != null) {
@@ -145,8 +145,8 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 				perEntity.setUpdateUser(xm);
 				this.merge(perEntity);
 			} else {
-				perEntity = new AttendUser();
-				perEntity.setId(keyRedisService.getId(AttendUser.ModuleType));
+				perEntity = new PtAttendUser();
+				perEntity.setId(keyRedisService.getId(PtAttendUser.ModuleType));
 				perEntity.setAttendThemeId(titleId);
 				perEntity.setUserId(userIds[i]);
 			    perEntity.setCreateUser(xm);

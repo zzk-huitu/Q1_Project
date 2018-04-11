@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.system.service;
 import java.util.List;
 import java.util.Map;
 
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -19,7 +19,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface UserDeptJobService extends BaseService<UserDeptJob> {
+public interface UserDeptJobService extends BaseService<PtUserDeptJob> {
 
 	/**
 	 * 数据列表
@@ -74,22 +74,22 @@ public interface UserDeptJobService extends BaseService<UserDeptJob> {
 	// public BaseUserdeptjob doAddEntity(BaseUserdeptjob entity, SysUser
 	// currentUser);
 
-	public List<UserDeptJob> getUserDeptJobList(User currentUser);
+	public List<PtUserDeptJob> getUserDeptJobList(PtUser currentUser);
 
-	public Map<String, UserDeptJob> getUserDeptJobMaps(User currentUser);
+	public Map<String, PtUserDeptJob> getUserDeptJobMaps(PtUser currentUser);
 
-	public UserDeptJob getUserMasterDeptJob(User currentUser);
+	public PtUserDeptJob getUserMasterDeptJob(PtUser currentUser);
 
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
-	public boolean doRemoveUserFromDeptJob(String delIds, User currentUser);
+	public boolean doRemoveUserFromDeptJob(String delIds, PtUser currentUser);
 
-	public boolean doAddUserToDeptJob(String deptJobId, String userId, User currentUser);
+	public boolean doAddUserToDeptJob(String deptJobId, String userId, PtUser currentUser);
 
-	public boolean doSetMasterDeptJob(String delIds, String userId, User currentUser);
+	public boolean doSetMasterDeptJob(String delIds, String userId, PtUser currentUser);
 
-	public QueryResult<UserDeptJob> getUserByDeptJobId(String deptJobId, Integer start, Integer limit, String sort);
+	public QueryResult<PtUserDeptJob> getUserByDeptJobId(String deptJobId, Integer start, Integer limit, String sort);
 
-	boolean doSetMasterDeptJobFromUser(String userIds, String deptJobId, User currentUser);
+	boolean doSetMasterDeptJobFromUser(String userIds, String deptJobId, PtUser currentUser);
 
 }

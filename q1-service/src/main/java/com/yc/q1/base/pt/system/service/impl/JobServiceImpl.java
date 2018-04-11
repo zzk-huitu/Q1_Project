@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import com.yc.q1.base.pt.system.dao.JobDao;
 import com.yc.q1.base.pt.system.service.JobService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.Job;
+import com.yc.q1.model.base.pt.system.PtJob;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -29,18 +29,18 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 //@Transactional
-public class JobServiceImpl extends BaseServiceImpl<Job> implements JobService{
+public class JobServiceImpl extends BaseServiceImpl<PtJob> implements JobService{
 
 	@Resource(name = "JobDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Job> dao) {
+	public void setDao(BaseDao<PtJob> dao) {
 		super.setDao(dao);
 	}
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Override
-	public Job doUpdate(Job entity, String xm) {
+	public PtJob doUpdate(PtJob entity, String xm) {
 		// TODO Auto-generated method stub		
-		Job saveEntity = this.get(entity.getId());
+		PtJob saveEntity = this.get(entity.getId());
 		String oldJobName=saveEntity.getJobName();
 		try {
 			BeanUtils.copyPropertiesExceptNull(saveEntity, entity);

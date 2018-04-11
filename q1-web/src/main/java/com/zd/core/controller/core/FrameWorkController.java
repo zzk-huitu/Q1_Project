@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.constant.Constant;
 import com.zd.core.model.BaseEntity;
 
@@ -29,10 +29,10 @@ import com.zd.core.model.BaseEntity;
  */
 public abstract class FrameWorkController<E extends BaseEntity> extends BaseController<E> implements Constant {
 
-    public User getCurrentSysUser() {
+    public PtUser getCurrentSysUser() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest();
-        return (User) request.getSession().getAttribute(SESSION_SYS_USER);
+        return (PtUser) request.getSession().getAttribute(SESSION_SYS_USER);
     }
     
     public Integer getIsAdmin() {

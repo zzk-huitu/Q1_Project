@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.ClassRedFlagDao;
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class ClassRedFlagDaoImpl extends BaseDaoImpl<ClassRedFlag> implements ClassRedFlagDao {
+public class ClassRedFlagDaoImpl extends BaseDaoImpl<PtClassRedFlag> implements ClassRedFlagDao {
 }

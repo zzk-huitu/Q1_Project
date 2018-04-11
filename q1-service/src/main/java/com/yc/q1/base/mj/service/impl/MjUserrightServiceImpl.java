@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.mj.service.MjUserRightService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.model.base.mj.MjUserRight;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -43,7 +43,7 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public MjUserRight doAddEntity(MjUserRight entity, User currentUser) {
+	public MjUserRight doAddEntity(MjUserRight entity, PtUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			MjUserRight perEntity = new MjUserRight();
@@ -64,7 +64,7 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 	}
 
 	@Override
-	public void doAddMj(String userId, String termId, User currentUser) {
+	public void doAddMj(String userId, String termId, PtUser currentUser) {
 		// TODO Auto-generated method stub
 		String userIds[] = userId.split(",");
 		String termIds[] = termId.split(",");

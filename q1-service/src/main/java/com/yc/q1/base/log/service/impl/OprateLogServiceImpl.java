@@ -14,21 +14,21 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.yc.q1.base.log.service.OprateLogService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.storage.log.OprateLog;
+import com.yc.q1.model.storage.log.LogUserOprate;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
 @Service
 @Transactional
-public class OprateLogServiceImpl extends BaseServiceImpl<OprateLog> implements OprateLogService {
+public class OprateLogServiceImpl extends BaseServiceImpl<LogUserOprate> implements OprateLogService {
 
 	@Resource(name = "OprateLogDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<OprateLog> dao) {
+	public void setDao(BaseDao<LogUserOprate> dao) {
 		super.setDao(dao);
 	}
 
 	@Resource
-	private RedisTemplate<String, OprateLog> redisTemplate;
+	private RedisTemplate<String, LogUserOprate> redisTemplate;
 	
 	@Resource
 	private PrimaryKeyRedisService keyRedisService;
@@ -36,18 +36,18 @@ public class OprateLogServiceImpl extends BaseServiceImpl<OprateLog> implements 
 	private static Logger logger = Logger.getLogger(OprateLogServiceImpl.class);
 
 	@Override
-	public void multiAddEntity(List<OprateLog> lists) {
+	public void multiAddEntity(List<LogUserOprate> lists) {
 		// TODO Auto-generated method stub
 		try {
 			// 如果你的 hibernate.cache.use_second_level_cache 是 true, 请在会话级别上关闭他
 			// 向（任何一级）缓存中加载大量数据通常也意味着它们很快会被清除出去，这会增加GC开销。
 			this.getSession().setCacheMode(CacheMode.IGNORE);
-			OprateLog s = null;
+			LogUserOprate s = null;
 			for (int i = 0; i < lists.size(); i++) {
 				s = lists.get(i);
 				// s.setUuid(UUID.randomUUID().toString());
 				// s.setVersion(0);
-				s.setId(keyRedisService.getId(OprateLog.ModuleType));	//手动设置id
+				s.setId(keyRedisService.getId(LogUserOprate.ModuleType));	//手动设置id
 				this.persist(s);
 
 				if ((i + 1) % 50 == 0) { // 每50条数据，入一次库

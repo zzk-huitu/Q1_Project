@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.wisdomclass.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.wisdomclass.dao.NoticeDao;
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class NoticeDaoImpl extends BaseDaoImpl<Notice> implements NoticeDao {
+public class NoticeDaoImpl extends BaseDaoImpl<PtNotice> implements NoticeDao {
 }

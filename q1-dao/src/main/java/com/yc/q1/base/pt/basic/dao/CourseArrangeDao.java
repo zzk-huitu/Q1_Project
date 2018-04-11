@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.basic.dao;
 
 
 
-import com.yc.q1.model.base.pt.basic.CourseArrange;
+import com.yc.q1.model.base.pt.basic.PtCourseArrange;
 import com.zd.core.dao.BaseDao;
 
 
@@ -19,6 +19,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface CourseArrangeDao extends BaseDao<CourseArrange> {
+public interface CourseArrangeDao extends BaseDao<PtCourseArrange> {
 
 }

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.SchoolService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
-import com.yc.q1.model.base.pt.basic.School;
-import com.yc.q1.model.base.pt.system.Department;
+import com.yc.q1.model.base.pt.basic.PtSchool;
+import com.yc.q1.model.base.pt.system.PtDepartment;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -27,10 +27,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class SchoolServiceImpl extends BaseServiceImpl<School> implements SchoolService {
+public class SchoolServiceImpl extends BaseServiceImpl<PtSchool> implements SchoolService {
 
 	@Resource(name = "SchoolDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<School> dao) {
+	public void setDao(BaseDao<PtSchool> dao) {
 		super.setDao(dao);
 	}
 
@@ -38,10 +38,10 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements School
 	private DepartmentService sysOrgService;
 
 	@Override
-	public School doUpdate(School entity, String xm) {
+	public PtSchool doUpdate(PtSchool entity, String xm) {
 		// TODO Auto-generated method stub
 
-		School saveEntity = this.get(entity.getId());
+		PtSchool saveEntity = this.get(entity.getId());
 		String oldSchoolName = saveEntity.getSchoolName();
 		try {
 			BeanUtils.copyPropertiesExceptNull(saveEntity, entity);
@@ -65,8 +65,8 @@ public class SchoolServiceImpl extends BaseServiceImpl<School> implements School
 
 			sysOrgService.setDeptName(entity.getSchoolName(), entity.getId());
 
-			Department deptOrg = sysOrgService.get(entity.getId());
-			Department parentOrg = sysOrgService.get(deptOrg.getParentNode());
+			PtDepartment deptOrg = sysOrgService.get(entity.getId());
+			PtDepartment parentOrg = sysOrgService.get(deptOrg.getParentNode());
 			if (parentOrg != null && !deptOrg.getParentNode().equals("ROOT"))
 				sysOrgService.setChildAllDeptName(deptOrg, parentOrg.getAllDeptName());
 			else

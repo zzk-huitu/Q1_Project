@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.build.service.RoomAreaService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.RoomArea;
+import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.yc.q1.pojo.base.pt.RoomAreaTree;
 import com.zd.core.constant.TreeVeriable;
 import com.zd.core.dao.BaseDao;
@@ -31,10 +31,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements RoomAreaService {
+public class RoomAreaServiceImpl extends BaseServiceImpl<PtRoomArea> implements RoomAreaService {
 
 	@Resource(name = "RoomAreaDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<RoomArea> dao) {
+	public void setDao(BaseDao<PtRoomArea> dao) {
 		super.setDao(dao);
 	}
 	
@@ -47,7 +47,7 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 		if (StringUtils.isNotEmpty(whereSql))
 			hql += whereSql;
 		hql += " order by orderIndex asc ";
-		List<RoomArea> lists = this.queryByHql(hql);// 执行查询方法
+		List<PtRoomArea> lists = this.queryByHql(hql);// 执行查询方法
 		List<RoomAreaTree> result = new ArrayList<RoomAreaTree>();
 
 		// 构建Tree数据
@@ -56,9 +56,9 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 		return result;
 	}
 
-	private void createChild(RoomAreaTree parentNode, List<RoomAreaTree> result, List<RoomArea> list) {
-		List<RoomArea> childs = new ArrayList<RoomArea>();
-		for (RoomArea dic : list) {
+	private void createChild(RoomAreaTree parentNode, List<RoomAreaTree> result, List<PtRoomArea> list) {
+		List<PtRoomArea> childs = new ArrayList<PtRoomArea>();
+		for (PtRoomArea dic : list) {
 			if (dic.getParentNode().equals(parentNode.getId())) {
 				childs.add(dic);
 			}
@@ -69,7 +69,7 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 		// Integer areaStatu, String areaDesc, String areaAddr,
 		// String parentArea, Integer orderIndex, Integer roomCount) {
 
-		for (RoomArea dic : childs) {
+		for (PtRoomArea dic : childs) {
 			RoomAreaTree child = new RoomAreaTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
 					dic.getTreeIds(), new ArrayList<RoomAreaTree>(), dic.getAreaCode(), dic.getAreaType(),
 					dic.getAreaExplain(), dic.getAreaAddress(), dic.getParentNode(), dic.getOrderIndex(),
@@ -95,10 +95,10 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 	}
 
 	@Override
-	public RoomArea doAddEntity(RoomArea entity, String operator) {
+	public PtRoomArea doAddEntity(PtRoomArea entity, String operator) {
 		// TODO Auto-generated method stub
 		String parentNode = entity.getParentNode();
-		RoomArea perEntity = new RoomArea();
+		PtRoomArea perEntity = new PtRoomArea();
 		List<String> exclude = new ArrayList<String>();
 		exclude.add("id");
 		try {
@@ -112,14 +112,14 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 		perEntity.setCreateUser(operator); // 创建人
 		perEntity.setLeaf(true);
 		if (!parentNode.equals(TreeVeriable.ROOT)) {
-			RoomArea parEntity = this.get(parentNode);
+			PtRoomArea parEntity = this.get(parentNode);
 			parEntity.setLeaf(false);
 			this.merge(parEntity);
 			perEntity.BuildNode(parEntity);
 		} else
 			perEntity.BuildNode(null);
 
-		perEntity.setId(keyRedisService.getId(RoomArea.ModuleType));	//手动设置id
+		perEntity.setId(keyRedisService.getId(PtRoomArea.ModuleType));	//手动设置id
 		perEntity = this.merge(perEntity);
 
 		// perEntity.setParentName(parentName);
@@ -130,12 +130,12 @@ public class RoomAreaServiceImpl extends BaseServiceImpl<RoomArea> implements Ro
 	}
 
 	@Override
-	public RoomArea doUpdateEntity(RoomArea entity, String operator, List<String> excludedProp) {
+	public PtRoomArea doUpdateEntity(PtRoomArea entity, String operator, List<String> excludedProp) {
 		// TODO Auto-generated method stub
 
 		// 先拿到已持久化的实体
 		// entity.getSchoolId()要自己修改成对应的获取主键的方法
-		RoomArea perEntity = this.get(entity.getId());
+		PtRoomArea perEntity = this.get(entity.getId());
 		Boolean isLeaf = perEntity.getLeaf();
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		try {

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.dk.service.DkPriceDefineService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.model.base.dk.DkPriceDefine;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -38,7 +38,7 @@ public class DkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine> imp
 	private static Logger logger = Logger.getLogger(DkPriceDefineServiceImpl.class);
 
 	@Override
-	public DkPriceDefine doAddEntity(DkPriceDefine entity, User currentUser) {
+	public DkPriceDefine doAddEntity(DkPriceDefine entity, PtUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			float priceValue = entity.getPriceValue();
@@ -62,7 +62,7 @@ public class DkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine> imp
 	}
 
 	@Override
-	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, User currentUser) {
+	public DkPriceDefine doUpdateEntity(DkPriceDefine entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
 		DkPriceDefine perEntity = this.get(entity.getId());
 		try {

@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.service.BaseService;
 
@@ -10,13 +10,13 @@ import com.zd.core.service.BaseService;
  * @author hucy
  *
  */
-public interface TermService extends BaseService<Term>{
+public interface TermService extends BaseService<PtTerm>{
 
-	public Term doAddEntity(Term entity, User currentUser);
+	public PtTerm doAddEntity(PtTerm entity, PtUser currentUser);
 	
 	void batchUpdate(int termTypeID, String areaType, String areaType2, String[] strings, Object[] objects);
 
-	public Term doUpdateEntity(Term entity, User currentUser);
+	public PtTerm doUpdateEntity(PtTerm entity, PtUser currentUser);
 
 	public void doUpdatHighParamToIds(TLVModel tlvs, String termIds, String xm);
 
@@ -28,6 +28,6 @@ public interface TermService extends BaseService<Term>{
 
 	public void doBatchUpdateBaseParam(TLVModel tlvs, String termTypeID, String notes, String areaType, String xm);
 
-	public void doSetPtTerm(String roomId, String uuid, User currentUser);
+	public void doSetPtTerm(String roomId, String uuid, PtUser currentUser);
 	
 }

@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.system.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.system.dao.RoleDao;
-import com.yc.q1.model.base.pt.system.Role;
+import com.yc.q1.model.base.pt.system.PtRole;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**
@@ -16,5 +16,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class RoleDaoImpl extends BaseDaoImpl<Role> implements RoleDao {
+public class RoleDaoImpl extends BaseDaoImpl<PtRole> implements RoleDao {
 }

@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.service;
 
-import com.yc.q1.model.base.pt.system.Job;
+import com.yc.q1.model.base.pt.system.PtJob;
 import com.zd.core.service.BaseService;
 
 
@@ -17,8 +17,8 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface JobService extends BaseService<Job> {
+public interface JobService extends BaseService<PtJob> {
 
-	Job doUpdate(Job entity, String xm);
+	PtJob doUpdate(PtJob entity, String xm);
 
 }

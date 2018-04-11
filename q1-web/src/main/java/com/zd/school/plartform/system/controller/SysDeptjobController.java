@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.DeptJobService;
-import com.yc.q1.model.base.pt.system.DeptJob;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtDeptJob;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.DpetJobTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -32,7 +32,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysDeptjob")
-public class SysDeptjobController extends FrameWorkController<DeptJob> implements Constant {
+public class SysDeptjobController extends FrameWorkController<PtDeptJob> implements Constant {
 
 	@Resource
 	DeptJobService thisService; // service层接口
@@ -50,14 +50,14 @@ public class SysDeptjobController extends FrameWorkController<DeptJob> implement
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute DeptJob entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtDeptJob entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 		String sort = super.sort(request);
 		String filter = super.filter(request);
-		QueryResult<DeptJob> qResult = thisService.list(start, limit, sort, filter, true);
+		QueryResult<PtDeptJob> qResult = thisService.list(start, limit, sort, filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
@@ -82,7 +82,7 @@ public class SysDeptjobController extends FrameWorkController<DeptJob> implement
 			return;
 		}
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		Boolean flag = thisService.doBatchSetDeptJob(deptId, jobId, currentUser);
 		if (flag)
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"添加部门岗位成功\""));
@@ -117,7 +117,7 @@ public class SysDeptjobController extends FrameWorkController<DeptJob> implement
 				return;
 			}
 			
-			User currentUser = getCurrentSysUser();			
+			PtUser currentUser = getCurrentSysUser();			
 			Boolean flag = thisService.delDeptJob(delIds, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -151,7 +151,7 @@ public class SysDeptjobController extends FrameWorkController<DeptJob> implement
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"参数传入错误\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			Boolean flag = thisService.doSetDeptLeaderJob(deptId, deptJobId, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功\""));
@@ -190,7 +190,7 @@ public class SysDeptjobController extends FrameWorkController<DeptJob> implement
 		String ids = request.getParameter("ids");
 		String setIds = request.getParameter("setIds");
 		String setType = request.getParameter("types");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		Boolean flag = thisService.doSetSuperJob(ids, setIds, setType, currentUser);
 		if (flag) {

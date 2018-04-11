@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.sk.service.SkMeterBindService;
-import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
+import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
 import com.yc.q1.model.base.sk.SkMeterBind;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;

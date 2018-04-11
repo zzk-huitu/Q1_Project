@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.system.dao;
 
-import com.yc.q1.model.base.pt.system.UserDeptRight;
+import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -13,6 +13,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
 
-public interface UserDeptRightDao extends BaseDao<UserDeptRight> {
+public interface UserDeptRightDao extends BaseDao<PtUserDeptRight> {
 
 }

@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yc.q1.base.pt.basic.service.CampusService;
 import com.yc.q1.base.pt.build.service.RoomAreaService;
-import com.yc.q1.model.base.pt.basic.Campus;
-import com.yc.q1.model.base.pt.basic.School;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCampus;
+import com.yc.q1.model.base.pt.basic.PtSchool;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -38,7 +38,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseCampus")
-public class BaseCampusController extends FrameWorkController<Campus> implements Constant {
+public class BaseCampusController extends FrameWorkController<PtCampus> implements Constant {
 
     @Resource
     CampusService thisService; // service层接口
@@ -55,10 +55,10 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
      */
     @RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
             org.springframework.web.bind.annotation.RequestMethod.POST })
-    public void list(Campus entity, HttpServletRequest request, HttpServletResponse response)
+    public void list(PtCampus entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException {
         String strData = ""; // 返回给js的数据
-        QueryResult<Campus> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+        QueryResult<PtCampus> qr = thisService.queryPageResult(super.start(request), super.limit(request),
                 super.sort(request), super.filter(request), true);
 
         strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -76,7 +76,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
      */
     @Auth("BASECAMPUS_add")
     @RequestMapping("/doAdd")
-    public void doAdd(Campus entity, HttpServletRequest request, HttpServletResponse response)
+    public void doAdd(PtCampus entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String campusName = entity.getCampusName();
@@ -121,7 +121,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
         	defaultOrderIndex=1;
         
 		entity.setOrderIndex(defaultOrderIndex);
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         //持久化到数据库
         entity = thisService.doAdd(entity, currentUser);
         if (ModelUtil.isNotNull(entity)) {
@@ -147,7 +147,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
             throws IOException, IllegalAccessException, InvocationTargetException {
         String delIds = request.getParameter("ids");
         Map<String,Object> hashMap = new HashMap<String,Object>();
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
         if (StringUtils.isEmpty(delIds)) {
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
             return;
@@ -177,7 +177,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
             writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
             return;
         } else {
-        	User currentUser = getCurrentSysUser();
+        	PtUser currentUser = getCurrentSysUser();
             boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE,currentUser.getId());
             if (flag) {
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -194,7 +194,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
      */
     @Auth("BASECAMPUS_update")
     @RequestMapping("/doUpdate")
-    public void doUpdates(Campus entity, HttpServletRequest request, HttpServletResponse response)
+    public void doUpdates(PtCampus entity, HttpServletRequest request, HttpServletResponse response)
             throws IOException, IllegalAccessException, InvocationTargetException {
 
         String campusName = entity.getCampusName();
@@ -220,7 +220,7 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
                 return;
             }
         }
-        User currentUser = getCurrentSysUser();
+        PtUser currentUser = getCurrentSysUser();
 
         //持久化到数据库
         entity = thisService.doUpdate(entity, currentUser);
@@ -234,9 +234,9 @@ public class BaseCampusController extends FrameWorkController<Campus> implements
 
     }
     @RequestMapping("/getSchool")
-    public  @ResponseBody School getSchool(HttpServletRequest request, HttpServletResponse response){
+    public  @ResponseBody PtSchool getSchool(HttpServletRequest request, HttpServletResponse response){
     	String hql = " from School";
-    	School baseSchool = thisService.getEntityByHql(hql);
+    	PtSchool baseSchool = thisService.getEntityByHql(hql);
         return baseSchool;
     }
 }

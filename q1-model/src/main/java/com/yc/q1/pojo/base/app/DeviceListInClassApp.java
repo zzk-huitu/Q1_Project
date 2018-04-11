@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.yc.q1.model.base.pt.device.Term;
+import com.yc.q1.model.base.pt.device.PtTerm;
 
 
 public class DeviceListInClassApp {
@@ -30,7 +30,7 @@ public class DeviceListInClassApp {
 	public void setDeviceInfo(List<Map<String, Object>> deviceInfo) {
 		this.deviceInfo = deviceInfo;
 	}
-	public void putVal(Term term) {
+	public void putVal(PtTerm term) {
 		if(this.deviceInfo==null){
 			deviceInfo=new ArrayList<Map<String, Object>>();
 		}

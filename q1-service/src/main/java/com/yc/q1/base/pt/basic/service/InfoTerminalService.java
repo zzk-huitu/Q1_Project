@@ -2,8 +2,8 @@ package com.yc.q1.base.pt.basic.service;
 
 import java.util.List;
 
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -17,7 +17,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface InfoTerminalService extends BaseService<InfoTerminal> {
+public interface InfoTerminalService extends BaseService<PtInfoTerminal> {
 
 	/**
 	 * 数据列表
@@ -34,7 +34,7 @@ public interface InfoTerminalService extends BaseService<InfoTerminal> {
 	 *            为true表示只列出未删除的， 为false表示列出所有
 	 * @return
 	 */
-	public QueryResult<InfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
+	public QueryResult<PtInfoTerminal> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete);
 
 	/**
 	 * 根据主键逻辑删除数据
@@ -45,7 +45,7 @@ public interface InfoTerminalService extends BaseService<InfoTerminal> {
 	 *            当前操作的用户
 	 * @return 操作成功返回true，否则返回false
 	 */
-	public Boolean doLogicDeleteByIds(String ids, User currentUser);
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser);
 
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
@@ -56,7 +56,7 @@ public interface InfoTerminalService extends BaseService<InfoTerminal> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public InfoTerminal doUpdateEntity(InfoTerminal entity, User currentUser);
+	public PtInfoTerminal doUpdateEntity(PtInfoTerminal entity, PtUser currentUser);
 
 	/**
 	 * 将传入的实体对象持久化到数据
@@ -71,7 +71,7 @@ public interface InfoTerminalService extends BaseService<InfoTerminal> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public InfoTerminal doAddEntity(InfoTerminal entity, User currentUser, Integer beforeNumber, Integer termCount);
+	public PtInfoTerminal doAddEntity(PtInfoTerminal entity, PtUser currentUser, Integer beforeNumber, Integer termCount);
 
-	public Boolean doSetTerminal(List<InfoTerminal> terminals, String roomId, String roomName, User currentUser);
+	public Boolean doSetTerminal(List<PtInfoTerminal> terminals, String roomId, String roomName, PtUser currentUser);
 }

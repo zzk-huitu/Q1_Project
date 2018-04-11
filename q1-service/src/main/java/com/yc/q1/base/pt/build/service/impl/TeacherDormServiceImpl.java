@@ -20,9 +20,9 @@ import com.yc.q1.base.pt.build.service.OfficeAllotService;
 import com.yc.q1.base.pt.build.service.TeacherDormService;
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.TeacherDorm;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtTeacherDorm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -41,10 +41,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> implements TeacherDormService {
+public class TeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> implements TeacherDormService {
 
 	@Resource(name = "TeacherDormDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<TeacherDorm> dao) {
+	public void setDao(BaseDao<PtTeacherDorm> dao) {
 		super.setDao(dao);
 	}
 
@@ -67,8 +67,8 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public QueryResult<TeacherDorm> list(Integer start, Integer limit, String sort, String filter, String whereSql,
-			String orderSql, User currentUser) {
+	public QueryResult<PtTeacherDorm> list(Integer start, Integer limit, String sort, String filter, String whereSql,
+			String orderSql, PtUser currentUser) {
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
@@ -85,14 +85,14 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 				hql.append(" order by  " + sortSql);
 		}
 
-		QueryResult<TeacherDorm> qResult = this.queryResult(hql.toString(), start, limit);
+		QueryResult<PtTeacherDorm> qResult = this.queryResult(hql.toString(), start, limit);
 		return qResult;
 	}
 
 	@Override
-	public Boolean doOut(String outIds, User currentUser) {
+	public Boolean doOut(String outIds, PtUser currentUser) {
 		boolean flag = false;
-		TeacherDorm entity = null;
+		PtTeacherDorm entity = null;
 		// MjUserright userRight = null;
 		String[] outId = outIds.split(",");
 		for (String id : outId) {
@@ -111,7 +111,7 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 	}
 
 	@Override
-	public Boolean doAddDormTea(TeacherDorm entity, Map hashMap, HttpServletRequest request, User currentUser)
+	public Boolean doAddDormTea(PtTeacherDorm entity, Map hashMap, HttpServletRequest request, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
 		String roomName = request.getParameter("roomName");
@@ -132,14 +132,14 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 
 		StringBuffer teaName = new StringBuffer();
 		StringBuffer teaInRoom = new StringBuffer();
-		TeacherDorm perEntity = null;
+		PtTeacherDorm perEntity = null;
 		for (int i = 0; i < tteacIdArr.length; i++) {
 			// 查询此教师当前是否在入住此宿舍
 			String hql = " from TeacherDorm where isDelete = 0 and inOutState=0 and teacherId = '" + tteacIdArr[i]
 					+ "' ";
-			List<TeacherDorm> lists = this.queryByHql(hql);
+			List<PtTeacherDorm> lists = this.queryByHql(hql);
 			if (lists.size() > 0) {
-				for (TeacherDorm dormEntity : lists) {
+				for (PtTeacherDorm dormEntity : lists) {
 					teaName.append(dormEntity.getName() + ',');
 					teaInRoom.append(dormEntity.getDormName() + ',');
 				}
@@ -147,7 +147,7 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 				hashMap.put("flag", flag);
 				continue;
 			}
-			perEntity = new TeacherDorm();
+			perEntity = new PtTeacherDorm();
 			BeanUtils.copyProperties(perEntity, entity, excludedProp);
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
 			perEntity.setOrderIndex(orderIndex);// 排序
@@ -158,7 +158,7 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 			perEntity.setBedNo(Integer.parseInt(bedCount[i]));
 			
 			// 持久化到数据库
-			perEntity.setId(keyRedisService.getId(TeacherDorm.ModuleType));	//手动设置id
+			perEntity.setId(keyRedisService.getId(PtTeacherDorm.ModuleType));	//手动设置id
 			entity = this.merge(perEntity);
 
 			// 写入门禁权限
@@ -190,7 +190,7 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 
 	@Override
 	public Boolean doDelete(String delIds) {
-		TeacherDorm entity = null;
+		PtTeacherDorm entity = null;
 		boolean flag = false;
 		String[] delId = delIds.split(",");
 		for (String id : delId) {
@@ -207,7 +207,7 @@ public class TeacherDormServiceImpl extends BaseServiceImpl<TeacherDorm> impleme
 	public void doSettingOff(String roomIds) {
 		String[] roomId = roomIds.split(",");
 		String teacDormSql = "";
-		DormDefine dorm = null;
+		PtDormDefine dorm = null;
 		// List list = new ArrayList<>();
 		for (String teacRoomId : roomId) {
 			teacDormSql = "select count(*) from T_PT_TeacherDorm a join T_PT_DormDefine b  "

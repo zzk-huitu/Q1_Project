@@ -1,8 +1,8 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.TeacherBaseInfo;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -16,7 +16,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface TeacherBaseInfoService extends BaseService<TeacherBaseInfo> {
+public interface TeacherBaseInfoService extends BaseService<PtTeacherBaseInfo> {
 
 	/**
 	 * 
@@ -44,8 +44,8 @@ public interface TeacherBaseInfoService extends BaseService<TeacherBaseInfo> {
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	public QueryResult<TeacherBaseInfo> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
-			String qureyFilter, Boolean isDelete, String deptId, User currentUser);
+	public QueryResult<PtTeacherBaseInfo> getDeptTeacher(Integer start, Integer limit, String sort, String filter,
+			String qureyFilter, Boolean isDelete, String deptId, PtUser currentUser);
 
 	/**
 	 * 
@@ -59,7 +59,7 @@ public interface TeacherBaseInfoService extends BaseService<TeacherBaseInfo> {
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	public Boolean batchSetDept(String deptId, String userIds, User cuurentUser);
+	public Boolean batchSetDept(String deptId, String userIds, PtUser cuurentUser);
 
 	/**
 	 * 
@@ -73,13 +73,13 @@ public interface TeacherBaseInfoService extends BaseService<TeacherBaseInfo> {
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	public Boolean delTeaFromDept(String deptId, String userIds, User currentUser);
+	public Boolean delTeaFromDept(String deptId, String userIds, PtUser currentUser);
 
-	public Boolean setTeaToJob(String jobId, String userIds, User cuurentUser);
+	public Boolean setTeaToJob(String jobId, String userIds, PtUser cuurentUser);
 
-	public Boolean delTeaFromJob(String deptId, String userIds, User cuurentUser);
+	public Boolean delTeaFromJob(String deptId, String userIds, PtUser cuurentUser);
 
-	public QueryResult<Department> getTeahcerJobList(TeacherBaseInfo teahcher, User currentUser);
+	public QueryResult<PtDepartment> getTeahcerJobList(PtTeacherBaseInfo teahcher, PtUser currentUser);
 
 	/**
 	 * 拼装指定教师的岗位的数据
@@ -88,7 +88,7 @@ public interface TeacherBaseInfoService extends BaseService<TeacherBaseInfo> {
 	 *            要拼装的教师
 	 * @return 返回格式如 岗位ID1|岗位ID2,岗位名称1,岗位名称2
 	 */	
-	public String getTeacherJobs(TeacherBaseInfo teacher);
+	public String getTeacherJobs(PtTeacherBaseInfo teacher);
 
 	/**
 	 * 拼装指定教师的部门的数据
@@ -97,11 +97,11 @@ public interface TeacherBaseInfoService extends BaseService<TeacherBaseInfo> {
 	 *            要拼装的教师
 	 * @return 返回格式如 部门ID1|部门ID2,部门名称1,部门名称2
 	 */
-	public String getTeacherDepts(TeacherBaseInfo teacher);
+	public String getTeacherDepts(PtTeacherBaseInfo teacher);
 	
-	public QueryResult<TeacherBaseInfo> getCourseTeacherlist(Integer start, Integer limit, String sort, String filter,
+	public QueryResult<PtTeacherBaseInfo> getCourseTeacherlist(Integer start, Integer limit, String sort, String filter,
 			String whereSql, String orderSql, String querySql, Boolean isDelete);
 	
-	public TeacherBaseInfo doAddTeacher(TeacherBaseInfo teacher, User currentUser/*, String deptJobId*/);
+	public PtTeacherBaseInfo doAddTeacher(PtTeacherBaseInfo teacher, PtUser currentUser/*, String deptJobId*/);
 
 }

@@ -20,9 +20,9 @@ import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.FuncRoomDefineService;
 import com.yc.q1.base.pt.build.service.OfficeDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -37,7 +37,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseRoomdefine")
-public class BaseRoomdefineController extends FrameWorkController<RoomInfo> implements Constant {
+public class BaseRoomdefineController extends FrameWorkController<PtRoomInfo> implements Constant {
 
 	@Resource
 	private RoomInfoService thisService; // service层接口
@@ -61,13 +61,13 @@ public class BaseRoomdefineController extends FrameWorkController<RoomInfo> impl
 	 */
     @Auth("BASEROOMDEFINE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(RoomInfo entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtRoomInfo entity, HttpServletRequest request, HttpServletResponse response)
 			throws Exception, IllegalAccessException, InvocationTargetException {
 
 		boolean flag = true;
 		
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String userCh =  currentUser.getId();
 		
 		// 在add前判断房间名称是否唯一
@@ -101,7 +101,7 @@ public class BaseRoomdefineController extends FrameWorkController<RoomInfo> impl
 		Boolean flag = false;
 		
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String xm = currentUser.getId();
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String delIds = request.getParameter("ids");
@@ -123,10 +123,10 @@ public class BaseRoomdefineController extends FrameWorkController<RoomInfo> impl
     
     
 	@RequestMapping("/doUpdate")
-	public void doUpdate(DormDefine entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdate(PtDormDefine entity, HttpServletRequest request, HttpServletResponse response)
 			throws Exception, IOException, IllegalAccessException, InvocationTargetException {
 
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		entity = dormRoomService.doUpdateEntity(entity, currentUser);
 
 		if (ModelUtil.isNotNull(entity))
@@ -149,7 +149,7 @@ public class BaseRoomdefineController extends FrameWorkController<RoomInfo> impl
 	@RequestMapping("/getDormEntity")
 	public void getDormEntity(String roomId, HttpServletRequest request, HttpServletResponse response)
 			throws Exception, IOException, IllegalAccessException, InvocationTargetException {
-		DormDefine entity = null;
+		PtDormDefine entity = null;
 		if (!roomId.isEmpty()) {
 			entity = dormRoomService.getByRoomId(roomId);
 		}
@@ -167,7 +167,7 @@ public class BaseRoomdefineController extends FrameWorkController<RoomInfo> impl
 	 */
 	@RequestMapping(value = { "/onKeylist" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void onKeylist(@ModelAttribute DormDefine entity, HttpServletRequest request, HttpServletResponse response)
+	public void onKeylist(@ModelAttribute PtDormDefine entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -203,7 +203,7 @@ public class BaseRoomdefineController extends FrameWorkController<RoomInfo> impl
 			   filter = filter.substring(0, filter.length()-1);
 			   filter+=",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""+ areaId+"\",\"field\":\"roomId\"}"+"]";
 			}
-		QueryResult<DormDefine> qr = dormRoomService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtDormDefine> qr = dormRoomService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据

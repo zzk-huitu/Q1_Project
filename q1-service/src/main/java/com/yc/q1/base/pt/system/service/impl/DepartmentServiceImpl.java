@@ -24,12 +24,12 @@ import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.DeptRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.BaseCourse;
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.system.Department;
-import com.yc.q1.model.base.pt.system.MenuPermission;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtBaseCourse;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.system.PtDepartment;
+import com.yc.q1.model.base.pt.system.PtMenuPermission;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.DepartmentTree;
 import com.zd.core.constant.Constant;
@@ -51,10 +51,10 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class DepartmentServiceImpl extends BaseServiceImpl<Department> implements DepartmentService {
+public class DepartmentServiceImpl extends BaseServiceImpl<PtDepartment> implements DepartmentService {
 
 	@Resource(name = "DepartmentDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Department> dao) {
+	public void setDao(BaseDao<PtDepartment> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -79,12 +79,12 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	private UserService sysUserService; // 人员service
 
 	@Override
-	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, User currentUser) {
+	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, PtUser currentUser) {
 
 		
 		String hql = " from Department where isDelete = 0 order by parentNode,orderIndex";
 		List<DepartmentTree> result = new ArrayList<DepartmentTree>();
-		List<Department> lists = this.queryByHql(hql);
+		List<PtDepartment> lists = this.queryByHql(hql);
 		// for (BaseOrg baseOrg : rightDept) {
 		// maps.put(baseOrg.getId(), baseOrg);
 		// }
@@ -94,11 +94,11 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		return result;
 	}
 
-	private void createChild(DepartmentTree parentNode, List<DepartmentTree> result, List<Department> list) {
+	private void createChild(DepartmentTree parentNode, List<DepartmentTree> result, List<PtDepartment> list) {
 		
-		List<Department> childs = new ArrayList<Department>();
+		List<PtDepartment> childs = new ArrayList<PtDepartment>();
 		String isRight = "1";
-		for (Department org : list) {
+		for (PtDepartment org : list) {
 			if (org.getParentNode().equals(parentNode.getId())) {
 				childs.add(org);
 			}
@@ -111,7 +111,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		// parent, Integer orderIndex,
 		// String deptType, String deptTypeName, String mainLeaderName, String
 		// viceLeaderName)
-		for (Department org : childs) {
+		for (PtDepartment org : childs) {
 			// if (maps.get(org.getId()) == null) {
 			// isRight = "1";
 			// } else {
@@ -136,7 +136,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	}
 
 	@Override
-	public String delOrg(String delIds, User currentUser) {
+	public String delOrg(String delIds, PtUser currentUser) {
 		// 删除班级
 		//boolean flag = gradeService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 		// 删除年级
@@ -149,29 +149,29 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	
 		String[] delUuid = delIds.split(",");
 		for (String id : delUuid) {
-			Department org = this.get(id);
+			PtDepartment org = this.get(id);
 			String hql = "select count(*) from Department where parentNode='" + org.getParentNode() + "' and isDelete=0";
 			Integer count = this.getQueryCountByHql(hql);
 			if (count.equals(0)) {
-				Department parentOrg = this.get(org.getParentNode());
+				PtDepartment parentOrg = this.get(org.getParentNode());
 				parentOrg.setLeaf(true);
 				parentOrg.setUpdateUser(currentUser.getId());
 				parentOrg.setUpdateTime(new Date());
 				this.merge(parentOrg);
 			}
 			String deptType = org.getDeptType();
-			List<User> deptUser = sysUserService.getUserByDeptId(id);
+			List<PtUser> deptUser = sysUserService.getUserByDeptId(id);
 			if (deptUser != null && deptUser.size() > 0) {
 				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				return org.getNodeText() + "部门下存在人员,请删除后重试";
 			}
 			switch (deptType) {
 			case "04": // 年级
-				Grade grade = gradeService.get(id);
+				PtGrade grade = gradeService.get(id);
 				hql = "from GradeClass where gradeId='" + id + "'";
-				List<GradeClass> gradeclasses = classService.queryByHql(hql);
+				List<PtGradeClass> gradeclasses = classService.queryByHql(hql);
 				// 检查年级下的班级是否存在人员
-				for (GradeClass jwTGradeclass : gradeclasses) {
+				for (PtGradeClass jwTGradeclass : gradeclasses) {
 					hql = "select count(*) from ClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
 							+ "'";
 					count = this.getQueryCountByHql(hql);
@@ -213,7 +213,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 						return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 					}
 				}
-				for (GradeClass jwTGradeclass : gradeclasses) {
+				for (PtGradeClass jwTGradeclass : gradeclasses) {
 					jwTGradeclass.setIsDelete(1);
 					classService.merge(jwTGradeclass);
 				}
@@ -221,7 +221,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 				gradeService.merge(grade);
 				break;
 			case "05": // 班级
-				GradeClass jwTGradeclass = classService.get(id);
+				PtGradeClass jwTGradeclass = classService.get(id);
 				hql = "select count(*) from ClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
@@ -287,7 +287,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	 *      com.zd.school.plartform.system.model.SysUser)
 	 */
 	@Override
-	public Department addOrg(Department entity, User currentUser)
+	public PtDepartment addOrg(PtDepartment entity, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		String parentNode = entity.getParentNode();
 		String parentName = entity.getParentName();
@@ -295,16 +295,16 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		Integer orderIndex = entity.getOrderIndex();
 		String deptType = entity.getDeptType();
 		String parentType = entity.getParentType();
-		entity.setId(keyRedisService.getId(Department.ModuleType));
+		entity.setId(keyRedisService.getId(PtDepartment.ModuleType));
 		// 插入部门数据
 		// BaseOrg saveEntity = null;
 		String courseId = null;
 		if (deptType.equals("06")) {
-			BaseCourse course = courseService.getByProerties("courseName", nodeText);
+			PtBaseCourse course = courseService.getByProerties("courseName", nodeText);
 			courseId = course.getId();
 		}
 
-		Department saveEntity = new Department();
+		PtDepartment saveEntity = new PtDepartment();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		BeanUtils.copyProperties(saveEntity, entity,excludedProp);	
@@ -316,7 +316,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		saveEntity.setCourseId(courseId);
 		
 		if (!parentNode.equals(TreeVeriable.ROOT)) {
-			Department parEntity = this.get(parentNode);
+			PtDepartment parEntity = this.get(parentNode);
 			parEntity.setLeaf(false);
 			this.merge(parEntity);
 			saveEntity.BuildNode(parEntity);		
@@ -340,7 +340,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		String orgId = entity.getId();
 		switch (deptType) {
 		case "04": // 年级
-			Grade grade = new Grade(orgId);
+			PtGrade grade = new PtGrade(orgId);
 			grade.setGradeName(entity.getNodeText());
 			grade.setCreateUser(currentUser.getId());
 			grade.setOrderIndex(entity.getOrderIndex());
@@ -351,8 +351,8 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 			gradeService.merge(grade);
 			break;
 		case "05": // 班级
-			Grade gradea=gradeService.get(parentNode);
-			GradeClass gradeclass = new GradeClass(orgId);
+			PtGrade gradea=gradeService.get(parentNode);
+			PtGradeClass gradeclass = new PtGradeClass(orgId);
 			gradeclass.setClassName(entity.getNodeText());
 			gradeclass.setOrderIndex(entity.getOrderIndex());
 			gradeclass.setIsDelete(0);
@@ -371,12 +371,12 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	}
 
 	@Override
-	public List<Department> getOrgList(String whereSql, String orderSql, User currentUser) {
+	public List<PtDepartment> getOrgList(String whereSql, String orderSql, PtUser currentUser) {
 
 		StringBuffer hql = new StringBuffer(" from Department where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(orderSql);
-		List<Department> lists = this.queryByHql(hql.toString());// 执行查询方法
+		List<PtDepartment> lists = this.queryByHql(hql.toString());// 执行查询方法
 
 		// 当前登录人的部门信息
 		// String deptId = currentUser.getDeptId();
@@ -446,14 +446,14 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	}
 
 	@Override
-	public List<Department> getOrgAndChildList(String deptId, String orderSql, User currentUser, Boolean isRight) {
+	public List<PtDepartment> getOrgAndChildList(String deptId, String orderSql, PtUser currentUser, Boolean isRight) {
 
 		String treeIds = "";
 		String sql = "";
 		StringBuffer rightDeptIds = new StringBuffer();
-		Department selfDept = this.get(deptId);
-		List<Department> rightList = new ArrayList<Department>();
-		List<Department> reList = new ArrayList<Department>();
+		PtDepartment selfDept = this.get(deptId);
+		List<PtDepartment> rightList = new ArrayList<PtDepartment>();
+		List<PtDepartment> reList = new ArrayList<PtDepartment>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
 			sql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
@@ -464,7 +464,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 			rightList = this.getOrgList("", "", currentUser);
 			List<Object> filterList = new ArrayList<Object>();
 			if (rightList.size() > 0) {
-				for (Department bg : rightList) {
+				for (PtDepartment bg : rightList) {
 					filterList.add(bg.getId());
 				}
 				sql += " and id in (:depts)";
@@ -486,10 +486,10 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	}
 
 	@Override
-	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, User currentUser) {
+	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, String deptId, PtUser currentUser) {
 
 		// 先查询出当前用户有权限的部门数据
-		List<Department> listOrg = this.getOrgList(whereSql, orderSql, currentUser);
+		List<PtDepartment> listOrg = this.getOrgList(whereSql, orderSql, currentUser);
 		// 根据部门数据生成带checkbox的树
 
 		List<DepartmentTree> result = new ArrayList<DepartmentTree>();
@@ -503,9 +503,9 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		return result;
 	}
 
-	private void createDeptChildTree(DepartmentTree parentNode, List<DepartmentTree> result, List<Department> list,String deptId) {
-		List<Department> childs = new ArrayList<Department>();
-		for (Department org : list) {
+	private void createDeptChildTree(DepartmentTree parentNode, List<DepartmentTree> result, List<PtDepartment> list,String deptId) {
+		List<PtDepartment> childs = new ArrayList<PtDepartment>();
+		for (PtDepartment org : list) {
 			if (org.getId().equals(deptId)) {
 				childs.add(org);
 				continue;
@@ -516,7 +516,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 			}
 		}
 		
-		for (Department org : childs) {
+		for (PtDepartment org : childs) {
 			DepartmentTree child = new DepartmentTree(org.getId(), org.getNodeText(), "", org.getLeaf(), org.getNodeLevel(),
 					org.getTreeIds(),org.getParentNode(),org.getOrderIndex(), new ArrayList<DepartmentTree>(),
 					org.getOutPhone(), org.getInPhone(), org.getFax(), org.getIsSystem(), org.getRemark(),
@@ -539,7 +539,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		String treeIds = "";
 		String hql = "";
 		StringBuffer sbOrgIds = new StringBuffer();
-		Department selfDept = this.get(orgId);
+		PtDepartment selfDept = this.get(orgId);
 
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
@@ -547,11 +547,11 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		} else {
 			hql = " from Department WHERE isDelete=0 ";
 		}
-		List<Department> reList = this.queryByHql(hql);
+		List<PtDepartment> reList = this.queryByHql(hql);
 		if (!isSelf) {
 			reList.remove(selfDept);
 		}
-		for (Department baseOrg : reList) {
+		for (PtDepartment baseOrg : reList) {
 			sbOrgIds.append(baseOrg.getId() + ",");
 		}
 
@@ -564,23 +564,23 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	}
 
 	@Override
-	public Map<String, Department> getOrgChildMaps(String orgId, boolean isSelf) {
+	public Map<String, PtDepartment> getOrgChildMaps(String orgId, boolean isSelf) {
 		String treeIds = "";
 		String hql = "";
 		StringBuffer sbOrgIds = new StringBuffer();
-		Department selfDept = this.get(orgId);
-		Map<String, Department> maps = new HashMap<String, Department>();
+		PtDepartment selfDept = this.get(orgId);
+		Map<String, PtDepartment> maps = new HashMap<String, PtDepartment>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
 			hql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
 			hql = " from Department WHERE isDelete=0 ";
 		}
-		List<Department> reList = this.queryByHql(hql);
+		List<PtDepartment> reList = this.queryByHql(hql);
 		if (!isSelf) {
 			reList.remove(selfDept);
 		}
-		for (Department baseOrg : reList) {
+		for (PtDepartment baseOrg : reList) {
 			maps.put(baseOrg.getId(), baseOrg);
 		}
 		// TODO Auto-generated method stub
@@ -590,14 +590,14 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 
 
 	@Override
-	public Department doUpdate(Department entity, String userId) {
+	public PtDepartment doUpdate(PtDepartment entity, String userId) {
 		String parentNode = entity.getParentNode();	
 		String nodeText = entity.getNodeText();
 		String uuid = entity.getId();
 		String deptType = entity.getDeptType();
 		
 		// 先拿到已持久化的实体
-		Department perEntity = this.get(uuid);
+		PtDepartment perEntity = this.get(uuid);
 		Boolean isLeaf = perEntity.getLeaf();
 		String oldDeptName = perEntity.getNodeText();
 		//String OldParentNode=perEntity.getParentNode();
@@ -616,7 +616,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 
 
 		// 更新父节点的是否叶节点的标记
-		Department parentOrg = this.get(parentNode);
+		PtDepartment parentOrg = this.get(parentNode);
 		if(parentOrg!=null){
 			parentOrg.setUpdateTime(new Date()); // 设置修改时间
 			parentOrg.setUpdateUser(userId); // 设置修改人的中文名
@@ -638,7 +638,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		entity = this.merge(perEntity);// 执行修改方法
 		
 		if (deptType.equals("04")) { // 年级
-			Grade grade = gradeService.get(uuid);
+			PtGrade grade = gradeService.get(uuid);
 			grade.setGradeName(nodeText);
 			grade.setUpdateUser(userId);
 			grade.setOrderIndex(entity.getOrderIndex());
@@ -648,7 +648,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 			grade.setGradeCode(entity.getSectionCode()+entity.getGrade());
 			gradeService.merge(grade);
 		} else if (deptType.equals("05")) { // 班级
-			GradeClass gradeclass = classService.get(uuid);
+			PtGradeClass gradeclass = classService.get(uuid);
 			gradeclass.setClassName(nodeText);
 			gradeclass.setUpdateUser(userId);
 			gradeclass.setOrderIndex(entity.getOrderIndex());
@@ -690,7 +690,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		this.doExecuteCountByHql(updateHql3);	
 	}
 	@Override
-	public void setChildAllDeptName(Department dept,String parentAllDeptName){	
+	public void setChildAllDeptName(PtDepartment dept,String parentAllDeptName){	
 		//1.设置当前类的全部门名
 		String currentAllName="";
 		if(!"ROOT".equals(parentAllDeptName))
@@ -706,7 +706,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 		this.doExecuteCountByHql(updateHql);	
 		
 		//3.递归遍历设置子部门的全部门名
-		List<Department> childDepts = this.queryByProerties(new String[]{"isDelete","parentNode"}, new Object[]{0,dept.getId()});
+		List<PtDepartment> childDepts = this.queryByProerties(new String[]{"isDelete","parentNode"}, new Object[]{0,dept.getId()});
 		for(int i=0;i<childDepts.size();i++){
 			this.setChildAllDeptName(childDepts.get(i),currentAllName);
 		}
@@ -784,11 +784,11 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	
 
 	@Override
-	public List<Department> getUserRightDeptList(User currentUser) {
+	public List<PtDepartment> getUserRightDeptList(PtUser currentUser) {
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
 		String hql = "";
-		List<Department> list = new ArrayList<>();
+		List<PtDepartment> list = new ArrayList<>();
 		if ("0".equals(rightType )) {
 			// 有所有部门权限
 			hql = " from Department WHERE isDelete=0 order by parentNode,orderIndex asc ";
@@ -801,11 +801,11 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 					"SELECT DEPT_ID ,CREATE_TIME ,CREATE_USER ,EXT_FIELD01 ,EXT_FIELD02 ,EXT_FIELD03 ,EXT_FIELD04 ,EXT_FIELD05 ,ISDELETE ,ORDER_INDEX ,UPDATE_TIME ,UPDATE_USER ,VERSION ,ISLEAF ,NODE_CODE ,NODE_LEVEL ,NODE_TEXT ,PARENT_NODE ,TREE_IDS ,DEPT_TYPE ,FAX ,IN_PHONE ,ISSYSTEM ,MAIN_LEADER ,OUT_PHONE ,REMARK ,VICE_LEADER ,SUPER_JOB ,SUPER_DEPT ,ALL_DEPTNAME ,SUPERDEPT_NAME ,SUPERJOB_NAME FROM V_PT_UserRightDept WHERE USER_ID=''{0}'' ORDER BY PARENT_NODE,ORDER_INDEX ASC",
 					userId);
 			List<?> alist = this.querySql(sql);
-			Department dept = null;
+			PtDepartment dept = null;
 			Integer length = alist.size();
 			for (int i = 0; i < length; i++) {
 				Object[] obj = (Object[]) alist.get(i);
-				dept = new Department();
+				dept = new PtDepartment();
 				dept.setId((String) obj[0]);
 				dept.setIsDelete((Integer) obj[8]);
 				dept.setOrderIndex((Integer) obj[9]);
@@ -838,7 +838,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	
 	@Transactional(readOnly=true)
 	@Override
-	public DepartmentTree getUserRightDeptTree(User currentUser, String rootId) {
+	public DepartmentTree getUserRightDeptTree(PtUser currentUser, String rootId) {
 		//1.查询部门的数据，并封装到实体类中
 		List<DepartmentTree> list = getUserRightDeptTreeList(currentUser);
 		
@@ -860,7 +860,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	
 	@Transactional(readOnly=true)
 	@Override
-	public List<DepartmentTree> getUserRightDeptTreeList(User currentUser) {
+	public List<DepartmentTree> getUserRightDeptTreeList(PtUser currentUser) {
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
 		
@@ -941,7 +941,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	 */
 	@Transactional(readOnly=true)
 	@Override
-	public List<CommTree> getUserRightDeptClassTreeList(User currentUser) {
+	public List<CommTree> getUserRightDeptClassTreeList(PtUser currentUser) {
 				
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
@@ -997,7 +997,7 @@ public class DepartmentServiceImpl extends BaseServiceImpl<Department> implement
 	 */
 	@Transactional(readOnly=true)
 	@Override
-	public List<CommTree> getUserRightDeptDisciplineTreeList(User currentUser) {
+	public List<CommTree> getUserRightDeptDisciplineTreeList(PtUser currentUser) {
 		String userId = currentUser.getId();
 		String rightType = currentUser.getRightType();
 		

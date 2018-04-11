@@ -10,9 +10,9 @@ import com.yc.q1.base.pt.system.service.DataDictService;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.yc.q1.base.redis.service.DicItemRedisService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.AppInfo;
-import com.yc.q1.model.base.pt.system.DataDict;
-import com.yc.q1.model.base.pt.system.DataDictItem;
+import com.yc.q1.model.base.pt.system.PtAppInfo;
+import com.yc.q1.model.base.pt.system.PtDataDict;
+import com.yc.q1.model.base.pt.system.PtDataDictItem;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -28,10 +28,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class DataDictItemServiceImpl extends BaseServiceImpl<DataDictItem> implements DataDictItemService {
+public class DataDictItemServiceImpl extends BaseServiceImpl<PtDataDictItem> implements DataDictItemService {
 
 	@Resource(name = "DataDictItemDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<DataDictItem> dao) {
+	public void setDao(BaseDao<PtDataDictItem> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -43,16 +43,16 @@ public class DataDictItemServiceImpl extends BaseServiceImpl<DataDictItem> imple
 	private DicItemRedisService dicItemRedisService;
 
 	@Override
-	public DataDictItem doAdd(DataDictItem entity, String xm) {
+	public PtDataDictItem doAdd(PtDataDictItem entity, String xm) {
 		// TODO Auto-generated method stub
 
 		// 当前节点
-		entity.setId(keyRedisService.getId(DataDictItem.ModuleType));
+		entity.setId(keyRedisService.getId(PtDataDictItem.ModuleType));
 		entity = this.doAddEntity(entity, xm);
 
 		if (entity != null) {
 			// 删除reids中的此数据字典缓存，以至于下次请求时重新从库中获取
-			DataDict baseDic = dictionaryService.get(entity.getDictId());
+			PtDataDict baseDic = dictionaryService.get(entity.getDictId());
 			
 			dicItemRedisService.deleteByDicCode( baseDic.getDicCode());
 			
@@ -61,7 +61,7 @@ public class DataDictItemServiceImpl extends BaseServiceImpl<DataDictItem> imple
 	}
 
 	@Override
-	public DataDictItem doUpdate(DataDictItem entity, String xm) {
+	public PtDataDictItem doUpdate(PtDataDictItem entity, String xm) {
 		// TODO Auto-generated method stub
 
 		// 先拿到已持久化的实体
@@ -81,7 +81,7 @@ public class DataDictItemServiceImpl extends BaseServiceImpl<DataDictItem> imple
 		boolean flag = this.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,xm);
        
 		if(delIds.length()>0){
-			DataDictItem baseDicItem=this.get(delIds.split(",")[0]);
+			PtDataDictItem baseDicItem=this.get(delIds.split(",")[0]);
 			if(baseDicItem!=null){
 				//删除reids中的此数据字典缓存，以至于下次请求时重新从库中获取
 				dicItemRedisService.deleteByDicCode( baseDicItem.getDicCode());

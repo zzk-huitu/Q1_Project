@@ -21,14 +21,14 @@ import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.model.base.mj.MjUserRight;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
-import com.yc.q1.model.base.pt.basic.PushInfo;
-import com.yc.q1.model.base.pt.build.OfficeAllot;
-import com.yc.q1.model.base.pt.build.OfficeDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
+import com.yc.q1.model.base.pt.basic.PtPushInfo;
+import com.yc.q1.model.base.pt.build.PtOfficeAllot;
+import com.yc.q1.model.base.pt.build.PtOfficeDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -44,10 +44,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> implements OfficeAllotService {
+public class OfficeAllotServiceImpl extends BaseServiceImpl<PtOfficeAllot> implements OfficeAllotService {
 	
 	@Resource(name = "OfficeAllotDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<OfficeAllot> dao) {
+	public void setDao(BaseDao<PtOfficeAllot> dao) {
 		super.setDao(dao);
 	}
 	
@@ -84,7 +84,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 	 * dorm：在学生宿舍分配门禁使用，通过它来找到roomId； classStu：班级学生，暂时不设置，已经取消了班级的方式。
 	 */
 	@Override
-	public boolean mjUserRight(String uuid, String roomId, String userId, StudentDorm dorm, ClassStudent classStu) {
+	public boolean mjUserRight(String uuid, String roomId, String userId, PtStudentDorm dorm, PtClassStudent classStu) {
 		try {
 			if (dorm != null) {// 学生宿舍门禁分配
 				String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); // 班级宿舍id
@@ -98,7 +98,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			String[] propName = { "termTypeId", "isDelete", "roomId" };
 			Object[] propValue = { "4", 0, roomId };
 			MjUserRight userRight = null;
-			List<Term> list = ptTermService.queryByProerties(propName, propValue);// 该房间是否有设备
+			List<PtTerm> list = ptTermService.queryByProerties(propName, propValue);// 该房间是否有设备
 			if (uuid == null || uuid.equals("")) {
 				if (list.size() > 0) {// 解除门禁权限
 					String[] uId = userId.split(","); // 房间分配解除门禁设置
@@ -147,13 +147,13 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 	}
 
 	@Override
-	public Boolean doAddRoom(OfficeAllot entity, Map hashMap, User currentUser)
+	public Boolean doAddRoom(PtOfficeAllot entity, Map hashMap, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
 		Boolean qxflag = false;
 		Integer orderIndex = 0;
-		OfficeAllot perEntity = null;
-		OfficeAllot valioff = null;
+		PtOfficeAllot perEntity = null;
+		PtOfficeAllot valioff = null;
 		String[] strId = null;// 多个老师id
 		StringBuffer xm = new StringBuffer();
 		StringBuffer roomName = new StringBuffer();
@@ -171,13 +171,13 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			}
 			// 保存房间分配信息
 			orderIndex = this.getDefaultOrderIndex(entity);
-			perEntity = new OfficeAllot();
+			perEntity = new PtOfficeAllot();
 			BeanUtils.copyPropertiesExceptNull(entity, perEntity);
 			entity.setCreateUser(currentUser.getId()); // 创建人
 			entity.setTeacherId(strId[i]);
 			entity.setOrderIndex(orderIndex);// 排序
 			
-			entity.setId(keyRedisService.getId(OfficeAllot.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtOfficeAllot.ModuleType));	//手动设置id
 			this.merge(entity); // 执行添加方法
 
 			qxflag = this.mjUserRight(strId[i], entity.getRoomId(), entity.getId(), null, null);
@@ -187,7 +187,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			 */
 			// 将办公室设置为已分配
 			String hql = " from OfficeDefine a where a.roomId='" + entity.getRoomId() + "' ";
-			OfficeDefine office = this.getEntityByHql(hql);
+			PtOfficeDefine office = this.getEntityByHql(hql);
 			if (office != null) {
 				office.setIsAllot(true);
 				offRoomService.merge(office);
@@ -202,14 +202,14 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 	@Override
 	public Boolean doPushMessage(String roomId) {
 		Boolean flag = false;
-		List<OfficeAllot> offTeas = null;
-		PushInfo pushInfo = null;
-		RoomInfo roominfo = null;
+		List<PtOfficeAllot> offTeas = null;
+		PtPushInfo pushInfo = null;
+		PtRoomInfo roominfo = null;
 		String[] str = { "roomId", "isDelete" };
 		Object[] str2 = { roomId, 0 };
 		offTeas = this.queryByProerties(str, str2);// 该办公室下的老师
-		for (OfficeAllot jwTOfficeAllot : offTeas) {
-			pushInfo = new PushInfo();
+		for (PtOfficeAllot jwTOfficeAllot : offTeas) {
+			pushInfo = new PtPushInfo();
 			pushInfo.setEmpleeName(jwTOfficeAllot.getName());// 姓名
 			pushInfo.setEmpleeNo(jwTOfficeAllot.getUserNumb());// 学号
 			pushInfo.setRegTime(new Date());
@@ -220,7 +220,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 			pushInfo.setRegStatus(pushInfo.getEmpleeName() + "您好，你的办公室分配在" + roominfo.getAreaUpName() + "，"
 					+ roominfo.getAreaName() + "，" + jwTOfficeAllot.getRoomName() + "房");
 			
-			pushInfo.setId(keyRedisService.getId(PushInfo.ModuleType));	//手动设置id
+			pushInfo.setId(keyRedisService.getId(PtPushInfo.ModuleType));	//手动设置id
 			pushService.merge(pushInfo);
 		}
 		flag = true;
@@ -229,7 +229,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 
 	@Override
 	public Boolean doDeleteOff(String delIds, String roomId, String tteacId) {
-		OfficeAllot offAllot = null;
+		PtOfficeAllot offAllot = null;
 		Boolean flag = false;
 		String offRoomId = "";
 		String[] delId = delIds.split(",");
@@ -245,7 +245,7 @@ public class OfficeAllotServiceImpl extends BaseServiceImpl<OfficeAllot> impleme
 	@Override
 	public void doOffSetOff(String roomIds) {
 		String[] roomId = roomIds.split(",");
-		OfficeDefine office = null;
+		PtOfficeDefine office = null;
 		String sql = "";
 		// List list =new ArrayList<>();
 		for (String officeRoomId : roomId) {

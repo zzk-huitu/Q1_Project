@@ -4,7 +4,7 @@ package com.yc.q1.base.pt.basic.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.basic.dao.InfoTerminalDao;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -21,5 +21,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class InfoTerminalDaoImpl extends BaseDaoImpl<InfoTerminal> implements InfoTerminalDao {
+public class InfoTerminalDaoImpl extends BaseDaoImpl<PtInfoTerminal> implements InfoTerminalDao {
 }

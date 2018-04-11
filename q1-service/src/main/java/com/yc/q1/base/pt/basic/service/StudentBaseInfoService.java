@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.StudentBaseInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -15,10 +15,10 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface StudentBaseInfoService extends BaseService<StudentBaseInfo> {
+public interface StudentBaseInfoService extends BaseService<PtStudentBaseInfo> {
 
-    public QueryResult<StudentBaseInfo> getStudentList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, String claiId, User currentUser);
+    public QueryResult<PtStudentBaseInfo> getStudentList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, String claiId, PtUser currentUser);
     
-    public StudentBaseInfo doAddStudent(StudentBaseInfo stuBaseInfo, User currentUser/*, String deptJobId*/);
+    public PtStudentBaseInfo doAddStudent(PtStudentBaseInfo stuBaseInfo, PtUser currentUser/*, String deptJobId*/);
 }

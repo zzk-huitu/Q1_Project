@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.service;
 
-import com.yc.q1.model.base.pt.device.IrRoomDevice;
+import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
 import com.zd.core.service.BaseService;
 
 
@@ -17,7 +17,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface IrRoomDeviceService extends BaseService<IrRoomDevice> {
+public interface IrRoomDeviceService extends BaseService<PtIrRoomDevice> {
 
 	public void doBindRoomBrand(String roomIds, String brandIds, String xm);
 	

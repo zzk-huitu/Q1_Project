@@ -20,14 +20,14 @@ import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.xf.service.RoomBagRuleBindService;
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.device.RoomBagRule;
-import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.device.PtRoomBagRule;
+import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkMeterBind;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -45,7 +45,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BasePtRoomBagsRuleBind")
-public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBagRuleBind> implements Constant {
+public class BasePtRoomBagsRuleBindController extends FrameWorkController<PtRoomBagRuleBind> implements Constant {
 
 	@Resource
 	RoomBagRuleBindService thisService; // service层接口
@@ -68,10 +68,10 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 	 */
 	@RequestMapping(value = { "/assignUserList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void AssignUserList(@ModelAttribute RoomBagRuleBind entity, HttpServletRequest request,
+	public void AssignUserList(@ModelAttribute PtRoomBagRuleBind entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<RoomBagRuleBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtRoomBagRuleBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -87,10 +87,10 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute RoomBagRuleBind entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtRoomBagRuleBind entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<RoomBagRuleBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtRoomBagRuleBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -102,7 +102,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void ruleRoomlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<RoomBagRuleBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtRoomBagRuleBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 		if (qr.getTotalCount() == 0) {
 			writeJSON(response, strData);// 返回数据
@@ -110,13 +110,13 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 		}
 
 		StringBuffer roomId = new StringBuffer();
-		for (RoomBagRuleBind ptSkMeterbind : qr.getResultList()) {
+		for (PtRoomBagRuleBind ptSkMeterbind : qr.getResultList()) {
 			roomId.append(ptSkMeterbind.getRoomId() + ",");
 		}
 		String filter = "[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""
 				+ roomId.substring(0, roomId.length() - 1) + "\",\"field\":\"id\"}]";
 		// String sor="[{\"property\":\"orderIndex\",\"direction\":\"DESC\"}]";
-		QueryResult<RoomInfo> termQr = roomInfoService.queryPageResult(0, 0, null, filter, true);
+		QueryResult<PtRoomInfo> termQr = roomInfoService.queryPageResult(0, 0, null, filter, true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), termQr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -132,13 +132,13 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 	 */
 	@RequestMapping(value = { "/userList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute StudentDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtStudentDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		DormDefine dormDefine = null;
-		List<ClassDormAllot> classDorm = new ArrayList<ClassDormAllot>();
-		List<StudentDorm> list = null;
-		List<StudentDorm> stuList = new ArrayList<>();
+		PtDormDefine dormDefine = null;
+		List<PtClassDormAllot> classDorm = new ArrayList<PtClassDormAllot>();
+		List<PtStudentDorm> list = null;
+		List<PtStudentDorm> stuList = new ArrayList<>();
 
 		String roomId = request.getParameter("roomId");
 
@@ -178,7 +178,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 	 */
 	@Auth("ROOM_BAG_RULE_binding")
 	@RequestMapping("/doAdd")
-	public void doAdd(RoomBagRuleBind entity, String meterId, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtRoomBagRuleBind entity, String meterId, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String roomIds = request.getParameter("roomIds");
 		String roomRuleId = request.getParameter("roomRuleId");
@@ -186,7 +186,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 		String deductionRoomIds = request.getParameter("deductionRoomIds");
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		thisService.doAddRuleBind(roomRuleId, roomIds, deductionUserIds, deductionRoomIds, currentUser.getId());
 
@@ -206,7 +206,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			User sysuser = getCurrentSysUser();
+			PtUser sysuser = getCurrentSysUser();
 
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, sysuser.getId());
 			if (flag) {
@@ -227,7 +227,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 			String[] ids = roomIds.split(",");
 			for (int i = 0; i < ids.length; i++) {
 				String hql = " from RoomBagRuleBind where roomId = '" + ids[i] + "'";
-				RoomBagRuleBind entity = thisService.getEntityByHql(hql);
+				PtRoomBagRuleBind entity = thisService.getEntityByHql(hql);
 				thisService.delete(entity);
 			}
 		}
@@ -246,7 +246,7 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入还原主键\""));
 			return;
 		} else {
-			User sysuser = getCurrentSysUser();
+			PtUser sysuser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, sysuser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"还原成功\""));
@@ -262,11 +262,11 @@ public class BasePtRoomBagsRuleBindController extends FrameWorkController<RoomBa
 	 * response @param @throws IOException 设定参数 @return void 返回类型 @throws
 	 */
 	@RequestMapping("/doUpdate")
-	public void doUpdates(RoomBagRuleBind entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtRoomBagRuleBind entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser.getId(), null);
 

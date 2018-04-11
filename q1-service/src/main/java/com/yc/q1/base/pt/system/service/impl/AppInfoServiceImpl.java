@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.service.AppInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.AppInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtAppInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -31,10 +31,10 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppInfoService {
+public class AppInfoServiceImpl extends BaseServiceImpl<PtAppInfo> implements AppInfoService {
 
 	@Resource(name = "AppInfoDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<AppInfo> dao) {
+	public void setDao(BaseDao<PtAppInfo> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -42,8 +42,8 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppI
 	private static Logger logger = Logger.getLogger(AppInfoServiceImpl.class);
 
 	@Override
-	public QueryResult<AppInfo> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
-		QueryResult<AppInfo> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+	public QueryResult<PtAppInfo> list(Integer start, Integer limit, String sort, String filter, Boolean isDelete) {
+		QueryResult<PtAppInfo> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -57,7 +57,7 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppI
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -82,9 +82,9 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppI
 	 * @return
 	 */
 	@Override
-	public AppInfo doUpdateEntity(AppInfo entity, User currentUser) {
+	public PtAppInfo doUpdateEntity(PtAppInfo entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		AppInfo saveEntity = this.get(entity.getId());
+		PtAppInfo saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -111,12 +111,12 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppI
 	 * @return
 	 */
 	@Override
-	public AppInfo doAddEntity(AppInfo entity, User currentUser) {
-		AppInfo saveEntity = new AppInfo();
+	public PtAppInfo doAddEntity(PtAppInfo entity, PtUser currentUser) {
+		PtAppInfo saveEntity = new PtAppInfo();
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(AppInfo.ModuleType));
+			entity.setId(keyRedisService.getId(PtAppInfo.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

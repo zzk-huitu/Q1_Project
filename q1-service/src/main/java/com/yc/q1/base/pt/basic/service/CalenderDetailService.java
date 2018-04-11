@@ -2,9 +2,9 @@ package com.yc.q1.base.pt.basic.service;
 
 import java.util.List;
 
-import com.yc.q1.model.base.pt.basic.Calender;
-import com.yc.q1.model.base.pt.basic.CalenderDetail;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCalender;
+import com.yc.q1.model.base.pt.basic.PtCalenderDetail;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.service.BaseService;
 
 
@@ -21,7 +21,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface CalenderDetailService extends BaseService<CalenderDetail> {
+public interface CalenderDetailService extends BaseService<PtCalenderDetail> {
 	
 	/**
      * 根据JwTCander对象找到校历详细列表
@@ -29,7 +29,7 @@ public interface CalenderDetailService extends BaseService<CalenderDetail> {
      * @return
      * @author huangzc
      */
-	public List<CalenderDetail> queryJwTCanderdetailByJwTCander(Calender jtc);
+	public List<PtCalenderDetail> queryJwTCanderdetailByJwTCander(PtCalender jtc);
 	/**
 	 * 根据传入的实体对象更新数据库中相应的数据
 	 * 
@@ -39,9 +39,9 @@ public interface CalenderDetailService extends BaseService<CalenderDetail> {
 	 *            当前操作用户
 	 * @return
 	 */
-	public CalenderDetail doUpdateEntity(CalenderDetail entity, User currentUser);
+	public PtCalenderDetail doUpdateEntity(PtCalenderDetail entity, PtUser currentUser);
 	
-	public CalenderDetail doAddEntity(CalenderDetail entity, User currentUser);
+	public PtCalenderDetail doAddEntity(PtCalenderDetail entity, PtUser currentUser);
 	public Boolean doDeleteEntity(String delIds);
 
 }

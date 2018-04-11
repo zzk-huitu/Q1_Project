@@ -30,9 +30,9 @@ import com.yc.q1.base.pt.build.service.OfficeAllotService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.pt.device.service.IrRoomDeviceService;
-import com.yc.q1.model.base.pt.device.IrRoomDevice;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -53,7 +53,7 @@ import net.sf.json.JSONObject;
  */
 @Controller
 @RequestMapping("/BasePtIrRoomDevice")
-public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevice> implements Constant {
+public class BasePtIrRoomDeviceController extends FrameWorkController<PtIrRoomDevice> implements Constant {
 	
 	private static Logger logger = Logger.getLogger(BasePtIrRoomDeviceController.class);
 	
@@ -91,7 +91,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute IrRoomDevice entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtIrRoomDevice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
 		String strData = ""; // 返回给js的数据
@@ -131,7 +131,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 				}				
 			}
 		}
-		QueryResult<IrRoomDevice> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtIrRoomDevice> qResult = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qResult.getTotalCount(), qResult.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -165,11 +165,11 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 	 */
 	@Auth("PTIRROOMDEVICE_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(IrRoomDevice entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtIrRoomDevice entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		
 		thisService.doBindRoomBrand(entity.getRoomId(),entity.getBrandId(),currentUser.getId());
 			
@@ -190,7 +190,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			try {
 				boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE, currentUser.getId());
 				if (flag) {
@@ -215,7 +215,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 25, 20, 45 };
-		List<IrRoomDevice> roomDeviceList = null;
+		List<PtIrRoomDevice> roomDeviceList = null;
 		String hql = " from IrRoomDevice a where a.isDelete=0 ";
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
@@ -259,7 +259,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 		List<Map<String, String>> roomDeviceExpList = new ArrayList<>();
 		Map<String, String> roomDeviceMap = null;
 		int i = 1;
-		for (IrRoomDevice roomDevice : roomDeviceList) {
+		for (PtIrRoomDevice roomDevice : roomDeviceList) {
 			roomDeviceMap = new LinkedHashMap<>();
 			roomDeviceMap.put("xh", i + "");
 			roomDeviceMap.put("roomName", roomDevice.getRoomName());
@@ -316,7 +316,7 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 	public void doIrSend(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String roomid1 = request.getParameter("roomid");
 		String opt = request.getParameter("opt");
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		String qResult = "";
 		if (!StringUtils.isEmpty(roomid1)) {
 			String[] idStrings = roomid1.split(",");
@@ -325,11 +325,11 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<IrRoomDevi
 						+ "where d.brandId=rd.brandId and d.isDelete=0 and rd.isDelete=0 " + " and rd.roomId='" + id
 						+ "' and d.irDataName like '%" + opt + "%' ";
 				List<Long> irDataNos = thisService.getEntityByHql(datahql, new Object[] {});
-				List<Term> list = ptTermService.queryByProerties(new String[] { "roomId", "termTypeId", "isDelete" },
+				List<PtTerm> list = ptTermService.queryByProerties(new String[] { "roomId", "termTypeId", "isDelete" },
 						new Object[] { id, "11", 0 });
 				List excued = new ArrayList<String>();
 				
-				for (Term t : list) {
+				for (PtTerm t : list) {
 					if (excued.contains(t.getTermSn()))
 						continue;
 					for (Long irDataNo : irDataNos) {

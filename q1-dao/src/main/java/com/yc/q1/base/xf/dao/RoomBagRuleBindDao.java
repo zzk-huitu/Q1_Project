@@ -1,6 +1,6 @@
 package com.yc.q1.base.xf.dao;
 
-import com.yc.q1.model.base.pt.device.RoomBagRuleBind;
+import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -8,6 +8,6 @@ import com.zd.core.dao.BaseDao;
  * @author hucy
  *
  */
-public interface RoomBagRuleBindDao extends BaseDao<RoomBagRuleBind>{
+public interface RoomBagRuleBindDao extends BaseDao<PtRoomBagRuleBind>{
 
 }

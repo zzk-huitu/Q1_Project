@@ -19,9 +19,9 @@ import com.yc.q1.base.pt.build.service.FuncRoomDefineService;
 import com.yc.q1.base.pt.build.service.OfficeDefineService;
 import com.yc.q1.base.pt.build.service.RoomInfoService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.StringUtils;
@@ -37,11 +37,11 @@ import com.zd.core.util.StringUtils;
  */
 @Service
 @Transactional
-public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements RoomInfoService {
+public class RoomInfoServiceImpl extends BaseServiceImpl<PtRoomInfo> implements RoomInfoService {
 	private static Logger logger = Logger.getLogger(RoomInfoServiceImpl.class);
 
 	@Resource(name = "RoomInfoDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<RoomInfo> dao) {
+	public void setDao(BaseDao<PtRoomInfo> dao) {
 		super.setDao(dao);
 	}
     
@@ -67,13 +67,13 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
      * @return
      * 
      */
-    public Boolean doBatchAddRoom(RoomInfo roominfo, User currentUser) {
+    public Boolean doBatchAddRoom(PtRoomInfo roominfo, PtUser currentUser) {
         String benginChar = roominfo.getRoomCode();
         Integer roomCount = roominfo.getRoomCount();
         String areaId = roominfo.getAreaId();
         String roomType = "0";	//默认为 未定义房间
         String createUser = currentUser.getId();
-        RoomInfo saveRoom = null;
+        PtRoomInfo saveRoom = null;
         String roomName = "";   
         int orderIndex=1;
         for (int i = 1; i <= roomCount; i++) {
@@ -81,7 +81,7 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
             	orderIndex = this.getDefaultOrderIndex(saveRoom);
         	
             roomName = benginChar + StringUtils.addString(String.valueOf(i), "0", 2, "L");
-            saveRoom = new RoomInfo();
+            saveRoom = new PtRoomInfo();
             saveRoom.setRoomName(roomName);
             saveRoom.setRoomCode(roomName);                      
             saveRoom.setOrderIndex(orderIndex++);
@@ -91,7 +91,7 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
             saveRoom.setRoomType(roomType);
             saveRoom.setCreateUser(createUser);
             
-            saveRoom.setId(keyRedisService.getId(RoomInfo.ModuleType));	//手动设置id
+            saveRoom.setId(keyRedisService.getId(PtRoomInfo.ModuleType));	//手动设置id
             this.merge(saveRoom);
         }
         return true;       
@@ -113,7 +113,7 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
 		Boolean flag=true;
 		String[] ids = delIds.split(",");
 		String roomType = "";// 房间类型 1.宿舍，2.办公室，3.教室，5、功能室，0、未分配
-		RoomInfo roomInfo = null;
+		PtRoomInfo roomInfo = null;
 		
 		List<String> roomList=new ArrayList<>();
 		for (int j = 0; j < ids.length; j++) {
@@ -153,7 +153,7 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
 	}
 
 	@Override
-	public Boolean doAddRoomDefine(RoomInfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException {
+	public Boolean doAddRoomDefine(PtRoomInfo entity, HttpServletRequest request, String userCh) throws IllegalAccessException, InvocationTargetException {
 		boolean flag=false;
 		String roomType = "";// 房间类型 1.宿舍，2.办公室，3.教室，5、功能室，0、未分配
 		String id = ""; // RoomInfo的主键
@@ -173,7 +173,7 @@ public class RoomInfoServiceImpl extends BaseServiceImpl<RoomInfo> implements Ro
 					String dormPhone = request.getParameter("dormPhone");// 电话
 					String dormFax = request.getParameter("dormFax");// 传真
 
-					DormDefine dormRoom = new DormDefine();
+					PtDormDefine dormRoom = new PtDormDefine();
 					dormRoom.setDormType(dormType);
 					dormRoom.setDormCategory(dormTypeLb);
 					dormRoom.setBedCount(Integer.valueOf(dormBedCount));

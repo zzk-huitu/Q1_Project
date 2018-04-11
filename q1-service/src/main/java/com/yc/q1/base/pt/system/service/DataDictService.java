@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.List;
 
-import com.yc.q1.model.base.pt.system.DataDict;
+import com.yc.q1.model.base.pt.system.PtDataDict;
 import com.yc.q1.pojo.base.pt.DataDictTree;
 import com.zd.core.service.BaseService;
 
@@ -20,10 +20,10 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface DataDictService extends BaseService<DataDict> {
+public interface DataDictService extends BaseService<PtDataDict> {
 
     public List<DataDictTree>getDicTreeList(String whereSql);
 
-	public DataDict doAdd(DataDict entity, String xm);
+	public PtDataDict doAdd(PtDataDict entity, String xm);
 
 }

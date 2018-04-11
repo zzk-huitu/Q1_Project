@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.system.service.UserDeptJobService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.system.UserDeptJob;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
@@ -25,7 +25,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/SysUserdeptjob")
-public class SysUserdeptjobController extends FrameWorkController<UserDeptJob> implements Constant {
+public class SysUserdeptjobController extends FrameWorkController<PtUserDeptJob> implements Constant {
 
 	@Resource
 	UserDeptJobService thisService; // service层接口
@@ -42,7 +42,7 @@ public class SysUserdeptjobController extends FrameWorkController<UserDeptJob> i
         Integer limit = super.limit(request);
         String sort = StringUtils.convertSortToSql(super.sort(request));
         
-        QueryResult<UserDeptJob> qr = thisService.getUserByDeptJobId(deptJobId,start,limit,sort);
+        QueryResult<PtUserDeptJob> qr = thisService.getUserByDeptJobId(deptJobId,start,limit,sort);
         
         if (ModelUtil.isNotNull(qr))
         	strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -63,7 +63,7 @@ public class SysUserdeptjobController extends FrameWorkController<UserDeptJob> i
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要解除绑定的部门岗位\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doRemoveUserFromDeptJob(delIds,currentUser);
 			if (flag)
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"解除绑定成功\""));
@@ -87,7 +87,7 @@ public class SysUserdeptjobController extends FrameWorkController<UserDeptJob> i
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要设置部门岗位\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doSetMasterDeptJobFromUser(userIds,deptJobId, currentUser);
 			if (flag)
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"设置主部门成功\""));
@@ -111,7 +111,7 @@ public class SysUserdeptjobController extends FrameWorkController<UserDeptJob> i
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入设置的参数\""));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doAddUserToDeptJob(deptJobId, userIds, currentUser);
 			if (flag)
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"设置成功\""));

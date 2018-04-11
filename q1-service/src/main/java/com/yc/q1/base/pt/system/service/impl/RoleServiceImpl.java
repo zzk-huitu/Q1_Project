@@ -12,7 +12,7 @@ import com.yc.q1.base.pt.system.dao.RoleDao;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.Role;
+import com.yc.q1.model.base.pt.system.PtRole;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -28,10 +28,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleService {
+public class RoleServiceImpl extends BaseServiceImpl<PtRole> implements RoleService {
 
 	@Resource(name = "RoleDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Role> dao) {
+	public void setDao(BaseDao<PtRole> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -102,7 +102,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 	public Boolean doDeleteRole(String ids, Map hashMap, String xm) {
 		Boolean flag = false;
 		String[] delIds = ids.split(",");
-		Role sysrole = null;
+		PtRole sysrole = null;
 		StringBuffer roleName = new StringBuffer();
 		for (int i = 0; i < delIds.length; i++) {
 			// 判断这些角色是否正在被其他用户使用

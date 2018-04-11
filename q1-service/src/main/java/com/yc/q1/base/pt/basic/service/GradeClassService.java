@@ -1,8 +1,8 @@
 package com.yc.q1.base.pt.basic.service;
 
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
@@ -16,7 +16,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface GradeClassService extends BaseService<GradeClass> {
+public interface GradeClassService extends BaseService<PtGradeClass> {
     /**
      * 根据班级ID得到年级对象
      * 
@@ -24,11 +24,11 @@ public interface GradeClassService extends BaseService<GradeClass> {
      * @return
      * @author huangzc
      */
-    public Grade findJwTGradeByClassId(String classId);
+    public PtGrade findJwTGradeByClassId(String classId);
 
-    public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, User currentUser);
+    public QueryResult<PtGradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, PtUser currentUser);
     
-    public QueryResult<GradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
-            Boolean isDelete, User currentUser,String classId,String classLevel);    
+    public QueryResult<PtGradeClass> getGradeClassList(Integer start, Integer limit, String sort, String filter,
+            Boolean isDelete, PtUser currentUser,String classId,String classLevel);    
 }

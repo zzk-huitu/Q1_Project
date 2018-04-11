@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.system.service;
 
 import java.util.Map;
 
-import com.yc.q1.model.base.pt.system.Role;
+import com.yc.q1.model.base.pt.system.PtRole;
 import com.zd.core.service.BaseService;
 
 /**
@@ -15,7 +15,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface RoleService extends BaseService<Role> {
+public interface RoleService extends BaseService<PtRole> {
 
 	boolean doDelete(String delIds, String isdelete, String xm);
     //public List<SysRole> doQueryForIn(String hql, Integer start, Integer limit,Object[] objs);

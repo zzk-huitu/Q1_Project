@@ -22,11 +22,11 @@ import com.yc.q1.base.pt.system.service.RoleMenuPermissionService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.system.Menu;
-import com.yc.q1.model.base.pt.system.MenuPermission;
-import com.yc.q1.model.base.pt.system.Permission;
-import com.yc.q1.model.base.pt.system.Role;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtMenu;
+import com.yc.q1.model.base.pt.system.PtMenuPermission;
+import com.yc.q1.model.base.pt.system.PtPermission;
+import com.yc.q1.model.base.pt.system.PtRole;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.MenuTree;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.AuthorType;
@@ -49,10 +49,10 @@ import com.zd.core.util.ModelUtil;
  */
 @Service
 @Transactional
-public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuService {
+public class MenuServiceImpl extends BaseServiceImpl<PtMenu> implements MenuService {
 
 	@Resource(name = "MenuDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Menu> dao) {
+	public void setDao(BaseDao<PtMenu> dao) {
 		super.setDao(dao);
 	}
 	@Resource
@@ -99,7 +99,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		StringBuffer countHql = new StringBuffer("select count(*) from Menu where 1=1");
 		countHql.append(whereSql);
 
-		List<Menu> typeList = super.queryByHql(hql.toString());
+		List<PtMenu> typeList = super.queryByHql(hql.toString());
 		List<MenuTree> result = new ArrayList<MenuTree>();
 		// 构建Tree数据
 		recursion(new MenuTree(TreeVeriable.ROOT, new ArrayList<MenuTree>()), result, typeList);
@@ -107,14 +107,14 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		return result;
 	}
 
-	private void recursion(MenuTree parentNode, List<MenuTree> result, List<Menu> list) {
-		List<Menu> childs = new ArrayList<Menu>();
-		for (Menu SysMenu : list) {
+	private void recursion(MenuTree parentNode, List<MenuTree> result, List<PtMenu> list) {
+		List<PtMenu> childs = new ArrayList<PtMenu>();
+		for (PtMenu SysMenu : list) {
 			if (SysMenu.getParentNode().equals(parentNode.getId())) {
 				childs.add(SysMenu);
 			}
 		}
-		for (Menu SysMenu : childs) {
+		for (PtMenu SysMenu : childs) {
 			MenuTree child = new MenuTree(SysMenu.getId(), SysMenu.getNodeText(), "", SysMenu.getLeaf(),
 					SysMenu.getNodeLevel(), SysMenu.getTreeIds(), SysMenu.getParentNode(), SysMenu.getOrderIndex(),
 					new ArrayList<MenuTree>(), SysMenu.getMenuCode(), SysMenu.getSmallIcon(), SysMenu.getBigIcon(),
@@ -155,15 +155,15 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		
 		// 对于超级管理员的用户与角色，默认有所有菜单的权限
 		if (authorType.equals(AuthorType.ROLE)) {
-			Role thisRole = sysRoleService.get(author);
+			PtRole thisRole = sysRoleService.get(author);
 			if (thisRole.getRoleCode().equals(AdminType.ADMIN_ROLE_NAME))
 				isAdmin = true;
 		} else {
-			User thisUser = sysUserService.get(author);
+			PtUser thisUser = sysUserService.get(author);
 			if (thisUser.getUserName().equals(AdminType.ADMIN_USER_NAME)){
 				isAdmin = true;
 			}else{				
-				Iterator<Role> iterator=thisUser.getSysRoles().iterator();
+				Iterator<PtRole> iterator=thisUser.getSysRoles().iterator();
 				while(iterator.hasNext()){
 					if(iterator.next().getId().equals(AdminType.ADMIN_ROLE_ID)){	//判断角色id
 						isAdmin = true;
@@ -176,17 +176,17 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		if (isAdmin == false)
 			hql += " where isHidden='0'";
 		hql += " order by parentNode,orderIndex asc ";
-		List<Menu> lists = super.queryByHql(hql.toString());
+		List<PtMenu> lists = super.queryByHql(hql.toString());
 		
 		// 得到当前对象的权限
-		Map<String, Permission> maps = buildPermMap(author, authorType);
+		Map<String, PtPermission> maps = buildPermMap(author, authorType);
 		if (maps == null) {
 			return null;
 		}
 		// 非超级管理员账户
 		if (!isAdmin) {
-			List<Menu> removeLists = new ArrayList<Menu>();
-			for (Menu node : lists) {
+			List<PtMenu> removeLists = new ArrayList<PtMenu>();
+			for (PtMenu node : lists) {
 				if (isSee) {
 					if (maps.get(node.getId()) == null && !node.getId().equalsIgnoreCase(TreeVeriable.ROOT)) {
 						removeLists.add(node);
@@ -195,7 +195,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 				}
 			}
 			if (isSee) {
-				for (Menu node : removeLists) {
+				for (PtMenu node : removeLists) {
 					lists.remove(node);
 				}
 			}
@@ -209,26 +209,26 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	}
 
 	// 构建权限map
-	private Map<String, Permission> buildPermMap(String author, String authorType) {
-		Map<String, Permission> maps = new HashMap<String, Permission>();
+	private Map<String, PtPermission> buildPermMap(String author, String authorType) {
+		Map<String, PtPermission> maps = new HashMap<String, PtPermission>();
 		if (AuthorType.ROLE.equalsIgnoreCase(authorType)) {
-			Role sysRole = sysRoleService.get(author);
+			PtRole sysRole = sysRoleService.get(author);
 			if (sysRole != null && sysRole.getIsDelete() == 0) {
-				Set<Permission> perms = sysRole.getSysPermissions();
-				for (Permission perm : perms) {
+				Set<PtPermission> perms = sysRole.getSysPermissions();
+				for (PtPermission perm : perms) {
 					maps.put(perm.getPermissionCode(), perm);
 				}
 			}
 		} else {
-			User user = sysUserService.get(author);
+			PtUser user = sysUserService.get(author);
 			if (user != null) {
 				// 得到角色
-				Set<Role> roles = user.getSysRoles();
-				for (Role role : roles) {
+				Set<PtRole> roles = user.getSysRoles();
+				for (PtRole role : roles) {
 					// 得到指定角色的权限
 					if (role != null && role.getIsDelete() == 0) {
-						Set<Permission> perms = role.getSysPermissions();
-						for (Permission perm : perms) {
+						Set<PtPermission> perms = role.getSysPermissions();
+						for (PtPermission perm : perms) {
 							maps.put(perm.getPermissionCode(), perm);
 						}
 					}
@@ -238,15 +238,15 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		return maps;
 	}
 
-	private void roleMenuRecursion(MenuTree parentNode, List<MenuTree> result, List<Menu> list,
-			List<MenuPermission> menuPers) {
-		List<Menu> childs = new ArrayList<Menu>();
-		for (Menu SysMenu : list) {
+	private void roleMenuRecursion(MenuTree parentNode, List<MenuTree> result, List<PtMenu> list,
+			List<PtMenuPermission> menuPers) {
+		List<PtMenu> childs = new ArrayList<PtMenu>();
+		for (PtMenu SysMenu : list) {
 			if (SysMenu.getParentNode().equals(parentNode.getId())) {
 				childs.add(SysMenu);
 			}
 		}
-		for (Menu SysMenu : childs) {
+		for (PtMenu SysMenu : childs) {
 			MenuTree child = new MenuTree(SysMenu.getId(), SysMenu.getNodeText(), "", SysMenu.getLeaf(),
 					SysMenu.getNodeLevel(), SysMenu.getTreeIds(), SysMenu.getParentNode(), SysMenu.getOrderIndex(),
 					new ArrayList<MenuTree>(), SysMenu.getMenuCode(), SysMenu.getSmallIcon(), SysMenu.getBigIcon(),
@@ -280,20 +280,20 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	@Override
 	public List<MenuTree> getRoleMenuTreeList(String roleId) {
 		// 当前角色有权限的菜单
-		Set<Permission> rolePerimisson = sysRoleService.get(roleId).getSysPermissions();
+		Set<PtPermission> rolePerimisson = sysRoleService.get(roleId).getSysPermissions();
 		// String hql = "from SysMenu e where e.isHidden='0' and e.uuid in
 		// (select o.perCode from SysPermission o where o in (:roleRight)) ";
 		String hql = "from Menu e where e.id in (select o.permissionCode from Permission o where o in (:roleRight)) ";
 		// 非超级管理员要排除掉隐藏的菜单
 		if (!roleId.equals(AdminType.ADMIN_ROLE_ID))
 			hql += " and e.isHidden='0'";	//只显示正常的
-		List<Menu> lists = new ArrayList<Menu>();
+		List<PtMenu> lists = new ArrayList<PtMenu>();
 		List<MenuTree> result = new ArrayList<MenuTree>();
 		if (rolePerimisson.size() > 0) {
 			lists = this.queryByHql(hql.toString(), 0, 999, "roleRight", rolePerimisson.toArray());// 执行查询方法
 
 			// 查询此菜单的功能权限
-			List<MenuPermission> menuPers = menuPermissionService.getRoleMenuPerlist(roleId, null);
+			List<PtMenuPermission> menuPers = menuPermissionService.getRoleMenuPerlist(roleId, null);
 			// 然后在递归组装树中把菜单功能权限设置进来。
 			roleMenuRecursion(new MenuTree(TreeVeriable.ROOT, new ArrayList<MenuTree>()), result, lists,
 					menuPers);
@@ -319,10 +319,10 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		String menuIds = "'" + cancelMenuId.replace(",", "','") + "'";
 		String hql = " from Permission a where a.permissionCode in (" + menuIds + ") and a.permissionType='" + PermType.TYPE_MENU
 				+ "'";
-		List<Permission> cancelPerimission = perimissonSevice.queryByHql(hql);
+		List<PtPermission> cancelPerimission = perimissonSevice.queryByHql(hql);
 
-		Role cancelRole = sysRoleService.get(roleId);
-		Set<Permission> rolePermission = cancelRole.getSysPermissions();
+		PtRole cancelRole = sysRoleService.get(roleId);
+		Set<PtPermission> rolePermission = cancelRole.getSysPermissions();
 		rolePermission.removeAll(cancelPerimission);
 
 		cancelRole.setSysPermissions(rolePermission);
@@ -357,26 +357,26 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		String[] addMenuIds = addMenuid.split(",");
 
 		// 要增加权限菜单的角色及已有权限菜单信息
-		Role addRoleEntity = sysRoleService.get(roleId);
-		Set<Permission> rolePermission = addRoleEntity.getSysPermissions();
+		PtRole addRoleEntity = sysRoleService.get(roleId);
+		Set<PtPermission> rolePermission = addRoleEntity.getSysPermissions();
 
 		// 要添加的菜单的权限清单
-		List<Menu> addMenuEntity = this.queryByProerties("id", addMenuIds);
+		List<PtMenu> addMenuEntity = this.queryByProerties("id", addMenuIds);
 		List<String> perimissonIds = new ArrayList<>();
 
 		String[] propName = { "permissionType", "permissionCode" };
 		String[] propValue = new String[] {};
-		Set<Permission> addPerimisson = new HashSet<Permission>();
-		for (Menu sysMenu : addMenuEntity) {
+		Set<PtPermission> addPerimisson = new HashSet<PtPermission>();
+		for (PtMenu sysMenu : addMenuEntity) {
 			String perCode = sysMenu.getId();
 			propValue = new String[] { PermType.TYPE_MENU, perCode };
-			Permission isPeriminsson = perimissonSevice.getByProerties(propName, propValue);
+			PtPermission isPeriminsson = perimissonSevice.getByProerties(propName, propValue);
 			// 当前菜单在权限资源表中
 			if (ModelUtil.isNotNull(isPeriminsson)) {
 				addPerimisson.add(isPeriminsson);
 			} else {
 				// 当前菜单不在权限资源中，需要先增加权限资源
-				isPeriminsson = new Permission();
+				isPeriminsson = new PtPermission();
 				isPeriminsson.setPermissionCode(perCode);
 				isPeriminsson.setPermissionType(PermType.TYPE_MENU);
 
@@ -393,7 +393,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 
 		// 初始化角色菜单功能权限。
 		for (int i = 0; i < addMenuEntity.size(); i++) {
-			Menu sysMenu = addMenuEntity.get(i);
+			PtMenu sysMenu = addMenuEntity.get(i);
 			String perCode = sysMenu.getId();
 			String perId = perimissonIds.get(i);
 
@@ -432,23 +432,23 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	 * @throws @since
 	 *             JDK 1.8
 	 */
-	private List<Menu> getPermissionMenu(String author, String authorType) {
+	private List<PtMenu> getPermissionMenu(String author, String authorType) {
 		String hql = "from Menu where isHidden='0'";
 
 		// 查询出有效的菜单
-		List<Menu> lists = super.queryByHql(hql.toString());
+		List<PtMenu> lists = super.queryByHql(hql.toString());
 
 		// 对于超级管理员的用户与角色，默认有所有菜单的权限
 		if (authorType.equals(AuthorType.ROLE)) {
-			Role thisRole = sysRoleService.get(author);
+			PtRole thisRole = sysRoleService.get(author);
 			if (thisRole.getRoleCode().equals(AdminType.ADMIN_ROLE_NAME))	//判断角色名
 				return lists;
 		} else {
-			User thisUser = sysUserService.get(author);
+			PtUser thisUser = sysUserService.get(author);
 			if (thisUser.getUserName().equals(AdminType.ADMIN_USER_NAME)){	//判断用户名
 				return lists;
 			}else{				
-				Iterator<Role> iterator=thisUser.getSysRoles().iterator();
+				Iterator<PtRole> iterator=thisUser.getSysRoles().iterator();
 				while(iterator.hasNext()){
 					if(iterator.next().getId().equals(AdminType.ADMIN_ROLE_ID)){	//判断角色id
 						return lists;
@@ -458,21 +458,21 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		}
 
 		// 对于非超级管理员，得到当前对象的权限
-		Map<String, Permission> maps = buildPermMap(author, authorType);
+		Map<String, PtPermission> maps = buildPermMap(author, authorType);
 		if (maps == null) {
 			return null;
 		}
 
 		// 根据当前用户的权限，从系统菜单中清除无权限的菜单
-		List<Menu> removeLists = new ArrayList<Menu>();
-		for (Menu node : lists) {
+		List<PtMenu> removeLists = new ArrayList<PtMenu>();
+		for (PtMenu node : lists) {
 			if (maps.get(node.getId()) == null && !node.getId().equalsIgnoreCase(TreeVeriable.ROOT)) {
 				// 如果当前菜单不在权限菜单中，则放入清除的菜单中
 				removeLists.add(node);
 			}
 		}
 		// 从所有的菜单中删除无权限的菜单
-		for (Menu node : removeLists) {
+		for (PtMenu node : removeLists) {
 			lists.remove(node);
 		}
 
@@ -496,19 +496,19 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	@Override
 	public List<MenuTree> getUserPermissionToRole(String roleId, String userId) {
 		// 当前角色已有的授权菜
-		Map<String, Permission> maps = this.buildPermMap(roleId, AuthorType.ROLE);
+		Map<String, PtPermission> maps = this.buildPermMap(roleId, AuthorType.ROLE);
 
 		// 当前用户有权限的菜单
-		List<Menu> userPermissionMenu = this.getPermissionMenu(userId, AuthorType.USER);
-		List<Menu> removeLists = new ArrayList<Menu>();
-		for (Menu node : userPermissionMenu) {
+		List<PtMenu> userPermissionMenu = this.getPermissionMenu(userId, AuthorType.USER);
+		List<PtMenu> removeLists = new ArrayList<PtMenu>();
+		for (PtMenu node : userPermissionMenu) {
 			if (maps.get(node.getId()) != null && !node.getMenuType().equals(MenuType.TYPE_MENU)) {
 				// 如果当前菜单在角色的菜单权限中，则过滤掉
 				removeLists.add(node);
 			}
 		}
 		// 从当前用户有权限的菜单中除掉已对角色授权的菜单
-		for (Menu node : removeLists) {
+		for (PtMenu node : removeLists) {
 			userPermissionMenu.remove(node);
 		}
 
@@ -520,15 +520,15 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		return result;
 	}
 
-	private void createChildTree(MenuTree parentNode, List<MenuTree> result, List<Menu> list) {
-		List<Menu> childs = new ArrayList<Menu>();
-		for (Menu SysMenu : list) {
+	private void createChildTree(MenuTree parentNode, List<MenuTree> result, List<PtMenu> list) {
+		List<PtMenu> childs = new ArrayList<PtMenu>();
+		for (PtMenu SysMenu : list) {
 			if (SysMenu.getParentNode().equals(parentNode.getId())) {
 				childs.add(SysMenu);
 			}
 		}
 
-		for (Menu sysMenu : childs) {
+		for (PtMenu sysMenu : childs) {
 			MenuTree child = new MenuTree(sysMenu.getId(), sysMenu.getNodeText(), "", sysMenu.getLeaf(),
 					sysMenu.getNodeLevel(), sysMenu.getTreeIds(), sysMenu.getParentNode(),sysMenu.getOrderIndex(), 
 					new ArrayList<MenuTree>(),sysMenu.getMenuCode(), sysMenu.getSmallIcon(), sysMenu.getBigIcon(),
@@ -546,17 +546,17 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	}
 
 	@Override
-	public Menu addMenu(Menu menu, User currentUser) throws IllegalAccessException, InvocationTargetException {
+	public PtMenu addMenu(PtMenu menu, PtUser currentUser) throws IllegalAccessException, InvocationTargetException {
 		String parentNode = menu.getParentNode();
 		String parentName = menu.getParentMenuName();
 		String menuType = menu.getMenuType();
-		menu.setId(keyRedisService.getId(Menu.ModuleType));
+		menu.setId(keyRedisService.getId(PtMenu.ModuleType));
 		/*zzk：此字段不需要了*/
 //		String menuLeaf = "LEAF";
 //		if (menuType.equals(MenuType.TYPE_MENU))
 //			menuLeaf = "GENERAL";
 	
-		Menu saveEntity = new Menu();
+		PtMenu saveEntity = new PtMenu();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		BeanUtils.copyProperties(saveEntity, menu, excludedProp);		
@@ -566,7 +566,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		saveEntity.setIsHidden(true);
 //		saveEntity.setMenuLeaf(menuLeaf);
 		if (!parentNode.equals(TreeVeriable.ROOT)) {
-			Menu parEntity = this.get(parentNode);
+			PtMenu parEntity = this.get(parentNode);
 			parEntity.setLeaf(false);
 			this.merge(parEntity);
 			saveEntity.BuildNode(parEntity);
@@ -581,13 +581,13 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	}
 
 	@Override
-	public Menu doUpdateMenu(Menu entity, String xm) {
+	public PtMenu doUpdateMenu(PtMenu entity, String xm) {
 		// TODO Auto-generated method stub
 		String parentNode = entity.getParentNode();
 		String uuid = entity.getId();
 
 		// 先拿到已持久化的实体
-		Menu perEntity = this.get(uuid);
+		PtMenu perEntity = this.get(uuid);
 		boolean isLeaf = perEntity.getLeaf();
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		try {
@@ -606,7 +606,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		//entity.setParentNode(parentNode);
 		
 		// 更新父节点的是否叶节点的标记
-		Menu parentMenu = this.get(parentNode);
+		PtMenu parentMenu = this.get(parentNode);
 		if (parentMenu != null) {
 			parentMenu.setUpdateTime(new Date()); // 设置修改时间
 			parentMenu.setUpdateUser(xm); // 设置修改人的中文名
@@ -616,7 +616,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 
 		// 删除有权限的角色的用户的redis数据
 		if (entity.getPermissionId() != null) {
-			Permission sysPermission = perimissonSevice.get(entity.getPermissionId());
+			PtPermission sysPermission = perimissonSevice.get(entity.getPermissionId());
 			if (sysPermission != null)
 				sysUserService.deleteUserMenuTreeRedis(sysPermission);
 		}

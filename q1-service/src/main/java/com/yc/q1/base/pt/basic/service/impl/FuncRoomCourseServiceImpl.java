@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.FuncRoomCourseService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtFuncRoomCourse;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -31,12 +31,12 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> implements FuncRoomCourseService {
+public class FuncRoomCourseServiceImpl extends BaseServiceImpl<PtFuncRoomCourse> implements FuncRoomCourseService {
 
 	private static Logger logger = Logger.getLogger(FuncRoomCourseServiceImpl.class);
 
 	@Resource(name = "FuncRoomCourseDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<FuncRoomCourse> dao) {
+	public void setDao(BaseDao<PtFuncRoomCourse> dao) {
 		super.setDao(dao);
 	}
 	
@@ -44,9 +44,9 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public QueryResult<FuncRoomCourse> list(Integer start, Integer limit, String sort, String filter,
+	public QueryResult<PtFuncRoomCourse> list(Integer start, Integer limit, String sort, String filter,
 			Boolean isDelete) {
-		QueryResult<FuncRoomCourse> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
+		QueryResult<PtFuncRoomCourse> qResult = this.queryPageResult(start, limit, sort, filter, isDelete);
 		return qResult;
 	}
 
@@ -60,7 +60,7 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 	 * @return 操作成功返回true，否则返回false
 	 */
 	@Override
-	public Boolean doLogicDeleteByIds(String ids, User currentUser) {
+	public Boolean doLogicDeleteByIds(String ids, PtUser currentUser) {
 		Boolean delResult = false;
 		try {
 			Object[] conditionValue = ids.split(",");
@@ -85,9 +85,9 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 	 * @return
 	 */
 	@Override
-	public FuncRoomCourse doUpdateEntity(FuncRoomCourse entity, User currentUser) {
+	public PtFuncRoomCourse doUpdateEntity(PtFuncRoomCourse entity, PtUser currentUser) {
 		// 先拿到已持久化的实体
-		FuncRoomCourse saveEntity = this.get(entity.getId());
+		PtFuncRoomCourse saveEntity = this.get(entity.getId());
 		try {
 			BeanUtils.copyProperties(saveEntity, entity);
 			saveEntity.setUpdateTime(new Date()); // 设置修改时间
@@ -114,8 +114,8 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 	 * @return
 	 */
 	@Override
-	public FuncRoomCourse doAddEntity(FuncRoomCourse entity, User currentUser) {
-		FuncRoomCourse saveEntity;
+	public PtFuncRoomCourse doAddEntity(PtFuncRoomCourse entity, PtUser currentUser) {
+		PtFuncRoomCourse saveEntity;
 		try {
 			// List<String> excludedProp = new ArrayList<>();
 			// excludedProp.add("uuid");
@@ -127,12 +127,12 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
-				saveEntity = new FuncRoomCourse();
+				saveEntity = new PtFuncRoomCourse();
 			}
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			
-			entity.setId(keyRedisService.getId(FuncRoomCourse.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtFuncRoomCourse.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
 			return entity;
 		} catch (IllegalAccessException e) {
@@ -154,28 +154,28 @@ public class FuncRoomCourseServiceImpl extends BaseServiceImpl<FuncRoomCourse> i
 	 * @return
 	 */
 	@Override
-	public Integer doAddEntityList(List<FuncRoomCourse> funcRoomCourseList, User currentUser)
+	public Integer doAddEntityList(List<PtFuncRoomCourse> funcRoomCourseList, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		Integer count = 0;
 
-		FuncRoomCourse saveEntity;
+		PtFuncRoomCourse saveEntity;
 		for (int i = 0; i < funcRoomCourseList.size(); i++) {
 
-			FuncRoomCourse entity = funcRoomCourseList.get(i);
+			PtFuncRoomCourse entity = funcRoomCourseList.get(i);
 
 			String[] propName = { "funcRoomId", "sections", "isDelete" };
 			Object[] propValue = { entity.getFuncRoomId(), entity.getSections(), 0 };
 			saveEntity = this.getByProerties(propName, propValue);
 
 			if (saveEntity == null) {
-				saveEntity = new FuncRoomCourse();
+				saveEntity = new PtFuncRoomCourse();
 			} else {
 				entity.setId(null);
 			}
 			BeanUtils.copyPropertiesExceptNullAndStringEmpty(saveEntity, entity);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			
-			entity.setId(keyRedisService.getId(FuncRoomCourse.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtFuncRoomCourse.ModuleType));	//手动设置id
 			entity = this.merge(saveEntity);// 执行修改方法
 
 			count++;

@@ -26,9 +26,9 @@ import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.pt.device.service.TermBagService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.xf.service.RoomBagService;
-import com.yc.q1.model.base.pt.device.RoomBag;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.device.TermBag;
+import com.yc.q1.model.base.pt.device.PtRoomBag;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.device.PtTermBag;
 import com.yc.q1.pojo.base.pt.PowerResidue;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -100,15 +100,15 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 			try {
 				PowerResidue temp = new PowerResidue();
 
-				RoomBag roomBag = roomBagsService.getByProerties("roomId", roomId);
+				PtRoomBag roomBag = roomBagsService.getByProerties("roomId", roomId);
 				if (roomBag != null)
 					temp.setPowerResidue(roomBag.getRoomValue() + "");
 
 				String[] propName = new String[] { "roomId", "termTypeId", "isDelete" };
 				Object[] propValue = new Object[] { roomId, "9", 0 };
-				Term term = termService.getByProerties(propName, propValue);
+				PtTerm term = termService.getByProerties(propName, propValue);
 				if (term != null) {
-					TermBag termBag = termBagsService.getByProerties("termSn", term.getTermSn());
+					PtTermBag termBag = termBagsService.getByProerties("termSn", term.getTermSn());
 					if (termBag != null)
 						temp.setMoneyResidue(termBag.getBagValue() + "");
 				}

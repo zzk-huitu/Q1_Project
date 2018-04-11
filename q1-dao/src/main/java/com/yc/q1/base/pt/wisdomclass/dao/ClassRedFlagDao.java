@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface ClassRedFlagDao extends BaseDao<ClassRedFlag> {
+public interface ClassRedFlagDao extends BaseDao<PtClassRedFlag> {
 
 }

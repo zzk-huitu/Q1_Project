@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.build.dao;
 
-import com.yc.q1.model.base.pt.build.RoomArea;
+import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface RoomAreaDao extends BaseDao<RoomArea> {
+public interface RoomAreaDao extends BaseDao<PtRoomArea> {
 
 }

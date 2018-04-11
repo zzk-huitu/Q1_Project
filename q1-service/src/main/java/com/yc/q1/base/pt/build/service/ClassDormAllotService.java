@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.build.service;
 
 
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
 import com.zd.core.service.BaseService;
 
 
@@ -18,6 +18,6 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface ClassDormAllotService extends BaseService<ClassDormAllot> {
+public interface ClassDormAllotService extends BaseService<PtClassDormAllot> {
 
 }

@@ -3,8 +3,8 @@ package com.yc.q1.base.pt.basic.service;
 import java.util.List;
 import java.util.Map;
 
-import com.yc.q1.model.base.pt.basic.CourseArrange;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCourseArrange;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.model.ImportNotInfo;
 import com.zd.core.service.BaseService;
 
@@ -22,9 +22,9 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
  
-public interface CourseArrangeService extends BaseService<CourseArrange> {
+public interface CourseArrangeService extends BaseService<PtCourseArrange> {
 
-	public List<ImportNotInfo> doImportCourse(Map<String, List<String>> gccMap, User currentUser);
+	public List<ImportNotInfo> doImportCourse(Map<String, List<String>> gccMap, PtUser currentUser);
 
 
 	public void doCouseUse(String[] idArr, String[] classIdArr, String[] sectionsArr, String xm);

@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.basic.dao;
 
-import com.yc.q1.model.base.pt.basic.Grade;
+import com.yc.q1.model.base.pt.basic.PtGrade;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -13,6 +13,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
 
-public interface GradeDao extends BaseDao<Grade> {
+public interface GradeDao extends BaseDao<PtGrade> {
 
 }

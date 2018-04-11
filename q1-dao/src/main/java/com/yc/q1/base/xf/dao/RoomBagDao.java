@@ -1,6 +1,6 @@
 package com.yc.q1.base.xf.dao;
 
-import com.yc.q1.model.base.pt.device.RoomBag;
+import com.yc.q1.model.base.pt.device.PtRoomBag;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -8,6 +8,6 @@ import com.zd.core.dao.BaseDao;
  * @author hucy
  *
  */
-public interface RoomBagDao extends BaseDao<RoomBag>{
+public interface RoomBagDao extends BaseDao<PtRoomBag>{
 
 }

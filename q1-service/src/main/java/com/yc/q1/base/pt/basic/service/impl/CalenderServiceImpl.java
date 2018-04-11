@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.CalenderService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.basic.Calender;
-import com.yc.q1.model.base.pt.basic.Grade;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtCalender;
+import com.yc.q1.model.base.pt.basic.PtGrade;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -30,12 +30,12 @@ import com.zd.core.util.BeanUtils;
  */
 @Service
 @Transactional
-public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements CalenderService {
+public class CalenderServiceImpl extends BaseServiceImpl<PtCalender> implements CalenderService {
 
 	private static Logger logger = Logger.getLogger(CalenderServiceImpl.class);
 
 	@Resource(name = "CalenderDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Calender> dao) {
+	public void setDao(BaseDao<PtCalender> dao) {
 		super.setDao(dao);
 	}
 	
@@ -43,7 +43,7 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 	private PrimaryKeyRedisService keyRedisService;
 
 	@Override
-	public Calender findJwTcanderByClaiId(Grade jtg) {
+	public PtCalender findJwTcanderByClaiId(PtGrade jtg) {
 		if (jtg == null)
 			return null;
 		if (jtg.getSectionCode() == null || jtg.getSectionCode().trim().equals(""))
@@ -67,8 +67,8 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 	}
 
 	@Override
-	public Calender doUpdateEntity(Calender entity, User currentUser) {
-		Calender perEntity = this.get(entity.getId());
+	public PtCalender doUpdateEntity(PtCalender entity, PtUser currentUser) {
+		PtCalender perEntity = this.get(entity.getId());
 
 		try {
 			BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -86,8 +86,8 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 	}
 
 	@Override
-	public Calender doAddEntity(Calender entity, User currentUser) {
-		Calender saveEntity = new Calender();
+	public PtCalender doAddEntity(PtCalender entity, PtUser currentUser) {
+		PtCalender saveEntity = new PtCalender();
 		try {
 			BeanUtils.copyPropertiesExceptNull(entity, saveEntity);
 
@@ -101,7 +101,7 @@ public class CalenderServiceImpl extends BaseServiceImpl<Calender> implements Ca
 			entity.setActivityState(false);
 
 			// 持久化到数据库
-			entity.setId(keyRedisService.getId(Calender.ModuleType));	//手动设置id
+			entity.setId(keyRedisService.getId(PtCalender.ModuleType));	//手动设置id
 			entity = this.merge(entity);
 			return entity;
 		} catch (IllegalAccessException e) {

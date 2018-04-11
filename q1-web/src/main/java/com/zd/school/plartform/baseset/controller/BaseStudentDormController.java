@@ -26,11 +26,11 @@ import com.yc.q1.base.pt.build.service.DormDefineService;
 import com.yc.q1.base.pt.build.service.OfficeAllotService;
 import com.yc.q1.base.pt.build.service.StudentDormService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
-import com.yc.q1.model.base.pt.build.DormDefine;
-import com.yc.q1.model.base.pt.build.StudentDorm;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtDormDefine;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.StandVClassStudent;
 import com.zd.core.annotation.Auth;
@@ -49,7 +49,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseStudentDorm")
-public class BaseStudentDormController extends FrameWorkController<StudentDorm> implements Constant {
+public class BaseStudentDormController extends FrameWorkController<PtStudentDorm> implements Constant {
 	@Resource
 	StudentDormService thisService; // service层接口
 	@Resource
@@ -75,7 +75,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute StudentDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtStudentDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -107,7 +107,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 
 			} else { // 当选择的区域不为班级时
 
-				User currentUser = getCurrentSysUser();
+				PtUser currentUser = getCurrentSysUser();
 				String classIds = getClassIds(deptId, currentUser);
 
 				if (StringUtils.isNotEmpty(classIds)) {
@@ -130,7 +130,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 			}
 		}
 
-		QueryResult<StudentDorm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtStudentDorm> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -153,7 +153,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 		if (StringUtils.isNotEmpty(nodeId)) {
 			node = nodeId;
 		}
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		CommTree root = thisService.getUserRightDeptClassTree(node, currentUser); // (04-年级
 																						// 05-班级)
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
@@ -195,9 +195,9 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 * 查询出一键分配宿舍的信息
 	 */
 	@RequestMapping("/onKeyList")
-	public void onKeyList(@ModelAttribute StudentDorm entity, HttpServletRequest request,
+	public void onKeyList(@ModelAttribute PtStudentDorm entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
-		List<StudentDorm> newlists = null;
+		List<PtStudentDorm> newlists = null;
 		String whereSql = request.getParameter("whereSql");
 		newlists = thisService.oneKeyList(entity, whereSql);
 		String strData = jsonBuilder.buildObjListToJson(new Long(newlists.size()), newlists, false);// 处理数据
@@ -219,7 +219,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	public void doKeyAllotDorm(String gradId, String boyId, String girlId, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		flag = thisService.doOneKeyAllotDorm(gradId, boyId, girlId, currentUser);
 		if (flag) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"一键分配分配成功。\""));
@@ -235,10 +235,10 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 */
 	@RequestMapping(value = { "/classDormlist" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void classDormlist(@ModelAttribute ClassDormAllot entity, HttpServletRequest request,
+	public void classDormlist(@ModelAttribute PtClassDormAllot entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<ClassDormAllot> qr = classDormService.queryPageResult(super.start(request), Integer.MAX_VALUE,
+		QueryResult<PtClassDormAllot> qr = classDormService.queryPageResult(super.start(request), Integer.MAX_VALUE,
 				super.sort(request), super.filter(request), true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -250,7 +250,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	@RequestMapping(value = { "/classStuNotAllotlist" }, method = {
 			org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void classStuNotAllotlist(@ModelAttribute ClassStudent entity, HttpServletRequest request,
+	public void classStuNotAllotlist(@ModelAttribute PtClassStudent entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		String classId = request.getParameter("classId");
@@ -293,17 +293,17 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	// 手动分配宿舍 （学生分配宿舍）
 	@Auth("BASESTUDENTDORM_dormAllot")
 	@RequestMapping("/dormHandAllot")
-	public void dormHandAllot(StudentDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void dormHandAllot(PtStudentDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		flag = thisService.doDormHandAllot(entity, hashMap, currentUser);
 		if (flag) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("'手动分配宿舍成功。'"));
 		} else {
 			Integer count = (Integer) hashMap.get("count");
-			DormDefine buildDormDefine = (DormDefine) hashMap.get("buildDormDefine");
+			PtDormDefine buildDormDefine = (PtDormDefine) hashMap.get("buildDormDefine");
 			Integer inAllotCount = (Integer) hashMap.get("inAllotCount");
 			if (count == 1) {
 				writeJSON(response, jsonBuilder.returnFailureJson(
@@ -325,7 +325,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	@RequestMapping("/dormAutoAllot")
 	public void dormAutoAllot(String classId, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		Integer resultCount = thisService.doDormAutoAllot(classId, currentUser);
 		if (resultCount>0) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"自动分配宿舍成功!\""));
@@ -339,9 +339,9 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 */
 	@RequestMapping(value = { "/mixDormList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void mixDormList(@ModelAttribute ClassDormAllot entity, HttpServletRequest request,
+	public void mixDormList(@ModelAttribute PtClassDormAllot entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		List<ClassDormAllot> dormAllotList = null;
+		List<PtClassDormAllot> dormAllotList = null;
 		dormAllotList = thisService.mixDormList(entity);
 		String strData = jsonBuilder.buildObjListToJson(new Long(dormAllotList.size()), dormAllotList, true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -353,9 +353,9 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	@RequestMapping(value = { "/emptyMixDormList" }, method = {
 			org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void emptyMixDormList(@ModelAttribute ClassDormAllot entity, HttpServletRequest request,
+	public void emptyMixDormList(@ModelAttribute PtClassDormAllot entity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		List<ClassDormAllot> dormAllotList = null;
+		List<PtClassDormAllot> dormAllotList = null;
 		dormAllotList = thisService.emptyMixDormList(entity);
 		String strData = jsonBuilder.buildObjListToJson(new Long(dormAllotList.size()), dormAllotList, false);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -374,8 +374,8 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 			return;
 		} else {
 			String[] ids = uuid.split(",");
-			DormDefine defin = null;
-			ClassDormAllot jwTClassdorm = null;
+			PtDormDefine defin = null;
+			PtClassDormAllot jwTClassdorm = null;
 			for (int j = 0; j < ids.length; j++) {
 				jwTClassdorm = classDormService.get(ids[j]);
 				boolean flag = thisService.IsFieldExist("classDormId", jwTClassdorm.getId(), "-1", "isdelete=0");
@@ -413,7 +413,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 		String dormIds = request.getParameter("dormIds");
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		Boolean flag = thisService.doAddClassDorm(classId, dormIds, currentUser);
 
@@ -431,10 +431,10 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 * void 返回类型 @throws
 	 */
 	@RequestMapping("/doDelete")
-	public void doDelete(StudentDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doDelete(PtStudentDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		boolean flag = false;
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 		if (StringUtils.isEmpty(entity.getId())) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
@@ -456,10 +456,10 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 * response @param @throws IOException 设定参数 @return void 返回类型 @throws
 	 */
 	@RequestMapping("/doUpdateBedArkNum")
-	public void doUpdates(StudentDorm entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtStudentDorm entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		String[] list = entity.getId().split(";");
 		int count = 0;
@@ -498,14 +498,14 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 20, 35 };
-		List<StudentDorm> stuDormList = null;
+		List<PtStudentDorm> stuDormList = null;
 		String hql = " from StudentDorm where isDelete=0 and classId='" + claiId + "' order by inTime ";
 		stuDormList = thisService.queryByHql(hql);
 
 		List<Map<String, String>> stuDormExpList = new ArrayList<>();
 		Map<String, String> stuDormMap = null;
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		for (StudentDorm stuDorm : stuDormList) {
+		for (PtStudentDorm stuDorm : stuDormList) {
 			stuDormMap = new LinkedHashMap<>();
 			stuDormMap.put("claiName", stuDorm.getClassName());
 			stuDormMap.put("xm", stuDorm.getXm());
@@ -562,7 +562,7 @@ public class BaseStudentDormController extends FrameWorkController<StudentDorm> 
 	 * @param roomLeaf
 	 * @return
 	 */
-	private String getClassIds(String areaId, User currentUser) {
+	private String getClassIds(String areaId, PtUser currentUser) {
 
 		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {

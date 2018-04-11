@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
-import com.yc.q1.model.base.pt.system.User;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -36,7 +36,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/ClassTeacher")
-public class WisClassTeacherController extends FrameWorkController<ClassTeacher> implements Constant {
+public class WisClassTeacherController extends FrameWorkController<PtClassTeacher> implements Constant {
 
 	@Resource
 	ClassTeacherService thisService; // service层接口
@@ -54,7 +54,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute ClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
@@ -86,7 +86,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 
 			} else { // 当选择的区域不为班级时
 
-				User currentUser = getCurrentSysUser();
+				PtUser currentUser = getCurrentSysUser();
 				String classIds = getClassIds(deptId, currentUser);
 
 				if (StringUtils.isNotEmpty(classIds)) {
@@ -109,7 +109,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 			}
 		}
 
-		QueryResult<ClassTeacher> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtClassTeacher> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), filter, true);
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
@@ -124,7 +124,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 	 */
 	@Auth("CLASSTEACHER_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(ClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtClassTeacher entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		String classId = entity.getClassId(); // 班级
@@ -148,7 +148,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 		}
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		// 持久化到数据库
 		entity = thisService.doAddClassTeacher(entity, currentUser);
@@ -190,7 +190,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 			return;
 		} else {
 			boolean flag = false;
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			flag = thisService.doDelete(outIds, currentUser);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'解除设置成功'"));
@@ -207,7 +207,7 @@ public class WisClassTeacherController extends FrameWorkController<ClassTeacher>
 	 * @param roomLeaf
 	 * @return
 	 */
-	private String getClassIds(String deptId, User currentUser) {
+	private String getClassIds(String deptId, PtUser currentUser) {
 
 		List<CommTree> baseOrgList = sysOrgService.getUserRightDeptClassTreeList(currentUser);
 		String classIds = baseOrgList.stream().filter((x) -> {

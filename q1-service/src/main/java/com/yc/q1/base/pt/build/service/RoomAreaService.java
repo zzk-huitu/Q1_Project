@@ -2,7 +2,7 @@ package com.yc.q1.base.pt.build.service;
 
 import java.util.List;
 
-import com.yc.q1.model.base.pt.build.RoomArea;
+import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.yc.q1.pojo.base.pt.RoomAreaTree;
 import com.zd.core.service.BaseService;
 
@@ -16,7 +16,7 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface RoomAreaService extends BaseService<RoomArea> {
+public interface RoomAreaService extends BaseService<PtRoomArea> {
 
     public List<RoomAreaTree> getBuildAreaList(String whereSql);
 

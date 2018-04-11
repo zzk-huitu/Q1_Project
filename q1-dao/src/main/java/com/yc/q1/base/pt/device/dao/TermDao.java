@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.device.dao;
 
-import com.yc.q1.model.base.pt.device.Term;
+import com.yc.q1.model.base.pt.device.PtTerm;
 import com.zd.core.dao.BaseDao;
 
 /**
@@ -8,6 +8,6 @@ import com.zd.core.dao.BaseDao;
  * @author hucy
  *
  */
-public interface TermDao extends BaseDao<Term>{
+public interface TermDao extends BaseDao<PtTerm>{
 
 }

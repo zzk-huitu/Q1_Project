@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.constant.Constant;
 import com.zd.core.service.BaseService;
 import com.zd.core.util.CustomDateEditor;
@@ -108,8 +108,8 @@ public class BaseControllerDateSoureTwo implements Constant{
             return "";
     }
     
-    public User getCurrentSysUser(HttpServletRequest request){
-		return (User) request.getSession().getAttribute(SESSION_SYS_USER);
+    public PtUser getCurrentSysUser(HttpServletRequest request){
+		return (PtUser) request.getSession().getAttribute(SESSION_SYS_USER);
 	}
     
     protected  Long  getMaxId(BaseService<?> thisService,Class<?> thisClass){

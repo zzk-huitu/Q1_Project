@@ -4,7 +4,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.ClassDormAllotDao;
-import com.yc.q1.model.base.pt.build.ClassDormAllot;
+import com.yc.q1.model.base.pt.build.PtClassDormAllot;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -21,5 +21,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class ClassDormAllotDaoImpl extends BaseDaoImpl<ClassDormAllot> implements ClassDormAllotDao {
+public class ClassDormAllotDaoImpl extends BaseDaoImpl<PtClassDormAllot> implements ClassDormAllotDao {
 }

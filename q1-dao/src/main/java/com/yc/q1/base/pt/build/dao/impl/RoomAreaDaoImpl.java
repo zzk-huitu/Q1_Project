@@ -3,7 +3,7 @@ package com.yc.q1.base.pt.build.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.build.dao.RoomAreaDao;
-import com.yc.q1.model.base.pt.build.RoomArea;
+import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.zd.core.dao.BaseDaoImpl;
 
 
@@ -20,5 +20,5 @@ import com.zd.core.dao.BaseDaoImpl;
  * @since JDK 1.8
  */
 @Repository
-public class RoomAreaDaoImpl extends BaseDaoImpl<RoomArea> implements RoomAreaDao {
+public class RoomAreaDaoImpl extends BaseDaoImpl<PtRoomArea> implements RoomAreaDao {
 }

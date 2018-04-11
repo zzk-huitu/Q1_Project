@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.device.service.FrontServerService;
 import com.yc.q1.base.pt.device.service.GatewayService;
-import com.yc.q1.model.base.pt.device.FrontServer;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.device.PtFrontServer;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -32,7 +32,7 @@ import com.zd.core.util.StringUtils;
  */
 @Controller
 @RequestMapping("/BaseFrontServer")
-public class BaseFrontServerController extends FrameWorkController<FrontServer> implements Constant {
+public class BaseFrontServerController extends FrameWorkController<PtFrontServer> implements Constant {
 	@Resource
 	FrontServerService thisService; // service层接口
 	@Resource
@@ -44,10 +44,10 @@ public class BaseFrontServerController extends FrameWorkController<FrontServer> 
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(@ModelAttribute FrontServer entity, HttpServletRequest request, HttpServletResponse response)
+	public void list(@ModelAttribute PtFrontServer entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<FrontServer> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtFrontServer> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
@@ -62,10 +62,10 @@ public class BaseFrontServerController extends FrameWorkController<FrontServer> 
 	 */
 	@Auth("BASEFRONTSERVER_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(FrontServer entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtFrontServer entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -104,7 +104,7 @@ public class BaseFrontServerController extends FrameWorkController<FrontServer> 
 		    	writeJSON(response, jsonBuilder.returnFailureJson("\"该前置服务器使用中，不能删除！\""));
 				return;
 		    }
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -126,7 +126,7 @@ public class BaseFrontServerController extends FrameWorkController<FrontServer> 
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入还原主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISNOTDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("'还原成功'"));
@@ -143,13 +143,13 @@ public class BaseFrontServerController extends FrameWorkController<FrontServer> 
 	 */
 	@Auth("BASEFRONTSERVER_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(FrontServer entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtFrontServer entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 入库前检查代码
 
 		// 获取当前的操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doUpdateEntity(entity, currentUser);// 执行修改方法
 		if (ModelUtil.isNotNull(entity))

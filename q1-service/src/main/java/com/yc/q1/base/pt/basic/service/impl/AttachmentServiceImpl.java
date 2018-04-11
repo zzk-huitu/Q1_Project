@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.basic.service.AttachmentService;
-import com.yc.q1.model.base.pt.basic.Attachment;
+import com.yc.q1.model.base.pt.basic.PtAttachment;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -21,10 +21,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class AttachmentServiceImpl extends BaseServiceImpl<Attachment> implements AttachmentService {
+public class AttachmentServiceImpl extends BaseServiceImpl<PtAttachment> implements AttachmentService {
 
 	@Resource(name = "AttachmentDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<Attachment> dao) {
+	public void setDao(BaseDao<PtAttachment> dao) {
 		super.setDao(dao);
 	}
 

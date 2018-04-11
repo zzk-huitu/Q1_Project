@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.yc.q1.base.mj.service.MjUserRightService;
 import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.model.base.mj.MjUserRight;
-import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -109,7 +109,7 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		entity = thisService.doAddEntity(entity, currentUser);// 执行增加方法
 		if (ModelUtil.isNotNull(entity))
@@ -131,7 +131,7 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 			writeJSON(response, jsonBuilder.returnSuccessJson("'没有传入删除主键'"));
 			return;
 		} else {
-			User currentUser = getCurrentSysUser();
+			PtUser currentUser = getCurrentSysUser();
 			boolean flag = thisService.doLogicDelOrRestore(ids, StatuVeriable.ISDELETE, currentUser.getId());
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
@@ -158,7 +158,7 @@ public class BaseMjUserrightController extends FrameWorkController<MjUserRight> 
 					throws IOException, IllegalAccessException, InvocationTargetException {
 
 		// 获取当前操作用户
-		User currentUser = getCurrentSysUser();
+		PtUser currentUser = getCurrentSysUser();
 
 		thisService.doAddMj(userId, termId, currentUser);// 执行增加方法
 

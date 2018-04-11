@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.build.dao;
 
-import com.yc.q1.model.base.pt.build.StudentDorm;
+import com.yc.q1.model.base.pt.build.PtStudentDorm;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface StudentDormDao extends BaseDao<StudentDorm> {
+public interface StudentDormDao extends BaseDao<PtStudentDorm> {
 
 }

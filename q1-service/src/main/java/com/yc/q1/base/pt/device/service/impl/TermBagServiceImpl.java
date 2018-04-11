@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.device.service.TermService;
 import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
-import com.yc.q1.model.base.pt.device.Term;
-import com.yc.q1.model.base.pt.device.TermBag;
+import com.yc.q1.model.base.pt.device.PtTerm;
+import com.yc.q1.model.base.pt.device.PtTermBag;
 import com.yc.q1.base.pt.device.service.TermBagService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
@@ -25,10 +25,10 @@ import com.zd.core.service.BaseServiceImpl;
  */
 @Service
 @Transactional
-public class TermBagServiceImpl extends BaseServiceImpl<TermBag> implements TermBagService {
+public class TermBagServiceImpl extends BaseServiceImpl<PtTermBag> implements TermBagService {
 
 	@Resource(name = "TermBagDao") // 将具体的dao注入进来
-	public void setDao(BaseDao<TermBag> dao) {
+	public void setDao(BaseDao<PtTermBag> dao) {
 		super.setDao(dao);
 	}
 
@@ -50,7 +50,7 @@ public class TermBagServiceImpl extends BaseServiceImpl<TermBag> implements Term
 		Integer bdrole = pttermService.getQueryCountBySql(sql);
 
 		for (Map map : qResult.getResultList()) {
-			Term t = pttermService.get((Serializable) map.get("termid"));
+			PtTerm t = pttermService.get((Serializable) map.get("termid"));
 			map.put("skprice", t.getSkprice());
 			map.put("dkprice", t.getDkprice());
 			map.put("skmeasure", t.getSkmeasure());

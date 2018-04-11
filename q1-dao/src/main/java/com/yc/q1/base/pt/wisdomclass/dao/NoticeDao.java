@@ -1,6 +1,6 @@
 package com.yc.q1.base.pt.wisdomclass.dao;
 
-import com.yc.q1.model.base.pt.wisdomclass.Notice;
+import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
 import com.zd.core.dao.BaseDao;
 
 
@@ -17,6 +17,6 @@ import com.zd.core.dao.BaseDao;
  * @since JDK 1.8
  */
  
-public interface NoticeDao extends BaseDao<Notice> {
+public interface NoticeDao extends BaseDao<PtNotice> {
 
 }

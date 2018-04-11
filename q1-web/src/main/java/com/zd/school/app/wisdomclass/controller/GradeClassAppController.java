@@ -29,17 +29,17 @@ import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassRedFlagService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassStarService;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
-import com.yc.q1.model.base.pt.basic.Calender;
-import com.yc.q1.model.base.pt.basic.CalenderDetail;
-import com.yc.q1.model.base.pt.basic.ClassStudent;
-import com.yc.q1.model.base.pt.basic.FuncRoomCourse;
-import com.yc.q1.model.base.pt.basic.GradeClass;
-import com.yc.q1.model.base.pt.basic.InfoTerminal;
-import com.yc.q1.model.base.pt.basic.TeacherBaseInfo;
-import com.yc.q1.model.base.pt.build.RoomInfo;
-import com.yc.q1.model.base.pt.wisdomclass.ClassRedFlag;
-import com.yc.q1.model.base.pt.wisdomclass.ClassStar;
-import com.yc.q1.model.base.pt.wisdomclass.ClassTeacher;
+import com.yc.q1.model.base.pt.basic.PtCalender;
+import com.yc.q1.model.base.pt.basic.PtCalenderDetail;
+import com.yc.q1.model.base.pt.basic.PtClassStudent;
+import com.yc.q1.model.base.pt.basic.PtFuncRoomCourse;
+import com.yc.q1.model.base.pt.basic.PtGradeClass;
+import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
+import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
+import com.yc.q1.model.base.pt.build.PtRoomInfo;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
+import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.pojo.base.app.ClassInfoApp;
 import com.yc.q1.pojo.base.app.ClassStudentApp;
 import com.yc.q1.pojo.base.app.CommonApp;
@@ -50,7 +50,7 @@ import com.zd.core.util.StringUtils;
 
 @Controller
 @RequestMapping("/app/GradeClass")
-public class GradeClassAppController extends BaseController<GradeClass> {
+public class GradeClassAppController extends BaseController<PtGradeClass> {
 
 	@Value("${virtualFileUrl}")  	//读取在配置文件属性
 	private String virtualFileUrl; 	//文件目录虚拟路径
@@ -127,7 +127,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		
 		ClassInfoApp info = new ClassInfoApp();
 
-		GradeClass classInfo = thisService.get(classId);// 班级对象
+		PtGradeClass classInfo = thisService.get(classId);// 班级对象
 		if (classInfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到对应的班级！");
@@ -136,7 +136,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		
 		Map<String,String> sort = new HashMap<>();
 		sort.put("category", "asc");
-		ClassTeacher calssTeacher = classTeacherService.getByProerties(
+		PtClassTeacher calssTeacher = classTeacherService.getByProerties(
 				new String[]{"classId","isDelete"},
 				new Object[]{classId,0},sort);		//率先读取正班主任
 		if (calssTeacher == null) {
@@ -145,7 +145,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 			return info; 
 		}
 		String teacherId = calssTeacher.getTeacherId();
-		List<TeacherBaseInfo> teacherList = teacherService.queryByProerties("id", teacherId);
+		List<PtTeacherBaseInfo> teacherList = teacherService.queryByProerties("id", teacherId);
 		if (teacherList.isEmpty()) {
 			info.setMessage(false);
 			info.setMessageInfo("未找到该班级的班主任信息！");
@@ -160,21 +160,21 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		//查询班级星级信息
 		String hql = "from ClassStar where isDelete=0 and classId='" + classInfo.getId() + "' and beginDate<='"
 				+ today + "' and endDate>='" + today + "'";
-		List<ClassStar> classstarList = starService.queryByHql(hql);
+		List<PtClassStar> classstarList = starService.queryByHql(hql);
 		if (!classstarList.isEmpty()) {
-			ClassStar starInfo = classstarList.get(0);
+			PtClassStar starInfo = classstarList.get(0);
 			info.setClassstarInfo(starInfo);
 		}
 		
 		//查询班级红旗信息(显示最新的红旗)
 		hql = "from ClassRedFlag where isDelete=0 and classId='" + classInfo.getId() + "' and beginDate<='" + today
 				+ "' and endDate>='" + today + "' order by redFlagType";
-		List<ClassRedFlag> classflagList = flagService.queryByHql(hql);
+		List<PtClassRedFlag> classflagList = flagService.queryByHql(hql);
 		if (classflagList != null && classflagList.size() > 0) {
 			if (classflagList.size() > 1) {
 				for (int i = 1; i < classflagList.size(); i++) {
-					ClassRedFlag before = classflagList.get(i - 1);
-					ClassRedFlag now = classflagList.get(i);
+					PtClassRedFlag before = classflagList.get(i - 1);
+					PtClassRedFlag now = classflagList.get(i);
 					if (before.getRedFlagType().equals(now.getRedFlagType())) {
 						classflagList.remove(before);
 					    i--;
@@ -203,13 +203,13 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		
 		ClassStudentApp info = new ClassStudentApp();
 
-		InfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
+		PtInfoTerminal roomTerm = termService.getByProerties("terminalNo", termCode);
 		if (roomTerm == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到该终端设备！");
 			return info;
 		}
-		RoomInfo roominfo = brService.get(roomTerm.getRoomId());
+		PtRoomInfo roominfo = brService.get(roomTerm.getRoomId());
 		if (roominfo == null) {
 			info.setMessage(false);
 			info.setMessageInfo("没有找到设备对应房间！");
@@ -228,18 +228,18 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 			if(campusId!=null){
 				String[] propName = new String[] { "campusId", "activityState", "isDelete" };
 				Object[] propValue = new Object[] { campusId, 1, 0 };
-				Calender calender = calendarService.getByProerties(propName, propValue); // 查询出校区启用的作息时间
+				PtCalender calender = calendarService.getByProerties(propName, propValue); // 查询出校区启用的作息时间
 				
 				//找到了作息时间
 				if(calender!=null){
 					propName = new String[] { "calenderId", "isDelete" };
 					propValue = new Object[] { calender.getId(), 0 };
-					List<CalenderDetail> calenderDetails = calendarDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
+					List<PtCalenderDetail> calenderDetails = calendarDetailService.queryByProerties(propName, propValue);	//查询出作息时间详细
 					
 					
 					// 根据当前时间取得现在的节次
 					String teachTime = "";
-					for (CalenderDetail calenderdetail : calenderDetails) {
+					for (PtCalenderDetail calenderdetail : calenderDetails) {
 						String tS = DateUtil.formatDate(calenderdetail.getBeginTime(), "HH:mm:ss");
 						if (calenderdetail.getEndTime() != null) {
 							String tE = DateUtil.formatDate(calenderdetail.getEndTime(), "HH:mm:ss");
@@ -253,7 +253,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 					//获取功能室的课程信息
 					propName = new String[] { "roomId", "sections","isDelete" };
 					propValue = new Object[] { roomTerm.getRoomId(), teachTime,0};
-					FuncRoomCourse funcroomcourses = funcCourseService.getByProerties(propName, propValue);
+					PtFuncRoomCourse funcroomcourses = funcCourseService.getByProerties(propName, propValue);
 					
 					//最后获取星期N的功能室课程的班级
 					if (funcroomcourses != null) {
@@ -265,7 +265,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		} else { // 当为教室的时候
 
 			// 验证班级是否存在
-			GradeClass classInfo = thisService.get(classId);
+			PtGradeClass classInfo = thisService.get(classId);
 			if (classInfo == null) {
 				info.setMessage(false);
 				info.setMessageInfo("未找到该班级信息！");
@@ -279,7 +279,7 @@ public class GradeClassAppController extends BaseController<GradeClass> {
 		
 			//查询班级下的学生信息
 			String hql = "from ClassStudent where classId='" + classId + "' and isDelete=0";
-			List<ClassStudent> list = classStudentService.queryByHql(hql);
+			List<PtClassStudent> list = classStudentService.queryByHql(hql);
 		
 			//直接遍历修改各个数据的照片路径（加入虚拟目录名）
 			list.stream().forEach(x->x.setPhoto(virtualFileUrl+"/"+x.getPhoto()));
