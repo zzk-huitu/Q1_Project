@@ -4,7 +4,7 @@ package com.yc.q1.base.pt.card.dao.impl;
 import org.springframework.stereotype.Repository;
 
 import com.yc.q1.base.pt.card.dao.TaskDao;
-import com.yc.q1.model.base.pt.card.Task;
+import com.yc.q1.model.storage.pt.Task;
 import com.zd.core.dao.BaseDaoImpl;
 
 /**

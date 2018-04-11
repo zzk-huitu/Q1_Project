@@ -1,4 +1,4 @@
-package com.yc.q1.model.base.mj;
+package com.yc.q1.model.storage.mj;
 
 import java.io.Serializable;
 import java.util.Date;

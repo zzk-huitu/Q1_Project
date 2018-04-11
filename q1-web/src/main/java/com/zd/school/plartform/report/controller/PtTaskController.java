@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.base.pt.card.service.TaskService;
 import com.yc.q1.base.pt.system.service.DataDictItemService;
-import com.yc.q1.model.base.pt.card.Task;
 import com.yc.q1.model.base.pt.system.DataDictItem;
 import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.storage.pt.Task;
 import com.yc.q1.model.storage.sk.SkTermStatus;
 import com.yc.q1.pojo.base.pt.TLVModel;
 import com.zd.core.annotation.Auth;

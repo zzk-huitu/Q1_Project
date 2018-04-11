@@ -1,4 +1,4 @@
-package com.yc.q1.model.base.pt.card;
+package com.yc.q1.model.storage.pt;
 
 import java.io.Serializable;
 import java.util.Date;

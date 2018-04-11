@@ -1,7 +1,7 @@
 package com.yc.q1.base.pt.card.service;
 
-import com.yc.q1.model.base.pt.card.Task;
 import com.yc.q1.model.base.pt.system.User;
+import com.yc.q1.model.storage.pt.Task;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseService;
 
