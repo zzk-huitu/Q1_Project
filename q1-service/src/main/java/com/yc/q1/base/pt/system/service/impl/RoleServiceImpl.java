@@ -12,6 +12,7 @@ import com.yc.q1.base.pt.system.dao.RoleDao;
 import com.yc.q1.base.pt.system.model.Role;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
@@ -33,7 +34,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role> implements RoleServic
 	public void setDao(BaseDao<Role> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private UserService userSerive;
 

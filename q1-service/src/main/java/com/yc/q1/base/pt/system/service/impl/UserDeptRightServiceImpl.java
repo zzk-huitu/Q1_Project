@@ -11,10 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.dao.UserDeptRightDao;
 import com.yc.q1.base.pt.system.model.User;
+import com.yc.q1.base.pt.system.model.UserDeptJob;
 import com.yc.q1.base.pt.system.model.UserDeptRight;
 import com.yc.q1.base.pt.system.service.UserDeptRightService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.redis.service.DeptRedisService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 
@@ -37,7 +39,8 @@ public class UserDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> imp
 	public void setDao(BaseDao<UserDeptRight> dao) {
 		super.setDao(dao);
 	}
-	
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private DeptRedisService deptRedisService;
 	
@@ -60,6 +63,7 @@ public class UserDeptRightServiceImpl extends BaseServiceImpl<UserDeptRight> imp
 			for (String di : deptIds) {
 				if(!deptIdList.contains(di)){			
 					deptright = new UserDeptRight();
+					deptright.setId(keyRedisService.getId(UserDeptRight.ModuleType));
 					deptright.setUserId(ui);
 					deptright.setDeptId(di);
 					//deptright.setRightSource(1);取消了此字段

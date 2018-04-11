@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.pojo.MenuTree;
-import com.yc.q1.base.pt.system.dao.MenuDao;
 import com.yc.q1.base.pt.system.model.Menu;
 import com.yc.q1.base.pt.system.model.MenuPermission;
 import com.yc.q1.base.pt.system.model.Permission;
@@ -28,6 +27,7 @@ import com.yc.q1.base.pt.system.service.PermissionService;
 import com.yc.q1.base.pt.system.service.RoleMenuPermissionService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.AuthorType;
 import com.zd.core.constant.MenuType;
@@ -55,7 +55,8 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 	public void setDao(BaseDao<Menu> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource
 	private RoleService sysRoleService;
 
@@ -549,7 +550,7 @@ public class MenuServiceImpl extends BaseServiceImpl<Menu> implements MenuServic
 		String parentNode = menu.getParentNode();
 		String parentName = menu.getParentMenuName();
 		String menuType = menu.getMenuType();
-		
+		menu.setId(keyRedisService.getId(Menu.ModuleType));
 		/*zzk：此字段不需要了*/
 //		String menuLeaf = "LEAF";
 //		if (menuType.equals(MenuType.TYPE_MENU))

@@ -11,10 +11,10 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.base.pt.system.dao.AppInfoDao;
 import com.yc.q1.base.pt.system.model.AppInfo;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.AppInfoService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -37,7 +37,8 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppI
 	public void setDao(BaseDao<AppInfo> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	private static Logger logger = Logger.getLogger(AppInfoServiceImpl.class);
 
 	@Override
@@ -115,6 +116,7 @@ public class AppInfoServiceImpl extends BaseServiceImpl<AppInfo> implements AppI
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(AppInfo.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法

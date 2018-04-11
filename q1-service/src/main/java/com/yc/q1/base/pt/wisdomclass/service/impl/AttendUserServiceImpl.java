@@ -13,8 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.dao.AttendUserDao;
+import com.yc.q1.base.pt.wisdomclass.model.AttendTime;
 import com.yc.q1.base.pt.wisdomclass.model.AttendUser;
 import com.yc.q1.base.pt.wisdomclass.service.AttendUserService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -40,6 +42,8 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 	public void setDao(BaseDao<AttendUser> dao) {
 		super.setDao(dao);
 	}
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	private static Logger logger = Logger.getLogger(AttendUserServiceImpl.class);
 	
 	@Override
@@ -115,6 +119,7 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(AttendUser.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -141,6 +146,7 @@ public class AttendUserServiceImpl extends BaseServiceImpl<AttendUser> implement
 				this.merge(perEntity);
 			} else {
 				perEntity = new AttendUser();
+				perEntity.setId(keyRedisService.getId(AttendUser.ModuleType));
 				perEntity.setAttendThemeId(titleId);
 				perEntity.setUserId(userIds[i]);
 			    perEntity.setCreateUser(xm);

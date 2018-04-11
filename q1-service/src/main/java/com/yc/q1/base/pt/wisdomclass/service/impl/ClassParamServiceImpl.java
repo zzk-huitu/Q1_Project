@@ -9,6 +9,7 @@ import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassParamDao;
 import com.yc.q1.base.pt.wisdomclass.model.ClassParam;
 import com.yc.q1.base.pt.wisdomclass.service.ClassParamService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -34,7 +35,8 @@ public class ClassParamServiceImpl extends BaseServiceImpl<ClassParam> implement
 	public void setDao(BaseDao<ClassParam> dao) {
 		super.setDao(dao);
 	}
-	
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Override
 	public QueryResult<ClassParam> list(Integer start, Integer limit, String sort, String filter, String whereSql,
 			String orderSql,User currentUser) {

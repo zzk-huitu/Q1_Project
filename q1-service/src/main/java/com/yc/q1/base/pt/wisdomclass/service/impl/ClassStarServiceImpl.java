@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassStarDao;
+import com.yc.q1.base.pt.wisdomclass.model.ClassRedFlag;
 import com.yc.q1.base.pt.wisdomclass.model.ClassStar;
 import com.yc.q1.base.pt.wisdomclass.service.ClassStarService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -40,7 +42,8 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 
 	@Resource
 	private UserService userService;
-	
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource(name="ClassStarDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<ClassStar> dao) {
 		super.setDao(dao);
@@ -125,7 +128,7 @@ public class ClassStarServiceImpl extends BaseServiceImpl<ClassStar> implements 
 			String [] classNames = entity.getClassName().split(",");
 			for (int i = 0; i < claiIds.length; i++) {
 				ClassStar saveEntity = new ClassStar();
-
+				entity.setId(keyRedisService.getId(ClassStar.ModuleType));
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 				saveEntity.setClassId(claiIds[i]);

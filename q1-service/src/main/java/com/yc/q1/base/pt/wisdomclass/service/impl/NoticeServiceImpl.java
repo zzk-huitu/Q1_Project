@@ -26,10 +26,13 @@ import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.base.pt.system.service.RoleService;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.dao.NoticeDao;
+import com.yc.q1.base.pt.wisdomclass.model.AttendTerm;
 import com.yc.q1.base.pt.wisdomclass.model.Notice;
+import com.yc.q1.base.pt.wisdomclass.model.NoticeAuditor;
 import com.yc.q1.base.pt.wisdomclass.model.NoticeOther;
 import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.pt.wisdomclass.service.NoticeAuditorService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.StringVeriable;
@@ -58,7 +61,8 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	public void setDao(BaseDao<Notice> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	private static Logger logger = Logger.getLogger(NoticeServiceImpl.class);
 
 	@Resource
@@ -307,6 +311,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(Notice.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
@@ -337,6 +342,7 @@ public class NoticeServiceImpl extends BaseServiceImpl<Notice> implements Notice
 	public Notice doAddEntity(Notice entity, User currentUser, String deptIds, String roleIds, String userIds,
 			String terminalIds, String stuIds, String isNoticeParent) {
 		Notice saveEntity = new Notice();
+		saveEntity.setId(keyRedisService.getId(Notice.ModuleType));
 		try {
 			List<User> userList = new ArrayList<User>();
 			List<User> stuList = new ArrayList<User>();

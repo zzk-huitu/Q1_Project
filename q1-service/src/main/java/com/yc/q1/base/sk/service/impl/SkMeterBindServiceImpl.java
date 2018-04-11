@@ -6,8 +6,10 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.yc.q1.base.sk.model.SkMeterBind;
 import com.yc.q1.base.sk.service.SkMeterBindService;
+import com.yc.q1.base.xf.model.RoomBagRuleBind;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 @Service
@@ -18,7 +20,8 @@ public class SkMeterBindServiceImpl  extends BaseServiceImpl<SkMeterBind> implem
 	public void setDao(BaseDao<SkMeterBind> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Override
 	public void doMeterBind(String[] termId, String[] termSn, String meterId, String xm) {
 		Date date=new Date();
@@ -32,6 +35,7 @@ public class SkMeterBindServiceImpl  extends BaseServiceImpl<SkMeterBind> implem
 				this.merge(perEntity);
 			} else {
 				perEntity = new SkMeterBind();
+				perEntity.setId(keyRedisService.getId(SkMeterBind.ModuleType));
 				perEntity.setMeterId(meterId);
 				perEntity.setTermId(termId[i]);
 				perEntity.setTermSn(termSn[i]);

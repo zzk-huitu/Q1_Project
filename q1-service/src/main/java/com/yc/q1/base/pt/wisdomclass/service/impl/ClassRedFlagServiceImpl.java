@@ -14,8 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.base.pt.wisdomclass.dao.ClassRedFlagDao;
+import com.yc.q1.base.pt.wisdomclass.model.AttendTheme;
 import com.yc.q1.base.pt.wisdomclass.model.ClassRedFlag;
 import com.yc.q1.base.pt.wisdomclass.service.ClassRedFlagService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -40,7 +42,8 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 
 	@Resource
 	private UserService userService;
-	
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Resource(name="ClassRedFlagDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<ClassRedFlag> dao) {
 		super.setDao(dao);
@@ -125,7 +128,7 @@ public class ClassRedFlagServiceImpl extends BaseServiceImpl<ClassRedFlag> imple
 			String [] classNames = entity.getClassName().split(",");	
 			for (int i = 0; i < claiIds.length; i++) {
 				ClassRedFlag saveEntity = new ClassRedFlag();
-
+				entity.setId(keyRedisService.getId(ClassRedFlag.ModuleType));
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 				saveEntity.setClassId(claiIds[i]);

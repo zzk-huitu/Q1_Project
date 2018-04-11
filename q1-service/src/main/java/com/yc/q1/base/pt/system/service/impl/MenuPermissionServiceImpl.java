@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.base.pt.system.dao.MenuPermissionDao;
+import com.yc.q1.base.pt.system.model.Menu;
 import com.yc.q1.base.pt.system.model.MenuPermission;
 import com.yc.q1.base.pt.system.model.User;
 import com.yc.q1.base.pt.system.service.MenuPermissionService;
+import com.yc.q1.base.redis.service.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.service.BaseServiceImpl;
 import com.zd.core.util.BeanUtils;
@@ -28,7 +30,8 @@ public class MenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> i
 	public void setDao(BaseDao<MenuPermission> dao) {
 		super.setDao(dao);
 	}
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Override
 	public List<MenuPermission> getRoleMenuPerlist(String roleId, String perId) {
 		List<MenuPermission> returnList=null;
@@ -57,6 +60,7 @@ public class MenuPermissionServiceImpl extends BaseServiceImpl<MenuPermission> i
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
+			entity.setId(keyRedisService.getId(MenuPermission.ModuleType));
 			BeanUtils.copyProperties(saveEntity,entity,excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
