@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.build.PtOfficeDefine;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtOfficeDefineDao")
 public class PtOfficeDefineDaoImpl extends BaseDaoImpl<PtOfficeDefine> implements PtOfficeDefineDao {
 }

@@ -10,6 +10,6 @@ import com.yc.q1.model.base.pt.device.PtPriceBind;
  * @author hucy
  *
  */
-@Repository
+@Repository("PtPriceBindDao")
 public class PtPriceBindDaoImpl extends BaseDaoImpl<PtPriceBind> implements PtPriceBindDao{
 }

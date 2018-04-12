@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtAttendTimeDao")
 public class PtAttendTimeDaoImpl extends BaseDaoImpl<PtAttendTime> implements PtAttendTimeDao {
 }

@@ -11,6 +11,6 @@ import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
  * @author hucy
  *
  */
-@Repository
+@Repository("PtRoomBagRuleBindDao")
 public class PtRoomBagRuleBindDaoImpl extends BaseDaoImpl<PtRoomBagRuleBind> implements PtRoomBagRuleBindDao{
 }

@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtNoticeType;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtNoticeTypeDao")
 public class PtNoticeTypeDaoImpl extends BaseDaoImpl<PtNoticeType> implements PtNoticeTypeDao {
 }

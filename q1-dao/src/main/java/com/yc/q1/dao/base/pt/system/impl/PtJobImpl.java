@@ -18,6 +18,6 @@ import com.yc.q1.model.base.pt.system.PtJob;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtJobDao")
 public class PtJobImpl extends BaseDaoImpl<PtJob> implements PtJobDao {
 }

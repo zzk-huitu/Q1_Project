@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.basic.PtStudentParents;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtStudentParentsDao")
 public class PtStudentParentsDaoImpl extends BaseDaoImpl<PtStudentParents> implements PtStudentParentsDao {
 }

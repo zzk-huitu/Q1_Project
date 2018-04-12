@@ -42,7 +42,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtClassTeacherServiceImpl extends BaseServiceImpl<PtClassTeacher> implements PtClassTeacherService {
 
-	@Resource(name="ptClassTeacherDao")	//将具体的dao注入进来
+	@Resource(name="PtClassTeacherDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassTeacher> dao) {
 		super.setDao(dao);
 	}

@@ -31,7 +31,7 @@ public class PtTaskServiceImpl extends BaseServiceImpl<PtTask> implements PtTask
 
 	private static Logger logger = Logger.getLogger(PtTaskServiceImpl.class);
 	
-	@Resource(name = "ptTaskDao") // 将具体的dao注入进来
+	@Resource(name = "PtTaskDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtTask> dao) {
 		super.setDao(dao);
 	}

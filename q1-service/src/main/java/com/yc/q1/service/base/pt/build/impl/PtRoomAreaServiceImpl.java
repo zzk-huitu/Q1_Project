@@ -33,7 +33,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtRoomAreaServiceImpl extends BaseServiceImpl<PtRoomArea> implements PtRoomAreaService {
 
-	@Resource(name = "ptRoomAreaDao") // 将具体的dao注入进来
+	@Resource(name = "PtRoomAreaDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRoomArea> dao) {
 		super.setDao(dao);
 	}

@@ -26,7 +26,7 @@ import com.yc.q1.service.base.pt.basic.PtStudentParentsService;
 @Transactional
 public class PtStudentParentsServiceImpl extends BaseServiceImpl<PtStudentParents> implements PtStudentParentsService{
 
-	@Resource(name = "ptStudentParentsDao") // 将具体的dao注入进来
+	@Resource(name = "PtStudentParentsDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtStudentParents> dao) {
 		super.setDao(dao);
 	}

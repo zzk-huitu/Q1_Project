@@ -16,6 +16,6 @@ import com.yc.q1.model.base.pt.system.PtRole;
  * @since JDK 1.8
  */
 
-@Repository
+@Repository("PtRoleDao")	//默认为ptRoleDaoImpl
 public class PtRoleDaoImpl extends BaseDaoImpl<PtRole> implements PtRoleDao {
 }

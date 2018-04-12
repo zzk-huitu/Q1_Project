@@ -4,7 +4,7 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.zd</groupId>
+		<groupId>com.yc</groupId>
 		<artifactId>q1</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
@@ -14,8 +14,8 @@
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
-			<groupId>com.zd</groupId>
-			<artifactId>q1-zd-core</artifactId>
+			<groupId>com.yc</groupId>
+			<artifactId>q1-core</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
 				<exclusion>
@@ -25,7 +25,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.zd</groupId>
+			<groupId>com.yc</groupId>
 			<artifactId>q1-model</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
@@ -36,7 +36,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.zd</groupId>
+			<groupId>com.yc</groupId>
 			<artifactId>q1-dao</artifactId>
 			<version>${project.version}</version>
 			<exclusions>
@@ -47,7 +47,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.zd</groupId>
+			<groupId>com.yc</groupId>
 			<artifactId>q1-service</artifactId>
 			<version>${project.version}</version>
 			<exclusions>

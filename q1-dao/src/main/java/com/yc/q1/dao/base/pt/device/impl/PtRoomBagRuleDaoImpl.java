@@ -11,6 +11,6 @@ import com.yc.q1.model.base.pt.device.PtRoomBagRule;
  * @author hucy
  *
  */
-@Repository
+@Repository("PtRoomBagRuleDao")
 public class PtRoomBagRuleDaoImpl extends BaseDaoImpl<PtRoomBagRule> implements PtRoomBagRuleDao{
 }

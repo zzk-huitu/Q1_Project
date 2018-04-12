@@ -19,6 +19,6 @@ import com.yc.q1.model.base.mj.MjUserRight;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("MjUserRightDao")
 public class MjUserRightDaoImpl extends BaseDaoImpl<MjUserRight> implements MjUserRightDao {
 }

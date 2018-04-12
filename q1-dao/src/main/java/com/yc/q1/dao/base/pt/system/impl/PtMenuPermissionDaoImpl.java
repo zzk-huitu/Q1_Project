@@ -20,6 +20,6 @@ import com.yc.q1.model.base.pt.system.PtMenuPermission;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtMenuPermissionDao")
 public class PtMenuPermissionDaoImpl extends BaseDaoImpl<PtMenuPermission> implements PtMenuPermissionDao {
 }

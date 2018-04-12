@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.build.PtFuncRoomDefine;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtFuncRoomDefineDao")
 public class PtFuncRoomDefineDaoImpl extends BaseDaoImpl<PtFuncRoomDefine> implements PtFuncRoomDefineDao {
 }

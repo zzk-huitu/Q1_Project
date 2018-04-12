@@ -27,7 +27,7 @@ import com.yc.q1.service.base.pt.build.PtClassDormAllotService;
 @Transactional
 public class PtClassDormAllotServiceImpl extends BaseServiceImpl<PtClassDormAllot> implements PtClassDormAllotService{
 
-	@Resource(name = "ptClassDormAllotDao") // 将具体的dao注入进来
+	@Resource(name = "PtClassDormAllotDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtClassDormAllot> dao) {
 		super.setDao(dao);
 	}

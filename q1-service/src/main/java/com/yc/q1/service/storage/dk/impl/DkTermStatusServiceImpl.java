@@ -14,7 +14,7 @@ import com.yc.q1.service.storage.dk.DkTermStatusService;
 @Transactional
 public class DkTermStatusServiceImpl extends BaseServiceImpl<DkTermStatus> implements DkTermStatusService {
 
-	@Resource(name = "dkTermStatusDao") // 将具体的dao注入进来
+	@Resource(name = "DkTermStatusDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<DkTermStatus> dao) {
 		super.setDao(dao);
 	}

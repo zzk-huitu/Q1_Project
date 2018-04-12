@@ -14,6 +14,6 @@ import com.yc.q1.model.base.pt.device.PtFrontServer;
  * @author hucy
  *
  */
-@Repository
+@Repository("PtFrontServerDao")
 public class PtFrontServerDaoImpl extends BaseDaoImpl<PtFrontServer> implements PtFrontServerDao {
 }

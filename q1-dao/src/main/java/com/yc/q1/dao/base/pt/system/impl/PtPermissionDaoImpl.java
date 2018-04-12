@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.system.PtPermission;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtPermissionDao")
 public class PtPermissionDaoImpl extends BaseDaoImpl<PtPermission> implements PtPermissionDao {
 }

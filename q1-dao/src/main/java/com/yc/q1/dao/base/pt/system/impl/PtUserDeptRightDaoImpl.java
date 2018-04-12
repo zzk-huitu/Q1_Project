@@ -15,6 +15,6 @@ import com.yc.q1.model.base.pt.system.PtUserDeptRight;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtUserDeptRightDao")
 public class PtUserDeptRightDaoImpl extends BaseDaoImpl<PtUserDeptRight> implements PtUserDeptRightDao {
 }

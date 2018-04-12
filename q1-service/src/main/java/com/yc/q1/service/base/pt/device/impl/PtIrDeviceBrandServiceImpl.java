@@ -33,7 +33,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand> implements PtIrDeviceBrandService {
 
-	@Resource(name = "ptIrDeviceBrandDao") // 将具体的dao注入进来
+	@Resource(name = "PtIrDeviceBrandDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtIrDeviceBrand> dao) {
 		super.setDao(dao);
 	}

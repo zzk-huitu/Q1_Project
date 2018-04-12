@@ -23,7 +23,7 @@ import com.yc.q1.service.base.pt.basic.PtAttachmentService;
 @Transactional
 public class PtAttachmentServiceImpl extends BaseServiceImpl<PtAttachment> implements PtAttachmentService {
 
-	@Resource(name = "ptAttachmentDao") // 将具体的dao注入进来
+	@Resource(name = "PtAttachmentDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtAttachment> dao) {
 		super.setDao(dao);
 	}

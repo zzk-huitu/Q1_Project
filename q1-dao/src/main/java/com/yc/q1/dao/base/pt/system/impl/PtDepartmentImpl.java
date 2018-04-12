@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.system.PtDepartment;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtDepartmentDao")
 public class PtDepartmentImpl extends BaseDaoImpl<PtDepartment> implements PtDepartmentDao {
 }

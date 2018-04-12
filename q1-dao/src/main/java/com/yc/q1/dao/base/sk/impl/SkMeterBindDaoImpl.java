@@ -11,6 +11,6 @@ import com.yc.q1.model.base.sk.SkMeterBind;
  
  *
  */
-@Repository
+@Repository("SkMeterBindDao")
 public class SkMeterBindDaoImpl extends BaseDaoImpl<SkMeterBind> implements SkMeterBindDao{
 }

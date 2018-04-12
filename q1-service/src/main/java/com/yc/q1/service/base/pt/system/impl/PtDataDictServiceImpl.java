@@ -31,7 +31,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtDataDictServiceImpl extends BaseServiceImpl<PtDataDict> implements PtDataDictService {
 
-	@Resource(name = "ptDataDictDao") // 将具体的dao注入进来
+	@Resource(name = "PtDataDictDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtDataDict> dao) {
 		super.setDao(dao);
 	}

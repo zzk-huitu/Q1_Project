@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassParam;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtClassParamDao")
 public class PtClassParamDaoImpl extends BaseDaoImpl<PtClassParam> implements PtClassParamDao {
 }

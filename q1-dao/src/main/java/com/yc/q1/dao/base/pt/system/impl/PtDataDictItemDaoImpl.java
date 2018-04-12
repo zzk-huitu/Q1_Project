@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.system.PtDataDictItem;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtDataDictItemDao")
 public class PtDataDictItemDaoImpl extends BaseDaoImpl<PtDataDictItem> implements PtDataDictItemDao {
 }

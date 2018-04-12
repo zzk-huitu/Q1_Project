@@ -31,7 +31,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtFuncRoomDefineServiceImpl extends BaseServiceImpl<PtFuncRoomDefine> implements PtFuncRoomDefineService {
 
-	@Resource(name = "ptFuncRoomDefineDao") // 将具体的dao注入进来
+	@Resource(name = "PtFuncRoomDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtFuncRoomDefine> dao) {
 		super.setDao(dao);
 	}

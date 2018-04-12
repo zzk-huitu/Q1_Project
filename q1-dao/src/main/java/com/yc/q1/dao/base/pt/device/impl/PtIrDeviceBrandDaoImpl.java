@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtIrDeviceBrandDao")
 public class PtIrDeviceBrandDaoImpl extends BaseDaoImpl<PtIrDeviceBrand> implements PtIrDeviceBrandDao {
 }

@@ -40,7 +40,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 public class PtRoomInfoServiceImpl extends BaseServiceImpl<PtRoomInfo> implements PtRoomInfoService {
 	private static Logger logger = Logger.getLogger(PtRoomInfoServiceImpl.class);
 
-	@Resource(name = "ptRoomInfoDao") // 将具体的dao注入进来
+	@Resource(name = "PtRoomInfoDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRoomInfo> dao) {
 		super.setDao(dao);
 	}

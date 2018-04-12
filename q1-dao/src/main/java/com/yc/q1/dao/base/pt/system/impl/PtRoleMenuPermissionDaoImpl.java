@@ -9,6 +9,6 @@ import com.yc.q1.model.base.pt.system.PtRoleMenuPermission;
 
 
 
-@Repository
+@Repository("PtRoleMenuPermissionDao")
 public class PtRoleMenuPermissionDaoImpl extends BaseDaoImpl<PtRoleMenuPermission> implements PtRoleMenuPermissionDao {
 }

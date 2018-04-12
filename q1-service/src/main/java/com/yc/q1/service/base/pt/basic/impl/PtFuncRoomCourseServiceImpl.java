@@ -35,7 +35,7 @@ public class PtFuncRoomCourseServiceImpl extends BaseServiceImpl<PtFuncRoomCours
 
 	private static Logger logger = Logger.getLogger(PtFuncRoomCourseServiceImpl.class);
 
-	@Resource(name = "ptFuncRoomCourseDao") // 将具体的dao注入进来
+	@Resource(name = "PtFuncRoomCourseDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtFuncRoomCourse> dao) {
 		super.setDao(dao);
 	}

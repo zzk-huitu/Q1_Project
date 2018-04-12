@@ -51,7 +51,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenuService {
 
-	@Resource(name = "ptMenuDao") // 将具体的dao注入进来
+	@Resource(name = "PtMenuDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtMenu> dao) {
 		super.setDao(dao);
 	}

@@ -11,6 +11,6 @@ import com.yc.q1.model.base.pt.device.PtTerm;
  * @author hucy
  *
  */
-@Repository
+@Repository("PtTermDao")
 public class PtTermDaoImpl extends BaseDaoImpl<PtTerm> implements PtTermDao{
 }

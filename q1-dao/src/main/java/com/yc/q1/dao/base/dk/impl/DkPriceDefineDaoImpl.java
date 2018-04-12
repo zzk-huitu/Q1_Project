@@ -12,6 +12,6 @@ import com.yc.q1.model.base.dk.DkPriceDefine;
  * @author hucy
  *
  */
-@Repository
+@Repository("DkPriceDefineDao")
 public class DkPriceDefineDaoImpl extends BaseDaoImpl<DkPriceDefine> implements DkPriceDefineDao {
 }

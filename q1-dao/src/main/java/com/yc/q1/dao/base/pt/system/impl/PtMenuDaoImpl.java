@@ -20,6 +20,6 @@ import com.yc.q1.model.base.pt.system.PtMenu;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtMenuDao")
 public class PtMenuDaoImpl extends BaseDaoImpl<PtMenu> implements PtMenuDao {
 }

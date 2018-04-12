@@ -61,14 +61,14 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 	private static Logger logger = Logger.getLogger(PtUserServiceImpl.class);
 
-	@Resource(name = "ptUserDao") // 将具体的dao注入进来
+	@Resource(name = "PtUserDao" ) // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUser> dao) {
 		super.setDao(dao);
 	}
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Resource
-	private PtRoleService roleService; // 角色数据服务接口
+	private PtRoleService ptRoleService; // 角色数据服务接口
 
 	@Resource
 	private PtDepartmentService orgService; // 部门数据服务接口
@@ -104,7 +104,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 			saveEntity = t;
 			//增加角色
 			Set<PtRole>  theUserRoler = saveEntity.getSysRoles();
-			PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"TEACHER",0});
+			PtRole role = ptRoleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"TEACHER",0});
 			
 			if(role!=null){
 				theUserRoler.add(role);
@@ -119,7 +119,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 			saveEntity = t;
 			//增加角色
 			Set<PtRole>  theUserRoler = saveEntity.getSysRoles();
-			PtRole role = roleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
+			PtRole role = ptRoleService.getByProerties(new String[]{"roleCode","isDelete"}, new Object[]{"STUDENT",0});
 			
 			if(role!=null){
 				theUserRoler.add(role);
@@ -214,7 +214,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 		Set<PtRole> theUserRole = theUser.getSysRoles();
 
 		String[] delId = delRoleIds.split(",");
-		List<PtRole> delRoles = roleService.queryByProerties("id", delId);
+		List<PtRole> delRoles = ptRoleService.queryByProerties("id", delId);
 
 		theUserRole.removeAll(delRoles);
 
@@ -236,7 +236,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 		Set<PtRole> theUserRole = theUser.getSysRoles();
 
 		String[] addId = addRoleIds.split(",");
-		List<PtRole> addRoles = roleService.queryByProerties("id", addId);
+		List<PtRole> addRoles = ptRoleService.queryByProerties("id", addId);
 
 		theUserRole.addAll(addRoles);
 

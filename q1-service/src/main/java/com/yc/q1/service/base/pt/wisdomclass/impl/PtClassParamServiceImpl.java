@@ -30,7 +30,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtClassParamServiceImpl extends BaseServiceImpl<PtClassParam> implements PtClassParamService{
 
-	@Resource(name="ptClassParamDao")	//将具体的dao注入进来
+	@Resource(name="PtClassParamDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassParam> dao) {
 		super.setDao(dao);
 	}

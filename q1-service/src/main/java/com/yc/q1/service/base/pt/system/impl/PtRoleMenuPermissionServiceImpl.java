@@ -30,7 +30,7 @@ public class PtRoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuP
 	@Resource  
 	private UserRedisService userRedisService;
 	
-	@Resource(name = "ptRoleMenuPermissionDao") // 将具体的dao注入进来
+	@Resource(name = "PtRoleMenuPermissionDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRoleMenuPermission> dao) {
 		super.setDao(dao);
 	}

@@ -3,12 +3,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.zd</groupId>
+    <groupId>com.yc</groupId>
     <artifactId>q1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>q1-zd-core</artifactId>
-  <name>q1-zd-core</name>
+  <artifactId>q1-core</artifactId>
+  <name>q1-core</name>
   <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

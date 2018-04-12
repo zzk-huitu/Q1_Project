@@ -38,7 +38,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange> implements PtCourseArrangeService {
 
-	@Resource(name = "ptCourseArrangeDao") // 将具体的dao注入进来
+	@Resource(name = "PtCourseArrangeDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtCourseArrange> dao) {
 		super.setDao(dao);
 	}

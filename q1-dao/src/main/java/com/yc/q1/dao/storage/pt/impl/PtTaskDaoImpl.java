@@ -10,7 +10,7 @@ import com.yc.q1.model.storage.pt.PtTask;
 /**
 * Created by zenglj on 2017-05-16.
 */
-@Repository
+@Repository("PtTaskDao")
 public class PtTaskDaoImpl extends BaseDaoImpl<PtTask> implements PtTaskDao {
 }
 

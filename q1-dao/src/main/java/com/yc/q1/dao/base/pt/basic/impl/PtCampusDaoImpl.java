@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.basic.PtCampus;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtCampusDao")
 public class PtCampusDaoImpl extends BaseDaoImpl<PtCampus> implements PtCampusDao {
 }

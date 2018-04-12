@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.system.PtAppInfo;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtAppInfoDao")
 public class PtAppInfoDaoImpl extends BaseDaoImpl<PtAppInfo> implements PtAppInfoDao {
 }

@@ -22,7 +22,7 @@ import com.yc.q1.service.base.pt.system.PtUserService;
 public class ShiroSecurityRealm extends AuthorizingRealm {
 
     @Resource
-	private PtUserService sysUserService;;
+	private PtUserService ptUserService;
 
     @SuppressWarnings("deprecation")
     public ShiroSecurityRealm() {
@@ -35,7 +35,7 @@ public class ShiroSecurityRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken)
             throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-        PtUser user = sysUserService.getByProerties("userName", token.getUsername());
+        PtUser user = ptUserService.getByProerties("userName", token.getUsername());
         if (user != null) {
             return new SimpleAuthenticationInfo(user.getId(), user.getUserPwd(), getName());
         } else {
@@ -49,7 +49,7 @@ public class ShiroSecurityRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         Long userId = (Long) principals.fromRealm(getName()).iterator().next();
-        PtUser user = sysUserService.get(userId);
+        PtUser user = ptUserService.get(userId);
         if (user != null) {
             SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
             for (PtRole role : user.getSysRoles()) {

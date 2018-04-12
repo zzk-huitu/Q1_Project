@@ -27,7 +27,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtPermissionServiceImpl extends BaseServiceImpl<PtPermission> implements PtPermissionService{
 
-	@Resource(name = "ptPermissionDao") // 将具体的dao注入进来
+	@Resource(name = "PtPermissionDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtPermission> dao) {
 		super.setDao(dao);
 	}

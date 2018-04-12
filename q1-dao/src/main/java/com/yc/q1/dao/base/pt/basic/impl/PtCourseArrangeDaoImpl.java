@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.basic.PtCourseArrange;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtCourseArrangeDao")
 public class PtCourseArrangeDaoImpl extends BaseDaoImpl<PtCourseArrange> implements PtCourseArrangeDao {
 }

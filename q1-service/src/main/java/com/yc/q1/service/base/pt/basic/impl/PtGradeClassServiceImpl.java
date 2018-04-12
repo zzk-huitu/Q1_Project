@@ -35,7 +35,7 @@ import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
 @Transactional
 public class PtGradeClassServiceImpl extends BaseServiceImpl<PtGradeClass> implements PtGradeClassService {
 
-	@Resource(name = "ptGradeClassDao") // 将具体的dao注入进来
+	@Resource(name = "PtGradeClassDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtGradeClass> dao) {
 		super.setDao(dao);
 	}

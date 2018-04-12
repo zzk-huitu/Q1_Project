@@ -17,7 +17,7 @@ import com.yc.q1.dao.base.pt.basic.CommTreeDao;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("CommTreeDao")
 public class PtCommTreeDaoImpl extends BaseDaoImpl<BaseEntity> implements CommTreeDao {
     public PtCommTreeDaoImpl() {
         super(BaseEntity.class);

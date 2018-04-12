@@ -7,6 +7,6 @@ import com.yc.q1.dao.storage.sk.SkTermStatusDao;
 import com.yc.q1.model.storage.sk.SkTermStatus;
 
 
-@Repository
+@Repository("SkTermStatusDao")
 public class SkTermStatusDaoImpl extends BaseDaoImpl<SkTermStatus> implements SkTermStatusDao {
 }

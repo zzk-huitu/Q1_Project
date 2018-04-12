@@ -20,6 +20,6 @@ import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtIrRoomDeviceDao")
 public class PtIrRoomDeviceDaoImpl extends BaseDaoImpl<PtIrRoomDevice> implements PtIrRoomDeviceDao {
 }

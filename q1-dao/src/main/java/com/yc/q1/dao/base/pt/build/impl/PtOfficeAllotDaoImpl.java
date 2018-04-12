@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.build.PtOfficeAllot;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtOfficeAllotDao")
 public class PtOfficeAllotDaoImpl extends BaseDaoImpl<PtOfficeAllot> implements PtOfficeAllotDao{
 }

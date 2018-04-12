@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.system.PtUser;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtUserDao")	//默认为PtUserDaoImpl
 public class PtUserDaoImpl extends BaseDaoImpl<PtUser> implements PtUserDao {
 }

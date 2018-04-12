@@ -7,6 +7,6 @@ import com.yc.q1.dao.storage.mj.MjOpenDoorDao;
 import com.yc.q1.model.storage.mj.MjOpenDoor;
 
 
-@Repository
+@Repository("MjOpenDoorDao")
 public class MjOpenDoorDaoImpl extends BaseDaoImpl<MjOpenDoor> implements MjOpenDoorDao {
 }

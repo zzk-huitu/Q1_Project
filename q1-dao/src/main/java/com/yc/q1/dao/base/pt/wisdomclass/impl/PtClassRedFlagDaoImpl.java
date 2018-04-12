@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtClassRedFlagDao")
 public class PtClassRedFlagDaoImpl extends BaseDaoImpl<PtClassRedFlag> implements PtClassRedFlagDao {
 }

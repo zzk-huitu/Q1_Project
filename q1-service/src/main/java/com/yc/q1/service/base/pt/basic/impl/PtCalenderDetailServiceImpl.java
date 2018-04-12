@@ -35,7 +35,7 @@ public class PtCalenderDetailServiceImpl extends BaseServiceImpl<PtCalenderDetai
 
 	private static Logger logger = Logger.getLogger(PtCalenderDetailServiceImpl.class);
 	
-	@Resource(name = "ptCalenderDetailDao") // 将具体的dao注入进来
+	@Resource(name = "PtCalenderDetailDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtCalenderDetail> dao) {
 		super.setDao(dao);
 	}

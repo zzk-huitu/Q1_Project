@@ -20,6 +20,6 @@ import com.yc.q1.model.base.pt.build.PtClassDormAllot;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtClassDormAllotDao")
 public class PtClassDormAllotDaoImpl extends BaseDaoImpl<PtClassDormAllot> implements PtClassDormAllotDao {
 }

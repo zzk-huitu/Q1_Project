@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.build.PtRoomInfo;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtRoomInfoDao")
 public class PtRoomInfoDaoImpl extends BaseDaoImpl<PtRoomInfo> implements PtRoomInfoDao {
 }

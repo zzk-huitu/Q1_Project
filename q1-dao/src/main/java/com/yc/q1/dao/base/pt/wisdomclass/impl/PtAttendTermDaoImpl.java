@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtAttendTermDao")
 public class PtAttendTermDaoImpl extends BaseDaoImpl<PtAttendTerm> implements PtAttendTermDao {
 }

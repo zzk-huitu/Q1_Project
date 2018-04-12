@@ -29,14 +29,14 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRoleService {
 
-	@Resource(name = "ptRoleDao") // 将具体的dao注入进来
+	@Resource(name = "PtRoleDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRole> dao) {
 		super.setDao(dao);
 	}
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
 	@Resource
-	private PtUserService userSerive;
+	private PtUserService ptUserService;
 
 	@Override
 	public boolean doDelete(String delIds, String isdelete, String xm) {
@@ -44,7 +44,7 @@ public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRole
 
 		// 先调用删除用户菜单数据的方法
 		String[] roleIds = delIds.split(",");
-		userSerive.deleteUserMenuTreeRedis(roleIds);
+		ptUserService.deleteUserMenuTreeRedis(roleIds);
 
 		// 再设置逻辑删除
 		boolean flag = this.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, xm);
@@ -70,7 +70,7 @@ public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRole
 		Integer executeCount = this.doExecuteCountBySql(sql);
 		if (executeCount > 0) {
 			/* 删除用户的redis数据，以至于下次刷新或请求时，可以加载最新数据 */
-			userSerive.deleteUserRoleRedis(userIds);
+			ptUserService.deleteUserRoleRedis(userIds);
 			return true;
 		} else
 			return false;
@@ -90,7 +90,7 @@ public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRole
 
 		if (executeCount > 0) {
 			/* 删除用户的redis数据，以至于下次刷新或请求时，可以加载最新数据 */
-			userSerive.deleteUserRoleRedis(userIds);
+			ptUserService.deleteUserRoleRedis(userIds);
 			return true;
 		} else
 			return false;
@@ -107,7 +107,7 @@ public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRole
 			// 判断这些角色是否正在被其他用户使用
 			String hql = "select u from User as u inner join fetch u.sysRoles as r where r.id='" + delIds[i]
 					+ "' and r.isDelete=0 and u.isDelete=0 ";
-			int count = userSerive.queryByHql(hql).size();
+			int count = ptUserService.queryByHql(hql).size();
 			if (count > 0) {// 该角色关联着用户
 				sysrole = this.get(delIds[i]);
 				roleName.append(sysrole.getRoleName() + ",");

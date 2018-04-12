@@ -15,6 +15,6 @@ import com.yc.q1.model.base.pt.basic.PtGradeClass;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtGradeClassDao")
 public class PtGradeClassDaoImpl extends BaseDaoImpl<PtGradeClass> implements PtGradeClassDao {
 }

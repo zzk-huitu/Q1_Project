@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtClassStarDao")
 public class PtClassStarDaoImpl extends BaseDaoImpl<PtClassStar> implements PtClassStarDao {
 }

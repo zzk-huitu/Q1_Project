@@ -44,7 +44,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> implements PtUserDeptJobService {
 
-	@Resource(name = "ptUserDeptJobDao") // 将具体的dao注入进来
+	@Resource(name = "PtUserDeptJobDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUserDeptJob> dao) {
 		super.setDao(dao);
 	}

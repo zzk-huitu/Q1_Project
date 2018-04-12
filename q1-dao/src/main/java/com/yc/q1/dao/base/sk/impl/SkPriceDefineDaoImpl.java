@@ -12,6 +12,6 @@ import com.yc.q1.model.base.sk.SkPriceDefine;
  * @author hucy
  *
  */
-@Repository
+@Repository("SkPriceDefineDao")
 public class SkPriceDefineDaoImpl extends BaseDaoImpl<SkPriceDefine> implements SkPriceDefineDao {
 }

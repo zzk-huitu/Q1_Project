@@ -42,7 +42,7 @@ public class PtClassStarServiceImpl extends BaseServiceImpl<PtClassStar> impleme
 	private PtUserService userService;
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
-	@Resource(name="ptClassStarDao")	//将具体的dao注入进来
+	@Resource(name="PtClassStarDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassStar> dao) {
 		super.setDao(dao);
 	}

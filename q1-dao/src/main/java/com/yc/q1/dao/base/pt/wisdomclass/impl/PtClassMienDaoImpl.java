@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtClassMienDao")
 public class PtClassMienDaoImpl extends BaseDaoImpl<PtClassMien> implements PtClassMienDao {
 }

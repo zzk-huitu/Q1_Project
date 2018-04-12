@@ -25,7 +25,7 @@ import com.yc.q1.service.base.sk.SkPriceDefineService;
 @Transactional
 public class SkPriceDefineServiceImpl extends BaseServiceImpl<SkPriceDefine> implements SkPriceDefineService{
 
-	@Resource(name="skPriceDefineDao")	//将具体的dao注入进来
+	@Resource(name="SkPriceDefineDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<SkPriceDefine> dao) {
 		super.setDao(dao);
 	}

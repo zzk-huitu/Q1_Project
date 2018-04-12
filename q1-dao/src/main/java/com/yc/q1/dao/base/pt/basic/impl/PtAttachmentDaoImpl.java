@@ -15,6 +15,6 @@ import com.yc.q1.model.base.pt.basic.PtAttachment;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtAttachmentDao")
 public class PtAttachmentDaoImpl extends BaseDaoImpl<PtAttachment> implements PtAttachmentDao {
 }

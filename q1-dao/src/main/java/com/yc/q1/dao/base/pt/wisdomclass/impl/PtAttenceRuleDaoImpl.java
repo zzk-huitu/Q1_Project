@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtAttenceRuleDao")
 public class PtAttenceRuleDaoImpl extends BaseDaoImpl<PtAttenceRule> implements PtAttenceRuleDao {
 }

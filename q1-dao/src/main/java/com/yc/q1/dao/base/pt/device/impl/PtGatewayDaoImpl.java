@@ -11,6 +11,6 @@ import com.yc.q1.model.base.pt.device.PtGateway;
  * @author hucy
  *
  */
-@Repository
+@Repository("PtGatewayDao")
 public class PtGatewayDaoImpl extends BaseDaoImpl<PtGateway> implements PtGatewayDao{
 }

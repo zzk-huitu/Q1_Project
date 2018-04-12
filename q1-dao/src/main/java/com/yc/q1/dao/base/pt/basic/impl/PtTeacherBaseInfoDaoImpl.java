@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtTeacherBaseInfoDao")
 public class PtTeacherBaseInfoDaoImpl extends BaseDaoImpl<PtTeacherBaseInfo> implements PtTeacherBaseInfoDao {
 }

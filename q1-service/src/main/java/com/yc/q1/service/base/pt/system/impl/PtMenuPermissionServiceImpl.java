@@ -23,7 +23,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtMenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermission> implements PtMenuPermissionService{
 
-	@Resource(name = "ptMenuPermissionDao") // 将具体的dao注入进来
+	@Resource(name = "PtMenuPermissionDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtMenuPermission> dao) {
 		super.setDao(dao);
 	}

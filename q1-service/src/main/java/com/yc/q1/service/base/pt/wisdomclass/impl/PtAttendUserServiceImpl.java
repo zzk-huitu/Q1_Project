@@ -36,7 +36,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtAttendUserServiceImpl extends BaseServiceImpl<PtAttendUser> implements PtAttendUserService{
 
-	@Resource(name="ptAttendUserDao")	//将具体的dao注入进来
+	@Resource(name="PtAttendUserDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtAttendUser> dao) {
 		super.setDao(dao);
 	}

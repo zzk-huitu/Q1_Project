@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtAttendThemeDao")
 public class PtAttendThemeDaoImpl extends BaseDaoImpl<PtAttendTheme> implements PtAttendThemeDao {
 }

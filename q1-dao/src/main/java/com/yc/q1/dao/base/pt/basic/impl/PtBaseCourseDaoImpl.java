@@ -15,6 +15,6 @@ import com.yc.q1.model.base.pt.basic.PtBaseCourse;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtBaseCourseDao")
 public class PtBaseCourseDaoImpl extends BaseDaoImpl<PtBaseCourse> implements PtBaseCourseDao {
 }

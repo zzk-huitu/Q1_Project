@@ -11,6 +11,6 @@ import com.yc.q1.model.base.sk.SkMeter;
  * @author hucy
  *
  */
-@Repository
+@Repository("SkMeterDao")
 public class SkMeterDaoImpl extends BaseDaoImpl<SkMeter> implements SkMeterDao{
 }

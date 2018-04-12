@@ -6,6 +6,6 @@ import com.yc.q1.core.dao.BaseDaoImpl;
 import com.yc.q1.dao.base.pt.basic.PtPushInfoDao;
 import com.yc.q1.model.base.pt.basic.PtPushInfo;
 
-@Repository
+@Repository("PtPushInfoDao")
 public class PtPushInfoDaoImpl extends BaseDaoImpl<PtPushInfo> implements PtPushInfoDao {
 }

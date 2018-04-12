@@ -19,6 +19,6 @@ import com.yc.q1.model.base.pt.build.PtStudentDorm;
  * @version 0.1
  * @since JDK 1.8
  */
-@Repository
+@Repository("PtStudentDormDao")
 public class PtStudentDormDaoImpl extends BaseDaoImpl<PtStudentDorm> implements PtStudentDormDao {
 }

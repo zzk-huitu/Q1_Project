@@ -28,7 +28,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtIrRoomDeviceServiceImpl extends BaseServiceImpl<PtIrRoomDevice> implements PtIrRoomDeviceService {
 
-	@Resource(name = "ptIrRoomDeviceDao") // 将具体的dao注入进来
+	@Resource(name = "PtIrRoomDeviceDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtIrRoomDevice> dao) {
 		super.setDao(dao);
 	}
