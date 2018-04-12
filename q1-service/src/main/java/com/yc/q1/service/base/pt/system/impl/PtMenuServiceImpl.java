@@ -51,7 +51,7 @@ import com.zd.core.util.ModelUtil;
 @Transactional
 public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenuService {
 
-	@Resource(name = "MenuDao") // 将具体的dao注入进来
+	@Resource(name = "PtMenuDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtMenu> dao) {
 		super.setDao(dao);
 	}

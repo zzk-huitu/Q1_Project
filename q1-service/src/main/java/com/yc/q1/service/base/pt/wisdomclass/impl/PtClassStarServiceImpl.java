@@ -11,9 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.ClassStarDao;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
 import com.yc.q1.service.base.pt.system.PtUserService;
 import com.yc.q1.service.base.pt.wisdomclass.PtClassStarService;
@@ -44,7 +42,7 @@ public class PtClassStarServiceImpl extends BaseServiceImpl<PtClassStar> impleme
 	private PtUserService userService;
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
-	@Resource(name="ClassStarDao")	//将具体的dao注入进来
+	@Resource(name="PtClassStarDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassStar> dao) {
 		super.setDao(dao);
 	}

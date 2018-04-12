@@ -11,10 +11,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.AttenceRuleDao;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
-import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.yc.q1.service.base.pt.wisdomclass.PtAttenceRuleService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
@@ -38,7 +36,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtAttenceRuleServiceImpl extends BaseServiceImpl<PtAttenceRule> implements PtAttenceRuleService{
 
-	@Resource(name="AttenceRuleDao")	//将具体的dao注入进来
+	@Resource(name="PtAttenceRuleDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtAttenceRule> dao) {
 		super.setDao(dao);
 	}

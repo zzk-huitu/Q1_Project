@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.ClassParamDao;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassParam;
 import com.yc.q1.service.base.pt.wisdomclass.PtClassParamService;
@@ -31,7 +30,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtClassParamServiceImpl extends BaseServiceImpl<PtClassParam> implements PtClassParamService{
 
-	@Resource(name="ClassParamDao")	//将具体的dao注入进来
+	@Resource(name="PtClassParamDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassParam> dao) {
 		super.setDao(dao);
 	}

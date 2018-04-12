@@ -32,7 +32,7 @@ import com.yc.q1.pojo.base.app.PictureReturnApp;
 import com.yc.q1.pojo.base.app.VideoApp;
 import com.yc.q1.pojo.base.app.VideoForApp;
 import com.yc.q1.pojo.base.app.VideoReturnApp;
-import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtAttachmentService;
 import com.yc.q1.service.base.pt.basic.PtFuncRoomCourseService;
 import com.yc.q1.service.base.pt.basic.PtGradeClassService;
 import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
@@ -62,7 +62,7 @@ public class ClassFileAppController {
 	private PtClassMienService elegantService; // service层接口
 
 	@Resource
-	private PtPtAttachmentService baseTAttachmentService;// service层接口
+	private PtAttachmentService baseTAttachmentService;// service层接口
 
 	@Resource
 	private PtInfoTerminalService termService; // 终端设备serice层接口

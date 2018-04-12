@@ -11,9 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.AttendTimeDao;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
 import com.yc.q1.service.base.pt.wisdomclass.PtAttendTimeService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
@@ -38,7 +36,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtAttendTimeServiceImpl extends BaseServiceImpl<PtAttendTime> implements PtAttendTimeService{
 
-	@Resource(name="AttendTimeDao")	//将具体的dao注入进来
+	@Resource(name="PtAttendTimeDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtAttendTime> dao) {
 		super.setDao(dao);
 	}

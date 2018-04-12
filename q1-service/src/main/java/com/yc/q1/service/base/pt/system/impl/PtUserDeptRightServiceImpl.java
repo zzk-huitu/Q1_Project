@@ -9,9 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.UserDeptRightDao;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.yc.q1.service.base.pt.system.PtUserDeptRightService;
 import com.yc.q1.service.base.pt.system.PtUserService;
@@ -35,7 +33,7 @@ import com.zd.core.service.BaseServiceImpl;
 public class PtUserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight> implements PtUserDeptRightService {
 	
 	//自动注入dao到service层中，并设置到dao变量中
-	@Resource(name = "UserDeptRightDao") // 将具体的dao注入进来
+	@Resource(name = "PtUserDeptRightDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUserDeptRight> dao) {
 		super.setDao(dao);
 	}

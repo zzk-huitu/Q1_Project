@@ -23,7 +23,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtBaseCourseServiceImpl extends BaseServiceImpl<PtBaseCourse> implements PtBaseCourseService {
 
-	@Resource(name = "BaseCourseDao") // 将具体的dao注入进来
+	@Resource(name = "PtBaseCourseDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtBaseCourse> dao) {
 		super.setDao(dao);
 	}

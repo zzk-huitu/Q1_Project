@@ -48,7 +48,7 @@ public class PtAttendThemeServiceImpl extends BaseServiceImpl<PtAttendTheme> imp
 	@Resource
 	PtAttendTimeService attTimeService;
 	
-	@Resource(name="AttendThemeDao")	//将具体的dao注入进来
+	@Resource(name="PtAttendThemeDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtAttendTheme> dao) {
 		super.setDao(dao);
 	}

@@ -34,7 +34,7 @@ public class PtGatewayServiceImpl extends BaseServiceImpl<PtGateway> implements 
 
 	private static Logger logger = Logger.getLogger(PtGatewayServiceImpl.class);
 
-	@Resource(name = "GatewayDao") // 将具体的dao注入进来
+	@Resource(name = "PtGatewayDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtGateway> dao) {
 		super.setDao(dao);
 	}

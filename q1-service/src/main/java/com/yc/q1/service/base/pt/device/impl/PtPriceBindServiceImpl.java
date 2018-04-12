@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.device.PriceBindDao;
 import com.yc.q1.model.base.pt.device.PtPriceBind;
 import com.yc.q1.service.base.pt.device.PtPriceBindService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
@@ -24,7 +23,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtPriceBindServiceImpl extends BaseServiceImpl<PtPriceBind> implements PtPriceBindService {
 
-	@Resource(name = "PriceBindDao") // 将具体的dao注入进来
+	@Resource(name = "PtPriceBindDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtPriceBind> dao) {
 		super.setDao(dao);
 	}

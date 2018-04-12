@@ -14,7 +14,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class LogUserLoginServiceImpl extends BaseServiceImpl<LogUserLogin> implements LogUserLoginService {
 
-	@Resource(name = "UserLoginLogDao") // 将具体的dao注入进来
+	@Resource(name = "LogUserLoginDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<LogUserLogin> dao) {
 		super.setDao(dao);
 	}

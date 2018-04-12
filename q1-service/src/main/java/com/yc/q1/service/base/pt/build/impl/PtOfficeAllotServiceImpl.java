@@ -10,7 +10,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.build.OfficeAllotDao;
 import com.yc.q1.model.base.mj.MjUserRight;
 import com.yc.q1.model.base.pt.basic.PtClassStudent;
 import com.yc.q1.model.base.pt.basic.PtPushInfo;
@@ -46,7 +45,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtOfficeAllotServiceImpl extends BaseServiceImpl<PtOfficeAllot> implements PtOfficeAllotService {
 	
-	@Resource(name = "OfficeAllotDao") // 将具体的dao注入进来
+	@Resource(name = "PtOfficeAllotDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtOfficeAllot> dao) {
 		super.setDao(dao);
 	}

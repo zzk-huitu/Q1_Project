@@ -16,14 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.yc.q1.dao.base.pt.wisdomclass.NoticeDao;
 import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
 import com.yc.q1.model.base.pt.system.PtDepartment;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
 import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
-import com.yc.q1.model.base.pt.wisdomclass.PtNoticeAuditor;
 import com.yc.q1.model.base.pt.wisdomclass.PtNoticeOther;
 import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
 import com.yc.q1.service.base.pt.basic.PtPushInfoService;
@@ -57,7 +54,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements PtNoticeService {
 
-	@Resource(name="NoticeDao")	//将具体的dao注入进来
+	@Resource(name="PtNoticeDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtNotice> dao) {
 		super.setDao(dao);
 	}

@@ -11,7 +11,6 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.basic.StudentBaseInfoDao;
 import com.yc.q1.model.base.pt.basic.PtGradeClass;
 import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
 import com.yc.q1.model.base.pt.system.PtRole;
@@ -43,7 +42,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtStudentBaseInfoServiceImpl extends BaseServiceImpl<PtStudentBaseInfo> implements PtStudentBaseInfoService {
 
-	@Resource(name = "StudentBaseInfoDao") // 将具体的dao注入进来
+	@Resource(name = "PtStudentBaseInfoDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtStudentBaseInfo> dao) {
 		super.setDao(dao);
 	}

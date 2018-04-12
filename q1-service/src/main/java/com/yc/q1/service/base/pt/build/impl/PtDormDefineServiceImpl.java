@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.build.DormDefineDao;
 import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
@@ -31,7 +30,7 @@ import com.zd.core.util.BeanUtils;
 @Service
 @Transactional
 public class PtDormDefineServiceImpl extends BaseServiceImpl<PtDormDefine> implements PtDormDefineService {
-	@Resource(name = "DormDefineDao") // 将具体的dao注入进来
+	@Resource(name = "PtDormDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtDormDefine> dao) {
 		super.setDao(dao);
 	}

@@ -19,7 +19,6 @@ import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.UserDao;
 import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
 import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
 import com.yc.q1.model.base.pt.system.PtDataDictItem;
@@ -28,7 +27,6 @@ import com.yc.q1.model.base.pt.system.PtMenuPermission;
 import com.yc.q1.model.base.pt.system.PtPermission;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.yc.q1.service.base.pt.basic.PtTeacherBaseInfoService;
 import com.yc.q1.service.base.pt.system.PtDataDictItemService;
 import com.yc.q1.service.base.pt.system.PtDepartmentService;
@@ -63,7 +61,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 	private static Logger logger = Logger.getLogger(PtUserServiceImpl.class);
 
-	@Resource(name = "UserDao") // 将具体的dao注入进来
+	@Resource(name = "PtUserDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUser> dao) {
 		super.setDao(dao);
 	}

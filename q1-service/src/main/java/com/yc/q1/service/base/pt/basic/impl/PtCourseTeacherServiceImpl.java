@@ -52,7 +52,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher> implements PtCourseTeacherService {
 
-	@Resource(name = "CourseTeacherDao") // 将具体的dao注入进来
+	@Resource(name = "PtCourseTeacherDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtCourseTeacher> dao) {
 		super.setDao(dao);
 	}

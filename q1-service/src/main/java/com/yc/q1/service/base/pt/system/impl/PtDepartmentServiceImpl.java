@@ -16,12 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
-import com.yc.q1.dao.base.pt.system.DepartmentDao;
 import com.yc.q1.model.base.pt.basic.PtBaseCourse;
 import com.yc.q1.model.base.pt.basic.PtGrade;
 import com.yc.q1.model.base.pt.basic.PtGradeClass;
 import com.yc.q1.model.base.pt.system.PtDepartment;
-import com.yc.q1.model.base.pt.system.PtMenuPermission;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.DepartmentTree;
@@ -53,7 +51,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> implements PtDepartmentService {
 
-	@Resource(name = "DepartmentDao") // 将具体的dao注入进来
+	@Resource(name = "PtDepartmentDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtDepartment> dao) {
 		super.setDao(dao);
 	}

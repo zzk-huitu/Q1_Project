@@ -22,7 +22,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class LogUserOprateServiceImpl extends BaseServiceImpl<LogUserOprate> implements LogUserOprateService {
 
-	@Resource(name = "OprateLogDao") // 将具体的dao注入进来
+	@Resource(name = "LogUserOprateDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<LogUserOprate> dao) {
 		super.setDao(dao);
 	}

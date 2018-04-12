@@ -11,11 +11,9 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.basic.InfoTerminalHistoryDao;
 import com.yc.q1.model.base.pt.basic.PtInfoTerminalHistory;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.basic.PtInfoTerminalHistoryService;
-import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
@@ -38,7 +36,7 @@ public class PtInfoTerminalHistoryServiceImpl extends BaseServiceImpl<PtInfoTerm
 		implements PtInfoTerminalHistoryService {
 	private static Logger logger = Logger.getLogger(PtInfoTerminalHistoryServiceImpl.class);
 
-	@Resource(name = "InfoTerminalHistoryDao") // 将具体的dao注入进来
+	@Resource(name = "PtInfoTerminalHistoryDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtInfoTerminalHistory> dao) {
 		super.setDao(dao);
 	}

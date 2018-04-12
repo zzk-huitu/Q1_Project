@@ -1,4 +1,3 @@
-	
 package com.yc.q1.service.base.pt.system.impl;
 
 import java.lang.reflect.InvocationTargetException;
@@ -11,8 +10,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.MenuPermissionDao;
-import com.yc.q1.model.base.pt.system.PtMenu;
 import com.yc.q1.model.base.pt.system.PtMenuPermission;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtMenuPermissionService;
@@ -26,7 +23,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtMenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermission> implements PtMenuPermissionService{
 
-	@Resource(name = "MenuPermissionDao") // 将具体的dao注入进来
+	@Resource(name = "PtMenuPermissionDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtMenuPermission> dao) {
 		super.setDao(dao);
 	}

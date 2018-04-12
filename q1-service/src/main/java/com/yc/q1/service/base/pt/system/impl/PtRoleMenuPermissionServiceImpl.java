@@ -1,4 +1,3 @@
-
 package com.yc.q1.service.base.pt.system.impl;
 
 import java.util.List;
@@ -9,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.RoleMenuPermissionDao;
 import com.yc.q1.model.base.pt.system.PtPermission;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtRoleMenuPermission;
@@ -32,7 +30,7 @@ public class PtRoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuP
 	@Resource  
 	private UserRedisService userRedisService;
 	
-	@Resource(name = "RoleMenuPermissionDao") // 将具体的dao注入进来
+	@Resource(name = "PtRoleMenuPermissionDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRoleMenuPermission> dao) {
 		super.setDao(dao);
 	}

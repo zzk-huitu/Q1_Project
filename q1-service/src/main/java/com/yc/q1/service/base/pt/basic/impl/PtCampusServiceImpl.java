@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.basic.CampusDao;
 import com.yc.q1.model.base.pt.basic.PtCampus;
 import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
@@ -40,7 +39,7 @@ import com.zd.core.util.StringUtils;
 @Service
 @Transactional
 public class PtCampusServiceImpl extends BaseServiceImpl<PtCampus> implements PtCampusService {
-	@Resource(name = "CampusDao") // 将具体的dao注入进来
+	@Resource(name = "PtCampusDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtCampus> dao) {
 		super.setDao(dao);
 	}

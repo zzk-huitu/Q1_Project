@@ -45,7 +45,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtDeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements PtDeptJobService {
 
-	@Resource(name = "DeptJobDao") // 将具体的dao注入进来
+	@Resource(name = "PtDeptJobDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtDeptJob> dao) {
 		super.setDao(dao);
 	}

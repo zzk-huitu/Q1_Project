@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.build.OfficeDefineDao;
 import com.yc.q1.model.base.pt.build.PtOfficeDefine;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.service.base.pt.build.PtOfficeDefineService;
@@ -31,7 +30,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtOfficeDefineServiceImpl extends BaseServiceImpl<PtOfficeDefine> implements PtOfficeDefineService {
 
-	@Resource(name = "OfficeDefineDao") // 将具体的dao注入进来
+	@Resource(name = "PtOfficeDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtOfficeDefine> dao) {
 		super.setDao(dao);
 	}

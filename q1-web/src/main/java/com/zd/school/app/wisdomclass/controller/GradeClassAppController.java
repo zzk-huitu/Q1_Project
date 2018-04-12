@@ -29,7 +29,7 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.pojo.base.app.ClassInfoApp;
 import com.yc.q1.pojo.base.app.ClassStudentApp;
 import com.yc.q1.pojo.base.app.CommonApp;
-import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtAttachmentService;
 import com.yc.q1.service.base.pt.basic.PtCalenderDetailService;
 import com.yc.q1.service.base.pt.basic.PtCalenderService;
 import com.yc.q1.service.base.pt.basic.PtCampusService;
@@ -83,7 +83,7 @@ public class GradeClassAppController extends BaseController<PtGradeClass> {
 	PtClassMienService elegantService; // service层接口
 
 	@Resource
-	PtPtAttachmentService baseTAttachmentService;// service层接口
+	PtAttachmentService baseTAttachmentService;// service层接口
 
 	@Resource
 	private PtInfoTerminalService termService; // 终端设备serice层接口

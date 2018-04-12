@@ -23,7 +23,7 @@ import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
 import com.yc.q1.model.base.pt.system.PtDepartment;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtAttachmentService;
 import com.yc.q1.service.base.pt.basic.PtTeacherBaseInfoService;
 import com.yc.q1.service.base.pt.system.PtDepartmentService;
 import com.yc.q1.service.base.pt.system.PtRoleService;
@@ -57,7 +57,7 @@ public class TeaTeacherbaseController extends FrameWorkController<PtTeacherBaseI
 	private String virtualFileUrl; // 文件目录虚拟路径
 
 	@Resource
-	private PtPtAttachmentService baseTAttachmentService;// service层接口
+	private PtAttachmentService baseTAttachmentService;// service层接口
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

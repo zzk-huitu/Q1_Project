@@ -20,7 +20,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtRoomBagServiceImpl extends BaseServiceImpl<PtRoomBag> implements PtRoomBagService{
 	
-	@Resource(name="RoomBagDao")	//将具体的dao注入进来
+	@Resource(name="PtRoomBagDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtRoomBag> dao) {
 		super.setDao(dao);
 	}

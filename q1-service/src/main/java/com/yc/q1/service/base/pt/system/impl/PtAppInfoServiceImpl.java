@@ -33,7 +33,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtAppInfoServiceImpl extends BaseServiceImpl<PtAppInfo> implements PtAppInfoService {
 
-	@Resource(name = "AppInfoDao") // 将具体的dao注入进来
+	@Resource(name = "PtAppInfoDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtAppInfo> dao) {
 		super.setDao(dao);
 	}

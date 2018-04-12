@@ -32,7 +32,7 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
 import com.yc.q1.model.base.pt.wisdomclass.PtNoticeOther;
 import com.yc.q1.pojo.base.pt.CommTree;
-import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtAttachmentService;
 import com.yc.q1.service.base.pt.basic.PtClassStudentService;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
 import com.yc.q1.service.base.pt.build.PtRoomAreaService;
@@ -70,7 +70,7 @@ public class OaNoticeController extends FrameWorkController<PtNotice> implements
 	private CommTreeService treeSerice;
 
 	@Resource
-	private PtPtAttachmentService  baseTAttachmentService;
+	private PtAttachmentService  baseTAttachmentService;
 
 	@Resource
 	private PtRoomAreaService buildRoomareaService;

@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.basic.CommTreeDao;
 import com.yc.q1.pojo.base.pt.CommBase;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;

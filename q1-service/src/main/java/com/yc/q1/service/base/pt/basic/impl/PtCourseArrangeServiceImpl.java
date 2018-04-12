@@ -38,7 +38,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange> implements PtCourseArrangeService {
 
-	@Resource(name = "CourseArrangeDao") // 将具体的dao注入进来
+	@Resource(name = "PtCourseArrangeDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtCourseArrange> dao) {
 		super.setDao(dao);
 	}

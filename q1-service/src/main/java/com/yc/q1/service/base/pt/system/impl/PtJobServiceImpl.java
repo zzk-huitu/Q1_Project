@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.yc.q1.dao.base.pt.system.JobDao;
 import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.service.base.pt.system.PtJobService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
@@ -31,7 +30,7 @@ import com.zd.core.util.BeanUtils;
 //@Transactional
 public class PtJobServiceImpl extends BaseServiceImpl<PtJob> implements PtJobService{
 
-	@Resource(name = "JobDao") // 将具体的dao注入进来
+	@Resource(name = "PtJobDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtJob> dao) {
 		super.setDao(dao);
 	}

@@ -12,7 +12,6 @@ import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.device.PtTermBag;
 import com.yc.q1.service.base.pt.device.PtTermBagService;
 import com.yc.q1.service.base.pt.device.PtTermService;
-import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.QueryResult;
 import com.zd.core.service.BaseServiceImpl;
@@ -27,7 +26,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtTermBagServiceImpl extends BaseServiceImpl<PtTermBag> implements PtTermBagService {
 
-	@Resource(name = "TermBagDao") // 将具体的dao注入进来
+	@Resource(name = "PtTermBagDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtTermBag> dao) {
 		super.setDao(dao);
 	}

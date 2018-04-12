@@ -13,6 +13,6 @@ import com.zd.core.service.BaseService;
  * @since JDK 1.8
  */
 
-public interface PtPtAttachmentService extends BaseService<PtAttachment> {
+public interface PtAttachmentService extends BaseService<PtAttachment> {
 
 }

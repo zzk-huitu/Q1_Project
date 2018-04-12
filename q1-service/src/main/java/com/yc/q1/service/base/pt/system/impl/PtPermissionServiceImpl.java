@@ -27,7 +27,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtPermissionServiceImpl extends BaseServiceImpl<PtPermission> implements PtPermissionService{
 
-	@Resource(name = "PermissionDao") // 将具体的dao注入进来
+	@Resource(name = "PtPermissionDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtPermission> dao) {
 		super.setDao(dao);
 	}

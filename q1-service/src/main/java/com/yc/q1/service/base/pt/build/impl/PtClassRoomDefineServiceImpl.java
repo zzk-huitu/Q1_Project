@@ -30,7 +30,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtClassRoomDefineServiceImpl extends BaseServiceImpl<PtClassRoomDefine> implements PtClassRoomDefineService {
 
-	@Resource(name = "ClassRoomDefineDao") // 将具体的dao注入进来
+	@Resource(name = "PtClassRoomDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtClassRoomDefine> dao) {
 		super.setDao(dao);
 	}

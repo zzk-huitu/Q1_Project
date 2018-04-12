@@ -23,7 +23,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtRoomBagRuleBindServiceImpl extends BaseServiceImpl<PtRoomBagRuleBind> implements PtRoomBagRuleBindService{
 	
-	@Resource(name="RoomBagRuleBindDao")	//将具体的dao注入进来
+	@Resource(name="PtRoomBagRuleBindDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtRoomBagRuleBind> dao) {
 		super.setDao(dao);
 	}

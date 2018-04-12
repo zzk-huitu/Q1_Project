@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.sk.SkMeter;
 import com.yc.q1.model.base.sk.SkPriceDefine;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.yc.q1.service.base.sk.SkPriceDefineService;

@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.ClassMienDao;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.yc.q1.service.base.pt.wisdomclass.PtClassMienService;
@@ -31,7 +30,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtClassMienServiceImpl extends BaseServiceImpl<PtClassMien> implements PtClassMienService{
 
-	@Resource(name="ClassMienDao")	//将具体的dao注入进来
+	@Resource(name="PtClassMienDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassMien> dao) {
 		super.setDao(dao);
 	}

@@ -27,7 +27,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtGradeServiceImpl extends BaseServiceImpl<PtGrade> implements PtGradeService {
 
-	@Resource(name = "GradeDao") // 将具体的dao注入进来
+	@Resource(name = "PtGradeDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtGrade> dao) {
 		super.setDao(dao);
 	}

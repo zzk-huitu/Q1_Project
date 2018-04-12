@@ -33,7 +33,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand> implements PtIrDeviceBrandService {
 
-	@Resource(name = "IrDeviceBrandDao") // 将具体的dao注入进来
+	@Resource(name = "PtIrDeviceBrandDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtIrDeviceBrand> dao) {
 		super.setDao(dao);
 	}

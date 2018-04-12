@@ -12,9 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.UserDeptJobDao;
 import com.yc.q1.model.base.pt.basic.PtClassStudent;
-import com.yc.q1.model.base.pt.system.PtDataDictItem;
 import com.yc.q1.model.base.pt.system.PtDepartment;
 import com.yc.q1.model.base.pt.system.PtDeptJob;
 import com.yc.q1.model.base.pt.system.PtUser;
@@ -46,7 +44,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> implements PtUserDeptJobService {
 
-	@Resource(name = "UserDeptJobDao") // 将具体的dao注入进来
+	@Resource(name = "PtUserDeptJobDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUserDeptJob> dao) {
 		super.setDao(dao);
 	}

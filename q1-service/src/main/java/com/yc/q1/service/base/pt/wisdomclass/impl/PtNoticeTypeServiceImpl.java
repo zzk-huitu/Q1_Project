@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.NoticeTypeDao;
 import com.yc.q1.model.base.pt.wisdomclass.PtNoticeType;
 import com.yc.q1.service.base.pt.wisdomclass.PtNoticeTypeService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
@@ -28,7 +27,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtNoticeTypeServiceImpl extends BaseServiceImpl<PtNoticeType> implements PtNoticeTypeService{
 
-	@Resource(name="NoticeTypeDao")	//将具体的dao注入进来
+	@Resource(name="PtNoticeTypeDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtNoticeType> dao) {
 		super.setDao(dao);
 	}

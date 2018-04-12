@@ -14,7 +14,6 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.service.base.pt.basic.PtGradeClassService;
 import com.yc.q1.service.base.pt.basic.PtGradeService;
 import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
-import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.zd.core.dao.BaseDao;
 import com.zd.core.model.extjs.ExtDataFilter;
 import com.zd.core.model.extjs.QueryResult;
@@ -36,7 +35,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtGradeClassServiceImpl extends BaseServiceImpl<PtGradeClass> implements PtGradeClassService {
 
-	@Resource(name = "GradeClassDao") // 将具体的dao注入进来
+	@Resource(name = "PtGradeClassDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtGradeClass> dao) {
 		super.setDao(dao);
 	}

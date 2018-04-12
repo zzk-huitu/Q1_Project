@@ -10,13 +10,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.ClassTeacherDao;
 import com.yc.q1.model.base.pt.system.PtDeptJob;
 import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserDeptJob;
-import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.service.base.pt.system.PtDepartmentService;
 import com.yc.q1.service.base.pt.system.PtDeptJobService;
@@ -44,7 +42,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtClassTeacherServiceImpl extends BaseServiceImpl<PtClassTeacher> implements PtClassTeacherService {
 
-	@Resource(name="ClassTeacherDao")	//将具体的dao注入进来
+	@Resource(name="PtClassTeacherDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassTeacher> dao) {
 		super.setDao(dao);
 	}

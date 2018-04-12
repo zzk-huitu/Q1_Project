@@ -5,7 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.basic.StudentParentsDao;
 import com.yc.q1.model.base.pt.basic.PtStudentParents;
 import com.yc.q1.service.base.pt.basic.PtStudentParentsService;
 import com.zd.core.dao.BaseDao;

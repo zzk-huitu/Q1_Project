@@ -19,7 +19,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtPushInfoServiceImpl extends BaseServiceImpl<PtPushInfo> implements PtPushInfoService {
 
-	@Resource(name = "PushInfoDao") // 将具体的dao注入进来
+	@Resource(name = "PtPushInfoDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtPushInfo> dao) {
 		super.setDao(dao);
 	}

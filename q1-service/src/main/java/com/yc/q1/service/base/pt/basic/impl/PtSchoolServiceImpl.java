@@ -29,7 +29,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtSchoolServiceImpl extends BaseServiceImpl<PtSchool> implements PtSchoolService {
 
-	@Resource(name = "SchoolDao") // 将具体的dao注入进来
+	@Resource(name = "PtSchoolDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtSchool> dao) {
 		super.setDao(dao);
 	}

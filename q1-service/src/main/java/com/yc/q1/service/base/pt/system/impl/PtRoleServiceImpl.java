@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.RoleDao;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.service.base.pt.system.PtRoleService;
 import com.yc.q1.service.base.pt.system.PtUserService;
@@ -30,7 +29,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRoleService {
 
-	@Resource(name = "RoleDao") // 将具体的dao注入进来
+	@Resource(name = "PtRoleDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRole> dao) {
 		super.setDao(dao);
 	}

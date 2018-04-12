@@ -5,8 +5,6 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.system.DataDictItemDao;
-import com.yc.q1.model.base.pt.system.PtAppInfo;
 import com.yc.q1.model.base.pt.system.PtDataDict;
 import com.yc.q1.model.base.pt.system.PtDataDictItem;
 import com.yc.q1.service.base.pt.system.PtDataDictItemService;
@@ -30,7 +28,7 @@ import com.zd.core.service.BaseServiceImpl;
 @Transactional
 public class PtDataDictItemServiceImpl extends BaseServiceImpl<PtDataDictItem> implements PtDataDictItemService {
 
-	@Resource(name = "DataDictItemDao") // 将具体的dao注入进来
+	@Resource(name = "PtDataDictItemDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtDataDictItem> dao) {
 		super.setDao(dao);
 	}

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.build.TeacherDormDao;
 import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.yc.q1.model.base.pt.build.PtTeacherDorm;
 import com.yc.q1.model.base.pt.system.PtUser;
@@ -43,7 +42,7 @@ import com.zd.core.util.StringUtils;
 @Transactional
 public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> implements PtTeacherDormService {
 
-	@Resource(name = "TeacherDormDao") // 将具体的dao注入进来
+	@Resource(name = "PtTeacherDormDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtTeacherDorm> dao) {
 		super.setDao(dao);
 	}

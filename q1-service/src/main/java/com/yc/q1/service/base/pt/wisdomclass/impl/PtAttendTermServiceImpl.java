@@ -11,10 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.yc.q1.dao.base.pt.wisdomclass.AttendTermDao;
-import com.yc.q1.model.base.pt.device.PtRoomBagRuleBind;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
 import com.yc.q1.service.base.pt.wisdomclass.PtAttendTermService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
@@ -39,7 +36,7 @@ import com.zd.core.util.BeanUtils;
 @Transactional
 public class PtAttendTermServiceImpl extends BaseServiceImpl<PtAttendTerm> implements PtAttendTermService{
 
-	@Resource(name="AttendTermDao")	//将具体的dao注入进来
+	@Resource(name="PtAttendTermDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtAttendTerm> dao) {
 		super.setDao(dao);
 	}
