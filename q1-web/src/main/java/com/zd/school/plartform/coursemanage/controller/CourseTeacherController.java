@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.basic.service.CourseTeacherService;
-import com.yc.q1.base.pt.basic.service.TeacherBaseInfoService;
-import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.model.base.pt.basic.PtCourseTeacher;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.service.base.pt.basic.CourseTeacherService;
+import com.yc.q1.service.base.pt.basic.TeacherBaseInfoService;
+import com.yc.q1.service.base.pt.system.DepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

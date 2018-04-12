@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.system.service.UserDeptRightService;
-import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserDeptRight;
+import com.yc.q1.service.base.pt.system.UserDeptRightService;
+import com.yc.q1.service.base.pt.system.UserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;

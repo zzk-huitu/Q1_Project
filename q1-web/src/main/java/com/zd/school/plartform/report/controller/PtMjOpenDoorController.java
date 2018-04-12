@@ -16,9 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.mj.service.MjOpenDoorService;
-import com.yc.q1.base.pt.basic.service.CommTreeService;
 import com.yc.q1.model.storage.mj.MjOpenDoor;
+import com.yc.q1.service.base.pt.basic.CommTreeService;
+import com.yc.q1.service.storage.mj.MjOpenDoorService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

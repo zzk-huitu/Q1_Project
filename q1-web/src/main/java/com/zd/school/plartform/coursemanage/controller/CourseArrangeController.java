@@ -25,12 +25,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.yc.q1.base.pt.basic.service.CourseArrangeService;
-import com.yc.q1.base.pt.system.service.DepartmentService;
 import com.yc.q1.model.base.pt.basic.PtCourseArrange;
 import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.service.base.pt.basic.CourseArrangeService;
+import com.yc.q1.service.base.pt.system.DepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

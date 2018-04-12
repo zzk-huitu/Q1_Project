@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.device.service.GatewayService;
 import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
 import com.yc.q1.model.base.pt.device.PtFrontServer;
 import com.yc.q1.model.base.pt.device.PtGateway;
@@ -23,6 +21,8 @@ import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.TLVModel;
+import com.yc.q1.service.base.pt.basic.CommTreeService;
+import com.yc.q1.service.base.pt.device.GatewayService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

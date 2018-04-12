@@ -1,9 +1,9 @@
 
 package com.zd.school.plartform.baseset.controller;
 
-import com.yc.q1.base.pt.basic.service.AttachmentService;
 import com.yc.q1.model.base.pt.basic.PtAttachment;
 import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.service.base.pt.basic.AttachmentService;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;

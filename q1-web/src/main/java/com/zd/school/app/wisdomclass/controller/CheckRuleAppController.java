@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yc.q1.base.pt.wisdomclass.service.AttenceRuleService;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.yc.q1.pojo.base.app.CommonApp;
+import com.yc.q1.service.base.pt.wisdomclass.AttenceRuleService;
 
 @Controller
 @RequestMapping("/app/CheckRule")

@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.yc.q1.base.pt.basic.service.AttachmentService;
-import com.yc.q1.base.pt.wisdomclass.service.ClassMienService;
 import com.yc.q1.model.base.pt.basic.PtAttachment;
 import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
+import com.yc.q1.service.base.pt.basic.AttachmentService;
+import com.yc.q1.service.base.pt.wisdomclass.ClassMienService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

@@ -11,12 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.wisdomclass.service.AttendTermService;
-import com.yc.q1.base.pt.wisdomclass.service.AttendTimeService;
-import com.yc.q1.base.pt.wisdomclass.service.AttendThemeService;
-import com.yc.q1.base.pt.wisdomclass.service.AttendUserService;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
+import com.yc.q1.service.base.pt.wisdomclass.AttendTermService;
+import com.yc.q1.service.base.pt.wisdomclass.AttendThemeService;
+import com.yc.q1.service.base.pt.wisdomclass.AttendTimeService;
+import com.yc.q1.service.base.pt.wisdomclass.AttendUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;

@@ -43,6 +43,11 @@ public class BaseServiceImpl<E> implements BaseService<E> {
 		// TODO Auto-generated method stub
 		this.dao=dao;
 	}
+	@Override
+	public BaseDao<E> getDao() {
+		// TODO Auto-generated method stub
+		return this.dao;
+	}
 	
 	@Override
 	public Session getSession() {

@@ -12,10 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.device.service.FrontServerService;
-import com.yc.q1.base.pt.device.service.GatewayService;
 import com.yc.q1.model.base.pt.device.PtFrontServer;
 import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.service.base.pt.device.FrontServerService;
+import com.yc.q1.service.base.pt.device.GatewayService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

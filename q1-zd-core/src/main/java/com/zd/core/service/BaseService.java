@@ -11,6 +11,7 @@ import com.zd.core.model.extjs.QueryResult;
 
 public interface BaseService<E> {
 	
+	public BaseDao<E> getDao();
 	public void setDao(BaseDao<E> dao);
 	
 	public Session getSession();

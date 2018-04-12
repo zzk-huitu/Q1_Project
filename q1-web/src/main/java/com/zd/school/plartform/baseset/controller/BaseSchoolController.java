@@ -1,9 +1,9 @@
 
 package com.zd.school.plartform.baseset.controller;
 
-import com.yc.q1.base.pt.basic.service.SchoolService;
 import com.yc.q1.model.base.pt.basic.PtSchool;
 import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.service.base.pt.basic.SchoolService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;

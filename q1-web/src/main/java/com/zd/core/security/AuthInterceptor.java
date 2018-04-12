@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.yc.q1.base.pt.system.service.UserService;
+import com.yc.q1.service.base.pt.system.UserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.ModelUtil;

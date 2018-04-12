@@ -15,12 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.system.service.DepartmentService;
-import com.yc.q1.base.pt.wisdomclass.service.ClassTeacherService;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.service.base.pt.basic.CommTreeService;
+import com.yc.q1.service.base.pt.system.DepartmentService;
+import com.yc.q1.service.base.pt.wisdomclass.ClassTeacherService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

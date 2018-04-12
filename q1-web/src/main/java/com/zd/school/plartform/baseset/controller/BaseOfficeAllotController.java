@@ -16,14 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.basic.service.CommTreeService;
-import com.yc.q1.base.pt.build.service.OfficeAllotService;
-import com.yc.q1.base.pt.build.service.OfficeDefineService;
-import com.yc.q1.base.pt.system.service.UserService;
 import com.yc.q1.model.base.pt.build.PtOfficeAllot;
 import com.yc.q1.model.base.pt.build.PtOfficeDefine;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
+import com.yc.q1.service.base.pt.basic.CommTreeService;
+import com.yc.q1.service.base.pt.build.OfficeAllotService;
+import com.yc.q1.service.base.pt.build.OfficeDefineService;
+import com.yc.q1.service.base.pt.system.UserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;

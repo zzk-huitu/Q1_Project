@@ -15,13 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.yc.q1.base.pt.basic.service.InfoTerminalService;
-import com.yc.q1.base.pt.build.service.RoomInfoService;
-import com.yc.q1.base.pt.system.service.DataDictItemService;
 import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
 import com.yc.q1.model.base.pt.build.PtStudentDorm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.RoomTerm;
+import com.yc.q1.service.base.pt.basic.InfoTerminalService;
+import com.yc.q1.service.base.pt.build.RoomInfoService;
+import com.yc.q1.service.base.pt.system.DataDictItemService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
