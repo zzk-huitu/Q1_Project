@@ -1,7 +1,7 @@
 Ext.define("core.system.user.view.userRoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.user.userrolegrid",
-    dataUrl: comm.get('baseUrl') + "/SysUser/userRoleList",
+    dataUrl: comm.get('baseUrl') + "/PtUser/userRoleList",
     title:"用户所属角色",
     noPagging:true,
     al:false,
@@ -39,7 +39,7 @@ Ext.define("core.system.user.view.userRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",

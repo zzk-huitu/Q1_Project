@@ -5,8 +5,8 @@ Ext.define("core.system.user.view.selectRoleLayout", {
 	layout: 'border',
 	//bodyPadding: 5,	
 	funData: {
-		action: comm.get('baseUrl') + "/SysUser", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtUser", //请求Action
+		pkName: "id",
 		//默认的初始值设置
 		defaultObj: {
 			sex: '1',
@@ -14,7 +14,7 @@ Ext.define("core.system.user.view.selectRoleLayout", {
 			state: '1',
 			userPwd: '123456',
 			orderIndex: 1,
-			issystem: '1'
+			isSystem: '1'
 		}
 	},
 	items: [{

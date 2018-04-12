@@ -21,7 +21,7 @@ Ext.define("core.system.user.view.UserDeptRightForm", {
         items: [{
             xtype: "textfield",
             fieldLabel: "主键",
-            name: "uuid",
+            name: "id",
             hidden: true
         }, {
             xtype: 'radiogroup',

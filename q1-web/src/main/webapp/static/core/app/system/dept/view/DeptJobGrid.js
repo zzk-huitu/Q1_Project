@@ -1,15 +1,15 @@
 Ext.define("core.system.dept.view.DeptJobGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.system.dept.deptjobgrid",
-	dataUrl: comm.get('baseUrl') + "/SysDeptjob/list",
-	model: "com.zd.school.plartform.baseset.model.BaseDeptjob",
+	dataUrl: comm.get('baseUrl') + "/PtDeptJob/list",
+	model: "com.yc.q1.model.base.pt.system.PtDeptJob",
 	al: false,
 	//排序字段及模式定义
 	defSort: [{
 		property: 'jobType',
 		direction: 'ASC'
 	}, {
-		property: 'jobLevel',
+		property: 'orderIndex',
 		direction: 'ASC'
 	}],
 	extParams: {
@@ -57,7 +57,7 @@ Ext.define("core.system.dept.view.DeptJobGrid", {
             align: 'center'
         },{
 			text: "主键",
-			dataIndex: "uuid",
+			dataIndex: "id",
 			hidden: true
 		}, {
 			text: "部门",
@@ -77,11 +77,11 @@ Ext.define("core.system.dept.view.DeptJobGrid", {
 			}
 		}, {
 			text: "主管部门",
-			dataIndex: "parentdeptName",
+			dataIndex: "parentDeptName",
 			width:150,
 		}, {
 			text: "主管岗位",
-			dataIndex: "parentjobName",
+			dataIndex: "parentJobName",
 			width:150,
 		}, {
 			width: 280,

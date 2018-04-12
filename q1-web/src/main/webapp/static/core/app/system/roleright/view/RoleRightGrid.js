@@ -2,8 +2,8 @@ Ext.define("core.system.roleright.view.RoleRightGrid", {
 	extend: "core.base.view.BaseTreeGrid",
 	alias: "widget.system.roleright.rolgerightgrid",
 	//title: "角色权限菜单",
-	dataUrl: comm.get('baseUrl') + "/SysMenu/roleMenuList",
-	model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysMenuTree", "checked").modelName,
+	dataUrl: comm.get('baseUrl') + "/PtMenu/roleMenuList",
+	model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.MenuTree", "checked").modelName,
 	al: true,
 	extParams: {
 		whereSql: " and isDelete='0' ",

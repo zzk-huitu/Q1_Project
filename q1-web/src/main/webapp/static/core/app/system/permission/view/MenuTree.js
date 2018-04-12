@@ -1,8 +1,8 @@
 Ext.define("core.system.permission.view.MenuTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.system.permission.menutree",
-    dataUrl: comm.get('baseUrl') + "/SysMenu/treeList",
-    model:"com.zd.school.plartform.system.model.SysMenuTree",
+    dataUrl: comm.get('baseUrl') + "/PtMenu/treeList",
+    model:"com.yc.q1.pojo.base.pt.MenuTree",
     
     multiSelect: false,
     scrollable:true,
@@ -68,7 +68,7 @@ Ext.define("core.system.permission.view.MenuTree", {
             var girdSearchTexts = mainGrid.query("field[funCode=girdFastSearchText]");
             var filter=new Array();
             if(girdSearchTexts[0].getValue()){
-                filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "perName", "comparison": ""})
+                filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "permissionName", "comparison": ""})
             }
             filter.push({"type": "string", "value": record.get("id"), "field": "menuId", "comparison": ""})
             filter = JSON.stringify(filter);

@@ -6,8 +6,8 @@ Ext.define("core.system.roleright.view.DetailLayout", {
 
     funCode: "roleright_selectmenu",
     funData: {
-        action: comm.get('baseUrl') + "/SysRole", //请求Action
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtRole", //请求Action
+        pkName: "id",
         defaultObj: {}
     },
     layout:'fit',

@@ -4,7 +4,7 @@ Ext.define("core.system.menu.store.MenuStore",{
 	model:factory.ModelFactory.getModelByName("com.zd.core.model.extjs.JSONTreeNode","checked").modelName,
 	proxy:{
 		type:"ajax",
-		url:comm.get('baseUrl') + "/SysMenu/getMenuTree",
+		url:comm.get('baseUrl') + "/PtMenu/getMenuTree",
 		extraParams :{excludes: 'checked'},
 		reader:{
 			type:"json"

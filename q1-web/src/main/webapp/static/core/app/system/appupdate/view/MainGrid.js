@@ -1,8 +1,8 @@
 Ext.define("core.system.appupdate.view.MainGrid", {
     extend: 'core.base.view.BaseGrid',
     alias: "widget.system.appupdate.maingrid",
-    dataUrl: comm.get('baseUrl') + "/SysAppinfo/list",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysAppinfo", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtAppInfo/list",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtAppInfo", "checked").modelName,
 
     emptyText:'<div style="width:100%;line-height: 100px;text-align:center">暂无APP！</div>',
     selModel: Ext.create('Ext.selection.CheckboxModel', {
@@ -66,7 +66,7 @@ Ext.define("core.system.appupdate.view.MainGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",

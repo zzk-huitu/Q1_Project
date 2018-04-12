@@ -35,11 +35,11 @@ Ext.define("ccore.system.dept.view.IsSelectUserGrid", {
     }, {
         width: 80,
         text: "姓名",
-        dataIndex: "xm"
+        dataIndex: "name"
     }, {
         width: 60,
         text: "性别",
-        dataIndex: "xbm",
+        dataIndex: "sex",
         renderer:function(value){
             if(value=="1")
                 return "男";
@@ -88,7 +88,7 @@ Ext.define("ccore.system.dept.view.IsSelectUserGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;

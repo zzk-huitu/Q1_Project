@@ -3,8 +3,8 @@ Ext.define("core.system.permission.view.DetailLayout", {
 	alias: "widget.system.permission.detaillayout",
 	funCode: "permission_detail",
 	funData: {
-		action: comm.get("baseUrl") + "/SysMenuPermission", //请求Action
-		pkName: "uuid",
+		action: comm.get("baseUrl") + "/PtMenuPermission", //请求Action
+		pkName: "id",
 		defaultObj: {}
 	},
     /*关联此视图控制器*/

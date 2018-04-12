@@ -9,7 +9,7 @@ Ext.define("core.system.appupdate.view.DetailForm", {
     }, {
         fieldLabel: '主键',
         xtype: "textfield",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         beforeLabelTextTpl: comm.get("required"),

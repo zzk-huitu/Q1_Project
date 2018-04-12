@@ -1,8 +1,8 @@
 Ext.define("core.system.menu.view.MenuTree", {
 	extend: "core.base.view.BaseTreeGrid",
 	alias: "widget.system.menu.menutree",
-	dataUrl: comm.get('baseUrl') + "/SysMenu/treeList",
-	model: "com.zd.school.plartform.system.model.SysMenuTree",
+	dataUrl: comm.get('baseUrl') + "/PtMenu/treeList",
+	model: "com.yc.q1.pojo.base.pt.MenuTree",
 	al: true,
 	//menuCode:"MENUMANAGE",
 	//expandFirst:true,

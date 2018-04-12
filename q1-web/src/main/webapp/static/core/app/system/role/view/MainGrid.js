@@ -1,8 +1,8 @@
 Ext.define("core.system.role.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.role.maingrid",
-    dataUrl: comm.get('baseUrl') + "/SysRole/list",
-    model: 'com.zd.school.plartform.system.model.SysRole',
+    dataUrl: comm.get('baseUrl') + "/PtRole/list",
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
     frame: false,
     //tbar:[],
     menuCode:"SYSROLE",
@@ -75,7 +75,7 @@ Ext.define("core.system.role.view.MainGrid", {
             resizable :false
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true    
         }, {
             text: "角色名称",
@@ -87,7 +87,7 @@ Ext.define("core.system.role.view.MainGrid", {
             flex:1.5,
         }, {
             text: "是否系统角色",
-            dataIndex: "issystem",
+            dataIndex: "isSystem",
             renderer: function(value) {
                 return value=="1"?"<font color=green>是</font>":"<font color=red>否</font>"
             }
@@ -114,7 +114,7 @@ Ext.define("core.system.role.view.MainGrid", {
                 tooltip: '编辑',      
                 ref: 'gridEdit',
                 getClass :function(v,metadata,record,rowIndex,colIndex,store){
-                    if(record.get("issystem")==1){
+                    if(record.get("isSystem")==1){
                         return 'x-hidden-display';
                     }else if(comm.get("isAdmin")!="1"){
                          var menuCode="SYSROLE";     // 此菜单的前缀
@@ -174,7 +174,7 @@ Ext.define("core.system.role.view.MainGrid", {
                 tooltip: '删除',
                 ref: 'gridDelete',
                 getClass :function(v,metadata,record,rowIndex,colIndex,store){
-                    if(record.get("issystem")==1){
+                    if(record.get("isSystem")==1){
                         return 'x-hidden-display';
                     }else if(comm.get("isAdmin")!="1"){
                          var menuCode="SYSROLE";     // 此菜单的前缀

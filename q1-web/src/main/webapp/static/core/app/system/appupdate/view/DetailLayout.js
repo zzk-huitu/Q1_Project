@@ -3,8 +3,8 @@ Ext.define("core.system.appupdate.view.DetailLayout",{
 	alias : 'widget.system.appupdate.detaillayout',
 	funCode:"appupdate_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/SysAppinfo", //请求Action
-		pkName: "uuid"
+		action: comm.get('baseUrl') + "/PtAppInfo", //请求Action
+		pkName: "id"
 	},
     minWidth:1000,
     scrollable:true,

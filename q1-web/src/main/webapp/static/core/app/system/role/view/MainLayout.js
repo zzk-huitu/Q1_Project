@@ -19,8 +19,8 @@ Ext.define("core.system.role.view.MainLayout", {
     detCode: 'role_detail',
     detLayout: 'system.role.detaillayout',
     funData: {
-        action: comm.get('baseUrl') + "/SysRole", //请求Action
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtRole", //请求Action
+        pkName: "id",
         defaultObj: {
             orderIndex: 1,
             issystem: 1

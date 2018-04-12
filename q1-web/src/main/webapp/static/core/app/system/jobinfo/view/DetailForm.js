@@ -12,7 +12,7 @@ Ext.define("core.system.jobinfo.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         beforeLabelTextTpl: comm.get("required"),

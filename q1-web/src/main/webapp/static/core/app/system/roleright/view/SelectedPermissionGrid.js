@@ -7,8 +7,8 @@ Ext.define("core.system.roleright.view.SelectedPermissionGrid", {
     al:false,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/SysMenuPermission/getRoleMenuPerList", //数据获取地址
-    model: "com.zd.school.plartform.system.model.SysMenuPermission", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtMenuPermission/getRoleMenuPerList", //数据获取地址
+    model: "com.yc.q1.model.base.pt.system.PtMenuPermission", //对应的数据模型
 
     title: "<font color='#ffeb00'>已选菜单权限（双击或往左拖动移除）</font>",
     selModel: {
@@ -64,7 +64,7 @@ Ext.define("core.system.roleright.view.SelectedPermissionGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;
@@ -102,16 +102,16 @@ Ext.define("core.system.roleright.view.SelectedPermissionGrid", {
         items:[ {
             width: 100,
             text: "权限名称",
-            dataIndex: "perName",
+            dataIndex: "permissionName",
             align:'left'
         }, {
             flex: 1,
             text: "权限接口全称",
-            dataIndex: "perAuth",
+            dataIndex: "authPostfix",
             align:'left',
             renderer: function(value,metaData,record) {  
                 if(value)
-                    return record.get("perAuthCode")+"_"+value;
+                    return record.get("authPrefix")+"_"+value;
  
                 return value;  
             }  

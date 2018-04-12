@@ -1,10 +1,10 @@
 Ext.define("core.system.dept.view.DeptJobUserGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.system.dept.deptjobusergrid",
-	dataUrl: comm.get('baseUrl') + "/SysUserdeptjob/getDeptJobUsers",
+	dataUrl: comm.get('baseUrl') + "/PtUserDeptJob/getDeptJobUsers",
 	al:false,
 //	dataUrl: comm.get('baseUrl') + "/sysuser/list",
-	model: factory.ModelFactory.getModelByName("com.zd.school.plartform.baseset.model.BaseUserdeptjob", "checked").modelName,
+	model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUserDeptJob", "checked").modelName,
     //selModel:null,	
 	//noPagging: true,
 	extParams: {
@@ -64,11 +64,11 @@ Ext.define("core.system.dept.view.DeptJobUserGrid", {
             align: 'center'
         },{
 			text: "主键",
-			dataIndex: "uuid",
+			dataIndex: "id",
 			hidden: true 
 		}, {
             text: "姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             width:150
         },{
 			text: "编号",
@@ -87,7 +87,7 @@ Ext.define("core.system.dept.view.DeptJobUserGrid", {
         },{
             text: "是否主部门",
             width:150,
-            dataIndex: "masterDept",
+            dataIndex: "isMainDept",
             renderer: function(value) {
                 return (value != 1) ? '<font color=red>否</font>' : '<font color=green>是</font>';
             }

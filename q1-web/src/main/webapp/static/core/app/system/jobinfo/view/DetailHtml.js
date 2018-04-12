@@ -39,9 +39,9 @@ Ext.define("core.system.jobinfo.view.DetailHtml", {
             '<tpl for="rows">',
             '<li>' ,
             '<span style="width: 20%;" >{deptName}</span><span style="width: 20%;">{allDeptName}</span>',
-            '<span style="width: 20%;" >{deptjobName}</span><span style="width: 20%;">{alldeptjobName}</span>',
+            '<span style="width: 20%;" >{allDeptJobName}</span><span style="width: 20%;">{allDeptJobName}</span>',
             '<span style="width: 10%;" ><tpl if="jobType == 0">主负责岗位<tpl elseif="jobType==1">副负责岗位<tpl else>普通岗位</tpl></span>',
-            '<span style="width: 10%;">{jobLevel}</span>',
+          /*  '<span style="width: 10%;">{jobLevel}</span>',*/
             '<div style="clear:both"></div>',
             '</li>',
             '</tpl>',

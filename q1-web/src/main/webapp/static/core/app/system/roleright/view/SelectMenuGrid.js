@@ -2,8 +2,8 @@ Ext.define("core.system.roleright.view.SelectMenuGrid", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.system.roleright.selectmenugrid",
     title: "",
-    dataUrl: comm.get('baseUrl') + "/SysMenu/userPerToRole",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysMenuChkTree", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtMenu/userPerToRole",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.MenuTree", "checked").modelName,
     al: true,
     
     selModel: {

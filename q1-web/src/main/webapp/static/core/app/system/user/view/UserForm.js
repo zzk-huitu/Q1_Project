@@ -15,7 +15,7 @@ Ext.define("core.system.user.view.UserForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "textfield",
@@ -45,7 +45,7 @@ Ext.define("core.system.user.view.UserForm", {
             columnWidth: .5,
             beforeLabelTextTpl: comm.get("required"),
             fieldLabel: '真实姓名',
-            name: "xm",
+            name: "name",
             xtype: 'textfield',
             allowBlank: false,
             emptyText: '请输入真实姓名(最大36个字符)',
@@ -61,7 +61,7 @@ Ext.define("core.system.user.view.UserForm", {
             beforeLabelTextTpl: comm.get("required"),
             xtype: "basecombobox",
             fieldLabel: "性别",
-            name: "xbm",
+            name: "sex",
             ddCode: "XBM",
             allowBlank: false,
             emptyText: "请选择性别",
@@ -86,7 +86,7 @@ Ext.define("core.system.user.view.UserForm", {
             columnWidth: .5,
             beforeLabelTextTpl: "",
             fieldLabel: '身份证件号',
-            name: "sfzjh",
+            name: "identityNumber",
             xtype: 'textfield',
             allowBlank: true,         
             vtype:'idCode'
@@ -94,7 +94,7 @@ Ext.define("core.system.user.view.UserForm", {
             columnWidth: .5,
             beforeLabelTextTpl: "",
             fieldLabel: '移动电话',
-            name: "mobile",
+            name: "mobilePhone",
             xtype: 'textfield',
             allowBlank: true,
             vtype:'phoneCode'
@@ -115,7 +115,7 @@ Ext.define("core.system.user.view.UserForm", {
                 change:function( filed, newValue, oldValue, eOpts ){
                     var form=filed.up("form");                      
                     var formBase=form.getForm();
-                    var zxxbzlbField = formBase.findField("zxxbzlb");
+                    var zxxbzlbField = formBase.findField("headCountType");
                     if(newValue==1){                                    
                         zxxbzlbField.show();                                   
                     }else {
@@ -128,7 +128,7 @@ Ext.define("core.system.user.view.UserForm", {
             columnWidth: .5,            
             xtype: "basecombobox",
             fieldLabel: "编制",
-            name: "zxxbzlb",
+            name: "headCountType",
             ddCode: "ZXXBZLB",
             hidden:true
         }]
@@ -188,14 +188,14 @@ Ext.define("core.system.user.view.UserForm", {
             columnWidth: .5,            
             xtype: "basecombobox",
             fieldLabel: "政治面貌",
-            name: "zzmmm",
+            name: "politicalStatus",
             ddCode: "ZZMMM"
         }, {
             columnWidth: .5,
             xtype: "datetimefield",
             dateType:'date',
             fieldLabel: "出生日期",
-            name: "csrq",
+            name: "birthDate",
             maxValue:new Date()
         }]
     }, {
@@ -205,7 +205,7 @@ Ext.define("core.system.user.view.UserForm", {
             columnWidth: .5,
             beforeLabelTextTpl: "",
             fieldLabel: '电子邮箱',
-            name: "dzxx",
+            name: "email",
             xtype: 'textfield',
             allowBlank: true,           
             vtype:'email'
@@ -236,7 +236,7 @@ Ext.define("core.system.user.view.UserForm", {
                 fieldInfo: "deptJob~deptId,text~id",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url: comm.get('baseUrl') + "/SysDeptjob/getDeptJobTree",
+                url: comm.get('baseUrl') + "/PtDeptJob/getDeptJobTree",
            },
         }, {
             fieldLabel: "部门岗位ID",
