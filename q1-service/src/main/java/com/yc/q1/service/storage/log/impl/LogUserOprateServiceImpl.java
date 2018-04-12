@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.service.BaseServiceImpl;
 import com.yc.q1.model.storage.log.LogUserOprate;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.yc.q1.service.storage.log.LogUserOprateService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.service.BaseServiceImpl;
 
 @Service
 @Transactional

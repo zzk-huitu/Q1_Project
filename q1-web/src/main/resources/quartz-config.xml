@@ -5,7 +5,7 @@
 
 
 	<!-- ======================== 调度任务类 ======================== -->  	
-	<bean id="LogJobQuartz" class="com.zd.core.security.LogJobQuartz"/> 
+	<bean id="LogJobQuartz" class="com.yc.q1.core.security.LogJobQuartz"/> 
 	
 	<!-- ======================== 指定调度任务执行的类和方法 ======================== -->  
     <bean id="LogJobQuartzMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  

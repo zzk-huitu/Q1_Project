@@ -11,8 +11,8 @@ package com.yc.q1.pojo.base.pt;
 
 import java.util.List;
 
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.model.extjs.ExtTreeNode;
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.model.extjs.ExtTreeNode;
 
 /**
  * POJO 数据字典树

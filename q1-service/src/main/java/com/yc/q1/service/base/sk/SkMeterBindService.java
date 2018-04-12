@@ -1,7 +1,7 @@
 package com.yc.q1.service.base.sk;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.sk.SkMeterBind;
-import com.zd.core.service.BaseService;
 
 /**
  * 水控流量记表绑定

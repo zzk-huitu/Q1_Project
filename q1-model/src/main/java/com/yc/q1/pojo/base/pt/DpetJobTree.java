@@ -1,6 +1,6 @@
 package com.yc.q1.pojo.base.pt;
 
-import com.zd.core.model.extjs.ExtTreeNode;
+import com.yc.q1.core.model.extjs.ExtTreeNode;
 
 /**
  * POJO部门岗位的树

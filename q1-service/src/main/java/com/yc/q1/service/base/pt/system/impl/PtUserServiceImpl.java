@@ -19,6 +19,15 @@ import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.constant.AdminType;
+import com.yc.q1.core.constant.Constant;
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.model.ImportNotInfo;
+import com.yc.q1.core.model.extjs.QueryResult;
+import com.yc.q1.core.service.BaseServiceImpl;
+import com.yc.q1.core.util.BeanUtils;
+import com.yc.q1.core.util.SortListUtil;
+import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
 import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
 import com.yc.q1.model.base.pt.system.PtDataDictItem;
@@ -36,15 +45,6 @@ import com.yc.q1.service.base.pt.system.PtUserDeptJobService;
 import com.yc.q1.service.base.pt.system.PtUserService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.yc.q1.service.base.redis.UserRedisService;
-import com.zd.core.constant.AdminType;
-import com.zd.core.constant.Constant;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.model.ImportNotInfo;
-import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.service.BaseServiceImpl;
-import com.zd.core.util.BeanUtils;
-import com.zd.core.util.SortListUtil;
-import com.zd.core.util.StringUtils;
 
 /**
  * 
@@ -61,7 +61,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 	private static Logger logger = Logger.getLogger(PtUserServiceImpl.class);
 
-	@Resource(name = "PtUserDao") // 将具体的dao注入进来
+	@Resource(name = "ptUserDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUser> dao) {
 		super.setDao(dao);
 	}

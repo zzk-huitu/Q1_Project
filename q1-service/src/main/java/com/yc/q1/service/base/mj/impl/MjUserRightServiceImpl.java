@@ -9,14 +9,14 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.service.BaseServiceImpl;
+import com.yc.q1.core.util.BeanUtils;
+import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.mj.MjUserRight;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.mj.MjUserRightService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.service.BaseServiceImpl;
-import com.zd.core.util.BeanUtils;
-import com.zd.core.util.StringUtils;
 
 /**
  * 

@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.service.BaseServiceImpl;
 import com.yc.q1.model.base.sk.SkMeterBind;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.yc.q1.service.base.sk.SkMeterBindService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.service.BaseServiceImpl;
 
 @Service
 @Transactional

@@ -2,9 +2,9 @@ package com.yc.q1.dao.base.pt.wisdomclass.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.yc.q1.core.dao.BaseDaoImpl;
 import com.yc.q1.dao.base.pt.wisdomclass.PtClassMienDao;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
-import com.zd.core.dao.BaseDaoImpl;
 
 
 /**

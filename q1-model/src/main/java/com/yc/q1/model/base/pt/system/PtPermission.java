@@ -19,9 +19,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Formula;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.constant.ModuleNumType;
-import com.zd.core.model.BaseEntity;
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.constant.ModuleNumType;
+import com.yc.q1.core.model.BaseEntity;
 
 /**
  * 角色菜单的权限中间表（同时生成中间表T_PT_RolePermission：分别对应菜单id 和 角色id）

@@ -1,8 +1,8 @@
 package com.yc.q1.dao.base.pt.basic;
 
 
-import com.zd.core.dao.BaseDao;
-import com.zd.core.model.BaseEntity;
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.model.BaseEntity;
 
 /**
  * 

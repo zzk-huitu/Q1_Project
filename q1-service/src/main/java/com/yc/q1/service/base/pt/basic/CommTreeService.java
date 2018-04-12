@@ -2,9 +2,9 @@ package com.yc.q1.service.base.pt.basic;
 
 import java.util.List;
 
+import com.yc.q1.core.model.BaseEntity;
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.pojo.base.pt.CommTree;
-import com.zd.core.model.BaseEntity;
-import com.zd.core.service.BaseService;
 
 /**
  * 

@@ -1,7 +1,7 @@
 package com.yc.q1.dao.base.mj;
 
+import com.yc.q1.core.dao.BaseDao;
 import com.yc.q1.model.base.mj.MjUserRight;
-import com.zd.core.dao.BaseDao;
 
 
 /**

@@ -8,9 +8,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.constant.ModuleNumType;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.constant.ModuleNumType;
 
 /**
  * 学生基本信息

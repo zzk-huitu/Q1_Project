@@ -3,9 +3,9 @@ package com.yc.q1.service.base.pt.system;
 
 import java.util.List;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.system.PtPermission;
 import com.yc.q1.model.base.pt.system.PtRoleMenuPermission;
-import com.zd.core.service.BaseService;
 
 
 public interface PtRoleMenuPermissionService extends BaseService<PtRoleMenuPermission> {

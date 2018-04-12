@@ -8,11 +8,11 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.service.BaseServiceImpl;
 import com.yc.q1.model.base.pt.device.PtIrRoomDevice;
 import com.yc.q1.service.base.pt.device.PtIrRoomDeviceService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.service.BaseServiceImpl;
 
 /**
  * 

@@ -9,14 +9,14 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.service.BaseServiceImpl;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserDeptRight;
 import com.yc.q1.service.base.pt.system.PtUserDeptRightService;
 import com.yc.q1.service.base.pt.system.PtUserService;
 import com.yc.q1.service.base.redis.DeptRedisService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.service.BaseServiceImpl;
 
 /**
  * 

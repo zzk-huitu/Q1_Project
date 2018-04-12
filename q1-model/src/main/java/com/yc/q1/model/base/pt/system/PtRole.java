@@ -17,9 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.constant.ModuleNumType;
-import com.zd.core.model.BaseEntity;
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.constant.ModuleNumType;
+import com.yc.q1.core.model.BaseEntity;
 
 /**
  * 角色信息

@@ -2,9 +2,9 @@ package com.yc.q1.service.base.pt.system;
 
 import java.util.List;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.system.PtDataDict;
 import com.yc.q1.pojo.base.pt.DataDictTree;
-import com.zd.core.service.BaseService;
 
 
 /**

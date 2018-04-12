@@ -2,9 +2,9 @@ package com.yc.q1.service.base.pt.build;
 
 import java.util.List;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.yc.q1.pojo.base.pt.RoomAreaTree;
-import com.zd.core.service.BaseService;
 
 /**
  * 

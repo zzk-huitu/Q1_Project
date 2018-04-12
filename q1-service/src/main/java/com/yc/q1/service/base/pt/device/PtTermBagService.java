@@ -2,9 +2,9 @@ package com.yc.q1.service.base.pt.device;
 
 import java.util.Map;
 
+import com.yc.q1.core.model.extjs.QueryResult;
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.device.PtTermBag;
-import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.service.BaseService;
 
 /**
  * 设备钱包

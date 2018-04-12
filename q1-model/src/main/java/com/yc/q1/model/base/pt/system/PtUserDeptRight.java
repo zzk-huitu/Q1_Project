@@ -9,9 +9,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.constant.ModuleNumType;
-import com.zd.core.model.BaseEntity;
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.constant.ModuleNumType;
+import com.yc.q1.core.model.BaseEntity;
 
 /**
  * 用户额外的部门权限（除了用户目前分配的部门岗位，以及部门岗位主管的部门之外的权限）

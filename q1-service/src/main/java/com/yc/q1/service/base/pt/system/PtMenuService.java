@@ -3,10 +3,10 @@ package com.yc.q1.service.base.pt.system;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.system.PtMenu;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.MenuTree;
-import com.zd.core.service.BaseService;
 
 /**
  * 

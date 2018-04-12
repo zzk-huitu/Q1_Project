@@ -9,9 +9,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Formula;
 
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.constant.ModuleNumType;
-import com.zd.core.model.BaseEntity;
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.constant.ModuleNumType;
+import com.yc.q1.core.model.BaseEntity;
 
 /**
  * 学生班级信息（此数据由 学生绑定班级部门为主部门时，自动创建此数据）

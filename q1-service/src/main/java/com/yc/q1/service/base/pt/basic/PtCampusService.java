@@ -3,10 +3,10 @@ package com.yc.q1.service.base.pt.basic;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.basic.PtCampus;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.zd.core.service.BaseService;
 
 /**
  * 

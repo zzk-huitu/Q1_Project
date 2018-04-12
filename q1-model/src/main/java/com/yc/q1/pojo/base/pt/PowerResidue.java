@@ -1,6 +1,6 @@
 package com.yc.q1.pojo.base.pt;
 
-import com.zd.core.annotation.FieldInfo;
+import com.yc.q1.core.annotation.FieldInfo;
 
 /**
  * POJO实体类

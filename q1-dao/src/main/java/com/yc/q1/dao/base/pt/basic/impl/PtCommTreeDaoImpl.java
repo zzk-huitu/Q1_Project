@@ -4,9 +4,9 @@ package com.yc.q1.dao.base.pt.basic.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.yc.q1.core.dao.BaseDaoImpl;
+import com.yc.q1.core.model.BaseEntity;
 import com.yc.q1.dao.base.pt.basic.CommTreeDao;
-import com.zd.core.dao.BaseDaoImpl;
-import com.zd.core.model.BaseEntity;
 
 /**
  * 

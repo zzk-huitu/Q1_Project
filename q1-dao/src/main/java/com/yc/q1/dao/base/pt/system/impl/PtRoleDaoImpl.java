@@ -2,9 +2,9 @@ package com.yc.q1.dao.base.pt.system.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.yc.q1.core.dao.BaseDaoImpl;
 import com.yc.q1.dao.base.pt.system.PtRoleDao;
 import com.yc.q1.model.base.pt.system.PtRole;
-import com.zd.core.dao.BaseDaoImpl;
 
 /**
  * 
@@ -15,6 +15,7 @@ import com.zd.core.dao.BaseDaoImpl;
  * @version 0.1
  * @since JDK 1.8
  */
+
 @Repository
 public class PtRoleDaoImpl extends BaseDaoImpl<PtRole> implements PtRoleDao {
 }

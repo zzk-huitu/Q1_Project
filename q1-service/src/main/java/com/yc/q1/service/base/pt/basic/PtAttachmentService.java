@@ -1,7 +1,7 @@
 package com.yc.q1.service.base.pt.basic;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.basic.PtAttachment;
-import com.zd.core.service.BaseService;
 
 /**
  * 

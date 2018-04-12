@@ -2,7 +2,7 @@ package com.yc.q1.pojo.base.pt;
 
 import java.io.Serializable;
 
-import com.zd.core.annotation.FieldInfo;
+import com.yc.q1.core.annotation.FieldInfo;
 
 /**
  * POJO

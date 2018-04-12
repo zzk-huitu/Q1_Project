@@ -1,7 +1,7 @@
 package com.yc.q1.service.base.pt.wisdomclass;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.wisdomclass.PtNoticeType;
-import com.zd.core.service.BaseService;
 
 
 /**

@@ -2,9 +2,9 @@ package com.yc.q1.dao.base.pt.device.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.yc.q1.core.dao.BaseDaoImpl;
 import com.yc.q1.dao.base.pt.device.PtIrDeviceBrandDao;
 import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
-import com.zd.core.dao.BaseDaoImpl;
 
 
 /**

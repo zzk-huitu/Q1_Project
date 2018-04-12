@@ -1,9 +1,9 @@
 package com.yc.q1.service.base.pt.device;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.TLVModel;
-import com.zd.core.service.BaseService;
 
 /**
  * 设备表

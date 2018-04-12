@@ -8,9 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.zd.core.annotation.FieldInfo;
-import com.zd.core.constant.ModuleNumType;
-import com.zd.core.model.TreeNodeEntity;
+import com.yc.q1.core.annotation.FieldInfo;
+import com.yc.q1.core.constant.ModuleNumType;
+import com.yc.q1.core.model.TreeNodeEntity;
 
 /**
  * 数据字典

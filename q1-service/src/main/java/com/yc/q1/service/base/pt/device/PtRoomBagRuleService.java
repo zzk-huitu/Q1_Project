@@ -1,7 +1,7 @@
 package com.yc.q1.service.base.pt.device;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.device.PtRoomBagRule;
-import com.zd.core.service.BaseService;
 
 /**
  * 房间钱包规则

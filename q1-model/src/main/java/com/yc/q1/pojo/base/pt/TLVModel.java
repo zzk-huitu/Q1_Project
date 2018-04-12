@@ -3,7 +3,7 @@ package com.yc.q1.pojo.base.pt;
 
 import java.util.List;
 
-import com.zd.core.util.TagLenVal;
+import com.yc.q1.core.util.TagLenVal;
 
 /**
  * POJO类

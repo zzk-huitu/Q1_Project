@@ -1,9 +1,9 @@
 package com.yc.q1.service.storage.pt;
 
+import com.yc.q1.core.model.extjs.QueryResult;
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.pt.PtTask;
-import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.service.BaseService;
 
 /**
 * Created by zenglj on 2017-05-16.

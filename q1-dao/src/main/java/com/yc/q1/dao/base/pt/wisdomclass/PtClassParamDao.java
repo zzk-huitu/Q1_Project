@@ -1,7 +1,7 @@
 package com.yc.q1.dao.base.pt.wisdomclass;
 
+import com.yc.q1.core.dao.BaseDao;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassParam;
-import com.zd.core.dao.BaseDao;
 
 
 /**

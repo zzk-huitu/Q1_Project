@@ -13,7 +13,7 @@
 	<!-- Enable annotation util configuration -->
 	<context:annotation-config />
 	<!-- Scan packages for Spring annotations,排除扫描controller的容器 -->
-	<context:component-scan base-package="com.zd">
+	<context:component-scan base-package="com.yc.q1">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation"
@@ -96,7 +96,7 @@
 
 	</bean>
 
-	<bean id="dynamicDataSource" class="com.zd.core.util.DynamicDataSource">
+	<bean id="dynamicDataSource" class="com.yc.q1.core.util.DynamicDataSource">
 		<!-- 通过key-value的形式来关联数据源 -->
 		<property name="targetDataSources">
 			<map>
@@ -115,7 +115,7 @@
 		<!-- 配置hibernate配置文件所在的位置 -->
 		<property name="configLocation" value="classpath:spring-hibernate.cfg.xml"></property>
 		<!-- 扫描的数据包 -->
-		<property name="packagesToScan" value="com.zd"></property>
+		<property name="packagesToScan" value="com.yc.q1.model"></property>
 	</bean>
 
 	<bean id="transactionManager"

@@ -11,16 +11,16 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.service.BaseServiceImpl;
+import com.yc.q1.core.util.BeanUtils;
+import com.yc.q1.core.util.StringUtils;
+import com.yc.q1.core.util.TLVUtils;
 import com.yc.q1.model.base.pt.device.PtGateway;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.TLVModel;
 import com.yc.q1.service.base.pt.device.PtGatewayService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.service.BaseServiceImpl;
-import com.zd.core.util.BeanUtils;
-import com.zd.core.util.StringUtils;
-import com.zd.core.util.TLVUtils;
 
 /**
  * 网关表

@@ -2,9 +2,9 @@ package com.yc.q1.dao.base.sk.impl;
 
 import org.springframework.stereotype.Repository;
 
+import com.yc.q1.core.dao.BaseDaoImpl;
 import com.yc.q1.dao.base.sk.SkMeterDao;
 import com.yc.q1.model.base.sk.SkMeter;
-import com.zd.core.dao.BaseDaoImpl;
 
 /**
  * 水控流量计表

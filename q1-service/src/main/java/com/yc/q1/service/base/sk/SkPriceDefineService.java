@@ -1,8 +1,8 @@
 package com.yc.q1.service.base.sk;
 
+import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkPriceDefine;
-import com.zd.core.service.BaseService;
 
 
 /**

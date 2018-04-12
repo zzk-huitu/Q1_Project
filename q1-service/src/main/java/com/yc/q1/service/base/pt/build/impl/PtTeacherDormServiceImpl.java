@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.yc.q1.core.dao.BaseDao;
+import com.yc.q1.core.model.extjs.QueryResult;
+import com.yc.q1.core.service.BaseServiceImpl;
+import com.yc.q1.core.util.BeanUtils;
+import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.yc.q1.model.base.pt.build.PtTeacherDorm;
 import com.yc.q1.model.base.pt.system.PtUser;
@@ -22,11 +27,6 @@ import com.yc.q1.service.base.pt.build.PtOfficeAllotService;
 import com.yc.q1.service.base.pt.build.PtTeacherDormService;
 import com.yc.q1.service.base.pt.device.PtTermService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
-import com.zd.core.dao.BaseDao;
-import com.zd.core.model.extjs.QueryResult;
-import com.zd.core.service.BaseServiceImpl;
-import com.zd.core.util.BeanUtils;
-import com.zd.core.util.StringUtils;
 
 /**
  * 
