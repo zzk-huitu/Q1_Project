@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.model.base.pt.system.PtAppInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.AppInfoService;
+import com.yc.q1.service.base.pt.system.PtAppInfoService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -42,7 +42,7 @@ import com.zd.core.util.StringUtils;
 public class SysAppinfoController extends FrameWorkController<PtAppInfo> implements Constant {
 
     @Resource
-    AppInfoService thisService; // service层接口
+    PtAppInfoService thisService; // service层接口
 
     /**
       * @Title: list

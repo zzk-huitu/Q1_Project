@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
-import com.yc.q1.service.base.pt.wisdomclass.AttenceRuleService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttenceRuleService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -24,7 +24,7 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/ClassCheckrule")
 public class WisCheckruleController extends FrameWorkController<PtAttenceRule> implements Constant{
 	  @Resource
-	  AttenceRuleService thisService; // service层接口
+	  PtAttenceRuleService thisService; // service层接口
 	  
 	  /**
 	     * @param entity   实体类

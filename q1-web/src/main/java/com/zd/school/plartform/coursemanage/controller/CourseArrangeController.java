@@ -29,8 +29,8 @@ import com.yc.q1.model.base.pt.basic.PtCourseArrange;
 import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
-import com.yc.q1.service.base.pt.basic.CourseArrangeService;
-import com.yc.q1.service.base.pt.system.DepartmentService;
+import com.yc.q1.service.base.pt.basic.PtCourseArrangeService;
+import com.yc.q1.service.base.pt.system.PtDepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -56,10 +56,10 @@ import com.zd.core.util.StringUtils;
 public class CourseArrangeController extends FrameWorkController<PtCourseArrange> implements Constant {
 
 	@Resource
-	CourseArrangeService thisService; // service层接口。。。
+	PtCourseArrangeService thisService; // service层接口。。。
 	
 	@Resource
-	private DepartmentService sysOrgService;
+	private PtDepartmentService sysOrgService;
 
 	/**
 	 * 标准的查询列表功能

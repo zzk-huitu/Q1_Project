@@ -20,8 +20,8 @@ import com.yc.q1.model.base.pt.basic.PtFuncRoomCourse;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.basic.CourseArrangeService;
-import com.yc.q1.service.base.pt.basic.FuncRoomCourseService;
+import com.yc.q1.service.base.pt.basic.PtCourseArrangeService;
+import com.yc.q1.service.base.pt.basic.PtFuncRoomCourseService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -42,10 +42,10 @@ public class FuncRoomCourseController extends FrameWorkController<PtFuncRoomCour
 	@Resource
 	CommTreeService treeService; // 生成树
 	@Resource
-	FuncRoomCourseService thisService; // service层接口
+	PtFuncRoomCourseService thisService; // service层接口
 
 	@Resource
-	CourseArrangeService courseArrangeService; // service层接口。。。
+	PtCourseArrangeService courseArrangeService; // service层接口。。。
 
 	@RequestMapping("/treelist")
 	public void getTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {

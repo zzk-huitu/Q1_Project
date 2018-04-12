@@ -19,8 +19,8 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.system.DepartmentService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassTeacherService;
+import com.yc.q1.service.base.pt.system.PtDepartmentService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -39,13 +39,13 @@ import com.zd.core.util.StringUtils;
 public class WisClassTeacherController extends FrameWorkController<PtClassTeacher> implements Constant {
 
 	@Resource
-	ClassTeacherService thisService; // service层接口
+	PtClassTeacherService thisService; // service层接口
 
 	@Resource
 	private CommTreeService treeSerice;
 
 	@Resource
-	private DepartmentService sysOrgService;
+	private PtDepartmentService sysOrgService;
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

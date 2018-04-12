@@ -9,12 +9,12 @@ import org.apache.shiro.session.SessionListener;
 
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.log.LogUserLoginLog;
-import com.yc.q1.service.storage.log.UserLoginLogService;
+import com.yc.q1.service.storage.log.LogUserLoginService;
 
 public class MySessionListener implements SessionListener { 
 	
 	@Resource
-	private UserLoginLogService sysUserLoginLogService;
+	private LogUserLoginService sysUserLoginLogService;
 	    
 	
     @Override  

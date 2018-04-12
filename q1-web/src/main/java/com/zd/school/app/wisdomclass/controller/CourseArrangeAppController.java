@@ -30,16 +30,16 @@ import com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule;
 import com.yc.q1.pojo.base.app.CourseArrangeApp;
 import com.yc.q1.pojo.base.app.JKCourse;
 import com.yc.q1.pojo.base.app.JKCourseToDayArray;
-import com.yc.q1.service.base.pt.basic.CalenderDetailService;
-import com.yc.q1.service.base.pt.basic.CalenderService;
-import com.yc.q1.service.base.pt.basic.CampusService;
-import com.yc.q1.service.base.pt.basic.CourseArrangeService;
-import com.yc.q1.service.base.pt.basic.FuncRoomCourseService;
-import com.yc.q1.service.base.pt.basic.GradeClassService;
-import com.yc.q1.service.base.pt.basic.InfoTerminalService;
-import com.yc.q1.service.base.pt.build.FuncRoomDefineService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
-import com.yc.q1.service.base.pt.wisdomclass.AttenceRuleService;
+import com.yc.q1.service.base.pt.basic.PtCalenderDetailService;
+import com.yc.q1.service.base.pt.basic.PtCalenderService;
+import com.yc.q1.service.base.pt.basic.PtCampusService;
+import com.yc.q1.service.base.pt.basic.PtCourseArrangeService;
+import com.yc.q1.service.base.pt.basic.PtFuncRoomCourseService;
+import com.yc.q1.service.base.pt.basic.PtGradeClassService;
+import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
+import com.yc.q1.service.base.pt.build.PtFuncRoomDefineService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttenceRuleService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.util.DateUtil;
@@ -52,34 +52,34 @@ import com.zd.core.util.StringUtils;
 public class CourseArrangeAppController extends FrameWorkController<PtCourseArrange> implements Constant {
 
 	@Resource
-	CourseArrangeService thisService; // service层接口。。。
+	PtCourseArrangeService thisService; // service层接口。。。
 
 	@Resource
-	GradeClassService classService;
+	PtGradeClassService classService;
 
 	@Resource
-	CalenderService canderService;
+	PtCalenderService canderService;
 
 	@Resource
-	CalenderDetailService canderDetailService;
+	PtCalenderDetailService canderDetailService;
 
 	@Resource
-	RoomInfoService brService;
+	PtRoomInfoService brService;
 
 	@Resource
-	FuncRoomCourseService funcroomService;
+	PtFuncRoomCourseService funcroomService;
 
 	@Resource
-	FuncRoomDefineService bFuncRoomDefineService;
+	PtFuncRoomDefineService bFuncRoomDefineService;
 
 	@Resource
-	private InfoTerminalService termService; // 终端设备serice层接口
+	private PtInfoTerminalService termService; // 终端设备serice层接口
 
 	@Resource
-	private AttenceRuleService checkruleService;
+	private PtAttenceRuleService checkruleService;
 
 	@Resource
-	private CampusService campusService; // 校区信息
+	private PtCampusService campusService; // 校区信息
 	
 	/**
 	 * 获取课程信息

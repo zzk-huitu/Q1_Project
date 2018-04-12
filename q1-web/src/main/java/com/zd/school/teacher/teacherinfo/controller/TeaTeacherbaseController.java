@@ -23,10 +23,10 @@ import com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo;
 import com.yc.q1.model.base.pt.system.PtDepartment;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.AttachmentService;
-import com.yc.q1.service.base.pt.basic.TeacherBaseInfoService;
-import com.yc.q1.service.base.pt.system.DepartmentService;
-import com.yc.q1.service.base.pt.system.RoleService;
+import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtTeacherBaseInfoService;
+import com.yc.q1.service.base.pt.system.PtDepartmentService;
+import com.yc.q1.service.base.pt.system.PtRoleService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -42,13 +42,13 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 @RequestMapping("/TeacherBase")
 public class TeaTeacherbaseController extends FrameWorkController<PtTeacherBaseInfo> implements Constant {
 	@Resource
-	private TeacherBaseInfoService thisService; // service层接口
+	private PtTeacherBaseInfoService thisService; // service层接口
 
 	@Resource
-	private DepartmentService sysOrgService;
+	private PtDepartmentService sysOrgService;
 
 	@Resource
-	private RoleService roleService;
+	private PtRoleService roleService;
 
 	@Value("${realFileUrl}")
 	private String realFileUrl; // 文件目录物理路径
@@ -57,7 +57,7 @@ public class TeaTeacherbaseController extends FrameWorkController<PtTeacherBaseI
 	private String virtualFileUrl; // 文件目录虚拟路径
 
 	@Resource
-	private AttachmentService baseTAttachmentService;// service层接口
+	private PtPtAttachmentService baseTAttachmentService;// service层接口
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

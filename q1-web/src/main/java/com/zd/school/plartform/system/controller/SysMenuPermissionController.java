@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtMenuPermission;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.MenuPermissionService;
+import com.yc.q1.service.base.pt.system.PtMenuPermissionService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -32,7 +32,7 @@ import com.zd.core.util.StringUtils;
 public class SysMenuPermissionController extends FrameWorkController<PtMenuPermission> implements Constant {
 
 	@Resource
-	MenuPermissionService thisService; // service层接口
+	PtMenuPermissionService thisService; // service层接口
 
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity

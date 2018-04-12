@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.basic.PtCalender;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.CalenderService;
+import com.yc.q1.service.base.pt.basic.PtCalenderService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -32,7 +32,7 @@ import com.zd.core.util.StringUtils;
 public class BaseCalenderController extends FrameWorkController<PtCalender> implements Constant {
 
 	@Resource
-	CalenderService thisService; // service层接口
+	PtCalenderService thisService; // service层接口
 	
 	/**
 	 * 获取目录树列表

@@ -22,8 +22,8 @@ import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.device.IrDeviceBrandService;
-import com.yc.q1.service.base.pt.device.IrRoomDeviceService;
+import com.yc.q1.service.base.pt.device.PtIrDeviceBrandService;
+import com.yc.q1.service.base.pt.device.PtIrRoomDeviceService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -44,9 +44,9 @@ import com.zd.core.util.StringUtils;
 public class BasePtIrDeviceBrandController extends FrameWorkController<PtIrDeviceBrand> implements Constant  {
 	
 	@Resource
-	IrDeviceBrandService thisService; // service层接口
+	PtIrDeviceBrandService thisService; // service层接口
 	@Resource
-	IrRoomDeviceService deveiceService; // service层接口
+	PtIrRoomDeviceService deveiceService; // service层接口
 	@Resource
 	CommTreeService treeService;
 

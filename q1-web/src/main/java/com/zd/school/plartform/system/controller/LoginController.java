@@ -31,9 +31,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.log.LogUserLoginLog;
-import com.yc.q1.service.base.pt.system.RoleService;
-import com.yc.q1.service.base.pt.system.UserService;
-import com.yc.q1.service.storage.log.UserLoginLogService;
+import com.yc.q1.service.base.pt.system.PtRoleService;
+import com.yc.q1.service.base.pt.system.PtUserService;
+import com.yc.q1.service.storage.log.LogUserLoginService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -46,13 +46,13 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 
 	private static final Logger logger = LoggerFactory.getLogger(PtUser.class);
 	@Resource
-	private UserService sysUserService;
+	private PtUserService sysUserService;
 
 	@Resource
-	private RoleService roleService; // 角色数据服务接口
+	private PtRoleService roleService; // 角色数据服务接口
 
 	@Resource
-	private UserLoginLogService sysUserLoginLogService;
+	private LogUserLoginService sysUserLoginLogService;
 
 	@Resource
 	private SessionDAO sessionDAO;

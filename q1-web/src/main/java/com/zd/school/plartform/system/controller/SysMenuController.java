@@ -17,9 +17,9 @@ import com.yc.q1.model.base.pt.system.PtMenu;
 import com.yc.q1.model.base.pt.system.PtPermission;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.MenuTree;
-import com.yc.q1.service.base.pt.system.MenuService;
-import com.yc.q1.service.base.pt.system.PermissionService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtMenuService;
+import com.yc.q1.service.base.pt.system.PtPermissionService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -37,11 +37,11 @@ import com.zd.core.util.StringUtils;
 public class SysMenuController extends FrameWorkController<PtMenu> implements Constant {
 
     @Resource
-    private MenuService thisService; // service层接口
+    private PtMenuService thisService; // service层接口
     @Resource
-	private PermissionService perimissonSevice;
+	private PtPermissionService perimissonSevice;
     @Resource
-    private UserService userSerive;
+    private PtUserService userSerive;
 
 
     /**

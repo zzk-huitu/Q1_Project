@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.build.ClassRoomDefineService;
-import com.yc.q1.service.base.pt.build.DormDefineService;
-import com.yc.q1.service.base.pt.build.FuncRoomDefineService;
-import com.yc.q1.service.base.pt.build.OfficeDefineService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
+import com.yc.q1.service.base.pt.build.PtClassRoomDefineService;
+import com.yc.q1.service.base.pt.build.PtDormDefineService;
+import com.yc.q1.service.base.pt.build.PtFuncRoomDefineService;
+import com.yc.q1.service.base.pt.build.PtOfficeDefineService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -40,15 +40,15 @@ import com.zd.core.util.StringUtils;
 public class BaseRoomdefineController extends FrameWorkController<PtRoomInfo> implements Constant {
 
 	@Resource
-	private RoomInfoService thisService; // service层接口
+	private PtRoomInfoService thisService; // service层接口
 	@Resource
-	ClassRoomDefineService classRoomService;// 教室service层接口
+	PtClassRoomDefineService classRoomService;// 教室service层接口
 	@Resource
-	DormDefineService dormRoomService; // 宿舍service层接口
+	PtDormDefineService dormRoomService; // 宿舍service层接口
 	@Resource
-	OfficeDefineService offRoomService; // 办公室service层接口
+	PtOfficeDefineService offRoomService; // 办公室service层接口
 	@Resource
-	FuncRoomDefineService funRoomService; // 功能室service层接口
+	PtFuncRoomDefineService funRoomService; // 功能室service层接口
 	
 	/**
 	 * 定义房间

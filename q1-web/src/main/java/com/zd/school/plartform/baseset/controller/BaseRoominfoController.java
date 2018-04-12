@@ -18,7 +18,7 @@ import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -38,7 +38,7 @@ public class BaseRoominfoController extends FrameWorkController<PtRoomInfo> impl
 
 	
 	@Resource
-	private RoomInfoService thisService; // service层接口
+	private PtRoomInfoService thisService; // service层接口
 	@Resource
 	private CommTreeService treeService; // 生成树
 	

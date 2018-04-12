@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.sk.SkMeterBind;
-import com.yc.q1.service.base.pt.device.TermService;
+import com.yc.q1.service.base.pt.device.PtTermService;
 import com.yc.q1.service.base.sk.SkMeterBindService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -38,7 +38,7 @@ public class BasePtSkMeterbindController extends FrameWorkController<SkMeterBind
 	@Resource
 	SkMeterBindService thisService; // service层接口
 	@Resource
-	TermService ptTermService; // service层接口
+	PtTermService ptTermService; // service层接口
 	/**
 	 * list查询 @Title: list @Description: TODO @param @param entity
 	 * 实体类 @param @param request @param @param response @param @throws

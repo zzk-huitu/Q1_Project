@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.model.base.pt.system.PtDataDict;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.DataDictTree;
-import com.yc.q1.service.base.pt.system.DataDictService;
+import com.yc.q1.service.base.pt.system.PtDataDictService;
 import com.yc.q1.service.base.redis.DicItemRedisService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
@@ -36,7 +36,7 @@ import com.zd.core.util.StringUtils;
 public class BaseDicController extends FrameWorkController<PtDataDict> implements Constant {
 
 	@Resource
-	private DataDictService thisService; // service层接口
+	private PtDataDictService thisService; // service层接口
 
 	@Resource
 	private DicItemRedisService dicItemRedisService;

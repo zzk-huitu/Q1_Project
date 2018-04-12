@@ -25,8 +25,8 @@ import com.yc.q1.model.base.pt.basic.PtAttachment;
 import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
-import com.yc.q1.service.base.pt.basic.AttachmentService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassMienService;
+import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassMienService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -44,10 +44,10 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/ClassElegant")
 public class WisClassElegantController extends FrameWorkController<PtClassMien> implements Constant{
 	@Resource
-	ClassMienService thisService; // service层接口
+	PtClassMienService thisService; // service层接口
 	
 	@Resource
-	AttachmentService baseTAttachmentService;// service层接口
+	PtPtAttachmentService baseTAttachmentService;// service层接口
 	
 	@Value("${realFileUrl}")  
     private String realFileUrl; //文件目录物理路径

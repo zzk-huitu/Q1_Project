@@ -19,11 +19,11 @@ import com.yc.q1.model.base.pt.build.PtClassDormAllot;
 import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.yc.q1.model.base.pt.build.PtStudentDorm;
 import com.yc.q1.model.base.pt.device.PtRoomBag;
-import com.yc.q1.service.base.pt.build.ClassDormAllotService;
-import com.yc.q1.service.base.pt.build.DormDefineService;
-import com.yc.q1.service.base.pt.build.StudentDormService;
-import com.yc.q1.service.base.pt.device.RoomBagService;
-import com.yc.q1.service.base.pt.device.TermBagService;
+import com.yc.q1.service.base.pt.build.PtClassDormAllotService;
+import com.yc.q1.service.base.pt.build.PtDormDefineService;
+import com.yc.q1.service.base.pt.build.PtStudentDormService;
+import com.yc.q1.service.base.pt.device.PtRoomBagService;
+import com.yc.q1.service.base.pt.device.PtTermBagService;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
 import com.zd.core.model.extjs.QueryResult;
@@ -43,16 +43,16 @@ import com.zd.core.util.StringUtils;
 public class PtBagController extends FrameWorkController implements Constant {
 
 	@Resource
-	TermBagService termBagsService; // service层接口
+	PtTermBagService termBagsService; // service层接口
 	@Resource
-	RoomBagService roomBagsService;
+	PtRoomBagService roomBagsService;
 
 	@Resource
-	StudentDormService studentdormService;
+	PtStudentDormService studentdormService;
 	@Resource
-	ClassDormAllotService classDormAllotService;
+	PtClassDormAllotService classDormAllotService;
 	@Resource
-	DormDefineService dormDefineService;
+	PtDormDefineService dormDefineService;
 
 	/**
 	 * @Title: list

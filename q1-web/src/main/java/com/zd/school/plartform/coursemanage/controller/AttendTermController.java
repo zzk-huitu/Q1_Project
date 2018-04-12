@@ -15,8 +15,8 @@ import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendUser;
-import com.yc.q1.service.base.pt.basic.InfoTerminalService;
-import com.yc.q1.service.base.pt.wisdomclass.AttendTermService;
+import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendTermService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -38,9 +38,9 @@ import com.zd.core.util.StringUtils;
 public class AttendTermController extends FrameWorkController<PtAttendTerm> implements Constant {
 
 	@Resource
-	AttendTermService thisService; // service层接口
+	PtAttendTermService thisService; // service层接口
 	@Resource
-	InfoTerminalService InfoTermService; // service层接口
+	PtInfoTerminalService InfoTermService; // service层接口
 
 	/**
 	 * @Title: list

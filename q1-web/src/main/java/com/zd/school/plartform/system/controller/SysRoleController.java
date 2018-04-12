@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.MenuService;
-import com.yc.q1.service.base.pt.system.RoleMenuPermissionService;
-import com.yc.q1.service.base.pt.system.RoleService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtMenuService;
+import com.yc.q1.service.base.pt.system.PtRoleMenuPermissionService;
+import com.yc.q1.service.base.pt.system.PtRoleService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -45,16 +45,16 @@ import com.zd.core.util.StringUtils;
 public class SysRoleController extends FrameWorkController<PtRole> implements Constant {
 
     @Resource
-    private RoleService thisService; // service层接口
+    private PtRoleService thisService; // service层接口
 
     @Resource
-    private UserService userSerive;
+    private PtUserService userSerive;
 
     @Resource
-    private MenuService menuService;
+    private PtMenuService menuService;
 
     @Resource
-    private RoleMenuPermissionService roleMenuPermissionService;
+    private PtRoleMenuPermissionService roleMenuPermissionService;
     	
     /**
      * 获取角色列表（非管理员只能看到非隐藏的角色）

@@ -3,7 +3,7 @@
 import com.yc.q1.model.base.pt.build.PtRoomArea;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.RoomAreaTree;
-import com.yc.q1.service.base.pt.build.RoomAreaService;
+import com.yc.q1.service.base.pt.build.PtRoomAreaService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -37,7 +37,7 @@ import java.util.List;
 public class BaseRoomareaController extends FrameWorkController<PtRoomArea> implements Constant {
 
     @Resource
-    RoomAreaService thisService; // service层接口
+    PtRoomAreaService thisService; // service层接口
 
     /**
      * 区域的树列表

@@ -16,13 +16,13 @@ import org.springframework.stereotype.Component;
 
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 
 @Component
 public class ShiroSecurityRealm extends AuthorizingRealm {
 
     @Resource
-	private UserService sysUserService;;
+	private PtUserService sysUserService;;
 
     @SuppressWarnings("deprecation")
     public ShiroSecurityRealm() {

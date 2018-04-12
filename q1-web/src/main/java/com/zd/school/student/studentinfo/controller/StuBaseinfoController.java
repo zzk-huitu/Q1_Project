@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.StudentBaseInfoService;
+import com.yc.q1.service.base.pt.basic.PtStudentBaseInfoService;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -43,7 +43,7 @@ import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombi
 public class StuBaseinfoController extends FrameWorkController<PtStudentBaseInfo> implements Constant {
 
 	@Resource
-	StudentBaseInfoService thisService; // service层接口
+	PtStudentBaseInfoService thisService; // service层接口
 	
 	@Value("${realFileUrl}")
 	private String realFileUrl; // 文件目录物理路径

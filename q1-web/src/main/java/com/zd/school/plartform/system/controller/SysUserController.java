@@ -36,11 +36,11 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserDeptJob;
 import com.yc.q1.pojo.base.pt.DepartmentTree;
 import com.yc.q1.pojo.base.pt.MenuTree;
-import com.yc.q1.service.base.pt.system.DataDictItemService;
-import com.yc.q1.service.base.pt.system.DepartmentService;
-import com.yc.q1.service.base.pt.system.MenuService;
-import com.yc.q1.service.base.pt.system.UserDeptJobService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtDataDictItemService;
+import com.yc.q1.service.base.pt.system.PtDepartmentService;
+import com.yc.q1.service.base.pt.system.PtMenuService;
+import com.yc.q1.service.base.pt.system.PtUserDeptJobService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.yc.q1.service.base.redis.UserRedisService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
@@ -70,19 +70,19 @@ public class SysUserController extends FrameWorkController<PtUser> implements Co
 	private static Logger logger = Logger.getLogger(SysUserController.class);
 
 	@Resource
-	UserService thisService; // service层接口
+	PtUserService thisService; // service层接口
 
 	@Resource
-	MenuService sysMenuService;
+	PtMenuService sysMenuService;
 
 	@Resource
-	UserDeptJobService userDeptjobService;
+	PtUserDeptJobService userDeptjobService;
 
 	@Resource
-	DataDictItemService dicitemService;
+	PtDataDictItemService dicitemService;
 
 	@Resource
-	DepartmentService sysOrgService;
+	PtDepartmentService sysOrgService;
 
 	@Resource
 	private UserRedisService userRedisService;

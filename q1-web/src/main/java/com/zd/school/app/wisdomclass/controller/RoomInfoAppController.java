@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.pojo.base.app.RoomInfoApp;
-import com.yc.q1.service.base.pt.basic.InfoTerminalService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
+import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
 
 @Controller
 @RequestMapping("/app/RoomInfo")
 public class RoomInfoAppController {
 	@Resource
-	private RoomInfoService thisService;
+	private PtRoomInfoService thisService;
 	
 	@Resource
-	private InfoTerminalService termService; // 终端设备serice层接口
+	private PtInfoTerminalService termService; // 终端设备serice层接口
 	
 	/**
 	 * 获取房间信息

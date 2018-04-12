@@ -23,13 +23,13 @@ import com.yc.q1.model.base.pt.device.PtRoomBag;
 import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.device.PtTermBag;
 import com.yc.q1.pojo.base.pt.PowerResidue;
-import com.yc.q1.service.base.pt.build.ClassDormAllotService;
-import com.yc.q1.service.base.pt.build.DormDefineService;
-import com.yc.q1.service.base.pt.build.StudentDormService;
-import com.yc.q1.service.base.pt.device.RoomBagService;
-import com.yc.q1.service.base.pt.device.TermBagService;
-import com.yc.q1.service.base.pt.device.TermService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.build.PtClassDormAllotService;
+import com.yc.q1.service.base.pt.build.PtDormDefineService;
+import com.yc.q1.service.base.pt.build.PtStudentDormService;
+import com.yc.q1.service.base.pt.device.PtRoomBagService;
+import com.yc.q1.service.base.pt.device.PtTermBagService;
+import com.yc.q1.service.base.pt.device.PtTermService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.controller.core.FrameWorkController;
@@ -45,19 +45,19 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 	private static Logger logger = Logger.getLogger(PtPowerResidueController.class);
 
 	@Resource
-	private TermService termService;
+	private PtTermService termService;
 	@Resource
-	private RoomBagService roomBagsService;
+	private PtRoomBagService roomBagsService;
 	@Resource
-	private TermBagService termBagsService;
+	private PtTermBagService termBagsService;
 	@Resource
-	private DormDefineService dormDefineService;
+	private PtDormDefineService dormDefineService;
 	@Resource
-	private ClassDormAllotService classDormAllotService;
+	private PtClassDormAllotService classDormAllotService;
 	@Resource
-	private StudentDormService stuDormService;
+	private PtStudentDormService stuDormService;
 	@Resource
-	private UserService userService;
+	private PtUserService userService;
 
 	/*
 	 * 待迁移UP库

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassStar;
-import com.yc.q1.service.base.pt.wisdomclass.ClassStarService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassStarService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -25,7 +25,7 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/ClassStar")
 public class WisClassStarController extends FrameWorkController<PtClassStar> implements Constant {
 	@Resource
-	ClassStarService thisService; // service层接口
+	PtClassStarService thisService; // service层接口
 
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })

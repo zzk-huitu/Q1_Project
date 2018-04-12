@@ -30,10 +30,10 @@ import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.build.OfficeAllotService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
-import com.yc.q1.service.base.pt.device.IrRoomDeviceService;
-import com.yc.q1.service.base.pt.device.TermService;
+import com.yc.q1.service.base.pt.build.PtOfficeAllotService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.pt.device.PtIrRoomDeviceService;
+import com.yc.q1.service.base.pt.device.PtTermService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -58,19 +58,19 @@ public class BasePtIrRoomDeviceController extends FrameWorkController<PtIrRoomDe
 	private static Logger logger = Logger.getLogger(BasePtIrRoomDeviceController.class);
 	
 	@Resource
-	IrRoomDeviceService thisService; // service层接口
+	PtIrRoomDeviceService thisService; // service层接口
 
 	@Resource
-	OfficeAllotService baseOfficeAllotService; // service层接口
+	PtOfficeAllotService baseOfficeAllotService; // service层接口
 
 	@Resource
-	RoomInfoService baseRoominfoService;
+	PtRoomInfoService baseRoominfoService;
 
 	@Resource
 	CommTreeService treeService;
 
 	@Resource
-	TermService ptTermService;
+	PtTermService ptTermService;
 
 	@Value("${irsendurl}")  
     private String irsendurl; 

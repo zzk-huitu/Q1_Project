@@ -29,20 +29,20 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.pojo.base.app.ClassInfoApp;
 import com.yc.q1.pojo.base.app.ClassStudentApp;
 import com.yc.q1.pojo.base.app.CommonApp;
-import com.yc.q1.service.base.pt.basic.AttachmentService;
-import com.yc.q1.service.base.pt.basic.CalenderDetailService;
-import com.yc.q1.service.base.pt.basic.CalenderService;
-import com.yc.q1.service.base.pt.basic.CampusService;
-import com.yc.q1.service.base.pt.basic.ClassStudentService;
-import com.yc.q1.service.base.pt.basic.FuncRoomCourseService;
-import com.yc.q1.service.base.pt.basic.GradeClassService;
-import com.yc.q1.service.base.pt.basic.InfoTerminalService;
-import com.yc.q1.service.base.pt.basic.TeacherBaseInfoService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassMienService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassRedFlagService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassStarService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassTeacherService;
+import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtCalenderDetailService;
+import com.yc.q1.service.base.pt.basic.PtCalenderService;
+import com.yc.q1.service.base.pt.basic.PtCampusService;
+import com.yc.q1.service.base.pt.basic.PtClassStudentService;
+import com.yc.q1.service.base.pt.basic.PtFuncRoomCourseService;
+import com.yc.q1.service.base.pt.basic.PtGradeClassService;
+import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
+import com.yc.q1.service.base.pt.basic.PtTeacherBaseInfoService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassMienService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassRedFlagService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassStarService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
 import com.zd.core.controller.core.BaseController;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
@@ -56,46 +56,46 @@ public class GradeClassAppController extends BaseController<PtGradeClass> {
 	private String virtualFileUrl; 	//文件目录虚拟路径
 	
 	@Resource
-	GradeClassService thisService;
+	PtGradeClassService thisService;
 
 	@Resource
-	TeacherBaseInfoService teacherService;
+	PtTeacherBaseInfoService teacherService;
 
 	@Resource
-	ClassTeacherService classTeacherService;
+	PtClassTeacherService classTeacherService;
 
 	@Resource
-	ClassStudentService classStudentService;
+	PtClassStudentService classStudentService;
 
 	@Resource
-	RoomInfoService brService;
+	PtRoomInfoService brService;
 
 	// @Resource
 	// JwClassRoomAllotService jraService;
 
 	@Resource
-	ClassStarService starService;
+	PtClassStarService starService;
 
 	@Resource
-	ClassRedFlagService flagService;
+	PtClassRedFlagService flagService;
 
 	@Resource
-	ClassMienService elegantService; // service层接口
+	PtClassMienService elegantService; // service层接口
 
 	@Resource
-	AttachmentService baseTAttachmentService;// service层接口
+	PtPtAttachmentService baseTAttachmentService;// service层接口
 
 	@Resource
-	private InfoTerminalService termService; // 终端设备serice层接口
+	private PtInfoTerminalService termService; // 终端设备serice层接口
 
 	@Resource
-	private FuncRoomCourseService funcCourseService; // 功能室课表
+	private PtFuncRoomCourseService funcCourseService; // 功能室课表
 	@Resource
-	private CampusService campusService; // 校区信息
+	private PtCampusService campusService; // 校区信息
 	@Resource
-	private CalenderService calendarService; // 校历
+	private PtCalenderService calendarService; // 校历
 	@Resource
-	private CalenderDetailService calendarDetailService; // 校历详情
+	private PtCalenderDetailService calendarDetailService; // 校历详情
 
 
 	/**

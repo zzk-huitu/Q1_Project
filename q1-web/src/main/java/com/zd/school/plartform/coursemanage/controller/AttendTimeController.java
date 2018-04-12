@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTerm;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTime;
-import com.yc.q1.service.base.pt.wisdomclass.AttendTimeService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendTimeService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -39,7 +39,7 @@ import com.zd.core.util.StringUtils;
 public class AttendTimeController extends FrameWorkController<PtAttendTime> implements Constant {
 
 	@Resource
-	AttendTimeService thisService; // service层接口
+	PtAttendTimeService thisService; // service层接口
 
 	/**
 	 * @Title: list

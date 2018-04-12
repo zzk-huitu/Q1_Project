@@ -26,13 +26,13 @@ import com.yc.q1.model.base.pt.build.PtStudentDorm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.StandVClassStudent;
-import com.yc.q1.service.base.pt.basic.ClassStudentService;
+import com.yc.q1.service.base.pt.basic.PtClassStudentService;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.build.ClassDormAllotService;
-import com.yc.q1.service.base.pt.build.DormDefineService;
-import com.yc.q1.service.base.pt.build.OfficeAllotService;
-import com.yc.q1.service.base.pt.build.StudentDormService;
-import com.yc.q1.service.base.pt.system.DepartmentService;
+import com.yc.q1.service.base.pt.build.PtClassDormAllotService;
+import com.yc.q1.service.base.pt.build.PtDormDefineService;
+import com.yc.q1.service.base.pt.build.PtOfficeAllotService;
+import com.yc.q1.service.base.pt.build.PtStudentDormService;
+import com.yc.q1.service.base.pt.system.PtDepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -51,19 +51,19 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BaseStudentDorm")
 public class BaseStudentDormController extends FrameWorkController<PtStudentDorm> implements Constant {
 	@Resource
-	StudentDormService thisService; // service层接口
+	PtStudentDormService thisService; // service层接口
 	@Resource
 	CommTreeService treeService;
 	@Resource
-	ClassDormAllotService classDormService;// 班级宿舍
+	PtClassDormAllotService classDormService;// 班级宿舍
 	@Resource
-	ClassStudentService classStuService; // 学生分班
+	PtClassStudentService classStuService; // 学生分班
 	@Resource
-	DormDefineService dormDefineService;// 宿舍定义
+	PtDormDefineService dormDefineService;// 宿舍定义
 	@Resource
-	private OfficeAllotService roomaAllotService;// 房间分配 办公室
+	private PtOfficeAllotService roomaAllotService;// 房间分配 办公室
 	@Resource
-	DepartmentService sysOrgService;
+	PtDepartmentService sysOrgService;
 
 	/**
 	 * 已入住的学生列表

@@ -23,8 +23,8 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.pt.PtTask;
 import com.yc.q1.model.storage.sk.SkTermStatus;
 import com.yc.q1.pojo.base.pt.TLVModel;
-import com.yc.q1.service.base.pt.system.DataDictItemService;
-import com.yc.q1.service.storage.pt.TaskService;
+import com.yc.q1.service.base.pt.system.PtDataDictItemService;
+import com.yc.q1.service.storage.pt.PtTaskService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -44,9 +44,9 @@ import com.zd.core.util.TagLenVal;
 public class PtTaskController extends FrameWorkController<PtTask> implements Constant {
 
     @Resource
-    TaskService thisService; // service层接口
+    PtTaskService thisService; // service层接口
 	@Resource
-	DataDictItemService dicitemService;
+	PtDataDictItemService dicitemService;
     /**
       * @Title: list
       * @Description: 查询数据列表

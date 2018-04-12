@@ -22,7 +22,7 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.pojo.base.pt.TLVModel;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.device.GatewayService;
+import com.yc.q1.service.base.pt.device.PtGatewayService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -44,7 +44,7 @@ import com.zd.core.util.TLVUtils;
 public class BaseGatewayController extends FrameWorkController<PtGateway> implements Constant  {
 
 	@Resource
-	GatewayService thisService; // service层接口
+	PtGatewayService thisService; // service层接口
 
 	@Resource
 	CommTreeService treeService; // 生成树

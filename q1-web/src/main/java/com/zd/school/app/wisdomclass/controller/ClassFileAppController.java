@@ -32,14 +32,14 @@ import com.yc.q1.pojo.base.app.PictureReturnApp;
 import com.yc.q1.pojo.base.app.VideoApp;
 import com.yc.q1.pojo.base.app.VideoForApp;
 import com.yc.q1.pojo.base.app.VideoReturnApp;
-import com.yc.q1.service.base.pt.basic.AttachmentService;
-import com.yc.q1.service.base.pt.basic.FuncRoomCourseService;
-import com.yc.q1.service.base.pt.basic.GradeClassService;
-import com.yc.q1.service.base.pt.basic.InfoTerminalService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
-import com.yc.q1.service.base.pt.wisdomclass.AttendTermService;
-import com.yc.q1.service.base.pt.wisdomclass.AttendTimeService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassMienService;
+import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtFuncRoomCourseService;
+import com.yc.q1.service.base.pt.basic.PtGradeClassService;
+import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendTermService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendTimeService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassMienService;
 import com.zd.core.util.DateUtil;
 import com.zd.core.util.EntityUtil;
 import com.zd.core.util.StringUtils;
@@ -53,27 +53,27 @@ public class ClassFileAppController {
 
 	    
 	@Resource
-	private GradeClassService thisService;
+	private PtGradeClassService thisService;
 
 	@Resource
-	private RoomInfoService brService;
+	private PtRoomInfoService brService;
 	
 	@Resource
-	private ClassMienService elegantService; // service层接口
+	private PtClassMienService elegantService; // service层接口
 
 	@Resource
-	private AttachmentService baseTAttachmentService;// service层接口
+	private PtPtAttachmentService baseTAttachmentService;// service层接口
 
 	@Resource
-	private InfoTerminalService termService; // 终端设备serice层接口
+	private PtInfoTerminalService termService; // 终端设备serice层接口
 
 	@Resource
-	private FuncRoomCourseService funcCourseService; // 功能室课表
+	private PtFuncRoomCourseService funcCourseService; // 功能室课表
 
 	@Resource
-	private AttendTimeService attTimeService;
+	private PtAttendTimeService attTimeService;
 	@Resource
-	private AttendTermService attTermService;
+	private PtAttendTermService attTermService;
 	
 	/**
 	 * 获取班级的图片信息

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.basic.PtInfoTerminalHistory;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.InfoTerminalHistoryService;
+import com.yc.q1.service.base.pt.basic.PtInfoTerminalHistoryService;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
@@ -41,7 +41,7 @@ import com.zd.core.util.StringUtils;
 public class BaseInfotermuseController extends FrameWorkController<PtInfoTerminalHistory> implements Constant {
 
     @Resource
-    InfoTerminalHistoryService thisService; // service层接口
+    PtInfoTerminalHistoryService thisService; // service层接口
 
     /**
       * @Title: list

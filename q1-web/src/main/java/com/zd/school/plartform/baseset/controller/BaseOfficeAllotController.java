@@ -21,9 +21,9 @@ import com.yc.q1.model.base.pt.build.PtOfficeDefine;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.build.OfficeAllotService;
-import com.yc.q1.service.base.pt.build.OfficeDefineService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.build.PtOfficeAllotService;
+import com.yc.q1.service.base.pt.build.PtOfficeDefineService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -40,13 +40,13 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BaseOfficeAllot")
 public class BaseOfficeAllotController extends FrameWorkController<PtOfficeAllot> implements Constant {
 	@Resource
-	OfficeAllotService thisService; // service层接口
+	PtOfficeAllotService thisService; // service层接口
 	@Resource
 	CommTreeService treeService; // 生成树
 	@Resource
-	UserService sysUserService; // service层接口
+	PtUserService sysUserService; // service层接口
 	@Resource
-	OfficeDefineService offdService;
+	PtOfficeDefineService offdService;
 
 	/**
 	 * 

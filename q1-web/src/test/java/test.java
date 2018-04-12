@@ -3,7 +3,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yc.q1.service.base.pt.wisdomclass.ClassStarService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassStarService;
 
 import javax.annotation.Resource;
 
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 @ContextConfiguration({ "classpath:spring.xml" })
 public class test {
     @Resource
-    private ClassStarService eccClassstarService;
+    private PtClassStarService eccClassstarService;
 
     @Test
     public void doAddTest() throws  Exception{

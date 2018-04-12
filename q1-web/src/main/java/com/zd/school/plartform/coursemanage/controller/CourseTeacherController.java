@@ -17,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.model.base.pt.basic.PtCourseTeacher;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
-import com.yc.q1.service.base.pt.basic.CourseTeacherService;
-import com.yc.q1.service.base.pt.basic.TeacherBaseInfoService;
-import com.yc.q1.service.base.pt.system.DepartmentService;
+import com.yc.q1.service.base.pt.basic.PtCourseTeacherService;
+import com.yc.q1.service.base.pt.basic.PtTeacherBaseInfoService;
+import com.yc.q1.service.base.pt.system.PtDepartmentService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -40,11 +40,11 @@ import com.zd.core.util.StringUtils;
 public class CourseTeacherController extends FrameWorkController<PtCourseTeacher> implements Constant {
 
 	@Resource
-	private CourseTeacherService thisService; // service层接口
+	private PtCourseTeacherService thisService; // service层接口
 	@Resource
-	private TeacherBaseInfoService teacherService;
+	private PtTeacherBaseInfoService teacherService;
 	@Resource
-	private DepartmentService sysOrgService;
+	private PtDepartmentService sysOrgService;
 
 	/**
 	 * 任课信息列表(查询用户有权限的班级的数据）

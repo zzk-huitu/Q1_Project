@@ -20,8 +20,8 @@ import com.yc.q1.model.base.pt.basic.PtCampus;
 import com.yc.q1.model.base.pt.basic.PtSchool;
 import com.yc.q1.model.base.pt.build.PtDormDefine;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.CampusService;
-import com.yc.q1.service.base.pt.build.RoomAreaService;
+import com.yc.q1.service.base.pt.basic.PtCampusService;
+import com.yc.q1.service.base.pt.build.PtRoomAreaService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -41,10 +41,10 @@ import com.zd.core.util.StringUtils;
 public class BaseCampusController extends FrameWorkController<PtCampus> implements Constant {
 
     @Resource
-    CampusService thisService; // service层接口
+    PtCampusService thisService; // service层接口
 
     @Resource
-    private RoomAreaService areaService;
+    private PtRoomAreaService areaService;
 
     /**
      * 校区列表

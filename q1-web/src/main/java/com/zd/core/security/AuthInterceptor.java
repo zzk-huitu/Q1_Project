@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.util.ModelUtil;
@@ -24,7 +24,7 @@ import com.zd.core.util.ModelUtil;
 public class AuthInterceptor  extends HandlerInterceptorAdapter {
     
 	@Resource
-    private UserService sysUserService;
+    private PtUserService sysUserService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

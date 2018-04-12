@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserDeptRight;
-import com.yc.q1.service.base.pt.system.UserDeptRightService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtUserDeptRightService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -31,10 +31,10 @@ import com.zd.core.util.StringUtils;
 public class SysDeptRightController extends FrameWorkController<PtUserDeptRight> implements Constant {
 
 	@Resource
-	UserDeptRightService thisService; // service层接口
+	PtUserDeptRightService thisService; // service层接口
 	
 	@Resource
-	private UserService userService;
+	private PtUserService userService;
 	
 	/**
 	 * @Title: list

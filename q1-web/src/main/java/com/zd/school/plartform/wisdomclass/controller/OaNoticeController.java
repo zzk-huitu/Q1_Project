@@ -32,15 +32,15 @@ import com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher;
 import com.yc.q1.model.base.pt.wisdomclass.PtNotice;
 import com.yc.q1.model.base.pt.wisdomclass.PtNoticeOther;
 import com.yc.q1.pojo.base.pt.CommTree;
-import com.yc.q1.service.base.pt.basic.AttachmentService;
-import com.yc.q1.service.base.pt.basic.ClassStudentService;
+import com.yc.q1.service.base.pt.basic.PtPtAttachmentService;
+import com.yc.q1.service.base.pt.basic.PtClassStudentService;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.build.RoomAreaService;
-import com.yc.q1.service.base.pt.build.RoomInfoService;
-import com.yc.q1.service.base.pt.system.DataDictItemService;
-import com.yc.q1.service.base.pt.system.UserService;
-import com.yc.q1.service.base.pt.wisdomclass.ClassTeacherService;
-import com.yc.q1.service.base.pt.wisdomclass.NoticeService;
+import com.yc.q1.service.base.pt.build.PtRoomAreaService;
+import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.pt.system.PtDataDictItemService;
+import com.yc.q1.service.base.pt.system.PtUserService;
+import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
+import com.yc.q1.service.base.pt.wisdomclass.PtNoticeService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -64,31 +64,31 @@ import com.zd.core.util.StringUtils;
 public class OaNoticeController extends FrameWorkController<PtNotice> implements Constant {
 
 	@Resource
-	NoticeService thisService; // service层接口
+	PtNoticeService thisService; // service层接口
 
 	@Resource
 	private CommTreeService treeSerice;
 
 	@Resource
-	private AttachmentService  baseTAttachmentService;
+	private PtPtAttachmentService  baseTAttachmentService;
 
 	@Resource
-	private RoomAreaService buildRoomareaService;
+	private PtRoomAreaService buildRoomareaService;
 	
 	@Resource
-	private DataDictItemService baseDicitemService;
+	private PtDataDictItemService baseDicitemService;
 	
 	@Resource
-	private RoomInfoService buildRoominfoService;
+	private PtRoomInfoService buildRoominfoService;
 	
 	@Resource
-	private ClassStudentService jwClassstudentService;
+	private PtClassStudentService jwClassstudentService;
 	
 	@Resource
-	private UserService userService;
+	private PtUserService userService;
 	
 	@Resource
-	private ClassTeacherService cTeacherService;
+	private PtClassTeacherService cTeacherService;
 	
 	@Value("${realFileUrl}")  
     private String realFileUrl; //文件目录物理路径

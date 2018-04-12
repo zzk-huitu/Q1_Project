@@ -10,12 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 
 @Component
 public class CurrentUserInterceptor extends HandlerInterceptorAdapter {
     @Resource
-    private UserService sysUserService;
+    private PtUserService sysUserService;
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o,

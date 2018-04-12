@@ -23,9 +23,9 @@ import com.yc.q1.model.base.pt.device.PtTerm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
-import com.yc.q1.service.base.pt.build.DormDefineService;
-import com.yc.q1.service.base.pt.build.TeacherDormService;
-import com.yc.q1.service.base.pt.system.UserService;
+import com.yc.q1.service.base.pt.build.PtDormDefineService;
+import com.yc.q1.service.base.pt.build.PtTeacherDormService;
+import com.yc.q1.service.base.pt.system.PtUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.AdminType;
 import com.zd.core.constant.Constant;
@@ -42,13 +42,13 @@ import com.zd.core.util.StringUtils;
 @RequestMapping("/BaseTeacherDrom")
 public class BaseTeacherDromController extends FrameWorkController<PtTeacherDorm> implements Constant {
 	@Resource
-	TeacherDormService thisService; // service层接口
+	PtTeacherDormService thisService; // service层接口
 	@Resource
 	CommTreeService treeService; // 生成树
 	@Resource
-	DormDefineService dormService; // service层接口
+	PtDormDefineService dormService; // service层接口
     @Resource
-	UserService userService; // service层接口
+	PtUserService userService; // service层接口
   
     
     /**

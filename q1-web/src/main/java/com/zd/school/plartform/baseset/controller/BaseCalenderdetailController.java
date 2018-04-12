@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.basic.PtCalenderDetail;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.basic.CalenderDetailService;
+import com.yc.q1.service.base.pt.basic.PtCalenderDetailService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
@@ -38,7 +38,7 @@ import com.zd.core.util.StringUtils;
 public class BaseCalenderdetailController extends FrameWorkController<PtCalenderDetail> implements Constant {
 
     @Resource
-    CalenderDetailService thisService; // service层接口
+    PtCalenderDetailService thisService; // service层接口
 
     /**
      * 作息时间列表

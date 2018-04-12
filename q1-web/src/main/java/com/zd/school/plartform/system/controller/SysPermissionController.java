@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtPermission;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.PermissionService;
+import com.yc.q1.service.base.pt.system.PtPermissionService;
 import com.zd.core.constant.Constant;
 import com.zd.core.constant.StatuVeriable;
 import com.zd.core.controller.core.FrameWorkController;
@@ -36,7 +36,7 @@ import com.zd.core.util.StringUtils;
 public class SysPermissionController extends FrameWorkController<PtPermission> implements Constant {
 
     @Resource
-    PermissionService thisService; // service层接口
+    PtPermissionService thisService; // service层接口
     
     /**
      * list查询

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme;
-import com.yc.q1.service.base.pt.wisdomclass.AttendTermService;
-import com.yc.q1.service.base.pt.wisdomclass.AttendThemeService;
-import com.yc.q1.service.base.pt.wisdomclass.AttendTimeService;
-import com.yc.q1.service.base.pt.wisdomclass.AttendUserService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendTermService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendThemeService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendTimeService;
+import com.yc.q1.service.base.pt.wisdomclass.PtAttendUserService;
 import com.zd.core.annotation.Auth;
 import com.zd.core.constant.Constant;
 import com.zd.core.controller.core.FrameWorkController;
@@ -38,13 +38,13 @@ import com.zd.core.util.StringUtils;
 public class AttendTitleController extends FrameWorkController<PtAttendTheme> implements Constant {
 
 	@Resource
-	AttendThemeService thisService; // service层接口
+	PtAttendThemeService thisService; // service层接口
 	@Resource
-	AttendUserService attUserService;
+	PtAttendUserService attUserService;
 	@Resource
-	AttendTermService attTermService;
+	PtAttendTermService attTermService;
 	@Resource
-	AttendTimeService attTimeService;
+	PtAttendTimeService attTimeService;
 
 	/**
 	 * @Title: list
