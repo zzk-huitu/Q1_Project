@@ -30,7 +30,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Service
 @Transactional
 public class PtDormDefineServiceImpl extends BaseServiceImpl<PtDormDefine> implements PtDormDefineService {
-	@Resource(name = "PtDormDefineDao") // 将具体的dao注入进来
+	@Resource(name = "ptDormDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtDormDefine> dao) {
 		super.setDao(dao);
 	}

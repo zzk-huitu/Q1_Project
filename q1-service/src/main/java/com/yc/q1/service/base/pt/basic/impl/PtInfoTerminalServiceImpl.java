@@ -40,7 +40,7 @@ public class PtInfoTerminalServiceImpl extends BaseServiceImpl<PtInfoTerminal> i
 
 	private static Logger logger = Logger.getLogger(PtInfoTerminalServiceImpl.class);
 	
-	@Resource(name = "PtInfoTerminalDao") // 将具体的dao注入进来
+	@Resource(name = "ptInfoTerminalDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtInfoTerminal> dao) {
 		super.setDao(dao);
 	}

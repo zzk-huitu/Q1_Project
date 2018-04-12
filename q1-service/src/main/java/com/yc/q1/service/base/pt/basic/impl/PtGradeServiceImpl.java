@@ -27,7 +27,7 @@ import com.yc.q1.service.base.pt.system.PtJobService;
 @Transactional
 public class PtGradeServiceImpl extends BaseServiceImpl<PtGrade> implements PtGradeService {
 
-	@Resource(name = "PtGradeDao") // 将具体的dao注入进来
+	@Resource(name = "ptGradeDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtGrade> dao) {
 		super.setDao(dao);
 	}

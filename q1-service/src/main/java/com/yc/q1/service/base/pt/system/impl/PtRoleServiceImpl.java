@@ -29,7 +29,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRoleService {
 
-	@Resource(name = "PtRoleDao") // 将具体的dao注入进来
+	@Resource(name = "ptRoleDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtRole> dao) {
 		super.setDao(dao);
 	}

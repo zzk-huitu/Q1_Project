@@ -29,7 +29,7 @@ import com.yc.q1.service.base.pt.system.PtDepartmentService;
 @Transactional
 public class PtSchoolServiceImpl extends BaseServiceImpl<PtSchool> implements PtSchoolService {
 
-	@Resource(name = "PtSchoolDao") // 将具体的dao注入进来
+	@Resource(name = "ptSchoolDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtSchool> dao) {
 		super.setDao(dao);
 	}

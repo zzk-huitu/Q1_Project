@@ -15,7 +15,7 @@ import com.yc.q1.service.storage.sk.SkTermStatusService;
 @Transactional
 public class SkTermStatusServiceImpl extends BaseServiceImpl<SkTermStatus> implements SkTermStatusService{
 
-	@Resource(name="SkTermStatusDao")	//将具体的dao注入进来
+	@Resource(name="skTermStatusDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<SkTermStatus> dao) {
 		super.setDao(dao);
 	}

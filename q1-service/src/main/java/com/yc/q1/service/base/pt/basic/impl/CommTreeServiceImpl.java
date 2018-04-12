@@ -30,7 +30,7 @@ import com.yc.q1.service.base.pt.basic.CommTreeService;
 @Transactional
 public class CommTreeServiceImpl extends BaseServiceImpl<BaseEntity> implements CommTreeService {
 
-    @Resource(name = "CommTreeDao") // 将具体的dao注入进来
+    @Resource(name = "commTreeDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<BaseEntity> dao) {
 		super.setDao(dao);
 	}

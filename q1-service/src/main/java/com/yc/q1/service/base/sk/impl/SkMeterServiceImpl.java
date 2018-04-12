@@ -23,7 +23,7 @@ public class SkMeterServiceImpl extends BaseServiceImpl<SkMeter> implements SkMe
 
 	private static Logger logger = Logger.getLogger(SkMeterServiceImpl.class);
 	
-	@Resource(name="SkMeterDao")	//将具体的dao注入进来
+	@Resource(name="skMeterDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<SkMeter> dao) {
 		super.setDao(dao);
 	}

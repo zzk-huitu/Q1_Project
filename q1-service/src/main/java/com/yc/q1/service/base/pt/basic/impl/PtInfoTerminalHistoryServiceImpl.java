@@ -36,7 +36,7 @@ public class PtInfoTerminalHistoryServiceImpl extends BaseServiceImpl<PtInfoTerm
 		implements PtInfoTerminalHistoryService {
 	private static Logger logger = Logger.getLogger(PtInfoTerminalHistoryServiceImpl.class);
 
-	@Resource(name = "PtInfoTerminalHistoryDao") // 将具体的dao注入进来
+	@Resource(name = "ptInfoTerminalHistoryDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtInfoTerminalHistory> dao) {
 		super.setDao(dao);
 	}

@@ -14,7 +14,7 @@ import com.yc.q1.service.storage.log.LogUserLoginService;
 @Transactional
 public class LogUserLoginServiceImpl extends BaseServiceImpl<LogUserLogin> implements LogUserLoginService {
 
-	@Resource(name = "LogUserLoginDao") // 将具体的dao注入进来
+	@Resource(name = "logUserLoginDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<LogUserLogin> dao) {
 		super.setDao(dao);
 	}

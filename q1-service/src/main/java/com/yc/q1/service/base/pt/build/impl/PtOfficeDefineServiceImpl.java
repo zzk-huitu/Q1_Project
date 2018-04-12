@@ -30,7 +30,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtOfficeDefineServiceImpl extends BaseServiceImpl<PtOfficeDefine> implements PtOfficeDefineService {
 
-	@Resource(name = "PtOfficeDefineDao") // 将具体的dao注入进来
+	@Resource(name = "ptOfficeDefineDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtOfficeDefine> dao) {
 		super.setDao(dao);
 	}

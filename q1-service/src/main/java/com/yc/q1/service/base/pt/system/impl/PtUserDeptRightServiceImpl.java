@@ -33,7 +33,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 public class PtUserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight> implements PtUserDeptRightService {
 	
 	//自动注入dao到service层中，并设置到dao变量中
-	@Resource(name = "PtUserDeptRightDao") // 将具体的dao注入进来
+	@Resource(name = "ptUserDeptRightDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtUserDeptRight> dao) {
 		super.setDao(dao);
 	}

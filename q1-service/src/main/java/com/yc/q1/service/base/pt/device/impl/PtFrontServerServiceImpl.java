@@ -28,7 +28,7 @@ public class PtFrontServerServiceImpl extends BaseServiceImpl<PtFrontServer> imp
 
 	private static Logger logger = Logger.getLogger(PtFrontServerServiceImpl.class);
 	
-	@Resource(name = "PtFrontServerDao") // 将具体的dao注入进来
+	@Resource(name = "ptFrontServerDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtFrontServer> dao) {
 		super.setDao(dao);
 	}

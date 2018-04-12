@@ -20,7 +20,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtRoomBagServiceImpl extends BaseServiceImpl<PtRoomBag> implements PtRoomBagService{
 	
-	@Resource(name="PtRoomBagDao")	//将具体的dao注入进来
+	@Resource(name="ptRoomBagDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtRoomBag> dao) {
 		super.setDao(dao);
 	}

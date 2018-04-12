@@ -36,7 +36,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtAttendTimeServiceImpl extends BaseServiceImpl<PtAttendTime> implements PtAttendTimeService{
 
-	@Resource(name="PtAttendTimeDao")	//将具体的dao注入进来
+	@Resource(name="ptAttendTimeDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtAttendTime> dao) {
 		super.setDao(dao);
 	}

@@ -34,7 +34,7 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 
 	private static Logger logger = Logger.getLogger(MjUserRightServiceImpl.class);
 
-	@Resource(name = "MjUserRightDao") // 将具体的dao注入进来
+	@Resource(name = "mjUserRightDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<MjUserRight> dao) {
 		super.setDao(dao);
 	}

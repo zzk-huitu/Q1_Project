@@ -54,7 +54,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements PtNoticeService {
 
-	@Resource(name="PtNoticeDao")	//将具体的dao注入进来
+	@Resource(name="ptNoticeDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtNotice> dao) {
 		super.setDao(dao);
 	}

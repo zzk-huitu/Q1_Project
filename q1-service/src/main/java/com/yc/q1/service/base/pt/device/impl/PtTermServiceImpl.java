@@ -28,7 +28,7 @@ public class PtTermServiceImpl extends BaseServiceImpl<PtTerm> implements PtTerm
 
 	private static Logger logger = Logger.getLogger(PtTermServiceImpl.class);
 
-	@Resource(name = "PtTermDao") // 将具体的dao注入进来
+	@Resource(name = "ptTermDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtTerm> dao) {
 		super.setDao(dao);
 	}

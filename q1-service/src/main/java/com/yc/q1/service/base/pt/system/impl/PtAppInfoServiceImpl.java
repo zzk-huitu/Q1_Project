@@ -33,7 +33,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtAppInfoServiceImpl extends BaseServiceImpl<PtAppInfo> implements PtAppInfoService {
 
-	@Resource(name = "PtAppInfoDao") // 将具体的dao注入进来
+	@Resource(name = "ptAppInfoDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtAppInfo> dao) {
 		super.setDao(dao);
 	}

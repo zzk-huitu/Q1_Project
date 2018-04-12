@@ -42,7 +42,7 @@ public class PtClassRedFlagServiceImpl extends BaseServiceImpl<PtClassRedFlag> i
 	private PtUserService userService;
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
-	@Resource(name="PtClassRedFlagDao")	//将具体的dao注入进来
+	@Resource(name="ptClassRedFlagDao")	//将具体的dao注入进来
 	public void setDao(BaseDao<PtClassRedFlag> dao) {
 		super.setDao(dao);
 	}

@@ -57,7 +57,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> implements PtStudentDormService {
 
-	@Resource(name = "PtStudentDormDao") // 将具体的dao注入进来
+	@Resource(name = "ptStudentDormDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtStudentDorm> dao) {
 		super.setDao(dao);
 	}

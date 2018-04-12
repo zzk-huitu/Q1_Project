@@ -17,7 +17,7 @@ import com.yc.q1.service.base.sk.SkMeterBindService;
 @Transactional
 public class SkMeterBindServiceImpl extends BaseServiceImpl<SkMeterBind> implements SkMeterBindService {
 
-	@Resource(name = "SkMeterBindDao") // 将具体的dao注入进来
+	@Resource(name = "skMeterBindDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<SkMeterBind> dao) {
 		super.setDao(dao);
 	}

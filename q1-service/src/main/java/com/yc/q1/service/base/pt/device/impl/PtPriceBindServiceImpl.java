@@ -23,7 +23,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtPriceBindServiceImpl extends BaseServiceImpl<PtPriceBind> implements PtPriceBindService {
 
-	@Resource(name = "PtPriceBindDao") // 将具体的dao注入进来
+	@Resource(name = "ptPriceBindDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtPriceBind> dao) {
 		super.setDao(dao);
 	}

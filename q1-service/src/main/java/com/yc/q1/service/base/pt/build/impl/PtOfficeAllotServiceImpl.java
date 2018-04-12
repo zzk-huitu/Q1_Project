@@ -45,7 +45,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 @Transactional
 public class PtOfficeAllotServiceImpl extends BaseServiceImpl<PtOfficeAllot> implements PtOfficeAllotService {
 	
-	@Resource(name = "PtOfficeAllotDao") // 将具体的dao注入进来
+	@Resource(name = "ptOfficeAllotDao") // 将具体的dao注入进来
 	public void setDao(BaseDao<PtOfficeAllot> dao) {
 		super.setDao(dao);
 	}
