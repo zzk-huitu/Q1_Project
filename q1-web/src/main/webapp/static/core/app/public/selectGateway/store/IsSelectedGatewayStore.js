@@ -7,7 +7,7 @@ Ext.define("core.public.selectGateway.store.IsSelectedGatewayStore",{
  
     //fields:['uuid', 'xm','mobilePhone','sfzjh','xbm','workUnits']
    
-    model: factory.ModelFactory.getModelByName("com.zd.school.control.device.model.PtGateway", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.device.PtGateway", "checked").modelName,
     /*
     proxy: {
         type: 'ajax',

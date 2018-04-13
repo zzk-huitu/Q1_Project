@@ -7,7 +7,7 @@ Ext.define("core.public.selectUser.store.IsSelectedUserStore",{
  
     //fields:['uuid', 'xm','mobilePhone','sfzjh','xbm','workUnits']
    
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysUser", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUser", "checked").modelName,
     /*
     proxy: {
         type: 'ajax',

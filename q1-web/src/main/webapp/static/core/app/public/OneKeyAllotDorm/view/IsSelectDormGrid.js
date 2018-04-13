@@ -35,7 +35,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.IsSelectDormGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;
@@ -70,7 +70,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.IsSelectDormGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             flex:1,
@@ -97,7 +97,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.IsSelectDormGrid", {
         },{
             width: 60,
             text: "床位数",
-            dataIndex: "dormBedCount",
+            dataIndex: "bedCount",
             field: {
                 xtype: "textfield"
             }

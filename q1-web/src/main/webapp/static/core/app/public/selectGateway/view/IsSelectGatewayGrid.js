@@ -45,7 +45,7 @@ Ext.define("core.public.selectGateway.view.IsSelectGatewayGrid", {
         }, {
             width: 100,
             text: "序列号",
-            dataIndex: "gatewaySN",            
+            dataIndex: "gatewaySn",            
         },{
             width: 100,
             text: "网关IP",
@@ -70,7 +70,7 @@ Ext.define("core.public.selectGateway.view.IsSelectGatewayGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;

@@ -32,7 +32,7 @@ Ext.define("core.public.selectRole.view.IsSelectRoleGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;
@@ -71,7 +71,7 @@ Ext.define("core.public.selectRole.view.IsSelectRoleGrid", {
         whereSql: "",
         filter: "[{'type':'numeric','comparison':'=','value':0,'field':'isDelete'}]"
     },
-    model: 'com.zd.school.plartform.system.model.SysRole',
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
     columns: { 
         defaults:{
             //flex:1,     //【若使用了 selType: "checkboxmodel"；则不要在这设定此属性了，否则多选框的宽度也会变大 】
@@ -80,7 +80,7 @@ Ext.define("core.public.selectRole.view.IsSelectRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "角色名称",

@@ -8,8 +8,8 @@ Ext.define("core.public.SelectRoom.view.SelectRoomLayout", {
     layout:'border',
     border:false,
     funData: {
-        action: comm.get("baseUrl") + "/BuildRoominfo", //请求Action
-        pkName: "uuid"
+        action: comm.get("baseUrl") + "/PtRoomInfo", //请求Action
+        pkName: "id"
     },
     /*设置最小宽度，并且自动滚动*/
     minWidth:1200,

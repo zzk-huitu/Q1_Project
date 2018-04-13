@@ -4,13 +4,13 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
     al:true,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/SysUser/list", //数据获取地址
-    model: "com.zd.school.plartform.system.model.SysUser",
+    dataUrl: comm.get("baseUrl") + "/PtUser/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.system.PtUser",
     defSort: [{
         property: "deptName", //字段名
         direction: "DESC" //升降序
     },{
-        property: "xm", //字段名
+        property: "name", //字段名
         direction: "DESC" //升降序
     }],
     selModel: {
@@ -31,7 +31,7 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'xm',
+            name:'name',
             funCode:'girdFastSearchText',
             emptyText: '请输入姓名'
         },{
@@ -53,7 +53,7 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
                 //url:comm.get('baseUrl') + "/SysOrg/chkTreeList"
-                url:comm.get('baseUrl') + "/BaseStudentDorm/classtreelist"
+                url:comm.get('baseUrl') + "/PtStudentDorm/classtreelist"
             }
         }, {
             xtype: 'button',
@@ -85,7 +85,7 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.xm+"已存在!");
                                 return ;
                             }
@@ -108,7 +108,7 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",
@@ -125,7 +125,7 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
             flex:1,
             minWidth:100,
             text: "姓名",
-            dataIndex: "xm"
+            dataIndex: "name"
         },{
             flex:1,
             minWidth:100,
@@ -134,7 +134,7 @@ Ext.define("core.public.selectStudent.view.SelectStudentGrid", {
         },  {
             width:50,
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM"
         }, {
