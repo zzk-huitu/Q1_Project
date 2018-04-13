@@ -17,8 +17,8 @@ Ext.define("core.wisdomclass.redflag.view.MainLayout", {
     otherController:'wisdomclass.redflag.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/ClassRedflag", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassRedFlag", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

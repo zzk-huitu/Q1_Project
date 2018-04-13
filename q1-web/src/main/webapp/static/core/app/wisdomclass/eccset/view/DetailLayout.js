@@ -3,8 +3,8 @@ Ext.define("core.wisdomclass.eccset.view.DetailLayout", {
 	alias: "widget.wisdomclass.eccset.detaillayout",
 	funCode: "eccset_detail",
 	funData: {
-		action: comm.get("baseUrl") + "/ClassCheckrule", //请求Action
-		pkName: "uuid",
+		action: comm.get("baseUrl") + "/PtAttenceRule", //请求Action
+		pkName: "id",
 		defaultObj: {}
 	},
 	  /*关联此视图控制器*/

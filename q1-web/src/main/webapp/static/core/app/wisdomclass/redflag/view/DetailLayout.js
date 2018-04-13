@@ -3,8 +3,8 @@ Ext.define("core.wisdomclass.redflag.view.DetailLayout", {
 	alias: 'widget.wisdomclass.redflag.detaillayout',
 	funCode: "redflag_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/ClassRedflag", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassRedFlag", //请求Action	
+		pkName: "id",
 		defaultObj: {
 		}
 	},

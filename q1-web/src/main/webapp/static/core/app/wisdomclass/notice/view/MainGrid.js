@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.notice.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.wisdomclass.notice.maingrid",
-    dataUrl: comm.get('baseUrl') + "/OaNotice/list",
-    model: 'com.zd.school.oa.notice.model.OaNotice',
+    dataUrl: comm.get('baseUrl') + "/PtNotice/list",
+    model: 'com.yc.q1.model.base.pt.wisdomclass.PtNotice',
 
     menuCode:"OANOTICE", //new：此表格与权限相关的菜单编码
 
@@ -81,7 +81,7 @@ Ext.define("core.wisdomclass.notice.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "公告标题",

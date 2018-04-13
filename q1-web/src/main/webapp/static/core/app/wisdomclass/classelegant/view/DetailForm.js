@@ -4,12 +4,12 @@ Ext.define("core.wisdomclass.classelegant.view.DetailForm", {
 
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
         fieldLabel: "班级ID",
-        name: "claiId",
+        name: "classId",
         hidden: true
     }, {
         beforeLabelTextTpl: comm.get("required"),
@@ -51,8 +51,8 @@ Ext.define("core.wisdomclass.classelegant.view.DetailForm", {
             removeBtnText : '移除所有',  
             cancelBtnText : '取消上传',  
             file_size_limit : 200,//MB  
-            upload_url : comm.get('baseUrl') + "/ClassElegant/doUpload",  
-            delete_url : comm.get('baseUrl') + "/ClassElegant/doDeleteFile", 
+            upload_url : comm.get('baseUrl') + "/PtClassMien/doUpload",  
+            delete_url : comm.get('baseUrl') + "/PtClassMien/doDeleteFile", 
             style: {
                 border:'1px solid #ccc'
             },

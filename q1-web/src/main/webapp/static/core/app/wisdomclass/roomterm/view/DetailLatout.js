@@ -3,8 +3,8 @@ Ext.define("core.wisdomclass.roomterm.view.DetailLayout", {
 	alias: "widget.wisdomclass.roomterm.detaillayout",
 	funCode: "roomterm_detail",
 	funData: {
-		action: comm.get("baseUrl") + "/BaseInfoterm", //请求Action
-		pkName: "uuid",
+		action: comm.get("baseUrl") + "/PtInfoTerminal", //请求Action
+		pkName: "id",
 		defaultObj: {}
 	},
     minWidth:1000,

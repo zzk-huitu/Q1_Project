@@ -20,18 +20,18 @@ Ext.define("core.wisdomclass.classteacher.view.DetailForm", {
 
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     },{
         xtype: "textfield",
         fieldLabel: "班级ID",
-        name: "claiId",
+        name: "classId",
         hidden: true
     },{
         xtype: "textfield",
         fieldLabel: "教师id",
-        name: "tteacId",
+        name: "teacherId",
         hidden: true
     },{
         beforeLabelTextTpl: comm.get('required'),
@@ -56,7 +56,7 @@ Ext.define("core.wisdomclass.classteacher.view.DetailForm", {
         configInfo: {
             width: 1110,
             height: 650,
-            fieldInfo: "xm~tteacId,xm~uuid",
+            fieldInfo: "name~teacherId,name~id",
             whereSql: " ",
             orderSql: " ",
             muiltSelect: false //是否多选
@@ -64,7 +64,7 @@ Ext.define("core.wisdomclass.classteacher.view.DetailForm", {
         fieldLabel: "教师姓名",
         emptyText: "教师姓名",
         blankText: "教师姓名不能为空",
-        name: "xm"        
+        name: "name"        
     },{        
         beforeLabelTextTpl: comm.get('required'),
         xtype: "combobox",

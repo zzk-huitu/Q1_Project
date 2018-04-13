@@ -10,7 +10,7 @@ Ext.define("core.wisdomclass.classmotto.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {

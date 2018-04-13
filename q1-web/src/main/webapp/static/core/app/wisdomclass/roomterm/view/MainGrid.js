@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.roomterm.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: 'widget.wisdomclass.roomterm.maingrid',
-    dataUrl: comm.get("baseUrl") + "/BaseInfoterm/list", //数据获取地址
-    model: "com.zd.school.oa.terminal.model.OaInfoterm", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtInfoTerminal/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.basic.PtInfoTerminal", //对应的数据模型
     menuCode:"ROOMTERM",
     panelTopBar:{
         xtype:'toolbar',
@@ -42,7 +42,7 @@ Ext.define("core.wisdomclass.roomterm.view.MainGrid", {
         property: 'updateTime',
         direction: 'DESC'
     },{
-        property: "termCode", //排序字段
+        property: "terminalNo", //排序字段
         direction: "ASC" //升降充
     }],
     //扩展参数
@@ -57,7 +57,7 @@ Ext.define("core.wisdomclass.roomterm.view.MainGrid", {
         items: [ {
             text: "终端号",
             flex:1,
-            dataIndex: "termCode",
+            dataIndex: "terminalNo",
             renderer: function(value, metaData) {
                 var title = "终端号";
                 var html = value;
@@ -67,13 +67,13 @@ Ext.define("core.wisdomclass.roomterm.view.MainGrid", {
         }, {
             text: "类型",
             width:100,
-            dataIndex: "termType",
+            dataIndex: "terminalType",
             columnType: "basecombobox", //列类型
             ddCode: "INFOTERTYPE" //字典代码
         }, {
             text: "规格",
             width:100,
-            dataIndex: "termSpec",
+            dataIndex: "terminalSpec",
             renderer: function(value, metaData) {
                 var title = "规格";
                 var html = value;
@@ -103,7 +103,7 @@ Ext.define("core.wisdomclass.roomterm.view.MainGrid", {
         }, {
             text: "门牌号",
             width:100,
-            dataIndex: "houseNumb",
+            dataIndex: "houseNo",
             renderer: function(value, metaData) {
                 var title = "门牌号";
                 var html = value;

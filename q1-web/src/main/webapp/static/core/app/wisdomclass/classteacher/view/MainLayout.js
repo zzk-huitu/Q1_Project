@@ -17,8 +17,8 @@ Ext.define("core.wisdomclass.classteacher.view.MainLayout", {
     otherController:'wisdomclass.classteacher.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/ClassTeacher", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassTeacher", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

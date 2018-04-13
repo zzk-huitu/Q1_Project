@@ -3,8 +3,8 @@ Ext.define("core.wisdomclass.classteacher.view.DetailLayout", {
 	alias: 'widget.wisdomclass.classteacher.detaillayout',
 	funCode: "classteacher_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/ClassTeacher", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassTeacher", //请求Action	
+		pkName: "id",
 		defaultObj: {
 		}
 	},

@@ -24,24 +24,24 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
         items: [{
             xtype: "textfield",
             fieldLabel: "终端ID1",
-            name: "termId1",
+            name: "terminalId1",
             hidden: true
         }, {
             columnWidth: 0.4,
             fieldLabel: "门牌号1",
             xtype: "textfield",
-            name: "houseNumb1",
+            name: "houseNo1",
             readOnly: true
         }, {
             columnWidth: 0.6,
             fieldLabel: "分配终端",
             xtype: "basefuncfield",
-            name: "termCode1",
+            name: "terminalNo1",
             refController: "wisdomclass.roomterm.othercontroller", //该功能主控制器
             funcPanel: "baseset.terminal.mainlayout", //该功能显示的主视图
             funcTitle: "选择终端", //查询窗口的标题
             configInfo: {
-                fieldInfo: "termId1~termCode1,uuid~termCode",
+                fieldInfo: "terminalId1~terminalNo1,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' and isUse='0' ",
                 filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
                 muiltSelect: false, //是否多选
@@ -55,24 +55,24 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
         items: [{
             xtype: "textfield",
             fieldLabel: "终端ID2",
-            name: "termId2",
+            name: "terminalId2",
             hidden: true
         }, {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号2",
-            name: "houseNumb2",
+            name: "houseNo2",
             readOnly: true
         }, {
             columnWidth: 0.6,
             fieldLabel: "分配终端",
             xtype: "basefuncfield",
-            name: "termCode2",
+            name: "terminalNo2",
             refController: "wisdomclass.roomterm.othercontroller", //该功能主控制器
             funcPanel: "baseset.terminal.mainlayout", //该功能显示的主视图
             funcTitle: "选择终端", //查询窗口的标题
             configInfo: {
-                fieldInfo: "termId2~termCode2,uuid~termCode",
+                fieldInfo: "terminalId2~terminalNo2,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' ",
                 filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
                 muiltSelect: false, //是否多选
@@ -86,24 +86,24 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
         items: [{
             xtype: "textfield",
             fieldLabel: "终端ID3",
-            name: "termId3",
+            name: "terminalId3",
             hidden: true
         }, {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号3",
-            name: "houseNumb3",
+            name: "houseNo3",
             readOnly: true
         }, {
             columnWidth: 0.6,
             fieldLabel: "分配终端",
             xtype: "basefuncfield",
-            name: "termCode3",
+            name: "terminalNo3",
             refController: "wisdomclass.roomterm.othercontroller", //该功能主控制器
             funcPanel: "baseset.terminal.mainlayout", //该功能显示的主视图
             funcTitle: "选择终端", //查询窗口的标题
             configInfo: {
-                fieldInfo: "termId3~termCode3,uuid~termCode",
+                fieldInfo: "terminalId3~terminalNo3,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' ",
                 filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
                 muiltSelect: false, //是否多选
@@ -117,24 +117,24 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
         items: [{
             xtype: "textfield",
             fieldLabel: "终端ID4",
-            name: "termId4",
+            name: "terminalId4",
             hidden: true
         }, {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号4",
-            name: "houseNumb4",
+            name: "houseNo4",
             readOnly: true
         }, {
             columnWidth: 0.6,
             fieldLabel: "分配终端",
             xtype: "basefuncfield",
-            name: "termCode4",
+            name: "terminalNo4",
             refController: "wisdomclass.roomterm.othercontroller", //该功能主控制器
             funcPanel: "baseset.terminal.mainlayout", //该功能显示的主视图
             funcTitle: "选择终端", //查询窗口的标题
             configInfo: {
-                fieldInfo: "termId4~termCode4,uuid~termCode",
+                fieldInfo: "terminalId4~terminalNo4,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' ",
                 filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
                 muiltSelect: false, //是否多选
@@ -148,24 +148,24 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
         items: [{
             xtype: "textfield",
             fieldLabel: "终端ID5",
-            name: "termId5",
+            name: "terminalId5",
             hidden: true
         }, {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号5",
-            name: "houseNumb5",
+            name: "houseNo5",
             readOnly: true
         }, {
             columnWidth: 0.6,
             fieldLabel: "分配终端",
             xtype: "basefuncfield",
-            name: "termCode5",
+            name: "terminalNo5",
             refController: "wisdomclass.roomterm.othercontroller", //该功能主控制器
             funcPanel: "baseset.terminal.mainlayout", //该功能显示的主视图
             funcTitle: "选择终端", //查询窗口的标题
             configInfo: {
-                fieldInfo: "termId5~termCode5,uuid~termCode",
+                fieldInfo: "terminalId5~terminalNo5,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' and isUse='0' ",
                 filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
                 muiltSelect: false ,//是否多选

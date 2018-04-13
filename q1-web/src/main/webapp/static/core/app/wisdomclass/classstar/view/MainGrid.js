@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.classstar.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.wisdomclass.classstar.maingrid",
-	dataUrl: comm.get("baseUrl") + "/ClassStar/list", //数据获取地址
-    model: "com.zd.school.jw.ecc.model.EccClassstar", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtClassStar/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.wisdomclass.PtClassStar", //对应的数据模型
 	//al:false,
     menuCode:"CLASSSTAR",
 	//工具栏操作按钮
@@ -64,7 +64,7 @@ Ext.define("core.wisdomclass.classstar.view.MainGrid", {
 	},
 	columns: [{
 		text: "主键",
-		dataIndex: "uuid",
+		dataIndex: "id",
 		hidden: true
 	},{
         text: "班级名称",
@@ -91,7 +91,7 @@ Ext.define("core.wisdomclass.classstar.view.MainGrid", {
         }
     }, {
         text: "评定日期",
-        dataIndex: "doDate",
+        dataIndex: "doneDate",
         width:150,
         renderer: function(value, metaData) {
             var date = value.replace(new RegExp(/-/gm), "/");

@@ -24,7 +24,7 @@ Ext.define("core.wisdomclass.classstar.view.MainQueryPanel", {
             xtype: "basequeryfield",
             queryType: "datetimefield",
             fieldLabel: "评定日期",     
-            name: "doDate",
+            name: "doneDate",
             dateType:'date',        //指定这个组件的格式，date或者datetime
             dataType:'date',        //指定查询设置filter时的进行判断的类型，date或者datetime
             columnWidth: 0.25,

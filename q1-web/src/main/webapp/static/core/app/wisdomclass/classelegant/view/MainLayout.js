@@ -17,8 +17,8 @@ Ext.define("core.wisdomclass.classelegant.view.MainLayout", {
     otherController:'wisdomclass.classelegant.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/ClassElegant", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassMien", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

@@ -3,8 +3,8 @@ Ext.define("core.wisdomclass.notice.view.DetailLayout",{
 	alias : 'widget.wisdomclass.notice.detaillayout',
 	funCode:"notice_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/OaNotice", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtNotice", //请求Action
+		pkName: "id",
 		defaultObj: {
 		// 	 actBegin: new Date(),
 		// 	 signBeing:new Date()

@@ -9,7 +9,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
@@ -33,20 +33,20 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
             allowBlank: false,
             xtype: 'radiogroup',
             id: 'radcheckMode',
-            name: 'checkMode',
+            name: 'attenceMode',
             columns: 3, //3列
             items: [{
                 boxLabel: '半天考勤',
-                name: 'checkMode',
+                name: 'attenceMode',
                 inputValue: '1',
             }, {
                 boxLabel: '全天考勤 ',
                 inputValue: '2',
-                name: 'checkMode'
+                name: 'attenceMode'
             }, {
                 boxLabel: '节次考勤',
                 inputValue: '3',
-                name: 'checkMode',
+                name: 'attenceMode',
                 checked: true
             }]
         }]
@@ -55,7 +55,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         allowBlank: false,
         blankText: "签到提前分钟不能为空",
         fieldLabel: "签到提前分钟",
-        name: "inBefore",
+        name: "inAdvanceTime",
         xtype: "numberfield",
         emptyText: "请输入签到提前分钟",
         minValue: 0,
@@ -66,7 +66,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         allowBlank: false,
         blankText: "迟到分钟不能为空",
         fieldLabel: "迟到分钟",
-        name: "beLate",
+        name: "beLateTime",
         xtype: "numberfield",
         emptyText: "请输入迟到分钟",
         minValue: 0,
@@ -77,7 +77,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         allowBlank: false,
         blankText: "缺勤分钟不能为空",
         fieldLabel: "缺勤分钟",
-        name: "absenteeism",
+        name: "absenceTime",
         xtype: "numberfield",
         emptyText: "请输入缺勤分钟",
         minValue: 0,
@@ -91,7 +91,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
             beforeLabelTextTpl: comm.get("required"),
             fieldLabel: "是否需要签退",
             xtype: "checkbox",
-            name: "needCheckout",
+            name: "needSignOut",
         }, {
             columnWidth: 0.5,
             xtype: "label",
@@ -99,7 +99,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         }]
     }, {
         fieldLabel: "签退提前分钟",
-        name: "outBefore",
+        name: "outAdvanceTimme",
         xtype: "numberfield",
         emptyText: "请输入签退提前分钟",
         minValue: 0,
@@ -107,7 +107,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         allowDecimals:false,
     }, {
         fieldLabel: "早退分钟",
-        name: "leaveEarly",
+        name: "leaveEarlyTime",
         xtype: "numberfield",
         emptyText: "请输入早退分钟",
         minValue: 0,
@@ -115,7 +115,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         allowDecimals:false,
     }, {
         fieldLabel: "签退延迟分钟",
-        name: "outLate",
+        name: "leaveDelayTime",
         xtype: "numberfield",
         emptyText: "请输入签退延迟分钟",
         minValue: 0,
@@ -123,7 +123,7 @@ Ext.define("core.wisdomclass.eccset.view.DetailForm", {
         allowDecimals:false,
     }, {
         fieldLabel: "规则说明",
-        name: "ruleDesc",
+        name: "ruleExplain",
         xtype: "textarea",
         emptyText: "请输入规则说明",
         maxLength: 100,

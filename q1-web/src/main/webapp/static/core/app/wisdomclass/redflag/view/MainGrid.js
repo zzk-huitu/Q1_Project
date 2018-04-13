@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.redflag.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.wisdomclass.redflag.maingrid",
-    dataUrl: comm.get("baseUrl") + "/ClassRedflag/list", //数据获取地址
-    model: "com.zd.school.jw.ecc.model.EccClassredflag", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtClassRedFlag/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.wisdomclass.PtClassRedFlag", //对应的数据模型
 	//al:false,
     menuCode:"REDFLAG",
 	//工具栏操作按钮
@@ -64,11 +64,11 @@ Ext.define("core.wisdomclass.redflag.view.MainGrid", {
 	},
 	columns: [{
 		text: "主键",
-		dataIndex: "uuid",
+		dataIndex: "id",
 		hidden: true
 	}, {
         text: "红旗类型",
-        dataIndex: "redflagType",
+        dataIndex: "redFlagType",
         columnType: "basecombobox", //列类型
         ddCode: "REDFLAG", //字典代码 ,
         flex:1,

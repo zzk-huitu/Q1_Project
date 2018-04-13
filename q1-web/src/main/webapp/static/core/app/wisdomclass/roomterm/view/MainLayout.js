@@ -19,12 +19,12 @@ Ext.define("core.wisdomclass.roomterm.view.MainLayout", {
     detCode: "roomterm_detail",
     detLayout: "wisdomclass.roomterm.detaillayout",
     funData: {
-        action: comm.get("baseUrl") + "/BaseInfoterm", //请求Action
-        pkName: "uuid",
+        action: comm.get("baseUrl") + "/PtInfoTerminal", //请求Action
+        pkName: "id",
         defaultObj: {
         },
     tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
-        titleField:'termCode',
+        titleField:'terminalNo',
         addTitle:'分配终端',
         editTitle:'编辑终端分配',
         detailTitle:'终端分配详情'
