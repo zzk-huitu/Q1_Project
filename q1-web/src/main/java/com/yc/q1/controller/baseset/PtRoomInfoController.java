@@ -19,11 +19,9 @@ import com.yc.q1.core.annotation.Auth;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
-import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
 import com.yc.q1.service.base.pt.build.PtRoomInfoService;
 

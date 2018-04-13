@@ -5,8 +5,8 @@ Ext.define("core.public.SelectClass.view.SelectClassGrid", {
     frame: false,
     columnLines: false,
     pageDisplayInfo:false,
-    dataUrl: comm.get('baseUrl') + "/GradeClass/listUser",
-    model: "com.zd.school.jw.eduresources.model.JwTGradeclass",
+    dataUrl: comm.get('baseUrl') + "/PtGradeClass/listUser",
+    model: "com.yc.q1.model.base.pt.basic.PtGradeClass",
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -49,7 +49,7 @@ Ext.define("core.public.SelectClass.view.SelectClassGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.className+"已存在!");
                                 return ;
                             }
@@ -86,7 +86,7 @@ Ext.define("core.public.SelectClass.view.SelectClassGrid", {
             align: 'center'
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "班级名称",

@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.eccset.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.wisdomclass.eccset.maingrid",
-    dataUrl: comm.get("baseUrl") + "/ClassCheckrule/list", //数据获取地址
-    model: "com.zd.school.jw.ecc.model.JwCheckrule", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtAttenceRule/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.wisdomclass.PtAttenceRule", //对应的数据模型
     menuCode:"ECCSET",
 
     panelTopBar:{
@@ -58,7 +58,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "规则名称",
@@ -73,7 +73,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
             }
         }, {
             text: "考勤模式",
-            dataIndex: "checkMode",
+            dataIndex: "attenceMode",
             width:90,
             renderer: function(value, metaData) {
                 // var title = "考勤模式 1-按半天考勤 2-按全天考勤 3-按节次考勤";
@@ -94,7 +94,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         }, {
             text: "签到提前分钟",
             width:120,
-            dataIndex: "inBefore",
+            dataIndex: "inAdvanceTime",
             renderer: function(value, metaData) {
                 var title = "签到提前分钟";
                 var html = value;
@@ -104,7 +104,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         }, {
             text: "迟到分钟",
             width:90,
-            dataIndex: "beLate",
+            dataIndex: "beLateTime",
             renderer: function(value, metaData) {
                 var title = "迟到分钟";
                 var html = value;
@@ -114,7 +114,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         }, {
             text: "缺勤分钟",
             width:90,
-            dataIndex: "absenteeism",
+            dataIndex: "absenceTime",
             renderer: function(value, metaData) {
                 var title = "缺勤分钟";
                 var html = value;
@@ -124,14 +124,14 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         }, {
             text: "是否签退",
             width:90,
-            dataIndex: "needCheckout",
+            dataIndex: "needSignOut",
             renderer: function(value, metaData) {
                 return value == 0 ? "<font color=red>不签退</font>" : "<font color=green>签退</font>";
             }
         }, {
             text: "签退提前分钟",
             width:120,
-            dataIndex: "outBefore",
+            dataIndex: "outAdvanceTimme",
             renderer: function(value, metaData) {
                 var title = "签退提前分钟";
                 var html = value;
@@ -141,7 +141,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         }, {
             text: "早退分钟",
             width:90,
-            dataIndex: "leaveEarly",
+            dataIndex: "leaveEarlyTime",
             renderer: function(value, metaData) {
                 var title = "早退分钟";
                 var html = value;
@@ -151,7 +151,7 @@ Ext.define("core.wisdomclass.eccset.view.MainGrid", {
         }, {
             text: "签退延迟分钟",
             width:120,
-            dataIndex: "outLate",
+            dataIndex: "leaveDelayTime",
             renderer: function(value, metaData) {
                 var title = "签退延迟分钟";
                 var html = value;

@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.controller.base.FrameWorkController;
@@ -24,7 +24,6 @@ import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.PoiExportExcel;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.basic.PtInfoTerminal;
-import com.yc.q1.model.base.pt.build.PtStudentDorm;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.RoomTerm;
 import com.yc.q1.service.base.pt.basic.PtInfoTerminalService;

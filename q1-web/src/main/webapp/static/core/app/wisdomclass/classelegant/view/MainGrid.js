@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.classelegant.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.wisdomclass.classelegant.maingrid",
-	dataUrl: comm.get("baseUrl") + "/ClassElegant/list", //数据获取地址
-	model: "com.zd.school.jw.ecc.model.EccClasselegant", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtClassMien/list", //数据获取地址
+	model: "com.yc.q1.model.base.pt.wisdomclass.PtClassMien", //对应的数据模型
     //new：此表格与权限相关的菜单编码
     menuCode:"CLASSELEGANT",
 	//工具栏操作按钮
@@ -59,7 +59,7 @@ Ext.define("core.wisdomclass.classelegant.view.MainGrid", {
         },
         items:[{
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     },{
         text: "班级名称",

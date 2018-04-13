@@ -10,12 +10,12 @@ Ext.define("core.wisdomclass.redflag.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
         fieldLabel: "班级ID",
-        name: "claiId",
+        name: "classId",
         xtype: "textfield",
         hidden: true
     },{
@@ -37,7 +37,7 @@ Ext.define("core.wisdomclass.redflag.view.DetailForm", {
                 flex: 1,
                 columnWidth:0.5,
                 fieldLabel: "红旗类型",
-                name: "redflagType",
+                name: "redFlagType",
                 xtype: "basecombobox",
                 ddCode:"REDFLAG"
             }]

@@ -4,8 +4,8 @@ Ext.define("core.public.SelectRoom.view.SelectRoomGrid", {
     al: true,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/BuildRoominfo/list", //数据获取地址
-    model: "com.zd.school.build.define.model.BuildRoominfo",
+    dataUrl: comm.get("baseUrl") + "/PtRoomInfo/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.build.PtRoomInfo",
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -77,7 +77,7 @@ Ext.define("core.public.SelectRoom.view.SelectRoomGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                          for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.roomName+"已存在!");
                                 return ;
                             }

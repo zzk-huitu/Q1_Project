@@ -1,8 +1,8 @@
 Ext.define("core.public.OneKeyAllotDorm.view.BoyDormDefineTree", {
    extend: "core.base.view.BaseTreeGrid",
     alias: "widget.pubonkeyallotdorm.boydormdefinetree",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/getTree",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/getTree",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     selModel: {},
     expandFirst:true,
     al:false,
@@ -52,7 +52,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.BoyDormDefineTree", {
     listeners: {
         itemclick: function(view, record, item, index, e) {
             var mainLayout = view.up("basepanel[xtype=pubonkeyallotdorm.mainlayout]");
-            var filter = "[{'type':'string','comparison':'=','value':'0','field':'roomStatus'}";
+            var filter = "[{'type':'string','comparison':'=','value':'0','field':'isAllot'}";
             filter += ",{'type':'string','comparison':'=','value':'0','field':'isMixed'}";
             filter += ",{'type':'string','comparison':'=','value':'1','field':'dormType'}]";
             var funData = mainLayout.funData;

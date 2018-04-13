@@ -4,8 +4,8 @@ Ext.define("core.public.OneKeyAllotDorm.view.MainLayout", {
     controller: 'pubselect.dormdefinecontroller',
     funCode: "pubonkeyallotdorm_main",
     funData: {
-        action: comm.get("baseUrl") + "/BaseStudentDorm", //请求Action
-        pkName: "uuid"
+        action: comm.get("baseUrl") + "/PtStudentDorm", //请求Action
+        pkName: "id"
     },
     minWidth:1200,
     scrollable:'x',

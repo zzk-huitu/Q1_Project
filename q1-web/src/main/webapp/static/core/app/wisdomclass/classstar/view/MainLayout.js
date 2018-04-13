@@ -17,8 +17,8 @@ Ext.define("core.wisdomclass.classstar.view.MainLayout", {
     otherController:'wisdomclass.classstar.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/ClassStar", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassStar", //请求Action
+		pkName: "id",
 		defaultObj: {
         	doDate:new Date()
         },

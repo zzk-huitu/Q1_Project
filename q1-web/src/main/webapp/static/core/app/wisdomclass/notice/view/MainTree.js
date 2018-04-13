@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.notice.view.MainTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.wisdomclass.notice.maintree",
-    dataUrl: comm.get('baseUrl') + "/OaNotice/getTypeTree",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.comm.model.CommTree", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtNotice/getTypeTree",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.CommTree", "checked").modelName,
     al: true,
     expandFirst:true,
     scrollable:true,

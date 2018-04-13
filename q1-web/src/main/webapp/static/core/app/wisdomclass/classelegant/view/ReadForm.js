@@ -7,7 +7,7 @@ Ext.define("core.wisdomclass.classelegant.view.ReadForm", {
    
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {

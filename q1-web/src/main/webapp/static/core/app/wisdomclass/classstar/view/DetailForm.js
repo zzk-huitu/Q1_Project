@@ -5,12 +5,12 @@ Ext.define("core.wisdomclass.classstar.view.DetailForm", {
   
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
         fieldLabel: "班级ID",
-        name: "claiId",
+        name: "classId",
         xtype: "textfield",
         hidden: true
     },{
@@ -43,7 +43,7 @@ Ext.define("core.wisdomclass.classstar.view.DetailForm", {
             allowBlank: false,
             blankText: "评定日期不能为空",
             fieldLabel: "评定日期",
-            name: "doDate",
+            name: "doneDate",
             xtype: "datetimefield",
             dateType: 'date',
             format: "Y-m-d",

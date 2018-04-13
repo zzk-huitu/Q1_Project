@@ -17,8 +17,8 @@ Ext.define("core.wisdomclass.notice.view.MainLayout", {
     
 	//funData用来定义一些常规的参数
 	funData: {
-		action: comm.get('baseUrl') + "/OaNotice", //请求controller
-		pkName: "uuid", //主键
+		action: comm.get('baseUrl') + "/PtNotice", //请求controller
+		pkName: "id", //主键
 		//默认的初始值设置
 		defaultObj: {
             isCheck:"0",

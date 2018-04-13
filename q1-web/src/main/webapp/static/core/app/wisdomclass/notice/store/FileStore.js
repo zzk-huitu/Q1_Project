@@ -11,7 +11,7 @@ Ext.define("core.wisdomclass.notice.store.FileStore", {
     ],
     proxy: {
         type: "ajax",
-        url: comm.get('baseUrl') + "/BaseAttachment/getFileList",
+        url: comm.get('baseUrl') + "/PtAttachment/getFileList",
         extraParams: {orderSql: " order by createTime desc "},
         reader: {
             type: "json",

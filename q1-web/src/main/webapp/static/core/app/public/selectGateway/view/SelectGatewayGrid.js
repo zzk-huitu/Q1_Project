@@ -4,8 +4,8 @@ Ext.define("core.public.selectGateway.view.SelectGatewayGrid", {
     al:true,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/BaseGateway/list", //数据获取地址
-    model: "com.zd.school.control.device.model.PtGateway",
+    dataUrl: comm.get("baseUrl") + "/PtGateway/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.device.PtGateway",
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -29,7 +29,7 @@ Ext.define("core.public.selectGateway.view.SelectGatewayGrid", {
             emptyText: '请输入网关名称'
         },{
             xtype:'textfield',
-            name:'frontserverId',
+            name:'frontServerId',
             hidden:true,
             funCode:"girdFastSearchText"
         },{
@@ -42,10 +42,10 @@ Ext.define("core.public.selectGateway.view.SelectGatewayGrid", {
             funCode:'girdFastSearchText',
             configInfo: {
                 multiSelect: false,
-                fieldInfo: "frontServerName~frontserverId,text~id",
+                fieldInfo: "frontServerName~frontServerId,text~id",
                 //whereSql: " and isDelete='0' ",
                 //orderSql: " order by parentNode,orderIndex asc",
-                url:comm.get('baseUrl') + "/BaseGateway/treelist"
+                url:comm.get('baseUrl') + "/PtGateway/treelist"
             }
         },{
             xtype: 'button',
@@ -77,7 +77,7 @@ Ext.define("core.public.selectGateway.view.SelectGatewayGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.gatewayName+"已存在!");
                                 return ;
                             }
@@ -132,7 +132,7 @@ Ext.define("core.public.selectGateway.view.SelectGatewayGrid", {
         }, {
             width: 100,
             text: "序列号",
-            dataIndex: "gatewaySN",            
+            dataIndex: "gatewaySn",            
         },{
             width: 100,
             text: "网关IP",

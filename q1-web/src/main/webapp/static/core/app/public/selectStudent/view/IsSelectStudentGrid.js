@@ -31,7 +31,7 @@ Ext.define("core.public.selectStudent.view.IsSelectStudentGrid", {
         text: "姓名",
         titleAlign: "center",
         align:'center',
-        dataIndex: "xm"
+        dataIndex: "name"
     }/*, {
         width: 50,
         text: "性别",
@@ -71,7 +71,7 @@ Ext.define("core.public.selectStudent.view.IsSelectStudentGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;

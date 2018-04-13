@@ -1,8 +1,8 @@
 Ext.define("core.public.selectRole.view.SelectRoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.pbselectRole.selectrolegrid",
-    dataUrl: comm.get('baseUrl') + "/SysRole/list",
-    model: 'com.zd.school.plartform.system.model.SysRole',
+    dataUrl: comm.get('baseUrl') + "/PtRole/list",
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
     al: true,
     tbar: [],
     selModel: {
@@ -58,7 +58,7 @@ Ext.define("core.public.selectRole.view.SelectRoleGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.roleName+"已存在!");
                                 return ;
                             }
@@ -89,7 +89,7 @@ Ext.define("core.public.selectRole.view.SelectRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "角色名称",

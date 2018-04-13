@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.redflag.view.FlagTypeGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.wisdomclass.redflag.flagtypegrid",
-    dataUrl: comm.get("baseUrl") + "/BaseDicitem/getDicItemByDicCode", //数据获取地址
-    model: "com.zd.school.plartform.baseset.model.BaseDicitem", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtDataDictItem/getDicItemByDicCode", //数据获取地址
+    model: "com.yc.q1.model.base.pt.system.PtDataDictItem", //对应的数据模型
     selModel:{ 
         mode:'single',
     },
@@ -44,7 +44,7 @@ Ext.define("core.wisdomclass.redflag.view.FlagTypeGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "类型编码",

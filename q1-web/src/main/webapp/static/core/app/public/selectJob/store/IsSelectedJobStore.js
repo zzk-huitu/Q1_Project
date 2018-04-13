@@ -7,7 +7,7 @@ Ext.define("core.public.selectJob.store.IsSelectedJobStore",{
  
     //fields:['uuid', 'xm','mobilePhone','sfzjh','xbm','workUnits']
    
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.baseset.model.BaseJob", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtJob", "checked").modelName,
     /*
     proxy: {
         type: 'ajax',

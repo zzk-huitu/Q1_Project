@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.classmotto.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.wisdomclass.classmotto.maingrid",
-	dataUrl: comm.get("baseUrl") + "/GradeClass/classmottolist", //数据获取地址
-	model: "com.zd.school.jw.eduresources.model.JwTGradeclass", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtGradeClass/classmottolist", //数据获取地址
+	model: "com.yc.q1.model.base.pt.basic.PtGradeClass", //对应的数据模型
 	al:false,
     menuCode:"CLASSMOTTO",
 	//工具栏操作按钮
@@ -41,7 +41,7 @@ Ext.define("core.wisdomclass.classmotto.view.MainGrid", {
 	},
 	columns: [{
 		text: "主键",
-		dataIndex: "uuid",
+		dataIndex: "id",
 		hidden: true
 	}, {
 		text: "班级名称",

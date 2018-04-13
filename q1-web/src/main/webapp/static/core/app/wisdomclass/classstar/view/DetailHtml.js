@@ -12,7 +12,7 @@ Ext.define("core.wisdomclass.classstar.view.DetailHtml", {
             '<ul>' ,
                 '<li style="width:50%" title="{className}">班级名称：{className}</li>',
                 '<li style="width:50%" title="{starLevel}">星级：{starLevel}</li>',
-                '<li style="width:50%" title="{doDate}">评定日期：{doDate}</li>',
+                '<li style="width:50%" title="{doneDate}">评定日期：{doDate}</li>',
                 '<li style="width:50%" title="{beginDate}">开始日期：{beginDate}</li>',
                 '<li style="width:50%" title="{endDate}">结束日期：{endDate}</li>',
                 '<li style="width:50%" title="{createTime}">创建时间：{createTime}</li>',

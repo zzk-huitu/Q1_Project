@@ -1,10 +1,10 @@
 Ext.define("core.public.OneKeyAllotDorm.view.SelectDormGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.pubonkeyallotdorm.selectdormgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseRoomdefine/onKeylist",
-    model: "com.zd.school.build.define.model.BuildDormDefine",
+    dataUrl: comm.get('baseUrl') + "/PtRoomDefine/onKeylist",
+    model: "com.yc.q1.model.base.pt.build.PtDormDefine",
     extParams: {
-        filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'areaId'},{'type':'string','comparison':'=','value':'0','field':'roomStatus'},{'type':'string','comparison':'=','value':'0','field':'isMixed'}]"
+        filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'areaId'},{'type':'string','comparison':'=','value':'0','field':'isAllot'},{'type':'string','comparison':'=','value':'0','field':'isMixed'}]"
     },
     selModel: {
         type: "checkboxmodel",   
@@ -36,7 +36,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.SelectDormGrid", {
                     if(isSelectGrid.isVisible()==true){
                        var isSelectStore = isSelectGrid.getStore();
                        for (var i = 0; i < isSelectStore.getCount(); i++) {
-                        if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                        if (data.id == isSelectStore.getAt(i).get('id')) {
                             Ext.Msg.alert("提示", data.roomName+"已存在!");
                             return;
                         }
@@ -57,7 +57,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.SelectDormGrid", {
         },
       items:[{
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         flex:1,
@@ -84,7 +84,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.SelectDormGrid", {
     },  {
         width: 60,
         text: "床位数",
-        dataIndex: "dormBedCount",
+        dataIndex: "bedCount",
         field: {
             xtype: "textfield"
         }

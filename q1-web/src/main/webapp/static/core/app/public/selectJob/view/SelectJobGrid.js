@@ -2,8 +2,8 @@ Ext.define("core.public.selectJob.view.SelectJobGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.pubselect.selectjobgrid",
     al:true,
-    dataUrl: comm.get('baseUrl') + "/SysJob/list",
-    model: 'com.zd.school.plartform.baseset.model.BaseJob',
+    dataUrl: comm.get('baseUrl') + "/PtJob/list",
+    model: 'com.yc.q1.model.base.pt.system.PtJob',
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -64,7 +64,7 @@ Ext.define("core.public.selectJob.view.SelectJobGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                            for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.jobName+"已存在!");
                                 return ;
                             }

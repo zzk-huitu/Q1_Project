@@ -3,8 +3,8 @@ Ext.define("core.wisdomclass.classelegant.view.DetailLayout", {
 	alias: 'widget.wisdomclass.classelegant.detaillayout',
 	funCode: "classelegant_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/ClassElegant", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtClassMien", //请求Action	
+		pkName: "id",
 		defaultObj: {
 		}
 	},

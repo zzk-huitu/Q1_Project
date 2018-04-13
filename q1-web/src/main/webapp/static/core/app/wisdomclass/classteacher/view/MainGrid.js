@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.classteacher.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.wisdomclass.classteacher.maingrid",
-	dataUrl: comm.get("baseUrl") + "/ClassTeacher/list", //数据获取地址
-	model: "com.zd.school.jw.eduresources.model.JwClassteacher", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtClassTeacher/list", //数据获取地址
+	model: "com.yc.q1.model.base.pt.wisdomclass.PtClassTeacher", //对应的数据模型
 
     menuCode:"CLASSTEACHER",
 
@@ -76,7 +76,7 @@ Ext.define("core.wisdomclass.classteacher.view.MainGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "班级",
@@ -85,11 +85,11 @@ Ext.define("core.wisdomclass.classteacher.view.MainGrid", {
             minWidth:100,
         }, {
             text: "教师工号",
-            dataIndex: "gh",
+            dataIndex: "userNumb",
             flex:1,
         }, {
             text: "教师姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             flex:1,
         },{
             text: "开始担任时间",
