@@ -1,11 +1,8 @@
-
-
-
 Ext.define("core.baseset.campus.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.campus.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseCampus/list",
-    model: 'com.zd.school.plartform.baseset.model.BaseCampus',
+    dataUrl: comm.get('baseUrl') + "/PtCampus/list",
+    model: 'com.yc.q1.model.base.pt.basic.PtCampus',
 
     menuCode:"BASECAMPUS", //new：此表格与权限相关的菜单编码
 
@@ -82,7 +79,7 @@ Ext.define("core.baseset.campus.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             width: 150,
@@ -104,7 +101,7 @@ Ext.define("core.baseset.campus.view.MainGrid", {
         }, {
             width:100,
             text: "邮政编码",
-            dataIndex: "zipCode"
+            dataIndex: "mailCode"
         }, {
             width:150,
             text: "校区联系电话",
@@ -116,7 +113,7 @@ Ext.define("core.baseset.campus.view.MainGrid", {
         }, {
             width:100,
             text: "校区负责人号",
-            dataIndex: "campusHead"
+            dataIndex: "campusPrincipal"
         },{
             xtype: 'actiontextcolumn',
             text: "操作",

@@ -5,7 +5,7 @@ Ext.define("core.baseset.roomdefine.view.DetailForm", {
     sign:"add",
     items: [{
         xtype: "textfield",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "container",
@@ -91,7 +91,7 @@ Ext.define("core.baseset.roomdefine.view.DetailForm", {
             maxValue: 8,
             value: 6,
             maxText: "单间宿舍只能分配8人",
-            name: "dormBedCount",
+            name: "bedCount",
             allowBlank: false,
             nanText: '床位数',
             emptyText: '床位数',
@@ -110,7 +110,7 @@ Ext.define("core.baseset.roomdefine.view.DetailForm", {
             fieldLabel: "柜子数",
             emptyText: '柜子数',
             value: 6,
-            name: "dormChestCount"
+            name: "sarkCount"
         }]
       }, {
          ref:'dormContainer',

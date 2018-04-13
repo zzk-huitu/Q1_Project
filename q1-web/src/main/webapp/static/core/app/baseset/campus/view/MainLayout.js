@@ -1,5 +1,3 @@
-
-
 Ext.define("core.baseset.campus.view.MainLayout", {
     extend: "core.base.view.BasePanel",
     alias: 'widget.baseset.campus.mainlayout',
@@ -19,8 +17,8 @@ Ext.define("core.baseset.campus.view.MainLayout", {
     otherController:'baseset.campus.othercontroller',
  
     funData: {
-        action: comm.get('baseUrl') + "/BaseCampus", //请求Action 
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtCampus", //请求Action 
+        pkName: "id",
         defaultObj: {
             // schoolId: comm.get("schoolId"),
             // schoolName: comm.get("schoolName"),

@@ -11,7 +11,7 @@ Ext.define("core.baseset.room.view.AreaForm", {
 	},
 	items: [{
 		fieldLabel: '主键',
-		name: "uuid",
+		name: "id",
 		hidden: true
 	}, {
 		fieldLabel: '区域类型',
@@ -92,7 +92,7 @@ Ext.define("core.baseset.room.view.AreaForm", {
             beforeLabelTextTpl: "",
             xtype: "textarea",
             fieldLabel: "区域说明",
-            name: "areaDesc",
+            name: "areaExplain",
             height: 100,
             allowBlank: true,
             emptyText: '区域说明',

@@ -3,8 +3,8 @@ Ext.define("core.baseset.campus.view.DetailLayout", {
 	alias: 'widget.baseset.campus.detaillayout',
 	funCode: "campus_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/BaseCampus", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtCampus", //请求Action	
+		pkName: "id",
 		defaultObj: {
 			// schoolId: comm.get("schoolId"),
 			// schoolName: comm.get("schoolName"),

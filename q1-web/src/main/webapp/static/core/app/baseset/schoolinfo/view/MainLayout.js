@@ -20,8 +20,8 @@ Ext.define("core.baseset.schoolinfo.view.MainLayout", {
     otherController:'baseset.schoolinfo.othercontroller',
  
     funData: {
-        action: comm.get('baseUrl') + "/BaseSchool", //请求Action 
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtSchool", //请求Action 
+        pkName: "id",
         defaultObj: {
          },
        tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据

@@ -18,7 +18,7 @@ Ext.define("core.baseset.dictionary.view.MainLayout", {
 	detLayout: 'baseset.dictionary.dicdetaillayout',
 	border: false,
 	funData: {
-		action: comm.get('baseUrl') + "/BaseDic", //请求Action		
+		action: comm.get('baseUrl') + "/PtDataDict", //请求Action		
 		pkName: "id",
 		defaultObj: {
 			orderIndex: 1,

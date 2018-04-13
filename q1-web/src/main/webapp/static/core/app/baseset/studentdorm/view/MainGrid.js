@@ -1,10 +1,10 @@
 Ext.define("core.baseset.studentdorm.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/list",
-    model: "com.zd.school.build.allot.model.DormStudentDorm",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/list",
+    model: "com.yc.q1.model.base.pt.build.PtStudentDorm",
     extParams: {
-        filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'claiId'}]"
+        filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'classId'}]"
     },
     al:false,
     menuCode:"BASESTUDENTDORM", //new：此表格与权限相关的菜单编码
@@ -56,13 +56,13 @@ Ext.define("core.baseset.studentdorm.view.MainGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             flex: 1,
             minWidth:100,
             text: "班级名称",
-            dataIndex: "claiName",
+            dataIndex: "className",
             field: {
                 xtype: "textfield"
             }
@@ -70,7 +70,7 @@ Ext.define("core.baseset.studentdorm.view.MainGrid", {
             flex: 1,
             minWidth:100,
             text: "学生名称",
-            dataIndex: "xm",
+            dataIndex: "name",
             field: {
                 xtype: "textfield"
             }
@@ -84,7 +84,7 @@ Ext.define("core.baseset.studentdorm.view.MainGrid", {
             }
         }, {
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM",
             width:80,
@@ -99,14 +99,14 @@ Ext.define("core.baseset.studentdorm.view.MainGrid", {
         }, {
             width:75,
             text: "床号",
-            dataIndex: "bedNum",
+            dataIndex: "bedNo",
             field: {
                 xtype: "textfield"
             }
         }, {
             width:75,
             text: "柜号",
-            dataIndex: "arkNum",
+            dataIndex: "sarkNo",
             field: {
                 xtype: "textfield"
             }

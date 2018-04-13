@@ -25,7 +25,7 @@ Ext.define("core.baseset.roomallot.view.IsSelecTeacherGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             minWidth:120,
@@ -35,11 +35,11 @@ Ext.define("core.baseset.roomallot.view.IsSelecTeacherGrid", {
         }, {
             width:100,
             text: "教师姓名",
-            dataIndex: "xm",            
+            dataIndex: "name",            
         }, {
             width:100,
             text: "教师性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             renderer: function(value) {
                 switch (value) {
                     case '1':
@@ -79,7 +79,7 @@ Ext.define("core.baseset.roomallot.view.IsSelecTeacherGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;

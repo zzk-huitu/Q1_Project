@@ -21,11 +21,11 @@ Ext.define("core.baseset.room.view.MainLayout", {
     det1Layout: 'baseset.room.batchroomdetaillayout',
     border: false,
     funData: {
-        action: comm.get('baseUrl') + "/BaseRoominfo", //请求Action
+        action: comm.get('baseUrl') + "/PtRoomInfo", //请求Action
         whereSql: "", //表格查询条件
         orderSql: "", //表格排序条件
         filter:"",
-        pkName: "uuid",
+        pkName: "id",
         defaultObj: {
             orderIndex: 1,
             roomNet:"0"

@@ -115,7 +115,7 @@ public class PtTeacherBaseInfo extends PtUser implements Serializable {
 	private String teachYears;
 
 	@FieldInfo(name = "编制类别码", type = "varchar(10) DEFAULT ''", explain = "教师的编制类别码（字典码）")
-	@Column(name = "BZLBM", columnDefinition = "varchar(10) DEFAULT ''", nullable = true)
+	@Column(name = "compileTypeCode", columnDefinition = "varchar(10) DEFAULT ''", nullable = true)
 	private String compileTypeCode;
 
 	@FieldInfo(name = "档案编号", type = "nvarchar(10) DEFAULT ''", explain = "教师的档案编号")

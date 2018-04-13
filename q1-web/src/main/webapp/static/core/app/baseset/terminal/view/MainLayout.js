@@ -16,8 +16,8 @@ Ext.define("core.baseset.terminal.view.MainLayout", {
     detCode: "terminal_detail",
     detLayout: "baseset.terminal.detaillayout",
     funData: {
-        action: comm.get("baseUrl") + "/BaseInfoterm", //请求Action
-        pkName: "uuid",
+        action: comm.get("baseUrl") + "/PtInfoTerminal", //请求Action
+        pkName: "id",
         defaultObj: {
             beforeNumber:1,
             termCount:30,

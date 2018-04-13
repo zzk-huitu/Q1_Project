@@ -3,7 +3,7 @@ Ext.define("core.baseset.studentdorm.view.AdjustDormLayout", {
     alias: 'widget.baseset.studentdorm.adjustdormlayout',
     funCode: "adjustdorm_detail",
     funData: {
-        action: comm.get('baseUrl') + "/BaseStudentDorm", //请求controller
+        action: comm.get('baseUrl') + "/PtStudentDorm", //请求controller
         pkName: "uuid", //主键
         //默认的初始值设置
         defaultObj: {

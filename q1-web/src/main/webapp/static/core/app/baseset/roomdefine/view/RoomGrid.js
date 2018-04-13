@@ -1,8 +1,8 @@
 Ext.define("core.baseset.roomdefine.view.RoomGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.roomdefine.roomgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseRoominfo/list",
-    model: "com.zd.school.build.define.model.BuildRoominfo",
+    dataUrl: comm.get('baseUrl') + "/PtRoomInfo/list",
+    model: "com.yc.q1.model.base.pt.build.PtRoomInfo",
     extParams: {
         filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'areaId'},{'type':'string','comparison':'=','value':'0','field':'roomType'}]",
     },
@@ -57,35 +57,35 @@ Ext.define("core.baseset.roomdefine.view.RoomGrid", {
             ddCode: "FJLX" //字典代码
         }, {
             text: "门牌号1",
-            dataIndex: "extField01",
+            dataIndex: "houseNo01",
             width:80,
             field: {
                 xtype: "textfield"
             }
         }, {
             text: "门牌号2",
-            dataIndex: "extField02",
+            dataIndex: "houseNo02",
             width:80,
             field: {
                 xtype: "textfield"
             }
         }, {
             text: "门牌号3",
-            dataIndex: "extField03",
+            dataIndex: "houseNo03",
             width:80,
             field: {
                 xtype: "textfield"
             }
         }, {
             text: "门牌号4",
-            dataIndex: "extField04",
+            dataIndex: "houseNo04",
             width:80,
             field: {
                 xtype: "textfield"
             }
         }, {
             text: "门牌号5",
-            dataIndex: "extField05",
+            dataIndex: "houseNo05",
             width:80,
             field: {
                 xtype: "textfield"

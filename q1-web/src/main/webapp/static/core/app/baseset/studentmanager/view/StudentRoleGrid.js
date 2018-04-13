@@ -1,8 +1,8 @@
 Ext.define("core.baseset.studentmanager.view.StudentRoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentmanager.studentrolegrid",
-    model: 'com.zd.school.plartform.system.model.SysRole',
-    dataUrl: comm.get('baseUrl') + "/SysUser/userRoleList",
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
+    dataUrl: comm.get('baseUrl') + "/PtUser/userRoleList",
     title:"用户所属角色",
     noPagging:true,
     al:false,
@@ -34,7 +34,7 @@ Ext.define("core.baseset.studentmanager.view.StudentRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",

@@ -1,8 +1,8 @@
 Ext.define("core.baseset.roomallot.view.SelectTeacherGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.roomallot.selectteachergrid",
-    dataUrl: comm.get('baseUrl') + "/BaseOfficeAllot/teacherAllot",
-    model: "com.zd.school.plartform.system.model.SysUser",
+    dataUrl: comm.get('baseUrl') + "/PtOfficeAllot/teacherAllot",
+    model: "modelcom.yc.q1.model.base.pt.system.PtUser",
     al:false,
     selModel: {
         type: "checkboxmodel",   
@@ -81,7 +81,7 @@ Ext.define("core.baseset.roomallot.view.SelectTeacherGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             minWidth:120,
@@ -94,14 +94,14 @@ Ext.define("core.baseset.roomallot.view.SelectTeacherGrid", {
         }, {
             width:100,
             text: "教师姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             field: {
                 xtype: "textfield"
             }
         }, {
             width:100,
             text: "教师性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM"
         },{

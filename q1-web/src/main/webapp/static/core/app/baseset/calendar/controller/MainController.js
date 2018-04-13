@@ -456,7 +456,7 @@ Ext.define("core.baseset.calendar.controller.MainController", {
 
         for(index in records){
            var rec=records[index];
-           ids.push(rec.get("uuid"));
+           ids.push(rec.get("id"));
 
           if (rec.get("activityState") == 1) {
               self.msgbox("不能删除已生效的作息时间!");

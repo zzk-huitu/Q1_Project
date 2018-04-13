@@ -1,8 +1,8 @@
 Ext.define("core.baseset.terminal.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.terminal.maingrid",
-    dataUrl: comm.get("baseUrl") + "/BaseInfoterm/list", //数据获取地址
-    model: "com.zd.school.oa.terminal.model.OaInfoterm", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtInfoTerminal/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.basic.PtInfoTerminal", //对应的数据模型
     tbar:[],
     menuCode:"INFOTERM",
     panelTopBar:{
@@ -58,7 +58,7 @@ Ext.define("core.baseset.terminal.view.MainGrid", {
         }, 
     items: [ {
         text: "终端号",
-        dataIndex: "termCode",
+        dataIndex: "terminalNo",
         flex: 1,
         minWidth: 150,
         renderer: function(value, metaData) {
@@ -69,14 +69,14 @@ Ext.define("core.baseset.terminal.view.MainGrid", {
         }
     }, {
         text: "类型",
-        dataIndex: "termType",
+        dataIndex: "terminalType",
         //flex:1,
         width: 180,
         columnType: "basecombobox", //列类型
         ddCode: "INFOTERTYPE" //字典代码
     }, {
         text: "规格",
-        dataIndex: "termSpec",
+        dataIndex: "terminalSpec",
         //flex:1,
         width: 180,
         renderer: function(value, metaData) {

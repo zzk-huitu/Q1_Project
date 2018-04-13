@@ -3,11 +3,11 @@ Ext.define("core.baseset.room.view.AreaDetailLayout", {
 	alias: 'widget.baseset.room.areadetaillayout',
 	funCode: "room_areadetail",
 	funData: {
-		action: comm.get('baseUrl') + "/BaseRoomarea", //请求Action
+		action: comm.get('baseUrl') + "/PtRoomArea", //请求Action
         whereSql: "", //表格查询条件
 		whereSql: "", //表格查询条件
 		orderSql: "", //表格排序条件
-		pkName: "uuid",
+		pkName: "id",
 		defaultObj: {
 			orderIndex: 1,
 		}

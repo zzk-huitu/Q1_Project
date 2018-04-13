@@ -13,7 +13,7 @@ Ext.define("core.baseset.dictionary.view.ItemForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, /*{
         xtype: "textfield",
@@ -23,7 +23,7 @@ Ext.define("core.baseset.dictionary.view.ItemForm", {
     }, */{
         xtype: "textfield",
         fieldLabel: "字典ID",
-        name: "dicId",
+        name: "dictId",
         hidden: true
     }, {
         xtype: "textfield",

@@ -11,7 +11,7 @@ Ext.define("core.baseset.teacherdorm.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: 'ID',
-        name: "uuid",
+        name: "id",
         hidden:true
     },{ 
         xtype: "container",
@@ -47,7 +47,7 @@ Ext.define("core.baseset.teacherdorm.view.DetailForm", {
             xtype: 'textfield',
             hidden: true
         },{
-            name: "tteacId",
+            name: "teacherId",
             xtype: 'textfield',
             hidden: true
         },{
@@ -63,7 +63,7 @@ Ext.define("core.baseset.teacherdorm.view.DetailForm", {
             funcGrid:"pubselect.isselectusergrid",//指定从哪个表格获取数据，与muiltSelect=true 共同使用
             funcTitle: "人员查询", //查询窗口的标题
             configInfo: {
-                fieldInfo: "tteacId~sendCheckName~userNumb,uuid~xm~userNumb",//指定字段的对应关系
+                fieldInfo: "teacherId~sendCheckName~userNumb,id~name~userNumb",//指定字段的对应关系
                 muiltSelect: true, //是否多选
                 width:1100,
                 height:500,
@@ -87,7 +87,7 @@ Ext.define("core.baseset.teacherdorm.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             xtype: "textfield",
             fieldLabel: "床号",
-            name: "bedCount",
+            name: "bedNo",
             allowBlank: false,
             blankText: "床号不能为空",
          },{
@@ -95,7 +95,7 @@ Ext.define("core.baseset.teacherdorm.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             xtype: "textfield",
             fieldLabel: "柜号",
-            name: "arkCount",
+            name: "sarkNo",
             allowBlank: false,
             blankText: "柜号不能为空",
         }]

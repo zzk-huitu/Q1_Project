@@ -17,7 +17,7 @@ Ext.define("core.baseset.calendar.view.MainLayout", {
     otherController:'baseset.calendar.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BaseCalenderdetail", //请求Action
+		action: comm.get('baseUrl') + "/PtCalenderDetail", //请求Action
 		pkName: "uuid",
 		defaultObj: {
            

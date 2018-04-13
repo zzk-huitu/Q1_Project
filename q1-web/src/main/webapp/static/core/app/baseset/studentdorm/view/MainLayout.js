@@ -17,8 +17,8 @@ Ext.define("core.baseset.studentdorm.view.MainLayout", {
     otherController:'baseset.studentdorm.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BaseStudentDorm", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtStudentDorm", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

@@ -12,7 +12,7 @@ Ext.define("core.baseset.dictionary.view.DicForm", {
 	},
 	items: [{
 		fieldLabel: '主键',
-		name: "uuid",
+		name: "id",
 		hidden: true
 	}, {
 		xtype: "textfield",
@@ -59,13 +59,5 @@ Ext.define("core.baseset.dictionary.view.DicForm", {
 		emptyText: '请选择字典类型',
 		xtype: "basecombobox",
 		ddCode: "DICTYPE"
-	}, {
-		beforeLabelTextTpl: '',
-		allowBlank: true,
-		blankText: "引用实体不能为空",
-		fieldLabel: '引用实体路径',
-		name: "refModel",
-		maxLength: 256,
-		emptyText: '请输入引用实体(最大256个字符)'
 	}]
 });

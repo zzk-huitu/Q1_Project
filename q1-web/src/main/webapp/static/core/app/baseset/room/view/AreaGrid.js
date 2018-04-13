@@ -1,8 +1,8 @@
 Ext.define("core.baseset.room.view.AreaGrid", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.room.areagrid",
-    dataUrl: comm.get('baseUrl') + "/BaseRoomarea/list",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtRoomArea/list",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     al: true,
     expandFirst:true,
     menuCode:"JWTROOMINFO",
@@ -94,7 +94,7 @@ Ext.define("core.baseset.room.view.AreaGrid", {
             width:60,
         },{
             text: "区域说明",
-            dataIndex: "areaDesc",   
+            dataIndex: "areaExplains",   
             width:100,
             renderer: function(value,metaData) {  
                 var title=" 区域说明 ";

@@ -2,8 +2,8 @@
 Ext.define("core.baseset.schoolinfo.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.schoolinfo.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseSchool/list",
-    model: 'com.zd.school.plartform.baseset.model.BaseSchool',
+    dataUrl: comm.get('baseUrl') + "/PtSchool/list",
+    model: 'com.yc.q1.model.base.pt.basic.PtSchool',
     
 
     menuCode:"SCHOOLINFO", //new：此表格与权限相关的菜单编码
@@ -105,7 +105,7 @@ Ext.define("core.baseset.schoolinfo.view.MainGrid", {
         }, {
             width: 120,
             text: "学校邮政编码",
-            dataIndex: "zipCode"
+            dataIndex: "mailCode"
            
         }, { 
             width: 120,
@@ -122,7 +122,7 @@ Ext.define("core.baseset.schoolinfo.view.MainGrid", {
         },{
             width: 120,
             text: "校长姓名",
-            dataIndex: "schoolmasterName"
+            dataIndex: "headMasterName"
         }, {
             width: 120,
             text: "联系电话",

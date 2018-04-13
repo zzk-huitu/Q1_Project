@@ -1,8 +1,8 @@
 Ext.define("core.baseset.roomdefine.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.roomdefine.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseRoominfo/list",
-    model: "com.zd.school.build.define.model.BuildRoominfo",
+    dataUrl: comm.get('baseUrl') + "/PtRoomInfo/list",
+    model: "com.yc.q1.model.base.pt.build.PtRoomInfo",
 
     menuCode:"BASEROOMDEFINE", //new：此表格与权限相关的菜单编码
     extParams: {
@@ -83,7 +83,7 @@ Ext.define("core.baseset.roomdefine.view.MainGrid", {
             hidden: true
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             flex: 1,

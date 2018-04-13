@@ -8,12 +8,12 @@ Ext.define("core.baseset.calendar.view.CalendarForm", {
 	},
 	items: [{
 		fieldLabel: "主键",
-		name: "uuid",
+		name: "id",
 		xtype: "textfield",
 		hidden: true
 	}, {
 		fieldLabel: "标题",
-		name: "canderName",
+		name: "calenderName",
 		xtype: "textfield",
 		beforeLabelTextTpl: comm.get('required'),
 		allowBlank: false,

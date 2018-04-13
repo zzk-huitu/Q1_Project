@@ -3,9 +3,9 @@ Ext.define("core.baseset.schoolinfo.view.DetailLayout",{
 	alias : 'widget.baseset.school.detaillayout',
 	funCode:"school_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/BaseSchool", //请求Action
+		action: comm.get('baseUrl') + "/PtSchool", //请求Action
 	
-		pkName: "uuid"
+		pkName: "id"
 		// defaultObj: {
 		// 	 actBegin: new Date(),
 		// 	 signBeing:new Date()

@@ -7,7 +7,7 @@ Ext.define("core.baseset.room.view.DetailLayout", {
         whereSql: "", //表格查询条件
         whereSql: "", //表格查询条件
         orderSql: "", //表格排序条件
-        pkName: "uuid",
+        pkName: "id",
         defaultObj: {
             orderIndex: 1,
             roomType:'3'

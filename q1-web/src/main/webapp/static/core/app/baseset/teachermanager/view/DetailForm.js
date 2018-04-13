@@ -14,7 +14,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
@@ -26,7 +26,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
             blankText: "真实姓名不能为空",
             fieldLabel: "真实姓名",
             columnWidth: 0.5,
-            name: "xm",
+            name: "name",
             xtype: "textfield",
             emptyText: "请输入姓名(最多36个字符,汉字占2个字符)",
             maxLength: 36,
@@ -54,7 +54,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
             blankText: "性别不能为空",
             fieldLabel: "性别",
             columnWidth: 0.5,
-            name: "xbm",
+            name: "sex",
             xtype: "basecombobox",
             ddCode: "XBM",
             emptyText: "请选择性别",
@@ -78,7 +78,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
             columnWidth: .5,
             beforeLabelTextTpl: comm.get("required"),
             fieldLabel: '身份证号',
-            name: "sfzjh",
+            name: "identityNumber",
             xtype: 'textfield',
             allowBlank: false,
             emptyText: '请输入身份证号',
@@ -87,7 +87,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         }, {
             fieldLabel: "移动电话",
             columnWidth: 0.5,
-            name: "lxdh",
+            name: "mobilePhone",
             xtype: "textfield",
             vtype:'phoneCode'
         }]
@@ -98,7 +98,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "编制类别",
             columnWidth: 0.5,
-            name: "bzlbm",
+            name: "headCountType",
             xtype: "basecombobox",
             ddCode: "ZXXBZLB"
         }, {
@@ -131,13 +131,13 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "学历",
             columnWidth: 0.5,
-            name: "xlm",
+            name: "degreeCode",
             xtype: "basecombobox",
             ddCode: "XLM"
         }, {
             fieldLabel: "政治面貌",
             columnWidth: 0.5,
-            name: "zzmmm",
+            name: "politicalStatus",
             xtype: "basecombobox",
             ddCode: "ZZMMM"
         }]
@@ -148,14 +148,14 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "来校年月",
             columnWidth: 0.5,
-            name: "lxny",
+            name: "comeSchoolYears",
             xtype: "datetimefield",
             maxValue:new Date(),
             dateType:'date'
         }, {
             fieldLabel: "从教年月",
             columnWidth: 0.5,
-            name: "cjny",
+            name: "teachYears",
             xtype: "datetimefield",
             maxValue:new Date(),
             dateType:'date'
@@ -167,13 +167,13 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "婚姻状况",
             columnWidth: 0.5,
-            name: "hyzkm",
+            name: "marriageCode",
             xtype: "basecombobox",
             ddCode: "HYZKM"
         }, {
             fieldLabel: "健康状况",
             columnWidth: 0.5,
-            name: "jkzkm",
+            name: "healthCode",
             xtype: "basecombobox",
             ddCode: "JKZKM"
         }]
@@ -184,14 +184,14 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "出生日期",
             columnWidth: 0.5,
-            name: "csrq",
+            name: "birthDate",
             xtype: "datetimefield",
             dateType:'date',
             maxValue:new Date()
         }, {         
             fieldLabel: "出生地",
             columnWidth: 0.5,
-            name: "csdm",
+            name: "bornplace",
             xtype: "basecombobox",
             ddCode: "XZQHM"
         }]
@@ -202,13 +202,13 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "国籍",
             columnWidth: 0.5,
-            name: "gjdqm",
+            name: "nationality",
             xtype: "basecombobox",
             ddCode: "GJDQM"
         },{
             fieldLabel: "港澳台侨外",
             columnWidth: 0.5,
-            name: "gatqwm",
+            name: "foreignCode",
             xtype: "basecombobox",
             ddCode: "GATQWM"
         }]
@@ -219,13 +219,13 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "信仰宗教",
             columnWidth: 0.5,
-            name: "xyzjm",
+            name: "religiousCode",
             xtype: "basecombobox",
             ddCode: "XYZJM"
         }, {
             fieldLabel: "血型",
             columnWidth: 0.5,
-            name: "xxm",
+            name: "bloodType",
             xtype: "basecombobox",
             ddCode: "XXM"
         }]
@@ -236,13 +236,13 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
         items: [{
             fieldLabel: "户口所在地",
             columnWidth: 0.5,
-            name: "hkszd",
+            name: "hkadr",
             xtype: "basecombobox",
             ddCode: "XZQHM"
         }, {
             fieldLabel: "户口性质",
             columnWidth: 0.5,
-            name: "hkxzm",
+            name: "AccountPropertyCode",
             xtype: "basecombobox",
             ddCode: "HKLBM"
         }]
@@ -272,7 +272,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
                 fieldLabel: "档案编号",
                 width:'100%',
                 grow: true,
-                name: "dabh",
+                name: "fileNumber",
                 xtype: "textfield",
                 maxLength: 10,
                 maxLengthText: "最多10个字符,汉字占2个字符"
@@ -280,7 +280,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
                 fieldLabel: "档案文本",
                 width:'100%',
                 grow: true,
-                name: "dawb",
+                name: "textFiles",
                 xtype: "textfield",
                 maxLength: 128,
                 maxLengthText: "最多128个字符,汉字占2个字符"
@@ -288,7 +288,7 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
                 fieldLabel: "电子邮件",
                 width:'100%',
                 grow: true,
-                name: "dzxx",
+                name: "email",
                 xtype: "textfield",
                 maxLength: 32,
                 maxLengthText: "最多32个字符,汉字占2个字符",
@@ -297,20 +297,20 @@ Ext.define("core.baseset.teachermanager.view.DetailForm", {
                 fieldLabel: "民族",
                 width:'100%',
                 grow: true,
-                name: "mzm",
+                name: "folkCode",
                 xtype: "basecombobox",
                 ddCode: "MZM"
             }, {
                 fieldLabel: "特长",
                 width:'100%',
                 grow: true,
-                name: "tc",
+                name: "speciality",
                 xtype: "textfield",
                 maxLength: 128,
                 maxLengthText: "最多128个字符,汉字占2个字符"
             }, {
                 fieldLabel: "照片地址", //用于表单提交时，提交此数据
-                name: "zp",
+                name: "photo",
                 xtype: "textfield",
                 hidden: true
             }, {                    

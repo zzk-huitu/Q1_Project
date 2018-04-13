@@ -1,8 +1,8 @@
 Ext.define("core.baseset.studentdorm.view.NotAllotStuGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.notallotstugrid",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/classStuNotAllotlist",
-    model: "com.zd.school.student.studentclass.model.JwClassstudent",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/classStuNotAllotlist",
+    model: "com.yc.q1.model.base.pt.basic.PtClassStudent",
     extParams: {
       //  whereSql: " where studentId not in (select A.stuId from DormStudentDorm as A where A.isDelete=0) and isDelete=0",
     },
@@ -51,14 +51,14 @@ Ext.define("core.baseset.studentdorm.view.NotAllotStuGrid", {
         flex:1,
         minWidth: 80,
         text: "姓名",
-        dataIndex: "xm",
+        dataIndex: "name",
         field: {
             xtype: "textfield"
         }
     }, {
         width: 60,
         text: "性别",
-        dataIndex: "xbm",
+        dataIndex: "sex",
         renderer: function(value) {
             switch (value) {
                 case '1':

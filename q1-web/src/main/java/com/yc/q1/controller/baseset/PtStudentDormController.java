@@ -508,7 +508,7 @@ public class PtStudentDormController extends FrameWorkController<PtStudentDorm> 
 		for (PtStudentDorm stuDorm : stuDormList) {
 			stuDormMap = new LinkedHashMap<>();
 			stuDormMap.put("claiName", stuDorm.getClassName());
-			stuDormMap.put("xm", stuDorm.getXm());
+			stuDormMap.put("xm", stuDorm.getName());
 			stuDormMap.put("userNumb", stuDorm.getUserNumb());
 			stuDormMap.put("roomName", stuDorm.getRoomName());
 			stuDormMap.put("bedNum", stuDorm.getBedNo().toString());

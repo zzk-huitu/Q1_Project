@@ -1,8 +1,8 @@
 Ext.define("core.baseset.studentdorm.view.DormAllotDetailGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.dormallotdetailgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/onKeyList",
-    model: "com.zd.school.build.allot.model.DormStudentDorm",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/onKeyList",
+    model: "com.yc.q1.model.base.pt.build.PtStudentDorm",
     extParams: {
         whereSql:''
     },
@@ -28,63 +28,63 @@ Ext.define("core.baseset.studentdorm.view.DormAllotDetailGrid", {
         items: [{
                 width:100,
                 text: "男生数量",
-                dataIndex: "nanCount",
+                dataIndex: "maleCount",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "女生数量",
-                dataIndex: "nvCount",
+                dataIndex: "femaleCount",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "<font color=red>合计总人数</font>",
-                dataIndex: "stuCount",
+                dataIndex: "studentCount",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "男生所需床位",
-                dataIndex: "nanDormBed",
+                dataIndex: "maleNeedBed",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "女生所需床位",
-                dataIndex: "nvDormBed",
+                dataIndex: "femaleNeedBed",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "<font color=red>合计所需床位</font>",
-                dataIndex: "sxDormBed",
+                dataIndex: "needDormBed",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "男生有效宿舍",
-                dataIndex: "nanDorm",
+                dataIndex: "maleDorm",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "女生有效宿舍",
-                dataIndex: "nvDorm",
+                dataIndex: "femaleDorm",
                 field: {
                     xtype: "textfield"
                 }
             }, {
                 width:100,
                 text: "混班有效宿舍",
-                dataIndex: "hunDorm",
+                dataIndex: "mixedDorm",
                 field: {
                     xtype: "textfield"
                 }
@@ -92,7 +92,7 @@ Ext.define("core.baseset.studentdorm.view.DormAllotDetailGrid", {
                 flex:1,
                 minWidth:100,
                 text: "<font color=red>合计有效宿舍</font>",
-                dataIndex: "yxDorm",
+                dataIndex: "validDorm",
                 field: {
                     xtype: "textfield"
                 }

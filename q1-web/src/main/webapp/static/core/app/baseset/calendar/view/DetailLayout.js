@@ -3,9 +3,9 @@ Ext.define("core.baseset.calendar.view.DetailLayout", {
     alias: 'widget.baseset.calendar.detaillayout',
     funCode: "calendarMain_detail",
     funData: {
-        action: comm.get('baseUrl') + "/BaseCalenderdetail", //请求Action
-        pkName: "uuid",
-        modelName: "com.zd.school.jw.eduresources.model.JwCalenderdetail", //实体全路径
+        action: comm.get('baseUrl') + "/PtCalenderDetail", //请求Action
+        pkName: "id",
+        modelName: "com.yc.q1.model.base.pt.basic.PtCalenderDetail", //实体全路径
         defaultObj: {}
     },
     /*关联此视图控制器*/

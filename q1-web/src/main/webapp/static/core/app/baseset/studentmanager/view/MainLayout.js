@@ -20,8 +20,8 @@ Ext.define("core.baseset.studentmanager.view.MainLayout", {
     
 	//funData用来定义一些常规的参数
 	funData: {
-		action: comm.get('baseUrl') + "/SysUser", //请求controller
-		pkName: "uuid", //主键
+		action: comm.get('baseUrl') + "/PtUser", //请求controller
+		pkName: "id", //主键
 		//默认的初始值设置
 		defaultObj: {
 			sex: '1',

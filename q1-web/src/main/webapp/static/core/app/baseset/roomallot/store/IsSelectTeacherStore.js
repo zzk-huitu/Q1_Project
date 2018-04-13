@@ -4,5 +4,5 @@ Ext.define("core.baseset.roomallot.store.IsSelectTeacherStore",{
     alias: 'store.baseset.roomallot.isselectteacherstore',
 
  
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysUser", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUser", "checked").modelName,
 });

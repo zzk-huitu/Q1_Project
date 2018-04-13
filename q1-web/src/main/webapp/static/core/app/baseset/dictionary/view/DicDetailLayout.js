@@ -3,8 +3,8 @@ Ext.define("core.baseset.dictionary.view.DicDetailLayout", {
 	alias: 'widget.baseset.dictionary.dicdetaillayout',
 	funCode: "dic_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/BaseDic", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtDataDict", //请求Action
+		pkName: "id",
 		defaultObj: {
 			orderIndex: 1,
 			dicType:"LIST"

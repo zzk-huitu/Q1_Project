@@ -1,8 +1,8 @@
 Ext.define("core.baseset.calendar.view.CalendarGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.calendar.calendargrid",
-    dataUrl: comm.get('baseUrl') + "/BaseCalender/list",
-    model: factory.ModelFactory.getModelByName("com.zd.school.jw.eduresources.model.JwCalender", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtCalender/list",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.basic.PtCalender", "checked").modelName,
     
    
     menuCode:"SCHOOLCALENDAR", //new：此表格与权限相关的菜单编码
@@ -68,7 +68,7 @@ Ext.define("core.baseset.calendar.view.CalendarGrid", {
         },
        items: [{
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         xtype: "rownumberer",
@@ -78,7 +78,7 @@ Ext.define("core.baseset.calendar.view.CalendarGrid", {
         align: 'center'
     },{
         text: "校历名称",
-        dataIndex: "canderName",
+        dataIndex: "calenderName",
         field: {
             xtype: "textfield"
         },

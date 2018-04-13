@@ -1,8 +1,8 @@
 Ext.define("core.baseset.dictionary.view.DicGrid", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.dictionary.dicgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseDic/list",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.baseset.model.BaseDicTree", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtDataDict/list",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.DataDictTree", "checked").modelName,
     al: true,
     //selModel: null,     //不显示多选框
     extParams: {
