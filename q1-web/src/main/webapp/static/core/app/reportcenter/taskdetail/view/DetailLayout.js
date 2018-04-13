@@ -5,7 +5,7 @@ Ext.define("core.reportcenter.taskdetail.view.DetailLayout",{
 	funData: {
 		action: comm.get('baseUrl') + "/PtTask", //请求Action
 	
-		pkName: "uuid"
+		pkName: "id"
 	},
 	
 	minWidth:1000,

@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.UserWalletGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptroombagstatus.userwalletgrid",
-    dataUrl: comm.get('baseUrl') + "/PtBag/userbagyue",
-    model: "com.zd.school.teacher.teacherinfo.model.TeaTeacherbase",
+    dataUrl: comm.get('baseUrl') + "/PtTermBag/userbagyue",
+    model: "com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo",
     menuCode:"PtRoombagStatus",
     al:false,
     height: 200,
@@ -40,11 +40,11 @@ Ext.define("core.reportcenter.ptroombagstatus.view.UserWalletGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "学号",
-            dataIndex: "USER_NUMB",
+            dataIndex: "userNumb",
             width:100,
             // renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
             //     value= record.get("USER_NUMB");
@@ -52,7 +52,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.UserWalletGrid", {
             // }
         }, {
             text: "姓名",
-            dataIndex: "XM",            
+            dataIndex: "name",            
             width:90,
             // renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
             //     value= record.get("XM");
@@ -60,7 +60,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.UserWalletGrid", {
             // }
         }, {
             text: "卡消费余额(元)",
-            dataIndex: "CardValueXF",
+            dataIndex: "cardValueXF",
             flex:1,
             minWidth:120,
             renderer: function(value, metaData) {

@@ -2,7 +2,7 @@ Ext.define("core.reportcenter.ptpowerresidue.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptpowerresidue.maingrid",
     dataUrl: comm.get('baseUrl') + "/PtPowerResidue/list",
-    model: "com.zd.school.control.device.model.PtPowerResidue",
+    model: "com.yc.q1.pojo.base.pt.PowerResidue",
     menuCode:"PtPowerResidue",
     al: false,
     remoteSort: false,   //是否远程排序
@@ -58,7 +58,7 @@ Ext.define("core.reportcenter.ptpowerresidue.view.MainGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "宿舍名称",

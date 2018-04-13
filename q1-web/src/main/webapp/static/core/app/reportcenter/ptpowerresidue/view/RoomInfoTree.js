@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptpowerresidue.view.RoomInfoTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.reportcenter.ptpowerresidue.roominfotree",
-    dataUrl: comm.get('baseUrl') + "/BaseMjUserright/treeStuDormList",
-    model: "com.zd.school.plartform.comm.model.CommTree",
+    dataUrl: comm.get('baseUrl') + "/MjUserRight/treeStuDormList",
+    model: "com.yc.q1.pojo.base.pt.CommTree",
     expandFirst:true,
     sortableColumns:false,
     selModel: {

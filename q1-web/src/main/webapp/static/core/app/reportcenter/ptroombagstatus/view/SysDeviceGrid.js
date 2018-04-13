@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.SysDeviceGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptroombagstatus.sysdevicegrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/list",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
     extParams: {
         whereSql:" where 1=1"
@@ -28,7 +28,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.SysDeviceGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "设备名称",
@@ -44,11 +44,11 @@ Ext.define("core.reportcenter.ptroombagstatus.view.SysDeviceGrid", {
             width:150
         }, {
             text: "设备序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             width:150
         }, {
             text: "网关序列号",
-            dataIndex: "gatewayID",
+            dataIndex: "gatewayId",
             width:150
         },{
             text: "所属房间",

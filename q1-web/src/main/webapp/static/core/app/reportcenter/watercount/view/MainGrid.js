@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.watercount.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.watercount.maingrid",
-    dataUrl: comm.get("baseUrl") + "/PtSkTermStatus/statistics", //数据获取地址
-    model:"com.zd.school.control.device.model.PtSkTermStatus", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/SkTermStatus/statistics", //数据获取地址
+    model:"com.yc.q1.model.storage.sk.SkTermStatus", //对应的数据模型
     menuCode:"WATER_COUNT",
     al: false,
     remoteSort:false,
@@ -70,11 +70,11 @@ Ext.define("core.reportcenter.watercount.view.MainGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "设备机号",
-        dataIndex: "TERMNO",
+        dataIndex: "termNo",
         field: {
             xtype: "textfield"
         },
@@ -82,34 +82,34 @@ Ext.define("core.reportcenter.watercount.view.MainGrid", {
         minWidth:120
     }, {
         text: "设备名称",
-        dataIndex: "TERMNAME",
+        dataIndex: "termName",
         field: {
             xtype: "textfield"
         },
         width:120
     }, {
         text: "设备类型",
-        dataIndex: "TERMTYPEID",
+        dataIndex: "termTypeId",
         columnType: "basecombobox", //列类型
         ddCode: "PTTERMTYPE", //字典代码  
         width:120   
     }, {
         text: "网关名称",
-        dataIndex: "GATEWAYNAME",
+        dataIndex: "gatewayName",
         field: {
             xtype: "textfield"
         },
          width:120 
     }, {
         text: "房间名称",
-        dataIndex: "ROOM_NAME",
+        dataIndex: "roomName",
         field: {
             xtype: "textfield"
         },
          width:120 
     }, {
         text: "楼层名称",
-        dataIndex: "NODE_TEXT",
+        dataIndex: "nodeText",
         field: {
             xtype: "textfield"
         },

@@ -133,7 +133,7 @@ public class PtTermBagController extends FrameWorkController<PtTermBag> implemen
 				if (xf.size() == 0) {			
 					cardValueXF="无记录";
 				}
-				u.put("CardValueXF", cardValueXF);
+				u.put("cardValueXF", cardValueXF);
 
 				listmap.add(u);
 			}

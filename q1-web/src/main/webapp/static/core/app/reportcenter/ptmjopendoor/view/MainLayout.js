@@ -17,8 +17,8 @@ Ext.define("core.reportcenter.ptmjopendoor.view.MainLayout", {
     otherController:'reportcenter.ptmjopendoor.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/PtMjOpenDoor", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/MjOpenDoor", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

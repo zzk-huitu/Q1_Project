@@ -21,7 +21,7 @@ Ext.define("core.reportcenter.taskdetail.view.MainLayout", {
  
     funData: {
         action: comm.get('baseUrl') + "/PtTask", //请求Action 
-        pkName: "uuid",
+        pkName: "id",
         defaultObj: {
          },
        tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据

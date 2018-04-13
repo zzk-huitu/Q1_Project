@@ -14,7 +14,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtRoomWalletForm", {
     items: [{
             xtype: "textfield",
             fieldLabel: "主键",
-            name: "uuid",
+            name: "id",
             hidden: true
         }, {
             xtype: 'container',
@@ -81,7 +81,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtRoomWalletForm", {
             items: [{
             columnWidth: .333,
             fieldLabel : "总用电金额",
-            name: "ecTotalUsed",
+            name: "eleTotalUsed",
             id:"ecTotalUsed1",
             xtype: "textfield",
             labelStyle:"font-size:16px;font-weight:bold;",
@@ -89,7 +89,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtRoomWalletForm", {
         },{
             columnWidth: .4,
             fieldLabel : "最后用电时间",
-            name: "ecUpdateTime",
+            name: "eleUpdateTime",
             id:"ecUpdateTime1",
             xtype: "textfield",
             labelStyle:"font-size:16px;font-weight:bold;",

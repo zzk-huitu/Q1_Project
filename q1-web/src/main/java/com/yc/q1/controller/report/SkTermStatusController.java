@@ -1,7 +1,6 @@
 package com.yc.q1.controller.report;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -22,10 +21,8 @@ import com.yc.q1.core.annotation.Auth;
 import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.model.extjs.QueryResult;
-import com.yc.q1.core.util.BeanUtils;
 import com.yc.q1.core.util.PoiExportExcel;
 import com.yc.q1.core.util.StringUtils;
-import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.sk.SkTermStatus;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
 import com.yc.q1.service.storage.sk.SkTermStatusService;

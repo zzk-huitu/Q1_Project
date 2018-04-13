@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.PtIrRoomDeviceGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptroombagstatus.ptirroomdevicegrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/list",
-    model: "com.zd.school.control.device.model.PtIrRoomDevice",
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/list",
+    model: "com.yc.q1.model.base.pt.device.PtIrRoomDevice",
     height: 200,
     animCollapse: true,
    // collapsible: true,
@@ -49,7 +49,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtIrRoomDeviceGrid", {
             align: 'center'
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "房间名称",

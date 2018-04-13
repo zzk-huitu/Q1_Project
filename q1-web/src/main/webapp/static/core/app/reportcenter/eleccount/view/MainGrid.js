@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.eleccount.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.eleccount.maingrid",
-    dataUrl: comm.get('baseUrl') + "/PtEcTermStatus/listCount",
-    model: "com.zd.school.control.device.model.PtEcTermStatus",
+    dataUrl: comm.get('baseUrl') + "/DkTermStatus/listCount",
+    model: "com.yc.q1.model.storage.dk.DkTermStatus",
     menuCode:"ELEC_COUNT",
     al: false,
     remoteSort:false,
@@ -71,11 +71,11 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             align: 'center'
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "设备机号",
-            dataIndex: "TERMNO",
+            dataIndex: "termNo",
             field: {
                 xtype: "textfield"
             },
@@ -83,7 +83,7 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             minWidth:100,
         }, {
             text: "设备名称",
-            dataIndex: "TERMNAME",
+            dataIndex: "termName",
             field: {
                 xtype: "textfield"
             },
@@ -91,7 +91,7 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             minWidth:100,
         }, {
             text: "设备序列号",
-            dataIndex: "TERMSN",
+            dataIndex: "termSn",
             field: {
                 xtype: "textfield"
             },
@@ -99,14 +99,14 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             minWidth:100,
         }, {
             text: "设备类型",
-            dataIndex: "TERMTYPEID",
+            dataIndex: "termTypeId",
             field: {
                 xtype: "textfield"
             },
             width:80
         }, {
             text: "网关名称",
-            dataIndex: "GATEWAYNAME",
+            dataIndex: "gatewayName",
             field: {
                 xtype: "textfield"
             },
@@ -114,7 +114,7 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             minWidth:100,
         }, {
             text: "房间名称",
-            dataIndex: "ROOM_NAME",
+            dataIndex: "roomName",
             field: {
                 xtype: "textfield"
             },
@@ -122,7 +122,7 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             minWidth:100,
         }, {
             text: "楼层名称",
-            dataIndex: "NODE_TEXT",
+            dataIndex: "nodeText",
             field: {
                 xtype: "textfield"
             },
@@ -144,7 +144,7 @@ Ext.define("core.reportcenter.eleccount.view.MainGrid", {
             width:120
         }*/, {
             text: "总电量",
-            dataIndex: "sumdl",
+            dataIndex: "sumDl",
             field: {
                 xtype: "textfield"
             },
