@@ -19,8 +19,8 @@ Ext.define("core.system.menu.view.MainLayout", {
 	
 	
 	funData: {
-		action: comm.get('baseUrl') + "/SysMenu", //请求controller路径
-		pkName: "uuid", //主键id    
+		action: comm.get('baseUrl') + "/PtMenu", //请求controller路径
+		pkName: "id", //主键id    
 		defaultObj: {
 			orderIndex: 1
 		},

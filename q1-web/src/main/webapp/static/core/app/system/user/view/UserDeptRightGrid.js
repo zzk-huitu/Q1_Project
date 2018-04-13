@@ -1,8 +1,8 @@
 Ext.define("core.system.user.view.UserDeptRightGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.user.userdeptrightgrid",
-    dataUrl: comm.get('baseUrl') + "/SysDeptright/list",
-    model: 'com.zd.school.plartform.system.model.SysDeptRight',
+    dataUrl: comm.get('baseUrl') + "/PtUserDeptRight/list",
+    model: 'com.yc.q1.model.base.pt.system.PtUserDeptRight',
     title:"用户部门权限",
     al:false,
     //remoteSort:false,
@@ -63,7 +63,7 @@ Ext.define("core.system.user.view.UserDeptRightGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",

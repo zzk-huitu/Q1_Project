@@ -9,7 +9,7 @@ Ext.define("core.basedevice.irdevice.view.DetailHtml", {
         '<div class="trainClass_classInfo">',
         '<div class="trainClass_title">红外设备详情：</div>',
         '<ul>' ,
-        '<li style="width:50%" title="{brandname}">所属品牌：{brandname}</li>',
+        '<li style="width:50%" title="{brandName}">所属品牌：{brandname}</li>',
         '<li style="width:50%" title="{productModel}">产品型号：{productModel}</li>',
         '<li style="width:50%" title="{createTime}">创建时间：{createTime}</li>',
         '<li style="width:50%" title="{createUser}">创建人：{createUser}</li>',

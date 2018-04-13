@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.baserate.view.PriceBingGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.baserate.pricebinggrid",
-    model: 'com.zd.school.control.device.model.PtTerm',
-    dataUrl: comm.get('baseUrl') + "/BasePtPriceBind/priceBingTermlist",
+    model: 'com.yc.q1.model.base.pt.device.PtTerm',
+    dataUrl: comm.get('baseUrl') + "/PtPriceBind/priceBingTermlist",
     //title:"绑定费率的设备",
     al:false,
     tbar: [{
@@ -30,7 +30,7 @@ Ext.define("core.basedevice.baserate.view.PriceBingGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",

@@ -5,9 +5,9 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotLayout", {
     border: false,
     
     funData: {
-        action: comm.get('baseUrl') + "/BasePtTerm", //请求Action
-        pkName: "uuid",
-        modelName: "com.zd.school.control.device.model.PtTerm", //实体全路径
+        action: comm.get('baseUrl') + "/PtTerm", //请求Action
+        pkName: "id",
+        modelName: "com.yc.q1.model.base.pt.device.PtTerm", //实体全路径
         defaultObj: {
             roomId:"",
             leaf:true

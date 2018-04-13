@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.basedeviceallot.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.basedeviceallot.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/list",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
     menuCode:"DEVICEALLOT",
     extParams: {
@@ -86,7 +86,7 @@ Ext.define("core.basedevice.basedeviceallot.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "序列号",
@@ -111,7 +111,7 @@ Ext.define("core.basedevice.basedeviceallot.view.MainGrid", {
             width: 120,	
         }, {
             text: "设备类型",
-            dataIndex: "termTypeID",
+            dataIndex: "termTypeId",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE", //字典代码
             width: 120,

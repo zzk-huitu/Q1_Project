@@ -3,8 +3,8 @@ Ext.define("core.system.jobinfo.view.DetailLayout",{
 	alias : 'widget.system.jobinfo.detaillayout',
 	funCode:"jobinfo_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/SysJob", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtJob", //请求Action
+		pkName: "id",
 		defaultObj: {
 		// 	 actBegin: new Date(),
 		// 	 signBeing:new Date()

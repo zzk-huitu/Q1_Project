@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.basegateway.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.basegateway.miangrid",
-    dataUrl: comm.get('baseUrl') + "/BaseGateway/list",
-    model: "com.zd.school.control.device.model.PtGateway",
+    dataUrl: comm.get('baseUrl') + "/PtGateway/list",
+    model: "com.yc.q1.model.base.pt.device.PtGateway",
     forceFit: false,
     al: false,
     extParams: {
@@ -72,11 +72,11 @@ Ext.define("core.basedevice.basegateway.view.MainGrid", {
             align: 'center'
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "前置主键",
-            dataIndex: "frontserverId",
+            dataIndex: "frontServerId",
             hidden: true
         }, {
             text: "机号",

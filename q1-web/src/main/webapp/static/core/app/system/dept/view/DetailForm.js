@@ -14,7 +14,7 @@ Ext.define("core.system.dept.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "textfield",
@@ -66,7 +66,7 @@ Ext.define("core.system.dept.view.DetailForm", {
                 fieldInfo: "parentName~parentNode~parentType,text~id~parentType",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url: comm.get('baseUrl') + "/SysOrg/treeList",
+                url: comm.get('baseUrl') + "/PtDepartment/treeList",
             } 
         }, {
             columnWidth: 0.5,
@@ -92,7 +92,7 @@ Ext.define("core.system.dept.view.DetailForm", {
 
                     var store = combo.up("panel").down("combobox[ref=comboxCourse]").getStore();
                     var proxy = store.getProxy();
-                    var filter = "[{'type':'string','comparison':'=','value':'aaaa','field':'uuid'}]";
+                    var filter = "[{'type':'string','comparison':'=','value':'aaaa','field':'id'}]";
                     if (record == "06") {
                         proxy.extraParams = {
                            filter: ""
@@ -105,7 +105,7 @@ Ext.define("core.system.dept.view.DetailForm", {
                         gradeContainer.setVisible(true);
                      
                         baseform.down("combobox[name=sectionCode]").allowBlank=false;                    
-                        baseform.down("combobox[name=nj]").allowBlank=false;
+                        baseform.down("combobox[name=grade]").allowBlank=false;
                         
                         proxy.extraParams = {
                            filter: filter
@@ -133,7 +133,7 @@ Ext.define("core.system.dept.view.DetailForm", {
                         var gradeContainer=baseform.down("container[ref=gradeContainer]");                       
                         gradeContainer.setVisible(false);                    
                         baseform.down("combobox[name=sectionCode]").allowBlank=true;                    
-                        baseform.down("combobox[name=nj]").allowBlank=true;
+                        baseform.down("combobox[name=grade]").allowBlank=true;
 
 /*                        if(baseform.up("window").getHeight()!=400)
                             baseform.up("window").setHeight(400);*/
@@ -197,7 +197,7 @@ Ext.define("core.system.dept.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             xtype: "basecombobox",
             fieldLabel: "年级",
-            name: "nj",
+            name: "grade",
             ddCode: "NJ",
             //allowBlank: false,
             emptyText: '请选择年级',

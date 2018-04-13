@@ -16,8 +16,8 @@ Ext.define("core.basedevice.ptirroomdevice.view.MainLayout", {
     layout: 'border',
     border:false,
     funData: {
-        action: comm.get('baseUrl') + "/BasePtIrRoomDevice", //请求Action 
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtIrRoomDevice", //请求Action 
+        pkName: "id",
         defaultObj: {},
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
         	addTitle:'添加型号',

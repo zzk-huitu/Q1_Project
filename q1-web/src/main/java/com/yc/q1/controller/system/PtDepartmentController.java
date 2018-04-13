@@ -12,14 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.annotation.Auth;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.TreeVeriable;
-import com.yc.q1.core.util.DBContextHolder;
 import com.yc.q1.core.util.EntityUtil;
 import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.StringUtils;

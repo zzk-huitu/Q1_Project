@@ -3,9 +3,9 @@ Ext.define("core.basedevice.basefrontserver.view.DetailLayout", {
     alias: 'widget.basedevice.basefrontserver.detaillayout',
     funCode: "basefrontserver_detail",
     funData: {
-        action: comm.get('baseUrl') + "/BaseFrontServer", //请求Action
-        pkName: "uuid",
-        modelName: "com.zd.school.build.define.model.SysFrontServer", //实体全路径
+        action: comm.get('baseUrl') + "/PtFrontServer", //请求Action
+        pkName: "id",
+        modelName: "com.yc.q1.model.base.pt.device.PtFrontServer", //实体全路径
     },
      /*设置最小宽度，并且自动滚动*/
     minWidth:1000,

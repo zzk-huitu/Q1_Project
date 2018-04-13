@@ -20,9 +20,9 @@ Ext.define("core.basedevice.basegateway.view.PtGatewayBatchForm", {
             //model:'core.good.signup.model.SignupGridModel',
         },
         fieldLabel: "综合前置",
-        name: "frontserverId",
+        name: "frontServerId",
         displayField: 'frontServerName',
-        valueField: 'uuid',
+        valueField: 'id',
         allowBlank: false,
         blankText: "综合前置不能为空",
         editable:false

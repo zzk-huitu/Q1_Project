@@ -1,8 +1,8 @@
 Ext.define("core.system.jobinfo.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.jobinfo.maingrid",
-    dataUrl: comm.get('baseUrl') + "/SysJob/list",
-    model: 'com.zd.school.plartform.baseset.model.BaseJob',
+    dataUrl: comm.get('baseUrl') + "/PtJob/list",
+    model: 'com.yc.q1.model.base.pt.system.PtJob',
 
     menuCode:"JOBINFO", //new：此表格与权限相关的菜单编码
     panelTopBar:{
@@ -78,7 +78,7 @@ Ext.define("core.system.jobinfo.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "岗位名称",

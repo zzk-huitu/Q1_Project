@@ -10,7 +10,7 @@ Ext.define("core.basedevice.irdevice.view.TreeForm", {
     },
     items: [{
         fieldLabel: '主键',
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         fieldLabel: '等级',
@@ -29,7 +29,7 @@ Ext.define("core.basedevice.irdevice.view.TreeForm", {
             beforeLabelTextTpl: comm.get("required"),
             xtype: "textfield",
             fieldLabel: "上级",
-            name: "upbrandname",
+            name: "upBrandName",
             readOnly: true
         }]
     }, {
@@ -40,7 +40,7 @@ Ext.define("core.basedevice.irdevice.view.TreeForm", {
             beforeLabelTextTpl: comm.get("required"),
             xtype: "textfield",
             fieldLabel: "名称",
-            name: "brandname",
+            name: "brandName",
             allowBlank: false,
             emptyText: '名称',
             blankText: "名称不能为空",

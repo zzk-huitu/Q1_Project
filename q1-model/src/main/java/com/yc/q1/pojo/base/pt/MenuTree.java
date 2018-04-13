@@ -9,7 +9,6 @@
 
 package com.yc.q1.pojo.base.pt;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.yc.q1.core.annotation.FieldInfo;

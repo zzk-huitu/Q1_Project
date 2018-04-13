@@ -7,8 +7,8 @@ Ext.define("core.system.permission.view.MainGrid", {
     al:false,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/SysMenuPermission/list", //数据获取地址
-    model: "com.zd.school.plartform.system.model.SysMenuPermission", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtMenuPermission/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.system.PtMenuPermission", //对应的数据模型
     menuCode:"SYSPERIMISSON",
     /**
      * 工具栏操作按钮
@@ -81,7 +81,7 @@ Ext.define("core.system.permission.view.MainGrid", {
         }, {
             width: 150,
             text: "权限名称",
-            dataIndex: "perName"
+            dataIndex: "permissionName"
         },{
             width: 150,
             text: "所属菜单",
@@ -89,7 +89,7 @@ Ext.define("core.system.permission.view.MainGrid", {
         }, {
             width: 200,
             text: "权限接口全称",
-            dataIndex: "perAuth",
+            dataIndex: "authPostfix",
             renderer: function(value,metaData,record) {  
                 if(value)
                     return record.get("perAuthCode")+"_"+value;
@@ -99,12 +99,12 @@ Ext.define("core.system.permission.view.MainGrid", {
         },{
             width: 150,
             text: "按钮别名",
-            dataIndex: "perBtnName"
+            dataIndex: "buttonName"
         },{
             flex:1,
             minWidth: 150,
             text: "备注",
-            dataIndex: "perRemark",
+            dataIndex: "permissionNotes",
             renderer: function(value,metaData) {  
 
                 var title=" 备注 ";

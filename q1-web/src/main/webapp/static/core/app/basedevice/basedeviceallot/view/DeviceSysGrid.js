@@ -33,7 +33,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceSysGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },/*{
             text: "机号",

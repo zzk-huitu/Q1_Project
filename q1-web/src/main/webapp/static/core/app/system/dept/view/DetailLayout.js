@@ -3,7 +3,7 @@ Ext.define("core.system.dept.view.DetailLayout", {
     alias: 'widget.system.dept.detaillayout',
     funCode: "deptinfo_detail",
     funData: {
-        action: comm.get('baseUrl') + "/SysOrg", //请求controller路径
+        action: comm.get('baseUrl') + "/PtDepartment", //请求controller路径
         pkName: "uuid", //主键id    
         defaultObj: {
             orderIndex: 1

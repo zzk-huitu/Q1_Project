@@ -1,8 +1,8 @@
 Ext.define("core.system.roleright.view.RoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.roleright.rolegrid",
-    dataUrl: comm.get('baseUrl') + "/SysRole/list",
-    model: 'com.zd.school.plartform.system.model.SysRole',
+    dataUrl: comm.get('baseUrl') + "/PtRole/list",
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
     selModel: {
         selType: "",
         mode:'single'
@@ -58,7 +58,7 @@ Ext.define("core.system.roleright.view.RoleGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "角色名称",

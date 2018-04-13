@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.basegateway.view.PtGatewayTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.basedevice.basegateway.ptgatewaytree",
-    dataUrl: comm.get('baseUrl') + "/BaseGateway/treelist",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtGateway/treelist",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     selModel: null,
     expandFirst:true,
     sortableColumns:false,
@@ -63,7 +63,7 @@ Ext.define("core.basedevice.basegateway.view.PtGatewayTree", {
             var proxy = store.getProxy();
             if (id!= 1) {
              //filter.push({"type":"string","value":"'+record.get("id")+'","field":"frontserverId","comparison":"="});
-                filter.push({"type": "string", "value":  record.get("id") , "field": "frontserverId", "comparison": ""});
+                filter.push({"type": "string", "value":  record.get("id") , "field": "frontServerId", "comparison": ""});
              }
              proxy.extraParams.filter = JSON.stringify(filter);
            //proxy.extraParams.filter='[{"type":"string","value":"'+record.get("id")+'","field":"frontserverId","comparison":"="}]';

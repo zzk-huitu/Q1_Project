@@ -12,7 +12,7 @@ Ext.define("core.system.role.view.DetailForm", {
     
     items: [{
         fieldLabel: '主键',
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         fieldLabel: '排序号',
@@ -20,7 +20,7 @@ Ext.define("core.system.role.view.DetailForm", {
         hidden: true
     }, {
         fieldLabel: '系统内置',
-        name: "issystem",
+        name: "isSystem",
         hidden: true
     },{
         beforeLabelTextTpl: comm.get('required'),

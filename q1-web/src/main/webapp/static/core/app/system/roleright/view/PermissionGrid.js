@@ -7,8 +7,8 @@ Ext.define("core.system.roleright.view.PermissionGrid", {
     al:false,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/SysMenuPermission/list", //数据获取地址
-    model: "com.zd.school.plartform.system.model.SysMenuPermission", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtMenuPermission/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.system.PtMenuPermission", //对应的数据模型
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -58,7 +58,7 @@ Ext.define("core.system.roleright.view.PermissionGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.perName+"已存在!");
                                 return ;
                             }
@@ -101,12 +101,12 @@ Ext.define("core.system.roleright.view.PermissionGrid", {
         }, {
             width: 100,
             text: "权限名称",
-            dataIndex: "perName",
+            dataIndex: "permissionName",
             align:'left'
         },  {
             width: 200,
             text: "权限接口全称",
-            dataIndex: "perAuth",
+            dataIndex: "authPostfix",
             align:'left',
             renderer: function(value,metaData,record) {  
                 if(value)
@@ -117,13 +117,13 @@ Ext.define("core.system.roleright.view.PermissionGrid", {
         },{
             width: 120,
             text: "按钮别名",
-            dataIndex: "perBtnName",
+            dataIndex: "buttonName",
              align:'left'
         },{
             flex:1,
             minWidth: 100,
             text: "备注",
-            dataIndex: "perRemark",
+            dataIndex: "permissionNotes",
             align:'left',
             renderer: function(value,metaData) {  
 

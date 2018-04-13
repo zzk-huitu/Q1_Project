@@ -29,7 +29,7 @@ Ext.define("core.system.user.view.MainLayout", {
     
 	//funData用来定义一些常规的参数
 	funData: {
-		action: comm.get('baseUrl') + "/SysUser", //请求controller
+		action: comm.get('baseUrl') + "/PtUser", //请求controller
 		pkName: "uuid", //主键
 		//默认的初始值设置
 		defaultObj: {
@@ -38,7 +38,7 @@ Ext.define("core.system.user.view.MainLayout", {
 			state: '0',
 			orderIndex: 1,
 			userPwd: '123456',
-			issystem: '1'
+			isSystem: '1'
 		},
 		tabConfig: {         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
 			titleField:'userName',

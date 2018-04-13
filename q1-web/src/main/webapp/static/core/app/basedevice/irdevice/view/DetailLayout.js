@@ -3,8 +3,8 @@ Ext.define("core.basedevice.irdevice.view.DetailLayout",{
 	alias : 'widget.basedevice.irdevice.detaillayout',
 	funCode:"irdevice_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/BasePtIrDeviceBrand", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtIrDeviceBrand", //请求Action
+		pkName: "id",
 		defaultObj: {
 		}
 	},

@@ -1,8 +1,8 @@
 Ext.define("core.system.user.view.selectRoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.user.selectrolegrid",
-    dataUrl: comm.get('baseUrl') + "/SysRole/selectList",
-    model: 'com.zd.school.plartform.system.model.SysRole',
+    dataUrl: comm.get('baseUrl') + "/PtRole/selectList",
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -58,7 +58,7 @@ Ext.define("core.system.user.view.selectRoleGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.roleName+"已存在!");
                                 return ;
                             }
@@ -89,7 +89,7 @@ Ext.define("core.system.user.view.selectRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "角色名称",

@@ -1,8 +1,8 @@
 Ext.define("core.system.user.view.isSelectUserGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.user.isselectusergrid",
-    dataUrl: comm.get('baseUrl') + "/SysUser/list",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysUser", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtUser/list",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUser", "checked").modelName,
     al: false,
     //排序字段及模式定义
     defSort: [{
@@ -43,7 +43,7 @@ Ext.define("core.system.user.view.isSelectUserGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "编号",
@@ -51,11 +51,11 @@ Ext.define("core.system.user.view.isSelectUserGrid", {
             flex:1, 
         }, {
             text: "姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             flex:1, 
         }, {
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM",
             flex:1, 

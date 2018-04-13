@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.measurement.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.measurement.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtSkMeter/list",
-    model: "com.zd.school.control.device.model.PtSkMeter",
+    dataUrl: comm.get('baseUrl') + "/SkMeter/list",
+    model: "com.yc.q1.model.base.sk.SkMeter",
     menuCode:"JLCS",
     panelTopBar:{
         xtype:'toolbar',
@@ -63,7 +63,7 @@ Ext.define("core.basedevice.measurement.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "计量数（脉冲数/升）",

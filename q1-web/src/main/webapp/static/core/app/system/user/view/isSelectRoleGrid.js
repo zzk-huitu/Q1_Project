@@ -1,7 +1,7 @@
 Ext.define("core.system.user.view.isSelectRoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.system.user.isselectrolegrid",
-    dataUrl: comm.get('baseUrl') + "/SysRole/selectList",
+    dataUrl: comm.get('baseUrl') + "/PtRole/selectList",
     title: "当前已选角色",
     al: false,
     noPagging: true,
@@ -33,7 +33,7 @@ Ext.define("core.system.user.view.isSelectRoleGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;
@@ -80,7 +80,7 @@ Ext.define("core.system.user.view.isSelectRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "角色名称",

@@ -2,8 +2,6 @@ package com.yc.q1.controller.basedevice;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,6 @@ import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.PoiExportExcel;
 import com.yc.q1.core.util.StringUtils;
-import com.yc.q1.model.base.pt.build.PtStudentDorm;
 import com.yc.q1.model.base.pt.device.PtIrDeviceBrand;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;

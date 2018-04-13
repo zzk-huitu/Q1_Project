@@ -2,8 +2,8 @@ Ext.define("core.basedevice.basefrontserver.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.basefrontserver.maingrid",
 
-    dataUrl: comm.get('baseUrl') + "/BaseFrontServer/list",
-    model: "com.zd.school.build.define.model.SysFrontServer",
+    dataUrl: comm.get('baseUrl') + "/PtFrontServer/list",
+    model: "com.yc.q1.model.base.pt.device.PtFrontServer",
 
     menuCode:"BASEFRONTSERVER", //new：此表格与权限相关的菜单编码
 
@@ -80,7 +80,7 @@ Ext.define("core.basedevice.basefrontserver.view.MainGrid", {
                 align: 'center'
             }, {
                 text: "主键",
-                dataIndex: "uuid",
+                dataIndex: "id",
                 hidden: true
             }, {
                 width: 150,
@@ -126,7 +126,7 @@ Ext.define("core.basedevice.basefrontserver.view.MainGrid", {
                 }
             }, {
                 text: "备注",
-                dataIndex: "notes",
+                dataIndex: "frontServerNotes",
                 field: {
                     xtype: "textfield"
                 },

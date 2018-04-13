@@ -22,8 +22,8 @@ Ext.define("core.system.roleright.view.MainLayout", {
 	border: false,
 	//funData用来定义一些常规的参数
 	funData: {
-		action: comm.get('baseUrl') + "/SysRole", //请求controller
-		pkName: "uuid", //主键
+		action: comm.get('baseUrl') + "/PtRole", //请求controller
+		pkName: "id", //主键
 		//默认的初始值设置
 		defaultObj: {
 			orderIndex: 1

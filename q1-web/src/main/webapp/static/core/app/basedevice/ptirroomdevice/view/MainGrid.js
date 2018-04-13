@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.ptirroomdevice.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.ptirroomdevice.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/list",
-    model: "com.zd.school.control.device.model.PtIrRoomDevice",
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/list",
+    model: "com.yc.q1.model.base.pt.device.PtIrRoomDevice",
     al: false,
     extParams: {
     },
@@ -72,7 +72,7 @@ Ext.define("core.basedevice.ptirroomdevice.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "房间名称",
@@ -84,7 +84,7 @@ Ext.define("core.basedevice.ptirroomdevice.view.MainGrid", {
             width: 150,
         }, {
             text: "品牌名称",
-            dataIndex: "brandname",
+            dataIndex: "brandName",
             width:150,
             renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
                 value= (record.get("deviceBrandName")+" - "+record.get("deviceTypeName"));

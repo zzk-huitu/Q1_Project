@@ -4,14 +4,14 @@ Ext.define("core.system.dept.store.DeptStore", {
     alias: 'store.system.dept.deptstore',
 
     defaultRootId: "0",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.baseset.model.BaseOrgTree", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.DepartmentTree", "checked").modelName,
     proxy: {
         type: "ajax",
-        url: comm.get('baseUrl') + "/SysOrg/treeList",
+        url: comm.get('baseUrl') + "/PtDepartment/treeList",
         extraParams: {
             excludes: 'checked',
             whereSql: "  and isDelete='0'",
-            orderSql: ' ORDER BY NODELEVEL,ORDER_INDEX'
+            orderSql: ' ORDER BY nodelLevel,orderIndex'
         },
         reader: {
             type: "json"

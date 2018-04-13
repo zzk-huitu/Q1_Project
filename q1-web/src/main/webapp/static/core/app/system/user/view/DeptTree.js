@@ -2,8 +2,8 @@ Ext.define("core.system.user.view.DeptTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.system.user.depttree",
     //dataUrl: comm.get('baseUrl') + "/SysOrg/treeList",
-    dataUrl: comm.get('baseUrl') + "/SysOrg/getUserRightDeptTree",
-    model: "com.zd.school.plartform.baseset.model.BaseOrgTree",
+    dataUrl: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptTree",
+    model: " com.yc.q1.pojo.base.pt.DepartmentTree",
     al: true,
     expandFirst:true,
     scrollable:true,
@@ -86,7 +86,7 @@ Ext.define("core.system.user.view.DeptTree", {
                 filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "userName", "comparison": ""})
             }
             if(girdSearchTexts[1].getValue()){
-                filter.push({"type": "string", "value": girdSearchTexts[1].getValue(), "field": "xm", "comparison": ""})
+                filter.push({"type": "string", "value": girdSearchTexts[1].getValue(), "field": "name", "comparison": ""})
             }
             if(filter.length==0)
                 filter=null;

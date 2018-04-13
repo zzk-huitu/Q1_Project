@@ -14,7 +14,7 @@ Ext.define("core.system.menu.view.MenuForm", {
 	},
 	items: [{
 		fieldLabel: "主键",
-		name: "uuid",
+		name: "id",
 		hidden: true
 	}, {
 		xtype: "container",
@@ -97,7 +97,7 @@ Ext.define("core.system.menu.view.MenuForm", {
                 fieldInfo: "parentName~parentNode,text~id",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url:comm.get('baseUrl') + "/SysMenu/treeList",
+                url:comm.get('baseUrl') + "/PtMenu/treeList",
             } //// 			 
 		}]
 	},{

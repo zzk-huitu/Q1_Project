@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.ptirroomdevice.view.IrDeviceGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.ptirroomdevice.irdevicegrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrDeviceBrand/list",
-    model: "com.zd.school.control.device.model.PtIrDeviceBrand",
+    dataUrl: comm.get('baseUrl') + "/PtIrDeviceBrand/list",
+    model: "com.yc.q1.model.base.pt.device.PtIrDeviceBrand",
 
     extParams: {
         whereSql: " and isDelete='0' ",
@@ -25,15 +25,15 @@ Ext.define("core.basedevice.ptirroomdevice.view.IrDeviceGrid", {
             width:200,
             emptyText: '请选择品牌',
             xtype: "basetreefield",
-            name:"brandname",
+            name:"brandName",
             rootId: "ROOT",
             funCode:'girdFastSearchText',
             configInfo: {
                 multiSelect: false,
-                fieldInfo: "brandname~brandId~level,text~id~level",
+                fieldInfo: "brandName~brandId~level,text~id~level",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url:comm.get('baseUrl') + "/BasePtIrDeviceBrand/treelist"
+                url:comm.get('baseUrl') + "/PtIrDeviceBrand/treelist"
             }
         },{
             xtype: 'button',
@@ -62,7 +62,7 @@ Ext.define("core.basedevice.ptirroomdevice.view.IrDeviceGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "型号",
@@ -70,7 +70,7 @@ Ext.define("core.basedevice.ptirroomdevice.view.IrDeviceGrid", {
             width: 150,
         }, {
             text: "品牌",
-            dataIndex: "brandname",
+            dataIndex: "brandName",
             width: 150,
         }, {
             text: "备注",

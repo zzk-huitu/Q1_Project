@@ -2,8 +2,8 @@
 Ext.define("core.basedevice.smartdevice.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.smartdevice.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/list",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
     menuCode:"BASESMARTDEVICE", //new：此表格与权限相关的菜单编码
 
@@ -73,7 +73,7 @@ Ext.define("core.basedevice.smartdevice.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             flex: 1.5,
@@ -98,7 +98,7 @@ Ext.define("core.basedevice.smartdevice.view.MainGrid", {
         }, {
             width: 100,
             text: "设备类型",
-            dataIndex: "termTypeID",
+            dataIndex: "termTypeId",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE" //字典代码
         },{

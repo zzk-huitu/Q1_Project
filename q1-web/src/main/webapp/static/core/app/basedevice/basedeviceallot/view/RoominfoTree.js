@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.basedeviceallot.view.RoominfoTree", {
 	extend: "core.base.view.BaseTreeGrid",
     alias: "widget.basedevice.basedeviceallot.roominfotree",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     al: true,
     expandFirst:true,
     forceFit:true,

@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.irdevice.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.irdevice.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrDeviceBrand/list",
-    model: "com.zd.school.control.device.model.PtIrDeviceBrand",
+    dataUrl: comm.get('baseUrl') + "/PtIrDeviceBrand/list",
+    model: "com.yc.q1.model.base.pt.device.PtIrDeviceBrand",
     al: false,
     menuCode:"IRDEVICE",
     extParams: {
@@ -73,7 +73,7 @@ Ext.define("core.basedevice.irdevice.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "型号",
@@ -81,7 +81,7 @@ Ext.define("core.basedevice.irdevice.view.MainGrid", {
             width: 150,
         }, {
             text: "品牌",
-            dataIndex: "brandname",
+            dataIndex: "brandName",
             width: 150,
         }, {
             text: "备注",

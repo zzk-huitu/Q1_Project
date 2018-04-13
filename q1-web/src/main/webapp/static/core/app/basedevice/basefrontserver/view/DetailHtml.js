@@ -22,7 +22,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailHtml", {
         '<span style="width: 10%;color:green;" >禁用</span>' ,
         '</tpl>',
         '</li>',
-        '<li style="width:50%" title="{textarea}">备注：{textarea}</li>',
+        '<li style="width:50%" title="{frontServerNotes}">备注：{frontServerNotes}</li>',
         '<div style="clear:both"></div>',
         '</ul>',
         '</div>'

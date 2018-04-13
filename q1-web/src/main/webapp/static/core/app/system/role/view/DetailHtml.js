@@ -40,8 +40,8 @@ Ext.define("core.system.role.view.DetailHtml", {
             '{% if (values.rows.length == 0 ) return  %}',   //reutrun 表示不执行下面的了，在for里面可以使用break、continue
             '<tpl for="rows">',
             '<li><span style="width:5%">{[xindex]}</span><span style="width: 10%;" >{userNumb}</span><span style="width: 10%;">{userName}</span>' ,
-            '<span style="width: 10%;">{xm}</span>',
-            '<span style="width: 10%;"><tpl if="xbm == 1">男<tpl elseif="xbm==2">女<tpl else></tpl></span>',
+            '<span style="width: 10%;">{name}</span>',
+            '<span style="width: 10%;"><tpl if="sex == 1">男<tpl elseif="sex==2">女<tpl else></tpl></span>',
             '<span style="width: 20%;">{deptName}</span><span style="width: 20%;">{jobName}</span>' ,
             '<tpl if="state==0">',
             '<span style="width: 10%;color:green;" >正常</span>' ,

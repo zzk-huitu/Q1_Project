@@ -1,10 +1,10 @@
 Ext.define("core.system.role.view.RoleUserGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.system.role.roleusergrid",
-	dataUrl: comm.get('baseUrl') + "/SysRole/getRoleUser",
+	dataUrl: comm.get('baseUrl') + "/PtRole/getRoleUser",
 	al:false,
 //	dataUrl: comm.get('baseUrl') + "/sysuser/list",
-	model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysUser", "checked").modelName,
+	model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUser", "checked").modelName,
     //selModel:null,	
 	//noPagging: true,
 	extParams: {
@@ -58,7 +58,7 @@ Ext.define("core.system.role.view.RoleUserGrid", {
             align: 'center'
         },{
 			text: "主键",
-			dataIndex: "uuid",
+			dataIndex: "id",
 			hidden: true 
 		}, {
 			text: "编号",
@@ -70,11 +70,11 @@ Ext.define("core.system.role.view.RoleUserGrid", {
             width:150
 		},{
 			text: "姓名",
-			dataIndex: "xm",
+			dataIndex: "name",
             width:150
 		}, {
 			text: "性别",
-			dataIndex: "xbm",
+			dataIndex: "sex",
 			columnType: "basecombobox",
 			ddCode: "XBM",
             width:60

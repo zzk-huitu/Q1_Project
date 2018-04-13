@@ -4,8 +4,8 @@ Ext.define("core.system.dept.view.SelectUserGrid", {
     al:true,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/SysUser/list", //数据获取地址
-    model: "com.zd.school.plartform.system.model.SysUser",
+    dataUrl: comm.get("baseUrl") + "/PtUser/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.system.PtUser",
     pageDisplayInfo:false,
     selModel: {
         type: "checkboxmodel",   
@@ -25,7 +25,7 @@ Ext.define("core.system.dept.view.SelectUserGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'xm',
+            name:'name',
             funCode:'girdFastSearchText',
             emptyText: '请输入姓名'
         },{
@@ -47,7 +47,7 @@ Ext.define("core.system.dept.view.SelectUserGrid", {
                 fieldInfo: "deptName~deptId,text~id",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url:comm.get('baseUrl') + "/SysOrg/chkTreeList"
+                url:comm.get('baseUrl') + "/PtDepartment/chkTreeList"
             }
         },{
             xtype: 'button',
@@ -79,7 +79,7 @@ Ext.define("core.system.dept.view.SelectUserGrid", {
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.id == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.userName+"已存在!");
                                 return ;
                             }
@@ -126,11 +126,11 @@ Ext.define("core.system.dept.view.SelectUserGrid", {
             minWidth:90,
             flex:1,
             text: "姓名",
-            dataIndex: "xm"
+            dataIndex: "name"
         }, {
             width:60,
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM"
         },{

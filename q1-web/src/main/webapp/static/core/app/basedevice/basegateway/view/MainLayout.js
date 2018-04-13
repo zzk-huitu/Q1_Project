@@ -17,8 +17,8 @@ Ext.define("core.basedevice.basegateway.view.MainLayout", {
     otherController:'basedevice.basegateway.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BaseGateway", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtGateway", //请求Action
+		pkName: "id",
 		defaultObj: {
            gatewayStatus: 0 
         },

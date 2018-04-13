@@ -3,8 +3,8 @@ Ext.define("core.basedevice.basedeviceallot.view.DetailLayout",{
 	alias : 'widget.basedevice.basedeviceallot.detaillayout',
 	funCode:"basedeviceallot_detaillayout",
 	funData: {
-		action: comm.get('baseUrl') + "/BasePtTerm", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtTerm", //请求Action
+		pkName: "id",
 		defaultObj: {
 		}
 	},

@@ -3,8 +3,8 @@ Ext.define("core.system.user.view.UserLayout", {
 	alias: 'widget.system.user.userlayout',
 	funCode: "user_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/SysUser", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtUser", //请求Action
+		pkName: "id",
 		//默认的初始值设置
 		defaultObj: {
 			sex: '1',
@@ -12,7 +12,7 @@ Ext.define("core.system.user.view.UserLayout", {
 			state: '1',
 			userPwd: '123456',
 			orderIndex: 1,
-			issystem: '1'
+			isSystem: '1'
 		}
 	},
 	/*设置最小宽度，并且自动滚动*/

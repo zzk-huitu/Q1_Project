@@ -16,8 +16,8 @@ Ext.define("core.basedevice.measurement.view.MainLayout", {
     layout: 'fit',
     border:false,
     funData: {
-        action: comm.get('baseUrl') + "/BasePtSkMeter", //请求Action 
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/SkMeter", //请求Action 
+        pkName: "id",
         defaultObj: {},
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
         	addTitle:'添加计量',
