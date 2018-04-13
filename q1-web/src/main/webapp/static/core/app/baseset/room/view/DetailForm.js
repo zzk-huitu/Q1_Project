@@ -46,7 +46,7 @@ Ext.define("core.baseset.room.view.DetailForm", {
         beforeLabelTextTpl: comm.get('required'),
         xtype: "textfield",
         fieldLabel: "门牌号1",
-        name: "extField01",
+        name: "houseNo01",
         allowBlank: false,
         emptyText: '请输入门牌号1',
         blankText: "门牌号1不能为空",
@@ -54,19 +54,19 @@ Ext.define("core.baseset.room.view.DetailForm", {
     }, {
         xtype: "textfield",
         fieldLabel: "门牌号2",
-        name: "extField02"
+        name: "houseNo02"
     }, {
         xtype: "textfield",
         fieldLabel: "门牌号3",
-        name: "extField03"
+        name: "houseNo03"
     }, {
         xtype: "textfield",
         fieldLabel: "门牌号4",
-        name: "extField04"
+        name: "houseNo04"
     }, {
         xtype: "textfield",
         fieldLabel: "门牌号5",
-        name: "extField05"
+        name: "houseNo05"
     }, {
         xtype: "combobox",
         store: combostore,
@@ -80,9 +80,5 @@ Ext.define("core.baseset.room.view.DetailForm", {
         blankText: '请选择网络状态',
         editable: false,
         mode: 'local'
-    }, {
-        xtype: "textarea",
-        fieldLabel: "房间描述",
-        name: "roomDesc"
     }]
 });

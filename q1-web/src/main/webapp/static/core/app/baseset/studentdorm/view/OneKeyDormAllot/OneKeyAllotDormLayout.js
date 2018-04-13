@@ -3,8 +3,8 @@
     alias: 'widget.baseset.studentdorm.onekeyallotdormlayout',
     funCode: "onekeyallotdorm_detail",
     funData: {
-        action: comm.get('baseUrl') + "/BaseStudentDorm", //请求controller
-        pkName: "uuid", //主键
+        action: comm.get('baseUrl') + "/PtStudentDorm", //请求controller
+        pkName: "id", //主键
         //默认的初始值设置
         defaultObj: {
         }

@@ -2,8 +2,8 @@ Ext.define("core.baseset.studentdorm.view.DormAllotFinishGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.dormallotfinishgrid",
 
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/list",
-    model: "com.zd.school.build.allot.model.DormStudentDorm",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/list",
+    model: "com.yc.q1.model.base.pt.build.PtStudentDorm",
     extParams: {
         whereSql: " and isDelete=0",
     },
@@ -54,7 +54,7 @@ Ext.define("core.baseset.studentdorm.view.DormAllotFinishGrid", {
             align: 'center'
         }, {
             text: "分配宿舍主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             editable: false,
             hidden: true
         }, {
@@ -67,11 +67,11 @@ Ext.define("core.baseset.studentdorm.view.DormAllotFinishGrid", {
             flex : 1,
             minWidth:80,
             text: "学生姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             editable: false
         }, {
             text: "*床位",
-            dataIndex: "bedNum",
+            dataIndex: "bedNo",
             width: 60,
             editor: {
                 allowBlank: false,
@@ -80,7 +80,7 @@ Ext.define("core.baseset.studentdorm.view.DormAllotFinishGrid", {
             }
         }, {
             text: "*柜号",
-            dataIndex: "arkNum",
+            dataIndex: "sarkNo",
             width: 60,
             editor: {
                 allowBlank: false,

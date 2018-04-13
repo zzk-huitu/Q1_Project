@@ -1,8 +1,8 @@
 Ext.define("core.baseset.teacherdorm.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.teacherdorm.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseTeacherDrom/list",
-    model: "com.zd.school.build.allot.model.DormTeacherDorm",
+    dataUrl: comm.get('baseUrl') + "/PtTeacherDorm/list",
+    model: "com.yc.q1.model.base.pt.build.PtTeacherDorm",
     al:false,
     menuCode:"BASETEACHERDORM", //new：此表格与权限相关的菜单编码
     extParams: {
@@ -11,7 +11,7 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
         property: 'inTime',
         direction: 'DESC'
     },{
-        property: 'bedNum',
+        property: 'bedNo',
         direction: 'ASC'
     }],
     panelTopBar:{
@@ -58,11 +58,11 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
             align: 'center'
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden:true
         }, {
             text: "教师老师主键",
-            dataIndex: "tteacId",
+            dataIndex: "teacherId",
             hidden:true
         }, {
             text: "房间主键",
@@ -76,7 +76,7 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
             flex:1,
             minWidth: 100,
             text: "老师姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             field: {
                 xtype: "textfield"
             }
@@ -84,7 +84,7 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
             flex:1.2,
             minWidth:120,
             text: "工号",
-            dataIndex: "gh",
+            dataIndex: "userNumb",
             field: {
                 xtype: "textfield"
             }
@@ -99,14 +99,14 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
         }, {
             width:80,
             text: "柜子编号",
-            dataIndex: "arkNum",
+            dataIndex: "sarkNo",
             field: {
                 xtype: "textfield"
             }
         }, {
             width:80,
             text: "床位编号",
-            dataIndex: "bedNum",
+            dataIndex: "bedNo",
             field: {
                 xtype: "textfield"
             }
@@ -120,7 +120,7 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
         }, {
             width:80,
             text: "入/退状态",
-            dataIndex: "inout",
+            dataIndex: "inOutState",
             renderer: function(value) {
                 switch (value) {
                     case 0:

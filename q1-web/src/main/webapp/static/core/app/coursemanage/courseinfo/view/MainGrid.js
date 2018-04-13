@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.courseinfo.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.coursemanage.courseinfo.maingrid",
-    dataUrl: comm.get("baseUrl") + "/BaseCourse/list", //数据获取地址
-    model: "com.zd.school.jw.eduresources.model.JwTBasecourse", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtBaseCourse/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.basic.PtBaseCourse", //对应的数据模型
     menuCode:"COURSEINFO",
 
     panelTopBar:{
@@ -64,7 +64,7 @@ Ext.define("core.coursemanage.courseinfo.view.MainGrid", {
             align : 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },  {
             text : "课程名称",

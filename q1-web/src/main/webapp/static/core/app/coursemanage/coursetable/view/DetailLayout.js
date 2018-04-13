@@ -3,8 +3,8 @@ Ext.define("core.coursemanage.coursetable.view.DetailLayout", {
 	alias: 'widget.coursemanage.coursetable.detaillayout',
 	funCode: "coursetable_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/CourseArrange", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtCourseArrange", //请求Action	
+		pkName: "id",
 		defaultObj: {
 		}
 	},

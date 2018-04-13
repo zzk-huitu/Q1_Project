@@ -20,7 +20,7 @@ Ext.define("core.baseset.room.view.BatchRoomForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "textfield",

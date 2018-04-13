@@ -11,7 +11,7 @@ Ext.define("core.coursemanage.specialcourseattend.setTimesForm", {
     }, //
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     },{
@@ -137,7 +137,7 @@ Ext.define("core.coursemanage.specialcourseattend.setTimesForm", {
         allowBlank: false,
         blankText: "第几节课不能为空",
         fieldLabel: "第几节课",
-        name: "teachTime",
+        name: "sections",
         xtype: "numberfield",
         value:'',
     }]

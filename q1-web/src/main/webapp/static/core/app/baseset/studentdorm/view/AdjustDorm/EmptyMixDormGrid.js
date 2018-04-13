@@ -1,8 +1,8 @@
 Ext.define("core.baseset.studentdorm.view.EmptyMixDormGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.emptymixdormgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/emptyMixDormList",
-    model: "com.zd.school.build.allot.model.JwClassDormAllot",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/emptyMixDormList",
+    model: "com.yc.q1.model.base.pt.build.PtClassDormAllot",
     extParams: {
     },
     noPagging: true,
@@ -41,7 +41,7 @@ Ext.define("core.baseset.studentdorm.view.EmptyMixDormGrid", {
         align: 'center'
     },{
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         field: {
             xtype: "textfield"
         },
@@ -63,13 +63,13 @@ Ext.define("core.baseset.studentdorm.view.EmptyMixDormGrid", {
         flex:1,
         minWidth: 100,
         text: "所属班级",
-        dataIndex: "clainame",
+        dataIndex: "className",
         field: {
             xtype: "textfield"
         }
     }, {       
         text: "班级主键",
-        dataIndex: "claiId",
+        dataIndex: "classId",
         hidden: true
     }, {
         width: 80,

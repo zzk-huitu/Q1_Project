@@ -1,13 +1,11 @@
- 
-
 Ext.define("core.baseset.roomallot.view.SelectTeacherLayout", {
     extend: "core.base.view.BasePanel",
     alias: 'widget.baseset.roomallot.selectteacherlayout',
     funCode: "roomallot_detail",
     border: false,
     funData: {
-        action: comm.get('baseUrl') + "/BaseOfficeAllot", //请求controller
-        pkName: "uuid", //主键
+        action: comm.get('baseUrl') + "/PtOfficeAllot", //请求controller
+        pkName: "id", //主键
         //默认的初始值设置
         defaultObj: {
         }

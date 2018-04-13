@@ -9,8 +9,8 @@ Ext.define("core.coursemanage.specialcourseattend.view.MainLayout", {
     /*标注这个视图控制器的别名，以此提供给window处使用*/
     otherController:'coursemanage.specialcourseattend.othercontroller',
     funData: {
-        action: comm.get("baseUrl") + "/AttendTitle", //请求Action
-        pkName: "uuid",
+        action: comm.get("baseUrl") + "/PtAttendTheme", //请求Action
+        pkName: "id",
         defaultObj: {
             inBefore: 30,
             beLate: 5,

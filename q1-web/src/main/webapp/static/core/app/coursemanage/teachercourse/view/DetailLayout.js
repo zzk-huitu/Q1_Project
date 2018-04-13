@@ -3,8 +3,8 @@ Ext.define("core.coursemanage.teachercourse.view.DetailLayout", {
 	alias: 'widget.coursemanage.teachercourse.detaillayout',
 	funCode: "teachercourse_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/CourseTeacher", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtCourseTeacher", //请求Action	
+		pkName: "id",
 		defaultObj: {
 		}
 	},

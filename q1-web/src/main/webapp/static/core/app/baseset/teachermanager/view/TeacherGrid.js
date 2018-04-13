@@ -1,8 +1,8 @@
 Ext.define("core.baseset.teachermanager.view.TeacherGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.baseset.teachermanager.teachergrid",
-	dataUrl: comm.get('baseUrl') + "/SysUser/list",
-	model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysUser", "checked").modelName,
+	dataUrl: comm.get('baseUrl') + "/PtUser/list",
+	model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUser", "checked").modelName,
 	al: false,
 
     menuCode:"TEACHERMANAGER", //new：此表格与权限相关的菜单编码
@@ -83,7 +83,7 @@ Ext.define("core.baseset.teachermanager.view.TeacherGrid", {
         },{
             xtype:'textfield',
             width:100,
-            name:'xm',
+            name:'name',
             funCode:'girdFastSearchText', 
             emptyText: '教师姓名'
         },{
@@ -104,7 +104,7 @@ Ext.define("core.baseset.teachermanager.view.TeacherGrid", {
         },
         items:[{
 			text: "主键",
-			dataIndex: "uuid",
+			dataIndex: "id",
 			hidden: true
 		},{
             xtype: "rownumberer",
@@ -118,11 +118,11 @@ Ext.define("core.baseset.teachermanager.view.TeacherGrid", {
             width:120,
         }, {
             text: "姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             width:100,
         }, {
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM",
             width:60,
@@ -134,7 +134,7 @@ Ext.define("core.baseset.teachermanager.view.TeacherGrid", {
             width:80,
         }, {
             text: "编制",
-            dataIndex: "bzlbm",
+            dataIndex: "headCountType",
             ddCode: "ZXXBZLB",
             columnType: "basecombobox",
             minWidth:80,

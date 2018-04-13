@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.coursetable.view.ClassTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.coursemanage.coursetable.classtree",
-    model:"com.zd.school.plartform.comm.model.CommTree",
-    dataUrl:comm.get('baseUrl') + "/BaseStudentDorm/classtreelist",
+    model:"com.yc.q1.pojo.base.pt.CommTree",
+    dataUrl:comm.get('baseUrl') + "/PtStudentDorm/classtreelist",
     expandFirst:true,
     selModel: {},
     sortableColumns:false,

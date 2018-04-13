@@ -2,8 +2,8 @@ Ext.define("core.baseset.dictionary.view.ItemGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.baseset.dictionary.itemgrid",
 	title: "字典项列表",
-	dataUrl: comm.get('baseUrl') + "/BaseDicitem/list",
-	model: 'com.zd.school.plartform.baseset.model.BaseDicitem',
+	dataUrl: comm.get('baseUrl') + "/PtDataDictItem/list",
+	model: 'com.yc.q1.model.base.pt.system.PtDataDictItem',
 	al: true,
 	menuCode:"DICTIONARY",
 	defSort: [{
@@ -17,7 +17,7 @@ Ext.define("core.baseset.dictionary.view.ItemGrid", {
 		direction: 'ASC'
 	}],
 	extParams: {
-		'filter': "[{'type':'string','comparison':'=','value':'ROOT','field':'dicId'}]"
+		'filter': "[{'type':'string','comparison':'=','value':'ROOT','field':'dictId'}]"
 	},
 
 	tbar: [{
@@ -56,7 +56,7 @@ Ext.define("core.baseset.dictionary.view.ItemGrid", {
      },
 		items: [{
 			text: "主键",
-			dataIndex: "uuid",
+			dataIndex: "id",
 			hidden: true
 		}, {
             xtype: "rownumberer",

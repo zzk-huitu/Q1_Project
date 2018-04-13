@@ -1,8 +1,8 @@
 Ext.define("core.baseset.teachermanager.view.DeptTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.teachermanager.depttree",
-    dataUrl: comm.get('baseUrl') + "/SysOrg/getUserRightDeptTree",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.baseset.model.BaseOrgTree", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptTree",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.DepartmentTree", "checked").modelName,
     al: true,
     expandFirst:true,
     scrollable:true,
@@ -73,7 +73,7 @@ Ext.define("core.baseset.teachermanager.view.DeptTree", {
                 filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "userName", "comparison": ""})
             }
             if(girdSearchTexts[1].getValue()){
-                filter.push({"type": "string", "value": girdSearchTexts[1].getValue(), "field": "xm", "comparison": ""})
+                filter.push({"type": "string", "value": girdSearchTexts[1].getValue(), "field": "name", "comparison": ""})
             }
             filter.push({"type": "string", "value": "1", "field": "category", "comparison": "="});
             filter = JSON.stringify(filter);

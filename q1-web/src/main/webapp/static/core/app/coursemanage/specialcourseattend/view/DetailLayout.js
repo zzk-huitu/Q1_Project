@@ -3,8 +3,8 @@ Ext.define("core.coursemanage.specialcourseattend.view.DetailLayout", {
 	alias: "widget.coursemanage.specialcourseattend.detaillayout",
 	funCode: "specialcourseattend_detail",
 	funData: {
-		action: comm.get("baseUrl") + "/AttendTitle", //请求Action
-		pkName: "uuid",
+		action: comm.get("baseUrl") + "/PtAttendTheme", //请求Action
+		pkName: "id",
 		defaultObj: {},
 	},
 	  /*关联此视图控制器*/

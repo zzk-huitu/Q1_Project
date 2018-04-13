@@ -3,8 +3,8 @@ Ext.define("core.coursemanage.funcroomcourse.view.DetailLayout", {
 	alias: 'widget.coursemanage.funcroomcourse.detaillayout',
 	funCode: "funcroomcourse_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/FuncRoomCourse", //请求Action	
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtFuncRoomCourse", //请求Action	
+		pkName: "id",
 		defaultObj: {
 		}
 	},

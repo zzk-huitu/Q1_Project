@@ -1,8 +1,8 @@
 Ext.define("core.baseset.teachermanager.view.TeacherDeptJobGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.teachermanager.teacherdeptjobgrid",
-    dataUrl: comm.get('baseUrl') + "/SysUser/userDeptJobList",
-    model: 'com.zd.school.plartform.baseset.model.BaseUserdeptjob',
+    dataUrl: comm.get('baseUrl') + "/PtUser/userDeptJobList",
+    model: 'com.yc.q1.model.base.pt.system.PtUserDeptJob',
     title:"用户部门岗位",
     noPagging:true,
     al:false,
@@ -63,14 +63,14 @@ Ext.define("core.baseset.teachermanager.view.TeacherDeptJobGrid", {
             text: "岗位名称",
             dataIndex: "jobName",
             width:300
-        },{
+        },/*{
             text: "岗位级别",
             dataIndex: "jobLevel",
             width:200
-        },{
+        },*/{
             width:100,
             text: "是否主部门",
-            dataIndex: "masterDept",
+            dataIndex: "isMainDept",
             renderer: function(value, metaData) {          
                if(value==1)
                     return "<span style='color:green'>是</span>";            

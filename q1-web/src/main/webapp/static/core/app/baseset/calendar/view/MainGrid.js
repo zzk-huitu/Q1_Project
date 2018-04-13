@@ -1,8 +1,8 @@
 Ext.define("core.baseset.calendar.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.baseset.calendar.maingrid",
-	dataUrl: comm.get('baseUrl') + "/BaseCalenderdetail/list",
-	model:factory.ModelFactory.getModelByName("com.zd.school.jw.eduresources.model.JwCalenderdetail","checked").modelName,
+	dataUrl: comm.get('baseUrl') + "/PtCalenderDetail/list",
+	model:factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.basic.PtCalenderDetail","checked").modelName,
     al:false,
     menuCode:"SCHOOLCALENDAR", //new：此表格与权限相关的菜单编码
 	//title:'作息时间详细信息',
@@ -51,7 +51,7 @@ Ext.define("core.baseset.calendar.view.MainGrid", {
         property: 'beginTime',
         direction: 'ASC'
     },{
-        property: 'isafgernoon',
+        property: 'timeInterval',
         direction: 'ASC'
     },{
         property: 'updateTime',
@@ -64,11 +64,11 @@ Ext.define("core.baseset.calendar.view.MainGrid", {
         },
        items: [{
 		text: "主键",
-		dataIndex: "uuid",
+		dataIndex: "id",
 		hidden: true
 	},{
 		text: "外键",
-		dataIndex: "canderId",
+		dataIndex: "calenderId",
 		hidden: true
 	},{
         xtype: "rownumberer",
@@ -79,8 +79,8 @@ Ext.define("core.baseset.calendar.view.MainGrid", {
     }, {
        flex: 1,
         minWidth: 100,
-       text: "时辰",
-       dataIndex: "isafgernoon",
+       text: "时段",
+       dataIndex: "timeInterval",
        field: {
          xtype: "textfield"
 		},
@@ -102,7 +102,7 @@ Ext.define("core.baseset.calendar.view.MainGrid", {
         }
 	}, {
 		text: "节次名称",
-		dataIndex: "jcName",
+		dataIndex: "senctionName",
 		field: {
 			xtype: "textfield"
 		},

@@ -1,7 +1,7 @@
 Ext.define("core.baseset.studentdorm.view.BoyDormGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.boydormgrid",
-    model: "com.zd.school.build.define.model.BuildDormDefine",
+    model: "com.yc.q1.model.base.pt.build.PtDormDefine",
     extParams: {
     },
     al:false,
@@ -36,7 +36,7 @@ Ext.define("core.baseset.studentdorm.view.BoyDormGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             flex:1,
@@ -63,7 +63,7 @@ Ext.define("core.baseset.studentdorm.view.BoyDormGrid", {
         }, {
             width: 60,
             text: "床位数",
-            dataIndex: "dormBedCount",
+            dataIndex: "bedCount",
             field: {
                 xtype: "textfield"
             }
@@ -93,7 +93,7 @@ Ext.define("core.baseset.studentdorm.view.BoyDormGrid", {
             
             var countBed=0;
             for (var i = 0; i < store.getCount(); i++) {
-                countBed+=store.getAt(i).get("dormBedCount");
+                countBed+=store.getAt(i).get("bedCount");
             }
 
             var conutHtml="总宿舍数："+store.getCount()+" &nbsp;&nbsp;总床位数："+countBed;   

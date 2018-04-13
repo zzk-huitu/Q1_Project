@@ -17,8 +17,8 @@ Ext.define("core.coursemanage.coursetable.view.MainLayout", {
     otherController:'coursemanage.coursetable.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/CourseArrange", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtCourseArrange", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

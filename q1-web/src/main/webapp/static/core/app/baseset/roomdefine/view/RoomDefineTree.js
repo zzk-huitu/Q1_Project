@@ -1,8 +1,8 @@
 Ext.define("core.baseset.roomdefine.view.RoomDefineTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.roomdefine.roomdefinetree",
-    dataUrl: comm.get('baseUrl') + "/BaseRoomarea/list",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtRoomArea/list",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     al: true,
     expandFirst:true,
     sortableColumns:false,

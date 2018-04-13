@@ -1,8 +1,8 @@
 Ext.define("core.baseset.studentmanager.view.StudentDeptJobGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentmanager.studentdeptjobgrid",
-    dataUrl: comm.get('baseUrl') + "/SysUser/userDeptJobList",
-    model: 'com.zd.school.plartform.baseset.model.BaseUserdeptjob',
+    dataUrl: comm.get('baseUrl') + "/PtUser/userDeptJobList",
+    model: 'com.yc.q1.model.base.pt.system.PtUserDeptJob',
     title:"用户部门岗位",
     noPagging:true,
     al:false,
@@ -39,7 +39,7 @@ Ext.define("core.baseset.studentmanager.view.StudentDeptJobGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",
@@ -63,14 +63,15 @@ Ext.define("core.baseset.studentmanager.view.StudentDeptJobGrid", {
             text: "岗位名称",
             dataIndex: "jobName",
             width:300
-        },{
+        },/*{
             text: "岗位级别",
             dataIndex: "jobLevel",
             width:200
-        },{
+            //实体类model中无这个字段，原标准产品有
+        },*/{
             width:100,
             text: "是否主部门",
-            dataIndex: "masterDept",
+            dataIndex: "isMainDept",
             renderer: function(value, metaData) {          
                if(value==1)
                     return "<span style='color:green'>是</span>";            

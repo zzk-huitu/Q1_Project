@@ -71,7 +71,7 @@ public class PtClassDormAllot extends BaseEntity implements Serializable {
 
 	// @FieldInfo(name = "班级名称")
 	@Formula("(SELECT A.className FROM dbo.T_PT_GradeClass A WHERE A.classId=classId)")
-	private String clainame;
+	private String className;
 
 	@Formula("(SELECT B.roomName FROM  dbo.T_PT_DormDefine A JOIN dbo.T_PT_RoomInfo B "
 			+ "ON A.roomId=B.roomId WHERE  A.isDelete=0 AND A.dormId=dormId)")
@@ -147,12 +147,12 @@ public class PtClassDormAllot extends BaseEntity implements Serializable {
 		this.dormBedCount = dormBedCount;
 	}
 
-	public String getClainame() {
-		return clainame;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setClainame(String clainame) {
-		this.clainame = clainame;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	public String getDormName() {

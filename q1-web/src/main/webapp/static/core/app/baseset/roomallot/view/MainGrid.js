@@ -1,8 +1,8 @@
 Ext.define("core.baseset.roomallot.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.roomallot.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseOfficeAllot/list",
-    model: "com.zd.school.build.allot.model.JwOfficeAllot",
+    dataUrl: comm.get('baseUrl') + "/PtOfficeAllot/list",
+    model: "com.yc.q1.model.base.pt.build.PtOfficeAllot",
     extParams: {
     },
     al:false,
@@ -54,11 +54,11 @@ Ext.define("core.baseset.roomallot.view.MainGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden:true
     }, {
         text: "教师老师主键",
-        dataIndex: "tteacId",
+        dataIndex: "teacherId",
         hidden:true
     }, {
         text: "房间主键",
@@ -68,7 +68,7 @@ Ext.define("core.baseset.roomallot.view.MainGrid", {
         flex: 1,
         minWidth: 120,
         text: "老师姓名",
-        dataIndex: "xm",
+        dataIndex: "name",
     }, {
         flex: 1,
         minWidth: 120,

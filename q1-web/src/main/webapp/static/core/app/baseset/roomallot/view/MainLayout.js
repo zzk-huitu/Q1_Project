@@ -17,8 +17,8 @@ Ext.define("core.baseset.roomallot.view.MainLayout", {
     otherController:'baseset.roomallot.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BaseOfficeAllot", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtOfficeAllot", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

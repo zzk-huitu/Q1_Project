@@ -1,8 +1,8 @@
 Ext.define("core.baseset.teacherdorm.view.TeacherDormTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.teacherdorm.teacherdormtree",
-    dataUrl: comm.get('baseUrl') + "/BaseTeacherDrom/treelist",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtTeacherDorm/treelist",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     selModel: {},
     expandFirst:true,
     sortableColumns:false,

@@ -13,7 +13,7 @@ Ext.define("core.baseset.terminal.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
@@ -41,7 +41,7 @@ Ext.define("core.baseset.terminal.view.DetailForm", {
         allowBlank: false,
         blankText: "终端类型不能为空",
         fieldLabel: "终端类型",
-        name: "termType",
+        name: "terminalType",
         xtype: "basecombobox",
         ddCode: "INFOTERTYPE",
         emptyText: "请选择终端类型",
@@ -49,7 +49,7 @@ Ext.define("core.baseset.terminal.view.DetailForm", {
         maxLengthText: "最多16个字符,汉字占2个字符"
     }, {
         fieldLabel: "规格",
-        name: "termSpec",
+        name: "terminalSpec",
         xtype: "textfield",
         emptyText: "请输入规格",
         maxLength: 32,

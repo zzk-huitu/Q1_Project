@@ -1,10 +1,10 @@
 Ext.define("core.baseset.studentdorm.view.ClassDormGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.studentdorm.classdormgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/classDormlist",
-    model: "com.zd.school.build.allot.model.JwClassDormAllot",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/classDormlist",
+    model: "com.yc.q1.model.base.pt.build.PtClassDormAllot",
     extParams: {
-       filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'claiId'}]"
+       filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'classId'}]"
     },
     multiSelect: false,
     noPagging: true,
@@ -40,14 +40,14 @@ Ext.define("core.baseset.studentdorm.view.ClassDormGrid", {
         align: 'center'
     },{
         text: "宿舍id",
-        dataIndex: "uuid",
+        dataIndex: "id",
         field: {
             xtype: "textfield"
         },
         hidden: true
     }, {
         text: "班级id",
-        dataIndex: "claiId",
+        dataIndex: "classId",
         field: {
             xtype: "textfield"
         },
@@ -92,14 +92,14 @@ Ext.define("core.baseset.studentdorm.view.ClassDormGrid", {
     }, {
         width: 75,
         text: "入住人数",
-        dataIndex: "stuCount",
+        dataIndex: "studentCount",
         field: {
             xtype: "textfield"
         }
     }, {
         width:75,
         text: "混班宿舍",
-        dataIndex: "ismixed",
+        dataIndex: "isMixed",
         renderer: function(value) {
             switch (value) {
                 case '1':

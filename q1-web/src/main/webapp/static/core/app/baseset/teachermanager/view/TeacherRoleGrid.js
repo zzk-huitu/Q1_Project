@@ -1,8 +1,8 @@
 Ext.define("core.baseset.teachermanager.view.TeacherRoleGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.baseset.teachermanager.teacherrolegrid",
-    model: 'com.zd.school.plartform.system.model.SysRole',
-    dataUrl: comm.get('baseUrl') + "/SysUser/userRoleList",
+    model: 'com.yc.q1.model.base.pt.system.PtRole',
+    dataUrl: comm.get('baseUrl') + "/PtUser/userRoleList",
     title:"用户所属角色",
     noPagging:true,
     al:false,
@@ -34,7 +34,7 @@ Ext.define("core.baseset.teachermanager.view.TeacherRoleGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",

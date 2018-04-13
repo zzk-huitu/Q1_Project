@@ -15,7 +15,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
     items: [{
     	xtype: "textfield",
     	fieldLabel: "主键",
-    	name: "uuid",
+    	name: "id",
     	hidden: true
     }, {
     	xtype: "textfield",
@@ -98,7 +98,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,        	
         	xtype: "textfield",
         	fieldLabel: "邮政编码",
-        	name: "zipCode",
+        	name: "mailCode",
         	emptyText: '邮政编码',
         	blankText: "邮政编码不能为空"
         }, {
@@ -170,12 +170,12 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,
         	xtype: "textfield",
         	fieldLabel: "校长工号",
-        	name: "schoolmasterId"
+        	name: "headMasterNum"
         }, {
         	columnWidth: 0.5,        	
         	xtype: "textfield",
         	fieldLabel: "校长姓名",
-        	name: "schoolmasterName",
+        	name: "headMasterName",
         	emptyText: '校长姓名',
         	blankText: "校长姓名不能为空"
         }]
@@ -186,7 +186,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,
         	xtype: "textfield",
         	fieldLabel: "党委负责人工号",
-        	name: "partyPersonId"
+        	name: "partyPersonNo"
         }, {
         	columnWidth: 0.5,
         	xtype: "textfield",
@@ -250,7 +250,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,
         	xtype: "basecombobox",
         	fieldLabel: "所在地城乡类型",
-        	name: "urbanRuralType",
+        	name: "cityAndCountryType",
         	ddCode: "SZDCXLX",
         	emptyText: '所在地城乡类型',
         	blankText: "所在地城乡类型不能为空"
@@ -270,7 +270,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,
         	xtype: "basecombobox",
         	fieldLabel: "所在地民族属性",
-        	name: "nationNature",
+        	name: "raceProperty",
         	emptyText: '请选择...',
         	blankText: '所在地民族属性',
         	ddCode:"SZDMZSX"
@@ -282,7 +282,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,
         	xtype: "basecombobox",
         	fieldLabel: "学制",
-        	name: "primaryLength",
+        	name: "eductionalSystme",
         	ddCode: "XZ",
         	emptyText: '学制',
         	blankText: "学制不能为空"
@@ -290,7 +290,7 @@ Ext.define("core.baseset.schoolinfo.view.DetailForm", {
         	columnWidth: 0.5,
         	xtype: "numberfield",
         	fieldLabel: "入学年龄",
-        	name: "primaryStartAge",
+        	name: "admissionAge",
         	emptyText: '入学年龄',
         	blankText: "入学年龄不能为空"
         }]

@@ -2,8 +2,8 @@ Ext.define("core.baseset.studentdorm.view.StudentDormTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.studentdorm.studentdormtree",
     displayField: "text",
-    model: "com.zd.school.plartform.comm.model.CommTree",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/classtreelist",
+    model: "com.yc.q1.pojo.base.pt.CommTree",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/classtreelist",
     extParams: {
         excludes: "checked",
         whereSql: ""

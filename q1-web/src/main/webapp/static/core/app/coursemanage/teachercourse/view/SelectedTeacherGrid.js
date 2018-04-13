@@ -2,7 +2,7 @@ Ext.define("core.coursemanage.teachercourse.view.SelectedTeacherGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias : "widget.coursemanage.teachercourse.selectedteachergrid",
 	//dataUrl: comm.get("baseUrl") + "/CourseTeacher/list", //数据获取地址
-	model: "com.zd.school.jw.arrangecourse.model.JwCourseteacher", //对应的数据模型
+	model: "com.yc.q1.model.base.pt.basic.PtCourseTeacher", //对应的数据模型
 	al:false,
 	noPagging: true,
 	remoteSort: false,
@@ -55,11 +55,11 @@ Ext.define("core.coursemanage.teachercourse.view.SelectedTeacherGrid", {
             align: 'center'
         },*/{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
 			text : "班级ID",
-			dataIndex : "claiId",
+			dataIndex : "classId",
 			hidden:true
 		},{
 			text : "课程ID",
@@ -67,7 +67,7 @@ Ext.define("core.coursemanage.teachercourse.view.SelectedTeacherGrid", {
 			hidden:true
 		},{
 			text : "教师ID",
-			dataIndex : "tteacId",
+			dataIndex : "teacherId",
 			hidden:true
 		},{
 			text: "学年",
@@ -88,7 +88,7 @@ Ext.define("core.coursemanage.teachercourse.view.SelectedTeacherGrid", {
 			minWidth:60,
 		},{
 			text : "教师",
-			dataIndex : "xm",
+			dataIndex : "name",
 			flex:1,
 			minWidth:60,
 		},{

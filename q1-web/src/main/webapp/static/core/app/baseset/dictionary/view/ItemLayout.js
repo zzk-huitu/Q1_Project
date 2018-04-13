@@ -4,10 +4,10 @@ Ext.define("core.baseset.dictionary.view.ItemLayout", {
 	funCode: "dicItem_main",
 	border: false,
 	funData: {
-		action: comm.get('baseUrl') + "/BaseDicitem", //请求Action
+		action: comm.get('baseUrl') + "/PtDataDictItem", //请求Action
 		whereSql: "", //表格查询条件
 		orderSql: "", //表格排序条件
-		pkName: "uuid",
+		pkName: "id",
 		defaultObj: {
 			orderIndex: 1
 		}

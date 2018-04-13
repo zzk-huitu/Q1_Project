@@ -1,9 +1,9 @@
 var isafgernoons = Ext.create('Ext.data.Store', {
     fields: ['isafgernoon', 'name'],
     data : [
-        {"isafgernoon":0, "name":"上午"},
-        {"isafgernoon":1, "name":"下午"},
-        {"isafgernoon":2, "name":"晚上"}
+        {"timeInterval":0, "name":"上午"},
+        {"timeInterval":1, "name":"下午"},
+        {"timeInterval":2, "name":"晚上"}
     ]
 })
 var needSignIn = Ext.create('Ext.data.Store', {
@@ -28,12 +28,12 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "textfield",
         fieldLabel: "校历ID",
-        name: "canderId",
+        name: "calenderId",
         hidden: true
     }, {
         xtype: "container",
@@ -42,7 +42,7 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
             columnWidth:0.5,
             xtype: "textfield",
             fieldLabel: "目录名称",
-            name: "canderName",
+            name: "calenderName",
             readOnly: true
         }, {
             columnWidth:0.5,
@@ -61,10 +61,10 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
             itemId:'isafgernoonCombo',
             store: isafgernoons,
             fieldLabel: "时辰",
-            name: "isafgernoon",
+            name: "timeInterval",
             queryMode: 'local',
             displayField: 'name',
-            valueField: 'isafgernoon',
+            valueField: 'timeInterval',
             value:0,
             editable:false
 
@@ -72,7 +72,7 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
             columnWidth: 0.5,
             xtype: "numberfield",
             fieldLabel: "第几节课",
-            name: "jcCode",
+            name: "sectionCode",
             maxValue:99,
             minValue:1,
             value:'',
@@ -86,7 +86,7 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             xtype: "textfield",
             fieldLabel: "节次名称",
-            name: "jcName",
+            name: "senctionName",
             allowBlank: false,
             emptyText: '节次名称',
             blankText: "节次名称不能为空",

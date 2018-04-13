@@ -81,7 +81,7 @@ public class PtStudentDorm extends BaseEntity implements Serializable {
 
 	@Formula("(SELECT A.name FROM dbo.T_PT_User A WHERE A.userId=studentId)")
 	// @FieldInfo(name = "姓名")
-	private String xm;
+	private String name;
 
 	// @FieldInfo(name = "性别码GB/T 2261.1")
 	@Formula("(SELECT A.sex FROM dbo.T_PT_User A WHERE A.userId=studentId)")
@@ -206,12 +206,12 @@ public class PtStudentDorm extends BaseEntity implements Serializable {
 		this.userNumb = userNumb;
 	}
 
-	public String getXm() {
-		return xm;
+	public String getName() {
+		return name;
 	}
 
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getSex() {

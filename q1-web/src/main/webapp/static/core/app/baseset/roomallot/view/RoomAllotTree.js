@@ -1,8 +1,8 @@
 Ext.define("core.baseset.roomallot.view.RoomAllotTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.roomallot.roomallottree",
-    dataUrl: comm.get('baseUrl') + "/BaseOfficeAllot/treelist",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtOfficeAllot/treelist",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     selModel: {},
     al: true,
     expandFirst:true,

@@ -2,8 +2,8 @@ Ext.define("core.baseset.studentdorm.view.DormAllotTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.baseset.studentdorm.dormallottree",
     displayField: "text",
-    model: "com.zd.school.plartform.comm.model.CommTree",
-    dataUrl: comm.get('baseUrl') + "/BaseStudentDorm/classtreelist",
+    model: "com.yc.q1.pojo.base.pt.CommTree",
+    dataUrl: comm.get('baseUrl') + "/PtStudentDorm/classtreelist",
     extParams: {
         excludes: "checked",
     },
@@ -47,7 +47,7 @@ Ext.define("core.baseset.studentdorm.view.DormAllotTree", {
      listeners: {
         itemclick: function(view, record, item, index, e) {
             var detailLayout = view.up("basepanel[xtype=baseset.studentdorm.dormallotLayout]");
-            var filter = "[{'type':'string','comparison':'=','value':'" + record.get("id") + "','field':'claiId'}]";
+            var filter = "[{'type':'string','comparison':'=','value':'" + record.get("id") + "','field':'claissd'}]";
             var funData = detailLayout.funData;
             detailLayout.funData = Ext.apply(funData, {
                 claiId: record.get("id"),
@@ -65,7 +65,7 @@ Ext.define("core.baseset.studentdorm.view.DormAllotTree", {
             var dormNotAllotGrid = detailLayout.down("basegrid[xtype=baseset.studentdorm.dormnotallotgrid]");
             var dormNotAllotGridstore = dormNotAllotGrid.getStore();
             var proxy2 = dormNotAllotGridstore.getProxy();
-            whereSql = " where studentId not in (select stuId from DormStudentDorm where isDelete=0) and claiId='" + record.get("id") + "' and isDelete=0";
+            whereSql = " where studentId not in (select studentId from PtStudentDorm where isDelete=0) and classId='" + record.get("id") + "' and isDelete=0";
             proxy2.extraParams = {
                // filter: filter,
                 whereSql: whereSql,

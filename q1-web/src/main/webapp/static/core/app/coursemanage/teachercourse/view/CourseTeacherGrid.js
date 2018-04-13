@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.teachercourse.view.CourseTeacherGrid", {
     extend: "core.base.view.BaseGrid",
 	alias: "widget.coursemanage.teachercourse.courseteachergrid",
-	dataUrl: comm.get("baseUrl") + "/TeacherBase/listCourseTeacher", //数据获取地址
-	model: "com.zd.school.teacher.teacherinfo.model.TeaTeacherbase", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtTeacherBaseInfo/listCourseTeacher", //数据获取地址
+	model: "com.yc.q1.model.base.pt.basic.PtTeacherBaseInfo", //对应的数据模型
 
 
     al:false,
@@ -53,7 +53,7 @@ Ext.define("core.coursemanage.teachercourse.view.CourseTeacherGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "工号",
@@ -61,11 +61,11 @@ Ext.define("core.coursemanage.teachercourse.view.CourseTeacherGrid", {
             flex:1,   
         }, {
             text: "姓名",
-            dataIndex: "xm",
+            dataIndex: "name",
             flex:1,   
         },{
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox", //列类型
             ddCode: "XBM", //字典代码 
             width:70  
