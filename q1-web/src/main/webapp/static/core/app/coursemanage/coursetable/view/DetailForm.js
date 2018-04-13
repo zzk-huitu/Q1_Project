@@ -4,13 +4,13 @@ Ext.define("core.coursemanage.coursetable.view.DetailForm", {
 
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     },{
         xtype: "textfield",
         fieldLabel: "班级ID",
-        name: "claiId",
+        name: "classId",
         hidden: true
     },{
         beforeLabelTextTpl: comm.get("required"),
@@ -24,15 +24,15 @@ Ext.define("core.coursemanage.coursetable.view.DetailForm", {
         rootId: "ROOT",
         configInfo: {
              multiSelect: false,
-             fieldInfo: "className~claiId,text~id",
+             fieldInfo: "className~classId,text~id",
              whereSql: " and isDelete='0' ",
              orderSql: " order by parentNode,orderIndex asc",
-             url: comm.get('baseUrl') + "/BaseStudentDorm/classtreelist",
+             url: comm.get('baseUrl') + "/PtStudentDorm/classtreelist",
            } 
     },{
         beforeLabelTextTpl: comm.get("required"),
         fieldLabel: '节次',
-        name: "teachTime",
+        name: "sections",
         xtype: 'numberfield',
         allowBlank: false,
         emptyText: '请输入节次(最大为9)',

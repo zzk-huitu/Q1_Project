@@ -17,8 +17,8 @@ Ext.define("core.coursemanage.funcroomcourse.view.MainLayout", {
     otherController:'coursemanage.funcroomcourse.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/FuncRoomCourse", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtFuncRoomCourse", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

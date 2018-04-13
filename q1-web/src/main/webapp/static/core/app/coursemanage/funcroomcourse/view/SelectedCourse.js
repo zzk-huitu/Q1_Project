@@ -15,7 +15,7 @@ Ext.define("core.coursemanage.funcroomcourse.view.SelectedCourse", {
 
     },
     defSort: [{
-        property: 'teachTime',
+        property: 'sections',
         direction: 'ASC'
     }],
     panelTopBar:{
@@ -42,7 +42,7 @@ Ext.define("core.coursemanage.funcroomcourse.view.SelectedCourse", {
             hidden: true
         },*/{
             text: "节次",
-            dataIndex: "teachTime",
+            dataIndex: "sections",
             width:100,
             renderer: function(value) {
                 return "第" + value + "节";

@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.coursetable.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.coursemanage.coursetable.maingrid",
-	dataUrl: comm.get("baseUrl") + "/CourseArrange/list", //数据获取地址
-	model: "com.zd.school.jw.arrangecourse.model.JwCourseArrange", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtCourseArrange/list", //数据获取地址
+	model: "com.yc.q1.model.base.pt.basic.PtCourseArrange", //对应的数据模型
 
     menuCode:"COURSETABLE",
 
@@ -83,10 +83,10 @@ Ext.define("core.coursemanage.coursetable.view.MainGrid", {
   
     },   
     defSort: [{
-        property: 'extField05',
+        property: 'isUse',
         direction: 'DESC'
     },{
-        property: 'teachTime',
+        property: 'sections',
         direction: 'ASC'
     }],
     panelButtomBar:{},
@@ -106,7 +106,7 @@ Ext.define("core.coursemanage.coursetable.view.MainGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "班级",
@@ -125,7 +125,7 @@ Ext.define("core.coursemanage.coursetable.view.MainGrid", {
             flex:1,   
         },*/{
             text: "节次",
-            dataIndex: "teachTime",
+            dataIndex: "sections",
             width:70,
             renderer: function(value) {
                 return "第"+value+"节";
@@ -161,7 +161,7 @@ Ext.define("core.coursemanage.coursetable.view.MainGrid", {
             width:150,
         },{
             text:"是否启用",
-            dataIndex:'extField05',
+            dataIndex:'isUse',
             width:100,
             renderer: function(value) {
                 return (value == '1') ? '<font color=green>已启用</font>' : '<font color=red>未启用</font>';

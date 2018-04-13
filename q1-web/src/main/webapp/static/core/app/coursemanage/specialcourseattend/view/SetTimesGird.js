@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.specialcourseattend.view.SetTimesGird", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.coursemanage.specialcourseattend.settimesgird",
-    model: "com.zd.school.oa.attendance.model.AttTime",
-    dataUrl: comm.get("baseUrl") + "/AttendTime/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.wisdomclass.PtAttendTime",
+    dataUrl: comm.get("baseUrl") + "/PtAttendTime/list", //数据获取地址
     //title:"绑定费率的设备",
     al:false,
     tbar: [{
@@ -39,7 +39,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.SetTimesGird", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",
@@ -97,7 +97,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.SetTimesGird", {
             }
         }, {
             text: "节次",
-            dataIndex: "teachTime",
+            dataIndex: "period",
             width:100,
         }]
     },

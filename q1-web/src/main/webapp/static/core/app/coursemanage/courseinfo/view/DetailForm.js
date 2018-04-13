@@ -9,7 +9,7 @@ Ext.define("core.coursemanage.courseinfo.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
@@ -73,7 +73,7 @@ Ext.define("core.coursemanage.courseinfo.view.DetailForm", {
         ddCode: "SKFS"
     },{
         fieldLabel: "课程简介",
-        name: "courseDesc",
+        name: "courseExplain",
         xtype: "textarea",
         emptyText: "请输入课程简介",
         maxLength: 512,

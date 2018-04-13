@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.specialcourseattend.view.UserAttendGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.coursemanage.specialcourseattend.userattendgrid",
-    model: 'com.zd.school.plartform.system.model.SysUser',
-    dataUrl: comm.get("baseUrl") + "/AttUser/userAttendlist", //数据获取地址
+    model: 'com.yc.q1.model.base.pt.system.PtUser',
+    dataUrl: comm.get("baseUrl") + "/PtAttendUser/userAttendlist", //数据获取地址
     //title:"绑定费率的设备",
     al:false,
     tbar: [{
@@ -34,7 +34,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.UserAttendGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",
@@ -51,7 +51,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.UserAttendGrid", {
             flex:1,
             minWidth:100,
             text: "姓名",
-            dataIndex: "xm"
+            dataIndex: "name"
         },{
             flex:1,
             minWidth:100,
@@ -60,7 +60,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.UserAttendGrid", {
         },  {
             width:50,
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM"
         }, {

@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.funcroomcourse.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.coursemanage.funcroomcourse.maingrid",
-	dataUrl: comm.get("baseUrl") + "/FuncRoomCourse/list", //数据获取地址
-	model: "com.zd.school.jw.arrangecourse.model.JwFuncroomcourse", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtFuncRoomCourse/list", //数据获取地址
+	model: "com.yc.q1.model.base.pt.basic.PtFuncRoomCourse", //对应的数据模型
 
     menuCode:"FUNCROOMCOURSE",
 
@@ -51,10 +51,7 @@ Ext.define("core.coursemanage.funcroomcourse.view.MainGrid", {
   
     },   
     defSort: [{
-        property: 'extField05',
-        direction: 'DESC'
-    },{
-        property: 'teachTime',
+        property: 'sections',
         direction: 'ASC'
     }],
     panelButtomBar:{},
@@ -75,11 +72,11 @@ Ext.define("core.coursemanage.funcroomcourse.view.MainGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "节次",
-            dataIndex: "teachTime",
+            dataIndex: "sections",
             width:100,
             renderer: function(value) {
                 return "第"+value+"节";

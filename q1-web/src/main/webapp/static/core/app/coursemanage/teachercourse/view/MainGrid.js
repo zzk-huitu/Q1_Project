@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.teachercourse.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.coursemanage.teachercourse.maingrid",
-	dataUrl: comm.get("baseUrl") + "/CourseTeacher/list", //数据获取地址
-	model: "com.zd.school.jw.arrangecourse.model.JwCourseteacher", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtCourseTeacher/list", //数据获取地址
+	model: "com.yc.q1.model.base.pt.basic.PtCourseTeacher", //对应的数据模型
 
     menuCode:"TEACHERCOURSE",
 
@@ -35,7 +35,7 @@ Ext.define("core.coursemanage.teachercourse.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'xm',
+            name:'name',
             funCode: 'girdFastSearchText',
             emptyText: '请输入教师名称'
         },{
@@ -78,15 +78,15 @@ Ext.define("core.coursemanage.teachercourse.view.MainGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "老师主键",
-            dataIndex: "tteacId",
+            dataIndex: "teacherId",
             hidden: true
         }, {
             text: "年级ID",
-            dataIndex: "graiId",
+            dataIndex: "gradeId",
             hidden: true
         }, {
             text: "学年",
@@ -108,7 +108,7 @@ Ext.define("core.coursemanage.teachercourse.view.MainGrid", {
             flex:1,
         }, {
             text: "教师",
-            dataIndex: "xm",
+            dataIndex: "name",
             flex:1,
             renderer: function(v,metaData,record) {
                 if (v) {
@@ -119,7 +119,7 @@ Ext.define("core.coursemanage.teachercourse.view.MainGrid", {
             }
         }, {
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox", //列类型
             ddCode: "XBM", //字典代码
             width:70   

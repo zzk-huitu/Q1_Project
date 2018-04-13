@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.specialcourseattend.view.SetTermsGird", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.coursemanage.specialcourseattend.settermsgird",
-    model: 'com.zd.school.oa.terminal.model.OaInfoterm',
-    dataUrl: comm.get("baseUrl") + "/AttendTerm/termAttendlist", //数据获取地址
+    model: 'com.yc.q1.model.base.pt.basic.PtInfoTerminal',
+    dataUrl: comm.get("baseUrl") + "/PtAttendTerm/termAttendlist", //数据获取地址
     //title:"绑定费率的设备",
     al:false,
     tbar: [{
@@ -34,7 +34,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.SetTermsGird", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",
@@ -48,21 +48,21 @@ Ext.define("core.coursemanage.specialcourseattend.view.SetTermsGird", {
             flex:1,
         }, {
             text: "终端号",
-            dataIndex: "termCode",
+            dataIndex: "terminalNo",
             flex:1,
         },{
             text: "终端类型",
-            dataIndex: "termType",
+            dataIndex: "terminalType",
             flex:1,
             columnType: "basecombobox", //列类型
             ddCode: "INFOTERTYPE", //字典代码
         },{
             text: "规格",
-            dataIndex: "termSpec",
+            dataIndex: "terminalSpec",
             flex:1,
         },{
             text: "门牌号",
-            dataIndex: "houseNumb",
+            dataIndex: "houseNo",
             flex:1,
         },{
             text: "使用状态",

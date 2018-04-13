@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.funcroomcourse.view.MainTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.coursemanage.funcroomcourse.maintree",
-    model:"com.zd.school.plartform.comm.model.CommTree",
-    dataUrl:comm.get('baseUrl') + "/FuncRoomCourse/treelist",
+    model:"com.yc.q1.pojo.base.pt.CommTree",
+    dataUrl:comm.get('baseUrl') + "/PtFuncRoomCourse/treelist",
     expandFirst:true,
     selModel: {},
     sortableColumns:false,

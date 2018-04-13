@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.teachercourse.view.DeptCourseTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.coursemanage.teachercourse.deptcoursetree",
-    model:" com.zd.school.plartform.comm.model.CommTree",
-    dataUrl:comm.get('baseUrl') + "/CourseTeacher/disciplineTreeList",
+    model:"com.yc.q1.pojo.base.pt.CommTree",
+    dataUrl:comm.get('baseUrl') + "/PtCourseTeacher/disciplineTreeList",
     expandFirst:true,
     selModel: {},
     sortableColumns:false,

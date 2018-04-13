@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.specialcourseattend.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.coursemanage.specialcourseattend.maingrid",
-    dataUrl: comm.get("baseUrl") + "/AttendTitle/list", //数据获取地址
-    model: "com.zd.school.oa.attendance.model.AttTitle", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtAttendTheme/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.wisdomclass.PtAttendTheme", //对应的数据模型
     menuCode:"SPECIAL_COURSEATTEND",
 
     panelTopBar:{
@@ -33,7 +33,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'titleName',
+            name:'themeName',
             funCode: 'girdFastSearchText',
             emptyText: '请输入主题名称'
         },{
@@ -63,11 +63,11 @@ Ext.define("core.coursemanage.specialcourseattend.view.MainGrid", {
             align : 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "主题名称",
-            dataIndex: "titleName",
+            dataIndex: "themeName",
             flex:1,
         },   {
             text: "发布时间",

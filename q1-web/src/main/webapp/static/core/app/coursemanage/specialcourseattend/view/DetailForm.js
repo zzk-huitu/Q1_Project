@@ -9,7 +9,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.DetailForm", {
     },
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
@@ -17,7 +17,7 @@ Ext.define("core.coursemanage.specialcourseattend.view.DetailForm", {
         allowBlank: false,
         blankText: "考勤主题不能为空",
         fieldLabel: "考勤主题",
-        name: "titleName",
+        name: "themeName",
         xtype: "textfield",
         emptyText: "请输入考勤主题",
         maxLength:36,
