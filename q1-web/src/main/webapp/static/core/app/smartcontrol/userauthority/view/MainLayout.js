@@ -17,8 +17,8 @@ Ext.define("core.smartcontrol.userauthority.view.MainLayout", {
     otherController:'smartcontrol.userauthority.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/MjUserright", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/MjUserRight", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

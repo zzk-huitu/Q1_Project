@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.climatecontrol.view.MainTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.smartcontrol.climatecontrol.maintree",
-    model:" com.zd.school.plartform.comm.model.CommTree",
-    dataUrl:comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
+    model:"com.yc.q1.pojo.base.pt.CommTree",
+    dataUrl:comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
     expandFirst:true,
     selModel: {},
     sortableColumns:false,

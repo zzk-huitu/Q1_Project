@@ -2,8 +2,8 @@ Ext.define("core.smartcontrol.useraccess.view.MjUserrightGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.useraccess.mjuserrightgrid",
     al: false,
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/list",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     pageDisplayInfo:false,
     menuCode:"USERACCESS",
     selModel: {
@@ -63,7 +63,7 @@ Ext.define("core.smartcontrol.useraccess.view.MjUserrightGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",
@@ -82,7 +82,7 @@ Ext.define("core.smartcontrol.useraccess.view.MjUserrightGrid", {
             minWidth:80,
         }, {
             text: "设备类型",
-            dataIndex: "termTypeID",
+            dataIndex: "termTypeId",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE", //字典代码
             flex:1,
@@ -146,7 +146,7 @@ Ext.define("core.smartcontrol.useraccess.view.MjUserrightGrid", {
             var baseGrid = mainlayout.down('panel[xtype=smartcontrol.useraccess.maingrid]');
             var stores = baseGrid.getStore();
             var proxys = stores.getProxy();
-            var filter = "[{'type':'string','comparison':'in','value':'"+uuid +"','field':'termId'}]";
+            var filter = "[{'type':'string','comparison':'in','value':'"+id +"','field':'termId'}]";
             proxys.extraParams = {
                  filter: filter
             };

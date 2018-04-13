@@ -1,14 +1,14 @@
 Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.watermeter.devicegrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/list",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
     pageDisplayInfo:false,  //不显示分页数据信息
     frame: false,
     columnLines: false,
     extParams: {
-        filter:'[{"type":"string","value":"8","field":"termTypeID","comparison":"="}]'
+        filter:'[{"type":"string","value":"8","field":"termTypeId","comparison":"="}]'
     },
     panelTopBar:{
         xtype:'toolbar',
@@ -26,7 +26,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
         },{
             xtype:'textfield',
             width:100,
-            name:'termSN',
+            name:'termSn',
             dataType:'string',
             funCode:'girdFastSearchText', 
             emptyText: '请输入序列号'
@@ -57,7 +57,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             flex:1,
@@ -74,7 +74,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
             flex:1,
             minWidth:80,
             text: "序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             renderer: function(value, metaData) {
                 var title = "序列号";
                 var html = value;
@@ -85,7 +85,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
             flex:1,
             minWidth:80,
             text: "设备类型",
-            dataIndex: "termTypeID",
+            dataIndex: "termTypeId",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE" //字典代码
         },{
@@ -93,7 +93,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
             minWidth:80,
             text: "费率",
             renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
-                var termTypeID= record.get("termTypeID");
+                var termTypeID= record.get("termTypeId");
                 if(termTypeID=="9"){
                     value=record.get("dkprice");
                 }
@@ -129,7 +129,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceGrid", {
                     
                     var isSelectStore = isSelectGrid.getStore();
                     for (var i = 0; i < isSelectStore.getCount(); i++) {
-                        if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                        if (data.id == isSelectStore.getAt(i).get('id')) {
                             Ext.Msg.alert("提示", data.termName+"已存在!");
                             return ;
                         }

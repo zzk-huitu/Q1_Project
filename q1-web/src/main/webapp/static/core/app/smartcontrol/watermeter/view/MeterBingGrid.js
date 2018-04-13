@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.watermeter.view.MeterBingGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.watermeter.meterbinggrid",
-    model: 'com.zd.school.control.device.model.PtTerm',
-    dataUrl: comm.get('baseUrl') + "/BasePtSkMeterbind/meterBingTermlist",
+    model: 'com.yc.q1.model.base.pt.device.PtTerm',
+    dataUrl: comm.get('baseUrl') + "/SkMeterBind/meterBingTermlist",
     //title:"绑定费率的设备",
     al:false,
     tbar: [{
@@ -30,7 +30,7 @@ Ext.define("core.smartcontrol.watermeter.view.MeterBingGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",
@@ -44,7 +44,7 @@ Ext.define("core.smartcontrol.watermeter.view.MeterBingGrid", {
             flex:1,
         }, {
             text: "设备序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             flex:1,
         },{
             text: "设备名称",

@@ -1,9 +1,9 @@
 Ext.define("core.smartcontrol.roombagrule.view.DormAllotFinishGridTwo", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.roombagrule.dormallotfinishgridtwo",
-     dataUrl: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/assignUserList",
+     dataUrl: comm.get('baseUrl') + "/PtRoomBagRuleBind/assignUserList",
     //title: "指定扣费人员列表",
-    model: "com.zd.school.control.device.model.PtRoomBagsRuleBind",
+    model: "com.yc.q1.model.base.pt.device.PtRoomBagRuleBind",
     al: false,
     extParams: {
         whereSql: "  and isDelete='0'",
@@ -38,7 +38,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DormAllotFinishGridTwo", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "用户id",
@@ -51,7 +51,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DormAllotFinishGridTwo", {
         minWidth:80,
     }, {
         text: "姓名",
-        dataIndex: "xm",
+        dataIndex: "name",
         flex:1,
         minWidth:80,
     },{

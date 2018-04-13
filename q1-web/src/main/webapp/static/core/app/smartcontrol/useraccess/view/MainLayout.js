@@ -16,8 +16,8 @@ Ext.define("core.smartcontrol.useraccess.view.MainLayout", {
     layout:'border',
     border:false,
     funData: {
-        action: comm.get('baseUrl') + "/BaseMjUserright", //请求Action 
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/MjUserRight", //请求Action 
+        pkName: "id",
         defaultObj: {},
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
         	addTitle:'添加计量',

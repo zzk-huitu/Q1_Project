@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.useraccess.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.useraccess.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BaseMjUserright/list",
-    model: "com.zd.school.control.device.model.MjUserright",
+    dataUrl: comm.get('baseUrl') + "/MjUserRight/list",
+    model: "com.yc.q1.model.base.mj.MjUserRight",
     al:false,
     pageDisplayInfo:false,
     menuCode:"USERACCESS",
@@ -45,11 +45,11 @@ Ext.define("core.smartcontrol.useraccess.view.MainGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
         	text: "角色名",
-        	dataIndex: "xm",
+        	dataIndex: "name",
         	flex:1,
             minWidth:100,
         },{

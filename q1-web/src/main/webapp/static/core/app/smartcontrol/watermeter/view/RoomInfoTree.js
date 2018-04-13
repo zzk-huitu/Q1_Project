@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.watermeter.view.RoomInfoTree", {
 	extend: "core.base.view.BaseTreeGrid",
     alias: "widget.smartcontrol.watermeter.roominfotree",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
-    model: "com.zd.school.plartform.comm.model.CommTree",
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
+    model: "com.yc.q1.pojo.base.pt.CommTree",
     al: true,
     expandFirst:true,
     forceFit:true,
@@ -60,7 +60,7 @@ Ext.define("core.smartcontrol.watermeter.view.RoomInfoTree", {
             var filter=new Array();
             filter.push({"type": "string", "value": "8", "field": "termTypeID", "comparison": "="})
             if(girdSearchTexts[0].getValue()){
-                filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "termSN", "comparison": ""})
+                filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "termSn", "comparison": ""})
             }
             filter = JSON.stringify(filter);
              //获取点击树节点的参数

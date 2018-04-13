@@ -4,12 +4,12 @@ Ext.define("core.smartcontrol.watermeter.view.DetailForm", {
 
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     }, {
         fieldLabel: "班级ID",
-        name: "claiId",
+        name: "classId",
         hidden: true
     },{
         xtype:'container',

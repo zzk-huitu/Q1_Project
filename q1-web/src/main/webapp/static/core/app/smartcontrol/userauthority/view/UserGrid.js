@@ -2,8 +2,8 @@ Ext.define("core.smartcontrol.userauthority.view.UserGrid", {
     extend: "core.base.view.BaseGrid",
 	alias: "widget.smartcontrol.userauthority.usergrid",
 	//dataUrl: comm.get('baseUrl') + "/teacherBase/list",
-    dataUrl: comm.get('baseUrl') + "/SysUser/list",
-	model: factory.ModelFactory.getModelByName("com.zd.school.plartform.system.model.SysUser", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtUser/list",
+	model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtUser", "checked").modelName,
 	al: false,
     pageDisplayInfo:false,
 	multiSelect: true,
@@ -13,7 +13,7 @@ Ext.define("core.smartcontrol.userauthority.view.UserGrid", {
         property: 'userNumb',
         direction: 'ASC'
     }, {
-        property: 'xm',
+        property: 'name',
         direction: 'ASC'
     }],
     extParams: {
@@ -35,7 +35,7 @@ Ext.define("core.smartcontrol.userauthority.view.UserGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'xm',
+            name:'name',
             funCode: 'girdFastSearchText',
             emptyText: '请输入姓名'
         },{
@@ -57,7 +57,7 @@ Ext.define("core.smartcontrol.userauthority.view.UserGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	}, {
     		text: "编号",
@@ -66,12 +66,12 @@ Ext.define("core.smartcontrol.userauthority.view.UserGrid", {
     		minWidth:80
     	}, {
     		text: "姓名",
-    		dataIndex: "xm",
+    		dataIndex: "name",
     		flex:1,
             minWidth:80
     	}, {
     		text: "性别",
-    		dataIndex: "xbm",
+    		dataIndex: "sex",
     		columnType: "basecombobox",
     		ddCode: "XBM",
     		flex:1,

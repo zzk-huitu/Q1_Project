@@ -2,8 +2,8 @@ Ext.define("core.smartcontrol.roombagrule.view.DormAllotFinishGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.roombagrule.dormallotfinishgrid",
     //title: "平均扣费人员列表",
-    dataUrl: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/userList",
-    model: "com.zd.school.build.allot.model.DormStudentDorm",
+    dataUrl: comm.get('baseUrl') + "/PtRoomBagRuleBind/userList",
+    model: "com.yc.q1.model.base.pt.build.PtStudentDorm",
     extParams: {
         whereSql: "  and isDelete='0'",
     },
@@ -33,7 +33,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DormAllotFinishGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "学生学号",
@@ -42,7 +42,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DormAllotFinishGrid", {
         minWidth:80,
     }, {
         text: "学生姓名",
-        dataIndex: "xm",
+        dataIndex: "name",
         flex:1,
         minWidth:80,
     },{

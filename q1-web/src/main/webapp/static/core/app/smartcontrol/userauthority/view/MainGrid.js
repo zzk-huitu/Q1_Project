@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.userauthority.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.smartcontrol.userauthority.maingrid",
-	dataUrl: comm.get("baseUrl") + "/BaseMjUserright/mjrightlist", //数据获取地址
-	model:"com.zd.school.control.device.model.MjUserright", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/MjUserRyight/mjrightlist", //数据获取地址
+	model:"com.yc.q1.model.base.mj.MjUserRight", //对应的数据模型
     menuCode:"USER_ACCESS_CONTROL",
     al: false,
     pageDisplayInfo:false,
@@ -54,15 +54,15 @@ Ext.define("core.smartcontrol.userauthority.view.MainGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "用户ID",
-        dataIndex: "user_ID",
+        dataIndex: "userId",
         hidden: true
     },{
         text: "用户姓名",
-        dataIndex: "xm",
+        dataIndex: "name",
         minWidth:80,
         flex:0.8,
     },{
@@ -77,7 +77,7 @@ Ext.define("core.smartcontrol.userauthority.view.MainGrid", {
         flex:0.8,
     },{
         text: "设备序列号",
-        dataIndex: "termSN",
+        dataIndex: "termSn",
         minWidth:120,
         flex:1,
     }]

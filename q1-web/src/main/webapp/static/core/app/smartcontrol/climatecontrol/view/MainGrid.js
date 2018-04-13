@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.climatecontrol.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.smartcontrol.climatecontrol.maingrid",
-	dataUrl: comm.get("baseUrl") + "/BasePtIrRoomDevice/list", //数据获取地址
-	model: "com.zd.school.control.device.model.PtIrRoomDevice", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtIrRoomDevice/list", //数据获取地址
+	model: "com.yc.q1.model.base.pt.device.PtIrRoomDevice", //对应的数据模型
 
     menuCode:"CLIMATE_CONTROL",
 
@@ -77,7 +77,7 @@ Ext.define("core.smartcontrol.climatecontrol.view.MainGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "房间名称",
@@ -86,7 +86,7 @@ Ext.define("core.smartcontrol.climatecontrol.view.MainGrid", {
             minWidth:100,
         },{
             text: "品牌名称",
-            dataIndex: "brandname",
+            dataIndex: "brandName",
             flex:1,
             minWidth:100,
             renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {

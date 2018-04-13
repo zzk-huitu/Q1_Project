@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.useraccess.view.UserAccessGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.useraccess.useraccessgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseMjUserright/list",
-    model: "com.zd.school.control.device.model.MjUserright",
+    dataUrl: comm.get('baseUrl') + "/MjUserRight/list",
+    model: "com.yc.q1.model.base.mj.MjUserRight",
     panelTopBar:{
         xtype:'toolbar',
         items: [{
@@ -27,7 +27,7 @@ Ext.define("core.smartcontrol.useraccess.view.UserAccessGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "设备主键",
@@ -35,7 +35,7 @@ Ext.define("core.smartcontrol.useraccess.view.UserAccessGrid", {
             hidden: true,
         },{
             text: "用户姓名",
-            dataIndex: "xm",
+            dataIndex: "roomName",
             minWidth:100,
             flex:1
         },{
@@ -45,7 +45,7 @@ Ext.define("core.smartcontrol.useraccess.view.UserAccessGrid", {
             flex:1
         },{
             text: "人员主键",
-            dataIndex: "stuId",
+            dataIndex: "userId",
             hidden: true,
         },{
             text: "设备名称",
