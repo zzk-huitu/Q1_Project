@@ -213,7 +213,7 @@ Ext.define("core.basedevice.basegateway.view.BaseAndHighForm", {
             configInfo: {
                 width:1250,
                 height:600,
-                fieldInfo: "gatewayIds~gatewayNames,uuid~gatewayName",
+                fieldInfo: "gatewayIds~gatewayNames,id~gatewayName",
                 whereSql: " and isDelete='0' ",
                 //orderSql: " order by jobCode ",
                 muiltSelect: true //是否多选

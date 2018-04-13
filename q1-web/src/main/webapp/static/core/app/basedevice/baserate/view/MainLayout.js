@@ -23,7 +23,7 @@ Ext.define("core.basedevice.baserate.view.MainLayout", {
     border:false,
     funData: {
         action: comm.get('baseUrl') + "/BasePriceDefine", //请求Action 
-        pkName: "uuid",
+        pkName: "id",
         categroy:"",
         defaultObj: {},
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据

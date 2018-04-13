@@ -15,8 +15,8 @@ Ext.define("core.basedevice.basedeviceallot.view.MainLayout", {
     otherController:'basedevice.basedeviceallot.othercontroller',
     border:false,
     funData: {
-        action: comm.get('baseUrl') + "/BasePtTerm", //请求Action 
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtTerm", //请求Action 
+        pkName: "id",
         defaultObj: {},
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
         	addTitle:'分配设备',

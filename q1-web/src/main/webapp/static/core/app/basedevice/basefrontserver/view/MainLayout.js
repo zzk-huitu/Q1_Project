@@ -15,8 +15,8 @@ Ext.define("core.basedevice.basefrontserver.view.MainLayout", {
     detCode: 'basefrontserver_detail',
     detLayout: 'basedevice.basefrontserver.detaillayout',
     funData: {
-        action: comm.get('baseUrl') + "/BaseFrontServer", //请求Action
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtFrontServer", //请求Action
+        pkName: "id",
         defaultObj: {
             frontServerStatus: 0
         },

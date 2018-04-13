@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.basedeviceallot.deviceallotgrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/getNoAllotList",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/getNoAllotList",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:true,
     pageDisplayInfo:false,  //不显示分页数据信息
     frame: false,
@@ -58,7 +58,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             flex:1,
@@ -108,7 +108,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotGrid", {
             flex:1,
             minWidth:80,
             text: "设备类型",
-            dataIndex: "termTypeID",
+            dataIndex: "termTypeId",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE" //字典代码
         }]
@@ -143,7 +143,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotGrid", {
                 if(isSelectGrid.isVisible()==true){
                     var isSelectStore = isSelectGrid.getStore();
                     for (var i = 0; i < isSelectStore.getCount(); i++) {
-                        if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                        if (data.id == isSelectStore.getAt(i).get('id')) {
                             Ext.Msg.alert("提示", data.termName+"已存在!");
                             return false;
                         }

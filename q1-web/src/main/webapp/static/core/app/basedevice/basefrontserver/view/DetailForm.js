@@ -17,7 +17,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "container",
@@ -87,7 +87,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
             xtype: "textarea",
             fieldLabel: "备注",
             maxLength: 500,
-            name: "notes",
+            name: "frontServerNotes",
             
      }]
 });

@@ -18,7 +18,7 @@ Ext.define("core.basedevice.basegateway.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, /*{
         xtype: "textfield",
@@ -58,9 +58,9 @@ Ext.define("core.basedevice.basegateway.view.DetailForm", {
                 //model:'core.good.signup.model.SignupGridModel',
             },
             fieldLabel: "综合前置",
-            name: "frontserverId",
+            name: "frontServerId",
             displayField: 'frontServerName',
-            valueField: 'uuid',
+            valueField: 'id',
             allowBlank: false,
             blankText: "综合前置为空",
            

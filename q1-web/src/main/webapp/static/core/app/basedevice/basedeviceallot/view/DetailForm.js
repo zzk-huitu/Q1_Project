@@ -17,7 +17,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         beforeLabelTextTpl: comm.get('required'),
@@ -36,7 +36,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DetailForm", {
         configInfo: {
             multiSelect: false,
             fieldInfo: "roomName~roomId,text~id",
-            url: comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
+            url: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
         }
     }, {
         xtype: "textfield",
