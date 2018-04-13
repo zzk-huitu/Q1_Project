@@ -17,8 +17,8 @@ Ext.define("core.smartcontrol.watermeter.view.MainLayout", {
     otherController:'smartcontrol.watermeter.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BasePtSkMeter", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/SkMeter", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

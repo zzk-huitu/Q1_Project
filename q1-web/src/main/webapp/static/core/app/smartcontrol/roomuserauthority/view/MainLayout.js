@@ -17,8 +17,8 @@ Ext.define("core.smartcontrol.roomuserauthority.view.MainLayout", {
     otherController:'smartcontrol.roomuserauthority.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/MjUserright", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/MjUserRight", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.watermeter.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.smartcontrol.watermeter.maingrid",
-	dataUrl: comm.get("baseUrl") + "/BasePtSkMeter/list", //数据获取地址
-	model: "com.zd.school.control.device.model.PtSkMeter", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/SkMeter/list", //数据获取地址
+	model: "com.yc.q1.model.base.sk.SkMeter", //对应的数据模型
     menuCode:"WATER_METER",
 	//工具栏操作按钮
     panelTopBar:{
@@ -57,7 +57,7 @@ Ext.define("core.smartcontrol.watermeter.view.MainGrid", {
             align: 'center'
         },{
     		text: "主键",
-    		dataIndex: "uuid",
+    		dataIndex: "id",
     		hidden: true
     	},{
             text: "计量数（脉冲数/升）",

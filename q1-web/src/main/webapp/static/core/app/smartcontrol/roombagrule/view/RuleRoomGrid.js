@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.roombagrule.view.RuleRoomGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.roombagrule.ruleroomgrid",
-    model: 'com.zd.school.build.define.model.BuildRoominfo',
-    dataUrl: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/ruleRoomlist",
+    model: 'com.yc.q1.model.base.pt.build.PtRoomInfo',
+    dataUrl: comm.get('baseUrl') + "/PtRoomBagRuleBind/ruleRoomlist",
     //title:"绑定费率的设备",
     al:false,
     tbar: [{
@@ -30,7 +30,7 @@ Ext.define("core.smartcontrol.roombagrule.view.RuleRoomGrid", {
         },
         items:[{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             xtype: "rownumberer",
@@ -50,7 +50,7 @@ Ext.define("core.smartcontrol.roombagrule.view.RuleRoomGrid", {
             ddCode: "FJLX" //字典代码
         },{
             text: "房间编号",
-            dataIndex: "extField01",
+            dataIndex: "houseNo01",
             flex:1,
         },{
             text: "区域名称",
@@ -80,7 +80,7 @@ Ext.define("core.smartcontrol.roombagrule.view.RuleRoomGrid", {
           }
       },{
             text: "是否多媒体教室",
-            dataIndex: "ismediaroom",
+            dataIndex: "isMediaRoom",
             flex:1,
             renderer: function(value) {
                 switch (value) {

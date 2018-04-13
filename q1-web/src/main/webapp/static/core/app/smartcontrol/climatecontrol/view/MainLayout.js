@@ -17,14 +17,14 @@ Ext.define("core.smartcontrol.climatecontrol.view.MainLayout", {
     otherController:'smartcontrol.climatecontrol.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BasePtIrRoomDevice", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtIrRoomDevice", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },
        // whereSql:" where isDelete=0",
 	    tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
-            titleField:'brandname',   //指定这个模块，主表格界面的名称的字段名，用于显示在tab标签页上面
+            titleField:'brandName',   //指定这个模块，主表格界面的名称的字段名，用于显示在tab标签页上面
             addTitle:'',
             editTitle:'',
             detailTitle:'',

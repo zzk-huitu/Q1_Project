@@ -1,5 +1,17 @@
 package com.yc.q1.controller.baseset;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.annotation.Auth;
 import com.yc.q1.core.constant.Constant;
@@ -11,16 +23,6 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.RoomAreaTree;
 import com.yc.q1.service.base.pt.build.PtRoomAreaService;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 
 /**
  * 建筑物

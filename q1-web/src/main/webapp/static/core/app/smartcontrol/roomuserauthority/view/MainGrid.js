@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.roomuserauthority.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.roomuserauthority.maingrid",
-    dataUrl: comm.get("baseUrl") + "/BaseMjUserright/roomUserRightList", //数据获取地址
-    model:"com.zd.school.control.device.model.MjUserright", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/MjUserRight/roomUserRightList", //数据获取地址
+    model:"com.yc.q1.model.base.mj.MjUserRight", //对应的数据模型
     menuCode:"ROOM_ACCESS_CONTROL",
     al: false,
     //pageDisplayInfo:false,
@@ -22,7 +22,7 @@ Ext.define("core.smartcontrol.roomuserauthority.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'xm',
+            name:'name',
             funCode: 'girdFastSearchText',
             emptyText: '请输入姓名'
         },{
@@ -58,15 +58,15 @@ Ext.define("core.smartcontrol.roomuserauthority.view.MainGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "用户ID",
-        dataIndex: "user_ID",
+        dataIndex: "userId",
         hidden: true
     },{
         text: "用户姓名",
-        dataIndex: "xm",
+        dataIndex: "name",
         minWidth:100,
         flex:1,
     },{

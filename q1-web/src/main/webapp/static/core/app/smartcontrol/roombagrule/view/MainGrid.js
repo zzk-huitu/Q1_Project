@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.smartcontrol.roombagrule.maingrid",
-	dataUrl: comm.get("baseUrl") + "/BasePtRoomBagRule/list", //数据获取地址
-	model:"com.zd.school.control.device.model.PtRoomBagRule", //对应的数据模型
+	dataUrl: comm.get("baseUrl") + "/PtRoomBagRule/list", //数据获取地址
+	model:"com.yc.q1.model.base.pt.device.PtRoomBagRule", //对应的数据模型
     menuCode:"ROOM_BAG_RULE",
 	//工具栏操作按钮
     panelTopBar:{
@@ -70,7 +70,7 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "房间规则名称",
@@ -79,7 +79,7 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             minWidth:120,
         },{
             text: "允许关电开始时间",
-            dataIndex: "shutDownStart",
+            dataIndex: "allowOffStartTime",
             width:150,      
             renderer: function(v) {
                 if (v.trim() != "") {
@@ -89,7 +89,7 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             }
         }, {
             text: "允许关电结束时间",
-            dataIndex: "shutDownEnd",
+            dataIndex: "allowOffEndTime",
             width:150,
             renderer: function(v) {
                 if (v.trim() != "") {
@@ -106,19 +106,19 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             ddCode: "WYEKZFS" //字典代码
         }, {
             text: "报警金额",
-            dataIndex: "warnvalue",
+            dataIndex: "warnValue",
             flex:0.8,
             minWidth:80,
         }, {
             text: "扣费模式",
-            dataIndex: "deDuctionMode",
+            dataIndex: "deductionMode",
             flex:0.8,
             minWidth:80,
             columnType: "basecombobox", //列类型
             ddCode: "KFMS" //字典代码
         }, {
             text: "扣费金额",
-            dataIndex: "deDuctionValue",
+            dataIndex: "deductionValue",
             flex:0.8,
             minWidth:80,
         }, {

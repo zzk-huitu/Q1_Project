@@ -17,8 +17,8 @@ Ext.define("core.smartcontrol.roombagrule.view.MainLayout", {
     otherController:'smartcontrol.roombagrule.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/BasePtRoomBagRule", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/PtRoomBagRule", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

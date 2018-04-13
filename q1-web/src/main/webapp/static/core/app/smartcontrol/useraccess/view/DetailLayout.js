@@ -3,8 +3,8 @@ Ext.define("core.smartcontrol.useraccess.view.DetailLayout",{
 	alias : 'widget.smartcontrol.useraccess.detaillayout',
 	funCode:"useraccess_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/BaseMjUserright", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/MjUserRight", //请求Action
+		pkName: "id",
 		defaultObj: {
 		}
 	},

@@ -5,8 +5,8 @@ Ext.define("core.smartcontrol.roombagrule.view.BindDetailLayout", {
     alias: 'widget.smartcontrol.roombagrule.binddetaillayout',
     funCode: "roombagrule_binddetail",
     funData: {
-        action: comm.get('baseUrl') + "/BasePtRoomBagRule", //请求Action  
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtRoomBagRule", //请求Action  
+        pkName: "id",
         defaultObj: {
         }
     },

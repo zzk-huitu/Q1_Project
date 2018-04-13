@@ -13,8 +13,8 @@ Ext.define("core.smartcontrol.watermeter.view.DetailHtml", {
             '<div class="trainClass_classInfo">',
             '<div class="trainClass_title">基本信息：</div>',
             '<ul>' ,
-            '<li style="width:50%" title="{roomRuleName}">计量数（脉冲数/升）：{measure}</li>',
-            '<li style="width:50%" title="{shutDownStart}">备注：{notes}</li>',        
+            '<li style="width:50%" title="{measure}">计量数（脉冲数/升）：{measure}</li>',
+            '<li style="width:50%" title="{notes}">备注：{notes}</li>',        
             '<div style="clear:both"></div>',
             '</ul>',
             '</div>'

@@ -5,8 +5,8 @@ Ext.define("core.smartcontrol.watermeter.view.BindDetailLayout", {
     alias: 'widget.smartcontrol.watermeter.binddetaillayout',
     funCode: "watermeter_binddetail",
     funData: {
-        action: comm.get('baseUrl') + "/BasePtRoomBagRule", //请求Action  
-        pkName: "uuid",
+        action: comm.get('baseUrl') + "/PtRoomBagRule", //请求Action  
+        pkName: "id",
         defaultObj: {
         }
     },

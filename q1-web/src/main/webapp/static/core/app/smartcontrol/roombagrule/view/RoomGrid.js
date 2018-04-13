@@ -1,8 +1,8 @@
 Ext.define("core.smartcontrol.roombagrule.view.RoomGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.smartcontrol.roombagrule.roomgrid",
-    dataUrl: comm.get('baseUrl') + "/BaseRoominfo/list",
-    model: "com.zd.school.build.define.model.BuildRoominfo",
+    dataUrl: comm.get('baseUrl') + "/PtRoomInfo/list",
+    model: "com.yc.q1.model.base.pt.build.PtRoomInfo",
     extParams: {
         filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'areaId'},{'type':'string','comparison':'=','value':'0','field':'roomType'}]",
     },

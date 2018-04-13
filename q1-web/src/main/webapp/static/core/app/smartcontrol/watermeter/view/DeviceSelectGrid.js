@@ -33,7 +33,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceSelectGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "设备名称",
@@ -42,12 +42,12 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceSelectGrid", {
             flex:1
         },{
             text: "序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             minWidth:80,
             flex:1
         },  {
             text: "设备类型",
-            dataIndex: "termTypeID",
+            dataIndex: "termTypeId",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE", //字典代码
             minWidth:80,
@@ -78,7 +78,7 @@ Ext.define("core.smartcontrol.watermeter.view.DeviceSelectGrid", {
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;

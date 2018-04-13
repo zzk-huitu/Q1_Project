@@ -20,7 +20,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
 
     items: [{
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         xtype: "textfield",
         hidden: true
     },  {
@@ -43,7 +43,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
         anchor: '100%',
         invalidText: "时间格式不正确，例如：00:00",
         fieldLabel: "允许关电开始时间",
-        name: "shutDownStart",
+        name: "allowOffStartTime",
         allowBlank: false,
         editable:false,
         blankText: "允许关电开始时间不能为空"
@@ -58,7 +58,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
         anchor: '100%',
         invalidText: "时间格式不正确，例如：00:00",
         fieldLabel: "允许关电结束时间",
-        name: "shutDownEnd",
+        name: "allowOffEndTime",
         allowBlank: false,
         editable:false,
         blankText: "允许关电结束时间不能为空"
@@ -76,14 +76,14 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
         xtype: "basecombobox",
         ddCode: "KFMS",
         value: '1',
-        name: 'deDuctionMode',
+        name: 'deductionMode',
         fieldLabel: "扣费模式",
         emptyText: '请选择...',
         editable: false,
     }, {
         beforeLabelTextTpl: comm.get('required'),
         fieldLabel: "报警金额",
-        name: "warnvalue",
+        name: "warnValue",
         value: 100,
         xtype: "numberfield",
         allowDecimals: true,
@@ -91,7 +91,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
         beforeLabelTextTpl: comm.get('required'),
         fieldLabel: "扣费金额",
         value: 5,
-        name: "deDuctionValue",
+        name: "deductionValue",
         xtype: "numberfield",
         allowDecimals: true,
     }, {
