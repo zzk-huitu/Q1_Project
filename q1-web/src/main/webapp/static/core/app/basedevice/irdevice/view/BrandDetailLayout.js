@@ -3,11 +3,11 @@ Ext.define("core.basedevice.irdevice.view.BrandDetailLayout", {
 	alias: 'widget.basedevice.irdevice.branddetaillayout',
 	funCode: "irdevice_branddetaillayout",
 	funData: {
-		action: comm.get('baseUrl') + "/BasePtIrDeviceBrand", //请求Action
+		action: comm.get('baseUrl') + "/PtIrDeviceBrand", //请求Action
         whereSql: "", //表格查询条件
 		whereSql: "", //表格查询条件
 		orderSql: "", //表格排序条件
-		pkName: "uuid",
+		pkName: "id",
 		defaultObj: {
 			orderIndex: 1,
 		}

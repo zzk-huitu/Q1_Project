@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.baserate.view.RoominfoTree", {
 	extend: "core.base.view.BaseTreeGrid",
     alias: "widget.basedevice.baserate.roominfotree",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree",
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     al: true,
     expandFirst:true,
     sortableColumns:false,
@@ -53,9 +53,9 @@ Ext.define("core.basedevice.baserate.view.RoominfoTree", {
             var categroy = baseformwin.categroy;
             var filter=new Array();
             if(categroy==0){//水控
-                filter.push({"type": "string", "value":"8", "field": "termTypeID", "comparison": "="})
+                filter.push({"type": "string", "value":"8", "field": "termTypeId", "comparison": "="})
             }else if(categroy==1){//电控
-                filter.push({"type": "string", "value": "9", "field": "termTypeID", "comparison": "="})
+                filter.push({"type": "string", "value": "9", "field": "termTypeId", "comparison": "="})
             }
             if(filter.length==0)
                 filter=null;

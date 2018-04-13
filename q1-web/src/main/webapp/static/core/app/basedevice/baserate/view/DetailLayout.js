@@ -4,7 +4,7 @@ Ext.define("core.basedevice.baserate.view.DetailLayout",{
 	funCode:"baserate_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/BasePriceDefine", //请求Action
-		pkName: "uuid",
+		pkName: "id",
 		defaultObj: {
 		}
 	},

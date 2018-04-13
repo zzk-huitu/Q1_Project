@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.irdevice.view.IrBrandTreeGrid", {
 	extend: "core.base.view.BaseTreeGrid",
     alias: "widget.basedevice.irdevice.irbrandtreegrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrDeviceBrand/treelist",
-    model: "com.zd.school.plartform.comm.model.CommTree",
+    dataUrl: comm.get('baseUrl') + "/PtIrDeviceBrand/treelist",
+    model: "com.yc.q1.pojo.base.pt.CommTree",
     selModel: {
       
     },

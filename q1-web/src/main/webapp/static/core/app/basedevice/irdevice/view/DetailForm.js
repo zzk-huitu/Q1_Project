@@ -10,7 +10,7 @@ Ext.define("core.basedevice.irdevice.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     },{
         xtype: "textfield",
@@ -26,14 +26,14 @@ Ext.define("core.basedevice.irdevice.view.DetailForm", {
         columnWidth: .5,
         beforeLabelTextTpl: comm.get("required"),
         fieldLabel: "所属品牌",
-        name: "brandname",
+        name: "brandName",
         allowBlank: false,
         xtype: "basetreefield",
         rootId: "ROOT",
         configInfo: {
             multiSelect: false,
-            fieldInfo: "brandname~parentNode,text~id",
-            url: comm.get('baseUrl') + "/BasePtIrDeviceBrand/treelist",
+            fieldInfo: "brandName~parentNode,text~id",
+            url: comm.get('baseUrl') + "/PtIrDeviceBrand/treelist",
         }
     }, {
         beforeLabelTextTpl: comm.get('required'),

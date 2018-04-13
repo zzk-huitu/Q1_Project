@@ -4,5 +4,5 @@ Ext.define("core.basedevice.baserate.store.IsSelectStore",{
     alias: 'store.basedevice.baserate.isselectstore',
 
  
-    model: factory.ModelFactory.getModelByName("com.zd.school.control.device.model.PtTerm", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.device.PtTerm", "checked").modelName,
 });

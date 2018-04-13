@@ -10,7 +10,7 @@ Ext.define("core.basedevice.measurement.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     },{
     	xtype: "container",

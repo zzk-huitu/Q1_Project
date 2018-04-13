@@ -2,7 +2,7 @@ Ext.define("core.basedevice.baserate.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.baserate.maingrid",
     dataUrl: comm.get('baseUrl') + "/BasePriceDefine/list",
-    model: 'com.zd.school.build.define.model.SkPriceDefine',
+    model: 'com.yc.q1.model.base.sk.SkPriceDefine',
     al:false,
     menuCode:"BASERATE",
     panelTopBar:{
@@ -79,7 +79,7 @@ Ext.define("core.basedevice.baserate.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "名称",

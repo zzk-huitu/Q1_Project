@@ -4,7 +4,7 @@ Ext.define("core.basedevice.smartdevice.view.DetailLayout",{
 	funCode:"smartdevice_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtTerm", //请求Action
-		pkName: "uuid",
+		pkName: "id",
 		defaultObj: {
 		// 	 actBegin: new Date(),
 		// 	 signBeing:new Date()

@@ -16,9 +16,9 @@ Ext.define("core.basedevice.smartdevice.view.DetailForm", {
     }, {
         beforeLabelTextTpl: comm.get('required'),
         xtype: "combobox",
-        name: "gatewayID",
+        name: "gatewayId",
         displayField: 'gatewayName',
-        valueField: 'uuid',
+        valueField: 'id',
         allowBlank: false,
         fieldLabel: "网关",
         emptyText: '请选择...',
@@ -36,7 +36,7 @@ Ext.define("core.basedevice.smartdevice.view.DetailForm", {
         xtype: "textfield",
         fieldLabel: "设备类型",
         emptyText: '设备类型',
-        name: "termTypeID",
+        name: "termTypeId",
         columnType: "basecombobox", //列类型
         ddCode: "PTTERMTYPE", //字典代码
         readOnly:true

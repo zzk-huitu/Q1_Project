@@ -16,7 +16,6 @@ import com.yc.q1.core.annotation.Auth;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
-import com.yc.q1.core.util.BeanUtils;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtUser;

@@ -25,7 +25,7 @@ Ext.define("core.basedevice.baserate.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     },{
     	xtype: "container",

@@ -1,8 +1,8 @@
 Ext.define("core.basedevice.baserate.view.SkDataGrid", {
 	extend: "core.base.view.BaseGrid",
     alias: "widget.basedevice.baserate.skdatagrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/list",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     extParams: {
         whereSql: " where termTypeID=8"
     },
@@ -24,7 +24,7 @@ Ext.define("core.basedevice.baserate.view.SkDataGrid", {
     pageDisplayInfo:false,
     columns: [{
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "设备名称",
@@ -38,7 +38,7 @@ Ext.define("core.basedevice.baserate.view.SkDataGrid", {
         minWidth:100
     }, {
         text: "设备类型",
-        dataIndex: "termTypeID",
+        dataIndex: "termTypeId",
         columnType: "basecombobox", //列类型
         ddCode: "PTTERMTYPE", //字典代码
         width:80
@@ -47,9 +47,9 @@ Ext.define("core.basedevice.baserate.view.SkDataGrid", {
         dataIndex: "price",
         width:80,
         renderer:function(value,matedate,record){
-            if(record.get("termTypeID")==8){
+            if(record.get("termTypeId")==8){
               return record.get("skprice");
-            }else if(record.get("termTypeID")==9){
+            }else if(record.get("termTypeId")==9){
               return record.get("dkprice");
           }
 
@@ -73,7 +73,7 @@ Ext.define("core.basedevice.baserate.view.SkDataGrid", {
                     isSelectGrid = basePanel.down("panel[xtype=basedevice.baserate.skdatagridtwo]");
                     var isSelectStore = isSelectGrid.getStore();
                     for (var i = 0; i < isSelectStore.getCount(); i++) {
-                        if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                        if (data.id == isSelectStore.getAt(i).get('id')) {
                             Ext.Msg.alert("提示", "该设备已存在选中列表，请勿重复操作");
                             return;
                         }
