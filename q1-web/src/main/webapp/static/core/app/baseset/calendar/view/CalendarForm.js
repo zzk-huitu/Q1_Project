@@ -34,13 +34,22 @@ Ext.define("core.baseset.calendar.view.CalendarForm", {
 		funcPanel: "baseset.campus.mainlayout", //该功能显示的主视图
 		funcTitle: "所属校区", //查询窗口的标题
 		configInfo: {
-			fieldInfo: "campusId~campusName,uuid~campusName",
+			fieldInfo: "campusId~campusName,id~campusName",
 			whereSql: " and isDelete='0' ",
 			width :850,
 			height:500,
 			muiltSelect: false //是否多选
 		}
 	}, {
+		beforeLabelTextTpl: comm.get('required'),
+        xtype: "basecombobox",
+        fieldLabel: "学段",
+        name: "sectionCode",
+        ddCode: "RKXD",
+        allowBlank: false,
+        emptyText: '请选择学段',
+        blankText: "学段不能为空",
+	},{
 		fieldLabel: "生效时间",
 		name: "activityTime",
 		xtype: "datefield",

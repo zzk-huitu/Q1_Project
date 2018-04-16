@@ -40,7 +40,7 @@ public class PtDataDictServiceImpl extends BaseServiceImpl<PtDataDict> implement
     @Override
     public List<DataDictTree> getDicTreeList(String whereSql) {
 
-        String hql = "from DataDict where 1=1 " + whereSql + " order by orderIndex asc ";
+        String hql = "from PtDataDict where 1=1 " + whereSql + " order by orderIndex asc ";
         List<PtDataDict> lists = this.queryByHql(hql);// 执行查询方法
         List<DataDictTree> result = new ArrayList<DataDictTree>();
 
@@ -82,7 +82,6 @@ public class PtDataDictServiceImpl extends BaseServiceImpl<PtDataDict> implement
 		 //当前节点
         PtDataDict saveEntity = new PtDataDict();
         List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("id");
 		entity.setId(keyRedisService.getId(PtDataDict.ModuleType));
 		try {
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);

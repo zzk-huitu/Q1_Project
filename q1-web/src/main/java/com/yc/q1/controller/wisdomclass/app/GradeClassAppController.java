@@ -244,7 +244,7 @@ public class GradeClassAppController extends BaseController<PtGradeClass> {
 						if (calenderdetail.getEndTime() != null) {
 							String tE = DateUtil.formatDate(calenderdetail.getEndTime(), "HH:mm:ss");
 							if (DateUtil.isInZone(DateUtil.getLong(tS), DateUtil.getLong(tE), DateUtil.getCurrentTime())) {
-								teachTime = calenderdetail.getSenctionCode(); 
+								teachTime = calenderdetail.getSectionCode(); 
 								break;
 							}
 						}

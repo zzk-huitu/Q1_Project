@@ -429,7 +429,7 @@ public class CourseArrangeAppController extends FrameWorkController<PtCourseArra
 			
 			//获取jcCode字段不为空的数据
 			List<PtCalenderDetail> canderDetilListed = canderDetilList.stream()
-					.filter(x->StringUtils.isNotEmpty(x.getSenctionCode()))
+					.filter(x->StringUtils.isNotEmpty(x.getSectionCode()))
 					.collect(Collectors.toList());			
 //			List<JwCalenderdetail> canderDetilListed = new ArrayList<JwCalenderdetail>();
 //			for (JwCalenderdetail jtc : canderDetilList) {
@@ -451,9 +451,9 @@ public class CourseArrangeAppController extends FrameWorkController<PtCourseArra
 				JKCourse jc = new JKCourse();
 				boolean flag = false;
 				for (PtCourseArrange tempJta : jtaList) {
-					if (tempJtc.getSenctionCode().equals(tempJta.getSections())) {
-						jc.setTeachTime(tempJtc.getSenctionCode());
-						jc.setJcName(tempJtc.getSenctionName());
+					if (tempJtc.getSectionCode().equals(tempJta.getSections())) {
+						jc.setTeachTime(tempJtc.getSectionCode());
+						jc.setJcName(tempJtc.getSectionName());
 						jc.setBeginTime(simpl.format(tempJtc.getBeginTime()));
 						jc.setEndTime(simpl.format(tempJtc.getEndTime()));
 						jc.setNeedSignIn(tempJtc.getNeedSignIn());
@@ -567,7 +567,7 @@ public class CourseArrangeAppController extends FrameWorkController<PtCourseArra
 			
 			//获取jcCode字段不为空的数据
 			List<PtCalenderDetail> canderDetilListed = canderDetilList.stream()
-					.filter(x->StringUtils.isNotEmpty(x.getSenctionCode()))
+					.filter(x->StringUtils.isNotEmpty(x.getSectionCode()))
 					.collect(Collectors.toList());			
 			// 数据处理
 //			List<JwCalenderdetail> canderDetilListed = new ArrayList<JwCalenderdetail>();
@@ -586,8 +586,8 @@ public class CourseArrangeAppController extends FrameWorkController<PtCourseArra
 				JKCourse jc = new JKCourse();
 				boolean flag = false;
 				for (PtFuncRoomCourse tempJta : jtaList) {
-					if (tempJtc.getSenctionCode().equals(tempJta.getSections())) {
-						jc.setJcName(tempJtc.getSenctionName());
+					if (tempJtc.getSectionCode().equals(tempJta.getSections())) {
+						jc.setJcName(tempJtc.getSectionName());
 						jc.setBeginTime(simpl.format(tempJtc.getBeginTime()));
 						jc.setEndTime(simpl.format(tempJtc.getEndTime()));
 						jc.setNeedSignIn(tempJtc.getNeedSignIn());

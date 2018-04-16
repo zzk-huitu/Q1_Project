@@ -911,8 +911,8 @@ public class BaseServiceImpl<E> implements BaseService<E> {
 		// TODO Auto-generated method stub
 		try {
 			// 先拿到已持久化的实体
-			String uuid = (String) entity.getClass().getMethod("getUuid").invoke(entity);
-			E saveEntity = this.get(uuid);
+			String id = (String) entity.getClass().getMethod("getId").invoke(entity);
+			E saveEntity = this.get(id);
 			
 			if(excludedProp==null)
 				BeanUtils.copyPropertiesExceptNull(saveEntity, entity);

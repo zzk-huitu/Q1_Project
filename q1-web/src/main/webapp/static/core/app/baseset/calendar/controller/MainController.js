@@ -113,8 +113,8 @@ Ext.define("core.baseset.calendar.controller.MainController", {
         var calendargrid = basePanel.down("basegrid[xtype=baseset.calendar.calendargrid]");
         //得到配置信息
         var funData = basePanel.funData;                //主界面的配置信息  
-        var canderId = funData.canderId;
-        var canderName = funData.canderName;
+        var calenderId = funData.calenderId;
+        var calenderName = funData.calenderName;
         var activityState = funData.activityState;
         var campusName = funData.campusName;
         var pkName=funData.pkName;
@@ -243,9 +243,9 @@ Ext.define("core.baseset.calendar.controller.MainController", {
                 
                 insertObj.beginTime = Ext.util.Format.date(insertObj.beginTime, 'H:i');
                 insertObj.endTime = Ext.util.Format.date(insertObj.endTime, 'H:i');
-                insertObj.canderName = canderName;
+                insertObj.calenderName = calenderName;
                 insertObj.campusName = campusName;
-                insertObj.canderId = canderId;
+                insertObj.calenderId = calenderId;
 
                 //处理打开界面之后，显示的初始数据
                 var objDetForm = item.down("baseform[funCode=" + detCode + "]");
@@ -287,7 +287,7 @@ Ext.define("core.baseset.calendar.controller.MainController", {
         
         //设置window的参数
         var width = 450;
-        var height = 250;
+        var height = 280;
         var iconCls= 'x-fa fa-plus-circle';
         var winTitle = "添加作息时间目录";
         var recordData=null;
@@ -390,14 +390,14 @@ Ext.define("core.baseset.calendar.controller.MainController", {
         //得到配置信息
         var funData = basePanel.funData;
         var pkName = funData.pkName;
-        var canderId = funData.canderId;
+        var calenderId = funData.calenderId;
         var activityState = funData.activityState;
-        if (Ext.isEmpty(canderId)) {
+        if (Ext.isEmpty(calenderId)) {
             self.msgbox("请选择作息时间!");
             return;
         }
         if (activityState == "1") {
-            if (Ext.isEmpty(canderId)) {
+            if (Ext.isEmpty(calenderId)) {
                 self.msgbox("不能删除已生效的作息时间的节次信息!");
                 return;
             }
@@ -538,7 +538,7 @@ Ext.define("core.baseset.calendar.controller.MainController", {
                 if (btn == 'yes') {
                     var loading = self.LoadMask(basegrid);
                     self.asyncAjax({
-                        url: comm.get('baseUrl') + "/BaseCalender/doUpdateState", 
+                        url: comm.get('baseUrl') + "/PtCalender/doUpdateState", 
                         params: {
                          ids: ids.join(","),
                          campusNames: campusNames.join(",")
@@ -674,8 +674,8 @@ Ext.define("core.baseset.calendar.controller.MainController", {
         var basePanel = grid.up("basepanel");
         var funData = basePanel.funData;
         Ext.apply(funData, {
-            canderId: record.get("id"),
-            canderName: record.get("calendarName"),
+            calenderId: record.get("id"),
+            calenderName: record.get("calenderName"),
             activityState: record.get("activityState"),
             campusName: record.get("campusName")
         });
@@ -690,7 +690,7 @@ Ext.define("core.baseset.calendar.controller.MainController", {
        var store = mainGrid.getStore();
        var proxy = store.getProxy();
 
-       proxy.extraParams.filter='[{"type":"string","value":"'+record.get("id")+'","field":"calendarId","comparison":""}]';
+       proxy.extraParams.filter='[{"type":"string","value":"'+record.get("id")+'","field":"calenderId","comparison":""}]';
        store.load();
     },
 

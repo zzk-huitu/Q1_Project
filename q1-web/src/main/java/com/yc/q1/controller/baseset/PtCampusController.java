@@ -112,7 +112,7 @@ public class PtCampusController extends FrameWorkController<PtCampus> implements
 		} else
 			defaultOrderIndex = 0;
 		*/
-        String hql1 = "select max(o.orderIndex) from Campus o where  o.isDelete='0' and o.schoolId='"
+        String hql1 = "select max(o.orderIndex) from PtCampus o where o.isDelete='0' and o.schoolId='"
 				+ schoolId + "'";
         defaultOrderIndex = thisService.getEntityByHql(hql1);
         if(defaultOrderIndex!=null)

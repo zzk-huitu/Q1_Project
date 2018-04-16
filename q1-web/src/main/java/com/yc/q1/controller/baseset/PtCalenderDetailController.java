@@ -181,7 +181,7 @@ public class PtCalenderDetailController extends FrameWorkController<PtCalenderDe
 		String title = request.getParameter("campusName");
 
 		List<PtCalenderDetail> jwCalenderdetailList = null;
-		String hql = " from CalenderDetail where isDelete=0 ";
+		String hql = " from PtCalenderDetail where isDelete=0 ";
 		if (StringUtils.isNotEmpty(canderId)) {
 			hql +="and calenderId ='" + canderId+"'";
 		}
@@ -206,7 +206,7 @@ public class PtCalenderDetailController extends FrameWorkController<PtCalenderDe
 				timeQuantum= "晚上";
 			}
 			jwCalenderMap.put("timeQuantum", timeQuantum);
-			jwCalenderMap.put("jcName", jwCalenderdetail.getSenctionName());
+			jwCalenderMap.put("jcName", jwCalenderdetail.getSectionName());
 //			String beginTime = DateUtil.formatDateTime(jwCalenderdetail.getBeginTime());
 			jwCalenderMap.put("beginTime", (jwCalenderdetail.getBeginTime()==null)?"":DateUtil.formatDateTime(jwCalenderdetail.getBeginTime()).substring(11,16));
 			jwCalenderMap.put("endTime", (jwCalenderdetail.getEndTime()==null)?"":DateUtil.formatDateTime(jwCalenderdetail.getEndTime()).substring(11,16));

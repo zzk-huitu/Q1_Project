@@ -30,7 +30,7 @@ Ext.define("core.base.view.form.BaseComboBox",{
 		var self=this;
 		var ddCode=this.ddCode;
 		var store=Ext.create("Ext.data.Store",{
-			fields:factory.ModelFactory.getFields({modelName:"com.zd.school.plartform.baseset.model.BaseDicitem",excludes:""}),
+			fields:factory.ModelFactory.getFields({modelName:"com.yc.q1.model.base.pt.system.PtDataDictItem",excludes:""}),
 			data:factory.DDCache.getItemByDDCode(ddCode)
 		});
 		//将数据字典数据赋值到组件属性上

@@ -19,7 +19,7 @@ Ext.define("factory.DDCache",{
 			if(!this.ddItems.containsKey(ddCode)){
 				//发送ajax去加载
 				Ext.Ajax.request({
-						url: comm.get('baseUrl') + '/BaseDicitem/getDicItemByDicCode',
+						url: comm.get('baseUrl') + '/PtDataDictItem/getDicItemByDicCode',
 						method:'POST',
 						params:params,
 						timeout:4000,
