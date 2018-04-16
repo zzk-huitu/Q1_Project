@@ -1,6 +1,5 @@
 package com.yc.q1.core.security;
 
-import java.util.Arrays;
 import java.util.Date;
 
 import javax.annotation.Resource;

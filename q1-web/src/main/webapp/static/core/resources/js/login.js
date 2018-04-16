@@ -112,7 +112,7 @@ function login() {
                                 //$("#loginMsk").fadeOut();
                             } else if (returninfo == -2) {
                                 //jAlert("密码错误", "提示");
-                                layer.alert( '密码错误',{title:'提示',icon: 2,closeBtn:0});
+                                layer.alert( '用户名或密码错误',{title:'提示',icon: 2,closeBtn:0});
                                 //$("#loginMsk").fadeOut();
                             } else {
                                 //jAlert("服务器错误", "提示");
