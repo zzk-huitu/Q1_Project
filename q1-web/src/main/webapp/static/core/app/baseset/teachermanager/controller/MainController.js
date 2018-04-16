@@ -212,13 +212,13 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/SysUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'&category='+1+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'&category='+1+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/SysUser/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtUser/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {
@@ -427,7 +427,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
 
                         /*读取此用户的角色列表*/
                         self.asyncAjax({
-                            url: comm.get('baseUrl') + "/SysUser/userRoleList",
+                            url: comm.get('baseUrl') + "/PtUser/userRoleList",
                             params: {
                                 page: 1,
                                 start: 0,
@@ -467,7 +467,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                 setTimeout(function(){
                 //异步ajax加载
                 Ext.Ajax.request({
-                    url: comm.get('baseUrl') + "/SysUser/doSyncAllUserInfoToUp",
+                    url: comm.get('baseUrl') + "/PtUser/doSyncAllUserInfoToUp",
                     params: { },
                     timeout:1000*60*60*10,     //10个小时
                     success: function(response){
@@ -686,7 +686,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
     getRightDeptIds:function(){
         var self=this;
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/SysOrg/getUserRightDeptIds",
+            url: comm.get('baseUrl') + "/PtDeparment/getUserRightDeptIds",
             params: {},
             //回调代码必须写在里面
             success: function(response) {

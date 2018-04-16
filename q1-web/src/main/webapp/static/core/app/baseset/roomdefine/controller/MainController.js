@@ -147,11 +147,11 @@ Ext.define("core.baseset.roomdefine.controller.MainController", {
                 } 
                 recordData = Ext.apply(recordData,{
                     dormType: resObj.obj.dormType,
-                    dormBedCount: resObj.obj.dormBedCount,
-                    dormChestCount: resObj.obj.dormChestCount,
+                    dormBedCount: resObj.obj.bedCount,
+                    dormChestCount: resObj.obj.sarkCount,
                     dormPhone: resObj.obj.dormPhone,
                     dormFax: resObj.obj.dormFax,
-                    dormTypeLb:resObj.obj.dormTypeLb,
+                    dormTypeLb:resObj.obj.dormCategory,
                 }); 
                //获取名称
                 var titleName = recordData[tabConfig.titleField]; 
@@ -268,7 +268,7 @@ Ext.define("core.baseset.roomdefine.controller.MainController", {
                     var dormBaseContainer = tabItem.down("container[ref=dormBaseInfo]");
                     dormBaseContainer.setData(insertObj);
                     self.asyncAjax({
-                        url: comm.get("baseUrl") + "/BaseRoomdefine/getDormEntity",
+                        url: comm.get("baseUrl") + "/PtRoomInfo/getDormEntity",
                         params: {
                             page: 1,
                             start: 0,
@@ -318,7 +318,7 @@ Ext.define("core.baseset.roomdefine.controller.MainController", {
               var ids = new Array();
               var names = new Array();
               Ext.each(records, function(rec) {
-                var pkValue = rec.get("uuid");
+                var pkValue = rec.get("id");
                 var name = rec.get("roomName");
                 ids.push(pkValue);
                 names.push(name);

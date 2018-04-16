@@ -45,7 +45,7 @@ Ext.define("core.baseset.roomallot.controller.OtherController", {
 	        var loading = self.LoadMask(win);
 
 	        self.asyncAjax({
-	        	url: comm.get('baseUrl') + "/BaseOfficeAllot/doAdd",
+	        	url: comm.get('baseUrl') + "/PtOfficeAllot/doAdd",
 	        	params: {
 	        		tteacId: uuid.join(","),
 	        		roomId: roomId

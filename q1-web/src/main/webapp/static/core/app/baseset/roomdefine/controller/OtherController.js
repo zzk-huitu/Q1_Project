@@ -63,7 +63,7 @@ Ext.define("core.baseset.roomdefine.controller.OtherController", {
                 return;
             }
         }
-        var uuid = selectObject[0].get("uuid");
+        var uuid = selectObject[0].get("id");
         params.uuid = uuid; 
         params.areaId = areaId;//树的id
         params.roomName = roomName;
