@@ -3,7 +3,7 @@ Ext.define("core.reportcenter.taskdetail.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.taskdetail.maingrid",
     dataUrl: comm.get('baseUrl') + "/PtTask/list",
-    model: "com.zd.school.ykt.model.PtTask",
+    model: "com.yc.q1.model.storage.pt.PtTask",
     menuCode:"TASK_DETAIL", //new：此表格与权限相关的菜单编码
     panelTopBar:{
         xtype:'toolbar',
@@ -28,7 +28,7 @@ Ext.define("core.reportcenter.taskdetail.view.MainGrid", {
         }, {
             xtype:'basecombobox',
             ddCode: "TASKTYPE",
-            name:'tasktype',
+            name:'taskType',
             funCode: 'girdFastSearchText',
             emptyText: '请输入任务类型'
         }, {
@@ -67,32 +67,32 @@ Ext.define("core.reportcenter.taskdetail.view.MainGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             text: "任务编号",
-            dataIndex: "taskno",
+            dataIndex: "taskNo",
             flex:1,
             minWidth:120
         },{
             text: "任务日期",
-            dataIndex: "taskdate",
+            dataIndex: "taskDate",
             width:150,
         },{
             text: "任务类型",
-            dataIndex: "tasktype",
+            dataIndex: "taskType",
             columnType: "basecombobox", //列类型
             ddCode: "TASKTYPE", //字典代码
             width:120,
         },{
             text: "设备类型",
-            dataIndex: "devicetype",
+            dataIndex: "termType",
             columnType: "basecombobox", //列类型
             ddCode: "PTTERMTYPE",//字典代码
             width:150,
         },{
             text: "设备序列号",
-            dataIndex: "termsn",
+            dataIndex: "termSn",
             width:120,
         },{
             text: "设备序名称",
@@ -100,33 +100,33 @@ Ext.define("core.reportcenter.taskdetail.view.MainGrid", {
             width:120,
         },{
             text: "重试次数",
-            dataIndex: "retrycount",
+            dataIndex: "retryCount",
             width:120,
         },{
             text: "执行次数",
-            dataIndex: "executecount",
+            dataIndex: "executeCount",
             width:120,
         },{
             text: "执行时间",
-            dataIndex: "executetime",
+            dataIndex: "executeTime",
             width:150,
         },{
             text: "执行结果",
-            dataIndex: "executeresult",
+            dataIndex: "executeResult",
             width:120,
             renderer:function(v){
                return v==true?"<font color=green>成功</font>":"<font color=red>失败</font>"
            }
        },{
         text: "任务是否结束",
-        dataIndex: "istaskover",
+        dataIndex: "isTaskOver",
         width:120,
         renderer:function(v){
            return v==true?"<font color=green>是</font>":"<font color=red>否</font>"
        }
     },{
         text: "结果消息",
-        dataIndex: "resultmsg",
+        dataIndex: "resultMsg",
         width:120,
         renderer: function(value,metaData) {  
             var title=" 结果消息 ";

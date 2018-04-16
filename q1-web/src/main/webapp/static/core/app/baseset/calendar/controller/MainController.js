@@ -471,7 +471,7 @@ Ext.define("core.baseset.calendar.controller.MainController", {
                 if (btn == 'yes') {
                     var loading = self.LoadMask(baseGrid);
                     self.asyncAjax({
-                        url: comm.get('baseUrl') + "/BaseCalender/doDelete", 
+                        url: comm.get('baseUrl') + "/PtCalender/doDelete", 
                         params: {
                             ids: ids.join(","),
                            
@@ -514,14 +514,14 @@ Ext.define("core.baseset.calendar.controller.MainController", {
                return;
             }
             if(records.length==1){
-                ids.push(records[0].get('uuid'));
+                ids.push(records[0].get('id'));
                 campusNames.push(records[0].get('campusName'));
             }else{
                 var count = records.length;
                 for(var i=0; i<records.length;i++){
                    var campusName = records[i].get('campusName');
                    if(campusNames.indexOf(campusName)==-1){//不存在相同的
-                      ids.push(records[i].get('uuid'));
+                      ids.push(records[i].get('id'));
                       campusNames.push(campusName);
                    }
 
@@ -577,8 +577,8 @@ Ext.define("core.baseset.calendar.controller.MainController", {
         	self.Warning("请选择一个作息时间表!");
             return;
         }
-        var canderId = records[0].data.uuid;
-        var canderName = records[0].data.canderName;
+        var canderId = records[0].data.id;
+        var canderName = records[0].data.calenderName;
         var campusName = records[0].data.campusName;
         var title = "确定要导出作息时间吗？";
         Ext.Msg.confirm('提示', title, function (btn, text) {
@@ -589,13 +589,13 @@ Ext.define("core.baseset.calendar.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/BaseCalenderdetail/doExportExcel?canderId='+canderId+"&canderName="+canderName+"&campusName="+campusName+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtCalenderdetail/doExportExcel?canderId='+canderId+"&canderName="+canderName+"&campusName="+campusName+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/BaseCalenderdetail/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtCalenderdetail/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {
@@ -674,8 +674,8 @@ Ext.define("core.baseset.calendar.controller.MainController", {
         var basePanel = grid.up("basepanel");
         var funData = basePanel.funData;
         Ext.apply(funData, {
-            canderId: record.get("uuid"),
-            canderName: record.get("canderName"),
+            canderId: record.get("id"),
+            canderName: record.get("calendarName"),
             activityState: record.get("activityState"),
             campusName: record.get("campusName")
         });
@@ -690,7 +690,7 @@ Ext.define("core.baseset.calendar.controller.MainController", {
        var store = mainGrid.getStore();
        var proxy = store.getProxy();
 
-       proxy.extraParams.filter='[{"type":"string","value":"'+record.get("uuid")+'","field":"canderId","comparison":""}]';
+       proxy.extraParams.filter='[{"type":"string","value":"'+record.get("id")+'","field":"calendarId","comparison":""}]';
        store.load();
     },
 

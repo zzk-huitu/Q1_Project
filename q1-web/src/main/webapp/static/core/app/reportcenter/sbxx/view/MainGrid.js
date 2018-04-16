@@ -2,8 +2,8 @@
 Ext.define("core.reportcenter.sbxx.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.sbxx.maingrid",
-    dataUrl: comm.get('baseUrl') + "/BasePtTerm/termlist",
-    model: "com.zd.school.control.device.model.PtTerm",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/termlist",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
     menuCode:"SBXX", //new：此表格与权限相关的菜单编码
 /*    defGroup:"roomName",
     features: [{
@@ -75,7 +75,7 @@ Ext.define("core.reportcenter.sbxx.view.MainGrid", {
         align: 'center'
     },{
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     },{
         text: "设备名称",
@@ -87,7 +87,7 @@ Ext.define("core.reportcenter.sbxx.view.MainGrid", {
         minWidth:150
     },{
         text: "序列号",
-        dataIndex: "termSN",
+        dataIndex: "termSn",
         flex:1.2,
         minWidth:120         
     },{
@@ -102,7 +102,7 @@ Ext.define("core.reportcenter.sbxx.view.MainGrid", {
         minWidth:100
     }, {
         text: "设备类型",
-        dataIndex: "termTypeID",
+        dataIndex: "termTypeId",
         columnType: "basecombobox", //列类型
         ddCode: "PTTERMTYPE", //字典代码
         flex:1,

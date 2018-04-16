@@ -17,8 +17,8 @@ Ext.define("core.reportcenter.ptectermstatus.view.MainLayout", {
     otherController:'reportcenter.ptectermstatus.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/PtEcTermStatus", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/DkTermStatus", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

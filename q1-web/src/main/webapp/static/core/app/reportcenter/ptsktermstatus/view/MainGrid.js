@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptsktermstatus.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptsktermstatus.maingrid",
-    dataUrl: comm.get("baseUrl") + "/PtSkTermStatus/list", //数据获取地址
-    model:"com.zd.school.control.device.model.PtSkTermStatus", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/SkTermStatus/list", //数据获取地址
+    model:"com.yc.q1.model.storage.sk.SkTermStatus", //对应的数据模型
     menuCode:"PtSkTermStatus",
     al: false,
     //工具栏操作按钮
@@ -70,7 +70,7 @@ Ext.define("core.reportcenter.ptsktermstatus.view.MainGrid", {
             align: 'center',        
        }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "房间名称",
@@ -126,49 +126,49 @@ Ext.define("core.reportcenter.ptsktermstatus.view.MainGrid", {
             width:190,
         }, {
             text: "冷水已使用总水量（升）",
-            dataIndex: "totalusedliter",
+            dataIndex: "totalUsedLiter",
             field: {
                 xtype: "textfield"
             },
             width:180,            
         }, {
             text: "冷水当前小时使用脉冲数",
-            dataIndex: "usepulse",
+            dataIndex: "usePulse",
             field: {
                 xtype: "textfield"
             },
             width:170,
         }, {
             text: "冷水总使用脉冲数",
-            dataIndex: "totalusedpulse",
+            dataIndex: "totalUsedPulse",
             field: {
                 xtype: "textfield"
             },
             width:150,            
         }, {
             text: "热水交易金额",
-            dataIndex: "usemoney",
+            dataIndex: "useMoney",
             field: {
                 xtype: "textfield"
             },
             width:120,            
         }, {
             text: "热水已交易总额",
-            dataIndex: "totalusedmoney",
+            dataIndex: "totalUsedMoney",
             field: {
                 xtype: "textfield"
             },
             width:120,            
         }, {
             text: "热水已交易流水",
-            dataIndex: "totalrecord",
+            dataIndex: "totalRecord",
             field: {
                 xtype: "textfield"
             },
             width:120
         }, {
             text: "热水已上传流水",
-            dataIndex: "uploadrecord",
+            dataIndex: "uploadRecord",
             field: {
                 xtype: "textfield"
             },

@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptectermstatus.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptectermstatus.maingrid",
-    dataUrl: comm.get("baseUrl") + "/PtEcTermStatus/list", //数据获取地址
-    model:"com.zd.school.control.device.model.PtEcTermStatus", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/DkTermStatus/list", //数据获取地址
+    model:"com.yc.q1.model.storage.dk.DkTermStatus", //对应的数据模型
     menuCode:"PtSkTermStatus",
     al: false,
     //工具栏操作按钮
@@ -69,7 +69,7 @@ Ext.define("core.reportcenter.ptectermstatus.view.MainGrid", {
             align: 'center',     
          }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "房间名称",
@@ -102,28 +102,28 @@ Ext.define("core.reportcenter.ptectermstatus.view.MainGrid", {
             width:150,
         }, {
             text: "当前小时用电量",
-            dataIndex: "usekwh",
+            dataIndex: "useKwh",
             field: {
                 xtype: "textfield"
             },
             width:150,
         }, {
             text: "已购电总量",
-            dataIndex: "buyedkwh",
+            dataIndex: "buyedKwh",
             field: {
                 xtype: "textfield"
             },
             width:150
         }, {
             text: "已使用总电量",
-            dataIndex: "totalusedkwh",
+            dataIndex: "totalUsedKwh",
             field: {
                 xtype: "textfield"
             },
             width:150
         }, {
             text: "剩余总电量",
-            dataIndex: "surpluskwh",
+            dataIndex: "surplusKwh",
             field: {
                 xtype: "textfield"
             },

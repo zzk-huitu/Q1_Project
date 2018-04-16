@@ -654,7 +654,7 @@ Ext.define("core.baseset.room.controller.MainController", {
             if (btn == 'yes') {
                 //发送ajax请求
                 var resObj = self.ajax({
-                    url: comm.get('baseUrl') + "/BaseRoomarea/doDelete",
+                    url: comm.get('baseUrl') + "/PtRoomArea/doDelete",
                     params: {
                         ids: ids.join(","),
                         pkName: pkName

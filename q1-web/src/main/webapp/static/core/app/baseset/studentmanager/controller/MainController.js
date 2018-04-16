@@ -136,7 +136,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                 var selectedUsers=new  Array();
                 Ext.each(selecStudent, function(rec) {
                     if(comm.get("userRidhtDeptIds").indexOf(rec.get("deptId"))!=-1){
-                        var pkValue = rec.get("uuid");
+                        var pkValue = rec.get("id");
                         ids.push(pkValue);
                         selectedUsers.push(rec);
                     }             
@@ -213,13 +213,13 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/SysUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'&category='+2+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'&category='+2+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/SysUser/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtUser/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {
@@ -388,7 +388,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                         var roleStore = roleGrid.getStore();
                         var roleProxy = roleStore.getProxy();
                         roleProxy.extraParams = {
-                            userId: insertObj.uuid
+                            userId: insertObj.id
                         };
                         roleStore.load();
 
@@ -398,7 +398,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                         var deptJobStore = deptJobGrid.getStore();
                         var deptJobProxy = deptJobStore.getProxy();
                         deptJobProxy.extraParams = {
-                            userId: insertObj.uuid
+                            userId: insertObj.id
                         };
                         deptJobStore.load();
                         break;
@@ -424,12 +424,12 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                         userInfoContainer.setData(insertObj);
 
                         self.asyncAjax({
-                            url: comm.get('baseUrl') + "/SysUser/userRoleList",
+                            url: comm.get('baseUrl') + "/PtUser/userRoleList",
                             params: {
                                 page: 1,
                                 start: 0,
                                 limit: 0,
-                                userId: insertObj.uuid
+                                userId: insertObj.id
                             },
                             success: function (response) {
                                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -464,7 +464,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                 setTimeout(function(){
                 //异步ajax加载
                 Ext.Ajax.request({
-                    url: comm.get('baseUrl') + "/SysUser/doSyncAllUserInfoToUp",
+                    url: comm.get('baseUrl') + "/PtUser/doSyncAllUserInfoToUp",
                     params: { },
                     timeout:1000*60*60*10,     //10个小时
                     success: function(response){
@@ -668,7 +668,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                 
                 //显示照片
                 if(insertObj.zp!=null)
-                    objDetForm.down('image[ref=photoImage]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.zp);   
+                    objDetForm.down('image[ref=photoImage]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.photo);   
               
             }, 30);
 
@@ -684,7 +684,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
     getRightDeptIds:function(){
         var self=this;
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/SysOrg/getUserRightDeptIds",
+            url: comm.get('baseUrl') + "/PtDeparment/getUserRightDeptIds",
             params: {},
             //回调代码必须写在里面
             success: function(response) {

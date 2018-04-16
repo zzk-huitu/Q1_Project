@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.RoomInfoTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.reportcenter.ptroombagstatus.roominfotree",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
-    model: "com.zd.school.plartform.comm.model.CommTree",
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
+    model: "com.yc.q1.pojo.base.pt.CommTree",
     expandFirst:true,
     sortableColumns:false,
     selModel: {

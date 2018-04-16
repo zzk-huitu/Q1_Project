@@ -18,7 +18,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.MainLayout", {
 
     funData: {
   		action: comm.get('baseUrl') + "/Bag", //请求Action
-  		pkName: "uuid",
+  		pkName: "id",
   		defaultObj: {
 
       },

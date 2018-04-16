@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.PtTermWalletGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptroombagstatus.pttermwalletgrid",
-    dataUrl: comm.get('baseUrl') + "/PtBag/termbaglist",
-    model: "com.zd.school.control.device.model.PtTermBags",
+    dataUrl: comm.get('baseUrl') + "/PtTermBag/termbaglist",
+    model: "com.yc.q1.model.base.pt.device.PtTermBag",
     extParams: {
         whereSql: "",
         querySql:""
@@ -40,7 +40,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtTermWalletGrid", {
             align: 'center'
         }, {
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         }, {
             text: "设备序列号",
@@ -100,17 +100,17 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtTermWalletGrid", {
             }
         },{
             text: "总买量",
-            dataIndex: "totalBuyedValue",
+            dataIndex: "totalBoughtValue",
             flex:1,
             minWidth:80,
             renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
                  var termTypeId= record.get("termTypeId");
                 if(termTypeId==8){
-                    value =record.get("totalBuyedValue");
+                    value =record.get("totalBoughtValue");
                     return parseFloat(value).toFixed(2)+" 升"
                 }
                 if(termTypeId==9){
-                    value =record.get("totalBuyedValue");
+                    value =record.get("totalBoughtValue");
                     return parseFloat(value).toFixed(2)+" 度"
                 }
             }
@@ -154,11 +154,11 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtTermWalletGrid", {
             renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
                 var termTypeId= record.get("termTypeId");
                 if(termTypeId==8){
-                    value =record.get("subValue");
+                    value =record.get("surplusValue");
                     return parseFloat(value).toFixed(2)+" 升"
                 }
                 if(termTypeId==9){
-                    value =record.get("subValue");
+                    value =record.get("surplusValue");
                     return parseFloat(value).toFixed(2)+" 度"
                 }
             }

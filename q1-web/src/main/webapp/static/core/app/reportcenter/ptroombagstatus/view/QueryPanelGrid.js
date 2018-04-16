@@ -18,7 +18,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.QueryPanelGrid", {
             columnWidth:0.3,
             labelWidth: 50,
             xtype: "basequeryfield",
-            name: "xm",
+            name: "name",
             fieldLabel: "姓名",
             queryType: "textfield",
         },{

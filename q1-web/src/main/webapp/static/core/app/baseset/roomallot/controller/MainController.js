@@ -175,8 +175,8 @@ Ext.define("core.baseset.roomallot.controller.MainController", {
         }
        // var roomId = records[0].get('roomId');
         for (var i = 0; i < records.length; i++) {
-            tteacId += records[i].get('tteacId') + ',';
-            uuid += records[i].get('uuid') + ',';
+            tteacId += records[i].get('teacherId') + ',';
+            uuid += records[i].get('id') + ',';
             roomId += records[i].get('roomId')+ ',';
         };
         if (records.length > 0) {
@@ -258,7 +258,7 @@ Ext.define("core.baseset.roomallot.controller.MainController", {
             if (btns == 'yes') {
                 var loading = self.LoadMask(mainLayout,'正在推送消息中，请等待...');
                 self.asyncAjax({
-                  url: comm.get('baseUrl') + "/BaseOfficeAllot/doPushMessage",
+                  url: comm.get('baseUrl') + "/PtOfficeAllot/doPushMessage",
                   params: {
                      roomId: roomId,
                  },                 

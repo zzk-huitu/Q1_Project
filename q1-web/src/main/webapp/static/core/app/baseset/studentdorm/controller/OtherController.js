@@ -204,9 +204,9 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                return;
            }        
            var classdormgrid = selectClaDorm[0];
-           var cdormId = classdormgrid.get("uuid"); //班级宿舍主键
+           var cdormId = classdormgrid.get("id"); //班级宿舍主键
            var dormType = classdormgrid.get("dormType"); //宿舍类型
-           var claiId = classdormgrid.get("claiId"); //班级id   
+           var claiId = classdormgrid.get("classId"); //班级id   
             
            var dormNotAllotGrid = detailLayout.down("basegrid[xtype=baseset.studentdorm.dormnotallotgrid]");
            var rows = dormNotAllotGrid.getSelectionModel().getSelection();
@@ -221,7 +221,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             //将学生主键加入到list
             stuId+= rows[i].get('userId') + ",";
             if (dormType != 3) {
-              if (dormType != rows[i].get('xbm')) {
+              if (dormType != rows[i].get('sex')) {
                       self.msgbox("选择宿舍的性别与选中学生性别不匹配无法继续!");
                       yes++; //判断标识
                       return;
@@ -235,7 +235,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                 var loading = self.LoadMask(detailLayout,'正在分配中，请等待...');
 
                 self.asyncAjax({
-                  url: comm.get('baseUrl') + "/BaseStudentDorm/dormHandAllot",
+                  url: comm.get('baseUrl') + "/PtStudentDorm/dormHandAllot",
                   params: {
                    cdormId: cdormId,
                    stuId: stuId,
@@ -307,7 +307,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                 var loading = self.LoadMask(detailLayout,'正在分配中，请等待...');
 
                 self.asyncAjax({
-                    url: comm.get('baseUrl') + "/BaseStudentDorm/dormAutoAllot", 
+                    url: comm.get('baseUrl') + "/PtStudentDorm/dormAutoAllot", 
                     params: {
                        classId: claiId
                      },                 
@@ -356,13 +356,13 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
           var nvDormCount = getAt.get('nvDormCount');   //女生所需宿舍
           var sxDorm = getAt.get('sxDorm');        //合计所需宿舍 
           */
-          var nanDormBed = getAt.get('nanDormBed');   //男生所需宿舍床位
-          var nvDormBed = getAt.get('nvDormBed');    //女生所需宿舍床位
-          var sxDormBed = getAt.get('sxDormBed');     //合计所需宿舍床位
+          var nanDormBed = getAt.get('maleNeedBed');   //男生所需宿舍床位
+          var nvDormBed = getAt.get('femaleNeedBed');    //女生所需宿舍床位
+          var sxDormBed = getAt.get('needDormBed');     //合计所需宿舍床位
 
-          var nanDorm = getAt.get('nanDorm'); //男生有效宿舍
-          var nvDorm = getAt.get('nvDorm'); //女生有效宿舍
-          var hunDorm = getAt.get('hunDorm'); //混班有效宿舍
+          var nanDorm = getAt.get('maleDorm'); //男生有效宿舍
+          var nvDorm = getAt.get('femaleDorm'); //女生有效宿舍
+          var hunDorm = getAt.get('mixedDorm'); //混班有效宿舍
 
           var boyDormGrid = basepanel.down("basegrid[xtype=baseset.studentdorm.boydormgrid]"); //男宿舍列表
           var girlDormGrid = basepanel.down("basegrid[xtype=baseset.studentdorm.girldormgrid]"); //女宿舍列表
@@ -400,8 +400,8 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
           var nvBed=0;
           
           for (var i = 0; i <boyStore.getCount(); i++) {
-              uuid = boyStore.getAt(i).get('uuid');
-              nanRed+=boyStore.getAt(i).get('dormBedCount');
+              uuid = boyStore.getAt(i).get('id');
+              nanRed+=boyStore.getAt(i).get('bedCount');
               boyId.push(uuid);
           }
           if (nanRed < nanDormBed) {
@@ -411,8 +411,8 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
 
           
           for (var k = 0; k < girlStore.getCount(); k++) {
-              uuid = girlStore.getAt(k).get('uuid');
-              nvBed+=girlStore.getAt(k).get('dormBedCount');
+              uuid = girlStore.getAt(k).get('id');
+              nvBed+=girlStore.getAt(k).get('bedCount');
               girlId.push(uuid);
           }      
           if (nvBed < nvDormBed) {
@@ -427,7 +427,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
               var loading = self.LoadMask(win,'正在分配中，请等待...');
 
               self.asyncAjax({
-                  url: comm.get('baseUrl') + "/BaseStudentDorm/doKeyAllotDorm",
+                  url: comm.get('baseUrl') + "/PtStudentDorm/doKeyAllotDorm",
                   params: {
                     gradId: gradId,
                     boyId: boyId,
@@ -500,7 +500,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             //}
             var countBed=0;
             for (var i = 0; i < store.getCount(); i++) {
-                countBed+=store.getAt(i).get("dormBedCount");
+                countBed+=store.getAt(i).get("bedCount");
             }
 
             var conutHtml="总宿舍数："+store.getCount()+" &nbsp;&nbsp;总床位数："+countBed;        
@@ -552,7 +552,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             //}
             var countBed=0;
             for (var i = 0; i < store.getCount(); i++) {
-                countBed+=store.getAt(i).get("dormBedCount");
+                countBed+=store.getAt(i).get("bedCount");
             }
 
             var conutHtml="总宿舍数："+store.getCount()+" &nbsp;&nbsp;总床位数："+countBed;        
@@ -575,13 +575,13 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             for (var j = 0; j < baseGrid.getStore().getCount(); j++) {
               getAt = baseGrid.getStore().getAt(j);
               //data = getAt.data;
-              countBed+=getAt.get("dormBedCount");
-              arr1.push(getAt.get('uuid'));//男女宿舍列表
+              countBed+=getAt.get("bedCount");
+              arr1.push(getAt.get('id'));//男女宿舍列表
             };
             for (var i = 0; i < isselectdormgrid.getStore().getCount(); i++) {
               getAt = isselectdormgrid.getStore().getAt(i);
               //data = getAt.data;
-              arr2.push(getAt.get('uuid'));//已选宿舍
+              arr2.push(getAt.get('id'));//已选宿舍
             };
             for (var s in arr1) {
               for (var x in arr2) {
@@ -605,7 +605,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                 if(dormArray.indexOf(dormUUid)==-1){
                    dormArray.push(dormUUid);
                    data = getAt.getData();
-                   countBed+=getAt.get("dormBedCount");
+                   countBed+=getAt.get("bedCount");
                    baseGrid.getStore().insert(0, data);
                 }else{
                   sameCount++;
@@ -619,11 +619,11 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             } else if (identify == 2) {
               for (var k = 0; k < isselectdormgrid.getStore().getCount(); k++) {
                 getAt = isselectdormgrid.getStore().getAt(k);
-                var dormUUid = getAt.get('uuid');
+                var dormUUid = getAt.get('id');
                 if(dormArray.indexOf(dormUUid)==-1){
                    dormArray.push(dormUUid);
                    data = getAt.getData();
-                   countBed+=getAt.get("dormBedCount");
+                   countBed+=getAt.get("bedCount");
                    baseGrid.getStore().insert(0, data);
                 }else{
                   sameCount++;
@@ -650,14 +650,14 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                 return;
                }
                for (var i = 0; i < rows.length; i++) {
-                uuid = uuid + rows[i].get('uuid') + ",";
+                uuid = uuid + rows[i].get('id') + ",";
                }
                Ext.Msg.confirm('删除宿舍', '确定要删除宿舍吗？', function(btns) {                
                   if (btns == 'yes') {
                      var loading = self.LoadMask(baseGrid,'正在删除中，请等待...');
                      
                       self.asyncAjax({
-                            url: comm.get('baseUrl') + "/BaseStudentDorm/dormDoDelete",
+                            url: comm.get('baseUrl') + "/PtStudentDorm/dormDoDelete",
                             params: {
                                uuid: uuid
                             },                      
@@ -708,17 +708,17 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
          if (selectJwtr.length > 0) {
               objSelect = selectJwtr;
               var ps = objSelect[0];
-              zdrs = ps.get("dormBedCount"); //宿舍最大人数
-              yrzs = parseInt(ps.get("stuCount")); //宿舍已入住人数
+              zdrs = ps.get("bedCount"); //宿舍最大人数
+              yrzs = parseInt(ps.get("studentCount")); //宿舍已入住人数
               krzrs = zdrs - yrzs;
             }
         if (selectJwtr2.length > 0) {
               objSelect = selectJwtr2;
             }
           var gridObj = objSelect[0];
-          var cdormId = gridObj.get("uuid"); //班级宿舍主键
+          var cdormId = gridObj.get("id"); //班级宿舍主键
           var dormType = gridObj.get("dormType"); //宿舍类型
-          var claiId = gridObj.get("claiId"); //班级id
+          var claiId = gridObj.get("classId"); //班级id
          //获取选中的学生
           var stuNotDormGrid = mainLayout.down("basegrid[xtype=baseset.studentdorm.notallotstugrid]");
           var rows = stuNotDormGrid.getSelectionModel().getSelection();
@@ -736,7 +736,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
              //将学生主键加入到list
              stuId = stuId + rows[i].get('userId') + ",";
              if (dormType != 3) {
-              if (dormType != rows[i].get('xbm')) {
+              if (dormType != rows[i].get('sex')) {
                 self.msgbox("选择宿舍的性别与选中学生性别不匹配无法继续!");
                 return;
               }
@@ -746,7 +746,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             if (btns == 'yes') {
               var loading = self.LoadMask(mainLayout,'正在分配中，请等待...');
               self.asyncAjax({
-                  url: comm.get('baseUrl') + "/BaseStudentDorm/dormHandAllot",
+                  url: comm.get('baseUrl') + "/PtStudentDorm/dormHandAllot",
                   params: {
                     cdormId: cdormId,
                     stuId: stuId,
@@ -788,7 +788,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                return false;
            }
            for (var i = 0; i < rows.length; i++) {
-               studormId = studormId + rows[i].get('uuid') + ",";
+               studormId = studormId + rows[i].get('id') + ",";
            }
            Ext.Msg.confirm('温馨提示', '确实要取消此学生的宿舍吗？', function(btns) {
                if (btns == 'yes') {
@@ -796,7 +796,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                   var loading = self.LoadMask(mainLayout,'正在分配中，请等待...');
 
                   self.asyncAjax({
-                    url: comm.get('baseUrl') + "/BaseStudentDorm/doDelete",
+                    url: comm.get('baseUrl') + "/PtStudentDorm/doDelete",
                     params: {
                       uuid: studormId                  
                     },                 
@@ -852,9 +852,9 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
              for (var k = 0; k < forCount.length; k++) {
                  for (var j = 0; j < storeCount; j++) {
                      var record = store.getAt(j);
-                     if (record.get("cdormId") == forCount[k]) {
-                         bedNum.push(record.get("bedNum"));
-                         arkNum.push(record.get("arkNum"));
+                     if (record.get("classDormId") == forCount[k]) {
+                         bedNum.push(record.get("bedNo"));
+                         arkNum.push(record.get("arkNo"));
                      }
                  }
                  var nary = bedNum.sort();
@@ -880,7 +880,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
               var loading = self.LoadMask(mainLayout,'正在分配中，请等待...');
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/BaseStudentDorm/doUpdateBedArkNum",
+                url: comm.get('baseUrl') + "/PtStudentDorm/doUpdateBedArkNum",
                 params: {
                   uuid: list                  
                 },                 
@@ -952,7 +952,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
             var dormArray=new Array();
             for (var k = 0; k < isselectdormgrid.getStore().getCount(); k++) {
                 var rec = isselectdormgrid.getStore().getAt(k);
-                var dormUUid = rec.get('uuid');
+                var dormUUid = rec.get('id');
                 if(dormArray.indexOf(dormUUid)==-1){
                     dormArray.push(dormUUid);
                 }
@@ -968,7 +968,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                 var loading = self.LoadMask(win,'正在执行中，请等待...');
 
                 self.asyncAjax({
-                    url: comm.get('baseUrl') + "/BaseStudentDorm/doAddClassDorm",
+                    url: comm.get('baseUrl') + "/PtStudentDorm/doAddClassDorm",
                     params: {
                       classId: classId,
                       dormIds: dormArray.join(",")

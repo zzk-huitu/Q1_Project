@@ -139,7 +139,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var act = Ext.isEmpty(pkField.getValue()) ? "doAdd" : "doUpdate";
         if (formObj.isValid()) {
             formObj.submit({
-                url:  comm.get('baseUrl') + "/TeacherBase" + "/" + act,
+                url:  comm.get('baseUrl') + "/PtTeacherBaseInfo" + "/" + act,
                 //params: params,       //表单的参数会自动上传
                 submitEmptyText: false,     //不提交表单为空值的数据
                 waitMsg: '正在提交，请等待...',
@@ -361,7 +361,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
             whereSql: "",
             orderSql: " ",
             excludes: "",
-            url: comm.get('baseUrl') + "/SysDeptjob/getDeptJobTree",
+            url: comm.get('baseUrl') + "/PtDeptJob/getDeptJobTree",
         };
         self.selTreeWin({
             controller:'baseset.teachermanager.othercontroller',
@@ -456,7 +456,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
             self.msgbox("只能设置一个主部门岗位，请重新选择");
             return false;
         }
-        var ids = records[0].get("uuid");
+        var ids = records[0].get("id");
         var title = "确定设置岗位为主部门岗位吗？";
         Ext.Msg.confirm('设置确认', title, function(btn, text) {
             if (btn == 'yes') {
@@ -541,7 +541,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var tabItem=tabPanel.getActiveTab();
         var formpanel=tabItem.down('form[xtype=' + win.formPanel + ']');
         //var formpanel = Ext.ComponentQuery.query('form[xtype=' + win.formPanel + ']')[0];
-        var classId = formpanel.getForm().findField("uuid").getValue();
+        var classId = formpanel.getForm().findField("id").getValue();
         var grid = win.down("grid[xtype=pbselectRole.isselectrolegrid]");
         var store = grid.getStore();
         var proxy = store.getProxy();
@@ -564,9 +564,9 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var idArray=new Array();                            
 
         for(var i=0;i<store.getCount();i++){
-            if(idArray.indexOf(store.getAt(i).get("uuid"))==-1||store.getAt(i).get("uuid")=="null"){
-                nameArray.push(store.getAt(i).get("xm"));
-                idArray.push(store.getAt(i).get("uuid")?store.getAt(i).get("uuid"):" ");  //为空的数据，要使用一个空格号隔开，否则后台split分割有误                        
+            if(idArray.indexOf(store.getAt(i).get("id"))==-1||store.getAt(i).get("id")=="null"){
+                nameArray.push(store.getAt(i).get("name"));
+                idArray.push(store.getAt(i).get("id")?store.getAt(i).get("id"):" ");  //为空的数据，要使用一个空格号隔开，否则后台split分割有误                        
             }                        
         }
                     

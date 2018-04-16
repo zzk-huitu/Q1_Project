@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptmjopendoor.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptmjopendoor.maingrid",
-    dataUrl: comm.get('baseUrl') + "/PtMjOpenDoor/list",
-    model: "com.zd.school.control.device.model.PtMjOpenDoor",
+    dataUrl: comm.get('baseUrl') + "/MjOpenDoor/list",
+    model: "com.yc.q1.model.storage.mj.MjOpenDoor",
     menuCode:"PtMjOpenDoor",
     al: false,
     //工具栏操作按钮
@@ -68,7 +68,7 @@ Ext.define("core.reportcenter.ptmjopendoor.view.MainGrid", {
         align: 'center'
     }, {
         text: "主键",
-        dataIndex: "uuid",
+        dataIndex: "id",
         hidden: true
     }, {
         text: "房间名称",
@@ -111,7 +111,7 @@ Ext.define("core.reportcenter.ptmjopendoor.view.MainGrid", {
         minWidth:200
     }, {
         text: "进出标识",
-        dataIndex: "inoutType",
+        dataIndex: "inOutType",
         field: {
             xtype: "textfield"
         },

@@ -17,8 +17,8 @@ Ext.define("core.reportcenter.eleccount.view.MainLayout", {
     otherController:'reportcenter.eleccount.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/PtEcTermStatus", //请求Action
-		pkName: "uuid",
+		action: comm.get('baseUrl') + "/DkTermStatus", //请求Action
+		pkName: "id",
 		defaultObj: {
            
         },

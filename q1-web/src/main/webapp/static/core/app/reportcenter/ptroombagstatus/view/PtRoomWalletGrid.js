@@ -1,8 +1,8 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.PtRoomWalletGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptroombagstatus.ptroomwalletgrid",
-    dataUrl: comm.get('baseUrl') + "/PtBag/roombaglist",
-    model: "com.zd.school.control.device.model.PtRoomBags",
+    dataUrl: comm.get('baseUrl') + "/PtRoomBag/roombaglist",
+    model: "com.yc.q1.model.base.pt.device.PtRoomBag",
     animCollapse: true,
     collapsible: true,
     noPagging: true, 
@@ -63,11 +63,11 @@ Ext.define("core.reportcenter.ptroombagstatus.view.PtRoomWalletGrid", {
         width:150
     },{
         text : "电总用",
-        dataIndex: "ecTotalUsed",
+        dataIndex: "eleTotalUsed",
         width:150
     },{
         text : "电改变时间",
-        dataIndex: "ecUpdateTime",
+        dataIndex: "eleUpdateTime",
         width:150
     }]
     },
