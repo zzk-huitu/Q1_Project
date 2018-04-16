@@ -15,7 +15,7 @@
         <!-- mysql的Dialect方言配置 -->
         <!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop> -->
         <!-- SQL Server的Dialect方言配置 -->
-        <property name="dialect">org.hibernate.dialect.SQLServer2008Dialect</property>
+        <property name="dialect">com.yc.q1.core.model.SqlServer2008Dialect</property>
         <!-- Oracle的Dialect方言配置 -->
         <!-- <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop> -->
 <!--         <property name="dialect">org.hibernate.dialect.OracleDialect</property>  -->
