@@ -102,7 +102,7 @@ Ext.define("core.coursemanage.funcroomcourse.controller.DetailController", {
                         for (var j = 1; j <= 7; j++) {                    
                             index="0"+j;
                             if (rec.data["courseName"+index]!=courseName) {
-                                rec.data["claiId"+index]=null;
+                                rec.data["classId"+index]=null;
                                 rec.data["className"+index]=null;
                                 rec.data["courseId"+index]=null;
                                 rec.data["courseName"+index]=null;
@@ -136,7 +136,7 @@ Ext.define("core.coursemanage.funcroomcourse.controller.DetailController", {
                     for (var j = 1; j <= 7; j++) {                    
                         index="0"+j;
                         if (rec.data["courseName"+index]!=courseName) {
-                            rec.data["claiId"+index]=null;
+                            rec.data["classId"+index]=null;
                             rec.data["className"+index]=null;
                             rec.data["courseId"+index]=null;
                             rec.data["courseName"+index]=null;
@@ -157,7 +157,7 @@ Ext.define("core.coursemanage.funcroomcourse.controller.DetailController", {
         var courseNameIndex = "courseName0" + cellIndex;
         var courseIdIndex = "courseId0" + cellIndex;
         var teacherNameIndex = "teacherName0" + cellIndex;
-        var claiIdIndex = "claiId0" + cellIndex;
+        var claiIdIndex = "classId0" + cellIndex;
         var classNameIndex = "className0" + cellIndex;
 
        
@@ -167,14 +167,14 @@ Ext.define("core.coursemanage.funcroomcourse.controller.DetailController", {
         };
 
 
-        var claiId = record.data["claiId"];
+        var claiId = record.data["classId"];
         var className = record.data["className"];
-        var teachTime = record.data["teachTime"];
+        var teachTime = record.data["sections"];
         var courseName = record.data[courseNameIndex];
 
         //组装基本数据                
         var newRecord = new Object();
-        newRecord["teachTime"]=teachTime;
+        newRecord["sections"]=teachTime;
         newRecord[courseIdIndex]=record.get(courseIdIndex);
         newRecord[teacherNameIndex]=record.get(teacherNameIndex);
         newRecord[claiIdIndex] = claiId;
@@ -243,7 +243,7 @@ Ext.define("core.coursemanage.funcroomcourse.controller.DetailController", {
         var classNameIndex = "className0" + cellIndex;
         var courseIdIndex = "courseId0" + cellIndex;
         var teacherNameIndex = "teacherName0" + cellIndex;
-        var claiIdIndex = "claiId0" + cellIndex;
+        var claiIdIndex = "classId0" + cellIndex;
         var courseNameIndex = "courseName0" + cellIndex;
         var courseId = record.data[courseIdIndex];
         if (courseId == null) {

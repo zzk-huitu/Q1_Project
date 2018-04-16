@@ -90,8 +90,8 @@ Ext.define("core.coursemanage.coursetable.controller.MainController", {
             grid: baseGrid,
             items: [{
                 xtype: "public.importExcel.importform",
-                url:comm.get('baseUrl') + "/CourseArrange/importExcel",
-                downUrl:comm.get('baseUrl') + "/CourseArrange/downNotImportInfo"
+                url:comm.get('baseUrl') + "/PtCourseArrange/importExcel",
+                downUrl:comm.get('baseUrl') + "/PtCourseArrange/downNotImportInfo"
             }]
         });
         win.show();
@@ -176,12 +176,12 @@ Ext.define("core.coursemanage.coursetable.controller.MainController", {
                 for(var i=0;i<selectInfo.length;i++){
                     var rec = selectInfo[i];
 
-                    var pkValue = rec.get("uuid");
+                    var pkValue = rec.get("id");
                     ids.push(pkValue);
-                    teachTimes.push(rec.get("teachTime"));
-                    classIds.push(rec.get("claiId"));
+                    teachTimes.push(rec.get("sections"));
+                    classIds.push(rec.get("classId"));
 
-                    var classTeachTime = rec.get("teachTime")+"-"+rec.get("claiId");                
+                    var classTeachTime = rec.get("sections")+"-"+rec.get("classId");                
                     if(classTeachTimes.indexOf(classTeachTime)==-1){
                         classTeachTimes.push(classTeachTime);
                     }else{
@@ -220,7 +220,7 @@ Ext.define("core.coursemanage.coursetable.controller.MainController", {
                                 case "unuse":
                                     //静态的更新数据
                                     Ext.each(selectInfo, function(rec) {
-                                        rec.set("extField05","0");    //改变数据
+                                        rec.set("isUse","0");    //改变数据
                                         rec.commit();   //提交一下 
                                     }, this);
                                     break;

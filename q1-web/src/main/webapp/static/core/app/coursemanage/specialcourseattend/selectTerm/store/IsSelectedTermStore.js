@@ -7,7 +7,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.store.IsSelectedTer
  
     //fields:['uuid', 'xm','mobilePhone','sfzjh','xbm','workUnits']
    
-    model: factory.ModelFactory.getModelByName("com.zd.school.oa.terminal.model.OaInfoterm", "checked").modelName,
+    model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.basic.PtInfoTerminal", "checked").modelName,
     /*
     proxy: {
         type: 'ajax',

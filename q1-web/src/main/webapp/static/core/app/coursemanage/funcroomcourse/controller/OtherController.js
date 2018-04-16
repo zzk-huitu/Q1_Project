@@ -53,7 +53,7 @@ Ext.define("core.coursemanage.funcroomcourse.controller.OtherController", {
         });
 
         self.asyncAjax({
-            url:comm.get("baseUrl") + "/FuncRoomCourse/doAddFuncRoomCourse",
+            url:comm.get("baseUrl") + "/PtFuncRoomCourse/doAddFuncRoomCourse",
             params: {
                 entitys:JSON.stringify(datas)
             },

@@ -79,7 +79,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.SelectTermGrid
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",
