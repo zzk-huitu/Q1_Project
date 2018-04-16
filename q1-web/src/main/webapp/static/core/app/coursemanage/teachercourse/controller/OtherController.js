@@ -51,8 +51,8 @@ Ext.define("core.coursemanage.teachercourse.controller.OtherController", {
         var recordData = new Array();
         Ext.each(selectTeacherGrid.getStore().getRange(), function(record) {
             var obj={
-                claiId:record.get("claiId"),
-                tteacId:record.get("tteacId"),
+                claiId:record.get("classId"),
+                tteacId:record.get("teacherId"),
                 studyYear:record.get("studyYear"),
                 studyYearName:record.get("studyYearName"),
                 semester:record.get("semester"),
@@ -63,7 +63,7 @@ Ext.define("core.coursemanage.teachercourse.controller.OtherController", {
         var jsonData = Ext.encode(recordData);
 
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/CourseTeacher/doAddCourseTeacher",
+            url: comm.get('baseUrl') + "/PtCourseTeacher/doAddCourseTeacher",
             params: {
                 jsonData: jsonData
             },                       
@@ -118,10 +118,10 @@ Ext.define("core.coursemanage.teachercourse.controller.OtherController", {
         var uuid=detailLayout.funData.uuid;
   
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/CourseTeacher/doReplaceCourseTeacher",
+            url: comm.get('baseUrl') + "/PtCourseTeacher/doReplaceCourseTeacher",
             params: {
                 uuid:uuid,
-                tteacId:selectObject[0].get("uuid")
+                tteacId:selectObject[0].get("id")
             },                       
             success: function(response) {
                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

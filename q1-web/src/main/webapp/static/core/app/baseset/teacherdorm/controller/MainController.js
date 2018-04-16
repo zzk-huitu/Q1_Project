@@ -194,8 +194,8 @@ Ext.define("core.baseset.teacherdorm.controller.MainController", {
               var ids = new Array();
               var names = new Array();
               Ext.each(records, function(rec) {
-                var pkValue = rec.get("uuid");
-                var name = rec.get("xm");
+                var pkValue = rec.get("id");
+                var name = rec.get("name");
                 ids.push(pkValue);
                 names.push(name);
             });
@@ -210,7 +210,7 @@ Ext.define("core.baseset.teacherdorm.controller.MainController", {
                     loading.show();
 
                     self.asyncAjax({
-                        url: comm.get('baseUrl')  + "/BaseTeacherDrom/out",
+                        url: comm.get('baseUrl')  + "/PtTeacherDorm/out",
                         params: {
                             ids: ids.join(","),
                         },                       
@@ -261,7 +261,7 @@ Ext.define("core.baseset.teacherdorm.controller.MainController", {
         }
         //var roomId = records[0].get('roomId');
         for (var i = 0; i < records.length; i++) {
-            ids += records[i].get('uuid') + ',';
+            ids += records[i].get('id') + ',';
             roomIds += records[i].get('roomId')+ ',';
         };
         if (records.length > 0) {

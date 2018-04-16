@@ -15,8 +15,8 @@ Ext.define("core.coursemanage.specialcourseattend.setTimesForm", {
         xtype: "textfield",
         hidden: true
     },{
-        fieldLabel: "titleId",
-        name: "titleId",
+        fieldLabel: "考勤主题ID",
+        name: "attendThemeId",
         xtype: "textfield",
         hidden: true
     }, {

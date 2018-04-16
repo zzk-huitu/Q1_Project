@@ -123,7 +123,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.MainController", {
             var attendStore = attendGrid.getStore();
             var attendProxy = attendStore.getProxy();
             var filter=new Array();
-            filter.push({"type": "string", "value": insertObj.uuid, "field": "titleId", "comparison": "="})
+            filter.push({"type": "string", "value": insertObj.id, "field": "attendThemeId", "comparison": "="})
             attendProxy.extraParams = {
                 filter: JSON.stringify(filter)
             };

@@ -139,7 +139,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var act = Ext.isEmpty(pkField.getValue()) ? "doAdd" : "doUpdate";
         if (formObj.isValid()) {
             formObj.submit({
-                url: comm.get('baseUrl') + "/StuBaseinfo" + "/" + act,
+                url: comm.get('baseUrl') + "/PtStudentBaseInfo" + "/" + act,
                 //params: params,       //表单的参数会自动上传
                 submitEmptyText: false,     //不提交表单为空值的数据
                 waitMsg: '正在提交，请等待...',
@@ -185,7 +185,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var insertObj = basetab.insertObj;
 
        //选择的用户
-        var selectUserId = insertObj.uuid;
+        var selectUserId = insertObj.id;
         var detCode = "user_selectrolemain";
         var popFunData = Ext.apply(funData, {
             grid: studentRoleGrid,
@@ -236,7 +236,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var ids = new Array();
         for (var i = 0; i < iCount; i++) {
             var record = isSelectStore.getAt(i);
-            var pkValue = record.get("uuid");
+            var pkValue = record.get("id");
             if(ids.indexOf(pkValue)==-1)
                 ids.push(pkValue);
         }
@@ -290,7 +290,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
         //选择的用户
-        var selectUserId =  insertObj.uuid;
+        var selectUserId =  insertObj.id;
         //选择的角色
         var selectStuRole = studentRoleGrid.getSelectionModel().getSelection();
         if (selectStuRole.length == 0) {
@@ -361,7 +361,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
             whereSql: "",
             orderSql: " ",
             excludes: "",
-            url: comm.get('baseUrl') + "/SysDeptjob/getDeptJobTree",
+            url: comm.get('baseUrl') + "/PtDeptJob/getDeptJobTree",
         };
         self.selTreeWin({
             controller:'baseset.studentmanager.othercontroller',
@@ -409,7 +409,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var delJobs = new Array();
         var masterDept = 0;
         Ext.each(records, function(rec) {
-            delJobs.push(rec.get("uuid"));
+            delJobs.push(rec.get("id"));
         }, this);
         var title = "确定解除这些部门岗位吗？";
         Ext.Msg.confirm('解除确认', title, function(btn, text) {
@@ -446,7 +446,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var basePanel = basetab.down("basepanel[funCode=" + detCode + "]");    
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var records = deptJobGrid.getSelectionModel().getSelection();
         if (records.length == 0) {
             self.msgbox("请选择要设置的部门岗位");
@@ -456,7 +456,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
             self.msgbox("只能设置一个主部门岗位，请重新选择");
             return false;
         }
-        var ids = records[0].get("uuid");
+        var ids = records[0].get("id");
         var title = "确定设置岗位为主部门岗位吗？";
         Ext.Msg.confirm('设置确认', title, function(btn, text) {
             if (btn == 'yes') {
@@ -541,7 +541,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var tabItem=tabPanel.getActiveTab();
         var formpanel=tabItem.down('form[xtype=' + win.formPanel + ']');
         //var formpanel = Ext.ComponentQuery.query('form[xtype=' + win.formPanel + ']')[0];
-        var classId = formpanel.getForm().findField("uuid").getValue();
+        var classId = formpanel.getForm().findField("id").getValue();
         var grid = win.down("grid[xtype=pbselectRole.isselectrolegrid]");
         var store = grid.getStore();
         var proxy = store.getProxy();
@@ -564,9 +564,9 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var idArray=new Array();                            
 
         for(var i=0;i<store.getCount();i++){
-            if(idArray.indexOf(store.getAt(i).get("uuid"))==-1||store.getAt(i).get("uuid")=="null"){
+            if(idArray.indexOf(store.getAt(i).get("uuid"))==-1||store.getAt(i).get("id")=="null"){
                 nameArray.push(store.getAt(i).get("xm"));
-                idArray.push(store.getAt(i).get("uuid")?store.getAt(i).get("uuid"):" ");  //为空的数据，要使用一个空格号隔开，否则后台split分割有误                        
+                idArray.push(store.getAt(i).get("uuid")?store.getAt(i).get("id"):" ");  //为空的数据，要使用一个空格号隔开，否则后台split分割有误                        
             }                        
         }
                     

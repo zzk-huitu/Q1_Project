@@ -157,7 +157,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 		});
 		var popFunData = Ext.apply(funData, {
 			grid: baseGrid,
-			filter: "[{'type':'string','comparison':'=','value':'" + dicId + "','field':'dicId'}]"
+			filter: "[{'type':'string','comparison':'=','value':'" + dicId + "','field':'dictId'}]"
 		});
 				
 		
@@ -423,7 +423,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 		var store = itemGrid.getStore();
 		var proxy = store.getProxy();
 		proxy.extraParams = {
-			filter: "[{'type':'string','comparison':'=','value':'" + record.get("id") + "','field':'dicId'}]"
+			filter: "[{'type':'string','comparison':'=','value':'" + record.get("id") + "','field':'dictId'}]"
 		};
 		store.load();
 	},
@@ -482,7 +482,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 	doDeleteDicItem:function(btn){
 		var self=this;
 		var baseGrid = btn.up("basegrid");
-		var pkName = "uuid";
+		var pkName = "id";
 		var records = baseGrid.getSelectionModel().getSelection();
 		if (records.length == 0) {
 			self.msgbox("请选择要删除的字典项");
@@ -492,7 +492,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 		var dicId = "";
 		Ext.each(records, function(rec) {
 			var pkValue = rec.get(pkName);
-			dicId = rec.get("dicId");
+			dicId = rec.get("dictId");
 			ids.push(pkValue);
 		});
 		var title = "确定要删除所选的字典项吗？";
@@ -500,7 +500,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 			if (btn == 'yes') {
 				//发送ajax请求
 				var resObj = self.ajax({
-					url: comm.get('baseUrl') + "/BaseDicitem" + "/doDelete",
+					url: comm.get('baseUrl') + "/PtDataDictItem" + "/doDelete",
 					params: {
 						ids: ids.join(","),
 						pkName: pkName
@@ -511,7 +511,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 					var store = baseGrid.getStore();
 					var proxy = store.getProxy();
 					proxy.extraParams = {
-						filter: "[{'type':'string','comparison':'=','value':'" + dicId + "','field':'dicId'}]"
+						filter: "[{'type':'string','comparison':'=','value':'" + dicId + "','field':'dictId'}]"
 					};
 					store.load();
 					self.msgbox(resObj.obj);

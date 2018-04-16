@@ -228,7 +228,7 @@ Ext.define("core.baseset.studentdorm.controller.MainController", {
             if (btns == 'yes') {
                 var loading = self.LoadMask(mainLayout,'正在推送消息中，请等待...');
                 self.asyncAjax({
-                  url: comm.get('baseUrl') + "/BaseStudentDorm/doPushMessage",
+                  url: comm.get('baseUrl') + "/PtStudentDorm/doPushMessage",
                   params: {
                      classId: classId,
                  },                 
@@ -277,13 +277,13 @@ Ext.define("core.baseset.studentdorm.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/BaseStudentDorm/doExportExcel?claiId='+classId+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtStudentDorm/doExportExcel?claiId='+classId+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/BaseStudentDorm/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtStudentDorm/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {

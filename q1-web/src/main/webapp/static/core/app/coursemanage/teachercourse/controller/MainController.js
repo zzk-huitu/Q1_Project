@@ -74,7 +74,7 @@ Ext.define("core.coursemanage.teachercourse.controller.MainController", {
                 return false;
             }
             courseId=records[0].get("courseId");
-            uuid=records[0].get("uuid");
+            uuid=records[0].get("id");
         }
 
         var basePanel = baseGrid.up("basepanel");
@@ -188,7 +188,7 @@ Ext.define("core.coursemanage.teachercourse.controller.MainController", {
         var girdSearchTexts = cpt.query("field[funCode=girdFastSearchText]");
         var filter=new Array();
         if(girdSearchTexts[0].getValue()){
-            filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "xm", "comparison": ""})
+            filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "name", "comparison": ""})
         }
         if(girdSearchTexts[1].getValue()){
             filter.push({"type": "string", "value": girdSearchTexts[1].getValue(), "field": "courseName", "comparison": ""})

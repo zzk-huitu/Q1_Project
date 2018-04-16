@@ -146,7 +146,7 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
         var filter = new Array();
         filter.push("{'type': 'string', 'comparison': '', 'value':'1', 'field': 'category'}");
         if (girdSearchTexts[0].getValue() != "")
-        filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'xm'}");
+        filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'name'}");
         if (girdSearchTexts[1].getValue() != "")
             filter.push("{'type': 'string', 'comparison': '=', 'value':'" + girdSearchTexts[1].getValue() + "', 'field': 'deptId'}");
         filter = "[" + filter.join(",") + "]";
@@ -188,7 +188,7 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
            
         
         var date = self.ajax({
-            url: comm.get('baseUrl') + "/BaseTeacherDrom" + "/getTeaDormXmb",
+            url: comm.get('baseUrl') + "/PtTeacherDorm" + "/getTeaDormXmb",
             params: {
                 roomId:formRoomId
             },
@@ -207,7 +207,7 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
                 var isStoreXmb=new Array();
                 for (var i = 0; i < store.getCount(); i++) {
                     var record = store.getAt(i);        
-                    var xbm = record.get("xbm");                
+                    var xbm = record.get("sex");                
                     isStoreXmb.push(xbm);
                 }
             
@@ -230,7 +230,7 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
         var valueArray = new Array();
         var arkNumArr=new Array();
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BaseTeacherDrom" + "/getMax",
+            url: comm.get('baseUrl') + "/PtTeacherDorm" + "/getMax",
             params: {
                 dormId:formDormId
             },
@@ -238,11 +238,11 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
             success: function (response) {
                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
                     Ext.each(records, function(r,index) {
-                        valueArray.push(data.bedNum+index+1);
-                        arkNumArr.push(data.arkNum+index+1);
+                        valueArray.push(data.bedNo+index+1);
+                        arkNumArr.push(data.arkNo+index+1);
                     });
                     var bff = bf.findField("bedCount").setValue(valueArray.join(","));
-                    bff = bf.findField("arkCount").setValue(arkNumArr.join(","));
+                    bff = bf.findField("sarkCount").setValue(arkNumArr.join(","));
 
             },
             failure: function(response) {                   

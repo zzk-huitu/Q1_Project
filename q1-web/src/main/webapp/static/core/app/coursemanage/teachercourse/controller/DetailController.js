@@ -104,10 +104,10 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
 		var detailLayout = e.up("panel[xtype=coursemanage.teachercourse.detaillayout]");
 
 		var myStore = Ext.create('Ext.data.Store', {
-			model: factory.ModelFactory.getModelByName("com.zd.school.jw.arrangecourse.model.JwCourseteacher", "checked").modelName,
+			model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.basic.PtCourseTeacher", "checked").modelName,
 			proxy: {
 				type: 'ajax',
-				url: comm.get('baseUrl') + "/CourseTeacher/getYearCourseTeacherList",
+				url: comm.get('baseUrl') + "/PtCourseTeacher/getYearCourseTeacherList",
 				extraParams: {
 					studyYear: studyYear,
 					semester: e.value
@@ -195,8 +195,8 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
 	        var objs = selectTeacherStore.getRange();
   	
 	        for(var i = 0; i < objs.length;i++ ) {
-	        	var tteacId1=objs[i].data.tteacId;
-	        	var claiId1=objs[i].data.claiId;
+	        	var tteacId1=objs[i].data.teacherId;
+	        	var claiId1=objs[i].data.classId;
 	        	var courseId1=objs[i].data.courseId;
 	        	var studyYear1=objs[i].data.studyYear;	
 	        	var semester1=objs[i].data.semester;
@@ -219,7 +219,7 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
         var self = this;
         var result = -2;
         for (var i = 0; i < store.getCount(); i++) {
-            var isClassId = store.getAt(i).get("claiId");
+            var isClassId = store.getAt(i).get("classId");
             var isCourseId = store.getAt(i).get("courseId");
             var isYear = store.getAt(i).get("studyYear");
             var isSemester = store.getAt(i).get("semester");

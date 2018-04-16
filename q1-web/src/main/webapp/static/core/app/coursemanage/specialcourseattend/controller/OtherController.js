@@ -177,7 +177,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
          var funCode = baseGrid.funCode;
          var basePanel = baseGrid.up("basepanel[funCode=" +funCode + "]");
          var basetab = btn.up('baseformtab');
-         var titleId = basetab.insertObj.uuid;
+         var titleId = basetab.insertObj.id;
 
          //得到配置信息
          var funData = basePanel.funData;
@@ -254,7 +254,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
          if(cmd=="timeAttend"){
           var objDetForm = win.down("baseform[xtype=coursemanage.specialcourseattend.settimesform]");
           var formObj = objDetForm.getForm();
-          formObj.findField("titleId").setValue(titleId);
+          formObj.findField("attendThemeId").setValue(titleId);
         }
 
      },
@@ -290,7 +290,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
         //拼装所选择的考勤数据
         var isSelectedIds = new Array();
         Ext.each(isSelectStore, function(rec) {
-          var pkValue = rec.get("uuid");
+          var pkValue = rec.get("id");
           isSelectedIds.push(pkValue);
         });
        
@@ -323,11 +323,11 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
       var basePanel = win.down("basepanel[funCode=" + funCode + "]");
       var isSelectGrid = basePanel.down("grid[xtype=pubselect.isselectstugrid]");
       var title = "确定设置这些考勤用户吗？";
-      var addUrl = "/AttUser/doUserAttendBind";
+      var addUrl = "/PtAttendUser/doUserAttendBind";
       if(cmd=="termAttend"){
          isSelectGrid = basePanel.down("panel[xtype=roomterminal.isselecttermgrid]");
          title = "确定设置这些考勤设备吗？";
-         addUrl = "/AttendTerm/doTermAttendAdd";
+         addUrl = "/PtAttendTerm/doTermAttendAdd";
       }
      
       var isSelectStore = isSelectGrid.getStore();
@@ -339,7 +339,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
 
       var selectIds = new Array();
       for (var i = 0; i < storeCount; i++) {
-        var tempId=isSelectStore.getAt(i).get("uuid");
+        var tempId=isSelectStore.getAt(i).get("id");
         if(selectIds.indexOf(tempId)==-1)
           selectIds.push(tempId);
       }
@@ -396,7 +396,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
       }else{
         objForm.findField("endTime").setValue("");
       }
-      objForm.findField("teachTime").setValue(records[0].get('jcCode'));
+      objForm.findField("sections").setValue(records[0].get('sectionCode'));
       win.close();
     },
    saveAttendTimeForm:function(btn){
@@ -405,7 +405,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
        var objForm = win.down("form[xtype=coursemanage.specialcourseattend.settimesform]");
        var formObj = objForm.getForm();    //获取表单对象
        var params = self.getFormValue(formObj);
-       var pkField = formObj.findField('uuid');
+       var pkField = formObj.findField('id');
 
        var beginDate = formObj.findField("beginDate").getValue();
        var endDate = formObj.findField("endDate").getValue();
@@ -436,7 +436,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
             loading.show();
 
             self.asyncAjax({
-                url: comm.get('baseUrl')  + "/AttendTime/"+act ,
+                url: comm.get('baseUrl')  + "/PtAttendTime/"+act ,
                 params: params,
                 //回调代码必须写在里面
                 success: function (response) {

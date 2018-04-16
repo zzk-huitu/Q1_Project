@@ -14,7 +14,7 @@ Ext.define("core.baseset.campus.controller.OtherController", {
 	    "baseform[xtype=baseset.campus.detailform] ": {
 	    	afterrender: function(grid) {
 	    		var data =this.ajax({
-	    			url:comm.get('baseUrl') + "/BaseCampus/getSchool",
+	    			url:comm.get('baseUrl') + "/PtCampus/getSchool",
 
 	    		});
 	    		var formObj = grid.getForm();
