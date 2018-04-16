@@ -579,7 +579,7 @@ Ext.define('core.main.controller.MainController', {
     },
     
     onMenuItemClick:function(menu,item){
-            
+            debugger
         if(!item){
             return false;
         }

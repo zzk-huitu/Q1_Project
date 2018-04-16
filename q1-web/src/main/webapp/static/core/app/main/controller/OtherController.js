@@ -32,7 +32,7 @@ Ext.define("core.main.controller.OtherController", {
             }           
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/SysUser/setUserDeskFunc",
+                url: comm.get('baseUrl') + "/PtUser/setUserDeskFunc",
                 params: {
                     menuCodes: ids.join(","),
                 },                       
@@ -84,7 +84,7 @@ Ext.define("core.main.controller.OtherController", {
             }          
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/SysUser/cancelUserDeskFunc",
+                url: comm.get('baseUrl') + "/PtUser/cancelUserDeskFunc",
                 params: {
                     menuCodes: ids.join(","),
                 },                       

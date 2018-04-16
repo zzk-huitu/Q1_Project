@@ -5,7 +5,7 @@
 	
 	<defaultCache               
         maxElementsInMemory="10000"  
-        eternal="true"  
+        eternal="false"  
         timeToIdleSeconds="120"  
         timeToLiveSeconds="120"  
         overflowToDisk="true"  
@@ -14,8 +14,8 @@
         clearOnFlush="false"  
    	/>  
    	
-	<!-- shiro 需要用到的缓存--> 
-	 <cache name="authorizationCache"  
+	<!-- shiro 需要用到的缓存(授权)--> 
+	 <cache name="authorizationCache"  	
            maxEntriesLocalHeap="2000"  
            eternal="false"  
            timeToIdleSeconds="3600"  
@@ -24,6 +24,7 @@
            statistics="true">  
     </cache>  
   
+  	<!-- shiro 需要用到的缓存（认证）--> 
     <cache name="authenticationCache"  
            maxEntriesLocalHeap="2000"  
            eternal="false"  
@@ -33,16 +34,24 @@
            statistics="true">  
     </cache>  
         
-           
-	<cache name="shiro-activeSessionCache" maxEntriesLocalHeap="2000"
-		eternal="false" timeToIdleSeconds="3600" timeToLiveSeconds="0"
-		overflowToDisk="false" statistics="true">
+    <!-- shiro 需要用到的缓存（活动会话）-->        
+	<cache name="shiro-activeSessionCache" 
+			maxEntriesLocalHeap="2000"
+			eternal="false"
+			timeToIdleSeconds="3600" 
+			timeToLiveSeconds="0"
+			overflowToDisk="false" 
+			statistics="true">
 	</cache>
 	
-	
-	<cache name="shiro-kickout-session" maxEntriesLocalHeap="2000"
-		eternal="false" timeToIdleSeconds="0" timeToLiveSeconds="0"
-		overflowToDisk="false" statistics="true">
+	<!-- shiro 需要用到的缓存（用于指定唯一登录帐号）--> 
+	<cache name="shiro-kickout-session" 
+			maxEntriesLocalHeap="2000"
+			eternal="false"
+			timeToIdleSeconds="0" 
+			timeToLiveSeconds="0"
+			overflowToDisk="false" 
+			statistics="true">
 	</cache>
 	
 </ehcache>

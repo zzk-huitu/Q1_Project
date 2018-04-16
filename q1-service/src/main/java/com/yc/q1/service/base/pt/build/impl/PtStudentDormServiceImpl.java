@@ -351,7 +351,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 				entity = new PtClassDormAllot();
 				entity.setId(objArray[0].toString());
 				entity.setDormName(objArray[1].toString());
-				entity.setClainame(objArray[2].toString());
+				entity.setClassName(objArray[2].toString());
 				entity.setDormType(objArray[3].toString());
 				entity.setDormBedCount(objArray[4].toString());
 				entity.setStudentCount(objArray[5].toString());
@@ -380,7 +380,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 				entity = new PtClassDormAllot();
 				entity.setId(objArray[0].toString());
 				entity.setDormName(objArray[1].toString());
-				entity.setClainame(objArray[2].toString());
+				entity.setClassName(objArray[2].toString());
 				entity.setDormType(objArray[3].toString());
 				entity.setDormBedCount(objArray[4].toString());
 				entity.setClassId(objArray[5].toString());

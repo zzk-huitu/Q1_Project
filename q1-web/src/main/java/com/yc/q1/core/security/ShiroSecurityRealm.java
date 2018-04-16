@@ -18,7 +18,7 @@ import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtUserService;
 
-@Component
+//@Component
 public class ShiroSecurityRealm extends AuthorizingRealm {
 
     @Resource

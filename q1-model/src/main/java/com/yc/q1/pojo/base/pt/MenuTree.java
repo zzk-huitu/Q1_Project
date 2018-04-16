@@ -20,7 +20,12 @@ import com.yc.q1.core.model.extjs.ExtTreeNode;
  *
  */
 public class MenuTree extends ExtTreeNode<MenuTree> {
-    @FieldInfo(name = "菜单编码")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@FieldInfo(name = "菜单编码")
     private String menuCode;
 
     @FieldInfo(name = "小图标")

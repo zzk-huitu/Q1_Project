@@ -107,8 +107,8 @@ public class PtStudentBaseInfo extends PtUser implements Serializable {
 	private String studentState;
 
 	// @FieldInfo(name = "班级名称", type = "varchar(60)", explain = "班级名称")
-	@Formula("(SELECT a.className FROM T_PT_GradeClass a where a.classId=classId)")
-	private String className;
+	//@Formula("(SELECT a.className FROM T_PT_GradeClass a where a.classId=classId)")
+	//private String className;
 
 	public String getEnglishName() {
 		return englishName;
@@ -272,13 +272,13 @@ public class PtStudentBaseInfo extends PtUser implements Serializable {
 		this.studentState = studentState;
 	}
 
-	public String getClassName() {
-		return className;
-	}
-
-	public void setClassName(String className) {
-		this.className = className;
-	}
+//	public String getClassName() {
+//		return className;
+//	}
+//
+//	public void setClassName(String className) {
+//		this.className = className;
+//	}
 
 	public PtStudentBaseInfo() {
 		super();

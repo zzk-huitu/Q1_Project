@@ -28,8 +28,8 @@ public class PtMenu extends TreeNodeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
 	
-	@FieldInfo(name = "菜单编码", type = "varchar(16) NOT NULL", explain = "菜单编码")
-	@Column(name = "menuCode", columnDefinition = "varchar(16)", nullable = false)
+	@FieldInfo(name = "菜单编码", type = "varchar(32) NOT NULL", explain = "菜单编码")
+	@Column(name = "menuCode", columnDefinition = "varchar(32)", nullable = false)
 	private String menuCode;
 
 	@FieldInfo(name = "菜单类型", type = "varchar(10) NOT NULL", explain = "菜单类型")

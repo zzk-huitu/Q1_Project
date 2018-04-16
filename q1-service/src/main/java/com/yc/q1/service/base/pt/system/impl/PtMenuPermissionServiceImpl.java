@@ -33,7 +33,7 @@ public class PtMenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermissio
 	public List<PtMenuPermission> getRoleMenuPerlist(String roleId, String perId) {
 		List<PtMenuPermission> returnList=null;
 		//查询此菜单的功能权限	
-		String hql = "select menuPermissionId from RoleMenuPermission a where a.isDelete=0 ";
+		String hql = "select menuPermissionId from PtRoleMenuPermission a where a.isDelete=0 ";
 		if(StringUtils.isNotEmpty(roleId)){
 			hql+=" and a.roleId='"+roleId+"'";		
 		}
@@ -42,7 +42,7 @@ public class PtMenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermissio
 		}
 		List<String> menuPerIds = this.queryEntityByHql(hql);
 		if(menuPerIds.size()>0){
-			hql = "from MenuPermission s where s.id in (:ids) and s.isDelete=0";          
+			hql = "from PtMenuPermission s where s.id in (:ids) and s.isDelete=0";          
         	returnList = this.queryByHql(hql.toString(), 0, -1, "ids", menuPerIds.toArray());// 执行查询方法
 		}else{
 			returnList=new ArrayList<>();

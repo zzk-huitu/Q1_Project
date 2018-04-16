@@ -38,6 +38,7 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.storage.log.LogUserLogin;
 import com.yc.q1.service.base.pt.system.PtRoleService;
 import com.yc.q1.service.base.pt.system.PtUserService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 import com.yc.q1.service.storage.log.LogUserLoginService;
 
 @Controller
@@ -59,7 +60,9 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
-
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	@Value("${virtualFileUrl}")
 	private String virtualFileUrl;
@@ -83,7 +86,7 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 				writeJSON(response, jsonBuilder.toJson(result));
 				return;
 			}
-		}else if("1".equals(sysUser.getState())){
+		}else if(sysUser.getState()==false){
 			result.put("result", -1);
 			writeJSON(response, jsonBuilder.toJson(result));
 			return;
@@ -113,13 +116,13 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 
 			// 先判断此sessionID是否已经存在，若存在且userid不等于当前的，且没有登记退出时间，则设置为退出
 			String updateTime = DateUtil.formatDateTime(new Date());
-			String updateHql = "update UserLoginLog o set o.offlineDate=CONVERT(datetime,'" + updateTime
+			String updateHql = "update LogUserLogin o set o.offlineDate=CONVERT(datetime,'" + updateTime
 					+ "'),o.offlineIntro='切换账户退出' where o.offlineDate is null and o.isDelete=0 and o.sessionId='"
 					+ sessionId + "' and o.userId!='" + userId + "'";
 			sysUserLoginLogService.doExecuteCountByHql(updateHql);
 
 			if (!sysUserLoginLogService.IsFieldExist("userId", userId, "-1", " o.sessionId='" + sessionId + "'")) {
-				LogUserLogin loginLog = new LogUserLogin();
+				LogUserLogin loginLog = new LogUserLogin(keyRedisService.getId(LogUserLogin.ModuleType));
 				loginLog.setUserId(userId);
 				loginLog.setSessionId(sessionId);
 				loginLog.setUserName(sysUser.getUserName());

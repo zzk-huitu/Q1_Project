@@ -84,7 +84,7 @@ Ext.define('core.main.view.index.DeskFunction', {
 		//读取当前常用功能
 		var deskFunc="";
 		Ext.Ajax.request({
-            url: comm.get('baseUrl')+'/SysUser/getUserDeskFunc',
+            url: comm.get('baseUrl')+'/PtUser/getUserDeskFunc',
             method: "GET",
             async: false,
             timeout: 60000,                

@@ -30,7 +30,7 @@ Ext.define('core.main.view.Viewport', {
         
         //加载菜单
         Ext.Ajax.request({
-            url: comm.get('baseUrl')+'/SysUser/getUserMenuTree',
+            url: comm.get('baseUrl')+'/PtUser/getUserMenuTree',
             method: "POST",
             async: false,
             timeout: 60000,        

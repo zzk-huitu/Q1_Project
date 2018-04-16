@@ -64,6 +64,8 @@ public class PrimaryKeyRedisServiceImpl implements PrimaryKeyRedisService{
 			//设置缓存过期时间  					
 			Date date=dateTimeSdf.parse(dateSdf.format(new Date())+" "+"23:59:59");	//当前的日期加上23:59:59
 			op.expireAt(date);          
+		}else if(value==999999){
+			redisTemplate.delete("Increment_ID");	//删除此属性，以至于下次重新生成
 		}
 		       
 		return value;
@@ -71,13 +73,14 @@ public class PrimaryKeyRedisServiceImpl implements PrimaryKeyRedisService{
 	
 	private String getDate(){	
 		String value=dateSdf.format(new Date());
+		value=value.substring(2, value.length());
 		return value;
 	}
 
 	@Override
 	public void resetIncrementValue() {
 		// TODO Auto-generated method stub		
-		BoundValueOperations<String, Object>  op = redisTemplate.boundValueOps("Increment_ID");
+		//BoundValueOperations<String, Object>  op = redisTemplate.boundValueOps("Increment_ID");
 		redisTemplate.delete("Increment_ID");
 	}
 	

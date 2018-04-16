@@ -142,26 +142,24 @@ public class PtUser extends BaseEntity implements Serializable {
 	 */
 	// @FieldInfo(name = "下次自动登录")
 	@Transient
-	private Boolean rememberMe;
+	private Boolean rememberMe=false;
 
 	// @FieldInfo(name = "主部门ID",type="varchar(20)",explain="用户的主部门ID")
-	@Formula("(SELECT ISNULL(a.deptId,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
-			+ "(SELECT b.deptjobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
+	@Formula("(SELECT b.deptId FROM T_PT_UseDeptJob b WHERE b.isMainDept=1 AND  b.userId=userId AND b.isDelete=0)")
 	private String deptId;
 
 	// @FieldInfo(name = "主部门名称",type="nvarchar(36)",explain="用户的主部门名称")
 	@Formula("(SELECT ISNULL(a.deptName,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
-			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
+			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.isMainDept=1 AND  b.userId=userId AND b.isDelete=0))")
 	private String deptName;
 
 	// @FieldInfo(name = "主岗位ID",type="varchar(20)",explain="用户的主岗位ID")
-	@Formula("(SELECT ISNULL(a.jobId,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
-			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
+	@Formula("(SELECT b.jobId FROM T_PT_UseDeptJob b WHERE b.isMainDept=1 AND  b.userId=userId AND b.isDelete=0)")
 	private String jobId;
 
 	// @FieldInfo(name = "主岗位名称",type="nvarchar(36)",explain="用户的主岗位名称")
 	@Formula("(SELECT ISNULL(a.jobName,'') FROM T_PT_DeptJob a WHERE a.deptJobId="
-			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.mainDept=1 AND  b.userId=userId AND b.isDelete=0))")
+			+ "(SELECT b.deptJobId FROM T_PT_UseDeptJob b WHERE b.isMainDept=1 AND  b.userId=userId AND b.isDelete=0))")
 	private String jobName;
 
 	// @FieldInfo(name = "学校名称",type="nvarchar(36)",explain="当前用户所属的学校名称")

@@ -151,7 +151,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 	public List<MenuTree> getPermTree(String roodId, String author, String authorType, Boolean isSee,
 			Boolean expanded) {
 		Boolean isAdmin = false;
-		String hql = "from Menu ";
+		String hql = "from PtMenu ";
 		
 		// 对于超级管理员的用户与角色，默认有所有菜单的权限
 		if (authorType.equals(AuthorType.ROLE)) {
