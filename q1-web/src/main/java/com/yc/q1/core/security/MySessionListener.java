@@ -19,7 +19,7 @@ public class MySessionListener implements SessionListener {
 	
     @Override  
     public void onStart(Session session) {//会话创建时触发  
-        //System.out.println("会话创建：" + session.getId());  
+        System.out.println("会话创建：" + session.getId());  
     }  
     @Override  
     public void onExpiration(Session session) {//会话过期时触发 
@@ -31,13 +31,13 @@ public class MySessionListener implements SessionListener {
         String userId=sysuser.getId();
         String sessionId=(String) session.getId();
      
-        String hql="from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
+        String hql="from LogUserLogin o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
     	LogUserLogin loginLog = sysUserLoginLogService.getEntityByHql(hql, userId,sessionId);
     	if(loginLog!=null){
     		loginLog.setLastAccessDate(session.getLastAccessTime());
     		loginLog.setOfflineDate(new Date());
     		loginLog.setOfflineIntro("超时退出");
-    		sysUserLoginLogService.merge(loginLog);
+    		sysUserLoginLogService.persist(loginLog);
     	}    	  
     }  
     @Override  
@@ -49,7 +49,7 @@ public class MySessionListener implements SessionListener {
         String userId=sysuser.getId();
         String sessionId=(String) session.getId();
      
-        String hql="from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
+        String hql="from LogUserLogin o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc";
         LogUserLogin loginLog = sysUserLoginLogService.getEntityByHql(hql, userId,sessionId);
     	if(loginLog!=null){
     		loginLog.setLastAccessDate(session.getLastAccessTime());
@@ -60,7 +60,7 @@ public class MySessionListener implements SessionListener {
     		else 
     			loginLog.setOfflineIntro("手动退出");
 
-    		sysUserLoginLogService.merge(loginLog);
+    		sysUserLoginLogService.persist(loginLog);
     	}   
     }    
 }  

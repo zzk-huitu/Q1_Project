@@ -303,3 +303,46 @@ end
 update a set a.parentNode=(select dictId from T_PT_DataDict where dicCode=a.parentNode) from T_PT_DataDict a 
 update a set a.parentNode='ROOT' from T_PT_DataDict a  where a.parentNode IS NULL
 */
+
+
+/*10.初始化数据字典子项
+exec dbo.P_PT_GetKeyId '02'
+select [dbo].[F_PT_GetKeyId]('02') ;
+select  * from T_PT_DataDictItem
+
+select  ROW_NUMBER() over( order by DIC_ID asc,ITEM_CODE asc) rowNum,* into tempTable  from Q1_bolun.dbo.BASE_T_DICITEM where ISDELETE=0 
+--select * from tempTable
+
+declare @id varchar(20), @index1 int,@rowNum int,@dicId varchar(20),@itemCode varchar(20),@itemDesc varchar(256),@itemName varchar(16);
+	
+select @index1=COUNT(*) from Q1_bolun.dbo.BASE_T_DIC where ISDELETE=0
+
+select top 1 @rowNum=rowNum,
+	@dicId=(select DIC_CODE from Q1_bolun.dbo.BASE_T_DIC where DIC_ID=a.DIC_ID),
+	@itemCode=ITEM_CODE,@itemDesc=ITEM_DESC,@itemName=ITEM_NAME
+from tempTable a
+
+update T_PT_TempNo set NoValue=1 where NoType='idType';
+
+while @index1>0
+begin
+
+	select @id=[dbo].[F_PT_GetKeyId]('02') ;
+	
+	insert into T_PT_DataDictItem(dictItemId, createTime,createUser,isDelete,orderIndex,version,
+		dictId,itemCode,itemDesc,itemName)	--physicalPath临时存放父id
+	values(@id,GETDATE(),'ROOT',0,@rowNum,1,@dicId,@itemCode,@itemDesc,@itemName)
+	
+	
+	select top 1 @rowNum=rowNum,
+		@dicId=(select DIC_CODE from Q1_bolun.dbo.BASE_T_DIC where DIC_ID=a.DIC_ID),
+		@itemCode=ITEM_CODE,@itemDesc=ITEM_DESC,@itemName=ITEM_NAME
+	from tempTable a where rowNum>@rowNum
+	
+	set @index1=@index1-1;
+	update T_PT_TempNo set NoValue=NoValue+1 where NoType='idType';
+end
+--更新父Id
+update a set a.dictId=isnull((select dictId from T_PT_DataDict where dicCode=a.dictId),'') from T_PT_DataDictItem a 
+drop table tempTable
+*/

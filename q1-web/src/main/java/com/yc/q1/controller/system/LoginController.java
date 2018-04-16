@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -60,7 +62,7 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 
 	@Resource
 	private RedisTemplate<String, Object> redisTemplate;
-	
+
 	@Resource
 	private PrimaryKeyRedisService keyRedisService;
 
@@ -72,137 +74,98 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 	// private RedisTemplate<String, Object> redisTemplate;
 	// @Resource
 	// private StringRedisTemplate stringRedisTemplate;
+	
 
 	@RequestMapping("/login")
-	public void login(PtUser sysUserModel, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void login(PtUser sysUserModel, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		Map<String, Object> result = new HashMap<String, Object>();
-		PtUser sysUser = sysUserService.getByProerties("userName", sysUserModel.getUserName());
-		// if (sysUser == null || "1".equals(sysUser.getState())) { //
-		// 用户名有误或已被禁用
-		if (sysUser == null) { // 用户名有误,根据编号进行查询
-			sysUser = sysUserService.getByProerties("userNumb", sysUserModel.getUserName());
-			if (sysUser == null || "1".equals(sysUser.getState())) {// 根据编号也未查询到
+		Subject currentUser = SecurityUtils.getSubject();
+
+		if (!currentUser.isAuthenticated()) {
+
+			String pwd = Base64.decodeToString(sysUserModel.getUserPwd());
+
+			// 把用户名和密码封装为 UsernamePasswordToken 对象
+			UsernamePasswordToken token = new UsernamePasswordToken(sysUserModel.getUserName(), pwd);
+			// rememberme
+			token.setRememberMe(false);
+			try {
+				// 执行登录.
+				currentUser.login(token);
+
+				// 获取session
+				Session session = currentUser.getSession();
+
+				// 设置超时时间
+				// SecurityUtils.getSubject().getSession().setTimeout(-1000l);
+				// //永不过期
+				session.setTimeout(1000 * 60 * 30 * 2); // 超时时间为1小时
+
+				
+				// 获取用户id和会话id
+				String userId = (String) currentUser.getPrincipal();				
+				PtUser user = sysUserService.get(userId);
+
+				// 记录登录信息
+				if (!sysUserLoginLogService.IsFieldExist("userId", userId, "-1", " o.sessionId='" + session.getId() + "'")) {
+					sysUserLoginLogService.doAddLoginLog(user,session);
+				}
+				
+				
+				/*以下代码，设置返回到页面的基本数据，将数据记录到session中*/	
+				
+				// 获取学期学年
+				this.getStudyYearSemester(user);	
+				session.setAttribute(SESSION_SYS_USER, user);
+				
+				//获取用户角色值
+				String roleKeys = user.getSysRoles().stream().filter(x -> x.getIsDelete() == 0)
+						.map(x -> x.getRoleCode()).collect(Collectors.joining(","));
+				session.setAttribute(SESSION_ROLE_KEY, roleKeys);
+
+				// 如果此用户是超级管理员，就不用获取功能权限列表,在过滤器和前端中直接跳过鉴权
+				if (roleKeys.indexOf(AdminType.ADMIN_ROLE_NAME) != -1) {
+					session.setAttribute(SESSION_SYS_ISADMIN, 1);
+				} else {
+					// 将权限数据保存到session中
+					HashMap<String, Set<String>> userRMP_Map = sysUserService.getUserRoleMenuPermission(user, session);
+					if (userRMP_Map != null) {
+						session.setAttribute(SESSION_SYS_AUTH, userRMP_Map.get("auth"));
+						session.setAttribute(SESSION_SYS_BTN, userRMP_Map.get("btn"));
+					}
+
+					session.setAttribute(SESSION_SYS_ISADMIN, 0);
+
+					// 学校管理员，理应可以查看所有数据
+					if (roleKeys.indexOf(AdminType.SCHOOLADMIN_ROLE_NAME) != -1)
+						session.setAttribute(SESSION_SYS_ISSCHOOLADMIN, 1);
+					else
+						session.setAttribute(SESSION_SYS_ISSCHOOLADMIN, 0);
+				}
+
+				// 图片的虚拟目录
+				session.setAttribute("SESSION_SYS_VFU", virtualFileUrl);
+				
+			} catch (UnknownAccountException ue) {
 				result.put("result", -1);
 				writeJSON(response, jsonBuilder.toJson(result));
 				return;
+			} catch (LockedAccountException le) {
+				result.put("result", -1);
+				writeJSON(response, jsonBuilder.toJson(result));
+				return;
+			}		
+			catch (AuthenticationException ae) {	// 所有认证时异常的父类.
+				result.put("result", -2);
+				writeJSON(response, jsonBuilder.toJson(result));
+				return;
 			}
-		}else if(sysUser.getState()==false){
-			result.put("result", -1);
-			writeJSON(response, jsonBuilder.toJson(result));
-			return;
-		}
-
-		String pwd = Base64.decodeToString(sysUserModel.getUserPwd());
-
-		if (!sysUser.getUserPwd().equals(new Sha256Hash(pwd).toHex())) { // 密码错误
-			result.put("result", -2);
-			writeJSON(response, jsonBuilder.toJson(result));
-			return;
-		}
-		sysUser.setLoginTime(new Date());
-		sysUserService.merge(sysUser);
-		Subject subject = SecurityUtils.getSubject();
-		Session session = subject.getSession();
-		// SecurityUtils.getSubject().getSession().setTimeout(-1000l); //永不过期
-		session.setTimeout(1000 * 60 * 30 * 2); // 超时时间为1小时
-		// login失败，要捕获相应异常
-		try {
-			// 执行login之后，会立即执行Realm的getAuthenticationInfo方法，用来判断token信息是否正确。
-			subject.login(new UsernamePasswordToken(sysUser.getUserName(), pwd, sysUserModel.getRememberMe()));
-
-			// 判断 用户ID和会话ID是否已经存在数据库中
-			String userId = sysUser.getId();
-			String sessionId = (String) session.getId();
-
-			// 先判断此sessionID是否已经存在，若存在且userid不等于当前的，且没有登记退出时间，则设置为退出
-			String updateTime = DateUtil.formatDateTime(new Date());
-			String updateHql = "update LogUserLogin o set o.offlineDate=CONVERT(datetime,'" + updateTime
-					+ "'),o.offlineIntro='切换账户退出' where o.offlineDate is null and o.isDelete=0 and o.sessionId='"
-					+ sessionId + "' and o.userId!='" + userId + "'";
-			sysUserLoginLogService.doExecuteCountByHql(updateHql);
-
-			if (!sysUserLoginLogService.IsFieldExist("userId", userId, "-1", " o.sessionId='" + sessionId + "'")) {
-				LogUserLogin loginLog = new LogUserLogin(keyRedisService.getId(LogUserLogin.ModuleType));
-				loginLog.setUserId(userId);
-				loginLog.setSessionId(sessionId);
-				loginLog.setUserName(sysUser.getUserName());
-				loginLog.setIpHost(session.getHost());
-				loginLog.setLoginDate(session.getLastAccessTime());
-				loginLog.setLastAccessDate(session.getLastAccessTime());
-				sysUserLoginLogService.merge(loginLog);
-			}
-			/*
-			 * 不处理重复登录 else{ String hql=
-			 * "from SysUserLoginLog o where o.userId=? and o.sessionId=? and o.isDelete=0 order by createTime desc"
-			 * ; SysUserLoginLog loginLog =
-			 * sysUserLoginLogService.getEntityByHql(hql, userId,sessionId); }
-			 */
-
-		} catch (AuthenticationException e) { // 这里只捕获了AuthenticationException这个超类，其他更详细的异常子类，暂时不处理
-			result.put("result", -2);
-			writeJSON(response, jsonBuilder.toJson(result));
-			return;
 		}
 		
-		Calendar a = Calendar.getInstance();
-		Integer justYear = a.get(Calendar.YEAR); // 当前年份
-		Integer studyYear = a.get(Calendar.YEAR); // 当前年份
-		Integer studyMonth = a.get(Calendar.MONTH) + 1; // 当前月份
-		Integer i = justYear + 1;
-		String studyYearName = justYear.toString() + "-" + i.toString() + "学年";
-		String semester = "";
-		if (studyMonth >= 8) {
-			// 如果是8月份以后为当年-次年学年的上学期
-			semester = "2";
-		} else if (studyMonth >= 2) {
-			// 如果是2月份 及以上，为去年-当年的下学期
-			semester = "1";
-			studyYear = justYear - 1;
-			studyYearName = studyYear.toString() + "-" + justYear.toString() + "学年";
-		} else {
-			// 如果是1月份，为去年-当年的上学期
-			semester = "2";
-			studyYear = justYear - 1;
-			studyYearName = studyYear.toString() + "-" + justYear.toString() + "学年";
-		}
-
-		sysUser.setStudyYear(studyYear);
-		sysUser.setSemester(semester);
-		sysUser.setStudyYearname(studyYearName);
-		
-
-		session.setAttribute(SESSION_SYS_USER, sysUser);
-
-		String roleKeys = sysUser.getSysRoles().stream().filter(x -> x.getIsDelete() == 0).map(x -> x.getRoleCode())
-				.collect(Collectors.joining(","));
-		session.setAttribute(SESSION_ROLE_KEY, roleKeys);
-
-		// 如果此用户是超级管理员，就不用获取功能权限列表,在过滤器和前端中直接跳过鉴权
-		// SysRole adminRole=roleService.get(AdminType.ADMIN_ROLE_ID);
-		if (roleKeys.indexOf(AdminType.ADMIN_ROLE_NAME) != -1) {
-			session.setAttribute(SESSION_SYS_ISADMIN, 1);	
-		} else {
-			// 将权限数据保存到session中
-			HashMap<String, Set<String>> userRMP_Map = sysUserService.getUserRoleMenuPermission(sysUser, session);
-			if (userRMP_Map != null) {
-				session.setAttribute(SESSION_SYS_AUTH, userRMP_Map.get("auth"));
-				session.setAttribute(SESSION_SYS_BTN, userRMP_Map.get("btn"));
-			}
-			
-			session.setAttribute(SESSION_SYS_ISADMIN, 0);
-			
-			//学校管理员，理应可以查看所有数据
-			if(roleKeys.indexOf(AdminType.SCHOOLADMIN_ROLE_NAME) != -1)
-				session.setAttribute(SESSION_SYS_ISSCHOOLADMIN, 1);
-			else
-				session.setAttribute(SESSION_SYS_ISSCHOOLADMIN, 0);
-		}
-		
-		//图片的虚拟目录
-		session.setAttribute("SESSION_SYS_VFU",virtualFileUrl);
-
 		result.put("result", 1);
 		writeJSON(response, jsonBuilder.toJson(result));
+		// return "redirect:/index.jsp"; 前端使用ajax提交的，所以不能直接响应到其他页面
 	}
 
 	@RequestMapping("/getCurrentUser")
@@ -375,8 +338,35 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 		hashOper.delete("userRightDeptTree", sysUser.getId());
 		hashOper.delete("userRightDeptClassTree", sysUser.getId());
 		hashOper.delete("userRightDeptDisciplineTree", sysUser.getId());
-		
-		writeJSON(response, jsonBuilder.returnSuccessJson("\"缓存清除成功\""));	
+
+		writeJSON(response, jsonBuilder.returnSuccessJson("\"缓存清除成功\""));
 	}
 
+	private void getStudyYearSemester(PtUser user){
+		Calendar a = Calendar.getInstance();
+		Integer justYear = a.get(Calendar.YEAR); // 当前年份
+		Integer studyYear = a.get(Calendar.YEAR); // 当前年份
+		Integer studyMonth = a.get(Calendar.MONTH) + 1; // 当前月份
+		Integer i = justYear + 1;
+		String studyYearName = justYear.toString() + "-" + i.toString() + "学年";
+		String semester = "";
+		if (studyMonth >= 8) {
+			// 如果是8月份以后为当年-次年学年的上学期
+			semester = "2";
+		} else if (studyMonth >= 2) {
+			// 如果是2月份 及以上，为去年-当年的下学期
+			semester = "1";
+			studyYear = justYear - 1;
+			studyYearName = studyYear.toString() + "-" + justYear.toString() + "学年";
+		} else {
+			// 如果是1月份，为去年-当年的上学期
+			semester = "2";
+			studyYear = justYear - 1;
+			studyYearName = studyYear.toString() + "-" + justYear.toString() + "学年";
+		}
+
+		user.setStudyYear(studyYear);
+		user.setSemester(semester);
+		user.setStudyYearname(studyYearName);
+	}
 }
