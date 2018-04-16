@@ -144,7 +144,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 		}
 		//得到选择的字典
 		var objDic = selectObject[0];
-		var dicId = objDic.get("id");
+		var dictId = objDic.get("id");
 		var dicName = objDic.get("text");
 		var detCode = "dicItem_main";
 		//处理特殊默认值
@@ -152,12 +152,12 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 		var insertObj = self.getDefaultValue(defaultObj);
 		var tabTitle = funData.tabConfig.addTitle;
 		insertObj = Ext.apply(insertObj, {
-			dicId: dicId,
+			dictId: dictId,
 			dicName: dicName
 		});
 		var popFunData = Ext.apply(funData, {
 			grid: baseGrid,
-			filter: "[{'type':'string','comparison':'=','value':'" + dicId + "','field':'dictId'}]"
+			filter: "[{'type':'string','comparison':'=','value':'" + dictId + "','field':'dictId'}]"
 		});
 				
 		

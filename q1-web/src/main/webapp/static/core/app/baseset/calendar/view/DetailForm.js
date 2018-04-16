@@ -86,7 +86,7 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             xtype: "textfield",
             fieldLabel: "节次名称",
-            name: "senctionName",
+            name: "sectionName",
             allowBlank: false,
             emptyText: '节次名称',
             blankText: "节次名称不能为空",

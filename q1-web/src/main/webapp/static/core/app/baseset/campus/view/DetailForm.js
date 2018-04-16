@@ -11,7 +11,7 @@ Ext.define("core.baseset.campus.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     },/* {
         fieldLabel: "学校主键",

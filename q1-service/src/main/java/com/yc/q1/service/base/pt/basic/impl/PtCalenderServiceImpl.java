@@ -55,9 +55,9 @@ public class PtCalenderServiceImpl extends BaseServiceImpl<PtCalender> implement
 	public int updateStatu(String calenderIds, String campusNames) {
 		// TODO Auto-generated method stub
 		try {
-			String hql1 = "update Calender set activityState=0 where isDelete=0 and activityState=1 and campusName in('"
+			String hql1 = "update PtCalender set activityState=0 where isDelete=0 and activityState=1 and campusName in('"
 					+ campusNames.replace(",", "','") + "')"; // 弃用
-			String hql2 = "update Calender set activityState=1 where id in('" + calenderIds.replace(",", "','") + "')";// 1：启用
+			String hql2 = "update PtCalender set activityState=1 where id in('" + calenderIds.replace(",", "','") + "')";// 1：启用
 			this.doExecuteCountByHql(hql1);
 			this.doExecuteCountByHql(hql2);
 			return 1;

@@ -49,7 +49,7 @@ public class PtCalenderDetailServiceImpl extends BaseServiceImpl<PtCalenderDetai
 			return null;
 		if (jtc.getId() == null || jtc.getId().trim().equals(""))
 			return null;
-		StringBuffer hql = new StringBuffer(" from CalenderDetail where isDelete=0 and calenderId='");
+		StringBuffer hql = new StringBuffer(" from PtCalenderDetail where isDelete=0 and calenderId='");
 		hql.append(jtc.getId()).append("'");
 		return this.queryByHql(hql.toString());
 	}
@@ -104,7 +104,7 @@ public class PtCalenderDetailServiceImpl extends BaseServiceImpl<PtCalenderDetai
 		Boolean delResult = false;
 		try {
 			String doIds = "'" + delIds.replace(",", "','") + "'";
-			String hql = "DELETE FROM CalenderDetail j  WHERE j.id IN (" + doIds + ")";
+			String hql = "DELETE FROM PtCalenderDetail j  WHERE j.id IN (" + doIds + ")";
 			this.doExecuteCountByHql(hql);
 			delResult = true;
 		} catch (Exception e) {

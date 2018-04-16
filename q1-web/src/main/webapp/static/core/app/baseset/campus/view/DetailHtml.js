@@ -15,7 +15,7 @@ Ext.define("core.baseset.campus.view.DetailHtml", {
                 '<li style="width:50%" title="{campusName}">校区名称：{campusName}</li>',
                 '<li style="width:50%" title="{campusCode}">校区编码：{campusCode}</li>',
                 '<li style="width:50%" title="{campusAddr}">校区地址：{campusAddr}</li>',
-                '<li style="width:50%" title="{mailCode}">邮政编码：{mailCodemailCode}</li>',
+                '<li style="width:50%" title="{mailCode}">邮政编码：{mailCode}</li>',
                 '<li style="width:50%" title="{campusPhone}">校区联系电话：{campusPhone}</li>',
                 '<li style="width:50%" title="{campusFax}">校区传真电话：{campusFax}</li>',
                 '<li style="width:50%" title="{campusPrincipal}">校区负责人号：{campusPrincipal}</li>',

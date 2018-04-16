@@ -35,16 +35,16 @@ public class PtCalenderDetail extends BaseEntity implements Serializable {
 	private String calenderId;
 
 	@FieldInfo(name = "节次名称", type = "nvarchar(16)  NOT NULL", explain = "节次名称")
-	@Column(name = "senctionName", columnDefinition = "nvarchar(16)", nullable = false)
-	private String senctionName;
+	@Column(name = "sectionName", columnDefinition = "nvarchar(16)", nullable = false)
+	private String sectionName;
 
 	@FieldInfo(name = "时段", type = "int NOT NULL", explain = "时段标识:0-上午 ;1-下午;2-晚上")
 	@Column(name = "timeInterval", length = 1, nullable = false)
 	private String timeInterval;
 
 	@FieldInfo(name = "节次", type = "nvarchar(10)  default ''", explain = "节次")
-	@Column(name = "senctionCode", columnDefinition = "nvarchar(10) default ''", nullable = true)
-	private String senctionCode;
+	@Column(name = "sectionCode", columnDefinition = "nvarchar(10) default ''", nullable = true)
+	private String sectionCode;
 
 	@FieldInfo(name = "开始时间", type = "datetime NOT NULL", explain = "开始时间")
 	@Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
@@ -70,12 +70,12 @@ public class PtCalenderDetail extends BaseEntity implements Serializable {
 		this.calenderId = calenderId;
 	}
 
-	public String getSenctionName() {
-		return senctionName;
+	public String getSectionName() {
+		return sectionName;
 	}
 
-	public void setSenctionName(String senctionName) {
-		this.senctionName = senctionName;
+	public void setSectionName(String sectionName) {
+		this.sectionName = sectionName;
 	}
 
 	public String getTimeInterval() {
@@ -86,12 +86,12 @@ public class PtCalenderDetail extends BaseEntity implements Serializable {
 		this.timeInterval = timeInterval;
 	}
 
-	public String getSenctionCode() {
-		return senctionCode;
+	public String getSectionCode() {
+		return sectionCode;
 	}
 
-	public void setSenctionCode(String senctionCode) {
-		this.senctionCode = senctionCode;
+	public void setSectionCode(String sectionCode) {
+		this.sectionCode = sectionCode;
 	}
 
 	public Date getBeginTime() {

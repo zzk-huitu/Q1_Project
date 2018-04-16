@@ -102,7 +102,7 @@ Ext.define("core.baseset.calendar.view.MainGrid", {
         }
 	}, {
 		text: "节次名称",
-		dataIndex: "senctionName",
+		dataIndex: "sectionName",
 		field: {
 			xtype: "textfield"
 		},

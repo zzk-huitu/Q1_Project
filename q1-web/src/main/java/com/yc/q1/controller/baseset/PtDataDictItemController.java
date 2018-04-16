@@ -164,10 +164,10 @@ public class PtDataDictItemController extends FrameWorkController<PtDataDictItem
 	public void doUpdate(PtDataDictItem entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 
-		String dicId = entity.getDictId();
+		String dictId = entity.getDictId();
 
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		String hql = " o.dictId='" + dicId + "' and o.isDelete='0'";
+		String hql = " o.dictId='" + dictId + "' and o.isDelete='0'";
 		if (thisService.IsFieldExist("itemName", entity.getItemName(), entity.getId(), hql)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"同一字典下的字典项名称不能相同！\""));
 			return;
@@ -207,7 +207,7 @@ public class PtDataDictItemController extends FrameWorkController<PtDataDictItem
 		if (baseDicItem == null) { // 若存在，则不需要设置
 		
 			PtDataDict dictionary = dictionaryService.getByProerties("dicCode", dicCode);
-			String hql = " from DataDictItem where isDelete=0 and dictId='" + dictionary.getId()
+			String hql = " from PtDataDictItem where isDelete=0 and dictId='" + dictionary.getId()
 					+ "' order by orderIndex asc, itemCode asc ";
 			List<PtDataDictItem> lists = thisService.queryByHql(hql);
 			strData = jsonBuilder.buildObjListToJson(new Long(lists.size()), lists, false);

@@ -18,7 +18,7 @@ Ext.define("core.baseset.calendar.view.MainLayout", {
  
 	funData: {
 		action: comm.get('baseUrl') + "/PtCalenderDetail", //请求Action
-		pkName: "uuid",
+		pkName: "id",
 		defaultObj: {
            
         },

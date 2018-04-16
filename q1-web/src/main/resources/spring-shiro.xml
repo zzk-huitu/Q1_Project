@@ -33,14 +33,14 @@
 
 	<!-- 4.配置realm -->
 	<bean id="shiroSecurityRealm" class="com.yc.q1.core.security.ShiroSecurityRealm">
-		<!-- 凭证匹配器
+		<!-- 凭证匹配器-->
 		<property name="credentialsMatcher">	
 			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
-				<property name="hashAlgorithmName" value="MD5"></property>
-				<property name="hashIterations" value="1024"></property>
+				<constructor-arg value="SHA-256"></constructor-arg>
+				<!--<property name="hashAlgorithmName" value="SHA-256"></property> 加密类型 MD5 SHA-1 SHA-256 -->
+				<property name="hashIterations" value="1"></property>	<!-- 加密次数，推荐1024次 -->
 			</bean>
-		</property>
-		 -->
+		</property>	
 	</bean>
 
 
