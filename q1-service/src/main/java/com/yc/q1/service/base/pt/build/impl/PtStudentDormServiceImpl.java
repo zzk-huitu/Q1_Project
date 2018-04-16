@@ -227,7 +227,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 				+ " order by className asc,userNumb asc,xm asc";
 		classStuList = this.queryEntityBySql(sql, StandVClassStudent.class);// 先获取到该年级下全部学生
 		gradeClassList = gradeClassService
-				.queryByHql("from GradeClass where gradeId='" + gradId + "' and isDelete=0 order by className asc");// 获取到现有年级下的所有班级
+				.queryByHql("from PtGradeClass where gradeId='" + gradId + "' and isDelete=0 order by className asc");// 获取到现有年级下的所有班级
 
 		// 将某年级下的所有男生、女生分出来
 		boyList = classStuList.stream().filter((e) -> e.getXbm().equals("1")).collect(Collectors.toList());
@@ -274,7 +274,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 		
 		// 获取该宿舍下入住的人数
 		jwClassDormAllot = classDormService.get(entity.getClassDormId());
-		String hql="select count(*) from StudentDorm where isDelete=0 and classDormId='"+entity.getClassDormId()+"'";
+		String hql="select count(*) from PtStudentDorm where isDelete=0 and classDormId='"+entity.getClassDormId()+"'";
 		inAllotCount=this.getQueryCountByHql(hql);
 		
 		buildDormDefine = dormDefineService.get(jwClassDormAllot.getDormId());

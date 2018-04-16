@@ -56,9 +56,9 @@ public class PtSchoolServiceImpl extends BaseServiceImpl<PtSchool> implements Pt
 
 		if (!oldSchoolName.equals(entity.getSchoolName())) {
 			// 再更新使用到的名称
-			String updateHql1 = "update RoomArea a set a.nodeText='" + entity.getSchoolName() + "' where a.id='"
+			String updateHql1 = "update PtRoomArea a set a.nodeText='" + entity.getSchoolName() + "' where a.id='"
 					+ entity.getId() + "'";
-			String updateHql2 = "update Department a set a.nodeText='" + entity.getSchoolName() + "' where a.id='"
+			String updateHql2 = "update PtDepartment a set a.nodeText='" + entity.getSchoolName() + "' where a.id='"
 					+ entity.getId() + "'";
 			this.doExecuteCountByHql(updateHql1);
 			this.doExecuteCountByHql(updateHql2);

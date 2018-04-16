@@ -100,7 +100,7 @@ public class PtRoomInfoServiceImpl extends BaseServiceImpl<PtRoomInfo> implement
 	@Override
 	public Integer getCount(String roomName) {
 		Integer conut=0;
-		String hql=" select count(*) from RoomInfo where 1=1 ";
+		String hql=" select count(*) from PtRoomInfo where 1=1 ";
 		if(roomName!=null){
 			hql+=" and roomName = '"+roomName+"'";	
 		}

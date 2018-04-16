@@ -243,7 +243,7 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 				PtUserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
 				if (userdeptjob != null) { // 在事务中，若第一次循环设置为了isdelete=1，那么第二次同样的条件查询是查不到该数据，即会预先执行。
 					// 查询此人员是否在此班级任课多门
-					String hql = "select count(*) from CourseTeacher a where a.isDelete=0 " + " and a.classId='"
+					String hql = "select count(*) from PtCourseTeacher a where a.isDelete=0 " + " and a.classId='"
 							+ jwCourseteacher.getName() + "' and teacherId='" + jwCourseteacher.getTeacherId() + "'";
 					Integer num = this.getQueryCountByHql(hql);
 					boolean del = false;
@@ -326,9 +326,9 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 	@Override
 	public String updateZjsByClassId(String classId, String courseId, int zjs) {
 		PtGrade grade = gradeClassService.findJwTGradeByClassId(classId);
-		String hql = "update CourseTeacher ct set ct.courseCountWeek=" + zjs + " where "
-				+ " ct.classId in( select gc.id from GradeClass gc where gc.gradeId"
-				+ " in (select id from Grade where sectionCode='" + grade.getSectionCode() + "' )) and  ct.courseId='"
+		String hql = "update PtCourseTeacher ct set ct.courseCountWeek=" + zjs + " where "
+				+ " ct.classId in( select gc.id from PtGradeClass gc where gc.gradeId"
+				+ " in (select id from PtGrade where sectionCode='" + grade.getSectionCode() + "' )) and  ct.courseId='"
 				+ courseId + "' ";
 		doExecuteCountByHql(hql);
 		return null;
@@ -338,8 +338,8 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 	public void updatePubliceClass(String classId, String courseId, String publicClassId) {
 		// TODO Auto-generated method stub
 		PtGrade grade = gradeClassService.findJwTGradeByClassId(courseId);
-		String hql = "update CourseTeacher ct set ct.classId='" + publicClassId + "'  where ct.id in ("
-				+ " select c.id from GradeClass g, CourseTeacher c where" + " c.classId=g.id and c.courseId='"
+		String hql = "update PtCourseTeacher ct set ct.classId='" + publicClassId + "'  where ct.id in ("
+				+ " select c.id from PtGradeClass g, CourseTeacher c where" + " c.classId=g.id and c.courseId='"
 				+ courseId + "'  and g.gradeId   ='" + grade.getId() + "' ) ";
 
 		doExecuteCountByHql(hql);
@@ -434,7 +434,7 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 			PtUserDeptJob userdeptjob = userDeptJobService.getByProerties(propName, propValue);
 			if (userdeptjob != null) {
 				// 查询此人员是否在此班级任课多门
-				String hql = "select count(*) from CourseTeacher a where a.isDelete=0 " + " and a.classId='"
+				String hql = "select count(*) from PtCourseTeacher a where a.isDelete=0 " + " and a.classId='"
 						+ jct.getClassId() + "' and teacherId='" + jct.getTeacherId() + "'";
 				Integer num = this.getQueryCountByHql(hql);
 				boolean del = false;

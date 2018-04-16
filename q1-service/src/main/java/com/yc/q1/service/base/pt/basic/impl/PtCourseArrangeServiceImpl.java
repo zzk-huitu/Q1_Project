@@ -102,7 +102,7 @@ public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange>
 				}
 
 				// 查询此班级信息
-				hql = "from GradeClass where className='" + className + "'" + andIsDelete;
+				hql = "from PtGradeClass where className='" + className + "'" + andIsDelete;
 				List<PtGradeClass> gcList = jwClassService.queryByHql(hql);
 				PtGradeClass gc = null;
 
@@ -151,7 +151,7 @@ public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange>
 						index++;
 
 						// 查询课程信息
-						hql = "from BaseCourse where courseName='" + cousreName + "'" + andIsDelete;
+						hql = "from PtCourse where courseName='" + cousreName + "'" + andIsDelete;
 						List<PtBaseCourse> baseCourseList = jtbService.queryByHql(hql);
 						PtBaseCourse basecourse = null;
 						if (baseCourseList.size() == 1) {
@@ -171,7 +171,7 @@ public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange>
 						}
 
 						// 查询任课教师信息
-						hql = "from CourseTeacher where courseId='" + basecourse.getId() + "' and classId='"
+						hql = "from PtCourseTeacher where courseId='" + basecourse.getId() + "' and classId='"
 								+ gc.getId() + "'" + andIsDelete;
 
 						List<PtCourseTeacher> courseteachers = courseTeacherService.queryByHql(hql);

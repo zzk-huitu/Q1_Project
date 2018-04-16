@@ -45,7 +45,7 @@ public class PtFuncRoomDefineServiceImpl extends BaseServiceImpl<PtFuncRoomDefin
 	@Override
 	public PtFuncRoomDefine getByRoomId(String roomId) {
 		PtFuncRoomDefine entity;
-		String hql = "from FuncRoomDefine where 1=1";
+		String hql = "from PtFuncRoomDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}
