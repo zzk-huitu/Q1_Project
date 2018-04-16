@@ -163,7 +163,7 @@ Ext.define("core.system.roleright.controller.MainController", {
 		var itemGrid = baseMainPanel.down("panel[xtype=system.roleright.rolgerightgrid]");
 
 		var funData = Ext.apply(funData, {
-			roleId: record.get("uuid"),
+			roleId: record.get("id"),
 			roleName: record.get("roleName")
 		});
 		//加载角色的权限
@@ -171,7 +171,7 @@ Ext.define("core.system.roleright.controller.MainController", {
 		var proxy = store.getProxy();
 
 		proxy.extraParams = {
-			roleId: record.get("uuid")
+			roleId: record.get("id")
 		};
 		store.load();
 	},
@@ -241,7 +241,7 @@ Ext.define("core.system.roleright.controller.MainController", {
 			            };									
 						selectedPermissionGridStore.getProxy().extraParams = {
 							roleId:funData.roleId,
-			                perId:records[0].get("perId")
+			                perId:records[0].get("permissionId")
 			            };								
 						permissionGridStore.load();
 						selectedPermissionGridStore.load();
@@ -287,7 +287,7 @@ Ext.define("core.system.roleright.controller.MainController", {
         	return false;
 
         }
-        if(record[0].get('uuid')=='8a8a8834533a0f8a01533a0f8e220000' || record[0].get('roleName')=='超级管理员'){
+        if(record[0].get('id')=='8a8a8834533a0f8a01533a0f8e220000' || record[0].get('roleName')=='超级管理员'){
         	self.msgbox("此角色拥有全部权限，不用授权!");
         	return false;
         }
@@ -368,7 +368,7 @@ Ext.define("core.system.roleright.controller.MainController", {
 				var myMask = self.LoadMask(baseGrid);
 				//提交入库
 				self.asyncAjax({
-		            url: comm.get('baseUrl') + "/SysRole/doDeleteRight",
+		            url: comm.get('baseUrl') + "/PtRole/doDeleteRight",
 					params: {
 						ids: ids.join(","),
 						roleId: roleId

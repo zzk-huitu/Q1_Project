@@ -144,7 +144,7 @@ Ext.define("core.system.roleright.controller.OtherController", {
                 var myMask = self.LoadMask(win);
                 //提交入库
                 self.asyncAjax({
-                    url: comm.get('baseUrl') + "/SysRole/doAddRight",
+                    url: comm.get('baseUrl') + "/PtRole/doAddRight",
                     params: {
                         ids: ids.join(","),
                         roleId: roleId
@@ -193,7 +193,7 @@ Ext.define("core.system.roleright.controller.OtherController", {
         var store=selectedPermissionGrid.getStore();
         for(var i=0;i<store.getCount();i++){
             var rec=store.getAt(i);
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             if(ids.indexOf(pkValue)==-1)
                 ids.push(pkValue);              
         }                
@@ -209,7 +209,7 @@ Ext.define("core.system.roleright.controller.OtherController", {
                 var myMask = self.LoadMask(win);
                 //提交入库
                 self.asyncAjax({
-                    url: comm.get('baseUrl') + "/SysRole/doSetRoleMenuPermission",
+                    url: comm.get('baseUrl') + "/PtRole/doSetRoleMenuPermission",
                     params: {
                         ids: ids.join(","),
                         roleId: roleId,

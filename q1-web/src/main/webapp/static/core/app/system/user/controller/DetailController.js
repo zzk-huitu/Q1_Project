@@ -45,7 +45,7 @@ Ext.define("core.system.user.controller.DetailController", {
             afterrender: function(form) {
                 var baseformtab=form.up("baseformtab");
                 //如果存在uuid，则为编辑界面，再将身份文本框设置为只读
-                if(baseformtab.insertObj.uuid){ 
+                if(baseformtab.insertObj.id){ 
                     form.getForm().findField("category").setReadOnly(true);
                 }
 
@@ -79,7 +79,7 @@ Ext.define("core.system.user.controller.DetailController", {
         var insertObj = basetab.insertObj;
         
        
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var title = "指定部门";
 
         var funcPanel = 'user.userdeptright'; //仅仅是用于为编写确定按钮事件提供一个判断的标识
@@ -91,7 +91,7 @@ Ext.define("core.system.user.controller.DetailController", {
             whereSql: "",
             orderSql: " ",
             excludes: "",
-            url: comm.get('baseUrl') + "/SysOrg/getUserRightDeptTree",
+            url: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptTree",
         };
 
         self.selTreeWin({
@@ -130,7 +130,7 @@ Ext.define("core.system.user.controller.DetailController", {
 
         var funData = detailLayout.funData;
         var insertObj = basetab.insertObj;
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
 
         var records = userDeptRightGrid.getSelectionModel().getSelection();
         if (records.length < 1) {
@@ -139,7 +139,7 @@ Ext.define("core.system.user.controller.DetailController", {
         }
         var delRights = new Array();         
         Ext.each(records, function(rec) {
-            delRights.push(rec.get("uuid"));
+            delRights.push(rec.get("id"));
         }, this);
 
         var title = "确定解除这些部门权限吗？";
@@ -148,7 +148,7 @@ Ext.define("core.system.user.controller.DetailController", {
             if (btn == 'yes') {
                 //发送ajax请求
                 self.asyncAjax({
-                    url: comm.get("baseUrl") + "/SysDeptright/doDelete",
+                    url: comm.get("baseUrl") + "/PtUserDeptRight/doDelete",
                     params: {
                         ids: delRights.join(","),
                     },

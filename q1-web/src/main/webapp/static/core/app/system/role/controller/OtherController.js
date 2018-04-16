@@ -306,7 +306,7 @@ Ext.define("core.system.role.controller.OtherController", {
         }
         var userIds = new Array();
         for (var i = 0; i < storeCount; i++) {
-            var tempId=isSelectStore.getAt(i).get("uuid");
+            var tempId=isSelectStore.getAt(i).get("id");
             if(userIds.indexOf(tempId)==-1)
                 userIds.push(tempId);
         }

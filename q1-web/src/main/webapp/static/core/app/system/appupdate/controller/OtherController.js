@@ -41,7 +41,7 @@ Ext.define("core.system.appupdate.controller.OtherController", {
 			});
 			loading.show();
            objForm.submit({
-                url: comm.get('baseUrl') + "/SysAppinfo/doUploadApp",
+                url: comm.get('baseUrl') + "/PtAppInfo/doUploadApp",
                 waitMsg: '正在上传文件...',
                 timeout : 300000,
                 success: function(form, action) {

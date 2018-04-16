@@ -275,12 +275,12 @@ Ext.define("core.system.role.controller.MainController", {
                     var roleInfoContainer = tabItem.down("container[ref=roleInfo]");
                     roleInfoContainer.setData(insertObj);
                     self.asyncAjax({
-                        url: comm.get("baseUrl") + "/SysRole/roleUserList",
+                        url: comm.get("baseUrl") + "/PtRole/roleUserList",
                         params: {
                             page: 1,
                             start: 0,
                             limit: 0,
-                            roleId: insertObj.uuid
+                            roleId: insertObj.id
                         },
                         success: function (response) {
                             var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -361,8 +361,8 @@ Ext.define("core.system.role.controller.MainController", {
                     var loading = self.LoadMask(baseGrid,"正在提交，请稍等...");
                     var ids = new Array();
                     Ext.each(records, function (rec) {
-                        if(rec.get("issystem")!=1){
-                            var pkValue = rec.get("uuid");
+                        if(rec.get("isSystem")!=1){
+                            var pkValue = rec.get("id");
                             ids.push(pkValue);
                         }
                     });
@@ -373,7 +373,7 @@ Ext.define("core.system.role.controller.MainController", {
                         return false;
                     }
                     self.asyncAjax({
-                        url:  comm.get('baseUrl')  + "/SysRole/doDelete",
+                        url:  comm.get('baseUrl')  + "/PtRole/doDelete",
                         params: {
                             ids: ids.join(","),
                             //pkName: pkName

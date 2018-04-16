@@ -166,7 +166,7 @@ public class PtDepartmentController extends FrameWorkController<PtDepartment> im
 			return;
 		}
 		//获取同一级别的顺序号
-		String hql = " from Department where orderIndex = (select max(o.orderIndex) from Department o where  o.isDelete='0' and o.parentNode='" + parentNode + "' )";
+		String hql = " from PtDepartment where orderIndex = (select max(o.orderIndex) from PtDepartment o where  o.isDelete='0' and o.parentNode='" + parentNode + "' )";
 		List list = thisService.queryByHql(hql);
 		if (list.size() > 0) {
 			defaultOrderIndex = (Integer) EntityUtil.getPropertyValue(list.get(0), "orderIndex") + 1;

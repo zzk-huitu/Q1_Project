@@ -54,8 +54,8 @@ public class PtJobServiceImpl extends BaseServiceImpl<PtJob> implements PtJobSer
 		
 		if(!oldJobName.equals(entity.getJobName())){
 			//在更新部门岗位表的岗位名称数据
-			String updateHql1="update DeptJob a set a.jobName='"+entity.getJobName()+"' where a.jobId='"+entity.getId()+"'";
-			String updateHql2="update DeptJob a set a.parentJobName='"+entity.getJobName()+"' where a.parentJobId='"+entity.getId()+"'";
+			String updateHql1="update PtDeptJob a set a.jobName='"+entity.getJobName()+"' where a.jobId='"+entity.getId()+"'";
+			String updateHql2="update PtDeptJob a set a.parentJobName='"+entity.getJobName()+"' where a.parentJobId='"+entity.getId()+"'";
 			this.doExecuteCountByHql(updateHql1);
 			this.doExecuteCountByHql(updateHql2);
 		}

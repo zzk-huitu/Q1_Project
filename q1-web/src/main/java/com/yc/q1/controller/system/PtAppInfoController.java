@@ -31,6 +31,7 @@ import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtAppInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtAppInfoService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * App升级管理
@@ -43,7 +44,8 @@ public class PtAppInfoController extends FrameWorkController<PtAppInfo> implemen
 
     @Resource
     PtAppInfoService thisService; // service层接口
-
+    @Resource
+	private PrimaryKeyRedisService keyRedisService;
     /**
       * @Title: list
       * @Description: 查询数据列表
@@ -116,6 +118,7 @@ public class PtAppInfoController extends FrameWorkController<PtAppInfo> implemen
  	                userCh = currentUser.getId();
 
  	            PtAppInfo perEntity = new PtAppInfo();
+ 	            perEntity.setId(keyRedisService.getId(PtAppInfo.ModuleType));
  	            BeanUtils.copyPropertiesExceptNull(entity, perEntity);
  	            Integer orderIndex = thisService.getDefaultOrderIndex(entity);
  	            entity.setOrderIndex(orderIndex);// 排序
@@ -181,8 +184,8 @@ public class PtAppInfoController extends FrameWorkController<PtAppInfo> implemen
     				return;
     			}
  	    		
-	    		String hql1="update AppInfo g  set g.appIsuse=0,g.updateUser='"+userCh+"' where g.isDelete=0 and g.appIsuse=1 and g.appType='"+appType+"' ";
-	    		String hql2="update AppInfo g  set g.appIsuse=1,g.updateUser='"+userCh+"' where g.isDelete=0 and g.id='"+id+"' ";
+	    		String hql1="update PtAppInfo g  set g.appIsuse=0,g.updateUser='"+userCh+"' where g.isDelete=0 and g.appIsuse=1 and g.appType='"+appType+"' ";
+	    		String hql2="update PtAppInfo g  set g.appIsuse=1,g.updateUser='"+userCh+"' where g.isDelete=0 and g.id='"+id+"' ";
 	    		thisService.doExecuteCountByHql(hql1);
 	    		thisService.doExecuteCountByHql(hql2);
     		}else{    		    		
@@ -195,7 +198,7 @@ public class PtAppInfoController extends FrameWorkController<PtAppInfo> implemen
     				}
     			}
     			
-	    		String hql1="update AppInfo g  set g.appIsuse=0,g.updateUser='"+userCh+"' where g.isDelete=0 and g.id='"+id+"' ";
+	    		String hql1="update PtAppInfo g  set g.appIsuse=0,g.updateUser='"+userCh+"' where g.isDelete=0 and g.id='"+id+"' ";
 	    		thisService.doExecuteCountByHql(hql1);
     		}
     		    	
@@ -346,7 +349,7 @@ public class PtAppInfoController extends FrameWorkController<PtAppInfo> implemen
      */
     @RequestMapping("/up/{type}")
     public void getUp(HttpServletResponse response,HttpServletRequest request,@PathVariable("type") Integer type) throws IOException{
-    	PtAppInfo appinfo = this.thisService.queryByHql("FROM AppInfo WHERE appIsuse = "+1+" and appType ="+type).get(0);
+    	PtAppInfo appinfo = this.thisService.queryByHql("FROM PtAppInfo WHERE appIsuse = "+1+" and appType ="+type).get(0);
     	String requestURL = request.getRequestURL()+"";
 		String [] strs= requestURL.split("/");
     	String url =strs[0]+strs[1]+"//"+strs[2]+appinfo.getAppUrl();

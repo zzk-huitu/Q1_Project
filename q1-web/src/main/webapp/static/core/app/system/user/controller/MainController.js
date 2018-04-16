@@ -410,7 +410,7 @@ Ext.define("core.system.user.controller.MainController", {
                 var selectedUsers=new  Array();
                 Ext.each(selectUser, function(rec) {
                     if(comm.get("userRidhtDeptIds").indexOf(rec.get("deptId"))!=-1){
-                        var pkValue = rec.get("uuid");
+                        var pkValue = rec.get("id");
                         ids.push(pkValue);
                         selectedUsers.push(rec);
                     }             
@@ -525,7 +525,7 @@ Ext.define("core.system.user.controller.MainController", {
             case 'userRole':
                 var tabTitle =insertObj.xm+"-角色管理";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridUserRole"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridUserRole"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -538,7 +538,7 @@ Ext.define("core.system.user.controller.MainController", {
             case 'deptJob':
                 var tabTitle =insertObj.xm+"-部门岗位";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDeptJob"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDeptJob"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -553,7 +553,7 @@ Ext.define("core.system.user.controller.MainController", {
                 detCode="deptRight";
                 var tabTitle =insertObj.xm+"-部门权限";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDeptRight"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDeptRight"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     layout:'vbox',
@@ -578,7 +578,7 @@ Ext.define("core.system.user.controller.MainController", {
             case 'detail':
                 var tabTitle =insertObj.xm+"-用户详情";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDetail"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDetail"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -629,7 +629,7 @@ Ext.define("core.system.user.controller.MainController", {
                         var roleStore = roleGrid.getStore();
                         var roleProxy = roleStore.getProxy();
                         roleProxy.extraParams = {
-                            userId: insertObj.uuid
+                            userId: insertObj.id
                         };
                         roleStore.load();
 
@@ -639,7 +639,7 @@ Ext.define("core.system.user.controller.MainController", {
                         var deptJobStore = deptJobGrid.getStore();
                         var deptJobProxy = deptJobStore.getProxy();
                         deptJobProxy.extraParams = {
-                            userId: insertObj.uuid
+                            userId: insertObj.id
                         };
                         deptJobStore.load();
                         break;
@@ -648,7 +648,7 @@ Ext.define("core.system.user.controller.MainController", {
                         var deptRightStore = deptRightGrid.getStore();
                         var deptRightProxy = deptRightStore.getProxy();
                         deptRightProxy.extraParams = {
-                            filter:"[{'type':'string','comparison':'=','value':'"+insertObj.uuid+"','field':'userId'}]"
+                            filter:"[{'type':'string','comparison':'=','value':'"+insertObj.id+"','field':'userId'}]"
                         };
                         
                         //默认是指定部门，所以当为全部部门时，不需要刷新指定部门的表格数据，
@@ -683,12 +683,12 @@ Ext.define("core.system.user.controller.MainController", {
                         var userInfoContainer = tabItem.down("container[ref=userBaseInfo]");
                         userInfoContainer.setData(insertObj);
                         self.asyncAjax({
-                            url: comm.get('baseUrl') + "/SysUser/userRoleList",
+                            url: comm.get('baseUrl') + "/PtUser/userRoleList",
                             params: {
                                 page: 1,
                                 start: 0,
                                 limit: 0,
-                                userId: insertObj.uuid
+                                userId: insertObj.id
                             },
                             success: function (response) {
                                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -741,13 +741,13 @@ Ext.define("core.system.user.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/SysUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/SysUser/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtUser/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {
@@ -803,8 +803,8 @@ Ext.define("core.system.user.controller.MainController", {
             grid: baseGrid,
             items: [{
                 xtype: "public.importExcel.importform",
-                url:comm.get('baseUrl') + "/SysUser/importData",
-                downUrl:comm.get('baseUrl') + "/SysUser/downNotImportInfo"
+                url:comm.get('baseUrl') + "/PtUser/importData",
+                downUrl:comm.get('baseUrl') + "/PtUser/downNotImportInfo"
             }]
         });
         win.show();
@@ -889,7 +889,7 @@ Ext.define("core.system.user.controller.MainController", {
         //拼装所选择的用户
         var ids = new Array();
         Ext.each(selectUser, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             ids.push(pkValue);
         });
         var title = "确定删除所选择的用户吗？";
@@ -949,7 +949,7 @@ Ext.define("core.system.user.controller.MainController", {
 
                     //异步ajax加载
                     Ext.Ajax.request({
-                        url: comm.get('baseUrl') + "/SysUser/doSyncAllUserInfoToUp",
+                        url: comm.get('baseUrl') + "/PtUser/doSyncAllUserInfoToUp",
                         params: { },
                         timeout:1000*60*60*10,     //10个小时
                         success: function(response){
@@ -991,7 +991,7 @@ Ext.define("core.system.user.controller.MainController", {
         var ids = new Array();
         for (var i = 0; i < iCount; i++) {
             var record = isSelectStore.getAt(i);
-            var pkValue = record.get("uuid");
+            var pkValue = record.get("id");
             ids.push(pkValue);
         }
         if (ids.length > 0) {
@@ -1043,7 +1043,7 @@ Ext.define("core.system.user.controller.MainController", {
     getRightDeptIds:function(){
         var self=this;
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/SysOrg/getUserRightDeptIds",
+            url: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptIds",
             params: {},
             //回调代码必须写在里面
             success: function(response) {

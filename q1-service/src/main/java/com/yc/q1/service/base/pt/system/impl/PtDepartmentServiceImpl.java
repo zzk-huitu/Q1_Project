@@ -80,7 +80,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	public List<DepartmentTree> getOrgTreeList(String whereSql, String orderSql, PtUser currentUser) {
 
 		
-		String hql = " from Department where isDelete = 0 order by parentNode,orderIndex";
+		String hql = " from PtDepartment where isDelete = 0 order by parentNode,orderIndex";
 		List<DepartmentTree> result = new ArrayList<DepartmentTree>();
 		List<PtDepartment> lists = this.queryByHql(hql);
 		// for (BaseOrg baseOrg : rightDept) {
@@ -148,7 +148,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		String[] delUuid = delIds.split(",");
 		for (String id : delUuid) {
 			PtDepartment org = this.get(id);
-			String hql = "select count(*) from Department where parentNode='" + org.getParentNode() + "' and isDelete=0";
+			String hql = "select count(*) from PtDepartment where parentNode='" + org.getParentNode() + "' and isDelete=0";
 			Integer count = this.getQueryCountByHql(hql);
 			if (count.equals(0)) {
 				PtDepartment parentOrg = this.get(org.getParentNode());
@@ -166,11 +166,11 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 			switch (deptType) {
 			case "04": // 年级
 				PtGrade grade = gradeService.get(id);
-				hql = "from GradeClass where gradeId='" + id + "'";
+				hql = "from PtGradeClass where gradeId='" + id + "'";
 				List<PtGradeClass> gradeclasses = classService.queryByHql(hql);
 				// 检查年级下的班级是否存在人员
 				for (PtGradeClass jwTGradeclass : gradeclasses) {
-					hql = "select count(*) from ClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
+					hql = "select count(*) from PtClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
 							+ "'";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
@@ -187,7 +187,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 						return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
 					}*/
 
-					hql = "select count(*) from ClassDormAllot where isDelete=0 and classId='"
+					hql = "select count(*) from PtClassDormAllot where isDelete=0 and classId='"
 							+ jwTGradeclass.getId() + "'";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
@@ -202,8 +202,8 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 					}*/
-					hql = "select count(*) from Term where isDelete=0 and roomId in("
-							+ "select dormId from ClassDormAllot where isDelete=0 and classId='"
+					hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
+							+ "select dormId from PtClassDormAllot where isDelete=0 and classId='"
 							+ jwTGradeclass.getId() + "')";
 					count = this.getQueryCountByHql(hql);
 					if (count > 0) {
@@ -220,7 +220,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 				break;
 			case "05": // 班级
 				PtGradeClass jwTGradeclass = classService.get(id);
-				hql = "select count(*) from ClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
+				hql = "select count(*) from PtClassStudent where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
@@ -234,7 +234,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
 				}*/
-				hql = "select count(*) from ClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
+				hql = "select count(*) from PtClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
@@ -250,8 +250,8 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 				}*/
-				hql = "select count(*) from Term where isDelete=0 and roomId in("
-						+ "select dormId from ClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
+				hql = "select count(*) fromPt Term where isDelete=0 and roomId in("
+						+ "select dormId from PtClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "')";
 				count = this.getQueryCountByHql(hql);
 				if (count > 0) {
@@ -371,7 +371,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	@Override
 	public List<PtDepartment> getOrgList(String whereSql, String orderSql, PtUser currentUser) {
 
-		StringBuffer hql = new StringBuffer(" from Department where 1=1 and isDelete=0 ");
+		StringBuffer hql = new StringBuffer(" from PtDepartment where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(orderSql);
 		List<PtDepartment> lists = this.queryByHql(hql.toString());// 执行查询方法
@@ -454,9 +454,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		List<PtDepartment> reList = new ArrayList<PtDepartment>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
-			sql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
+			sql = " from PtDepartment WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
-			sql = " from Department WHERE isDelete=0 ";
+			sql = " from PtDepartment WHERE isDelete=0 ";
 		}
 		if (isRight) {
 			rightList = this.getOrgList("", "", currentUser);
@@ -477,7 +477,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 
 	@Override
 	public Integer getChildCount(String deptId) {
-		String hql = " select count(*) from Department where isDelete=0 and parentNode='" + deptId + "'";
+		String hql = " select count(*) from PtDepartment where isDelete=0 and parentNode='" + deptId + "'";
 		Integer childCount = this.getQueryCountByHql(hql);
 		// TODO Auto-generated method stub
 		return childCount;
@@ -876,7 +876,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 			rightType="0";
 		
 		
-		String sql = MessageFormat.format("EXECUTE SYS_P_GETUSERRIGHTDEPTTREE ''{0}'',{1}", userId, rightType);
+		String sql = MessageFormat.format("EXECUTE P_PT_GetUserRightDeptTree ''{0}'',{1}", userId, rightType);
 		List<DepartmentTree> chilrens = new ArrayList<DepartmentTree>();
 		List<?> alist = this.queryObjectBySql(sql);
 		for (int i = 0; i < alist.size(); i++) {
@@ -956,7 +956,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		if(isAdmin==1||isSchoolAdmin==1)
 			rightType="0";
 		
-		String sql = MessageFormat.format("EXECUTE SYS_P_GETUSERRIGHTGRADCLASSTREE ''{0}'',{1},''{2}''", userId,
+		String sql = MessageFormat.format("EXECUTE P_PT_GetUserRightGradeClassCourseTree ''{0}'',{1},''{2}''", userId,
 				rightType, "05");
 		
 		
@@ -1011,7 +1011,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		if(isAdmin==1||isSchoolAdmin==1)
 			rightType="0";
 		
-		String sql = MessageFormat.format("EXECUTE SYS_P_GETUSERRIGHTGRADCLASSTREE ''{0}'',{1},''{2}''", userId,
+		String sql = MessageFormat.format("EXECUTE P_PT_GetUserRightGradeClassCourseTree ''{0}'',{1},''{2}''", userId,
 				rightType, "06");	//06是学科
 		
 		

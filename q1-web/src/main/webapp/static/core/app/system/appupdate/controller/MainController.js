@@ -69,9 +69,9 @@ Ext.define("core.system.appupdate.controller.MainController", {
      			var loading = self.LoadMask(baseGrid);
      			if (btn == 'yes') {
      				self.asyncAjax({
-     					url: comm.get('baseUrl') + "/SysAppinfo/doUpdateState",
+     					url: comm.get('baseUrl') + "/PtAppInfo/doUpdateState",
      					params: {
-     						id: recordes[0].data.uuid,
+     						id: recordes[0].data.id,
      						appType:recordes[0].data.appType,
      						appIsuse:appIsuse,
      						appUrl:recordes[0].data.appUrl                                  

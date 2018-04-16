@@ -360,7 +360,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 	@Override
 	public QueryResult<PtUser> getUserByRoleId(String roleId) {
 		QueryResult<PtUser> qr = new QueryResult<PtUser>();
-		String hql = "from User as u inner join fetch u.sysRoles as r where r.id='" + roleId
+		String hql = "from PtUser as u inner join fetch u.sysRoles as r where r.id='" + roleId
 				+ "' and r.isDelete=0 and u.isDelete=0 ";
 		List<PtUser> list = this.queryByHql(hql);
 
@@ -498,9 +498,9 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 	@Override
 	public QueryResult<PtUser> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter) {
-		String hql = "from User as o where o.isDelete=0  and state='0' "; // 只列出状态正常的用户
+		String hql = "from PtUser as o where o.isDelete=0  and state='0' "; // 只列出状态正常的用户
 		if (StringUtils.isNotEmpty(roleId)) {
-			String hql1 = " from User as u inner join fetch u.sysRoles as k where k.id='" + roleId
+			String hql1 = " from PtUser as u inner join fetch u.sysRoles as k where k.id='" + roleId
 					+ "' and k.isDelete=0 and u.isDelete=0 ";
 			List<PtUser> tempList = this.queryByHql(hql1);
 			if (tempList.size() > 0) {
@@ -534,7 +534,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 	 */
 	@Override
 	public List<PtUser> getUserByDeptId(String deptId) {
-		String hql = "select u.id from User as u,UserDeptJob as r where u.id=r.userId and r.deptId='"
+		String hql = "select u.id from PtUser as u,PtUserDeptJob as r where u.id=r.userId and r.deptId='"
 				+ deptId + "' and r.isDelete=0 and u.isDelete=0";
 		return this.queryByHql(hql);
 	}
@@ -548,7 +548,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 	 */
 	@Override
 	public Set<PtDepartment> getDeptByUserId(String userId) {
-		String hql = "select u.id from User as u,UserDeptJob as r,Department o where u.id=r.userId and r.id='"
+		String hql = "select u.id from PtUser as u,PtUserDeptJob as r,PtDepartment o where u.id=r.userId and r.id='"
 				+ userId + "' and r.deptId=o.id and r.isDelete=0 and u.isDelete=0 and o.isDelete=0";
 		List<PtDepartment>  orgs= orgService.queryByHql(hql);
 		
@@ -570,7 +570,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 		Map<String, String> mapZzmmm = new HashMap<>();
 		Map<String, String> mapXbm = new HashMap<>();
 		Map<String, String> mapCategory = new HashMap<>();
-		String hql1 = " from DataDictItem where dicCode in ('ZZMMM','XBM','CATEGORY')";
+		String hql1 = " from PtDataDictItem where dicCode in ('ZZMMM','XBM','CATEGORY')";
 		List<PtDataDictItem> listBaseDicItems1 = dicitemService.queryByHql(hql1);
 		for (PtDataDictItem baseDicitem : listBaseDicItems1) {
 			if (baseDicitem.getDicCode().equals("XBM"))

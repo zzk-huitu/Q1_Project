@@ -127,7 +127,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var ids = new Array();
         for (var i = 0; i < iCount; i++) {
             var record = isSelectStore.getAt(i);
-            var pkValue = record.get("uuid");
+            var pkValue = record.get("id");
             if(ids.indexOf(pkValue)==-1)
                 ids.push(pkValue);
         }
@@ -189,7 +189,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var insertObj = basetab.insertObj;
 
         //选择的用户
-        var selectUserId = insertObj.uuid;
+        var selectUserId = insertObj.id;
         var detCode = "user_selectrolemain";
         var popFunData = Ext.apply(funData, {
             grid: userRoleGrid,
@@ -242,7 +242,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var insertObj = basetab.insertObj;
 
         //选择的用户
-        var selectUserId =  insertObj.uuid;
+        var selectUserId =  insertObj.id;
         //选择的角色
         var selectUserRole = userRoleGrid.getSelectionModel().getSelection();
         if (selectUserRole.length == 0) {
@@ -262,7 +262,7 @@ Ext.define("core.system.user.controller.OtherController", {
         //拼装所选择的角色
         var ids = new Array();
         Ext.each(selectUserRole, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             ids.push(pkValue);
         });
         var title = "删除角色后，用户将不再拥有这些角色的权限，确定删除吗？";
@@ -308,7 +308,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var insertObj = basetab.insertObj;
         
        
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var title = "选择部门岗位";
 
         var funcPanel = 'user.userdeptjob'; //仅仅是用于为编写确定按钮事件提供一个判断的标识
@@ -321,7 +321,7 @@ Ext.define("core.system.user.controller.OtherController", {
             whereSql: "",
             orderSql: " ",
             excludes: "",
-            url: comm.get('baseUrl') + "/SysDeptjob/getDeptJobTree",
+            url: comm.get('baseUrl') + "/PtDeptJob/getDeptJobTree",
         };
 
         self.selTreeWin({
@@ -365,7 +365,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
 
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
 
         var records = deptJobGrid.getSelectionModel().getSelection();
         if (records.length < 1) {
@@ -376,7 +376,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var masterDept = 0;
         Ext.each(records, function(rec) {
             //if (rec.get("masterDept") == 0) {
-                delJobs.push(rec.get("uuid"));
+                delJobs.push(rec.get("id"));
             //} else {
             //    masterDept = 1;
             //}
@@ -432,7 +432,7 @@ Ext.define("core.system.user.controller.OtherController", {
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
 
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
 
         var records = deptJobGrid.getSelectionModel().getSelection();
         if (records.length == 0) {
@@ -447,7 +447,7 @@ Ext.define("core.system.user.controller.OtherController", {
         //     self.Warning("所选岗位已是主部门岗位，无需再设置");
         //     return false;
         // }
-        var ids = records[0].get("uuid");
+        var ids = records[0].get("id");
         var title = "确定设置岗位为主部门岗位吗？";
         Ext.Msg.confirm('设置确认', title, function(btn, text) {
             if (btn == 'yes') {
@@ -560,9 +560,9 @@ Ext.define("core.system.user.controller.OtherController", {
         loading.show();
 
         self.asyncAjax({
-            url:  comm.get("baseUrl") + "/SysDeptright/doUpdateRightType",
+            url:  comm.get("baseUrl") + "/PtUserDeptRight/doUpdateRightType",
             params: {
-                userId:basetab.insertObj.uuid,
+                userId:basetab.insertObj.id,
                 rightType:formObj.getValues().deptRadio
             },
             //回调代码必须写在里面
@@ -611,7 +611,7 @@ Ext.define("core.system.user.controller.OtherController", {
             });
             
             self.asyncAjax({
-                url: comm.get("baseUrl") + "/SysDeptright/doUserRightDept",
+                url: comm.get("baseUrl") + "/PtUserDeptRight/doUserRightDept",
                 params: {
                     userIds: setIds,
                     deptIds: arry.join(",")

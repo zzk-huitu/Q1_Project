@@ -160,12 +160,12 @@ Ext.define("core.system.jobinfo.controller.MainController", {
             var jobBaseContainer = tabItem.down("container[ref=jobBaseInfo]");
             jobBaseContainer.setData(insertObj);
             self.asyncAjax({
-                url: comm.get("baseUrl") + "/SysJob/getJobDept",
+                url: comm.get("baseUrl") + "/PtJob/getJobDept",
                 params: {
                     page: 1,
                     start: 0,
                     limit: 0,
-                    jobId: insertObj.uuid 
+                    jobId: insertObj.id 
                 },
                 success: function (response) {
                     var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -324,13 +324,13 @@ Ext.define("core.system.jobinfo.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/SysJob/doExportExcel?jobName='+value+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtJob/doExportExcel?jobName='+value+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/SysJob/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtJob/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {

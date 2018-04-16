@@ -131,7 +131,7 @@ Ext.define("core.system.menu.controller.MainController", {
 				Ext.apply(insertObj, {
 					parentNode: just,
 					parentName: justName,
-					uuid: ''
+					id: ''
 				});
 				break;
 			case "brother":
@@ -142,7 +142,7 @@ Ext.define("core.system.menu.controller.MainController", {
 				Ext.apply(insertObj, {
 					parentNode: parent,
 					parentName: parentName,
-					uuid: ''
+					id: ''
 				});
 				break;
 			case "edit":
@@ -155,7 +155,7 @@ Ext.define("core.system.menu.controller.MainController", {
 				Ext.apply(insertObj, {
 					parentNode: parent,
 					parentName: parentName,
-					uuid: just,
+					id: just,
 					nodeText: justName
 				});
 
@@ -246,7 +246,7 @@ Ext.define("core.system.menu.controller.MainController", {
 
 		//提交入库
 		self.asyncAjax({
-            url: comm.get('baseUrl') + "/SysMenu/doSetLockFlag",
+            url: comm.get('baseUrl') + "/PtMenu/doSetLockFlag",
 			params: {
 				ids: ids.join(","),
 				lockFlag:cmd

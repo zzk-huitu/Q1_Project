@@ -231,7 +231,7 @@ public class PtMenuController extends FrameWorkController<PtMenu> implements Con
                 writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要锁定的菜单\""));
             return;
         } else {
-            String hql = " update Menu set isHidden='" + lockFlag + "'  where id in ('" + delIds.replace(",", "','")  + "') ";
+            String hql = " update PtMenu set isHidden='" + lockFlag + "'  where id in ('" + delIds.replace(",", "','")  + "') ";
             thisService.doExecuteCountByHql(hql);
                        
             //删除有权限的角色的用户的redis数据

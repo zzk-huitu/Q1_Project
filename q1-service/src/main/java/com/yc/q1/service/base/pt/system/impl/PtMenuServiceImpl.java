@@ -91,12 +91,12 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 	@Override
 	public List<MenuTree> getTreeList(String whereSql, String orderSql) {
 
-		StringBuffer hql = new StringBuffer("from Menu where 1=1");
+		StringBuffer hql = new StringBuffer("from PtMenu where 1=1");
 		hql.append(whereSql);
 		hql.append(orderSql);
 
 		// 总记录数
-		StringBuffer countHql = new StringBuffer("select count(*) from Menu where 1=1");
+		StringBuffer countHql = new StringBuffer("select count(*) from PtMenu where 1=1");
 		countHql.append(whereSql);
 
 		List<PtMenu> typeList = super.queryByHql(hql.toString());
@@ -283,7 +283,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 		Set<PtPermission> rolePerimisson = sysRoleService.get(roleId).getSysPermissions();
 		// String hql = "from SysMenu e where e.isHidden='0' and e.uuid in
 		// (select o.perCode from SysPermission o where o in (:roleRight)) ";
-		String hql = "from Menu e where e.id in (select o.permissionCode from Permission o where o in (:roleRight)) ";
+		String hql = "from PtMenu e where e.id in (select o.permissionCode from PtPermission o where o in (:roleRight)) ";
 		// 非超级管理员要排除掉隐藏的菜单
 		if (!roleId.equals(AdminType.ADMIN_ROLE_ID))
 			hql += " and e.isHidden='0'";	//只显示正常的
@@ -317,7 +317,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 		Boolean doResult = false;
 
 		String menuIds = "'" + cancelMenuId.replace(",", "','") + "'";
-		String hql = " from Permission a where a.permissionCode in (" + menuIds + ") and a.permissionType='" + PermType.TYPE_MENU
+		String hql = " from PtPermission a where a.permissionCode in (" + menuIds + ") and a.permissionType='" + PermType.TYPE_MENU
 				+ "'";
 		List<PtPermission> cancelPerimission = perimissonSevice.queryByHql(hql);
 
@@ -379,7 +379,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 				isPeriminsson = new PtPermission();
 				isPeriminsson.setPermissionCode(perCode);
 				isPeriminsson.setPermissionType(PermType.TYPE_MENU);
-
+				isPeriminsson.setId(keyRedisService.getId(PtPermission.ModuleType));
 				isPeriminsson = perimissonSevice.merge(isPeriminsson);
 				addPerimisson.add(isPeriminsson);
 			}
@@ -398,7 +398,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 			String perId = perimissonIds.get(i);
 
 			// 查询此菜单拥有的功能权限
-			String hql = "select a.id from MenuPermission a where a.isDelete=0 and a.menuId=?";
+			String hql = "select a.id from PtMenuPermission a where a.isDelete=0 and a.menuId=?";
 			List<String> menuPerList = this.queryEntityByHql(hql, perCode);
 			String menuPerStr = "";
 			for (int j = 0; j < menuPerList.size(); j++) {
@@ -433,7 +433,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 	 *             JDK 1.8
 	 */
 	private List<PtMenu> getPermissionMenu(String author, String authorType) {
-		String hql = "from Menu where isHidden='0'";
+		String hql = "from PtMenu where isHidden='0'";
 
 		// 查询出有效的菜单
 		List<PtMenu> lists = super.queryByHql(hql.toString());

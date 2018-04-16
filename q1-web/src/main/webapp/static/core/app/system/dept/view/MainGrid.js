@@ -101,7 +101,7 @@ Ext.define("core.system.dept.view.MainGrid", {
                 fieldInfo: "deptName~deptId,text~id",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url:comm.get('baseUrl') + "/SysOrg/chkTreeList"
+                url:comm.get('baseUrl') + "/PtDepartment/chkTreeList"
             }
         },{
             xtype: 'button',

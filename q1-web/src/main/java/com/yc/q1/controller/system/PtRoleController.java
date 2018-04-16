@@ -28,12 +28,14 @@ import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.StringUtils;
+import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtMenuService;
 import com.yc.q1.service.base.pt.system.PtRoleMenuPermissionService;
 import com.yc.q1.service.base.pt.system.PtRoleService;
 import com.yc.q1.service.base.pt.system.PtUserService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 系统角色管理
@@ -55,7 +57,8 @@ public class PtRoleController extends FrameWorkController<PtRole> implements Con
 
     @Resource
     private PtRoleMenuPermissionService roleMenuPermissionService;
-    	
+    @Resource
+	private PrimaryKeyRedisService keyRedisService; 	
     /**
      * 获取角色列表（非管理员只能看到非隐藏的角色）
      * @param entity
@@ -123,7 +126,8 @@ public class PtRoleController extends FrameWorkController<PtRole> implements Con
         entity.setIsSystem(false);
         
         // 获取当前操作用户
-        PtUser currentUser = getCurrentSysUser();         
+        PtUser currentUser = getCurrentSysUser();  
+        entity.setId(keyRedisService.getId(PtRole.ModuleType));
         entity=thisService.doAddEntity(entity,currentUser.getId());     
         
         if(entity==null)
@@ -248,7 +252,7 @@ public class PtRoleController extends FrameWorkController<PtRole> implements Con
         
         Set<PtRole> userRole = userSerive.get(userId).getSysRoles();
         // hql语句
-        StringBuffer hql = new StringBuffer("from Role o where o.isDelete=0 ");           
+        StringBuffer hql = new StringBuffer("from PtRole o where o.isDelete=0 ");           
         if (userRole.size() > 0) {
         	StringBuilder sb = new StringBuilder();
             for (PtRole r : userRole) {
@@ -462,7 +466,7 @@ public class PtRoleController extends FrameWorkController<PtRole> implements Con
         xm=xm==null?"":xm;
         //QueryResult<SysUser> qResult = thisService.getRoleUser(roleId, start, limit);
         
-		String hql = "from User as o inner join fetch o.sysRoles as r where r.id='" + roleId
+		String hql = "from PtUser as o inner join fetch o.sysRoles as r where r.id='" + roleId
 				+ "' and r.isDelete=0 and o.isDelete=0 and o.name like '%"+xm+"%'";	
 		
 		 if(StringUtils.isNotEmpty(sort)){

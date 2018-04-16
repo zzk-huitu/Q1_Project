@@ -300,7 +300,7 @@ public class PtDeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements 
 		// a.iconcls,a.leaf,a.level,a.treeids,a.parent FROM BASE_V_DEPTJOBTREE a
 		// INNER JOIN ctr_child b");
 		// sbSql.append(" ON a.parent=b.id) SELECT * FROM ctr_child ");
-		String sbSql = " EXEC BASE_P_GETDEPTJOBTREE";
+		String sbSql = " EXEC P_PT_GetDeptJobTree";
 		List<DpetJobTree> chilrens = new ArrayList<DpetJobTree>();
 		List<?> alist = this.querySql(sbSql);
 		for (int i = 0; i < alist.size(); i++) {
@@ -415,7 +415,7 @@ public class PtDeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements 
 	public void delDeptTreeByDeptJob(PtDeptJob deptJob) {
 		// TODO Auto-generated method stub
 		/* 删除用户的菜单redis数据，以至于下次刷新或请求时，可以加载最新数据 */
-		String hql = "select userId from UserDeptJob o where o.deptJobId=? and o.isDelete=0 ";
+		String hql = "select userId from PtUserDeptJob o where o.deptJobId=? and o.isDelete=0 ";
 		List<String> userIds = this.queryEntityByHql(hql, deptJob.getId());
 					
 		if(userIds.size()>0){

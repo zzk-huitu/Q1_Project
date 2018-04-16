@@ -876,7 +876,7 @@ public class BaseServiceImpl<E> implements BaseService<E> {
 			saveEntity = (E) clazz.newInstance();
 
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("uuid");
+			//excludedProp.add("uuid");
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 		
 			clazz.getMethod("setCreateUser", String.class).invoke(saveEntity, operator);// 设置修改人		
@@ -911,8 +911,8 @@ public class BaseServiceImpl<E> implements BaseService<E> {
 		// TODO Auto-generated method stub
 		try {
 			// 先拿到已持久化的实体
-			String uuid = (String) entity.getClass().getMethod("getUuid").invoke(entity);
-			E saveEntity = this.get(uuid);
+			String id = (String) entity.getClass().getMethod("getId").invoke(entity);
+			E saveEntity = this.get(id);
 			
 			if(excludedProp==null)
 				BeanUtils.copyPropertiesExceptNull(saveEntity, entity);

@@ -38,7 +38,7 @@ Ext.define("core.system.permission.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'perName',
+            name:'permissionName',
             funCode:'girdFastSearchText', 
             isNotForm:true,   //由于文本框重写了baseform下面的funcode值，所以使用这个属性，防止重写这里设定的fundcode值。
             emptyText: '请输入权限名称'
@@ -92,7 +92,7 @@ Ext.define("core.system.permission.view.MainGrid", {
             dataIndex: "authPostfix",
             renderer: function(value,metaData,record) {  
                 if(value)
-                    return record.get("perAuthCode")+"_"+value;
+                    return record.get("authPrefix")+"_"+value;
  
                 return value;  
             }  

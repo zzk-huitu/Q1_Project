@@ -105,7 +105,7 @@ public class PtRoleServiceImpl extends BaseServiceImpl<PtRole> implements PtRole
 		StringBuffer roleName = new StringBuffer();
 		for (int i = 0; i < delIds.length; i++) {
 			// 判断这些角色是否正在被其他用户使用
-			String hql = "select u from User as u inner join fetch u.sysRoles as r where r.id='" + delIds[i]
+			String hql = "select u from PtUser as u inner join fetch u.sysRoles as r where r.id='" + delIds[i]
 					+ "' and r.isDelete=0 and u.isDelete=0 ";
 			int count = ptUserService.queryByHql(hql).size();
 			if (count > 0) {// 该角色关联着用户

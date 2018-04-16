@@ -26,6 +26,7 @@ import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtDeptJobService;
 import com.yc.q1.service.base.pt.system.PtJobService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 岗位管理
@@ -40,7 +41,8 @@ public class PtJobController extends FrameWorkController<PtJob> implements Const
 	PtJobService thisService; // service层接口
 	@Resource
 	PtDeptJobService deptService; // service层接口
-
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 	/**
 	 * 标准的查询列表功能
 	 * @param entity
@@ -89,7 +91,7 @@ public class PtJobController extends FrameWorkController<PtJob> implements Const
 
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-
+		entity.setId(keyRedisService.getId(PtJob.ModuleType));
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
@@ -114,7 +116,7 @@ public class PtJobController extends FrameWorkController<PtJob> implements Const
 		} else {
 
 			// 判断这些岗位是否正在被其他部门使用
-			String hql = "select count(a.id) from DeptJob as a where a.jobId in ('" + delIds.replace(",", "','")
+			String hql = "select count(a.id) from PtDeptJob as a where a.jobId in ('" + delIds.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {
@@ -194,7 +196,7 @@ public class PtJobController extends FrameWorkController<PtJob> implements Const
 	public void getJobDept(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData="";
 		String jobId = request.getParameter("jobId"); // 获得传过来的roleId
-		String hql=" from DeptJob a where  a.isDelete=0 and a.jobId = '"+jobId+"'";
+		String hql=" from PtDeptJob a where  a.isDelete=0 and a.jobId = '"+jobId+"'";
 		List list = deptService.queryByHql(hql);
 	    strData = jsonBuilder.buildObjListToJson(new Long(list.size()), list, true);
 		writeJSON(response, strData);
@@ -208,7 +210,7 @@ public class PtJobController extends FrameWorkController<PtJob> implements Const
         String jobName = request.getParameter("jobName");
         
         //先获取数据
-        String hql = " from Job where isDelete=0 ";
+        String hql = " from PtJob where isDelete=0 ";
         if(StringUtils.isNotEmpty(jobName)){
         	hql=hql+"and jobName like '%"+jobName+"%'";
         }

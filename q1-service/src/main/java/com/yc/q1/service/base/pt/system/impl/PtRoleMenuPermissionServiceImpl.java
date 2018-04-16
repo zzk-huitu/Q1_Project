@@ -53,7 +53,7 @@ public class PtRoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuP
 		Boolean doResult = false;
 		
 		// 查询此角色菜单中已有的功能权限
-		String hql = "select menuPermissionId from RoleMenuPermission a where a.roleId=? and a.permissionId=? and a.isDelete=0";
+		String hql = "select menuPermissionId from PtRoleMenuPermission a where a.roleId=? and a.permissionId=? and a.isDelete=0";
 		List<String> currentRoleMenuPerIds = this.queryEntityByHql(hql, roleId, perId);
 		
 		boolean isUpdate=false;	//若更新了功能权限，则执行删除redis的功能。
@@ -77,14 +77,15 @@ public class PtRoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuP
 				PtRoleMenuPermission rmp = new PtRoleMenuPermission();
 				rmp.setRoleId(roleId); // 角色id
 				rmp.setPermissionId(perId); // 角色菜单id
-				rmp.setMenuPermissionId(menuPerId); // 菜单功能id			
+				rmp.setMenuPermissionId(menuPerId); // 菜单功能id		
+				rmp.setId(keyRedisService.getId(PtRoleMenuPermission.ModuleType));
 				this.merge(rmp);
 				isUpdate=true;
 			}
 			
 			if(currentRoleMenuPerIds.size()>0){
 				// 删除角色菜单功能不属于roleMenuPerIds中的功能
-				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + perId
+				String deleteHql = "delete from PtRoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + perId
 						+ "' and a.menuPermissionId not in ('" + roleMenuPers.replace(",", "','") + "')";
 				int row=this.doExecuteCountByHql(deleteHql);
 				if(row>0)
@@ -94,7 +95,7 @@ public class PtRoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuP
 		}else{
 			if(currentRoleMenuPerIds.size()>0){
 				// 删除角色菜单所有功能
-				String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + perId + "'";
+				String deleteHql = "delete from PtRoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + perId + "'";
 				this.doExecuteCountByHql(deleteHql);
 				isUpdate=true;
 			}
@@ -124,7 +125,7 @@ public class PtRoleMenuPermissionServiceImpl extends BaseServiceImpl<PtRoleMenuP
 		int row=0;
 		for(int i=0;i< cancelPerimission.size();i++){
 			// 删除角色菜单所有功能
-			String deleteHql = "delete from RoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + cancelPerimission.get(i).getId() + "'";
+			String deleteHql = "delete from PtRoleMenuPermission a where a.roleId='" + roleId + "' and a.permissionId='" + cancelPerimission.get(i).getId() + "'";
 			row+=this.doExecuteCountByHql(deleteHql);
 		}
 		

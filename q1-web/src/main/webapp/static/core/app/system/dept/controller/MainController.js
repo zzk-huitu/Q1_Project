@@ -264,7 +264,7 @@ Ext.define("core.system.dept.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                     parentNode: parent,
                     parentName: parentName,
-                    uuid: just,
+                    id: just,
                     nodeText: justName,
                     parentType: parentType
                 },recordData);
@@ -448,7 +448,7 @@ Ext.define("core.system.dept.controller.MainController", {
             multiSelect: false,
             whereSql: "",
             orderSql: " ",
-            url: comm.get('baseUrl') + "/SysDeptjob/getDeptJobTree",
+            url: comm.get('baseUrl') + "/PtDeptJob/getDeptJobTree",
         }
 
         self.selTreeWin({
@@ -636,7 +636,7 @@ Ext.define("core.system.dept.controller.MainController", {
 
                     //异步ajax加载
                     Ext.Ajax.request({
-                        url: comm.get('baseUrl') + "/SysOrg/doSyncAllDeptInfoToUp",
+                        url: comm.get('baseUrl') + "/PtDepartment/doSyncAllDeptInfoToUp",
                         params: { },
                         timeout:1000*60*60*10,     //10个小时
                         success: function(response){

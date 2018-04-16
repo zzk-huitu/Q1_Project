@@ -57,8 +57,7 @@ public class PtMenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermissio
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(PtMenuPermission.ModuleType));
-			BeanUtils.copyProperties(saveEntity,entity,excludedProp);
+		    BeanUtils.copyProperties(saveEntity,entity,excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +67,7 @@ public class PtMenuPermissionServiceImpl extends BaseServiceImpl<PtMenuPermissio
 		// 如果界面有了排序号的输入，则不需要取默认的了
 		Integer orderIndex = this.getDefaultOrderIndex(saveEntity);
 		saveEntity.setOrderIndex(orderIndex);// 排序
-
+		saveEntity.setId(keyRedisService.getId(PtMenuPermission.ModuleType));
 		// 增加时要设置创建人
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 		
