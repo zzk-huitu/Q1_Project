@@ -236,7 +236,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var ids = new Array();
         for (var i = 0; i < iCount; i++) {
             var record = isSelectStore.getAt(i);
-            var pkValue = record.get("uuid");
+            var pkValue = record.get("id");
             if(ids.indexOf(pkValue)==-1)
                 ids.push(pkValue);
         }
@@ -290,7 +290,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
         //选择的用户
-        var selectUserId =  insertObj.uuid;
+        var selectUserId =  insertObj.id;
         //选择的角色
         var selectTeacRole = teacherRoleGrid.getSelectionModel().getSelection();
         if (selectTeacRole.length == 0) {
@@ -310,7 +310,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         //拼装所选择的角色
         var ids = new Array();
         Ext.each(selectTeacRole, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             ids.push(pkValue);
         });
         var title = "删除角色后，用户将不再拥有这些角色的权限，确定删除吗？";
@@ -350,7 +350,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var basePanel = basetab.down("basepanel[funCode=" + detCode + "]");    
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var title = "选择部门岗位";
         var funcPanel = 'teacher.teacherdeptjob'; //仅仅是用于为编写确定按钮事件提供一个判断的标识
         var configInfo = {
@@ -409,7 +409,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var delJobs = new Array();
         var masterDept = 0;
         Ext.each(records, function(rec) {
-            delJobs.push(rec.get("uuid"));
+            delJobs.push(rec.get("id"));
         }, this);
         var title = "确定解除这些部门岗位吗？";
         Ext.Msg.confirm('解除确认', title, function(btn, text) {
@@ -446,7 +446,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var basePanel = basetab.down("basepanel[funCode=" + detCode + "]");    
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var records = deptJobGrid.getSelectionModel().getSelection();
         if (records.length == 0) {
             self.msgbox("请选择要设置的部门岗位");
