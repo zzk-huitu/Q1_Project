@@ -258,7 +258,7 @@ public class PtStudentDormController extends FrameWorkController<PtStudentDorm> 
 		if (classId == null) {
 			classId = "";
 		}
-		String hql = "select a.id from Department a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
+		String hql = "select a.id from PtDepartment a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
 				+ classId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		StringBuffer sb = new StringBuffer();
@@ -499,7 +499,7 @@ public class PtStudentDormController extends FrameWorkController<PtStudentDorm> 
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 20, 20, 35 };
 		List<PtStudentDorm> stuDormList = null;
-		String hql = " from StudentDorm where isDelete=0 and classId='" + claiId + "' order by inTime ";
+		String hql = " from PtStudentDorm where isDelete=0 and classId='" + claiId + "' order by inTime ";
 		stuDormList = thisService.queryByHql(hql);
 
 		List<Map<String, String>> stuDormExpList = new ArrayList<>();

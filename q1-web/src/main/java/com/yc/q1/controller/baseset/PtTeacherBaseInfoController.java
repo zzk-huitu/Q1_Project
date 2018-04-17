@@ -100,8 +100,8 @@ public class PtTeacherBaseInfoController extends FrameWorkController<PtTeacherBa
 
 		if (StringUtils.isNotEmpty(deptId)) {
 
-			String hql = "from TeacherBaseInfo g where g.isDelete=0 and g.id in ("
-					+ "	select distinct userId  from UserDeptJob where isDelete=0 and deptId = '" + deptId + "'"
+			String hql = "from PtTeacherBaseInfo g where g.isDelete=0 and g.id in ("
+					+ "	select distinct userId  from PtUserDeptJob where isDelete=0 and deptId = '" + deptId + "'"
 					+ ")";
 			QueryResult<PtTeacherBaseInfo> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
 					super.sort(request), super.filter(request), hql, null, null);

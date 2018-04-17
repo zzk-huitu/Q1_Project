@@ -429,7 +429,7 @@ Ext.define("core.baseset.room.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                     parentNode: just,
                     parentName: justName,
-                    uuid: null,
+                    id: null,
                     areaType: childType,
                     parentType: parentType
                 });
@@ -444,7 +444,7 @@ Ext.define("core.baseset.room.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                     parentNode: parent,
                     parentName: parentName,
-                    uuid: null,
+                    id: null,
                     areaType: justType,
                     parentType: parentType
                 });
@@ -457,7 +457,7 @@ Ext.define("core.baseset.room.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                     parentNode: parent,
                     parentName: parentName,
-                    uuid: just,
+                    id: just,
                     nodeText: justName,
                     parentType: parentType
                 });

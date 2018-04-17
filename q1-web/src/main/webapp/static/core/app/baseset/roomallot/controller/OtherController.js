@@ -32,22 +32,22 @@ Ext.define("core.baseset.roomallot.controller.OtherController", {
         	self.msgbox("有数据才能继续操作!");
         	return;
         }
-        var uuid = new Array();
+        var id = new Array();
         var isSelectStore = isselectteachergrid.getStore();
         for (var i = 0; i < getCount; i++) {
         	 var record = isSelectStore.getAt(i);
-        	 var pkValue = record.get("uuid");
-        	 if(uuid.indexOf(pkValue)==-1)
-                uuid.push(pkValue);
+        	 var pkValue = record.get("id");
+        	 if(id.indexOf(pkValue)==-1)
+                id.push(pkValue);
         };
         var roomId = win.roomId;
-        if (uuid.length > 0) {
+        if (id.length > 0) {
 	        var loading = self.LoadMask(win);
 
 	        self.asyncAjax({
 	        	url: comm.get('baseUrl') + "/PtOfficeAllot/doAdd",
 	        	params: {
-	        		tteacId: uuid.join(","),
+	        		teacherId: id.join(","),
 	        		roomId: roomId
 	        	},              
 	                //回调代码必须写在里面

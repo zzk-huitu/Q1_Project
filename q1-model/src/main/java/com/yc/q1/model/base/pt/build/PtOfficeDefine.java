@@ -35,8 +35,8 @@ public class PtOfficeDefine extends BaseEntity implements Serializable {
 	@Column(name = "areaId", length = 20, nullable = false)
 	private String areaId;
 
-	@FieldInfo(name = "分配状态", type = "bit default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "isAllot", columnDefinition = "bit default 0", nullable = true)
+	@FieldInfo(name = "分配状态", type = "bit NOT NULL default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
+	@Column(name = "isAllot", columnDefinition = "bit default 0", nullable = false)
 	private Boolean isAllot;
 
 	/*使用下面的房间名称*/

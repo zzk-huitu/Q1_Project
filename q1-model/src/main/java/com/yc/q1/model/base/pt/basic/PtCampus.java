@@ -31,7 +31,7 @@ public class PtCampus extends BaseEntity implements Serializable {
 	@Column(name = "schoolId", length = 20, nullable = false)
 	private String schoolId;
 
-	@FieldInfo(name = "校区名称", type = "nvarchar(64) NOT NULL", explain = "校区的名称")
+	@FieldInfo(name = "校区名称", type = "varchar(64) NOT NULL", explain = "校区的名称")
 	@Column(name = "campusName", columnDefinition = "nvarchar(64)", nullable = false)
 	private String campusName;
 

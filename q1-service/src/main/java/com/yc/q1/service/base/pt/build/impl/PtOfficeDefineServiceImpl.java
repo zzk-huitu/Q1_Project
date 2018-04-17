@@ -64,6 +64,7 @@ public class PtOfficeDefineServiceImpl extends BaseServiceImpl<PtOfficeDefine> i
 		offRoom.setCreateUser(userCh); // 创建人
 		offRoom.setUpdateUser(userCh); // 创建人的中文名
 		offRoom.setCreateTime(new Date());
+		offRoom.setIsAllot(false);
 		offRoom.setOrderIndex(orderIndex);// 排序
 		
 		offRoom.setId(keyRedisService.getId(PtOfficeDefine.ModuleType));	//手动设置id

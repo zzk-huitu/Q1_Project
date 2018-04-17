@@ -126,7 +126,7 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		Integer beforeNumber = Integer.parseInt(request.getParameter("beforeNumber"));
 		Integer termCount = Integer.parseInt(request.getParameter("termCount"));
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		Integer isCount = thisService.getQueryCountByHql(" select count(id) from InfoTerminal where isDelete=0 ");
+		Integer isCount = thisService.getQueryCountByHql(" select count(id) from PtInfoTerminal where isDelete=0 ");
 		if (isCount >= beforeNumber) {
 			isCount++;
 			writeJSON(response, jsonBuilder.returnFailureJson("\"起始顺序号应该从[" + isCount.toString() + "]起\""));
@@ -237,7 +237,7 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 10, 15, 15, 20, 35, };
 		List<PtInfoTerminal> terminfoList = null;
-		String hql = " from InfoTerminal where isDelete=0 and isUse=1 ";
+		String hql = " from PtInfoTerminal where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(roomName)) {
 			hql += " and roomName like '%" + roomName + "%' ";
 		}
@@ -285,7 +285,7 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		List<Map<String, Object>> allList = new ArrayList<>();
 		Integer[] columnWidth = new Integer[] { 25, 25, 25 };
 		List<PtInfoTerminal> terminfoList = null;
-		String hql = " from InfoTerminal where isDelete=0 and isUse=1 ";
+		String hql = " from PtInfoTerminal where isDelete=0 and isUse=1 ";
 		if (StringUtils.isNotEmpty(ids)) {
 			hql += " and id in ('" + ids.replace(",", "','") + "')";
 		}
@@ -349,12 +349,12 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

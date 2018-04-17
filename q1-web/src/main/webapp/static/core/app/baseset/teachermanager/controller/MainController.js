@@ -135,7 +135,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                 var selectedUsers=new  Array();
                 Ext.each(selecStudent, function(rec) {
                     if(comm.get("userRidhtDeptIds").indexOf(rec.get("deptId"))!=-1){
-                        var pkValue = rec.get("uuid");
+                        var pkValue = rec.get("id");
                         ids.push(pkValue);
                         selectedUsers.push(rec);
                     }             
@@ -686,7 +686,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
     getRightDeptIds:function(){
         var self=this;
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/PtDeparment/getUserRightDeptIds",
+            url: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptIds",
             params: {},
             //回调代码必须写在里面
             success: function(response) {
