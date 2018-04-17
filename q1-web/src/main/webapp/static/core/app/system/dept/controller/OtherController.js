@@ -341,10 +341,9 @@ Ext.define("core.system.dept.controller.OtherController", {
             self.msgbox("当前岗位是部门负责岗位，不能删除");
             return;
         }
-     
         var loadMask=self.LoadMask(baseGrid);    //显示遮罩
 
-        var pkValue = records.get(pkName);
+        var pkValue = records.get("id");
         //发送ajax请求,检查删除的岗位是否是其它部门或岗位的上级岗位
         self.asyncAjax({
             url: comm.get('baseUrl') + "/PtDeptJob/chkIsSuperJob",
@@ -613,7 +612,7 @@ Ext.define("core.system.dept.controller.OtherController", {
             if (records.length <= 0) {
                 records = tree.getSelectionModel().getSelection();
             }
-            if (records[0].get("orderIndex") < 99) {
+            if (records[0].get("level") < 99) {
                 self.msgbox("请选择岗位");
                 return false;
             }
@@ -796,12 +795,12 @@ Ext.define("core.system.dept.controller.OtherController", {
         });
         var insertObj = recordData;;
 
-    
+    console.log(recordData);
         //设置tab页的itemId
        
         var pkValue=recordData["id"];
         var operType = "detail";    // 只显示关闭按钮
-        var tabTitle = recordData["deptjobName"]+"-部门岗位用户";
+        var tabTitle = recordData["deptJobName"]+"-部门岗位用户";
         var tabItemId=funCode+"_gridDeptJobUser"+pkValue;     //命名规则：funCode+'_ref名称',确保不重复
         var xItemType=[{
             xtype:detLayout,
@@ -908,7 +907,7 @@ Ext.define("core.system.dept.controller.OtherController", {
                 //发送ajax请求
                 var loading = self.LoadMask(baseGrid);
                 self.asyncAjax({
-                    url:  "/SysUserdeptjob/doRmoveDeptJobFromUser",
+                    url:  "/PtUserDeptJob/doRmoveDeptJobFromUser",
                     params: {                       
                         delIds: ids.join(",")
                     },            

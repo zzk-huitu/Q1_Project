@@ -420,7 +420,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 			return;
 		} else {
 			String[] delId = delIds.split(",");
-			thisService.updateByProperties("id", delId, "state", "1");
+			thisService.updateByProperties("id", delId, "state", false);
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"锁定成功\""));
 		}
 	}
@@ -434,7 +434,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 			return;
 		} else {
 			String[] delId = delIds.split(",");
-			thisService.updateByProperties("id", delId, "state", "0");
+			thisService.updateByProperties("id", delId, "state", true);
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"解锁成功\""));
 		}
 	}
@@ -619,7 +619,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 
 		String deptId = request.getParameter("deptId");
 		String userName = request.getParameter("userName");
-		String xm = request.getParameter("xm");
+		String name = request.getParameter("name");
 		String category = request.getParameter("category");
 
 		// 数据字典项
@@ -643,8 +643,8 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 		if (StringUtils.isNotEmpty(userName)) {
 			hql += " and a.userName like '%" + userName + "%'";
 		}
-		if (StringUtils.isNotEmpty(xm)) {
-			hql += " and a.name like '%" + xm + "%'";
+		if (StringUtils.isNotEmpty(name)) {
+			hql += " and a.name like '%" + name + "%'";
 		}
 		if (StringUtils.isNotEmpty(category)) {
 			hql += " and a.category = '" + category + "'";

@@ -115,7 +115,7 @@ Ext.define("core.system.user.view.UserGrid", {
         },{
             xtype:'textfield',
             width:100,
-            name:'xm',
+            name:'name',
             funCode:'girdFastSearchText', 
             emptyText: '请输入姓名'
         },{
@@ -179,7 +179,7 @@ Ext.define("core.system.user.view.UserGrid", {
 			dataIndex: "state",
 			width:80,
 			renderer: function(value) {
-				return (value == '0') ? '<font color=green>正常</font>' : '<font color=red>锁定</font>';
+				return (value == true) ? '<font color=green>正常</font>' : '<font color=red>锁定</font>';
 			}
 		},{
             width:80,

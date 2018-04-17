@@ -462,7 +462,7 @@ public class PtRoleController extends FrameWorkController<PtRole> implements Con
         String sort = StringUtils.convertSortToSql(super.sort(request));
         
         String roleId = request.getParameter("roleId");
-        String xm = request.getParameter("xm");
+        String xm = request.getParameter("name");
         xm=xm==null?"":xm;
         //QueryResult<SysUser> qResult = thisService.getRoleUser(roleId, start, limit);
         
