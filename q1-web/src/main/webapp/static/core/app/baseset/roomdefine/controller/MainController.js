@@ -138,7 +138,7 @@ Ext.define("core.baseset.roomdefine.controller.MainController", {
                 var resObj= self.ajax({
                     url: funData.action + "/getDormEntity",
                     params: {
-                        roomId: recordData.uuid,
+                        roomId: recordData.id,
                     },                       
                 });  
                 if (resObj.obj.isMixed ==1 || resObj.obj.roomStatus == 1) {    
@@ -146,12 +146,14 @@ Ext.define("core.baseset.roomdefine.controller.MainController", {
                     return;                    
                 } 
                 recordData = Ext.apply(recordData,{
+                    id: resObj.obj.id,
+                    roomId: resObj.obj.roomId,
                     dormType: resObj.obj.dormType,
-                    dormBedCount: resObj.obj.bedCount,
-                    dormChestCount: resObj.obj.sarkCount,
+                    bedCount: resObj.obj.bedCount,
+                    sarkCount: resObj.obj.sarkCount,
                     dormPhone: resObj.obj.dormPhone,
                     dormFax: resObj.obj.dormFax,
-                    dormTypeLb:resObj.obj.dormCategory,
+                    dormCategory:resObj.obj.dormCategory,
                 }); 
                //获取名称
                 var titleName = recordData[tabConfig.titleField]; 
@@ -268,12 +270,12 @@ Ext.define("core.baseset.roomdefine.controller.MainController", {
                     var dormBaseContainer = tabItem.down("container[ref=dormBaseInfo]");
                     dormBaseContainer.setData(insertObj);
                     self.asyncAjax({
-                        url: comm.get("baseUrl") + "/PtRoomInfo/getDormEntity",
+                        url: comm.get("baseUrl") + "/PtRoomDefine/getDormEntity",
                         params: {
                             page: 1,
                             start: 0,
                             limit: 0,
-                            roomId: insertObj.uuid 
+                            roomId: insertObj.id 
                         },
                         success: function (response) {
                             var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

@@ -96,7 +96,7 @@ public class PtRoomAreaController extends FrameWorkController<PtRoomArea> implem
 		 * EntityUtil.getPropertyValue(list.get(0), "orderIndex") + 1; } else
 		 * defaultOrderIndex = 0;
 		 */
-		String hql = "select max(o.orderIndex) from RoomArea o where  o.isDelete=0 and o.parentNode='" + parentNode
+		String hql = "select max(o.orderIndex) from PtRoomArea o where  o.isDelete=0 and o.parentNode='" + parentNode
 				+ "'";
 		defaultOrderIndex = thisService.getEntityByHql(hql);
 		if (defaultOrderIndex != null)
@@ -132,7 +132,7 @@ public class PtRoomAreaController extends FrameWorkController<PtRoomArea> implem
 			return;
 		} else {
 			// 判断这些楼层是否存在房间
-			String hql = "select count(a.id) from RoomInfo as a where a.areaId in ('" + delIds.replace(",", "','")
+			String hql = "select count(a.id) from PtRoomInfo as a where a.areaId in ('" + delIds.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {

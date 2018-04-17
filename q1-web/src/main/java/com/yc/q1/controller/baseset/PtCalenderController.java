@@ -211,7 +211,7 @@ public class PtCalenderController extends FrameWorkController<PtCalender> implem
 		String calenderIds = request.getParameter("ids");
 		String campusNames = request.getParameter("campusNames");
 		
-		int statu = thisService.updateStatu(calenderIds,campusNames);
+		int statu = thisService.doUpdateStatu(calenderIds,campusNames);
 		if (statu == 1) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\'启用成功！\'"));
 		} else {

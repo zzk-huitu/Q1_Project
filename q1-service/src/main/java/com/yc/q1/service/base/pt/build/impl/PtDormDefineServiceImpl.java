@@ -55,7 +55,7 @@ public class PtDormDefineServiceImpl extends BaseServiceImpl<PtDormDefine> imple
 	public PtDormDefine doUpdateEntity(PtDormDefine entity, PtUser currentUser) throws Exception {
 		PtRoomInfo roomInfo = null;
 		// 先拿到已持久化的实体
-		PtDormDefine perEntity = this.getByRoomId(entity.getId());
+		PtDormDefine perEntity = this.getByRoomId(entity.getRoomId());
 
 		// 将entity中不为空的字段动态加入到perEntity中去。
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
@@ -65,7 +65,7 @@ public class PtDormDefineServiceImpl extends BaseServiceImpl<PtDormDefine> imple
 		perEntity.setUpdateUser(currentUser.getId()); // 设置修改人的中文名
 		entity = this.merge(perEntity);// 执行修改方法
 
-		roomInfo = thisService.get(entity.getId());
+		roomInfo = thisService.get(entity.getRoomId());
 		roomInfo.setRoomName(entity.getRoomName());
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(currentUser.getId());

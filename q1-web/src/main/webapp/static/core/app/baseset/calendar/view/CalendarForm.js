@@ -40,7 +40,7 @@ Ext.define("core.baseset.calendar.view.CalendarForm", {
 			height:500,
 			muiltSelect: false //是否多选
 		}
-	}, {
+	}, /*{
 		beforeLabelTextTpl: comm.get('required'),
         xtype: "basecombobox",
         fieldLabel: "学段",
@@ -49,7 +49,7 @@ Ext.define("core.baseset.calendar.view.CalendarForm", {
         allowBlank: false,
         emptyText: '请选择学段',
         blankText: "学段不能为空",
-	},{
+	},*/{
 		fieldLabel: "生效时间",
 		name: "activityTime",
 		xtype: "datefield",

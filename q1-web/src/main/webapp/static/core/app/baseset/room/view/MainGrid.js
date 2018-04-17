@@ -148,7 +148,7 @@ Ext.define("core.baseset.room.view.MainGrid", {
             width:80,
             renderer: function(value) {
                 switch (value) {
-                    case '0':
+                    case '1':
                         return '<font color=green>有</font>';
                         break;
                     default:

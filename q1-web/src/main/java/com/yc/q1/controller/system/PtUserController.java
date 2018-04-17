@@ -127,6 +127,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 			// 根据deptId，查询出所有用户信息（主部门和副部门的）
 			if (StringUtils.isNotEmpty(deptId)) {
 				String hql = "from PtUser g where g.isDelete=0 and g.id in ("
+						+ "	select distinct userId from PtUserDeptJob where isDelete=0 and deptId in ('" + deptId
 						+ "	select distinct userId  from PtUserDeptJob where isDelete=0 and deptId in ('" + deptId
 						+ "')" + ")"; // and masterDept=1 目前显示部门的全部用户
 

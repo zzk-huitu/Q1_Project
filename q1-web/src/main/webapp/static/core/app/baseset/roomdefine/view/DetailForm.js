@@ -7,6 +7,10 @@ Ext.define("core.baseset.roomdefine.view.DetailForm", {
         xtype: "textfield",
         name: "id",
         hidden: true
+    },{
+        xtype: "textfield",
+        name: "roomId",
+        hidden: true
     }, {
         xtype: "container",
         layout: "column", // 从左往右的布局
@@ -72,7 +76,7 @@ Ext.define("core.baseset.roomdefine.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             fieldLabel: "宿舍类别",
             allowBlank: false,
-            name: 'dormTypeLb',
+            name: 'dormCategory',
             xtype: "basecombobox",
             ddCode: "DORMTYPELB",
             value: '1'

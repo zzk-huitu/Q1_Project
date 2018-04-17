@@ -17,7 +17,7 @@ Ext.define("core.baseset.roomdefine.view.MainLayout", {
     otherController:'baseset.roomdefine.othercontroller',
  
 	funData: {
-		action: comm.get('baseUrl') + "/PtRoomInfo", //请求Action
+		action: comm.get('baseUrl') + "/PtRoomDefine", //请求Action
 		pkName: "id",
 		defaultObj: {
            

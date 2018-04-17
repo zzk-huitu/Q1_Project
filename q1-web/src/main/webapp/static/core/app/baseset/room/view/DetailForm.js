@@ -1,8 +1,8 @@
 var combostore = new Ext.data.ArrayStore({
     fields: ['id', 'roomNet'],
     data: [
-        ["0", '有网络'],
-        ["1", '无网络']
+         ["0", '无网络'],
+         ["1", '有网络']
     ]
 });
 
@@ -21,7 +21,7 @@ Ext.define("core.baseset.room.view.DetailForm", {
     items: [{
         xtype: "textfield",
         fieldLabel: "主键",
-        name: "uuid",
+        name: "id",
         hidden: true
     }, {
         xtype: "textfield",
