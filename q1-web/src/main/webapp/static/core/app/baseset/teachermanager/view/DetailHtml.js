@@ -23,7 +23,7 @@ Ext.define("core.baseset.teachermanager.view.DetailHtml", {
                 '<div class="trainTeacher_right">',
                     '<ul style="padding: 10px">',
                         '<li  style="font-size:14px;">电话：{mobilePhone}</li>',
-                        '<li title={sfzjh} style="font-size:14px;">身份证号码：{identityNumber}</li>',
+                        '<li title={identityNumber} style="font-size:14px;">身份证号码：{identityNumber}</li>',
                         '<li style="font-size:14px;">电子邮件：{email}</li>',
                         
                         '<li style="font-size:14px;">编制：{compileTypeCode}</li>',
@@ -55,8 +55,6 @@ Ext.define("core.baseset.teachermanager.view.DetailHtml", {
                         '<li style="font-size:14px;">账号状态：',
                         '<tpl if="state == 0">正常<tpl else>锁定</tpl></li>',
                         '<li style="font-size:14px;">创建时间：{createTime}</li>',
-                        
-                        '<li style="font-size:14px;">创建时间：{createUser}</li>',
                        
                         '<div style="clear:both"></div>',
                     '</ul>',
