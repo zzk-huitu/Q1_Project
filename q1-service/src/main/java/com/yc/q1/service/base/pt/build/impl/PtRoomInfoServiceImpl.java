@@ -159,17 +159,17 @@ public class PtRoomInfoServiceImpl extends BaseServiceImpl<PtRoomInfo> implement
 		String id = ""; // RoomInfo的主键
 		
 		roomType = entity.getRoomType();
-		id = entity.getId();// RoomInfo的uuid
+		id = entity.getId();// RoomInfo的id
 		
 		if (id != null) {
 			if (roomType.equals("1")) {// 宿舍
 				boolean cz = dormRoomService.IsFieldExist("roomId", id, "-1", "isdelete=0");// 判断该房间是否存在
 				if (!cz) {
 					String dormType = request.getParameter("dormType");// 宿舍类型
-					String dormTypeLb = request.getParameter("dormTypeLb");// 宿舍类别
+					String dormTypeLb = request.getParameter("dormCategory");// 宿舍类别
 
-					String dormBedCount = request.getParameter("dormBedCount");// 床位数
-					String dormChestCount = request.getParameter("dormChestCount");// 柜子数
+					String dormBedCount = request.getParameter("bedCount");// 床位数
+					String dormChestCount = request.getParameter("sarkCount");// 柜子数
 					String dormPhone = request.getParameter("dormPhone");// 电话
 					String dormFax = request.getParameter("dormFax");// 传真
 
@@ -179,6 +179,8 @@ public class PtRoomInfoServiceImpl extends BaseServiceImpl<PtRoomInfo> implement
 					dormRoom.setBedCount(Integer.valueOf(dormBedCount));
 					dormRoom.setSarkCount(Integer.valueOf(dormChestCount));
 					dormRoom.setDormPhone(dormPhone);
+					dormRoom.setIsAllot(false);
+					dormRoom.setIsMixed(false);
 					dormRoom.setDormFax(dormFax);
 
 					dormRoomService.addDormRoom(entity, dormRoom, id, userCh);		

@@ -235,7 +235,7 @@ public class PtCampusController extends FrameWorkController<PtCampus> implements
     }
     @RequestMapping("/getSchool")
     public  @ResponseBody PtSchool getSchool(HttpServletRequest request, HttpServletResponse response){
-    	String hql = " from School";
+    	String hql = " from PtSchool";
     	PtSchool baseSchool = thisService.getEntityByHql(hql);
         return baseSchool;
     }

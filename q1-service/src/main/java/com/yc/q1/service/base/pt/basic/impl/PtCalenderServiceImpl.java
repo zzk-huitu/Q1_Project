@@ -52,14 +52,15 @@ public class PtCalenderServiceImpl extends BaseServiceImpl<PtCalender> implement
 	}
 
 	@Override
-	public int updateStatu(String calenderIds, String campusNames) {
+	public int doUpdateStatu(String calenderIds, String campusNames) {
 		// TODO Auto-generated method stub
-		try {	
-			String hql1 = "update PtCalender set activityState=0 where isDelete=0 and activityState=1 and campusName in('"
+
+		try {
+			String sql1 = "update T_PT_Calender set activityState=0 where isDelete=0 and activityState=1 and (SELECT a.campusName FROM T_PT_Campus a WHERE a.campusId=T_PT_Calender.campusId ) in('"
 					+ campusNames.replace(",", "','") + "')"; // 弃用
-			String hql2 = "update PtCalender set activityState=1 where id in('" + calenderIds.replace(",", "','") + "')";// 1：启用
-			this.doExecuteCountByHql(hql1);
-			this.doExecuteCountByHql(hql2);
+			String sql2 = "update T_PT_Calender set activityState=1 where id in('" + calenderIds.replace(",", "','") + "')";// 1：启用
+			this.doExecuteCountBySql(sql1);
+			this.doExecuteCountBySql(sql2);
 			return 1;
 		} catch (Exception e) {
 			return 0;

@@ -65,6 +65,7 @@ public class PtFuncRoomDefineServiceImpl extends BaseServiceImpl<PtFuncRoomDefin
 		Integer orderIndex = this.getDefaultOrderIndex(funRoom);
 		funRoom.setRoomId(id);// 设置房间id
 		funRoom.setCreateTime(new Date());
+		funRoom.setIsAllot(false);
 		funRoom.setCreateUser(userCh); // 创建人
 		funRoom.setUpdateUser(userCh); // 创建人的中文名
 		funRoom.setOrderIndex(orderIndex);// 排序

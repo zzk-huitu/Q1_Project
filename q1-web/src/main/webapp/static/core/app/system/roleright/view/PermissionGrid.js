@@ -59,7 +59,7 @@ Ext.define("core.system.roleright.view.PermissionGrid", {
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
                             if (data.id == isSelectStore.getAt(i).get('id')) {
-                                Ext.Msg.alert("提示", data.perName+"已存在!");
+                                Ext.Msg.alert("提示", data.permissionName+"已存在!");
                                 return ;
                             }
                         };
@@ -110,7 +110,7 @@ Ext.define("core.system.roleright.view.PermissionGrid", {
             align:'left',
             renderer: function(value,metaData,record) {  
                 if(value)
-                    return record.get("perAuthCode")+"_"+value;
+                    return record.get("authPrefix")+"_"+value; 
  
                 return value;  
             }  

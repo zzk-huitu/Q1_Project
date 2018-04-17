@@ -146,7 +146,7 @@ public class PtOfficeAllotServiceImpl extends BaseServiceImpl<PtOfficeAllot> imp
 	}
 
 	@Override
-	public Boolean doAddRoom(PtOfficeAllot entity, Map hashMap, PtUser currentUser)
+	public Boolean doAddRoom(PtOfficeAllot entity, Map<String, Object> hashMap, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
 		Boolean qxflag = false;

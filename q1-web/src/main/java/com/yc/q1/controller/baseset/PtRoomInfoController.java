@@ -24,6 +24,7 @@ import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
 import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 区域房间信息
@@ -37,8 +38,12 @@ public class PtRoomInfoController extends FrameWorkController<PtRoomInfo> implem
 	
 	@Resource
 	private PtRoomInfoService thisService; // service层接口
+	
 	@Resource
 	private CommTreeService treeService; // 生成树
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 	
 	/**
 	 * 根据传入的区域id，查询房间信息
@@ -58,7 +63,7 @@ public class PtRoomInfoController extends FrameWorkController<PtRoomInfo> implem
 		
 		//若为类型不为楼层，则去查询此区域下的所有楼层
 		if(!"04".equals(areaType)){
-			String hql="select a.id from RoomArea a where a.isDelete=0 and a.areaType='04' and a.treeIds like '%"+areaId+"%'";
+			String hql="select a.id from PtRoomArea a where a.isDelete=0 and a.areaType='04' and a.treeIds like '%"+areaId+"%'";
 			List<String> lists=thisService.queryEntityByHql(hql);
 			if(!lists.isEmpty()){
 				String areaIds=lists.stream().collect(Collectors.joining(","));
@@ -120,8 +125,8 @@ public class PtRoomInfoController extends FrameWorkController<PtRoomInfo> implem
 		entity.setOrderIndex(orderIndex);
 		entity.setRoomType("0");		//强制为 未定义类型
 		entity.setRoomName(roomCode);	//默认使用编号的命名
+		entity.setId(keyRedisService.getId(PtRoomInfo.ModuleType));	//手动设置id);
 		entity = thisService.doAddEntity(entity, currentUser.getId());
-
 		if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
 		else

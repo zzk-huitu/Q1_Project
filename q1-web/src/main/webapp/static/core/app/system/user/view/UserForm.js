@@ -48,9 +48,9 @@ Ext.define("core.system.user.view.UserForm", {
             name: "name",
             xtype: 'textfield',
             allowBlank: false,
-            emptyText: '请输入真实姓名(最大36个字符)',
+            emptyText: '请输入真实姓名(最大10个字符)',
             blankText: "真实姓名不能为空",
-            maxLength:36,
+            maxLength:10,
             vtype:'xm' 
         }]
     }, {

@@ -4,7 +4,7 @@ Ext.define("core.baseset.teachermanager.view.DetailLayout", {
 	funCode: "teachermanage_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtUser", //请求Action
-		pkName: "uuid",
+		pkName: "id",
 		//默认的初始值设置
 		defaultObj: {
 			sex: '1',

@@ -233,13 +233,13 @@ public class PtOfficeAllotController extends FrameWorkController<PtOfficeAllot> 
 	private List<String> getRoomIds(String areaId) {
 		List<String> result = new ArrayList<>();
 
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType='2' and a.areaId in ('"
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0 and a.roomType='2' and a.areaId in ('"
 					+ areaIds + "')";
 			result = thisService.queryEntityByHql(hql);
 

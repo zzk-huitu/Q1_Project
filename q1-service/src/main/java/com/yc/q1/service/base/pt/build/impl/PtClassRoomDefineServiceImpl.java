@@ -73,6 +73,7 @@ public class PtClassRoomDefineServiceImpl extends BaseServiceImpl<PtClassRoomDef
 		classRoom.setCreateTime(new Date());
 		classRoom.setCreateUser(userCh); // 创建人
 		classRoom.setUpdateUser(userCh); // 创建人的中文名
+		classRoom.setRoomStatus(false); //是否分配
 		classRoom.setOrderIndex(orderIndex);// 排序
 		
 		classRoom.setId(keyRedisService.getId(PtClassRoomDefine.ModuleType));	//手动设置id
@@ -83,7 +84,7 @@ public class PtClassRoomDefineServiceImpl extends BaseServiceImpl<PtClassRoomDef
 	@Override
 	public Boolean delClassRoom(PtRoomInfo roomInfo, String delId, String xm) {
 		PtClassRoomDefine classRoom = null;// 教室定义
-		classRoom = this.getByRoomId(delId);
+		classRoom = this.getByProerties("roomId", delId);
 
 		roomInfo.setUpdateTime(new Date());
 		roomInfo.setUpdateUser(xm);

@@ -3,7 +3,7 @@ Ext.define("core.baseset.roomdefine.view.DetailLayout", {
 	alias: 'widget.baseset.roomdefine.detaillayout',
 	funCode: "roomdefine_detail",
 	funData: {
-		action: comm.get('baseUrl') + "/PtRoomInfo", //请求Action	
+		action: comm.get('baseUrl') + "/PtRoomDefine", //请求Action	
 		pkName: "id",
 		defaultObj: {
 		}

@@ -28,7 +28,7 @@ public interface PtOfficeAllotService extends BaseService<PtOfficeAllot> {
 	 * 分配门禁
 	 */
 	public boolean mjUserRight(String uuid, String roomId, String userId, PtStudentDorm dorm,PtClassStudent classStu);
-	public Boolean doAddRoom(PtOfficeAllot entity,Map hashMap,PtUser currentUser)throws IllegalAccessException, InvocationTargetException;
+	public Boolean doAddRoom(PtOfficeAllot entity,Map<String, Object> hashMap,PtUser currentUser)throws IllegalAccessException, InvocationTargetException;
 	public Boolean doPushMessage(String roomId);
 	public Boolean doDeleteOff(String delIds,String roomId,String tteacId);
 	public void doOffSetOff(String roomIds);

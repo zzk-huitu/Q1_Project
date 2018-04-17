@@ -68,7 +68,7 @@ public class PtDormDefine extends BaseEntity implements Serializable {
 	private String dormFax;
 
 	@FieldInfo(name = "分配状态", type = "bit default 0", explain = "状态,用于标识是否分配：0未分配。1已分配")
-	@Column(name = "isAllot", columnDefinition = "bit default 0", nullable = true)
+	@Column(name = "isAllot", columnDefinition = "bit default 0", nullable = false)
 	private Boolean isAllot;
 
 	@FieldInfo(name = "是否混班宿舍", type = "bit default 0", explain = "是否混班宿舍：0否,1是")

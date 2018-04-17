@@ -126,9 +126,9 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 
 			// 根据deptId，查询出所有用户信息（主部门和副部门的）
 			if (StringUtils.isNotEmpty(deptId)) {
-				String hql = "from User g where g.isDelete=0 and g.id in ("
-						+ "	select distinct userId  from UserDeptJob where isDelete=0 and deptId in ('" + deptId
-						+ "')" + ")"; // and masterDept=1 目前显示部门的全部用户
+				String hql = "from PtUser g where g.isDelete=0 and g.id in ("
+						+ "	select distinct userId from PtUserDeptJob where isDelete=0 and deptId in ('" + deptId
+                        + "')" + ")"; // and masterDept=1 目前显示部门的全部用户
 
 				QueryResult<PtUser> qr = thisService.queryCountToHql(super.start(request), super.limit(request),
 						super.sort(request), super.filter(request), hql, null, null);
@@ -420,7 +420,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 			return;
 		} else {
 			String[] delId = delIds.split(",");
-			thisService.updateByProperties("id", delId, "state", "1");
+			thisService.updateByProperties("id", delId, "state", false);
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"锁定成功\""));
 		}
 	}
@@ -434,7 +434,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 			return;
 		} else {
 			String[] delId = delIds.split(",");
-			thisService.updateByProperties("id", delId, "state", "0");
+			thisService.updateByProperties("id", delId, "state", true);
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"解锁成功\""));
 		}
 	}
@@ -471,7 +471,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 	public void getSelectedUserlist(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 		String ids = request.getParameter("ids");
-		String hql = "from User a where id in ('" + ids.replace(",", "','") + "')";
+		String hql = "from PtUser a where id in ('" + ids.replace(",", "','") + "')";
 		List<PtUser> userList = thisService.queryByHql(hql);
 
 		strData = jsonBuilder.buildObjListToJson((long) userList.size(), userList, true);// 处理数据
@@ -619,7 +619,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 
 		String deptId = request.getParameter("deptId");
 		String userName = request.getParameter("userName");
-		String xm = request.getParameter("xm");
+		String name = request.getParameter("name");
 		String category = request.getParameter("category");
 
 		// 数据字典项
@@ -633,18 +633,18 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 		}
 
 		List<PtUser> sysUserList = null;
-		String hql = " from User a where a.isDelete=0 ";
+		String hql = " from PtUser a where a.isDelete=0 ";
 		if (StringUtils.isNotEmpty(deptId)) {
 			if (!deptId.equals(AdminType.ADMIN_ORG_ID)) {
-				hql = " select a from User a inner join UserDeptJob b on a.id=b.userId where a.isDelete=0 and b.isDelete=0 and b.deptId='"
+				hql = " select a from PtUser a inner join PtUserDeptJob b on a.id=b.userId where a.isDelete=0 and b.isDelete=0 and b.deptId='"
 						+ deptId + "'";
 			}
 		}
 		if (StringUtils.isNotEmpty(userName)) {
 			hql += " and a.userName like '%" + userName + "%'";
 		}
-		if (StringUtils.isNotEmpty(xm)) {
-			hql += " and a.name like '%" + xm + "%'";
+		if (StringUtils.isNotEmpty(name)) {
+			hql += " and a.name like '%" + name + "%'";
 		}
 		if (StringUtils.isNotEmpty(category)) {
 			hql += " and a.category = '" + category + "'";

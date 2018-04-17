@@ -246,7 +246,7 @@ public class PtTeacherDormController extends FrameWorkController<PtTeacherDorm> 
 	public @ResponseBody PtDormDefine getTeaDormXmb(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String roomId = request.getParameter("roomId");
-		String hql = " FROM DormDefine WHERE roomId='" + roomId + "'";
+		String hql = " FROM PtDormDefine WHERE roomId='" + roomId + "'";
 		PtDormDefine entity= thisService.getEntityByHql(hql);
 		return entity;
 	}

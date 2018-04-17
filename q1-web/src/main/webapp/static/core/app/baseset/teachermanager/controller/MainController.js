@@ -135,7 +135,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                 var selectedUsers=new  Array();
                 Ext.each(selecStudent, function(rec) {
                     if(comm.get("userRidhtDeptIds").indexOf(rec.get("deptId"))!=-1){
-                        var pkValue = rec.get("uuid");
+                        var pkValue = rec.get("id");
                         ids.push(pkValue);
                         selectedUsers.push(rec);
                     }             
@@ -300,21 +300,22 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
         //处理特殊默认值
         var insertObj = self.getDefaultValue(defaultObj);
         var popFunData = Ext.apply(funData, {
-            grid: baseGrid
+            grid: baseGrid,
+            userId : recordData.id
         });
 
         insertObj = recordData;
 
          //本方法只提供班级详情页使用
-        var tabTitle =insertObj.xm+"-角色管理";
+        var tabTitle =insertObj.name+"-角色管理";
         //设置tab页的itemId
         var pkValue= null;
         var operType = "detail";    // 只显示关闭按钮
         switch(cmd){
             case 'userRole':
-                var tabTitle =insertObj.xm+"-角色管理";
+                var tabTitle =insertObj.name+"-角色管理";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridUserRole"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridUserRole"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -325,9 +326,9 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                 }];
                 break;
             case 'deptJob':
-                var tabTitle =insertObj.xm+"-部门岗位";
+                var tabTitle =insertObj.name+"-部门岗位";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDeptJob"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDeptJob"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -338,9 +339,9 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                 }];
                 break;
             case 'detail':
-                var tabTitle =insertObj.xm+"-用户详情";
+                var tabTitle =insertObj.name+"-用户详情";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDetail"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDetail"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -387,7 +388,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                         var roleStore = roleGrid.getStore();
                         var roleProxy = roleStore.getProxy();
                         roleProxy.extraParams = {
-                            userId: insertObj.uuid
+                            userId: insertObj.id
                         };
                         roleStore.load();
 
@@ -397,7 +398,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                         var deptJobStore = deptJobGrid.getStore();
                         var deptJobProxy = deptJobStore.getProxy();
                         deptJobProxy.extraParams = {
-                            userId: insertObj.uuid
+                            userId: insertObj.id
                         };
                         deptJobStore.load();
                         break;
@@ -432,7 +433,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                                 page: 1,
                                 start: 0,
                                 limit: 0,
-                                userId: insertObj.uuid
+                                userId: insertObj.id
                             },
                             success: function (response) {
                                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -686,7 +687,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
     getRightDeptIds:function(){
         var self=this;
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/PtDeparment/getUserRightDeptIds",
+            url: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptIds",
             params: {},
             //回调代码必须写在里面
             success: function(response) {

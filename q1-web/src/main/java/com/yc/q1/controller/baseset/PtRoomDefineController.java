@@ -172,7 +172,7 @@ public class PtRoomDefineController extends FrameWorkController<PtRoomInfo> impl
 		String strData = ""; // 返回给js的数据
 		String filter = request.getParameter("filter");
 		String areaId = request.getParameter("areaId");
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		StringBuffer sb = new StringBuffer();
@@ -184,7 +184,7 @@ public class PtRoomDefineController extends FrameWorkController<PtRoomInfo> impl
 			List<String> roomIdLists = new ArrayList<>();
 			areaIds = sb.substring(0, sb.length() - 1);
 
-			hql = "select a.id from DormDefine a where a.isDelete=0 and a.dormCategory='1' and a.areaId in ('"
+			hql = "select a.id from PtDormDefine a where a.isDelete=0 and a.dormCategory='1' and a.areaId in ('"
 					+ areaIds.replace(",", "','") + "')";
 			roomIdLists = dormRoomService.queryEntityByHql(hql);
 			sb.setLength(0);

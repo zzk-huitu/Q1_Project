@@ -203,7 +203,7 @@ public class PtAttachmentController extends FrameWorkController<PtAttachment> im
     		return;
     	}
    
-    	String hql="from Attachment b where b.recordId='"+setRecordId+"' ";
+    	String hql="from PtAttachment b where b.recordId='"+setRecordId+"' ";
 //    	if (StringUtils.isNotEmpty(attachIsMain)){
 //    		hql += " and b.attachIsMain='" + attachIsMain + "' ";
 //    	}

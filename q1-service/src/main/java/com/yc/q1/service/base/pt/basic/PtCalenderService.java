@@ -30,7 +30,7 @@ public interface PtCalenderService extends BaseService<PtCalender> {
      */
 	public PtCalender findJwTcanderByClaiId(PtGrade  jtg);
 	
-	public int updateStatu(String calenderIds,String campusNames);
+	public int doUpdateStatu(String calenderIds,String campusNames);
 	public PtCalender  doUpdateEntity(PtCalender entity, PtUser currentUser);
 	public PtCalender  doAddEntity(PtCalender entity, PtUser currentUser);
 	public Boolean  doDeleteEntity(String delIds);
