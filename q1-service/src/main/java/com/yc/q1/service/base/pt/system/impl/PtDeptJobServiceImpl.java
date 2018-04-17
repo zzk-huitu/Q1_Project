@@ -120,7 +120,7 @@ public class PtDeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements 
 
 			// 待设置部门的主负责岗位清单
 			String[] propName = { "deptId", "jobType" };
-			Object[] propValue = { deptIds, 0 };
+			Object[] propValue = { deptIds, "0" };
 			List<PtDeptJob> mainJob = this.queryByProerties(propName, propValue);
 			Map<String, PtDeptJob> maps = new HashMap<String, PtDeptJob>();
 			for (PtDeptJob baseDeptjob : mainJob) {
@@ -155,6 +155,7 @@ public class PtDeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements 
 						deptjob.setParentJobName(setDept.getSuperJobName());
 
 						deptjob.setCreateUser(currentUser.getId());
+						deptjob.setId(keyRedisService.getId(PtJob.ModuleType));
 						// 将第一个岗位设置成部门的负责岗位
 						if (i == 0 && maps.get(setDept.getId()) == null)
 							deptjob.setJobType("0");

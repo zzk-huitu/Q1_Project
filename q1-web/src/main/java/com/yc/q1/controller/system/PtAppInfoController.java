@@ -118,12 +118,12 @@ public class PtAppInfoController extends FrameWorkController<PtAppInfo> implemen
  	                userCh = currentUser.getId();
 
  	            PtAppInfo perEntity = new PtAppInfo();
- 	            perEntity.setId(keyRedisService.getId(PtAppInfo.ModuleType));
+ 	          
  	            BeanUtils.copyPropertiesExceptNull(entity, perEntity);
  	            Integer orderIndex = thisService.getDefaultOrderIndex(entity);
  	            entity.setOrderIndex(orderIndex);// 排序
  	            entity.setCreateUser(userCh); // 创建人
- 	            
+ 	            entity.setId(keyRedisService.getId(PtAppInfo.ModuleType));
  	            entity.setAppUrl(url + fileName);	           
  	            entity.setAppIsuse(false);
  	            // 持久化到数据库

@@ -58,13 +58,13 @@ Ext.define("core.system.dept.view.MainGrid", {
         funCode: 'girdFuntionBtn',
         iconCls: 'x-fa fa-pencil-square',
         disabled:true
-    }, {
+    }, /*{
         xtype: 'button',
         text: '同步部门到UP',
         ref: 'sync',
         funCode:'girdFuntionBtn',         
         iconCls: 'x-fa fa-rss',
-    }, {
+    },*/ {
         xtype: 'button',
         text: '刷新',
         ref: 'gridRefresh',

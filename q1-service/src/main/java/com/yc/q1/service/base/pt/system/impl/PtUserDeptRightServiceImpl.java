@@ -51,9 +51,9 @@ public class PtUserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight>
 		String[] userIds = userId.split(",");
 		String[] deptIds = deptId.split(",");
 		String[] propertyName = { "updateUser", "updateTime", "rightType" };
-		Object[] propertyValue = { currentUser.getId(), date, 1 };
+		Object[] propertyValue = { currentUser.getId(), date, "1" };
 		
-		String hql="select deptId from UserDeptRight where isDelete=0 and userId=?";
+		String hql="select deptId from PtUserDeptRight where isDelete=0 and userId=?";
 		PtUserDeptRight deptright = null;
 		for (String ui : userIds) {
 			//一次性查询出这个用户的所有部门权限，判断是否要入库		
@@ -86,7 +86,7 @@ public class PtUserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight>
 		String doIds = "'" + delIds.replace(",", "','") + "'";
 		
 		// 所有要设置的用户	
-		String hql="select userId from UserDeptRight where id in ("+doIds+")";
+		String hql="select userId from PtUserDeptRight where id in ("+doIds+")";
 		
 		List<String> userIds = this.queryEntityByHql(hql);
 		// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
@@ -95,7 +95,7 @@ public class PtUserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight>
 			deptRedisService.deleteDeptTreeByUsers(userIds.toArray());
 		}
 			
-		hql="Delete from UserDeptRight where id in ("+doIds+")";
+		hql="Delete from PtUserDeptRight where id in ("+doIds+")";
 			
 	    return this.doExecuteCountByHql(hql)>0;
 	}
@@ -106,7 +106,7 @@ public class PtUserDeptRightServiceImpl extends BaseServiceImpl<PtUserDeptRight>
 		deptRedisService.deleteDeptTreeByUsers(uuid);
 		
 		String[] propertyName = { "updateUser", "updateTime", "rightType" };
-		Object[] propertyValue = { userId, new Date(), Integer.valueOf(rightType) };	
+		Object[] propertyValue = { userId, new Date(), rightType };	
 		// 更新指定的用户信息
 		userService.updateByProperties("id", uuid, propertyName, propertyValue);
 	}

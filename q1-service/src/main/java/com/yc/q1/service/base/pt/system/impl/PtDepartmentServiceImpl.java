@@ -250,7 +250,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
 				}*/
-				hql = "select count(*) fromPt Term where isDelete=0 and roomId in("
+				hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
 						+ "select dormId from PtClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "')";
 				count = this.getQueryCountByHql(hql);
@@ -293,7 +293,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		Integer orderIndex = entity.getOrderIndex();
 		String deptType = entity.getDeptType();
 		String parentType = entity.getParentType();
-		entity.setId(keyRedisService.getId(PtDepartment.ModuleType));
+		
 		// 插入部门数据
 		// BaseOrg saveEntity = null;
 		String courseId = null;
@@ -306,7 +306,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
 		BeanUtils.copyProperties(saveEntity, entity,excludedProp);	
-		
+		saveEntity.setId(keyRedisService.getId(PtDepartment.ModuleType));
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 		saveEntity.setLeaf(true);
 		saveEntity.setIsSystem(false);
@@ -541,9 +541,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
-			hql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
+			hql = " from PtDepartment WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
-			hql = " from Department WHERE isDelete=0 ";
+			hql = " from PtDepartment WHERE isDelete=0 ";
 		}
 		List<PtDepartment> reList = this.queryByHql(hql);
 		if (!isSelf) {
@@ -570,9 +570,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		Map<String, PtDepartment> maps = new HashMap<String, PtDepartment>();
 		if (ModelUtil.isNotNull(selfDept)) {
 			treeIds = selfDept.getTreeIds();
-			hql = " from Department WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
+			hql = " from PtDepartment WHERE isDelete=0 AND treeIds like '" + treeIds + "%'";
 		} else {
-			hql = " from Department WHERE isDelete=0 ";
+			hql = " from PtDepartment WHERE isDelete=0 ";
 		}
 		List<PtDepartment> reList = this.queryByHql(hql);
 		if (!isSelf) {
@@ -672,7 +672,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 
 	@Override
 	public Integer getDeptJobCount(String uuid) {
-		String hql = " select count(*) from DeptJob where isDelete=0 and (deptId='" + uuid + "' or parentDeptId='"+uuid+"')";
+		String hql = " select count(*) from PtDeptJob where isDelete=0 and (deptId='" + uuid + "' or parentDeptId='"+uuid+"')";
 		Integer childCount = this.getQueryCountByHql(hql);
 		// TODO Auto-generated method stub
 		return childCount;
@@ -680,9 +680,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	
 	@Override
 	public void setDeptName(String deptName,String uuid){	
-		String updateHql1="update Department a set a.superdeptName='"+deptName+"' where a.superDept='"+uuid+"'";
-		String updateHql2="update DeptJob a set a.deptName='"+deptName+"' where a.deptId='"+uuid+"'";
-		String updateHql3="update DeptJob a set a.parentDeptName='"+deptName +"' where a.parentDeptId='"+uuid+"'";
+		String updateHql1="update PtDepartment a set a.superdeptName='"+deptName+"' where a.superDept='"+uuid+"'";
+		String updateHql2="update PtDeptJob a set a.deptName='"+deptName+"' where a.deptId='"+uuid+"'";
+		String updateHql3="update PtDeptJob a set a.parentDeptName='"+deptName +"' where a.parentDeptId='"+uuid+"'";
 		this.doExecuteCountByHql(updateHql1);
 		this.doExecuteCountByHql(updateHql2);
 		this.doExecuteCountByHql(updateHql3);	
@@ -700,7 +700,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		this.merge(dept);
 		
 		//2.设置相应的部门岗位的部门全名
-		String updateHql="update DeptJob a set a.allDeptName='"+currentAllName +"' where a.deptId='"+dept.getId()+"'";
+		String updateHql="update PtDeptJob a set a.allDeptName='"+currentAllName +"' where a.deptId='"+dept.getId()+"'";
 		this.doExecuteCountByHql(updateHql);	
 		
 		//3.递归遍历设置子部门的全部门名
@@ -780,7 +780,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 //		}
 //	}
 	
-
+	/**
+	 * 暂时不使用
+	 */
 	@Override
 	public List<PtDepartment> getUserRightDeptList(PtUser currentUser) {
 		String userId = currentUser.getId();
@@ -789,14 +791,16 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		List<PtDepartment> list = new ArrayList<>();
 		if ("0".equals(rightType )) {
 			// 有所有部门权限
-			hql = " from Department WHERE isDelete=0 order by parentNode,orderIndex asc ";
+			hql = " from PtDepartment WHERE isDelete=0 order by parentNode,orderIndex asc ";
 			list = this.queryByHql(hql);
 
 			return list;
 		} else {
 			// 指定部门、所在部门及主管的部门
 			String sql = MessageFormat.format(
-					"SELECT DEPT_ID ,CREATE_TIME ,CREATE_USER ,EXT_FIELD01 ,EXT_FIELD02 ,EXT_FIELD03 ,EXT_FIELD04 ,EXT_FIELD05 ,ISDELETE ,ORDER_INDEX ,UPDATE_TIME ,UPDATE_USER ,VERSION ,ISLEAF ,NODE_CODE ,NODE_LEVEL ,NODE_TEXT ,PARENT_NODE ,TREE_IDS ,DEPT_TYPE ,FAX ,IN_PHONE ,ISSYSTEM ,MAIN_LEADER ,OUT_PHONE ,REMARK ,VICE_LEADER ,SUPER_JOB ,SUPER_DEPT ,ALL_DEPTNAME ,SUPERDEPT_NAME ,SUPERJOB_NAME FROM V_PT_UserRightDept WHERE USER_ID=''{0}'' ORDER BY PARENT_NODE,ORDER_INDEX ASC",
+					"SELECT deptId ,createTime ,createUser ,"
+					+ "EXT_FIELD01 ,EXT_FIELD02 ,EXT_FIELD03 ,EXT_FIELD04 ,EXT_FIELD05 ,ISDELETE ,ORDER_INDEX ,UPDATE_TIME ,UPDATE_USER ,VERSION ,ISLEAF ,NODE_CODE ,NODE_LEVEL ,NODE_TEXT ,PARENT_NODE ,TREE_IDS ,DEPT_TYPE ,FAX ,IN_PHONE ,ISSYSTEM ,MAIN_LEADER ,OUT_PHONE ,REMARK ,VICE_LEADER ,SUPER_JOB ,SUPER_DEPT ,ALL_DEPTNAME ,SUPERDEPT_NAME ,SUPERJOB_NAME FROM V_PT_UserRightDeptList"
+					+ " WHERE USER_ID=''{0}'' ORDER BY PARENT_NODE,ORDER_INDEX ASC",
 					userId);
 			List<?> alist = this.querySql(sql);
 			PtDepartment dept = null;
@@ -900,12 +904,12 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 			node.setOutPhone((String) obj[10]);
 			node.setRemark((String) obj[11]);
 			//node.setViceLeader((String) obj[12]);
-			node.setSuperDept((String) obj[13]);
-			node.setSuperJob((String) obj[14]);
-			node.setAllDeptName((String) obj[15]);
-			node.setSuperdeptName((String) obj[16]);
-			node.setSuperjobName((String) obj[17]);
-			node.setIsRight((String) obj[18]);
+			node.setSuperDept((String) obj[12]);
+			node.setSuperJob((String) obj[13]);
+			node.setAllDeptName((String) obj[14]);
+			node.setSuperdeptName((String) obj[15]);
+			node.setSuperjobName((String) obj[16]);
+			node.setIsRight((String) obj[17]);
 			node.setChecked(false);
 			chilrens.add(node);
 		}

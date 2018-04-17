@@ -87,13 +87,13 @@ Ext.define("core.system.dept.controller.MainController", {
                     return false;
                 }
             },
-            
+   /*         
             "panel[xtype=system.dept.maingrid] button[ref=sync]": {
                 beforeclick: function(btn) { 
                     this.doSyncDeptToUp(btn); 
                     return false;
                 }
-            },
+            },*/
             
            
             
@@ -141,12 +141,14 @@ Ext.define("core.system.dept.controller.MainController", {
          selectProxy.extraParams={
                whereSql: " and treeIds like '%"+deptId+"%' " ,
                deptId: deptId,
-               orderSql: " order by parentNode,orderIndex asc"
+               orderSql: " order by parentNode,orderIndex asc",
+               excludes:"checked" 
            };
         }else{
           selectProxy.extraParams={
              whereSql: "" ,
-             orderSql: " order by parentNode,orderIndex asc"
+             orderSql: " order by parentNode,orderIndex asc",
+             excludes:"checked" 
          };
         }
         selectStore.loadPage(1);
@@ -622,7 +624,7 @@ Ext.define("core.system.dept.controller.MainController", {
         });*/
     },
 
-    doSyncDeptToUp:function(btn){
+   /* doSyncDeptToUp:function(btn){
         var self=this;
         //同步人员数据事件                        
         var baseGrid = btn.up("grid");
@@ -665,5 +667,5 @@ Ext.define("core.system.dept.controller.MainController", {
             }
         });
 
-    }
+    }*/
 });

@@ -141,12 +141,12 @@ Ext.define("core.system.user.controller.MainController", {
                 }
             },
             */
-            "panel[xtype=system.user.usergrid] button[ref=syncToUP]": {
+           /* "panel[xtype=system.user.usergrid] button[ref=syncToUP]": {
                 beforeclick: function(btn) {   
                     this.doSyncToUp(btn);      
                     return false;
                 }
-            },
+            },*/
             /*
             "panel[xtype=system.user.usergrid] button[ref=syncCardInfoFromUP]": {
                 beforeclick: function(btn) {         
@@ -433,14 +433,14 @@ Ext.define("core.system.user.controller.MainController", {
                                 case "lock":
                                     //静态的更新数据
                                     Ext.each(selectedUsers, function(rec) {
-                                        rec.set("state","1");    //改变数据
+                                        rec.set("state",false);    //改变数据
                                         rec.commit();   //提交一下 
                                     }, this);
                                     break;
                                 case "unlock":
                                     //静态的更新数据
                                     Ext.each(selectedUsers, function(rec) {
-                                        rec.set("state","0");    //改变数据
+                                        rec.set("state",true);    //改变数据
                                         rec.commit();   //提交一下 
                                     }, this);
                                     break;
@@ -523,7 +523,7 @@ Ext.define("core.system.user.controller.MainController", {
         var operType = "detail";    // 只显示关闭按钮
         switch(cmd){
             case 'userRole':
-                var tabTitle =insertObj.xm+"-角色管理";
+                var tabTitle =insertObj.name+"-角色管理";
                 //设置tab页的itemId
                 var tabItemId=funCode+"_gridUserRole"+insertObj.id;    //详细界面可以打开多个
                 items=[{
@@ -536,7 +536,7 @@ Ext.define("core.system.user.controller.MainController", {
                 }];
                 break;
             case 'deptJob':
-                var tabTitle =insertObj.xm+"-部门岗位";
+                var tabTitle =insertObj.name+"-部门岗位";
                 //设置tab页的itemId
                 var tabItemId=funCode+"_gridDeptJob"+insertObj.id;    //详细界面可以打开多个
                 items=[{
@@ -551,7 +551,7 @@ Ext.define("core.system.user.controller.MainController", {
             case 'deptRight':
                 operType="edit";
                 detCode="deptRight";
-                var tabTitle =insertObj.xm+"-部门权限";
+                var tabTitle =insertObj.name+"-部门权限";
                 //设置tab页的itemId
                 var tabItemId=funCode+"_gridDeptRight"+insertObj.id;    //详细界面可以打开多个
                 items=[{
@@ -576,7 +576,7 @@ Ext.define("core.system.user.controller.MainController", {
                 }];
                 break;
             case 'detail':
-                var tabTitle =insertObj.xm+"-用户详情";
+                var tabTitle =insertObj.name+"-用户详情";
                 //设置tab页的itemId
                 var tabItemId=funCode+"_gridDetail"+insertObj.id;    //详细界面可以打开多个
                 items=[{
@@ -725,12 +725,12 @@ Ext.define("core.system.user.controller.MainController", {
         }
         var girdSearchTexts = userGrid.query("field[funCode=girdFastSearchText]");
         var userName ="";
-        var xm = "";
+        var name = "";
         if(girdSearchTexts[0].getValue()!=null){
            userName = girdSearchTexts[0].getValue();
         }
          if(girdSearchTexts[1].getValue()!=null){
-           xm = girdSearchTexts[1].getValue();
+           name = girdSearchTexts[1].getValue();
         }
         var title = "确定要导出用户管理的信息吗？";
         Ext.Msg.confirm('提示', title, function (btn, text) {
@@ -741,7 +741,7 @@ Ext.define("core.system.user.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/PtUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&xm='+xm+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtUser/doExportExcel?deptId='+deptId+'&userName='+userName+'&name='+name+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
@@ -935,7 +935,7 @@ Ext.define("core.system.user.controller.MainController", {
         });
     },
 
-    doSyncToUp:function(btn){
+  /*  doSyncToUp:function(btn){
         var self=this;
         //同步人员数据事件                        
         var baseGrid = btn.up("grid");
@@ -976,7 +976,7 @@ Ext.define("core.system.user.controller.MainController", {
             }
         });
     },
-
+*/
     doSelectUserSetDept:function(btn){
         var self=this;
         var win = btn.up('window');
@@ -1177,7 +1177,7 @@ Ext.define("core.system.user.controller.MainController", {
 
                 self.setFormValue(formDeptObj, insertObj);
                 //显示照片
-                objDetForm.down('image[ref=newsImage]').setSrc(insertObj.zp);
+               // objDetForm.down('image[ref=newsImage]').setSrc(insertObj.zp);
             }, 30);
 
         } else if (tabItem.itemPKV && tabItem.itemPKV != pkValue) {     //判断是否点击的是同一条数据，不同则替换数据

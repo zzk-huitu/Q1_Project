@@ -93,7 +93,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 	@Override
 	public PtUserDeptJob getUserMasterDeptJob(PtUser currentUser) {
 		String[] propName = { "userId", "isMainDept", "isDelete" };
-		Object[] propValue = { currentUser.getId(), 1, 0 };
+		Object[] propValue = { currentUser.getId(), true, 0 };
 
 		PtUserDeptJob isMasterDeptJob = this.getByProerties(propName, propValue);
 		return isMasterDeptJob;
@@ -140,7 +140,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 		// 所有要设置的用户
 		List<PtUser> users = userService.queryByProerties("id", userIds);
 
-		String hql = " select a from DeptJob a  where a.id in ('" + deptJobId.replace(",", "','")
+		String hql = " select a from PtDeptJob a  where a.id in ('" + deptJobId.replace(",", "','")
 				+ "') order by a.orderIndex asc ";
 		List<PtDeptJob> deptjobs = baseDeptjobService.queryByHql(hql);
 
@@ -150,14 +150,14 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 			PtUserDeptJob isMasterDeptJob = this.getUserMasterDeptJob(user);
 			for (int i = 0; i < deptjobs.size(); i++) {
 				PtDeptJob deptjob=deptjobs.get(i);
-				String uuid = deptjob.getId(); // 选择的部门岗位Id
-				if (userHasJobMap.get(uuid) == null) {
+				String id = deptjob.getId(); // 选择的部门岗位Id
+				if (userHasJobMap.get(id) == null) {
 					// 如果当用户还没有设置的此部门岗位
 					PtUserDeptJob userDeptJob = new PtUserDeptJob();
 					userDeptJob.setId(keyRedisService.getId(PtUserDeptJob.ModuleType));
 					userDeptJob.setDeptId(deptjob.getDeptId());
 					userDeptJob.setJobId(deptjob.getJobId());
-					userDeptJob.setDeptJobId(uuid);
+					userDeptJob.setDeptJobId(id);
 					userDeptJob.setUserId(user.getId());
 					userDeptJob.setCreateTime(new Date());
 					userDeptJob.setCreateUser(currentUser.getId());
@@ -178,6 +178,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 								if(classStudent==null){
 									classStudent=new PtClassStudent();
 									classStudent.setClassId(deptjob.getDeptId());
+									classStudent.setId(keyRedisService.getId(PtClassStudent.ModuleType));
 									classStudent.setStudentId(user.getId());
 									classStudent.setCreateUser(currentUser.getId());
 									classStudent.setSemester(currentUser.getSemester());
@@ -224,7 +225,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 		List<String> userIds = baseUserdeptjobs.stream().map((x)->x.getUserId()).distinct().collect(Collectors.toList());		
 		// 清除这个用户的部门树缓存，以至于下次读取时更新缓存
 		if(userIds.size()>0)
-			deptRedisService.deleteDeptTreeByUsers(userIds);
+			deptRedisService.deleteDeptTreeByUsers(userIds.toArray());
 		
 		
 		/*---------判断是否要更新班级学生表(2018-3-15加入)-----------*/
@@ -238,7 +239,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 				//是否为学生
 				if(user!=null&&user.getCategory().equals("2")){
 					//将JwClassstudent设置为isDelete
-					String hql="update ClassStudent set isDelete=1 where isDelete=0 "
+					String hql="update PtClassStudent set isDelete=1 where isDelete=0 "
 							+ "	and studentId='"+user.getId()+"' and classId='"+userdeptjob.getDeptId()+"'";
 					classstudentService.doExecuteCountByHql(hql);
 				}
@@ -266,7 +267,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 		
 		// 将新的部门岗位设置为主部门岗位
 		String[] propertyName = { "isMainDept", "updateTime", "updateUser" };
-		Object[] propertyValue = { 1, new Date(), currentUser.getId() };
+		Object[] propertyValue = { true, new Date(), currentUser.getId() };
 		this.updateByProperties("id", delIds, propertyName, propertyValue);
 		
 		
@@ -276,7 +277,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 			//是否为学生的班级学生岗位
 			if(oldMaster.getDeptType().equals("05")&&oldMaster.getJobName().equals("学生")){
 				//将JwClassstudent设置为isDelete
-				String hql="update ClassStudent set isDelete=1 where isDelete=0 "
+				String hql="update PtClassStudent set isDelete=1 where isDelete=0 "
 						+ "	and studentId='"+userId+"' and classId='"+oldMaster.getDeptId()+"'";
 				classstudentService.doExecuteCountByHql(hql);
 			}
@@ -294,6 +295,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 					classStudent.setCreateUser(currentUser.getId());
 					classStudent.setSemester(currentUser.getSemester());
 					classStudent.setStudyYear(String.valueOf(currentUser.getStudyYear()));
+					classStudent.setId(keyRedisService.getId(PtClassStudent.ModuleType));
 				}else{
 					classStudent.setSemester(currentUser.getSemester());
 					classStudent.setStudyYear(String.valueOf(currentUser.getStudyYear()));
@@ -317,7 +319,7 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 			String sort) {
 		// TODO Auto-generated method stub
 
-		String hql = "from UserDeptJob o where o.deptJobId='" + deptJobId + "' and o.isDelete=0 ";
+		String hql = "from PtUserDeptJob o where o.deptJobId='" + deptJobId + "' and o.isDelete=0 ";
 
 		if (StringUtils.isNotEmpty(sort)) {
 			hql += " order by ";
@@ -336,16 +338,16 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 		// 先将原来的主部门岗位设置成非主部门岗位
 		Object[] userArray = userIds.split(",");
 		String[] conditionName = { "isMainDept", "userId" };
-		Object[] conditionValue = { 1, userArray };
+		Object[] conditionValue = { true, userArray };
 		String[] propertyName = { "isMainDept", "updateTime", "updateUser" };
-		Object[] propertyValue = { 0, new Date(), currentUser.getId() };
+		Object[] propertyValue = { false, new Date(), currentUser.getId() };
 		this.updateByProperties(conditionName, conditionValue, propertyName, propertyValue);
 
 		// 将新的部门岗位设置为主部门岗位
 		String[] conditionName2 = { "deptJobId", "userId" };
 		Object[] conditionValue2 = { deptJobId, userArray };
 		String[] propertyName2 = { "isMainDept", "updateTime", "updateUser" };
-		Object[] propertyValue2 = { 1, new Date(), currentUser.getId() };
+		Object[] propertyValue2 = { true, new Date(), currentUser.getId() };
 		this.updateByProperties(conditionName2, conditionValue2, propertyName2, propertyValue2);
 		return true;
 	}

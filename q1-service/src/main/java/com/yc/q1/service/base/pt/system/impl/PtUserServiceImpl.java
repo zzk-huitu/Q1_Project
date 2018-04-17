@@ -97,7 +97,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 		// 根据身份来做不同的处理
 		PtUser saveEntity = null;
-		saveEntity.setId(keyRedisService.getId(PtUser.ModuleType));
+		
 		String category = entity.getCategory();
 		if (category.equals("1")) { // 老师
 			PtTeacherBaseInfo t = new PtTeacherBaseInfo();
@@ -129,7 +129,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 		} else {
 			saveEntity = new PtUser();
 		}
-
+		saveEntity.setId(keyRedisService.getId(PtUser.ModuleType));
 		entity.setId(null);
 		BeanUtils.copyPropertiesExceptNull(saveEntity, entity);
 
@@ -498,7 +498,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 	@Override
 	public QueryResult<PtUser> getUserNotInRoleId(String roleId, int start, int limit, String sort, String filter) {
-		String hql = "from PtUser as o where o.isDelete=0  and state='0' "; // 只列出状态正常的用户
+		String hql = "from PtUser as o where o.isDelete=0  and state='1' "; // 只列出状态正常的用户
 		if (StringUtils.isNotEmpty(roleId)) {
 			String hql1 = " from PtUser as u inner join fetch u.sysRoles as k where k.id='" + roleId
 					+ "' and k.isDelete=0 and u.isDelete=0 ";

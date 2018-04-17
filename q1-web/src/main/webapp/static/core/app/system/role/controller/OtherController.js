@@ -175,7 +175,7 @@ Ext.define("core.system.role.controller.OtherController", {
         //这里快速搜索就姓名与部门，固定写死查询的条件
         var filter = new Array();
         if (girdSearchTexts[0].getValue() != "")
-            filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'xm'}");
+            filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'name'}");
         if (girdSearchTexts[1].getValue() != "")
             filter.push("{'type': 'string', 'comparison': '=', 'value':'" + girdSearchTexts[1].getValue() + "', 'field': 'deptId'}");
         filter = "[" + filter.join(",") + "]";
@@ -277,15 +277,15 @@ Ext.define("core.system.role.controller.OtherController", {
         if (!toolBar)
             return false;
 
-        var xm="";
+        var name="";
         var girdSearchTexts = toolBar.query("field[funCode=girdFastSearchText]");
         if (girdSearchTexts[0].getValue() != "")
-            xm=girdSearchTexts[0].getValue() ;
+            name=girdSearchTexts[0].getValue() ;
         
 
         var selectStore = baseGrid.getStore();
         var selectProxy = selectStore.getProxy();
-        selectProxy.extraParams.xm = xm;
+        selectProxy.extraParams.name = name;
         selectStore.loadPage(1);
     },
 
