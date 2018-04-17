@@ -43,7 +43,7 @@ public class PtOfficeDefineServiceImpl extends BaseServiceImpl<PtOfficeDefine> i
 
 	@Override
 	public PtOfficeDefine getByRoomId(String roomId) {
-		String hql = "from OfficeDefine where 1=1";
+		String hql = "from PtOfficeDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}

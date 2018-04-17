@@ -185,7 +185,7 @@ public class PtOfficeAllotServiceImpl extends BaseServiceImpl<PtOfficeAllot> imp
 			 * hashMap.put("qx", "qx"); continue; }
 			 */
 			// 将办公室设置为已分配
-			String hql = " from OfficeDefine a where a.roomId='" + entity.getRoomId() + "' ";
+			String hql = " from PtOfficeDefine a where a.roomId='" + entity.getRoomId() + "' ";
 			PtOfficeDefine office = this.getEntityByHql(hql);
 			if (office != null) {
 				office.setIsAllot(true);

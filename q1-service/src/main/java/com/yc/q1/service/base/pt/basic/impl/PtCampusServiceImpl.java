@@ -227,7 +227,7 @@ public class PtCampusServiceImpl extends BaseServiceImpl<PtCampus> implements Pt
 	// 根据房间获取这个房间初中或者高中的ID（校区ID）
 	@Override
 	public String getCampusIdByRoom(PtRoomInfo roominfo) {
-		List<PtCampus> campus = this.queryByHql("from Campus where isDelete=0");
+		List<PtCampus> campus = this.queryByHql("from PtCampus where isDelete=0");
 		List<String> campusids = new ArrayList<String>();
 		for (PtCampus baseCampus : campus) {
 			campusids.add(baseCampus.getId());

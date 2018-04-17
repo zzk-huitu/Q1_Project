@@ -118,10 +118,10 @@ public class PtCalenderServiceImpl extends BaseServiceImpl<PtCalender> implement
 		Boolean delResult = false;
 		try {
 			String doIds = "'" + delIds.replace(",", "','") + "'";
-			String hql = "DELETE FROM CalenderDetail j  WHERE j.calenderId IN (" + doIds + ")";
+			String hql = "DELETE FROM PtCalenderDetail j WHERE j.calenderId IN (" + doIds + ")";
 			this.doExecuteCountByHql(hql);
 
-			hql = "DELETE FROM Calender j  WHERE j.id IN (" + doIds + ")";
+			hql = "DELETE FROM PtCalender j  WHERE j.id IN (" + doIds + ")";
 			this.doExecuteCountByHql(hql);
 			delResult = true;
 		} catch (Exception e) {

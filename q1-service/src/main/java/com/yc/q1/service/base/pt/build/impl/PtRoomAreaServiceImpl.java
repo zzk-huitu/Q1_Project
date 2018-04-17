@@ -43,7 +43,7 @@ public class PtRoomAreaServiceImpl extends BaseServiceImpl<PtRoomArea> implement
 
 	public List<RoomAreaTree> getBuildAreaList(String whereSql) {
 
-		String hql = "from RoomArea where 1=1 ";
+		String hql = "from PtRoomArea where 1=1 ";
 		if (StringUtils.isNotEmpty(whereSql))
 			hql += whereSql;
 		hql += " order by orderIndex asc ";
@@ -88,7 +88,7 @@ public class PtRoomAreaServiceImpl extends BaseServiceImpl<PtRoomArea> implement
 
 	public Integer getChildCount(String areaId) {
 
-		String hql = " select count(*) from RoomArea where isDelete=0 and parentNode='" + areaId + "'";
+		String hql = " select count(*) from PtRoomArea where isDelete=0 and parentNode='" + areaId + "'";
 		Integer childCount = this.getQueryCountByHql(hql);
 		// TODO Auto-generated method stub
 		return childCount;

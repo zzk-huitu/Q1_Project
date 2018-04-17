@@ -43,7 +43,7 @@ public class PtDormDefineServiceImpl extends BaseServiceImpl<PtDormDefine> imple
 
 	@Override
 	public PtDormDefine getByRoomId(String roomId) {
-		String hql = "from DormDefine where 1=1";
+		String hql = "from PtDormDefine where 1=1";
 		if (!roomId.isEmpty()) {
 			hql += " and roomId='" + roomId + "' ";
 		}

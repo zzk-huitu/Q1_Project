@@ -81,7 +81,7 @@ public class PtTeacherBaseInfoServiceImpl extends BaseServiceImpl<PtTeacherBaseI
 			if ("0".equals(currentUser.getRightType())) {
 				// 当前用户有所有部门权限
 				hql.append(
-						"select o,k.jobName from TeacherBaseInfo as o left join UserDeptJob as r on o.id=r.userId and r.isDelete=0 ");
+						"select o,k.jobName from PtTeacherBaseInfo as o left join UserDeptJob as r on o.id=r.userId and r.isDelete=0 ");
 				hql.append(" left join Job as k on k.id=r.jobId where o.isDelete=0  ");
 				hql.append(queryFilterSql);
 			} else {
@@ -89,14 +89,14 @@ public class PtTeacherBaseInfoServiceImpl extends BaseServiceImpl<PtTeacherBaseI
 					// 不是根部门
 					if (deptId.equals("058b21fe-b37f-41c9-ad71-091f97201ff8")) {
 						hql.append(
-								"select o,'临时部门' from TeacherBaseInfo o where o.id not in(select userId from UserDeptJob where isDelete=0) ");
+								"select o,'临时部门' from PtTeacherBaseInfo o where o.id not in(select userId from UserDeptJob where isDelete=0) ");
 						hql.append(queryFilterSql);
 					} else {
 						// 当前用户有指定的部门权限
 						hql.append(
-								"select o,k.jobName from TeacherBaseInfo as o left join UserDeptJob as r on o.id=r.userId and r.isDelete=0 ");
+								"select o,k.jobName from PtTeacherBaseInfo as o left join UserDeptJob as r on o.id=r.userId and r.isDelete=0 ");
 						hql.append(" and r.deptId in(" + rightDeptIds + ") ");
-						hql.append(" left join Department as k on k.id=r.jobId where o.isDelete=0  ");
+						hql.append(" left join PtDepartment as k on k.id=r.jobId where o.isDelete=0  ");
 						hql.append(queryFilterSql);
 					}
 				}
@@ -109,7 +109,7 @@ public class PtTeacherBaseInfoServiceImpl extends BaseServiceImpl<PtTeacherBaseI
 					if (StringUtils.isNotEmpty(rightDeptIds)) {
 						// 当前用户有指定的部门权限
 						hql.append(
-								"select o,k.jobName from TeacherBaseInfo as o inner join UserDeptJob as r on o.id=r.userId and r.isDelete=0 ");
+								"select o,k.jobName from PtTeacherBaseInfo as o inner join UserDeptJob as r on o.id=r.userId and r.isDelete=0 ");
 						hql.append(" inner join Job as k on k.id=r.jobId where o.isDelete=0  ");
 						hql.append(" order by k.orderIndex ");
 					}
@@ -118,7 +118,7 @@ public class PtTeacherBaseInfoServiceImpl extends BaseServiceImpl<PtTeacherBaseI
 						// 不是根部门
 						if (deptId.equals("058b21fe-b37f-41c9-ad71-091f97201ff8")) {
 							hql.append(
-									"select o,'临时部门' from TeacherBaseInfo o where o.id not in(select userId from UserDeptJob where isDelete=0) ");
+									"select o,'临时部门' from PtTeacherBaseInfo o where o.id not in(select userId from UserDeptJob where isDelete=0) ");
 						} else {
 							hql.append("SELECT a,d.jobName FROM TeacherBaseInfo a ");
 							hql.append(" INNER JOIN UserDeptJob b ON a.id=b.userId ");
@@ -134,9 +134,9 @@ public class PtTeacherBaseInfoServiceImpl extends BaseServiceImpl<PtTeacherBaseI
 					// 不是根部门
 					if (deptId.equals("058b21fe-b37f-41c9-ad71-091f97201ff8")) {
 						hql.append(
-								"select o,'临时部门' from TeacherBaseInfo o where o.id not in(select userId from UserDeptJob where isDelete=0) ");
+								"select o,'临时部门' from PtTeacherBaseInfo o where o.id not in(select userId from UserDeptJob where isDelete=0) ");
 					} else {
-						hql.append("select o,k.jobName from TeacherBaseInfo as o ,BaseUserdeptjob as r,Job as k ");
+						hql.append("select o,k.jobName from PtTeacherBaseInfo as o ,BaseUserdeptjob as r,Job as k ");
 						hql.append(
 								"where o.id=r.userId and k.id=r.jobId and o.isDelete=0 and r.isDelete=0 and patindex('%"
 										+ deptId + "%',r.treeIds)>0 ");
