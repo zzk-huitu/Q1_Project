@@ -6,6 +6,7 @@ import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Formula;
 
@@ -69,12 +70,12 @@ public class PtDeptJob extends BaseEntity implements Serializable {
 
 	
 	@FieldInfo(name = "部门岗位名称")
-	//@Formula("(SELECT a.DEPT_NAME+a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=DEPTJOB_ID)")
-	private String deptJobName=deptName+jobName;
+	@Formula("(SELECT deptName+jobName)")
+	private String deptJobName;
 
 	@FieldInfo(name = "部门岗位全称")
-	//@Formula("(SELECT a.ALL_DEPTNAME+a.JOB_NAME FROM BASE_T_DEPTJOB a WHERE a.DEPTJOB_ID=DEPTJOB_ID)")
-	private String allDeptJobName=allDeptName+jobName;
+	@Formula("(SELECT allDeptName+jobName)")
+	private String allDeptJobName;
 	
 	
 	public String getDeptId() {
