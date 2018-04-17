@@ -73,13 +73,13 @@ Ext.define("core.system.user.view.UserGrid", {
             ref: 'gridExport',
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-file-excel-o'
-        },{
+        },/*{
             xtype: 'button',
             text: '同步人员到UP',
             ref: 'syncToUP',
             funCode:'girdFuntionBtn',
             iconCls: 'x-fa fa-rss'
-        },{
+        }*/,{
             xtype: 'button',
             text: '删除',
             ref: 'gridDelete',

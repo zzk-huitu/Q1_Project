@@ -97,7 +97,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 
 		// 根据身份来做不同的处理
 		PtUser saveEntity = null;
-		saveEntity.setId(keyRedisService.getId(PtUser.ModuleType));
+		
 		String category = entity.getCategory();
 		if (category.equals("1")) { // 老师
 			PtTeacherBaseInfo t = new PtTeacherBaseInfo();
@@ -129,7 +129,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 		} else {
 			saveEntity = new PtUser();
 		}
-
+		saveEntity.setId(keyRedisService.getId(PtUser.ModuleType));
 		entity.setId(null);
 		BeanUtils.copyPropertiesExceptNull(saveEntity, entity);
 

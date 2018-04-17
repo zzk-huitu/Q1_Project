@@ -141,12 +141,12 @@ Ext.define("core.system.user.controller.MainController", {
                 }
             },
             */
-            "panel[xtype=system.user.usergrid] button[ref=syncToUP]": {
+           /* "panel[xtype=system.user.usergrid] button[ref=syncToUP]": {
                 beforeclick: function(btn) {   
                     this.doSyncToUp(btn);      
                     return false;
                 }
-            },
+            },*/
             /*
             "panel[xtype=system.user.usergrid] button[ref=syncCardInfoFromUP]": {
                 beforeclick: function(btn) {         
@@ -935,7 +935,7 @@ Ext.define("core.system.user.controller.MainController", {
         });
     },
 
-    doSyncToUp:function(btn){
+  /*  doSyncToUp:function(btn){
         var self=this;
         //同步人员数据事件                        
         var baseGrid = btn.up("grid");
@@ -976,7 +976,7 @@ Ext.define("core.system.user.controller.MainController", {
             }
         });
     },
-
+*/
     doSelectUserSetDept:function(btn){
         var self=this;
         var win = btn.up('window');

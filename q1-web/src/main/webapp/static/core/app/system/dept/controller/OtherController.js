@@ -347,7 +347,7 @@ Ext.define("core.system.dept.controller.OtherController", {
         var pkValue = records.get(pkName);
         //发送ajax请求,检查删除的岗位是否是其它部门或岗位的上级岗位
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/SysDeptjob/chkIsSuperJob",
+            url: comm.get('baseUrl') + "/PtDeptJob/chkIsSuperJob",
             params: {
                 ids: pkValue
             },
@@ -363,7 +363,7 @@ Ext.define("core.system.dept.controller.OtherController", {
                         Ext.Msg.confirm('删除确认', title, function(btn, text) {
                             if (btn == 'yes') {
                                 self.asyncAjax({
-                                    url:  comm.get('baseUrl') + "/SysDeptjob/doDelete",
+                                    url:  comm.get('baseUrl') + "/PtDeptJob/doDelete",
                                     params: {
                                         ids: pkValue
                                     },
@@ -445,7 +445,7 @@ Ext.define("core.system.dept.controller.OtherController", {
 
                 //发送ajax请求,检查删除的岗位是否是其它部门或岗位的上级岗位
                 self.asyncAjax({
-                    url:  comm.get('baseUrl') + "/SysDeptjob/doSetLeaderJob",
+                    url:  comm.get('baseUrl') + "/PtDeptJob/doSetLeaderJob",
                     params: {
                         ids: pkValue,
                         deptId: insertObj.deptId
@@ -512,7 +512,7 @@ Ext.define("core.system.dept.controller.OtherController", {
         }
         var setIds = new Array();
         Ext.each(records, function(rec) {
-            setIds.push(rec.get("uuid"));
+            setIds.push(rec.get("id"));
         }, this);
 
         var title = "选择上级主管岗位";
@@ -525,7 +525,7 @@ Ext.define("core.system.dept.controller.OtherController", {
             multiSelect: false,
             whereSql: "",
             orderSql: " ",
-            url: comm.get('baseUrl') + "/SysDeptjob/getDeptJobTree",
+            url: comm.get('baseUrl') + "/PtDeptJob/getDeptJobTree",
         }
 
         self.selTreeWin({
@@ -573,7 +573,7 @@ Ext.define("core.system.dept.controller.OtherController", {
             var pkValue = records[0].get("id");
             
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/SysDeptjob/doSetSuperJob",
+                url: comm.get('baseUrl') + "/PtDeptJob/doSetSuperJob",
                 params: {
                     ids: pkValue,
                     setIds: setIds,
@@ -613,14 +613,14 @@ Ext.define("core.system.dept.controller.OtherController", {
             if (records.length <= 0) {
                 records = tree.getSelectionModel().getSelection();
             }
-            if (records[0].get("level") < 99) {
+            if (records[0].get("orderIndex") < 99) {
                 self.msgbox("请选择岗位");
                 return false;
             }
             var pkValue = records[0].get("id");
             
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/SysDeptjob/doSetSuperJob",
+                url: comm.get('baseUrl') + "/PtDeptJob/doSetSuperJob",
                 params: {
                     ids: pkValue,
                     setIds: setIds,
@@ -663,7 +663,7 @@ Ext.define("core.system.dept.controller.OtherController", {
         var ids = new Array();
         for (var i = 0; i < iCount; i++) {
             var record = isSelectStore.getAt(i);
-            var pkValue = record.get("uuid");
+            var pkValue = record.get("id");
             if(ids.indexOf(pkValue)==-1)
                 ids.push(pkValue);
             
@@ -673,7 +673,7 @@ Ext.define("core.system.dept.controller.OtherController", {
             var loadMask=self.LoadMask(win);    //显示遮罩
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/SysDeptjob/doBatchSetDeptJob",
+                url: comm.get('baseUrl') + "/PtDeptJob/doBatchSetDeptJob",
                 params: {
                     deptId: deptId,
                     ids: ids.join(",")
@@ -799,7 +799,7 @@ Ext.define("core.system.dept.controller.OtherController", {
     
         //设置tab页的itemId
        
-        var pkValue=recordData["uuid"];
+        var pkValue=recordData["id"];
         var operType = "detail";    // 只显示关闭按钮
         var tabTitle = recordData["deptjobName"]+"-部门岗位用户";
         var tabItemId=funCode+"_gridDeptJobUser"+pkValue;     //命名规则：funCode+'_ref名称',确保不重复
@@ -887,7 +887,7 @@ Ext.define("core.system.dept.controller.OtherController", {
             basePanel = baseGrid.up("basepanel[funCode=" + funCode + "]");        
             var records = baseGrid.getSelectionModel().getSelection();
             Ext.each(records, function (rec) {
-                var pkValue = rec.get("uuid");
+                var pkValue = rec.get("id");
                 ids.push(pkValue);
             });
             if (ids.length == 0) {
@@ -898,7 +898,7 @@ Ext.define("core.system.dept.controller.OtherController", {
             baseGrid = grid;
             funCode = baseGrid.funCode;
             basePanel = baseGrid.up("basepanel[funCode=" + funCode + "]");            
-            ids.push(record.get("uuid"));
+            ids.push(record.get("id"));
         }
         var basetab = btn.up('baseformtab');
         var tabFunData = basetab.funData;
@@ -1002,7 +1002,7 @@ Ext.define("core.system.dept.controller.OtherController", {
         //这里快速搜索就姓名与部门，固定写死查询的条件
         var filter = new Array();
         if (girdSearchTexts[0].getValue() != "")
-            filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'xm'}");
+            filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'name'}");
         //if (girdSearchTexts[1].getValue() != "")
         //    filter.push("{'type': 'string', 'comparison': '=', 'value':'" + girdSearchTexts[1].getValue() + "', 'field': 'deptId'}");
         filter = "[" + filter.join(",") + "]";
@@ -1036,7 +1036,7 @@ Ext.define("core.system.dept.controller.OtherController", {
         }
         var userIds = new Array();
         for (var i = 0; i < storeCount; i++) {
-            var tempId=isSelectStore.getAt(i).get("uuid");
+            var tempId=isSelectStore.getAt(i).get("id");
             if(userIds.indexOf(tempId)==-1)
                 userIds.push(tempId);
         }
@@ -1046,7 +1046,7 @@ Ext.define("core.system.dept.controller.OtherController", {
                 //发送ajax请求
                 var loading = self.LoadMask(win);
                 self.asyncAjax({
-                    url: "/SysUserdeptjob/doAddUserToDeptJob",
+                    url: "/PtUserDeptJob/doAddUserToDeptJob",
                     params: {
                         deptJobId: deptJobId,
                         userIds: userIds.join(",")

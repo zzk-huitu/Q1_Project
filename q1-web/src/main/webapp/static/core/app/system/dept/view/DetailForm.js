@@ -105,7 +105,7 @@ Ext.define("core.system.dept.view.DetailForm", {
                         gradeContainer.setVisible(true);
                      
                         baseform.down("combobox[name=sectionCode]").allowBlank=false;                    
-                        baseform.down("combobox[name=grade]").allowBlank=false;
+                        baseform.down("combobox[name=nj]").allowBlank=false;
                         
                         proxy.extraParams = {
                            filter: filter
@@ -133,7 +133,7 @@ Ext.define("core.system.dept.view.DetailForm", {
                         var gradeContainer=baseform.down("container[ref=gradeContainer]");                       
                         gradeContainer.setVisible(false);                    
                         baseform.down("combobox[name=sectionCode]").allowBlank=true;                    
-                        baseform.down("combobox[name=grade]").allowBlank=true;
+                        baseform.down("combobox[name=nj]").allowBlank=true;
 
 /*                        if(baseform.up("window").getHeight()!=400)
                             baseform.up("window").setHeight(400);*/
@@ -197,7 +197,7 @@ Ext.define("core.system.dept.view.DetailForm", {
             beforeLabelTextTpl: comm.get('required'),
             xtype: "basecombobox",
             fieldLabel: "年级",
-            name: "grade",
+            name: "nj",
             ddCode: "NJ",
             //allowBlank: false,
             emptyText: '请选择年级',
