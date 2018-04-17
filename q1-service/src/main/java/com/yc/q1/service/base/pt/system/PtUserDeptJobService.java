@@ -88,7 +88,7 @@ public interface PtUserDeptJobService extends BaseService<PtUserDeptJob> {
 
 	public boolean doSetMasterDeptJob(String delIds, String userId, PtUser currentUser);
 
-	public QueryResult<PtUserDeptJob> getUserByDeptJobId(String deptJobId, Integer start, Integer limit, String sort);
+	public QueryResult<PtUserDeptJob> getUserByDeptJobId(String deptJobId,String name, Integer start, Integer limit, String sort);
 
 	boolean doSetMasterDeptJobFromUser(String userIds, String deptJobId, PtUser currentUser);
 

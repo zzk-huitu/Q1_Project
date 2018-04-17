@@ -38,11 +38,12 @@ public class PtUserDeptJobController extends FrameWorkController<PtUserDeptJob> 
             throws IOException {
         String strData = ""; // 返回给js的数据
         String deptJobId = request.getParameter("deptJobId");
+        String name = request.getParameter("name");
         Integer start = super.start(request);
         Integer limit = super.limit(request);
         String sort = StringUtils.convertSortToSql(super.sort(request));
         
-        QueryResult<PtUserDeptJob> qr = thisService.getUserByDeptJobId(deptJobId,start,limit,sort);
+        QueryResult<PtUserDeptJob> qr = thisService.getUserByDeptJobId(deptJobId,name,start,limit,sort);
         
         if (ModelUtil.isNotNull(qr))
         	strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
