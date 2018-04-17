@@ -1,7 +1,7 @@
-USE [Q1_test6]
+USE [NewQ1_test]
 GO
 
-/****** Object:  View [dbo].[V_PT_ClassStudentList]    Script Date: 04/08/2018 17:59:25 ******/
+/****** Object:  View [dbo].[V_PT_ClassStudentList]    Script Date: 04/16/2018 18:38:09 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,19 +9,18 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
-
-
-
 ALTER view [dbo].[V_PT_ClassStudentList]
 as
-select a.USER_ID as userId,a.XM as xm,a.USER_NUMB as userNumb,a.XBM as xbm,c.DEPT_ID as classId,c.NODE_TEXT as className,f.GRAI_ID AS gradeId,f.GRADE_CODE as gradeCode,f.GRADE_NAME as gradeName from SYS_T_USER a 
-	join BASE_T_USERDEPTJOB b on a.USER_ID=b.USER_ID
-	join BASE_T_ORG c on b.DEPT_ID=c.DEPT_ID
-	join BASE_T_JOB d on b.JOB_ID=d.JOB_ID
-	join JW_T_GRADECLASS e on e.CLAI_ID=c.DEPT_ID
-	join JW_T_GRADE f on e.GRAI_ID=f.GRAI_ID
-where a.ISDELETE=0 and b.ISDELETE=0 and c.ISDELETE=0 and d.ISDELETE=0 and e.ISDELETE=0 and f.ISDELETE=0 and
-	a.CATEGORY='2' and b.MASTER_DEPT=1 and c.DEPT_TYPE='05' and d.JOB_NAME='学生'
+select a.userId as userId,a.name as name,a.userNumb as userNumb,a.sex as sex,c.deptId as classId,c.nodeText as className,f.gradeId AS gradeId,f.gradeCode as gradeCode,f.gradeName as gradeName 
+    from T_PT_User a 
+	join T_PT_UseDeptJob b on a.userId=b.userId
+	join T_PT_Department c on b.deptId=c.deptId
+	join T_PT_Job d on b.jobId=d.jobId
+	join T_PT_GradeClass e on e.classId=c.deptId
+	join T_PT_Grade f on e.gradeId=f.gradeId
+where a.isDelete=0 and b.isDelete=0 and c.isDelete=0 and d.isDelete=0 and e.isDelete=0 and f.isDelete=0 and
+	a.category='2' and b.isMainDept=1 and c.deptType='05' and d.jobName='学生'
+
 
 
 

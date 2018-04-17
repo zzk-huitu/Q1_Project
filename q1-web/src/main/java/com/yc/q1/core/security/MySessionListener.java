@@ -19,7 +19,7 @@ public class MySessionListener implements SessionListener {
 	
     @Override  
     public void onStart(Session session) {//会话创建时触发  
-        System.out.println("会话创建：" + session.getId());  
+        //System.out.println("会话创建：" + session.getId());  当用户未登录前，此会话id就已生成
     }  
     @Override  
     public void onExpiration(Session session) {//会话过期时触发 

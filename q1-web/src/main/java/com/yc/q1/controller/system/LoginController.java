@@ -2,7 +2,6 @@ package com.yc.q1.controller.system;
 
 import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -34,10 +33,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
-import com.yc.q1.core.util.DateUtil;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.storage.log.LogUserLogin;
 import com.yc.q1.service.base.pt.system.PtRoleService;
 import com.yc.q1.service.base.pt.system.PtUserService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;

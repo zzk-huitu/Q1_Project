@@ -54,7 +54,7 @@ public class PtCalenderServiceImpl extends BaseServiceImpl<PtCalender> implement
 	@Override
 	public int updateStatu(String calenderIds, String campusNames) {
 		// TODO Auto-generated method stub
-		try {
+		try {	
 			String hql1 = "update PtCalender set activityState=0 where isDelete=0 and activityState=1 and campusName in('"
 					+ campusNames.replace(",", "','") + "')"; // 弃用
 			String hql2 = "update PtCalender set activityState=1 where id in('" + calenderIds.replace(",", "','") + "')";// 1：启用

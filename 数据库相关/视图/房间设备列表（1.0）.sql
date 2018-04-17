@@ -1,91 +1,93 @@
-
+USE [NewQ1_test]
 GO
 
-/****** Object:  View [dbo].[V_PT_RoomTermList]    Script Date: 04/08/2018 17:53:17 ******/
+/****** Object:  View [dbo].[V_PT_RoomTermList]    Script Date: 04/16/2018 18:39:06 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
+
  -- =============================================
 -- Author:		LUOYIBO
--- Create date: 2017-02-06
+-- Create date: 2018-04-09
 -- Description:	各房间绑定的终端设备数据视图
 -- 字段说明:   
 --      roomId: 房间ID
 --		roomCode:房间编码
 --		roomName:房间名称
---		houseNumb1:门牌号1
---		termId1:门牌号1对应的终端ID 
---		termCode1:门牌号1对应的终端编码
---      后面的termId2、termId3、termId4、termId5分别对应5个门牌号
+--		houseNo01:门牌号1
+--		terminalId1:门牌号1对应的终端ID 
+--		terminalNo1:门牌号1对应的终端编码
+--      后面的terminalId2、terminalId3、terminalId4、terminalId5分别对应5个门牌号
 -- 构建数据表说明:
-		--BUILD_T_ROOMINFO:房间信息
-		--OA_T_INFOTERM:终端设备信息
+		--T_PT_RoomInfo:房间信息
+		--T_PT_InfoTerminal:终端设备信息
 -- =============================================
 ALTER VIEW [dbo].[V_PT_RoomTermList]
 AS
-    SELECT  a.ROOM_ID AS roomId ,
-            a.ROOM_CODE AS roomCode,
-            a.ROOM_NAME AS roomName ,
-            a.EXT_FIELD01 AS houseNumb1 ,
-            ISNULL(( SELECT TERM_ID
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD01
-                   ), '') AS termId1 ,
-            ISNULL(( SELECT TERM_CODE
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD01
-                   ), '') AS termCode1 ,
-            a.EXT_FIELD02 AS houseNumb2 ,
-            ISNULL(( SELECT TERM_ID
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD02
-                   ), '') AS termId2 ,
-            ISNULL(( SELECT TERM_CODE
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD02
-                   ), '') AS termCode2 ,
-            a.EXT_FIELD03 AS houseNumb3,
-            ISNULL(( SELECT TERM_ID
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD03
-                   ), '') AS termId3 ,
-            ISNULL(( SELECT TERM_CODE
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD03
-                   ), '') AS termCode3 ,
-            a.EXT_FIELD04 AS houseNumb4,
-            ISNULL(( SELECT TERM_ID
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD04
-                   ), '') AS termId4 ,
-            ISNULL(( SELECT TERM_CODE
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD04
-                   ), '') AS termCode4 ,
-            a.EXT_FIELD05 AS houseNumb5,
-            ISNULL(( SELECT TERM_ID
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD05
-                   ), '') AS termId5 ,
-            ISNULL(( SELECT TERM_CODE
-                     FROM   dbo.OA_T_INFOTERM
-                     WHERE  ROOM_ID = a.ROOM_ID
-                            AND HOUSE_NUMB = a.EXT_FIELD05
-                   ), '') AS termCode5
-    FROM    dbo.BUILD_T_ROOMINFO a;
+    SELECT  a.roomId AS roomId ,
+            a.roomCode AS roomCode,
+            a.roomName AS roomName ,
+            a.houseNo01 AS houseNo01 ,
+            ISNULL(( SELECT terminalId
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo01
+                   ), '') AS terminalId1 ,
+            ISNULL(( SELECT terminalNo
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo01
+                   ), '') AS terminalNo1 ,
+            a.houseNo02 AS houseNo02 ,
+            ISNULL(( SELECT terminalId
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo02
+                   ), '') AS terminalId2 ,
+            ISNULL(( SELECT terminalNo
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo02
+                   ), '') AS terminalNo2 ,
+            a.houseNo03 AS houseNo03,
+            ISNULL(( SELECT terminalId
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo03
+                   ), '') AS terminalId3 ,
+            ISNULL(( SELECT terminalNo
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo03
+                   ), '') AS terminalNo3 ,
+            a.houseNo04 AS houseNo04,
+            ISNULL(( SELECT terminalId
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo04
+                   ), '') AS terminalId4 ,
+            ISNULL(( SELECT terminalNo
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo04
+                   ), '') AS terminalNo4 ,
+            a.houseNo05 AS houseNo05,
+            ISNULL(( SELECT terminalId
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo05
+                   ), '') AS terminalId5 ,
+            ISNULL(( SELECT terminalNo
+                     FROM   dbo.T_PT_InfoTerminal
+                     WHERE  roomId = a.roomId
+                            AND houseNo = a.houseNo05
+                   ), '') AS terminalNo5
+    FROM    dbo.T_PT_RoomInfo a;
  
+
 
 GO
 

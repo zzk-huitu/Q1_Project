@@ -1,32 +1,31 @@
-USE [Q1_test6]
+USE [NewQ1_test]
 GO
 
-/****** Object:  View [dbo].[V_PT_StudentDormList]    Script Date: 04/08/2018 17:58:18 ******/
+/****** Object:  View [dbo].[V_PT_StudentDormList]    Script Date: 04/16/2018 18:39:48 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
-
-
 ALTER VIEW [dbo].[V_PT_StudentDormList] 
 AS
 
 SELECT 
-	SYS_T_USER.[USER_ID], 
-	BUILD_T_DORMDEFINE.ROOM_ID,
-	BUILD_T_ROOMINFO.ROOM_CODE,
-	BUILD_T_ROOMINFO.EXT_FIELD01,
-	BUILD_T_ROOMINFO.AREA_ID,
-	BUILD_T_ROOMINFO.ROOM_NAME,
-	SYS_T_USER.XM
+	T_PT_User.[userId], 
+	T_PT_DormDefine.roomId,
+	T_PT_RoomInfo.roomCode,
+	T_PT_RoomInfo.houseNo01,
+	T_PT_RoomInfo.areaId,
+	T_PT_RoomInfo.roomName,
+	T_PT_User.name
 FROM      
-	SYS_T_USER 
-	INNER JOIN DORM_T_STUDENTDORM ON SYS_T_USER.[USER_ID] = DORM_T_STUDENTDORM.STU_ID AND SYS_T_USER.CATEGORY = 2 AND DORM_T_STUDENTDORM.ISDELETE = 0 
-	INNER JOIN JW_T_CLASSDORMALLOT ON DORM_T_STUDENTDORM.CDORM_ID = JW_T_CLASSDORMALLOT.CDORM_ID AND JW_T_CLASSDORMALLOT.ISDELETE = 0 
-	INNER JOIN BUILD_T_DORMDEFINE ON JW_T_CLASSDORMALLOT.DORM_ID = BUILD_T_DORMDEFINE.DORM_ID AND BUILD_T_DORMDEFINE.ISDELETE = 0 
-	INNER JOIN BUILD_T_ROOMINFO ON BUILD_T_DORMDEFINE.ROOM_ID = BUILD_T_ROOMINFO.ROOM_ID AND BUILD_T_ROOMINFO.ISDELETE = 0 
+	T_PT_User 
+	INNER JOIN T_PT_StudentDorm ON T_PT_User.[userId] = T_PT_StudentDorm.studentId AND T_PT_User.category = 2 AND T_PT_StudentDorm.isDelete = 0 
+	INNER JOIN T_PT_ClassDormAllot ON T_PT_StudentDorm.classDormId = T_PT_ClassDormAllot.classDormId AND T_PT_ClassDormAllot.isDelete = 0 
+	INNER JOIN T_PT_DormDefine ON T_PT_ClassDormAllot.dormId = T_PT_DormDefine.dormId AND T_PT_DormDefine.isDelete = 0 
+	INNER JOIN T_PT_RoomInfo ON T_PT_DormDefine.roomId = T_PT_RoomInfo.roomId AND T_PT_RoomInfo.isDelete = 0 
+
 
 
 
