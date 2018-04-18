@@ -198,8 +198,8 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                     parentNode: recordData.parentNode,
                     level: recordData.level,
-                    uuid: recordData.uuid,
-                    brandname: recordData.brandname,
+                    id: recordData.id,
+                    brandName: recordData.brandName,
                     productModel: recordData.productModel,
                     notes: recordData.notes,
                 });
@@ -221,8 +221,8 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                     parentNode: recordData.parentNode,
                     level: recordData.level,
-                    uuid: recordData.uuid,
-                    brandname: recordData.brandname,
+                    id: recordData.id,
+                    brandName: recordData.brandName,
                     productModel: recordData.productModel,
                     notes: recordData.notes,
                 });
@@ -238,8 +238,8 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                 insertObj = Ext.apply(insertObj, {
                          parentNode: id,
                          level: level,
-                         uuid: null,
-                         brandname: name,
+                         id: null,
+                         brandName: name,
                      });
                 tabTitle = funData.tabConfig.addTitle;
                 tabItemId=funCode+"_gridAdd"; 
@@ -296,6 +296,7 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
     
     //增加修改区域
     doDetail: function (btn, cmd) {
+      
         var self = this;
         var baseGrid = btn.up("basetreegrid");
         var funCode = baseGrid.funCode;
@@ -352,9 +353,9 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                     return;
                 }
                 insertObj = Ext.apply(insertObj, {
-                    upbrandname: justName,
+                    upBrandName: justName,
                     parentNode: just,
-                    uuid: null,
+                    id: null,
                     level: childType,
                 });
                 break;
@@ -367,8 +368,8 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                 operType = "add";
                 insertObj = Ext.apply(insertObj, {
                     parentNode: parent,
-                    upbrandname: parentName,
-                    uuid: null,
+                    upBrandName: parentName,
+                    id: null,
                     level: justType,
                 });
                 break;
@@ -379,9 +380,9 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                 insertObj = records[0].data;
                 insertObj = Ext.apply(insertObj, {
                     parentNode: parent,
-                    upbrandname: parentName,
-                    uuid: just,
-                    brandname: justName,
+                    upBrandName: parentName,
+                    id: just,
+                    brandName: justName,
                 });
                 break;
         }
@@ -449,7 +450,7 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
             if (btn == 'yes') {
                 //发送ajax请求
                 var resObj = self.ajax({
-                    url: comm.get('baseUrl') + "/BasePtIrDeviceBrand/doDelete",
+                    url: comm.get('baseUrl') + "/PtIrDeviceBrand/doDelete",
                     params: {
                         ids: ids.join(","),
                         pkName: pkName
@@ -500,13 +501,13 @@ Ext.define("core.basedevice.irdevice.controller.MainController", {
                         width: 0,
                         height: 0,
                         hidden: true,
-                        html: '<iframe src="' + comm.get('baseUrl') + '/BasePtIrDeviceBrand/doExportExcel?productModel='+productModel+'&brandId='+brandId+'&level='+level+'"></iframe>',
+                        html: '<iframe src="' + comm.get('baseUrl') + '/PtIrDeviceBrand/doExportExcel?productModel='+productModel+'&brandId='+brandId+'&level='+level+'"></iframe>',
                         renderTo: Ext.getBody()
                     });
 
                     var time = function () {
                         self.syncAjax({
-                            url: comm.get('baseUrl') + '/BasePtIrDeviceBrand/checkExportEnd',
+                            url: comm.get('baseUrl') + '/PtIrDeviceBrand/checkExportEnd',
                             timeout: 1000 * 60 * 30,        //半个小时
                             //回调代码必须写在里面
                             success: function (response) {

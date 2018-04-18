@@ -244,13 +244,13 @@ public class PtTermServiceImpl extends BaseServiceImpl<PtTerm> implements PtTerm
 	}
 
 	@Override
-	public void doSetPtTerm(String roomId, String uuid, PtUser currentUser) {
+	public void doSetPtTerm(String roomId, String id, PtUser currentUser) {
 		// TODO Auto-generated method stub
-		String uuids[] = uuid.split(",");
+		String ids[] = id.split(",");
 		String roomIds[] = roomId.split(",");
 		PtTerm entity = null;
-		for (int i = 0; i < uuids.length; i++) {
-			entity = this.get(uuids[i]);
+		for (int i = 0; i < ids.length; i++) {
+			entity = this.get(ids[i]);
 			entity.setRoomId(roomIds[i]);
 			entity.setCreateUser(currentUser.getId());
 			entity.setUpdateTime(new Date());

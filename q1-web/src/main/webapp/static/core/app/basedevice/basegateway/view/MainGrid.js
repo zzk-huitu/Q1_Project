@@ -102,7 +102,7 @@ Ext.define("core.basedevice.basegateway.view.MainGrid", {
         }, {
             width: 120,
             text: "序列号",
-            dataIndex: "gatewaySN",
+            dataIndex: "gatewaySn",
             field: {
                 xtype: "textfield"
             }

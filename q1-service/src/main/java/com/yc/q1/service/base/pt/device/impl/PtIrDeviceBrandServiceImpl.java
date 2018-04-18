@@ -56,7 +56,7 @@ public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand>
 			e.printStackTrace();
 		}
 		saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
-		entity.setId(keyRedisService.getId(PtIrDeviceBrand.ModuleType));	//手动设置id
+		saveEntity.setId(keyRedisService.getId(PtIrDeviceBrand.ModuleType));	//手动设置id
 		entity = this.merge(saveEntity);// 执行修改方法
 		return entity;
 	}
@@ -73,7 +73,7 @@ public class PtIrDeviceBrandServiceImpl extends BaseServiceImpl<PtIrDeviceBrand>
 
 			/* 若修改的是第三层的品牌名称，则一并把第四层的品牌名称修改 */
 			if (entity.getLevel() == 3) {
-				String hql = "update IrDeviceBrand set brandName='" + entity.getBrandName() + "'"
+				String hql = "update PtIrDeviceBrand set brandName='" + entity.getBrandName() + "'"
 						+ " where isDelete=0 and level=4 and parentNode='" + entity.getId() + "'";
 				this.doExecuteCountByHql(hql);
 			}

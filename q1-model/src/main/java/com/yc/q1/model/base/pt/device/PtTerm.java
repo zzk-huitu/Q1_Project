@@ -112,7 +112,7 @@ public class PtTerm extends BaseEntity implements Serializable {
 	// @FieldInfo(name = "电控费率")
 	private String dkprice;
 
-	@Formula("(select  cast(s.measure as varchar(100)  ) from dbo.T_PT_SKMeter s,dbo.T_PT_SkMeterBind b where s.meterId=b.meterBindId and b.termId=termId)")
+	@Formula("(select  cast(s.measure as varchar(100)  ) from dbo.T_SK_Meter s,dbo.T_SK_MeterBind b where s.meterId=b.meterId and b.termId=termId)")
 	// @FieldInfo(name = "水控计量")
 	private String skmeasure;
 

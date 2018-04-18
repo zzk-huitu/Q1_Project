@@ -140,13 +140,13 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	 */
 	@Auth("DEVICEALLOT_add")
 	@RequestMapping("/doSetPtTerm")
-	public void doSetPtTerm(String roomId, String uuid, HttpServletRequest request, HttpServletResponse response)
+	public void doSetPtTerm(String roomId, String id, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// String uuids[] = uuid.split(",");
 		// String roomIds[] = roomId.split(",");
 		// PtTerm entity = null;
 		PtUser currentUser = getCurrentSysUser();
-		thisService.doSetPtTerm(roomId, uuid, currentUser);// 执行修改方法
+		thisService.doSetPtTerm(roomId, id, currentUser);// 执行修改方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"分配成功!\""));
 
@@ -207,11 +207,11 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	 */
 	@Auth("DEVICEALLOT_delete")
 	@RequestMapping("/doDelete")
-	public void doDelete(String uuid, HttpServletRequest request, HttpServletResponse response)
+	public void doDelete(String id, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		String uuids[] = uuid.split(",");
-		for (int i = 0; i < uuids.length; i++) {
-			thisService.updateByProperties("id", uuids[i], "roomId", "");
+		String ids[] = id.split(",");
+		for (int i = 0; i < ids.length; i++) {
+			thisService.updateByProperties("id", ids[i], "roomId", "");
 		}
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功。'"));
 	}
@@ -294,7 +294,7 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	public void doSetBaseParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		PtUser currentUser = getCurrentSysUser();
-		String termTypeID = request.getParameter("termTypeID");
+		String termTypeID = request.getParameter("termTypeId");
 		String notes = request.getParameter("notes");
 
 		// 1.判断，是否批量设置(0-不批量，4-本楼层，3-本楼栋，2-本校区，1-本学校，5-选择批量)

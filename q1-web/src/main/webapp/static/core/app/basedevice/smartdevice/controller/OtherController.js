@@ -50,7 +50,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
             'tlvs[0].valStr': valInt
         });
         params.termRadio=objForm.down("radiogroup[ref=termRadio]").getChecked()[0].inputValue;
-        params.termTypeID= basetab.recordData.termTypeID;
+        params.termTypeId= basetab.recordData.termTypeId;
         
         //判断当前是保存还是修改操作
         if (formObj.isValid()) {
@@ -115,13 +115,13 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
         //批量参数
         params.termRadio=objForm.down("radiogroup[ref=termRadio]").getChecked()[0].inputValue;
         //设备类型
-        params.termTypeID= basetab.recordData.termTypeID;
+        params.termTypeId= basetab.recordData.termTypeId;
 
-        if(params.termTypeID=='9'){
+        if(params.termTypeId=='9'){
             //电控基础参数               
             
 
-        }else if (params.termTypeID == '4') {     
+        }else if (params.termTypeId == '4') {     
             //门禁基础参数
             var str = '';
             var checkboxgroup = objForm.down("checkboxgroup[ref=KrateForm_lblOperationBehaviors]");
@@ -144,7 +144,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
             params['tlvs[12].valInt']=params['tlvs[12].valInt']==true?1:0;
             params['tlvs[13].valInt']=params['tlvs[13].valInt']==true?1:0;
 
-        }else if (params.termTypeID == '17') {
+        }else if (params.termTypeId == '17') {
             //17灯控开关
             var items = null;
             var controlVal = null;
@@ -197,7 +197,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
             params["notes"]=notes
             
 
-        } else if (params.termTypeID == '11') {
+        } else if (params.termTypeId == '11') {
             //11红外
             var str = '1#';
             var time = '';
@@ -217,7 +217,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
             str += params.type + "#" + time + "#" + status;
             params['tlvs[3].valStr']=str;           
 
-        } else if (params.termTypeID == '8') {            
+        } else if (params.termTypeId == '8') {            
             //水控基础参数
             var str = '';
             var tlvs5 = '';
