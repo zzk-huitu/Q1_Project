@@ -123,10 +123,10 @@ Ext.define("core.baseset.teacherdorm.view.MainGrid", {
             dataIndex: "inOutState",
             renderer: function(value) {
                 switch (value) {
-                    case 0:
+                    case "1":
                         return '入住';
                         break;
-                    case 1:
+                    case "0":
                         return '退住';
                         break;
                 }

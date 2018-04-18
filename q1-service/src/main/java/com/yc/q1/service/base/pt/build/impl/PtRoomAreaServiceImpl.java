@@ -110,6 +110,7 @@ public class PtRoomAreaServiceImpl extends BaseServiceImpl<PtRoomArea> implement
 		}
 
 		perEntity.setCreateUser(operator); // 创建人
+		perEntity.setId(keyRedisService.getId(PtRoomArea.ModuleType));	//手动设置id
 		perEntity.setLeaf(true);
 		if (!parentNode.equals(TreeVeriable.ROOT)) {
 			PtRoomArea parEntity = this.get(parentNode);
@@ -119,7 +120,6 @@ public class PtRoomAreaServiceImpl extends BaseServiceImpl<PtRoomArea> implement
 		} else
 			perEntity.BuildNode(null);
 
-		perEntity.setId(keyRedisService.getId(PtRoomArea.ModuleType));	//手动设置id
 		perEntity = this.merge(perEntity);
 
 		// perEntity.setParentName(parentName);

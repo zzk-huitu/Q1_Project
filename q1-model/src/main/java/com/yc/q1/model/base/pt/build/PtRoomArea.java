@@ -63,9 +63,6 @@ public class PtRoomArea extends TreeNodeEntity implements Serializable {
 	@Transient
 	private String parentType;
 
-	
-	
-	
 	public String getAreaType() {
 		return areaType;
 	}

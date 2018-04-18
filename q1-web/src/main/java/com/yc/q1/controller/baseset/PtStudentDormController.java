@@ -269,7 +269,7 @@ public class PtStudentDormController extends FrameWorkController<PtStudentDorm> 
 		if (sb.length() > 0)
 			str = sb.substring(0, sb.length() - 1);
 
-		String sql = " select a.userId as userId,a.xm as xm,a.userNumb as userNumb,a.xbm as xbm,a.classId as classId,"
+		String sql = " select a.userId as userId,a.name as name,a.userNumb as userNumb,a.sex as sex,a.classId as classId,"
 				+ " a.className as className,a.gradeId as gradeId,a.gradeCode as gradeCode,a.gradeName as gradeName "
 				+ "from V_PT_ClassStudentList a where "
 				+ " a.userId not in (select studentId from T_PT_StudentDorm  where isDelete=0)";

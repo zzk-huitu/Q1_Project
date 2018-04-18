@@ -47,7 +47,7 @@ Ext.define("core.baseset.studentdorm.view.DormAllotTree", {
      listeners: {
         itemclick: function(view, record, item, index, e) {
             var detailLayout = view.up("basepanel[xtype=baseset.studentdorm.dormallotLayout]");
-            var filter = "[{'type':'string','comparison':'=','value':'" + record.get("id") + "','field':'claissd'}]";
+            var filter = "[{'type':'string','comparison':'=','value':'" + record.get("id") + "','field':'classId'}]";
             var funData = detailLayout.funData;
             detailLayout.funData = Ext.apply(funData, {
                 claiId: record.get("id"),

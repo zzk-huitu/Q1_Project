@@ -3,9 +3,9 @@ package com.yc.q1.pojo.base.pt;
 public class StandVClassStudent {
 
 	public String userId;
-	public String xm;
+	public String name;
 	public String userNumb;
-	public String xbm;
+	public String sex;
 	public String classId;
 	public String className;
 	public String gradeId;
@@ -18,23 +18,24 @@ public class StandVClassStudent {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getXm() {
-		return xm;
+	
+	public String getName() {
+		return name;
 	}
-	public void setXm(String xm) {
-		this.xm = xm;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getSex() {
+		return sex;
+	}
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 	public String getUserNumb() {
 		return userNumb;
 	}
 	public void setUserNumb(String userNumb) {
 		this.userNumb = userNumb;
-	}
-	public String getXbm() {
-		return xbm;
-	}
-	public void setXbm(String xbm) {
-		this.xbm = xbm;
 	}
 	public String getClassId() {
 		return classId;

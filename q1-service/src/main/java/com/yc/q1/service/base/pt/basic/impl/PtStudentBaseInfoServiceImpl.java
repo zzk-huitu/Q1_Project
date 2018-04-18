@@ -102,7 +102,6 @@ public class PtStudentBaseInfoServiceImpl extends BaseServiceImpl<PtStudentBaseI
 			PtUser currentUser/* , String deptJobId */) {
 		PtStudentBaseInfo saveEntity = new PtStudentBaseInfo();
 		List<String> excludedProp = new ArrayList<>();
-		excludedProp.add("uuid");
 		try {
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
 		} catch (IllegalAccessException | InvocationTargetException e) {

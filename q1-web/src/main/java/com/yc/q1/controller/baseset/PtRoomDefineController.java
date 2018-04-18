@@ -184,7 +184,7 @@ public class PtRoomDefineController extends FrameWorkController<PtRoomInfo> impl
 			List<String> roomIdLists = new ArrayList<>();
 			areaIds = sb.substring(0, sb.length() - 1);
 
-			hql = "select a.id from PtDormDefine a where a.isDelete=0 and a.dormCategory='1' and a.areaId in ('"
+			hql = "select a.roomId from PtDormDefine a where a.isDelete=0 and a.dormCategory='1' and a.areaId in ('"
 					+ areaIds.replace(",", "','") + "')";
 			roomIdLists = dormRoomService.queryEntityByHql(hql);
 			sb.setLength(0);

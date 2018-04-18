@@ -68,8 +68,8 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
 		  }
 		});
         //选择的数据量
-        var bedCount=formObj.findField("bedCount").getValue().split(",");
-		var arkCount=formObj.findField("arkCount").getValue().split(",");
+        var bedCount=formObj.findField("bedNo").getValue().split(",");
+		var arkCount=formObj.findField("sarkNo").getValue().split(",");
 
 		var defined=grid.store.totalCount;
 		if (resObj.dormBedCount < bedCount.length+defined) {
@@ -239,10 +239,10 @@ Ext.define("core.baseset.teacherdorm.controller.OtherController", {
                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
                     Ext.each(records, function(r,index) {
                         valueArray.push(data.bedNo+index+1);
-                        arkNumArr.push(data.arkNo+index+1);
+                        arkNumArr.push(data.sarkNo+index+1);
                     });
-                    var bff = bf.findField("bedCount").setValue(valueArray.join(","));
-                    bff = bf.findField("sarkCount").setValue(arkNumArr.join(","));
+                    var bff = bf.findField("bedNo").setValue(valueArray.join(","));
+                    bff = bf.findField("sarkNo").setValue(arkNumArr.join(","));
 
             },
             failure: function(response) {                   

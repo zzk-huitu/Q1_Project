@@ -118,8 +118,9 @@ public class PtTeacherDormController extends FrameWorkController<PtTeacherDorm> 
 	public void getGradeTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
-		List<CommTree> lists = treeService.getCommTree(" V_PT_TeacherDromTree", whereSql);
-		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
+//		String excludes = request.getParameter("excludes");
+		List<CommTree> lists = treeService.getCommTree("V_PT_TeacherDromTree", whereSql);
+		strData = JsonBuilder.getInstance().buildList(lists, "checked");// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
 
@@ -187,9 +188,8 @@ public class PtTeacherDormController extends FrameWorkController<PtTeacherDorm> 
 			return;
 		} else {
 			boolean flag = false;
-			flag = thisService.doDelete(delIds);
+			flag = thisService.doDelete(delIds,roomIds);
 			if (flag) {
-				thisService.doSettingOff(roomIds);	//判断此宿舍是否已经没数据了
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"删除失败\""));

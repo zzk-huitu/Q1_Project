@@ -204,13 +204,13 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                return;
            }        
            var classdormgrid = selectClaDorm[0];
-           var cdormId = classdormgrid.get("id"); //班级宿舍主键
+           var classDormId = classdormgrid.get("id"); //班级宿舍主键
            var dormType = classdormgrid.get("dormType"); //宿舍类型
-           var claiId = classdormgrid.get("classId"); //班级id   
+           var classId = classdormgrid.get("classId"); //班级id   
             
            var dormNotAllotGrid = detailLayout.down("basegrid[xtype=baseset.studentdorm.dormnotallotgrid]");
            var rows = dormNotAllotGrid.getSelectionModel().getSelection();
-           var stuId = "";
+           var studentId = "";
            var yes = 0;
            if (rows <= 0) {
              self.msgbox("选中要分配的学生再进行操作!");
@@ -219,7 +219,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
            //判断性别
            for (var i = 0; i < rows.length; i++) {
             //将学生主键加入到list
-            stuId+= rows[i].get('userId') + ",";
+            studentId+= rows[i].get('userId') + ",";
             if (dormType != 3) {
               if (dormType != rows[i].get('sex')) {
                       self.msgbox("选择宿舍的性别与选中学生性别不匹配无法继续!");
@@ -237,9 +237,9 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                 self.asyncAjax({
                   url: comm.get('baseUrl') + "/PtStudentDorm/dormHandAllot",
                   params: {
-                   cdormId: cdormId,
-                   stuId: stuId,
-                   claiId: claiId,
+                   classDormId: classDormId,
+                   studentId: studentId,
+                   classId: classId,
                   // bedNum: bedNum
                   },                 
                   success: function(response) {
@@ -716,13 +716,13 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
               objSelect = selectJwtr2;
             }
           var gridObj = objSelect[0];
-          var cdormId = gridObj.get("id"); //班级宿舍主键
+          var classDormId = gridObj.get("id"); //班级宿舍主键
           var dormType = gridObj.get("dormType"); //宿舍类型
-          var claiId = gridObj.get("classId"); //班级id
+          var classId = gridObj.get("classId"); //班级id
          //获取选中的学生
           var stuNotDormGrid = mainLayout.down("basegrid[xtype=baseset.studentdorm.notallotstugrid]");
           var rows = stuNotDormGrid.getSelectionModel().getSelection();
-          var stuId = "";
+          var studentId = "";
           if (rows <= 0) {
               self.msgbox("选中要分配的学生再进行操作!");
               return;
@@ -734,7 +734,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
           //判断性别
           for (var i = 0; i < rows.length; i++) {
              //将学生主键加入到list
-             stuId = stuId + rows[i].get('userId') + ",";
+             studentId = studentId + rows[i].get('userId') + ",";
              if (dormType != 3) {
               if (dormType != rows[i].get('sex')) {
                 self.msgbox("选择宿舍的性别与选中学生性别不匹配无法继续!");
@@ -748,9 +748,9 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
               self.asyncAjax({
                   url: comm.get('baseUrl') + "/PtStudentDorm/dormHandAllot",
                   params: {
-                    cdormId: cdormId,
-                    stuId: stuId,
-                    claiId: claiId,
+                    classDormId: classDormId,
+                    studentId: studentId,
+                    classId: classId,
                     bedNum: yrzs
                   },                 
                 success: function(response) {
@@ -798,7 +798,7 @@ Ext.define("core.baseset.studentdorm.controller.OtherController", {
                   self.asyncAjax({
                     url: comm.get('baseUrl') + "/PtStudentDorm/doDelete",
                     params: {
-                      uuid: studormId                  
+                      id: studormId                  
                     },                 
                     success: function(response) {
                       var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

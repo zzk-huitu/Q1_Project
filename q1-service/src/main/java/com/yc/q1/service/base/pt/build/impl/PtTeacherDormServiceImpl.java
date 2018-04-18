@@ -100,7 +100,7 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 			officeAllotService.mjUserRight(null, entity.getRoomId(), entity.getTeacherId(), null, null);
 
 			entity.setOutTime(new Date());
-			entity.setInOutState("1");
+			entity.setInOutState("0");
 			entity.setCreateUser(currentUser.getId());
 			entity.setUpdateTime(new Date());
 			this.merge(entity);
@@ -114,8 +114,8 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 			throws IllegalAccessException, InvocationTargetException {
 		Boolean flag = false;
 		String roomName = request.getParameter("roomName");
-		String bedCounts = request.getParameter("bedCount");
-		String arkCounts = request.getParameter("arkCount");
+		String bedCounts = request.getParameter("bedNo");
+		String arkCounts = request.getParameter("sarkNo");
 		String userNumbs = request.getParameter("userNumb");
 		String sendCheckNames = request.getParameter("sendCheckName");
 		String tteacIds = entity.getTeacherId();
@@ -134,7 +134,7 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 		PtTeacherDorm perEntity = null;
 		for (int i = 0; i < tteacIdArr.length; i++) {
 			// 查询此教师当前是否在入住此宿舍
-			String hql = " from TeacherDorm where isDelete = 0 and inOutState=0 and teacherId = '" + tteacIdArr[i]
+			String hql = " from PtTeacherDorm where isDelete = 0 and inOutState='0' and teacherId = '" + tteacIdArr[i]
 					+ "' ";
 			List<PtTeacherDorm> lists = this.queryByHql(hql);
 			if (lists.size() > 0) {
@@ -146,6 +146,11 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 				hashMap.put("flag", flag);
 				continue;
 			}
+
+			// 获取roomId
+			String dormId = entity.getDormId();	
+			String roomId = dormRoomService.getEntityByHql("select roomId  from PtDormDefine where id=? and isDelete=0",dormId);
+			
 			perEntity = new PtTeacherDorm();
 			BeanUtils.copyProperties(perEntity, entity, excludedProp);
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
@@ -155,13 +160,16 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 			perEntity.setTeacherId(tteacIdArr[i]);
 			perEntity.setSarkNo(Integer.parseInt(arkCount[i]));
 			perEntity.setBedNo(Integer.parseInt(bedCount[i]));
-			
+			perEntity.setInOutState("1");
+			perEntity.setRoomId(roomId);
+			perEntity.setInTime(new Date());
+
 			// 持久化到数据库
-			perEntity.setId(keyRedisService.getId(PtTeacherDorm.ModuleType));	//手动设置id
+			perEntity.setId(keyRedisService.getId(PtTeacherDorm.ModuleType)); // 手动设置id
 			entity = this.merge(perEntity);
 
 			// 写入门禁权限
-			officeAllotService.mjUserRight(tteacIdArr[i], entity.getRoomId(), null, null, null);
+			officeAllotService.mjUserRight(tteacIdArr[i], roomId, null, null, null);
 			/*
 			 * List<PtTerm> ptTrems = ptTermService.queryByProerties("roomId",
 			 * entity.getRoomId()); for (PtTerm ptTerm : ptTrems) { MjUserright
@@ -176,8 +184,7 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 			pushService.pushInfo(sendCheckName[i], userNumb[i], "事件提醒", regStatus, currentUser);
 
 			// 将教室宿舍设置为已分配
-			String dormHql = "update DormDefine set isAllot='1' where isDelete=0 and roomId='" + entity.getRoomId()
-					+ "'";
+			String dormHql = "update PtDormDefine set isAllot=true where isDelete=0 and roomId='" + roomId + "'";
 			dormRoomService.doExecuteCountByHql(dormHql);
 
 			flag = true;
@@ -188,7 +195,7 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 	}
 
 	@Override
-	public Boolean doDelete(String delIds) {
+	public Boolean doDelete(String delIds,String roomIds) {
 		PtTeacherDorm entity = null;
 		boolean flag = false;
 		String[] delId = delIds.split(",");
@@ -198,7 +205,9 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 			officeAllotService.mjUserRight(null, entity.getRoomId(), entity.getTeacherId(), null, null);
 			flag = this.deleteByPK(id);
 		}
-
+		
+		this.doSettingOff(roomIds);	//判断此宿舍是否已经没数据了
+		
 		return flag;
 	}
 
@@ -215,26 +224,13 @@ public class PtTeacherDormServiceImpl extends BaseServiceImpl<PtTeacherDorm> imp
 
 			Integer count = this.getQueryCountBySql(teacDormSql);
 			if (count == 0) {
-				dorm = dormRoomService.get(teacRoomId);
-				if (dorm.getIsAllot() == true) {
+				dorm = dormRoomService.getByProerties(new String[]{"roomId","isDelete"},new Object[]{teacRoomId,0});
+				if (dorm!=null&&dorm.getIsAllot() == true) {
 					dorm.setIsAllot(false);
 					dorm.setUpdateTime(new Date());
-					dormRoomService.merge(dorm);
+					dormRoomService.update(dorm);
 				}
 			}
-			/*
-			 * teacDormSql =
-			 * "select a.ROOM_ID ,b.DORM_ID from DORM_T_TEACHERDORM a right join BUILD_T_DORMDEFINE b  on  a.ROOM_ID = b.ROOM_ID where b.ROOM_ID='"
-			 * + teacRoomId + "'"; list = this.querySql(teacDormSql);
-			 * 
-			 * for (int j = 0; j < list.size(); j++) { Object[] object =
-			 * (Object[]) list.get(j); if (object[0] == null) { String dormId =
-			 * (String) object[1]; dorm = dormRoomService.get(dormId); if
-			 * (dorm.getRoomStatus().equals("1")) { dorm.setRoomStatus("0");
-			 * dorm.setUpdateTime(new Date()); dormRoomService.merge(dorm);
-			 * 
-			 * } } }
-			 */
 
 		}
 	}

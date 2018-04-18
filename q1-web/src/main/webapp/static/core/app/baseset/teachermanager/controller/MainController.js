@@ -300,8 +300,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
         //处理特殊默认值
         var insertObj = self.getDefaultValue(defaultObj);
         var popFunData = Ext.apply(funData, {
-            grid: baseGrid,
-            userId : recordData.id
+            grid: baseGrid
         });
 
         insertObj = recordData;

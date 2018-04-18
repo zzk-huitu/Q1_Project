@@ -310,7 +310,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         //拼装所选择的角色
         var ids = new Array();
         Ext.each(selectStuRole, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             ids.push(pkValue);
         });
         var title = "删除角色后，用户将不再拥有这些角色的权限，确定删除吗？";
@@ -350,7 +350,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var basePanel = basetab.down("basepanel[funCode=" + detCode + "]");    
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var title = "选择部门岗位";
         var funcPanel = 'student.studentdeptjob'; //仅仅是用于为编写确定按钮事件提供一个判断的标识
         var configInfo = {
@@ -400,7 +400,7 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var basePanel = basetab.down("basepanel[funCode=" + detCode + "]");    
         var funData = basePanel.funData;
         var insertObj = basetab.insertObj;
-        var userId = insertObj.uuid;
+        var userId = insertObj.id;
         var records = deptJobGrid.getSelectionModel().getSelection();
         if (records.length < 1) {
             self.msgbox("请选择要解除的部门岗位");
@@ -564,9 +564,9 @@ Ext.define("core.baseset.studentmanager.controller.OtherController", {
         var idArray=new Array();                            
 
         for(var i=0;i<store.getCount();i++){
-            if(idArray.indexOf(store.getAt(i).get("uuid"))==-1||store.getAt(i).get("id")=="null"){
-                nameArray.push(store.getAt(i).get("xm"));
-                idArray.push(store.getAt(i).get("uuid")?store.getAt(i).get("id"):" ");  //为空的数据，要使用一个空格号隔开，否则后台split分割有误                        
+            if(idArray.indexOf(store.getAt(i).get("id"))==-1||store.getAt(i).get("id")=="null"){
+                nameArray.push(store.getAt(i).get("name"));
+                idArray.push(store.getAt(i).get("id")?store.getAt(i).get("id"):" ");  //为空的数据，要使用一个空格号隔开，否则后台split分割有误                        
             }                        
         }
                     

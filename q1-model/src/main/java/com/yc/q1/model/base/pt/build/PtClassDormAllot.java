@@ -62,7 +62,7 @@ public class PtClassDormAllot extends BaseEntity implements Serializable {
 
 	// @Transient
 	// @FieldInfo(name = "已入住人数")
-	@Formula("(select COUNT(*) from T_PT_StudentDorm A where A.dormId=dormId AND A.isDelete=0)")
+	@Formula("(select COUNT(*) from T_PT_StudentDorm A where A.classDormId=classDormId AND A.isDelete=0)")
 	private String studentCount;
 
 	@Formula("(SELECT A.bedCount FROM dbo.T_PT_DormDefine A WHERE A.dormId=dormId AND A.isDelete=0)")

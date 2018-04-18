@@ -352,7 +352,7 @@ Ext.define("core.baseset.teacherdorm.controller.MainController", {
         Ext.apply(mainLayout.funData, {
             dormId: record.get("id"),
             //roomId: record.get("iconCls"),
-            roomId: record.get("id"),
+            // roomId: record.get("roomid"),
             roomName:record.get("text"),
             leaf: record.get("leaf"),
         });

@@ -52,8 +52,8 @@ Ext.define("core.public.OneKeyAllotDorm.view.StuDormAreaTree", {
     listeners: {
         itemclick: function(view, record, item, index, e) {
             var mainLayout = view.up("basepanel[xtype=pubonkeyallotdorm.mainlayout]");
-            var filter = "[{'type':'string','comparison':'=','value':'0','field':'isAllot'}";
-            filter += ",{'type':'string','comparison':'=','value':'0','field':'isMixed'}]";
+            var filter = "[{'type':'boolean','comparison':'=','value':'false','field':'isAllot'}";
+            filter += ",{'type':'boolean','comparison':'=','value':'false','field':'isMixed'}]";
            
             var funData = mainLayout.funData;
             mainLayout.funData = Ext.apply(funData, {

@@ -307,15 +307,15 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
         insertObj = recordData;
 
          //本方法只提供班级详情页使用
-        var tabTitle =insertObj.xm+"-角色管理";
+        var tabTitle =insertObj.name+"-角色管理";
         //设置tab页的itemId
         var pkValue= null;
         var operType = "detail";    // 只显示关闭按钮
         switch(cmd){
             case 'userRole':
-                var tabTitle =insertObj.xm+"-角色管理";
+                var tabTitle =insertObj.name+"-角色管理";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridUserRole"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridUserRole"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -326,9 +326,9 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                 }];
                 break;
             case 'deptJob':
-                var tabTitle =insertObj.xm+"-部门岗位";
+                var tabTitle =insertObj.name+"-部门岗位";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDeptJob"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDeptJob"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -339,9 +339,9 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                 }];
                 break;
             case 'detail':
-                var tabTitle =insertObj.xm+"-用户详情";
+                var tabTitle =insertObj.name+"-用户详情";
                 //设置tab页的itemId
-                var tabItemId=funCode+"_gridDetail"+insertObj.uuid;    //详细界面可以打开多个
+                var tabItemId=funCode+"_gridDetail"+insertObj.id;    //详细界面可以打开多个
                 items=[{
                     xtype:detLayout,
                     defaults:null,
@@ -684,7 +684,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
     getRightDeptIds:function(){
         var self=this;
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/PtDeparment/getUserRightDeptIds",
+            url: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptIds",
             params: {},
             //回调代码必须写在里面
             success: function(response) {

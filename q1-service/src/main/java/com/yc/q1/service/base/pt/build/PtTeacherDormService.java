@@ -29,6 +29,6 @@ public interface PtTeacherDormService extends BaseService<PtTeacherDorm> {
 			PtUser currentUser); 
 	public Boolean doOut(String ids,PtUser currentUser);
 	public Boolean doAddDormTea(PtTeacherDorm entity,Map hashMap,HttpServletRequest request,PtUser currentUser)throws IllegalAccessException, InvocationTargetException;
-    public Boolean doDelete(String delIds);
+    public Boolean doDelete(String delIds, String roomIds);
     public void doSettingOff(String roomIds);
 }

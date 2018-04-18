@@ -4,7 +4,7 @@ Ext.define("core.public.OneKeyAllotDorm.view.SelectDormGrid", {
     dataUrl: comm.get('baseUrl') + "/PtRoomDefine/onKeylist",
     model: "com.yc.q1.model.base.pt.build.PtDormDefine",
     extParams: {
-        filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'areaId'},{'type':'string','comparison':'=','value':'0','field':'isAllot'},{'type':'string','comparison':'=','value':'0','field':'isMixed'}]"
+        filter: "[{'type':'string','comparison':'=','value':'ROOT','field':'areaId'},{'type':'boolean','comparison':'=','value':'false','field':'isAllot'},{'type':'boolean','comparison':'=','value':'false','field':'isMixed'}]"
     },
     selModel: {
         type: "checkboxmodel",   

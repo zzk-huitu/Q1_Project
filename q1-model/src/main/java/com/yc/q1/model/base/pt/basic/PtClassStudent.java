@@ -74,7 +74,7 @@ public class PtClassStudent extends BaseEntity implements Serializable {
 	private String cardNo;
 
 	// @FieldInfo(name = "物理卡号",type="Long",explain="班级中的学生的物理卡号")
-	@Formula("(SELECT TOP 1 A.physicalNo FROM T_PT_Card A WHERE A.userId=studentId AND A.cardStatusId=1)")
+	@Formula("(SELECT TOP 1 A.factoryFixId FROM T_PT_Card A WHERE A.userId=studentId AND A.cardStatusId=1)")
 	private String physicsNo;
 
 	public String getClassId() {

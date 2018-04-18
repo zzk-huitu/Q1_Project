@@ -211,7 +211,6 @@ Ext.define("core.baseset.studentdorm.controller.MainController", {
        if (selectTreeObject.length <= 0) {
             self.msgbox("请选择要推送的班级！");
             return;
-       }
        var objDic = selectTreeObject[0];
        var classId = objDic.get("id");
        var nodeType = objDic.get("nodeType");
@@ -249,7 +248,7 @@ Ext.define("core.baseset.studentdorm.controller.MainController", {
 
              }
         })
-
+       }
     },
     doExportExcel: function(btn){
         var self = this;

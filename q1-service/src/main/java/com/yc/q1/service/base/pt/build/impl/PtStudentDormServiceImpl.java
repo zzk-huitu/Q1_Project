@@ -150,8 +150,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 		 * List<StandVClassStudent> girlList = new ArrayList<>(); // 某年级下的所有女生
 		 */
 		// 查询出该年级下所有的有效宿舍
-		List<PtStudentDorm> lists = this.queryEntityBySql("EXEC JW_P_DORMCOUNT '" + whereSql + "'",
-				PtStudentDorm.class);// 需要修改
+		List<PtStudentDorm> lists = this.queryEntityBySql("EXEC  P_PT_GetGradeDormCount '" + whereSql + "'",PtStudentDorm.class);// 需要修改
 		// 获取该年级下的所有班级没有分配宿舍的总人数
 		/*
 		 * String sql = "select a.* from STAND_V_CLASSSTUDENT a" +
@@ -224,14 +223,14 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 		// 排序方式：可能要使用班级编码来从低到高的排序（待定）
 		String sql = "select * from V_PT_ClassStudentList a where a.gradeId = '" + gradId + "'"
 				+ " and a.userId not in (select studentId from T_PT_StudentDorm  where isDelete=0) "
-				+ " order by className asc,userNumb asc,xm asc";
+				+ " order by className asc,userNumb asc,name asc";
 		classStuList = this.queryEntityBySql(sql, StandVClassStudent.class);// 先获取到该年级下全部学生
 		gradeClassList = gradeClassService
 				.queryByHql("from PtGradeClass where gradeId='" + gradId + "' and isDelete=0 order by className asc");// 获取到现有年级下的所有班级
 
 		// 将某年级下的所有男生、女生分出来
-		boyList = classStuList.stream().filter((e) -> e.getXbm().equals("1")).collect(Collectors.toList());
-		girlList = classStuList.stream().filter((e) -> e.getXbm().equals("2")).collect(Collectors.toList());
+		boyList = classStuList.stream().filter((e) -> e.getSex().equals("1")).collect(Collectors.toList());
+		girlList = classStuList.stream().filter((e) -> e.getSex().equals("2")).collect(Collectors.toList());
 	
 
 		if (boyId != null) {
@@ -343,7 +342,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 						+ "JOIN T_PT_DormDefine C ON B.dormId=C.dormId "
 						+ "JOIN T_PT_RoomInfo D ON c.roomId=d.roomId "
 						+ "JOIN dbo.T_PT_GradeClass F ON b.classId=f.classId WHERE A.ISDELETE=0 "
-						+ "GROUP BY A.classDormId,D.className,F.className,C.dormType,C.bedCount,F.classId,B.isMixed HAVING COUNT(*)<C.bedCount");
+						+ "GROUP BY A.classDormId,D.roomName,F.className,C.dormType,C.bedCount,F.classId,B.isMixed HAVING COUNT(*)<C.bedCount");
 		dormAllotList = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 			Object[] objArray = (Object[]) list.get(i);
@@ -490,10 +489,10 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 				+ " userId not in (select studentId from T_PT_StudentDorm  where  isDelete=0)";
 		classStulist = this.queryEntityBySql(sql, StandVClassStudent.class);
 		for (StandVClassStudent classstudent : classStulist) {
-			if (classstudent.getXbm() != null)
-				if (classstudent.getXbm().equals("1")) {
+			if (classstudent.getSex() != null)
+				if (classstudent.getSex().equals("1")) {
 					boyList.add(classstudent);
-				} else if (classstudent.getXbm().equals("2")) {
+				} else if (classstudent.getSex().equals("2")) {
 					girlList.add(classstudent);
 				}
 		}
@@ -979,6 +978,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 		if (flag) {
 			classDormEntity.setIsMixed(true);// 混合宿舍
 		}
+		classDormEntity.setId(keyRedisService.getId(PtClassDormAllot.ModuleType));
 		classDormEntity = classDormService.merge(classDormEntity);// 存放的是班级和宿舍对应关系
 
 	}
@@ -1098,7 +1098,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 			PtClassDormAllot jwClassDormAllot = classDormService.get(cDormId);
 			if(jwClassDormAllot.getIsMixed()==true){
 				
-				String hql="select classId from StudentDorm where isDelete=0 and classDormId='"+cDormId+"'";						
+				String hql="select classId from PtStudentDorm where isDelete=0 and classDormId='"+cDormId+"'";						
 				//当此班级宿舍的学员都为同一个班级时，并且此班级和班级宿舍的班级一致时，则为非混合宿舍
 				List<String> classIds= this.queryEntityByHql(hql);
 				classIds = classIds.stream().distinct().collect(Collectors.toList());
@@ -1180,7 +1180,7 @@ public class PtStudentDormServiceImpl extends BaseServiceImpl<PtStudentDorm> imp
 		}
 		
 		//修改宿舍定义表（已分配、非混合）
-		String hql="update DormDefine set isAllot='1',isMixed='0' where id in ('"+dormIds.replace(",", "','")+"')";
+		String hql="update PtDormDefine set isAllot='1',isMixed='0' where id in ('"+dormIds.replace(",", "','")+"')";
 		dormDefineService.doExecuteCountByHql(hql);
 		
 		return true;

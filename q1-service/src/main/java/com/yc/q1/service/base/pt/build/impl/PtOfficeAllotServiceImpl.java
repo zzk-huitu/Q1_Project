@@ -84,65 +84,62 @@ public class PtOfficeAllotServiceImpl extends BaseServiceImpl<PtOfficeAllot> imp
 	 */
 	@Override
 	public boolean mjUserRight(String uuid, String roomId, String userId, PtStudentDorm dorm, PtClassStudent classStu) {
-		try {
-			if (dorm != null) {// 学生宿舍门禁分配
-				String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); // 班级宿舍id
-				roomId = dormDefine.get(dormId).getRoomId();
-			} else if (classStu != null) { // 班级的教师分配门禁 #目前还未增加教师分配该模块
-				// String[] propName = { "claiId", "isDelete" };
-				// Object[] propValue = { classStu.getClaiId(), 0 };
-				// roomId = classservice.getByProerties(propName,
-				// propValue).getRoomId();
-			}
-			String[] propName = { "termTypeId", "isDelete", "roomId" };
-			Object[] propValue = { "4", 0, roomId };
-			MjUserRight userRight = null;
-			List<PtTerm> list = ptTermService.queryByProerties(propName, propValue);// 该房间是否有设备
-			if (uuid == null || uuid.equals("")) {
-				if (list.size() > 0) {// 解除门禁权限
-					String[] uId = userId.split(","); // 房间分配解除门禁设置
-					for (int i = 0; i < list.size(); i++) {
-						for (int j = 0; j < uId.length; j++) {
-							String[] name = { "termId", "userId" };
-							String[] value = { list.get(i).getId(), uId[j] };
-							userRight = mjService.getByProerties(name, value);
-							if (userRight != null) {
-								userRight.setIsDelete(1);
-								userRight.setControlsegId(0);
-								userRight.setCardStatusId(0);
-								userRight.setUpdateTime(new Date());
-								mjService.merge(userRight);
-							}
-						}
-					}
-				}
-			} else {// 增加门禁权限
-				if (list.size() > 0) {
-					for (int i = 0; i < list.size(); i++) {
+
+		if (dorm != null) {// 学生宿舍门禁分配
+			String dormId = classDormService.get(dorm.getClassDormId()).getDormId(); // 班级宿舍id
+			roomId = dormDefine.get(dormId).getRoomId();
+		} else if (classStu != null) { // 班级的教师分配门禁 #目前还未增加教师分配该模块
+			// String[] propName = { "claiId", "isDelete" };
+			// Object[] propValue = { classStu.getClaiId(), 0 };
+			// roomId = classservice.getByProerties(propName,
+			// propValue).getRoomId();
+		}
+		String[] propName = { "termTypeId", "isDelete", "roomId" };
+		Object[] propValue = { "4", 0, roomId };
+		MjUserRight userRight = null;
+		List<PtTerm> list = ptTermService.queryByProerties(propName, propValue);// 该房间是否有设备
+		if (uuid == null || uuid.equals("")) {
+			if (list.size() > 0) {// 解除门禁权限
+				String[] uId = userId.split(","); // 房间分配解除门禁设置
+				for (int i = 0; i < list.size(); i++) {
+					for (int j = 0; j < uId.length; j++) {
 						String[] name = { "termId", "userId" };
-						String[] value = { list.get(i).getId(), uuid };
-						userRight = mjService.getByProerties(name, value);// 该学生或教师是否已经被分配了该房间的设备
+						String[] value = { list.get(i).getId(), uId[j] };
+						userRight = mjService.getByProerties(name, value);
 						if (userRight != null) {
-							userRight.setIsDelete(0);
+							userRight.setIsDelete(1);
+							userRight.setControlsegId(0);
+							userRight.setCardStatusId(0);
 							userRight.setUpdateTime(new Date());
 							mjService.merge(userRight);
-						} else {
-							userRight = new MjUserRight();
-							userRight.setTermId(list.get(i).getId());
-							userRight.setCreateUser("超级管理员");
-							userRight.setUserId(uuid);
-							
-							userRight.setId(keyRedisService.getId(MjUserRight.ModuleType));	//手动设置id
-							mjService.merge(userRight);
 						}
 					}
 				}
 			}
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		} else {// 增加门禁权限
+			if (list.size() > 0) {
+				for (int i = 0; i < list.size(); i++) {
+					String[] name = { "termId", "userId" };
+					String[] value = { list.get(i).getId(), uuid };
+					userRight = mjService.getByProerties(name, value);// 该学生或教师是否已经被分配了该房间的设备
+					if (userRight != null) {
+						userRight.setIsDelete(0);
+						userRight.setUpdateTime(new Date());
+						mjService.merge(userRight);
+					} else {
+						userRight = new MjUserRight();
+						userRight.setTermId(list.get(i).getId());
+						userRight.setCreateUser("超级管理员");
+						userRight.setUserId(uuid);
+						
+						userRight.setId(keyRedisService.getId(MjUserRight.ModuleType));	//手动设置id
+						mjService.merge(userRight);
+					}
+				}
+			}
 		}
+		return true;
+		
 	}
 
 	@Override

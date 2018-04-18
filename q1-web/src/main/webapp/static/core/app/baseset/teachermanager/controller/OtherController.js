@@ -185,7 +185,7 @@ Ext.define("core.baseset.teachermanager.controller.OtherController", {
         var insertObj = basetab.insertObj;
 
        //选择的用户
-        var selectUserId = insertObj.uuid;
+        var selectUserId = insertObj.id;
         var detCode = "user_selectrolemain";
         var popFunData = Ext.apply(funData, {
             grid: studentRoleGrid,

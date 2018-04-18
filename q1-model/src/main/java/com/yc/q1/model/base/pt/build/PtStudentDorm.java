@@ -62,7 +62,7 @@ public class PtStudentDorm extends BaseEntity implements Serializable {
 	 */
 
 	// @FieldInfo(name = "班级ID")
-	@Formula("(SELECT a.classId FROM V_PT_ClassStudent a where a.userId=studentId)")
+	@Formula("(SELECT a.classId FROM  V_PT_ClassStudentList a where a.userId=studentId)")
 	private String classId;
 
 	@Formula("(SELECT C.roomName FROM dbo.T_PT_ClassDormAllot A" + " JOIN dbo.T_PT_DormDefine B ON A.dormId=B.dormId"
@@ -71,7 +71,7 @@ public class PtStudentDorm extends BaseEntity implements Serializable {
 	// @FieldInfo(name = "房间名称")
 	private String roomName;
 
-	@Formula("(SELECT a.className FROM V_PT_ClassStudent a where a.userId=studentId)")
+	@Formula("(SELECT a.className FROM V_PT_ClassStudentList a where a.userId=studentId)")
 	// @FieldInfo(name = "班级名称")
 	private String className;
 

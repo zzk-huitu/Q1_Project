@@ -25,7 +25,8 @@ Ext.define("core.baseset.teacherdorm.view.TeacherDormTree", {
         }]
     },
     extParams: {
-        whereSql: ""
+        whereSql: "",
+        // excludes : "checked",
     },
    columns:{
     defaults:{
