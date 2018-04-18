@@ -90,14 +90,14 @@ public class PtFrontServerController extends FrameWorkController<PtFrontServer> 
 		} else {
 			// 判断删除的数量是否大于等于总数
 			int delLen=delIds.split(",").length;
-			String hql = "select count(a.id) from FrontServer as a where a.isDelete=0";
+			String hql = "select count(a.id) from PtFrontServer as a where a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (delLen >= count) {
 				writeJSON(response, jsonBuilder.returnFailureJson("\"必须保留一个前置服务器！\""));
 				return;
 			}
 			// 当该前置服务器处于网关管理使用中 不能被删除
-		    hql = " from Gateway a where a.isDelete=0 and a.frontServerId  in ('"
+		    hql = " from PtGateway a where a.isDelete=0 and a.frontServerId  in ('"
 					+ delIds.replace(",", "','") + "')";
 		    List lists = gateWayService.queryByHql(hql);
 		    if(lists.size()>0){

@@ -46,7 +46,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceSysGrid", {
             minWidth:80
         },{
             text: "序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             flex:1,
             minWidth:100,
         }, {

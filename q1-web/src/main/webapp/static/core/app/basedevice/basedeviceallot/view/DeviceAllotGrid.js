@@ -25,7 +25,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotGrid", {
         },{
             xtype:'textfield',
             width:80,
-            name:'termSN',
+            name:'termSn',
             dataType:'string',
             funCode:'girdFastSearchText', 
             emptyText: '序列号'
@@ -64,7 +64,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DeviceAllotGrid", {
             flex:1,
             minWidth:80,
             text: "序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             renderer: function(value, metaData) {
                 var title = "序列号";
                 var html = value;

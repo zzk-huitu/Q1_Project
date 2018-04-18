@@ -101,10 +101,10 @@ Ext.define("core.basedevice.baserate.view.MainGrid", {
             width: 80,
              renderer: function(value) {
                 switch (value) {
-                    case '0':
+                    case false:
                         return '<font color=red>禁用</font>';
                         break;
-                    case '1':
+                    case true:
                         return '<font color=green>启用</font>';                    
                         break;
                 }

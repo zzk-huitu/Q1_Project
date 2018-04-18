@@ -104,15 +104,15 @@ public class PtTerm extends BaseEntity implements Serializable {
 	// @FieldInfo(name = "用于接收来自于前台的组合数据")
 	private String baseParamUi;
 
-	@Formula("(select  cast((s.priceName+':'+cast(s.priceValue as varchar(10))) as varchar(100)  ) from dbo.T_PT_PriceBind b,dbo.T_SK_Price s where s.sKPriceId=b.priceId and b.deveiceId=deveiceId) ")
+	@Formula("(select  cast((s.priceName+':'+cast(s.priceValue as varchar(10))) as varchar(100)  ) from dbo.T_PT_PriceBind b,dbo.T_SK_PriceDefine s where s.priceId=b.priceId and b.termId=termId) ")
 	// @FieldInfo(name = "水控费率")
 	private String skprice;
 
-	@Formula("(select  cast((s.priceName+':'+cast(s.priceValue as varchar(10))) as varchar(100)  ) from dbo.T_PT_PriceBind b,dbo.PT_DK_PRICE s where s.dKPriceId=b.priceId and b.deveiceId=deveiceId) ")
+	@Formula("(select  cast((s.priceName+':'+cast(s.priceValue as varchar(10))) as varchar(100)  ) from dbo.T_PT_PriceBind b,dbo.T_DK_PriceDefine s where s.priceId=b.priceId and b.termId=termId) ")
 	// @FieldInfo(name = "电控费率")
 	private String dkprice;
 
-	@Formula("(select  cast(s.measure as varchar(100)  ) from dbo.T_PT_SKMeter s,dbo.T_PT_SkMeterBind b where s.sKMeterId=b.skMeterBindId and b.deveiceId=deveiceId)")
+	@Formula("(select  cast(s.measure as varchar(100)  ) from dbo.T_PT_SKMeter s,dbo.T_PT_SkMeterBind b where s.meterId=b.meterBindId and b.termId=termId)")
 	// @FieldInfo(name = "水控计量")
 	private String skmeasure;
 

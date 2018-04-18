@@ -116,10 +116,10 @@ Ext.define("core.basedevice.basefrontserver.view.MainGrid", {
                 dataIndex: "frontServerStatus",
                  renderer: function(value) {
                     switch (value) {
-                        case 0:
+                        case false:
                             return '<font color=red>禁用</font>';
                             break;
-                        case 1:
+                        case true:
                             return '<font color=green>启用</font>';                        
                             break;
                     }

@@ -1,8 +1,8 @@
 var combostore = new Ext.data.ArrayStore({
     fields: ['id', 'priceStatus'],
     data: [
-        ["0", '禁用'],
-        ["1", '启用']
+        ['false', '禁用'],
+        ['true', '启用']
     ]
 });
 
@@ -62,7 +62,7 @@ Ext.define("core.basedevice.baserate.view.DetailForm", {
         	allowBlank: false,
         	emptyText: '名称',
         	blankText: "名称不能为空",
-            maxLength:18
+            maxLength:16
         	},{
                 columnWidth: 0.3,
                 xtype: "label",
@@ -96,7 +96,7 @@ Ext.define("core.basedevice.baserate.view.DetailForm", {
         	displayField: 'priceStatus',
         	valueField: 'id',
         	name: "priceStatus",
-        	value: "0",
+        	value: "false",
         	triggerAction: 'all',
         	emptyText: '请选择...',
         	blankText: '请选择状态',
@@ -116,7 +116,7 @@ Ext.define("core.basedevice.baserate.view.DetailForm", {
             emptyText: '请输入备注信息',
         	name: "priceNotes",
         	xtype: "textarea",
-        	maxLength:500
+        	maxLength:128
     		},{
         	columnWidth: 0.3,
             xtype: "label",

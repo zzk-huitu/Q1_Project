@@ -37,7 +37,7 @@ Ext.define("core.basedevice.measurement.view.DetailForm", {
     		fieldLabel: "备注",
     		name: "notes",
     		xtype: "textarea",
-    		maxLength: 200,
+    		maxLength: 100,
     	},{
         	columnWidth: 0.3,
             xtype: "label",

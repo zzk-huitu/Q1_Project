@@ -1,8 +1,8 @@
 var combostore = new Ext.data.ArrayStore({
     fields: ['id', 'termStatus'],
     data: [
-        [0, '禁用'],
-        [1, '启用']
+        ['false', '禁用'],
+        ['true', '启用']
     ]
 });
 Ext.define("core.basedevice.basedeviceallot.view.DetailForm", {
@@ -50,7 +50,7 @@ Ext.define("core.basedevice.basedeviceallot.view.DetailForm", {
         displayField: 'termStatus',
         valueField: 'id',
         name: "termStatus",
-        value: "0",
+        value: "false",
         triggerAction: 'all',
         emptyText: '请选择...',
         blankText: '请选择设备状态',

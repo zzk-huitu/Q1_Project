@@ -194,7 +194,7 @@ Ext.define("core.basedevice.baserate.controller.MainController", {
                 break;
                 case "bing":
                     insertObj=recordData;
-                    tabTitle = recordData.priceName+recordData.priceStatus+"-费率设备";
+                    tabTitle = recordData.priceName+"-费率设备";
                     tabItemId=funCode+"_gridPriceBing"; 
                     var itemXtype=[{
                         xtype:"basedevice.baserate.pricebinggrid",                        
@@ -250,7 +250,7 @@ Ext.define("core.basedevice.baserate.controller.MainController", {
                  var priceBingStore = priceBingGrid.getStore();
                  var priceBingProxy = priceBingStore.getProxy();
                  var filter=new Array();
-                 filter.push({"type": "string", "value": insertObj.uuid, "field": "priceId", "comparison": "="})
+                 filter.push({"type": "string", "value": insertObj.id, "field": "priceId", "comparison": "="})
                  priceBingProxy.extraParams = {
                     filter: JSON.stringify(filter)
                 };
@@ -362,7 +362,7 @@ Ext.define("core.basedevice.baserate.controller.MainController", {
             title: "选择设备",
             iconCls:'x-fa fa-plus-circle',
             controller:"basedevice.baserate.othercontroller",
-            meterId: rows[0].get('uuid'),
+            meterId: rows[0].get('id'),
             categroy:categroyValue,
             width: 1050,
             height: 520,

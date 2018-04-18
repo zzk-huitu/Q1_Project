@@ -30,7 +30,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
         var tabPanel = btn.up("tabpanel[xtype=app-main]");
         var tabItemId = basetab.tabItemId;
         var tabItem = tabPanel.getComponent(tabItemId);   //当前tab页
-        var uuid = tabItem.uuid;
+        var id = tabItem.id;
 
         var detCode = basetab.detCode;
         var detLayout = basetab.detLayout;  
@@ -62,7 +62,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
             loading.show();
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/BasePtTerm/doSetHighParam",
+                url: comm.get('baseUrl') + "/PtTerm/doSetHighParam",
                 params: params,
                 //回调代码必须写在里面
                 success: function (response) {
@@ -103,7 +103,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
         var tabPanel = btn.up("tabpanel[xtype=app-main]");
         var tabItemId = basetab.tabItemId;
         var tabItem = tabPanel.getComponent(tabItemId);   //当前tab页
-        var uuid = tabItem.uuid;
+        var id = tabItem.id;
 
         var detCode = basetab.detCode;
         var detLayout = basetab.detLayout;  
@@ -261,7 +261,7 @@ Ext.define("core.basedevice.smartdevice.controller.OtherController", {
             loading.show();
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/BasePtTerm/doSetBaseParam",
+                url: comm.get('baseUrl') + "/PtTerm/doSetBaseParam",
                 params: params,
                 //回调代码必须写在里面
                 success: function (response) {

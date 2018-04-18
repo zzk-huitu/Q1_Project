@@ -63,20 +63,20 @@ Ext.define("core.basedevice.basedeviceallot.controller.OtherController", {
         }
         var isSelectStore = baseGrid.getStore();
         var roomId = "";
-        var uuid ="";
+        var id ="";
         for (var i = 0; i < rows; i++) {
             var record = isSelectStore.getAt(i);
             roomId+= record.get("roomId")+",";
-            uuid += record.get("uuid") + "," ;
+            id += record.get("id") + "," ;
         }
 
         var loading = self.LoadMask(win);
 
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BasePtTerm/doSetPtTerm",
+            url: comm.get('baseUrl') + "/PtTerm/doSetPtTerm",
             params: {
              roomId: roomId,
-             uuid: uuid
+             id: id
            },              
          success: function (response) {
              var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

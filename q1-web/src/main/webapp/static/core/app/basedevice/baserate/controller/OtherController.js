@@ -19,8 +19,6 @@ Ext.define("core.basedevice.baserate.controller.OtherController", {
     control: {
     	   "basetreegrid[xtype=basedevice.baserate.roominfotree] button[ref=gridRefresh]": {
                 click: function(btn) {
-                    console.log(88);
-                    var baseGrid = btn.up("basetreegrid");
                     var store = baseGrid.getStore();
                     store.load(); //刷新父窗体的grid
                     return false;
@@ -151,11 +149,11 @@ Ext.define("core.basedevice.baserate.controller.OtherController", {
         var isSelectStore = isselectgrid.getStore();
         for (var i = 0; i < getCount; i++) {
              var record = isSelectStore.getAt(i);
-             termId.push(record.get('uuid'));
+             termId.push(record.get('id'));
              termSn.push(record.get('termSN'))
         };
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BasePtPriceBind/doAdd",
+            url: comm.get('baseUrl') + "/PtPriceBind/doAdd",
             params: {
                 termId: termId,
                 termSn:termSn,
@@ -192,7 +190,7 @@ Ext.define("core.basedevice.baserate.controller.OtherController", {
         //拼装所选择的设备
         var termIds = new Array();
         Ext.each(selectTerm, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             termIds.push(pkValue);
         });
         var title = "确定删除绑定该费率的设备吗？";
@@ -200,7 +198,7 @@ Ext.define("core.basedevice.baserate.controller.OtherController", {
             if (btn == 'yes') {
                 //发送ajax请求
                 var resObj = self.ajax({
-                    url: comm.get('baseUrl') + "/BasePtPriceBind/doPtTermDelete",
+                    url: comm.get('baseUrl') + "/PtPriceBind/doPtTermDelete",
                     params: {
                         termIds: termIds.join(","),
                      }
