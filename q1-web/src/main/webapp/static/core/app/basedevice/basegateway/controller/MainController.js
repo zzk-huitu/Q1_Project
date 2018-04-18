@@ -58,9 +58,10 @@ Ext.define("core.basedevice.basegateway.controller.MainController", {
     open_Tab: function(grid,record,cmd) {
         var self = this;
         //得到组件
+        debugger;
         var baseGrid = grid;
         var recordData=record.getData();
-        var uuid =recordData.uuid;
+        var id =recordData.id;
         var gatewayName =recordData.gatewayName;
         var basePanel = baseGrid.up("basepanel");
         var tabPanel = baseGrid.up("tabpanel[xtype=app-main]");
@@ -109,7 +110,7 @@ Ext.define("core.basedevice.basegateway.controller.MainController", {
                 scrollable :true, 
                 itemId:tabItemId,            
                 layout:'fit', 
-                uuid: uuid,      //主键值
+                uuid:id,      //主键值
             });
             tabPanel.add(tabItem); 
 
@@ -179,9 +180,9 @@ Ext.define("core.basedevice.basegateway.controller.MainController", {
                 }else if(cmd=="baseAndHigh"){   //设备参数设置
                     //基础参数
                     var baseParams =  objForm.baseFormData;
-                    baseParams.uuid = uuid;
+                    baseParams.id =id;
                     var baseObj = self.ajax({
-                        url: comm.get('baseUrl') + "/BaseGateway/baseParam_read",
+                        url: comm.get('baseUrl') + "/PtGateway/baseParam_read",
                         params: baseParams
                     });
 
@@ -200,9 +201,9 @@ Ext.define("core.basedevice.basegateway.controller.MainController", {
 
                     //高级参数
                     var highParams =  objForm.highFormData;
-                    highParams.uuid = uuid;
+                    highParams.id = id;
                     var highObj = self.ajax({
-                        url: comm.get('baseUrl') + "/BaseGateway/highParam_read",
+                        url: comm.get('baseUrl') + "/PtGateway/highParam_read",
                         params: highParams
                     });
                     var valInt = null;
@@ -226,7 +227,7 @@ Ext.define("core.basedevice.basegateway.controller.MainController", {
         
           },30);
                            
-        }else if(tabItem.uuid&&tabItem.uuid!=uuid){     //判断是否点击的是同一条数据
+        }else if(tabItem.uuid&&tabItem.uuid!= id){     //判断是否点击的是同一条数据
             self.msgbox("您当前已经打开了一个编辑窗口了！");
             return;
         }

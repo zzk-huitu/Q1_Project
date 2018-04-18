@@ -17,7 +17,7 @@ Ext.define("core.basedevice.basedeviceallot.view.MainQueryPanel", {
         items: [{
             columnWidth: 0.33,
             xtype: "basequeryfield",
-            name: "termSN",
+            name: "termSn",
             fieldLabel: "序列号",
             queryType: "textfield",
         }, {

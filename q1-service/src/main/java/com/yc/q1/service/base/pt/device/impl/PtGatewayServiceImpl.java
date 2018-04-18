@@ -148,7 +148,7 @@ public class PtGatewayServiceImpl extends BaseServiceImpl<PtGateway> implements 
 		byte[] baseResult = TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
 		byte[] advResult = TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 
-		String hql = "update Gateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.id in ('"
+		String hql = "update PtGateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.id in ('"
 				+ gatewayIds.replace(",", "','") + "')";
 		Query query = this.getSession().createQuery(hql);
 		query.setBinary(0, baseResult);
@@ -185,7 +185,7 @@ public class PtGatewayServiceImpl extends BaseServiceImpl<PtGateway> implements 
 		byte[] baseResult = TLVUtils.encode(tlvs.getTlvs().subList(0, 2));
 		byte[] advResult = TLVUtils.encode(tlvs.getTlvs().subList(2, 3));
 
-		String hql = "update Gateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.isDelete=0 and a.frontServerId=?";
+		String hql = "update PtGateway a set a.baseParam = ?,a.advParam=?,a.updateTime=?,a.updateUser=? where a.isDelete=0 and a.frontServerId=?";
 		Query query = this.getSession().createQuery(hql);
 		query.setBinary(0, baseResult);
 		query.setBinary(1, advResult);
@@ -203,7 +203,7 @@ public class PtGatewayServiceImpl extends BaseServiceImpl<PtGateway> implements 
 		// TODO Auto-generated method stub
 		String uuids[] = entity.getId().split(",");
 
-		String hql = "update Gateway a set a.frontServerId = ?,a.updateTime=?,a.updateUser=? where a.id in (:ids)";
+		String hql = "update PtGateway a set a.frontServerId = ?,a.updateTime=?,a.updateUser=? where a.id in (:ids)";
 		Query query = this.getSession().createQuery(hql);
 		query.setString(0, entity.getFrontServerId());
 		query.setDate(1, new Date());

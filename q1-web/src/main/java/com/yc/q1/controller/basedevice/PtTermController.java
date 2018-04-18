@@ -116,7 +116,7 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	public void getNoAllotList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
 
-		String hql = "from Term g where g.isDelete=0 and (g.roomId = '' or g.roomId is null) ";
+		String hql = "from PtTerm g where g.isDelete=0 and (g.roomId = '' or g.roomId is null) ";
 
 		// QueryResult<PtTerm> qResult = thisService.queryResult(hql,
 		// super.start(request), super.limit(request));
@@ -140,13 +140,13 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	 */
 	@Auth("DEVICEALLOT_add")
 	@RequestMapping("/doSetPtTerm")
-	public void doSetPtTerm(String roomId, String uuid, HttpServletRequest request, HttpServletResponse response)
+	public void doSetPtTerm(String roomId, String id, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// String uuids[] = uuid.split(",");
 		// String roomIds[] = roomId.split(",");
 		// PtTerm entity = null;
 		PtUser currentUser = getCurrentSysUser();
-		thisService.doSetPtTerm(roomId, uuid, currentUser);// 执行修改方法
+		thisService.doSetPtTerm(roomId, id, currentUser);// 执行修改方法
 
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"分配成功!\""));
 
@@ -207,11 +207,11 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	 */
 	@Auth("DEVICEALLOT_delete")
 	@RequestMapping("/doDelete")
-	public void doDelete(String uuid, HttpServletRequest request, HttpServletResponse response)
+	public void doDelete(String id, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
-		String uuids[] = uuid.split(",");
-		for (int i = 0; i < uuids.length; i++) {
-			thisService.updateByProperties("id", uuids[i], "roomId", "");
+		String ids[] = id.split(",");
+		for (int i = 0; i < ids.length; i++) {
+			thisService.updateByProperties("id", ids[i], "roomId", "");
 		}
 		writeJSON(response, jsonBuilder.returnSuccessJson("'成功。'"));
 	}
@@ -294,7 +294,7 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 	public void doSetBaseParam(TLVModel tlvs, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		PtUser currentUser = getCurrentSysUser();
-		String termTypeID = request.getParameter("termTypeID");
+		String termTypeID = request.getParameter("termTypeId");
 		String notes = request.getParameter("notes");
 
 		// 1.判断，是否批量设置(0-不批量，4-本楼层，3-本楼栋，2-本校区，1-本学校，5-选择批量)
@@ -354,7 +354,7 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		String roomLeaf = request.getParameter("roomLeaf");
 		String termName = request.getParameter("termName");
 
-		String hql = " from Term a where a.isDelete=0 ";
+		String hql = " from PtTerm a where a.isDelete=0 ";
 		// 组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
@@ -450,7 +450,7 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 			mapDicItem.put(mapKey, baseDicitem.getItemName());
 		}
 		List<PtTerm> ptTermList = null;
-		String hql = " from Term a where a.isDelete=0 ";
+		String hql = " from PtTerm a where a.isDelete=0 ";
 
 		if (StringUtils.isNotEmpty(termName)) {
 			hql += " and a.termName like'%" + termName + "%'";
@@ -536,11 +536,11 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		List<PtTerm> ptTermList = null;
 		String roomId = request.getParameter("roomId");
 		String roomLeaf = request.getParameter("roomLeaf");
-		String termSN = request.getParameter("termSN");
+		String termSn = request.getParameter("termSn");
 		String termNo = request.getParameter("termNo");
 		String termName = request.getParameter("termName");
 
-		String hql = " from Term a where a.isDelete=0 ";
+		String hql = " from PtTerm a where a.isDelete=0 ";
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
@@ -558,8 +558,8 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 			}
 		}
 
-		if (StringUtils.isNotEmpty(termSN)) {
-			hql += " and a.termSn like'%" + termSN + "%'";
+		if (StringUtils.isNotEmpty(termSn)) {
+			hql += " and a.termSn like'%" + termSn + "%'";
 		}
 		if (StringUtils.isNotEmpty(termNo)) {
 			hql += " and a.termNo like'%" + termNo + "%'";
@@ -577,12 +577,12 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		for (PtTerm ptTermdetail : ptTermList) {
 			ptTermExporMap = new LinkedHashMap<>();
 			ptTermExporMap.put("xh", i + "");
-			ptTermExporMap.put("termSN", ptTermdetail.getTermSn());
+			ptTermExporMap.put("termSn", ptTermdetail.getTermSn());
 			ptTermExporMap.put("termNo", (String.valueOf(ptTermdetail.getTermNo()).equals("null") ? ""
 					: String.valueOf(ptTermdetail.getTermNo())));
 			ptTermExporMap.put("termName", ptTermdetail.getTermName());
 			ptTermExporMap.put("gatewayName", ptTermdetail.getGatewayName());
-			ptTermExporMap.put("termTypeID", mapDicItem.get(ptTermdetail.getTermTypeId() + "PTTERMTYPE"));
+			ptTermExporMap.put("termTypeId", mapDicItem.get(ptTermdetail.getTermTypeId() + "PTTERMTYPE"));
 			String termStatus = "禁用";
 			if (ptTermdetail.getTermStatus() != null) {
 				if (ptTermdetail.getTermStatus() == false) {
@@ -643,12 +643,12 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0 and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

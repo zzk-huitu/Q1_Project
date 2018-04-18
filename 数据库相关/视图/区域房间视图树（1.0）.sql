@@ -1,7 +1,7 @@
-
+USE [NewQ1_test]
 GO
 
-/****** Object:  View [dbo].[V_PT_AreaRoomInfoTree]    Script Date: 04/08/2018 17:20:16 ******/
+/****** Object:  View [dbo].[V_PT_AreaRoomInfoTree]    Script Date: 04/16/2018 18:37:41 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -10,33 +10,34 @@ GO
 
 
 
+
 ALTER VIEW [dbo].[V_PT_AreaRoomInfoTree] AS
     SELECT  *
     FROM    ( SELECT TOP 99.999999 PERCENT
-                        AREA_ID AS id ,
-                        NODE_TEXT AS text ,
+                        areaId AS id ,
+                        nodeText AS text ,
                         '' AS iconCls ,
                          'false' AS leaf,
-                         NODE_LEVEL AS level ,
+                         nodeLevel AS level ,
                          '' AS treeids,
-                        PARENT_NODE AS parent
-              FROM      dbo.BUILD_T_ROOMAREA 
-              WHERE ISDELETE=0             
-              ORDER BY  ORDER_INDEX ASC
+                        parentNode AS parent
+              FROM      dbo.T_PT_RoomArea 
+              WHERE isDelete=0             
+              ORDER BY  orderIndex ASC
             ) AS roomarea
     UNION ALL 
     
     SELECT  *
     FROM    ( SELECT TOP 99.999999 PERCENT
-                        A.ROOM_ID AS id ,
-                        A.ROOM_NAME AS text ,
+                        A.roomId AS id ,
+                        A.roomName AS text ,
                         '' AS iconCls ,
                         'true' AS leaf ,
                         5 AS level ,
                         '' AS treeids,
-                       A.AREA_ID AS parent
-              FROM    dbo.BUILD_T_ROOMINFO A
-              WHERE A.ISDELETE=0
+                       A.areaId AS parent
+              FROM    dbo.T_PT_RoomInfo A
+              WHERE A.isDelete=0
               ORDER BY  text ASC
             ) AS roominfo;
 

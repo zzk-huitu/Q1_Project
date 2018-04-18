@@ -46,7 +46,7 @@ Ext.define("core.basedevice.basegateway.controller.OtherController", {
         var tabPanel = btn.up("tabpanel[xtype=app-main]");
         var tabItemId = basetab.tabItemId;
         var tabItem = tabPanel.getComponent(tabItemId);   //当前tab页
-        var uuid = tabItem.uuid;
+        var id = tabItem.id;
 
         var detCode = basetab.detCode;
         var detLayout = basetab.detLayout;  
@@ -61,7 +61,7 @@ Ext.define("core.basedevice.basegateway.controller.OtherController", {
 
             case "netWork":
                 Ext.apply(params, objForm.formData, {
-                    uuid: uuid,
+                    id: id,
                     gatewayIP:formObj.findField("tlvs[0].valStr").getValue(),
                     netGatewayIp:formObj.findField("tlvs[1].valStr").getValue(),
                     gatewayMask:formObj.findField("tlvs[2].valStr").getValue(),
@@ -70,7 +70,7 @@ Ext.define("core.basedevice.basegateway.controller.OtherController", {
                     //frontServerIP:formObj.findField("tlvs[3].valStr").getValue(),
                     //frontServerPort:formObj.findField("tlvs[4].valInt").getValue(),
                 });
-	            url=comm.get('baseUrl') + "/BaseGateway/doGatewayParam";
+	            url=comm.get('baseUrl') + "/PtGateway/doGatewayParam";
                 break;
             case "baseAndHigh":
                 //基本参数	            	  
@@ -91,7 +91,7 @@ Ext.define("core.basedevice.basegateway.controller.OtherController", {
                 Ext.apply(params, highData);
                 params.gatewayRadio=objForm.down("radiogroup[ref=gatewayRadio]").getChecked()[0].inputValue;
                 
-	            url= comm.get('baseUrl') + "/BaseGateway/doBaseAndHighParam";//基础和高级sava合并一个方法
+	            url= comm.get('baseUrl') + "/PtGateway/doBaseAndHighParam";//基础和高级sava合并一个方法
 	            break;
          }
         
@@ -146,13 +146,13 @@ Ext.define("core.basedevice.basegateway.controller.OtherController", {
         var baseGrid =win.baseGrid;
         var dicForm = btn.up("panel[xtype=basedevice.basegateway.ptgatewaybatchform]").getForm();
         var params = self.getFormValue(dicForm);
-        var uuid = "";
+        var id = "";
        
         if (dicForm.isValid()) {
 
             var selectObject = baseGrid.getSelectionModel().getSelection();
             for (var i = 0; i < selectObject.length; i++) {
-                uuid = selectObject[i].get('uuid') + "," + uuid;
+                id = selectObject[i].get('id') + "," + id;
             };
 
             var loading = new Ext.LoadMask(win, {
@@ -162,10 +162,10 @@ Ext.define("core.basedevice.basegateway.controller.OtherController", {
             loading.show();
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/BaseGateway/doUpdateBatch",
+                url: comm.get('baseUrl') + "/PtGateway/doUpdateBatch",
                 params: {
-                    frontserverId: params.frontserverId,
-                    uuid: uuid
+                    frontServerId: params.frontServerId,
+                    id: id
                 },                       
                 success: function(response) {
                     var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

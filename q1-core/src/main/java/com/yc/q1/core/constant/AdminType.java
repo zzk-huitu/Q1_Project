@@ -11,4 +11,7 @@ public class AdminType {
 	 
 	 public final static String SCHOOLADMIN_ROLE_ID = "18041316595402000002";
 	 public final static String SCHOOLADMIN_ROLE_NAME= "SCHOOLADMIN";
+	 
+	 
+	 public final static String ROOT_BRAND_ID = "18041816000901000001";
 }

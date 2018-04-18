@@ -1,12 +1,13 @@
-USE [Q1_test6]
+USE [NewQ1_test]
 GO
 
-/****** Object:  View [dbo].[V_PT_FrontServerTree]    Script Date: 04/08/2018 17:49:35 ******/
+/****** Object:  View [dbo].[V_PT_FrontServerTree]    Script Date: 04/16/2018 18:38:22 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
+
 
 ALTER VIEW [dbo].[V_PT_FrontServerTree] AS
     SELECT  *
@@ -23,16 +24,17 @@ ALTER VIEW [dbo].[V_PT_FrontServerTree] AS
     
     SELECT  *
     FROM    ( SELECT TOP 99.999999 PERCENT
-                        A.FRONTSERVER_ID AS id ,
-                        A.FRONTSERVER_NAME AS text ,
+                        A.frontServerId AS id ,
+                        A.frontServerName AS text ,
                         '' AS iconCls ,
                         'true' AS leaf ,
                         2 AS level ,
                         '' AS treeids,
                         CONVERT(VARCHAR(36),1) AS parent
-              FROM    dbo.SYS_FRONTSERVER A
-              WHERE A.ISDELETE=0
+              FROM    dbo.T_PT_FrontServer A
+              WHERE A.isDelete=0
             ) AS two
+
 
 
 GO

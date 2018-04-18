@@ -54,6 +54,7 @@ public class PtCalenderServiceImpl extends BaseServiceImpl<PtCalender> implement
 	@Override
 	public int doUpdateStatu(String calenderIds, String campusNames) {
 		// TODO Auto-generated method stub
+
 		try {
 			String sql1 = "update T_PT_Calender set activityState=0 where isDelete=0 and activityState=1 and (SELECT a.campusName FROM T_PT_Campus a WHERE a.campusId=T_PT_Calender.campusId ) in('"
 					+ campusNames.replace(",", "','") + "')"; // 弃用

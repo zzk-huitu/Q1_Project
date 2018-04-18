@@ -1,8 +1,8 @@
 var combostore = new Ext.data.ArrayStore({
     fields: ['id', 'frontServerStatus'],
     data: [
-        [0, '禁用'],
-        [1, '启用']
+        ['false', '禁用'],
+        ['true', '启用']
     ]
 });
 Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
@@ -30,7 +30,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
             allowBlank: false,
             emptyText: '名称',
             blankText: "名称不能为空",
-            maxLength: 200,
+            maxLength: 16,
             columnWidth:0.5
         }, {
             beforeLabelTextTpl: comm.get('required'),
@@ -62,7 +62,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
             fieldLabel: "请求的URL",
             name: "frontServerUrl",
             xtype: "textfield",
-            maxLength: 100,
+            maxLength: 64,
             columnWidth:0.5
         }]
     }, {
@@ -75,7 +75,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
             displayField: 'frontServerStatus',
             valueField: 'id',
             name: "frontServerStatus",
-            value: 0,
+            value: 'false',
             triggerAction: 'all',
             emptyText: '请选择...',
             blankText: '请选择状态',
@@ -86,7 +86,7 @@ Ext.define("core.basedevice.basefrontserver.view.DetailForm", {
     }, {
             xtype: "textarea",
             fieldLabel: "备注",
-            maxLength: 500,
+            maxLength: 128,
             name: "frontServerNotes",
             
      }]

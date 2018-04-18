@@ -4,7 +4,7 @@ Ext.define("core.basedevice.basegateway.view.DetailLayout", {
     funCode: "basegateway_detail",
     funData: {
         action: comm.get('baseUrl') + "/PtGateway", //请求Action
-        pkName: "uuid",
+        pkName: "id",
        // modelName: "com.zd.school.control.device.model.PtGateway", //实体全路径
         defaultObj: {}
     },

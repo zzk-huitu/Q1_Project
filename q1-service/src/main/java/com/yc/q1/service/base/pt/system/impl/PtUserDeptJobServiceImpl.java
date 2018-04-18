@@ -315,12 +315,15 @@ public class PtUserDeptJobServiceImpl extends BaseServiceImpl<PtUserDeptJob> imp
 	 * 获取部门岗位的用户信息 zzk
 	 */
 	@Override
-	public QueryResult<PtUserDeptJob> getUserByDeptJobId(String deptJobId, Integer start, Integer limit,
+	public QueryResult<PtUserDeptJob> getUserByDeptJobId(String deptJobId,String name, Integer start, Integer limit,
 			String sort) {
 		// TODO Auto-generated method stub
 
 		String hql = "from PtUserDeptJob o where o.deptJobId='" + deptJobId + "' and o.isDelete=0 ";
-
+		if (StringUtils.isNotEmpty(name)) {
+			hql += " and o.name='" + name + "'  ";
+		
+		}
 		if (StringUtils.isNotEmpty(sort)) {
 			hql += " order by ";
 			hql += sort;

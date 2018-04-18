@@ -42,13 +42,13 @@ Ext.define("core.basedevice.ptirroomdevice.controller.OtherController", {
           return false;
         } else {
           for (var i = 0; i < rows.length; i++) {
-            brandId += rows[i].get('uuid') + ",";
+            brandId += rows[i].get('id') + ",";
           };
         }
 
         var loading=self.LoadMask(win);
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BasePtIrRoomDevice/doAdd",
+            url: comm.get('baseUrl') + "/PtIrRoomDevice/doAdd",
             params: {
                 roomId: win.roomId,
                 brandId: brandId

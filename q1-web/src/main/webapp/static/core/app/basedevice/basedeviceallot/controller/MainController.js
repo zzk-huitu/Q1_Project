@@ -108,7 +108,7 @@ Ext.define("core.basedevice.basedeviceallot.controller.MainController", {
         var basePanel = baseGrid.up("basepanel[funCode=" + funCode + "]");
         //得到配置信息
         var funData = basePanel.funData;  
-        var uuid = '';
+        var id = '';
         if (records.length <= 0) {
             self.msgbox('请选择一条数据');
             return;
@@ -127,13 +127,13 @@ Ext.define("core.basedevice.basedeviceallot.controller.MainController", {
 
 
                     for (var i = 0; i < records.length; i++) {            
-                        uuid += records[i].get('uuid') + ',';
+                        id += records[i].get('id') + ',';
                     };
 
                     self.asyncAjax({
                         url: funData.action + "/doDelete",
                         params: {
-                             uuid: uuid                       
+                             id: id                       
                         },                    
                         success: function(response) {
                             var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -195,7 +195,7 @@ Ext.define("core.basedevice.basedeviceallot.controller.MainController", {
 			var type=queryField.operationType;
 			var valueField=queryField.down("field[name="+fieldName+"_field]");
 			var value=valueField.getValue();
-			if(fieldName=="termSN"){
+			if(fieldName=="termSn"){
 				termSN2=value;
 			}
 			if(fieldName=="termNo"){
@@ -207,9 +207,9 @@ Ext.define("core.basedevice.basedeviceallot.controller.MainController", {
         });
         
         if(termSN2!=""){
-        	termSN=termSN2
+        	termSn=termSN2
         }else{
-        	termSN=termSN1
+        	termSn=termSN1
         }
         
         var title = "确定要导出智能设备管理的信息吗？";
@@ -221,13 +221,13 @@ Ext.define("core.basedevice.basedeviceallot.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/BasePtTerm/doExportPtTermAllotExcel?termSN='+termSN+'&roomId='+roomId+'&termSN='+termSN+'&termNo='+termNo+'&termName='+termName+'&roomLeaf='+roomLeaf+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doExportPtTermAllotExcel?termSn='+termSn+'&roomId='+roomId+'&termSN='+termSN+'&termNo='+termNo+'&termName='+termName+'&roomLeaf='+roomLeaf+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/BasePtTerm/checkPtTermAllotExportEnd',
+                        url: comm.get('baseUrl') + '/PtTerm/checkPtTermAllotExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {

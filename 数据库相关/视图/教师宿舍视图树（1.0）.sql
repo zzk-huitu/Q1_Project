@@ -1,7 +1,7 @@
-USE [Q1_test6]
+USE [NewQ1_test]
 GO
 
-/****** Object:  View [dbo].[V_PT_TeacherDromTree]    Script Date: 04/08/2018 17:26:45 ******/
+/****** Object:  View [dbo].[V_PT_TeacherDromTree]    Script Date: 04/16/2018 18:40:33 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -9,21 +9,22 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+
 ALTER VIEW [dbo].[V_PT_TeacherDromTree] AS
 
     SELECT  *
     FROM    ( 
 			SELECT TOP 99.999999 PERCENT
-                        AREA_ID AS id ,
-                        NODE_TEXT AS text ,
+                        areaId AS id ,
+                        nodeText AS text ,
                         '' AS iconCls ,
                          'false' AS leaf,
-                         NODE_LEVEL AS level ,
-                         TREE_IDS AS treeids,
-                        PARENT_NODE AS parent
-              FROM      dbo.BUILD_T_ROOMAREA 
-              WHERE ISDELETE=0 and AREA_TYPE in ('01','02')
-              ORDER BY  ORDER_INDEX ASC
+                         nodeLevel AS level ,
+                         treeIds AS treeids,
+                        parentNode AS parent
+              FROM      dbo.T_PT_RoomArea 
+              WHERE isDelete=0 and areaType in ('01','02')
+              ORDER BY  orderIndex ASC
               
     ) AS roomarea
           
@@ -32,27 +33,27 @@ ALTER VIEW [dbo].[V_PT_TeacherDromTree] AS
     SELECT  *
     FROM    (                 
            SELECT TOP 99.999999 PERCENT
-                        AREA_ID AS id ,
-                        NODE_TEXT AS text ,
+                        areaId AS id ,
+                        nodeText AS text ,
                         '' AS iconCls ,
                          'false' AS leaf,
-                         NODE_LEVEL AS level ,
-                         TREE_IDS AS treeids,
-                        PARENT_NODE AS parent
-              FROM      dbo.BUILD_T_ROOMAREA 
-              WHERE ISDELETE=0 and AREA_TYPE='03'   
-				and AREA_ID  IN(
-					SELECT btr.PARENT_NODE FROM BUILD_T_ROOMAREA btr
-					WHERE btr.AREA_TYPE='04'  AND btr.AREA_ID IN(
-						SELECT A.AREA_ID FROM BUILD_T_DORMDEFINE A
-						JOIN dbo.BUILD_T_ROOMINFO B
-						ON A.ROOM_ID=B.ROOM_ID
-						JOIN dbo.BUILD_T_ROOMAREA C
-						ON A.AREA_ID=C.AREA_ID
-						WHERE A.ISDELETE=0 and A.DORM_TYPELB='2'		--2为教师宿舍
+                         nodeLevel AS level ,
+                         treeIds AS treeids,
+                        parentNode AS parent
+              FROM      dbo.T_PT_RoomArea 
+              WHERE isDelete=0 and areaType='03'   
+				and areaId  IN(
+					SELECT btr.parentNode FROM T_PT_RoomArea btr
+					WHERE btr.areaType='04'  AND btr.areaId IN(
+						SELECT A.areaId FROM T_PT_DormDefine A
+						JOIN dbo.T_PT_RoomInfo B
+						ON A.roomId=B.roomId
+						JOIN dbo.T_PT_RoomArea C
+						ON A.areaId=C.areaId
+						WHERE A.isDelete=0 and A.dormCategory='2'		--2为教师宿舍
 					)
 				)      
-              ORDER BY  ORDER_INDEX ASC
+              ORDER BY  orderIndex ASC
     )as roomarea
     
     UNION ALL 
@@ -60,45 +61,46 @@ ALTER VIEW [dbo].[V_PT_TeacherDromTree] AS
 	SELECT  *
     FROM    ( 
 		SELECT TOP 99.999999 PERCENT
-                        AREA_ID AS id ,
-                        NODE_TEXT AS text ,
+                        areaId AS id ,
+                        nodeText AS text ,
                         '' AS iconCls ,
                          'false' AS leaf,
-                         NODE_LEVEL AS level ,
-                         TREE_IDS AS treeids,
-                        PARENT_NODE AS parent
-              FROM      dbo.BUILD_T_ROOMAREA 
-              WHERE ISDELETE=0 and AREA_TYPE='04' 
-				AND AREA_ID IN(
-						SELECT A.AREA_ID FROM BUILD_T_DORMDEFINE A
-						JOIN dbo.BUILD_T_ROOMINFO B
-						ON A.ROOM_ID=B.ROOM_ID
-						JOIN dbo.BUILD_T_ROOMAREA C
-						ON A.AREA_ID=C.AREA_ID
-						WHERE A.ISDELETE=0	and A.DORM_TYPELB='2'		--2为教师宿舍	
+                         nodeLevel AS level ,
+                         treeIds AS treeids,
+                        parentNode AS parent
+              FROM      dbo.T_PT_RoomArea 
+              WHERE isDelete=0 and areaType='04' 
+				AND areaId IN(
+						SELECT A.areaId FROM T_PT_DormDefine A
+						JOIN dbo.T_PT_RoomInfo B
+						ON A.roomId=B.roomId
+						JOIN dbo.T_PT_RoomArea C
+						ON A.areaId=C.areaId
+						WHERE A.areaId=0	and A.dormCategory='2'		--2为教师宿舍	
 				)       
-              ORDER BY  ORDER_INDEX ASC
+              ORDER BY  orderIndex ASC
     ) AS roomarea  
     UNION ALL 
     
     SELECT  *
     FROM    ( 
 		SELECT TOP 99.999999 PERCENT
-			A.DORM_ID AS id ,
-			B.ROOM_NAME AS text ,
+			A.dormId AS id ,
+			B.roomName AS text ,
 			'' AS iconCls ,
 			'true' AS leaf ,
 			5 AS level ,
-			TREE_IDS AS treeids,
-		    C.AREA_ID AS parent
-		FROM	dbo.BUILD_T_DORMDEFINE A
-			JOIN dbo.BUILD_T_ROOMINFO B
-			ON A.ROOM_ID=B.ROOM_ID
-			JOIN dbo.BUILD_T_ROOMAREA C
-			ON A.AREA_ID=C.AREA_ID
-		WHERE A.ISDELETE=0 and A.DORM_TYPELB='2'		--2为教师宿舍
-		ORDER BY  A.ORDER_INDEX ASC
+			treeIds AS treeids,
+		    C.areaId AS parent
+		FROM	dbo.T_PT_DormDefine A
+			JOIN dbo.T_PT_RoomInfo B
+			ON A.roomId=B.roomId
+			JOIN dbo.T_PT_RoomArea C
+			ON A.areaId=C.areaId
+		WHERE A.isDelete=0 and A.dormCategory='2'		--2为教师宿舍
+		ORDER BY  A.orderIndex ASC
      ) AS officeAllot;
+
 
 
 

@@ -79,7 +79,7 @@ Ext.define("core.basedevice.smartdevice.view.MainGrid", {
             flex: 1.5,
             minWidth: 150,
             text: "设备序列号",
-            dataIndex: "termSN",            
+            dataIndex: "termSn",            
         }, {
             flex: 1.5,
             minWidth: 150,

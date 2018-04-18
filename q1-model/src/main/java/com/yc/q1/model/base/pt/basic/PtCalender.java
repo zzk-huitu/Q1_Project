@@ -11,6 +11,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Formula;
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yc.q1.core.annotation.FieldInfo;

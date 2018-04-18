@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.annotation.Auth;
+import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
@@ -83,7 +84,7 @@ public class PtIrDeviceBrandController extends FrameWorkController<PtIrDeviceBra
 		String level = request.getParameter("level");
 		if(StringUtils.isNotEmpty(filter) && filter.length()>0){
 			if(StringUtils.isEmpty(brandId)&&StringUtils.isEmpty(level)){
-				brandId = "d9012b05-e85e-449d-82fc-4a424dee9b00";
+				brandId = AdminType.ROOT_BRAND_ID;
 				level = "1";
 			}
 		}
@@ -98,10 +99,10 @@ public class PtIrDeviceBrandController extends FrameWorkController<PtIrDeviceBra
 			}
      	}else{
 			String hql="";
-			if(brandId.equals("d9012b05-e85e-449d-82fc-4a424dee9b00")){//所有品牌
-				hql="select a.id from IrDeviceBrand a where a.isDelete=0  and a.level=3";
+			if(brandId.equals(AdminType.ROOT_BRAND_ID)){//所有品牌
+				hql="select a.id from PtIrDeviceBrand a where a.isDelete=0  and a.level=3";
 			}else{//品牌类型
-				hql="select a.id from IrDeviceBrand a where a.isDelete=0  and a.level=3 and a.parentNode like '%"+brandId+"%'";
+				hql="select a.id from PtIrDeviceBrand a where a.isDelete=0  and a.level=3 and a.parentNode like '%"+brandId+"%'";
 			}
 		    List<String> categorylists=thisService.queryEntityByHql(hql);
 		    if(!categorylists.isEmpty()){
@@ -221,7 +222,7 @@ public class PtIrDeviceBrandController extends FrameWorkController<PtIrDeviceBra
 			return;
 		} else {
 			PtUser currentUser = getCurrentSysUser();
-			String hql = " from IrRoomDevice a where a.isDelete=0 and a.brandId  in ('" + ids.replace(",", "','")
+			String hql = " from PtIrRoomDevice a where a.isDelete=0 and a.brandId  in ('" + ids.replace(",", "','")
 					+ "')";
 			List lists = deveiceService.queryByHql(hql);
 			if (lists.size() > 0) {
@@ -257,10 +258,10 @@ public class PtIrDeviceBrandController extends FrameWorkController<PtIrDeviceBra
 			hql+=" and a.parentNode = '"+brandId+"' ";
 		}else{
 			if(brandId.equals("d9012b05-e85e-449d-82fc-4a424dee9b00")){//所有品牌
-				hql =" select a from IrDeviceBrand a left join IrDeviceBrand b on a.parentNode = b.id where a.isDelete=0 "
+				hql =" select a from PtIrDeviceBrand a left join PtIrDeviceBrand b on a.parentNode = b.id where a.isDelete=0 "
 						+ " and b.isDelete=0 and b.level=3";
 			}else{
-				hql =" select a from IrDeviceBrand a left join IrDeviceBrand b on a.parentNode = b.id where a.isDelete=0 "
+				hql =" select a from PtIrDeviceBrand a left join PtIrDeviceBrand b on a.parentNode = b.id where a.isDelete=0 "
 						+ " and b.isDelete=0 and b.level=3 and b.parentNode like '%"+brandId+"%'";
 			}
 		}

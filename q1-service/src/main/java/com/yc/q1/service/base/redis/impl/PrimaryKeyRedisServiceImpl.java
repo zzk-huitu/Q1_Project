@@ -23,6 +23,7 @@ public class PrimaryKeyRedisServiceImpl implements PrimaryKeyRedisService{
 	
 	private static Logger logger = Logger.getLogger(PrimaryKeyRedisServiceImpl.class);
 	
+	private static SimpleDateFormat idDateSdf=new SimpleDateFormat("yyMMddHHmmss");
 	private static SimpleDateFormat dateSdf=new SimpleDateFormat("yyyyMMdd");
 	private static SimpleDateFormat dateTimeSdf=new SimpleDateFormat("yyyyMMdd HH:mm:ss");
 	
@@ -72,8 +73,8 @@ public class PrimaryKeyRedisServiceImpl implements PrimaryKeyRedisService{
 	}
 	
 	private String getDate(){	
-		String value=dateSdf.format(new Date());
-		value=value.substring(2, value.length());
+		String value=idDateSdf.format(new Date());
+		//value=value.substring(2, value.length());
 		return value;
 	}
 

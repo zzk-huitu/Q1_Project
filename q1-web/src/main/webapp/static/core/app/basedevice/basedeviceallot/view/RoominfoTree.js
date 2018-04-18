@@ -61,7 +61,7 @@ Ext.define("core.basedevice.basedeviceallot.view.RoominfoTree", {
             var girdSearchTexts = mianGrid.query("field[funCode=girdFastSearchText]");
             var filter=new Array();
             if(girdSearchTexts[0].getValue()){
-                filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "termSN", "comparison": ""})
+                filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "termSn", "comparison": ""})
             }
             if(filter.length==0)
                 filter=null;

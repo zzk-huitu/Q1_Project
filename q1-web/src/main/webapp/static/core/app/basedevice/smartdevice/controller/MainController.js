@@ -88,13 +88,13 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/BasePtTerm/doExportExcel?termName='+termName+'&roomId='+roomId+'&roomLeaf='+roomLeaf+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doExportExcel?termName='+termName+'&roomId='+roomId+'&roomLeaf='+roomLeaf+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/BasePtTerm/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtTerm/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {
@@ -131,16 +131,17 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
  	},
     
     openHighParamDetail:function(grid,record,cmd){
+     
         var self = this;
         //得到组件
         var baseGrid = grid;
         var recordData=record.getData();
 
-        var uuid =recordData.uuid;
+        var id =recordData.id;
         var termName=recordData.termName;
         var xItemType="";
-        var termTypeID = recordData.termTypeID;
-        if (termTypeID == "9" || termTypeID == "4") {
+        var termTypeId = recordData.termTypeId;
+        if (termTypeId == "9" || termTypeId == "4") {
             //9电控，4门禁
             xItemType = "basedevice.smartdevice.highparamform";
         } else {
@@ -173,7 +174,7 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                 scrollable :true, 
                 itemId:tabItemId,            
                 layout:'fit', 
-                uuid: uuid,      //主键值
+                uuid: id,      //主键值
             });
             tabPanel.add(tabItem); 
 
@@ -204,12 +205,12 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
 
 
                 //9电控，4门禁
-                if (termTypeID == "9" || termTypeID == "4") {
+                if (termTypeId == "9" || termTypeId == "4") {
                     //高级参数
                     var highParams =  objForm.highFormData;
-                    highParams.uuid = uuid;
+                    highParams.id = id;
                     self.asyncAjax({                      
-                        url: comm.get('baseUrl') + "/BasePtTerm/highParam_read",
+                        url: comm.get('baseUrl') + "/PtTerm/highParam_read",
                         params: highParams,                      
                         //回调代码必须写在里面
                         success: function(response) {
@@ -255,7 +256,7 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
         
           },30);
                            
-        }else if(tabItem.uuid&&tabItem.uuid!=uuid){     //判断是否点击的是同一条数据
+        }else if(tabItem.uuid&&tabItem.uuid!=id){     //判断是否点击的是同一条数据
             self.msgbox("您当前已经打开了一个编辑窗口了！");
             return;
         }
@@ -273,23 +274,23 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
         var baseGrid = grid;
         var recordData=record.getData();
 
-        var uuid =recordData.uuid;
+        var id =recordData.id;
         var termName=recordData.termName;
         var xItemType="";
-        var termTypeID = recordData.termTypeID;
-        if (termTypeID == '9') {
+        var termTypeId = recordData.termTypeId;
+        if (termTypeId == '9') {
             //电控基础参数
             xItemType = "basedevice.smartdevice.dkbaseparamform";
-        } else if (termTypeID == '4') {     
+        } else if (termTypeId == '4') {     
             //门禁基础参数
             xItemType = "basedevice.smartdevice.doorcontrolform";
-        } else if (termTypeID == '17') {
+        } else if (termTypeId == '17') {
             //17灯控开关
             xItemType = "basedevice.smartdevice.ampcontrolform";           
-        } else if (termTypeID == '11') {
+        } else if (termTypeId == '11') {
             //11红外
             xItemType = "basedevice.smartdevice.infraredparamform";          
-        } else if (termTypeID == '8') {            
+        } else if (termTypeId == '8') {            
             //水控基础参数
             xItemType = "basedevice.smartdevice.skbaseparamform";
         } else {
@@ -321,7 +322,7 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                 scrollable :true, 
                 itemId:tabItemId,            
                 layout:'fit', 
-                uuid: uuid,      //主键值
+                uuid: id,      //主键值
             });
             tabPanel.add(tabItem); 
 
@@ -351,12 +352,12 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                 var formObj = objForm.getForm();     
 
                 //门禁
-                if (termTypeID == '4') {  
+                if (termTypeId == '4') {  
                     //门禁基础参数
                     var baseParams =  objForm.baseFormData;
-                    baseParams.uuid = uuid;
+                    baseParams.id = id;
                     self.asyncAjax({                      
-                        url: comm.get('baseUrl') + "/BasePtTerm/baseParam_read",
+                        url: comm.get('baseUrl') + "/PtTerm/baseParam_read",
                         params: baseParams,                      
                         //回调代码必须写在里面
                         success: function(response) {
@@ -414,11 +415,11 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                         }
                     }); 
                 } //水控
-                else if (termTypeID == '8') {                                
+                else if (termTypeId == '8') {                                
                     var baseParams =  objForm.baseFormData;
-                    baseParams.uuid = uuid;
+                    baseParams.id = id;
                     self.asyncAjax({                      
-                        url: comm.get('baseUrl') + "/BasePtTerm/baseParam_read",
+                        url: comm.get('baseUrl') + "/PtTerm/baseParam_read",
                         params: baseParams,                      
                         //回调代码必须写在里面
                         success: function(response) {
@@ -477,12 +478,12 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                     });                               
                 }
                  //9电控
-                else if (termTypeID == "9") {
+                else if (termTypeId == "9") {
                     //基础参数
                     var baseParams =  objForm.baseFormData;
-                    baseParams.uuid = uuid;
+                    baseParams.id = id;
                     self.asyncAjax({                      
-                        url: comm.get('baseUrl') + "/BasePtTerm/baseParam_read",
+                        url: comm.get('baseUrl') + "/PtTerm/baseParam_read",
                         params: baseParams,                      
                         //回调代码必须写在里面
                         success: function(response) {                            
@@ -501,11 +502,11 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                         }
                     });       
                 } //11红外
-                else if (termTypeID == '11') {     
+                else if (termTypeId == '11') {     
                     var baseParams =  objForm.baseFormData;
-                    baseParams.uuid = uuid;
+                    baseParams.id = id;
                     self.asyncAjax({                      
-                        url: comm.get('baseUrl') + "/BasePtTerm/baseParam_read",
+                        url: comm.get('baseUrl') + "/PtTerm/baseParam_read",
                         params: baseParams,                      
                         //回调代码必须写在里面
                         success: function(response) {
@@ -572,12 +573,12 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
                         }
                     });                   
                 }  //17灯控
-                else if (termTypeID == '17') { 
+                else if (termTypeId == '17') { 
                     //17灯控开关
                     var baseParams =  objForm.baseFormData;
-                    baseParams.uuid = uuid;
+                    baseParams.id = id;
                     self.asyncAjax({                      
-                        url: comm.get('baseUrl') + "/BasePtTerm/baseParam_read",
+                        url: comm.get('baseUrl') + "/PtTerm/baseParam_read",
                         params: baseParams,                      
                         //回调代码必须写在里面
                         success: function(response) {
@@ -651,7 +652,7 @@ Ext.define("core.basedevice.smartdevice.controller.MainController", {
         
           },30);
                            
-        }else if(tabItem.uuid&&tabItem.uuid!=uuid){     //判断是否点击的是同一条数据
+        }else if(tabItem.uuid&&tabItem.uuid!=id){     //判断是否点击的是同一条数据
             self.msgbox("您当前已经打开了一个编辑窗口了！");
             return;
         }

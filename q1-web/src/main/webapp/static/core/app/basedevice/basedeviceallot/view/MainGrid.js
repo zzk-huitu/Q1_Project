@@ -48,7 +48,7 @@ Ext.define("core.basedevice.basedeviceallot.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'termSN',
+            name:'termSn',
             funCode: 'girdFastSearchText',
             emptyText: '请输入序列号'
         },{
@@ -90,7 +90,7 @@ Ext.define("core.basedevice.basedeviceallot.view.MainGrid", {
             hidden: true
         }, {
             text: "序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             width: 120,
         },{
             text: "机号",
@@ -121,10 +121,10 @@ Ext.define("core.basedevice.basedeviceallot.view.MainGrid", {
             width: 120,
             renderer: function(value) {
                 switch (value) {
-                    case 0:
+                    case false:
                         return '<font color=red>禁用</font>';
                         break;
-                    case 1:
+                    case true:
                         return '<font color=green>启用</font>';
                         break;
                 }

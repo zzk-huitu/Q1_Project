@@ -181,7 +181,29 @@ Ext.define("core.system.dept.controller.OtherController", {
                return false;
            }
        },
-
+        /**
+             * 部门岗位用户快速搜索文本框回车事件
+             */
+            "basepanel basegrid[xtype=system.dept.deptjobusergrid] field[funCode=girdFastSearchText]": {
+                specialkey: function (field, e) {
+                    var self = this;
+                    if (e.getKey() == e.ENTER) {
+                        self.doFastUserDeotJobSearch(field);
+                        //console.log(field);
+                        return false;
+                    }
+                }
+            },
+            /**
+             * 部门岗位用户快速搜索按钮事件
+             */
+            "basepanel basegrid[xtype=system.dept.deptjobusergrid] button[ref=gridFastSearchBtn]": {
+                beforeclick: function (btn) {
+                    var self = this;
+                    self.doFastUserDeotJobSearch(btn);
+                    return false;
+                }
+            },
         });
     },
 
@@ -795,7 +817,6 @@ Ext.define("core.system.dept.controller.OtherController", {
         });
         var insertObj = recordData;;
 
-    console.log(recordData);
         //设置tab页的itemId
        
         var pkValue=recordData["id"];
@@ -1016,7 +1037,18 @@ Ext.define("core.system.dept.controller.OtherController", {
 
         selectStore.loadPage(1);
     },
+    doFastUserDeotJobSearch: function (component) {
+        //得到组件
+        var baseGrid=component.up("basegrid");
+        var toolBar = component.up("toolbar");
+       
+        var girdSearchTexts = toolBar.query("field[funCode=girdFastSearchText]");
+        var selectStore = baseGrid.getStore();
+        var selectProxy = selectStore.getProxy();
+        selectProxy.extraParams.name = girdSearchTexts[0].getValue();
 
+        selectStore.loadPage(1);
+    },
     doSaveDeptJobUser:function(btn){
 
         var self = this;
