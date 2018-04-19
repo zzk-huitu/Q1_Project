@@ -56,16 +56,16 @@ Ext.define("core.smartcontrol.roombagrule.controller.DetailController", {
 
         //若为多选，则追加数据
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/userList",
+            url: comm.get('baseUrl') + "/PtRoomBagRuleBind/userList",
             params: {
-             roomId: record.get('uuid')
+             roomId: record.get('id')
          },
             //回调代码必须写在里面
             success: function (response) {                   
                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));  
                 var rows=data.rows;
                 for(var i=0;i<data.totalCount;i++){
-                    rows[i].roomId=record.get('uuid');  //加入此房间id值
+                    rows[i].roomId=record.get('id');  //加入此房间id值
                 }         
                 store.add(rows);          
             },
@@ -78,9 +78,9 @@ Ext.define("core.smartcontrol.roombagrule.controller.DetailController", {
         }else if(deDuctionMode==2){//指定扣费
 
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/assignUserList",
+                url: comm.get('baseUrl') + "/PtRoomBagRuleBind/assignUserList",
                 params: {
-                 filter: "[{'type':'string','comparison':'=','value':'" + record.get('uuid') + "','field':'roomId'}]",
+                 filter: "[{'type':'string','comparison':'=','value':'" + record.get('id') + "','field':'roomId'}]",
                  limit:0,
                  start:0
              },
@@ -115,7 +115,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.DetailController", {
         if(len>0){
         	var data1=store.getData().items;         
         	for(var i=data1.length-1;i>=0;i--){
-        		if(record.get('uuid')==data1[i].get("roomId"))
+        		if(record.get('id')==data1[i].get("roomId"))
         			store.remove(data1[i]);
         	}
         }else {
@@ -139,7 +139,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.DetailController", {
             self.Warning("选择房间才能继续操作。");
             return false;
         }
-        if (basetab.insertObj.deDuctionMode != '2') {
+        if (basetab.insertObj.deductionMode != '2') {
             self.Warning("选择规则的扣费模式不是指定扣费，无法选择指定扣费人员!");
             return false;
         }
@@ -148,7 +148,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.DetailController", {
         //获取选择的房间
         for(var i=0;i<selectGrid.length;i++){
         	var info=new Object();
-        	info.roomId=selectGrid[i].get('uuid');
+        	info.roomId=selectGrid[i].get('id');
         	info.roomName=selectGrid[i].get('roomName');
         	roomInfos.push(info);
         }

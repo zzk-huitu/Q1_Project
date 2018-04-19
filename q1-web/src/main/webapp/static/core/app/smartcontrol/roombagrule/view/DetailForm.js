@@ -1,8 +1,8 @@
 var combostore = Ext.create('Ext.data.Store', {
     fields: ['id', 'isEnable'],
     data: [
-        [1, '启用'],
-        [0, '禁用']
+        ['true', '启用'],
+        ['false', '禁用']
     ]
 });
 
@@ -26,7 +26,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
     },  {
         beforeLabelTextTpl: comm.get("required"),
         fieldLabel: "规则名称",
-        name: "roomRuleName",
+        name: "roomBagRuleName",
         xtype: "textfield",
         emptyText: "请输入班级名称",  
         allowBlank: false, 
@@ -99,7 +99,7 @@ Ext.define("core.smartcontrol.roombagrule.view.DetailForm", {
         xtype: "combobox",
         store: combostore,
         fieldLabel: "状态",
-        value: 0,
+        value: 'false',
         displayField: 'isEnable',
         valueField: 'id',
         name: "isEnable",

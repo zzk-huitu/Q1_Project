@@ -65,13 +65,13 @@ Ext.define("core.smartcontrol.roombagrule.controller.MainController", {
         }
         recordData = rescords[0].getData();
 
-        var shutDownStart = Ext.util.Format.date(recordData.shutDownStart, 'H:i:s');
-        var shutDownEnd = Ext.util.Format.date(recordData.shutDownEnd, 'H:i:s');
+        var allowOffStartTime = Ext.util.Format.date(recordData.allowOffStartTime, 'H:i:s');
+        var allowOffEndTime = Ext.util.Format.date(recordData.allowOffEndTime, 'H:i:s');
 
         //传入此值
         basePanel.funData.finalObj = {
-            shutDownStart:shutDownStart,
-            shutDownEnd:shutDownEnd
+            allowOffStartTime:allowOffStartTime,
+            allowOffEndTime:allowOffEndTime
         }
     },
     
@@ -124,14 +124,14 @@ Ext.define("core.smartcontrol.roombagrule.controller.MainController", {
         var pkName = funData.pkName;
         var pkValue= recordData[pkName];
         
-        var tabTitle = recordData["roomRuleName"] + "-规则绑定房间";
+        var tabTitle = recordData["roomBagRuleName"] + "-规则绑定房间";
         var tabItemId = funCode+"_gridBindEdit"; 
         var operType = cmd; 
         insertObj = recordData;
-        var deDuctionMode = recordData.deDuctionMode; //扣费模式 ,渲染费率绑定时用到
+        var deDuctionMode = recordData.deductionMode; //扣费模式 ,渲染费率绑定时用到
         switch (cmd) {
           case "bing":
-          tabTitle = recordData.roomRuleName+"-规则房间";
+          tabTitle = recordData.roomBagRuleName+"-规则房间";
           tabItemId=funCode+"_ruleRoomBing"; 
           detCode =  "rule_room";  
           detLayout = "smartcontrol.roombagrule.ruleroomgrid";
@@ -176,7 +176,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.MainController", {
                  var rulerRoomStore = rulerRoomGrid.getStore();
                  var rulerRoomProxy = rulerRoomStore.getProxy();
                  var filter=new Array();
-                 filter.push({"type": "string", "value": insertObj.uuid, "field": "roomRuleId", "comparison": "="})
+                 filter.push({"type": "string", "value": insertObj.id, "field": "roomRuleId", "comparison": "="})
                  rulerRoomProxy.extraParams = {
                     filter: JSON.stringify(filter)
                 };

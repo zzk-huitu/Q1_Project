@@ -40,7 +40,7 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'roomRuleName',
+            name:'roomBagRuleName',
             funCode: 'girdFastSearchText',
             emptyText: '请输入房间规则名称'
         },{
@@ -74,7 +74,7 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             hidden: true
         },{
             text: "房间规则名称",
-            dataIndex: "roomRuleName",
+            dataIndex: "roomBagRuleName",
             flex:1.2,
             minWidth:120,
         },{
@@ -127,10 +127,10 @@ Ext.define("core.smartcontrol.roombagrule.view.MainGrid", {
             width:80,
             renderer: function(value) {
                 switch (value) {
-                    case 1:
+                    case true:
                         return '<font color=green>启用</font>';
                         break;
-                    case 0:
+                    case false:
                         return '<font color=red>禁用</font>';
                         break;
                 }

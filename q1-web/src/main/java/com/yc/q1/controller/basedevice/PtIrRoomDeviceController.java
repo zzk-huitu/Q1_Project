@@ -320,7 +320,7 @@ public class PtIrRoomDeviceController extends FrameWorkController<PtIrRoomDevice
 		if (!StringUtils.isEmpty(roomid1)) {
 			String[] idStrings = roomid1.split(",");
 			for (String id : idStrings) {
-				String datahql = "select d.irDataNo as irDataNo  from IrData d ,IrRoomDevice rd  "
+				String datahql = "select d.irDataNo as irDataNo  from PtIrData d ,PtIrRoomDevice rd  "
 						+ "where d.brandId=rd.brandId and d.isDelete=0 and rd.isDelete=0 " + " and rd.roomId='" + id
 						+ "' and d.irDataName like '%" + opt + "%' ";
 				List<Long> irDataNos = thisService.getEntityByHql(datahql, new Object[] {});

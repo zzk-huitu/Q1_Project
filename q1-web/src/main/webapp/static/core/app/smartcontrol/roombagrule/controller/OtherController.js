@@ -41,6 +41,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
         },
         "basepanel[xtype=smartcontrol.roombagrule.binddetaillayout]":{
             afterrender: function(cmp) {
+              
                 var  baseformtab = cmp.up("baseformtab");
                 var deDuctionMode = baseformtab.deDuctionMode;
                 if(deDuctionMode==0){//不扣费
@@ -67,7 +68,6 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
     },
 
     doSave_Tab:function(btn,cmd){
-
         var self=this;
         //获取基本的容器
         var basetab = btn.up('baseformtab');
@@ -99,8 +99,8 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
 
             var params = self.getFormValue(formObj);
             
-            params.shutDownStart = Ext.util.Format.date("0 "+params.shutDownStart, 'Y-m-d H:i:s');
-            params.shutDownEnd = Ext.util.Format.date("0 "+params.shutDownEnd, 'Y-m-d H:i:s');
+            params.allowOffStartTime = Ext.util.Format.date("0 "+params.allowOffStartTime, 'Y-m-d H:i:s');
+            params.allowOffEndTime = Ext.util.Format.date("0 "+params.allowOffEndTime, 'Y-m-d H:i:s');
         
             var loading = new Ext.LoadMask(basetab, {
                 msg: '正在提交，请稍等...',
@@ -182,7 +182,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
                 //获取选择的房间
                 var roomIds=new Array();       
                 for(var i=0;i<selectGrid.length;i++){
-                    roomIds.push(selectGrid[i].get('uuid'));
+                    roomIds.push(selectGrid[i].get('id'));
                 }
 
                 //获取设置指定扣费的房间
@@ -204,7 +204,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
                 loading.show();
 
                 self.asyncAjax({
-                    url: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/doAdd",
+                    url: comm.get('baseUrl') + "/PtRoomBagRuleBind/doAdd",
                     params: {
                         roomIds: roomIds.join(","),
                         roomRuleId: roomRuleId,
@@ -260,8 +260,8 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
 
         var data = {
             userNumb: rescords[0].get('userNumb'),
-            xm: rescords[0].get('xm'),
-            deductionUserId:rescords[0].get('uuid')
+            xm: rescords[0].get('name'),
+            deductionUserId:rescords[0].get('id')
         };
 
         for(var i=0;i<roomInfos.length;i++){
@@ -277,10 +277,10 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
         var self=this;
         if(cmp.operType=='detail'){
             var recordData=cmp.insertObj;
-            var shutDownStart = Ext.util.Format.date(recordData.shutDownStart, 'H:i:s');
-            var shutDownEnd = Ext.util.Format.date(recordData.shutDownEnd, 'H:i:s');
-            recordData.shutDownStart=shutDownStart;
-            recordData.shutDownEnd=shutDownEnd;
+            var allowOffStartTime = Ext.util.Format.date(recordData.allowOffStartTime, 'H:i:s');
+            var allowOffStartTime = Ext.util.Format.date(recordData.allowOffStartTime, 'H:i:s');
+            recordData.allowOffStartTime=allowOffStartTime;
+            recordData.allowOffStartTime=allowOffStartTime;
 
             //转换数据字典
             var ddCodes=['WYEKZFS','KFMS'];
@@ -304,12 +304,12 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
             ruleInfoContainer.setData(recordData);
 
             self.asyncAjax({
-                url: comm.get("baseUrl") + "/BasePtRoomBagsRuleBind/assignUserList",
+                url: comm.get("baseUrl") + "/PtRoomBagRuleBind/assignUserList",
                 params: {
                     page: 1,
                     start: 0,
                     limit: 0,
-                    filter: "[{'type':'string','comparison':'=','value':'" + recordData.uuid + "','field':'roomRuleId'}]",
+                    filter: "[{'type':'string','comparison':'=','value':'" + recordData.id + "','field':'roomRuleId'}]",
                 },
                 success: function (response) {
                     var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -335,7 +335,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
         //拼装所选择的房间
         var roomIds = new Array();
         Ext.each(selectTerm, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             roomIds.push(pkValue);
         });
         var title = "确定删除该规则绑定该房间吗？";
@@ -343,7 +343,7 @@ Ext.define("core.smartcontrol.roombagrule.controller.OtherController", {
             if (btn == 'yes') {
                 //发送ajax请求
                 var resObj = self.ajax({
-                    url: comm.get('baseUrl') + "/BasePtRoomBagsRuleBind/doRulrRoomDelete",
+                    url: comm.get('baseUrl') + "/PtRoomBagRuleBind/doRulrRoomDelete",
                     params: {
                         roomIds: roomIds.join(","),
                      }

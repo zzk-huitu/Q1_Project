@@ -101,7 +101,7 @@ Ext.define("core.smartcontrol.climatecontrol.controller.MainController", {
         }
 
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BasePtIrRoomDevice/doIrSend",
+            url: comm.get('baseUrl') + "/PtIrRoomDevice/doIrSend",
             params: {
                 roomid: selRecords.join(','),
                 opt: opt,

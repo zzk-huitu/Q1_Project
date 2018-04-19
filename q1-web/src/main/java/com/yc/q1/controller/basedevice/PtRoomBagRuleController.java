@@ -20,6 +20,7 @@ import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.device.PtRoomBagRule;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.device.PtRoomBagRuleService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 房间钱包规则
@@ -32,7 +33,9 @@ import com.yc.q1.service.base.pt.device.PtRoomBagRuleService;
 public class PtRoomBagRuleController extends FrameWorkController<PtRoomBagRule> implements Constant {
 	@Resource
 	PtRoomBagRuleService thisService; // service层接口
-
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
+	
 	/**
 	 * 房间钱包规则列表
 	 * 
@@ -70,14 +73,14 @@ public class PtRoomBagRuleController extends FrameWorkController<PtRoomBagRule> 
 
 		String hql1 = " o.isDelete='0' ";
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		if (thisService.IsFieldExist("roomBagRuleName", entity.getRoomRuleName(), "-1", hql1)) {
+		if (thisService.IsFieldExist("roomBagRuleName", entity.getRoomBagRuleName(), "-1", hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"钱包规则名称不能重复！\""));
 			return;
 		}
 		
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-		
+		entity.setId(keyRedisService.getId(PtRoomBagRule.ModuleType));
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
@@ -103,7 +106,7 @@ public class PtRoomBagRuleController extends FrameWorkController<PtRoomBagRule> 
 		} else {
 			
 			// 判断这些钱包规则是否正在被其他房间所绑定
-			String hql = "select count(a.id) from RoomBagRuleBind as a where a.roomRuleId in ('" + delIds.replace(",", "','")
+			String hql = "select count(a.id) from PtRoomBagRuleBind as a where a.roomRuleId in ('" + delIds.replace(",", "','")
 					+ "') and a.isDelete=0";
 			int count = thisService.getQueryCountByHql(hql);
 			if (count > 0) {
@@ -161,7 +164,7 @@ public class PtRoomBagRuleController extends FrameWorkController<PtRoomBagRule> 
 		
 		String hql1 = " o.isDelete='0' ";
 		// 此处为放在入库前的一些检查的代码，如唯一校验等
-		if (thisService.IsFieldExist("roomBagRuleName", entity.getRoomRuleName(), entity.getId(), hql1)) {
+		if (thisService.IsFieldExist("roomBagRuleName", entity.getRoomBagRuleName(), entity.getId(), hql1)) {
 			writeJSON(response, jsonBuilder.returnFailureJson("\"钱包规则名称不能重复！\""));
 			return;
 		}

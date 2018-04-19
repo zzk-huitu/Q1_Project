@@ -68,8 +68,8 @@ Ext.define("core.smartcontrol.watermeter.controller.OtherController", {
        var isSelectStore = deviceGrid.getStore();
         for (var i = 0; i < getCount; i++) {
              var record = isSelectStore.getAt(i);
-             termId.push(record.get('uuid'));
-             termSn.push(record.get('termSN'))
+             termId.push(record.get('id'));
+             termSn.push(record.get('termSn'))
         };
         Ext.Msg.confirm('提示', "您确定要绑定这些设备吗？", function (btn2, text) {
             if (btn2 == 'yes') {
@@ -80,7 +80,7 @@ Ext.define("core.smartcontrol.watermeter.controller.OtherController", {
                 });
                 loading.show();
                 self.asyncAjax({
-                    url: comm.get('baseUrl') + "/BasePtSkMeterbind/doAdd",
+                    url: comm.get('baseUrl') + "/SkMeterBind/doAdd",
                     params: {
                         termId: termId,
                         termSn:termSn,
@@ -119,12 +119,12 @@ Ext.define("core.smartcontrol.watermeter.controller.OtherController", {
             meterInfoContainer.setData(recordData);
 
             self.asyncAjax({
-                url: comm.get("baseUrl") + "/BasePtSkMeterbind/list",
+                url: comm.get("baseUrl") + "/SkMeterBind/list",
                 params: {
                     page: 1,
                     start: 0,
                     limit: 0,
-                    filter: "[{'type':'string','comparison':'=','value':'" + recordData.uuid + "','field':'meterId'}]",
+                    filter: "[{'type':'string','comparison':'=','value':'" + recordData.id + "','field':'meterId'}]",
                 },
                 success: function (response) {
                     var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -150,7 +150,7 @@ Ext.define("core.smartcontrol.watermeter.controller.OtherController", {
         //拼装所选择的设备
         var termIds = new Array();
         Ext.each(selectTerm, function(rec) {
-            var pkValue = rec.get("uuid");
+            var pkValue = rec.get("id");
             termIds.push(pkValue);
         });
         var title = "确定删除绑定该计量的设备吗？";
@@ -158,7 +158,7 @@ Ext.define("core.smartcontrol.watermeter.controller.OtherController", {
             if (btn == 'yes') {
                 //发送ajax请求
                 var resObj = self.ajax({
-                    url: comm.get('baseUrl') + "/BasePtSkMeterbind/doPtTermDelete",
+                    url: comm.get('baseUrl') + "/SkMeterBind/doPtTermDelete",
                     params: {
                         termIds: termIds.join(","),
                      }

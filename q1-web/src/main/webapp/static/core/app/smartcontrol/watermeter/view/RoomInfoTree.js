@@ -58,7 +58,7 @@ Ext.define("core.smartcontrol.watermeter.view.RoomInfoTree", {
             var mianGrid = mainLayout.down("panel[xtype=smartcontrol.watermeter.devicegrid]");
             var girdSearchTexts = mianGrid.query("field[funCode=girdFastSearchText]");
             var filter=new Array();
-            filter.push({"type": "string", "value": "8", "field": "termTypeID", "comparison": "="})
+            filter.push({"type": "string", "value": "8", "field": "termTypeId", "comparison": "="})
             if(girdSearchTexts[0].getValue()){
                 filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "termSn", "comparison": ""})
             }

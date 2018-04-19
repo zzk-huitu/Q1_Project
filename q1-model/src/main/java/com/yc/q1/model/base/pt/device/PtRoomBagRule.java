@@ -33,7 +33,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	
 	@FieldInfo(name = "规则名称", type = "nvarchar(20) NOT NULL", explain = "房间钱包的规则名称")
 	@Column(name = "roomBagRuleName", columnDefinition = "nvarchar(20)", nullable = false)
-	private String roomRuleName;
+	private String roomBagRuleName;
 
 	@FieldInfo(name = "扣费模式", type = "varchar(1) NOT NULL", explain = "扣费模式（0：不扣费，1：平均扣费，2：指定扣费）")
 	@Column(name = "deductionMode", length = 1, nullable = false)
@@ -67,12 +67,13 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	@Column(name = "isEnable", columnDefinition = "bit default 0", nullable = false)
 	private Boolean isEnable;
 
-	public String getRoomRuleName() {
-		return roomRuleName;
+
+	public String getRoomBagRuleName() {
+		return roomBagRuleName;
 	}
 
-	public void setRoomRuleName(String roomRuleName) {
-		this.roomRuleName = roomRuleName;
+	public void setRoomBagRuleName(String roomBagRuleName) {
+		this.roomBagRuleName = roomBagRuleName;
 	}
 
 	public String getDeductionMode() {

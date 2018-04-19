@@ -6,7 +6,7 @@ Ext.define("core.basedevice.ptirroomdevice.view.IrDeviceGrid", {
 
     extParams: {
         whereSql: " and isDelete='0' ",
-        brandId:  "d9012b05-e85e-449d-82fc-4a424dee9b00",
+        brandId:  "18041816000901000001",
         level : 1
     }, 
     panelTopBar:{

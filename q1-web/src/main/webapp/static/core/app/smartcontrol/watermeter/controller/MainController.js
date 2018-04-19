@@ -142,7 +142,7 @@ Ext.define("core.smartcontrol.watermeter.controller.MainController", {
                    var meterBingStore = meterBingGrid.getStore();
                    var meterBingProxy = meterBingStore.getProxy();
                    var filter=new Array();
-                   filter.push({"type": "string", "value": insertObj.uuid, "field": "meterId", "comparison": "="})
+                   filter.push({"type": "string", "value": insertObj.id, "field": "meterId", "comparison": "="})
                    meterBingProxy.extraParams = {
                     filter: JSON.stringify(filter)
                 };
