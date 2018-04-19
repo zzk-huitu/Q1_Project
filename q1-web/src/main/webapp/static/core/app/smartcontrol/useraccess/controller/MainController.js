@@ -130,15 +130,14 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
         var termids=new Array(),termSNs=new Array(),termNames=new Array(); 
         for (var i = 0; i < selectGrid.length; i++) {
           var temp=selectGrid[i];
-          termids.push(temp.get('uuid'));
-          termSNs.push(temp.get('termSN'));
+          termids.push(temp.get('id'));
+          termSNs.push(temp.get('termSn'));
           termNames.push(temp.get('termName'));
         };
 
         var termid = termids.join(",");
         var termSN = termSNs.join(",");
         var termName = termNames.join(",");
-
         var otherController = basePanel.otherController;    
         if (!otherController)
           otherController = '';  
@@ -169,6 +168,7 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
               insertObj: insertObj,        
               items: [{
                 xtype: "pubselect.selectuserlayout",
+                controller: otherController,
                 items: [{
                     xtype:'pubselect.selectusergrid',
                     //width:600,
@@ -214,9 +214,9 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
           	self.msgbox("只能选择一个角色!");
               return false;
           }
-          var stuId = selectGrid[0].get('stuId');
-          var uuid = selectGrid[0].get('uuid');
-          var xm = selectGrid[0].get('xm');
+          var userId = selectGrid[0].get('userId');
+          var id = selectGrid[0].get('id');
+          var name = selectGrid[0].get('name');
           
           var otherController = basePanel.otherController;    //关键：打开的tab页面的视图控制器
           if (!otherController)
@@ -225,7 +225,7 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
           //设置window的参数
           var width = 800;
           var height = 500;
-          var winTitle = xm+"的权限列表";
+          var winTitle = name+"的权限列表";
           var recordData=null;
            //创建tab内部组件                     
            var popFunData = Ext.apply(funData, {   //将一些必要的信息，统一存放于此，提高给处理提交代码使用。
@@ -250,7 +250,7 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
                         baseGrids = win.down("panel[xtype=smartcontrol.useraccess.useraccessgrid]");
                         var store = baseGrids.getStore();
                         var proxy = store.getProxy();
-                        proxy.extraParams.filter="["+"{\"type\":\"string\",\"value\":"+"\""+stuId+"\""+",\"field\":\"stuId\",\"comparison\":\"\"}"+"]";
+                        proxy.extraParams.filter="["+"{\"type\":\"string\",\"value\":"+"\""+userId+"\""+",\"field\":\"userId\",\"comparison\":\"\"}"+"]";
                     }
                 },
             }).show();

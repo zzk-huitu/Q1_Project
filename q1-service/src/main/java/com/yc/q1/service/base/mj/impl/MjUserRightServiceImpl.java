@@ -78,7 +78,7 @@ public class MjUserRightServiceImpl extends BaseServiceImpl<MjUserRight> impleme
 				if (StringUtils.isEmpty(termIds[j]))
 					break;
 
-				mjUserright = this.getByProerties(new String[] { "studentId", "termId" },
+				mjUserright = this.getByProerties(new String[] { "userId", "termId" },
 						new Object[] { userIds[i], termIds[j] });
 				if (mjUserright != null) {
 					mjUserright.setIsDelete(0);

@@ -52,7 +52,7 @@ Ext.define("core.smartcontrol.userauthority.controller.MainController", {
         var girdSearchTexts = cpt.query("field[funCode=girdFastSearchText]");
         var filter=new Array();
         if(girdSearchTexts[0].getValue()){
-            filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "xm", "comparison": ""})
+            filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "name", "comparison": ""})
         }
         return filter;
     },
@@ -101,7 +101,7 @@ Ext.define("core.smartcontrol.userauthority.controller.MainController", {
         var proxy = stores.getProxy();
 
         proxy.extraParams={
-            userId:record.get("uuid"),
+            userId:record.get("id"),
             filter:filter
         };
         stores.loadPage(1); //刷新

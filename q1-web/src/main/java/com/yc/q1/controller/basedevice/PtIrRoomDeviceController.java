@@ -323,7 +323,7 @@ public class PtIrRoomDeviceController extends FrameWorkController<PtIrRoomDevice
 				String datahql = "select d.irDataNo as irDataNo  from PtIrData d ,PtIrRoomDevice rd  "
 						+ "where d.brandId=rd.brandId and d.isDelete=0 and rd.isDelete=0 " + " and rd.roomId='" + id
 						+ "' and d.irDataName like '%" + opt + "%' ";
-				List<Long> irDataNos = thisService.getEntityByHql(datahql, new Object[] {});
+				List<Long> irDataNos = thisService.queryEntityByHql(datahql);
 				List<PtTerm> list = ptTermService.queryByProerties(new String[] { "roomId", "termTypeId", "isDelete" },
 						new Object[] { id, "11", 0 });
 				List excued = new ArrayList<String>();
@@ -352,7 +352,7 @@ public class PtIrRoomDeviceController extends FrameWorkController<PtIrRoomDevice
 		CloseableHttpClient httpClient = null; // 生成一个httpclient对象
 		HttpGet httpGet = null; // 获得登录后的页面
 		httpClient = HttpClients.createDefault();
-		uuid = "2A5B06D7-1DBB-47D4-B6AF-128A7AB3A974";
+		//uuid = "2A5B06D7-1DBB-47D4-B6AF-128A7AB3A974";
 		try {
 			httpGet = new HttpGet(irsendurl + "?" + "user_Id=" + uuid + "&sn=" + sn + "&ir_No=" + irno + "");
 			HttpResponse response = httpClient.execute(httpGet);

@@ -21,7 +21,7 @@ Ext.define("core.smartcontrol.useraccess.controller.OtherController", {
 				return false;
 			}
 		},
-	   "basepanel basegrid[xtype=pubselect.selectusergrid] field[funCode=girdFastSearchText]": {
+	   "baseformwin basepanel basegrid[xtype=pubselect.selectusergrid] field[funCode=girdFastSearchText]": {
             specialkey: function (field, e) {
                 var self = this;
                 if (e.getKey() == e.ENTER) {
@@ -30,7 +30,7 @@ Ext.define("core.smartcontrol.useraccess.controller.OtherController", {
                 }
             }
         },
-        "basepanel basegrid[xtype=pubselect.selectusergrid] button[ref=gridFastSearchBtn]": {
+        "baseformwin basepanel basegrid[xtype=pubselect.selectusergrid] button[ref=gridFastSearchBtn]": {
             beforeclick: function (btn) {
                 var self = this;
                 self.doFastSearch(btn);
@@ -66,7 +66,7 @@ Ext.define("core.smartcontrol.useraccess.controller.OtherController", {
             return;
         }
        for (var i = 0; i < isSelectUserCount; i++) {
-            employeeID = isSelectUserStore.getAt(i).data.uuid;
+            employeeID = isSelectUserStore.getAt(i).data.id;
             //已存的人员，去掉提示
        /*     for (var k = 0; k < gridCount; k++) {
                  var employeeid = gridStore.getAt(k).data.stuId;
@@ -82,7 +82,7 @@ Ext.define("core.smartcontrol.useraccess.controller.OtherController", {
         }
         var loading= self.LoadMask(win,"正在处理中...,请等待！");
         self.asyncAjax({
-            url: comm.get('baseUrl') + "/BaseMjUserright/doAddMj",
+            url: comm.get('baseUrl') + "/MjUserRight/doAddMj",
             params: {
               userId: stuId.join(","),
               termId: termId,
@@ -128,9 +128,9 @@ Ext.define("core.smartcontrol.useraccess.controller.OtherController", {
         var girdSearchTexts = toolBar.query("field[funCode=girdFastSearchText]");
         //这里快速搜索就姓名与部门，固定写死查询的条件
         var filter = new Array();
-        filter.push("{'type': 'string', 'comparison': '', 'value':'1', 'field': 'category'}");
+        //filter.push("{'type': 'string', 'comparison': '', 'value':'1', 'field': 'category'}");
         if (girdSearchTexts[0].getValue() != "")
-        filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'xm'}");
+        filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'name'}");
         if (girdSearchTexts[1].getValue() != "")
             filter.push("{'type': 'string', 'comparison': '=', 'value':'" + girdSearchTexts[1].getValue() + "', 'field': 'deptId'}");
         filter = "[" + filter.join(",") + "]";

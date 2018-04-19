@@ -1,7 +1,7 @@
 Ext.define("core.smartcontrol.userauthority.view.MainGrid", {
 	extend: "core.base.view.BaseGrid",
 	alias: "widget.smartcontrol.userauthority.maingrid",
-	dataUrl: comm.get("baseUrl") + "/MjUserRyight/mjrightlist", //数据获取地址
+	dataUrl: comm.get("baseUrl") + "/MjUserRight/mjrightlist", //数据获取地址
 	model:"com.yc.q1.model.base.mj.MjUserRight", //对应的数据模型
     menuCode:"USER_ACCESS_CONTROL",
     al: false,

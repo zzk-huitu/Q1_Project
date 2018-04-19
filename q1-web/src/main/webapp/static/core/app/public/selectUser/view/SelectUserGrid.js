@@ -22,7 +22,7 @@ Ext.define("core.public.selectUser.view.SelectUserGrid", {
     },
     extParams: {
         //这里默认只加载老师，若要改变此值，需要在使用使重写属性，参见：useraccess的MainController的openRoomAccess_Win方法
-        filter:'[{"type":"string","value":"1","field":"category","comparison":""}]'     
+        filter:"[{'type':'string','value':'1','field':'category','comparison':''}]"   
     },
     panelTopBar:{
         xtype:'toolbar',
@@ -108,7 +108,7 @@ Ext.define("core.public.selectUser.view.SelectUserGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "uuid",
+            dataIndex: "id",
             hidden: true
         },{
             xtype: "rownumberer",
@@ -125,7 +125,7 @@ Ext.define("core.public.selectUser.view.SelectUserGrid", {
             flex:1,
             minWidth:90,
             text: "姓名",
-            dataIndex: "xm"
+            dataIndex: "name"
         },{
             flex:1,
             minWidth:90,
@@ -134,7 +134,7 @@ Ext.define("core.public.selectUser.view.SelectUserGrid", {
         },  {
             width:50,
             text: "性别",
-            dataIndex: "xbm",
+            dataIndex: "sex",
             columnType: "basecombobox",
             ddCode: "XBM"
         }, {

@@ -198,10 +198,10 @@ public class MjUserRightController extends FrameWorkController<MjUserRight> impl
 		if (StringUtils.isNotEmpty(filter)) {
 			filter = filter.substring(0, filter.length() - 1);
 			filter += ",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + userId
-					+ "\",\"field\":\"studentId\"}" + "]";
+					+ "\",\"field\":\"userId\"}" + "]";
 		} else {
 			filter = "[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\"" + userId
-					+ "\",\"field\":\"studentId\"}]";
+					+ "\",\"field\":\"userId\"}]";
 		}
 		
 		QueryResult<MjUserRight> qr = thisService.queryPageResult(super.start(request), super.limit(request),
@@ -322,12 +322,12 @@ public class MjUserRightController extends FrameWorkController<MjUserRight> impl
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 
@@ -337,7 +337,7 @@ public class MjUserRightController extends FrameWorkController<MjUserRight> impl
 	private List<String> getPtTermIds(String roomIds){
 		List<String> result = new ArrayList<>();
 
-		String sql = "select b.termId from T_PT_RoomInfo a join Term b "
+		String sql = "select b.termId from T_PT_RoomInfo a join T_PT_Term b "
 				+ "	on a.roomId=b.roomId"
 				+ " where a.isDelete=0 and a.roomType!=0 and b.isDelete=0 "
 				+ " and a.roomId in ('" + roomIds + "')";

@@ -550,7 +550,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 		String parentNode = menu.getParentNode();
 		String parentName = menu.getParentMenuName();
 		String menuType = menu.getMenuType();
-		menu.setId(keyRedisService.getId(PtMenu.ModuleType));
+	
 		/*zzk：此字段不需要了*/
 //		String menuLeaf = "LEAF";
 //		if (menuType.equals(MenuType.TYPE_MENU))
@@ -559,7 +559,8 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 		PtMenu saveEntity = new PtMenu();
 		List<String> excludedProp = new ArrayList<>();
 		excludedProp.add("id");
-		BeanUtils.copyProperties(saveEntity, menu, excludedProp);		
+		BeanUtils.copyProperties(saveEntity, menu, excludedProp);	
+		saveEntity.setId(keyRedisService.getId(PtMenu.ModuleType));
 		saveEntity.setCreateUser(currentUser.getId()); // 创建人
 		saveEntity.setLeaf(true);
 		saveEntity.setIsSystem(true);

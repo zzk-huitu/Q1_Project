@@ -58,7 +58,7 @@ Ext.define("core.smartcontrol.useraccess.view.MainGrid", {
         	width:150
         },{
             text: "设备序列号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             width:150
         }]
     }    

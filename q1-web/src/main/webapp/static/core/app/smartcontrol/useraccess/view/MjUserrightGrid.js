@@ -77,7 +77,7 @@ Ext.define("core.smartcontrol.useraccess.view.MjUserrightGrid", {
             minWidth:80,
         }, {
             text: "序列编号",
-            dataIndex: "termSN",
+            dataIndex: "termSn",
             flex:1,
             minWidth:80,
         }, {
@@ -132,12 +132,12 @@ Ext.define("core.smartcontrol.useraccess.view.MjUserrightGrid", {
             //var grid=grid.view;    
             var grid=gridview.grid;
             var selectRow=grid.getSelection();
-            var uuids=new Array();
+            var ids=new Array();
             for (var i = 0; i < selectRow.length; i++) {
                 var temp=selectRow[i].data;
-                uuids.push(temp.uuid);
+                ids.push(temp.id);
             }
-            var uuid = uuids.join(",");
+            var id = ids.join(",");
                      
 
             //var uuid = record.get("uuid");

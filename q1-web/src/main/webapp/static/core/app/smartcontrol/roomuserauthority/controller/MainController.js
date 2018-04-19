@@ -116,7 +116,7 @@ Ext.define("core.smartcontrol.roomuserauthority.controller.MainController", {
 
         var filter=new Array();
         if(value1){
-            filter.push({"type": "string", "value": value1, "field": "xm", "comparison": ""})
+            filter.push({"type": "string", "value": value1, "field": "name", "comparison": ""})
         }
         if(value2){
             filter.push({"type": "string", "value": value2, "field": "termName", "comparison": ""})
