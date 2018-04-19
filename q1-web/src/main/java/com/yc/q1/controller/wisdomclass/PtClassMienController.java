@@ -140,7 +140,7 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 					//String url = "/static/upload/OaNotice/" + sdf.format(System.currentTimeMillis()) + "/";
-					String url = "ClassMien/" + sdf.format(System.currentTimeMillis()) + "/";
+					String url = "PtClassMien/" + sdf.format(System.currentTimeMillis()) + "/";
 					//String rootPath = request.getSession().getServletContext().getRealPath("/");
 					//rootPath = rootPath.replace("\\", "/");				
 					
@@ -157,7 +157,8 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 
 					// 插入数据
 					PtAttachment bt = new PtAttachment();
-					bt.setEntityName("ClassMien");
+					bt.setId(keyRedisService.getId(PtAttachment.ModuleType));
+					bt.setEntityName("PtClassMien");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
 					bt.setFileName(myFileName);
