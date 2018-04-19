@@ -35,17 +35,17 @@ Ext.define("core.wisdomclass.eccset.controller.OtherController", {
         var pkName = funData.pkName;
         var pkField = formObj.findField(pkName);
          //考勤模式的单选按钮组
-        var checkMode = self.getCheckMode();
+        var attenceMode = self.getCheckMode();
         //是否需要签退选择框
-        var needCheckout = 0;
-        var temp = formObj.findField("needCheckout").getValue();
+        var needSignOut = 0;
+        var temp = formObj.findField("needSignOut").getValue();
         if (temp) {
-            needCheckout = 1;
+            needSignOut = 1;
         }
         var params = self.getFormValue(formObj);
         params = Ext.apply(params, {
-            checkMode: checkMode,
-            needCheckout: needCheckout,
+            attenceMode: attenceMode,
+            needSignOut: needSignOut,
             startUsing: 0
         });
 

@@ -42,7 +42,7 @@ public class PtClassMienServiceImpl extends BaseServiceImpl<PtClassMien> impleme
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
-		StringBuffer hql = new StringBuffer("from ClassMien o where 1=1 ");
+		StringBuffer hql = new StringBuffer("from PtClassMien o where 1=1 ");
 		hql.append(whereSql);
 		hql.append(filterSql);
         if (orderSql.length()>0){

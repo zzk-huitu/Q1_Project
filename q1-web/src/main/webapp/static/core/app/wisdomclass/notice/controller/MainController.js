@@ -249,9 +249,9 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                     var uploadpanel = objDetForm.down("panel[xtype=uploadpanel]");
                     //1. 加载文件数据
                     self.asyncAjax({
-                        url: comm.get('baseUrl') + "/BaseAttachment/getFileList",
+                        url: comm.get('baseUrl') + "/PtAttachment/getFileList",
                         params: {
-                            recordId: insertObj.uuid                   
+                            recordId: insertObj.id                   
                         },
                         //回调代码必须写在里面
                         success: function (response) {
@@ -268,7 +268,7 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                     self.asyncAjax({
                         url: funData.action + "/getNoticeOther",
                         params: {
-                            noticeId: insertObj.uuid     
+                            noticeId: insertObj.id     
                         },
                         //回调代码必须写在里面
                         success: function (response) {
@@ -303,7 +303,7 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                     self.asyncAjax({
                         url: funData.action + "/getNoticeOther",
                         params: {
-                            noticeId: insertObj.uuid     
+                            noticeId: insertObj.id     
                         },
                         //回调代码必须写在里面
                         success: function (response) {
@@ -346,7 +346,7 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                     //加载图片
                     objDetForm.down("dataview[ref=fileView]").getStore().load({
                         params: {
-                            recordId: insertObj.uuid,
+                            recordId: insertObj.id,
                             attachIsMain: '0',
                             entityName:'OaNotice'
                         }

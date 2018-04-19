@@ -46,7 +46,7 @@ Ext.define("core.wisdomclass.classteacher.controller.MainController", {
                 }
 
                 //注入班级id值
-                funData.defaultObj.claiId=funData.deptId;
+                funData.defaultObj.classId=funData.deptId;
             }
         },
 
@@ -130,13 +130,13 @@ Ext.define("core.wisdomclass.classteacher.controller.MainController", {
                 //拼装所选择的用户
                 var ids = new Array();;
                 Ext.each(selectInfo, function(rec) {
-                    var pkValue = rec.get("uuid");
+                    var pkValue = rec.get("id");
                     ids.push(pkValue);
                 });
 
                 //提交入库
                 self.asyncAjax({
-                    url:  comm.get("baseUrl") + "/ClassTeacher/doOut",
+                    url:  comm.get("baseUrl") + "/PtClassTeacher/doOut",
                     params: {
                         ids: ids.join(",")
                     },

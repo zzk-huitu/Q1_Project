@@ -76,9 +76,6 @@ public class PtClassTeacher extends BaseEntity implements Serializable {
 	@Formula("(SELECT a.gradeId FROM T_PT_GradeClass a WHERE a.classId=classId )")
 	private String gradeId;
 
-	// @FieldInfo(name = "年级")
-	@Formula("(SELECT a.nj FROM T_PT_GradeClass a WHERE a.classId=classId )")
-	private String nj;
 
 	// @FieldInfo(name = "老师工号")
 	@Formula("(SELECT a.userNumb FROM T_PT_User a WHERE a.userId=teacherId )")
@@ -172,13 +169,6 @@ public class PtClassTeacher extends BaseEntity implements Serializable {
 		this.gradeId = gradeId;
 	}
 
-	public String getNj() {
-		return nj;
-	}
-
-	public void setNj(String nj) {
-		this.nj = nj;
-	}
 
 	public String getUserNumb() {
 		return userNumb;

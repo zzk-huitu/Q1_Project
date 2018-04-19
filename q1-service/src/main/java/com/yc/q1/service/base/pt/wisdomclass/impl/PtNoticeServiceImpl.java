@@ -372,7 +372,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				saveEntity.setNoticeDepts(orgs);
 
 				// 注：只通知主部门的人员（2017-12-28 zzk）
-				hql = "from User as o where o.deptId in(" + ids + ") and o.isDelete=0 and o.category=1 ";
+				hql = "from PtUser as o where o.deptId in(" + ids + ") and o.isDelete=0 and o.category=1 ";
 				userList.addAll(userService.queryByHql(hql));
 			}
 			// 如果通知人员不为空时处理
@@ -399,7 +399,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				}
 				ids = StringUtils.trimLast(ids);
 
-				hql = "from User as o inner join fetch o.sysRoles as d where d.id in(" + ids
+				hql = "from PtUser as o inner join fetch o.sysRoles as d where d.id in(" + ids
 						+ ") and o.isDelete=0 and  o.category=1 ";
 				userList.addAll(userService.queryByHql(hql));
 			}
@@ -411,7 +411,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				List<String> roomInfo = null;
 
 				if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
-					String roomInfoHql = "select id from RoomInfo where isDelete=0";
+					String roomInfoHql = "select id from PtRoomInfo where isDelete=0";
 					roomInfo = this.queryEntityByHql(roomInfoHql);
 				} else {
 					propValue = terminalIds.split(",");
@@ -443,7 +443,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				List<PtUser> setStus = new ArrayList<>();
 				if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
 
-					String hql1 = " from User where isDelete=0 and category=2 ";
+					String hql1 = " from PtUser where isDelete=0 and category=2 ";
 
 					// 是否为学校管理员
 					/*
@@ -771,7 +771,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 			if (ModelUtil.isNotNull(term)) {
 				String termId = term.getId();
 				String justDateStr = DateUtil.formatDate(new Date());
-				StringBuffer hql = new StringBuffer(" from OaNotice o ");
+				StringBuffer hql = new StringBuffer(" from PtNotice o ");
 				hql.append(" inner join  fetch o.noticeTerms g ");
 				hql.append(MessageFormat.format(" where o.isDelete=0 and g.uuid=''{0}''", termId));
 				hql.append(MessageFormat.format(" and o.beginDate<=''{0}'' and o.endDate>=''{1}'' ", justDateStr,

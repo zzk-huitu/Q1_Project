@@ -45,23 +45,23 @@ Ext.define("core.wisdomclass.roomterm.controller.OtherController", {
         var funData = detPanel.funData;
         var formObj = objForm.getForm();    //获取表单对象
         var upData = new Array();
-        var termId, termCode, mpNumb;
+        var terminalIds, terminalNos, houseNos;
         for (var i = 0; i < 5; i++) {
             var k = i + 1;
-            termId = Ext.valueFrom(formObj.findField("termId" + k).getValue(), null);
-            termCode = Ext.valueFrom(formObj.findField("termCode" + k).getValue(), null);
-            mpNumb = Ext.valueFrom(formObj.findField("houseNumb" + k).getValue(), null);
-            if (!Ext.isEmpty(mpNumb)) {
+            terminalIds = Ext.valueFrom(formObj.findField("terminalId" + k).getValue(), null);
+            terminalNos = Ext.valueFrom(formObj.findField("terminalNo" + k).getValue(), null);
+            houseNos = Ext.valueFrom(formObj.findField("houseNo0" + k).getValue(), null);
+            if (!Ext.isEmpty(houseNos)) {
                 for (var j = i + 1; j < 5; j++) {
                     var l = j + 1
-                    var termCodett = Ext.valueFrom(formObj.findField("termCode" + l).getValue(), null);
-                    if (termCode!=null&&termCode === termCodett) {
+                    var termCodett = Ext.valueFrom(formObj.findField("terminalNo" + l).getValue(), null);
+                    if (terminalNos!=null&&terminalNos === termCodett) {
                         self.msgbox("终端配置重复，请重新设置");
                         return false;
                         break;
                     } else {
-                        if (!Ext.isEmpty(mpNumb) && !(Ext.isEmpty(termCode))) {
-                            upData.push("{'uuid':'" + termId + "','termCode':'" + termCode + "','houseNumb':'" + mpNumb + "'}");
+                        if (!Ext.isEmpty(houseNos) && !(Ext.isEmpty(terminalNos))) {
+                            upData.push("{'id':'" + terminalIds + "','terminalNo':'" + terminalNos + "','houseNo':'" + houseNos + "'}");
                         }
                         break;
                     }

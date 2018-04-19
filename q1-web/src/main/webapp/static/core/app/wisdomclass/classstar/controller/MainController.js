@@ -301,7 +301,7 @@ Ext.define("core.wisdomclass.classstar.controller.MainController", {
                 tabItem.add(item);  
               if(cmd=="detail"){
                     insertObj = Ext.apply(insertObj, {
-                        doDate: Ext.util.Format.date(insertObj["doDate"], 'Y-m-d'),
+                        doneDate: Ext.util.Format.date(insertObj["doneDate"], 'Y-m-d'),
                         beginDate: Ext.util.Format.date(insertObj["beginDate"], 'Y-m-d'),
                         endDate: Ext.util.Format.date(insertObj["endDate"], 'Y-m-d')
                     });

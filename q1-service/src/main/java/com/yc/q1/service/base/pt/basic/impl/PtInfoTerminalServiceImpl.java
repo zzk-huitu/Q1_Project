@@ -72,7 +72,7 @@ public class PtInfoTerminalServiceImpl extends BaseServiceImpl<PtInfoTerminal> i
 		try {
 			Object[] conditionValue = ids.split(",");
 			String[] propertyName = { "isUse", "updateUser", "updateTime", "roomId", "roomName", "houseNo" };
-			Object[] propertyValue = { 0, currentUser.getId(), new Date(), "", "", "" };
+			Object[] propertyValue = { false, currentUser.getId(), new Date(), "", "", "" };
 			this.updateByProperties("id", conditionValue, propertyName, propertyValue);
 			delResult = true;
 		} catch (Exception e) {

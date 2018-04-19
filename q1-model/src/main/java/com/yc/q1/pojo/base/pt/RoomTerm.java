@@ -26,49 +26,49 @@ public class RoomTerm implements Serializable {
 	private String roomCode;
 
 	@FieldInfo(name = "门牌号1")
-	private String houseNumb1;
+	private String houseNo01;
 
 	@FieldInfo(name = "门牌号1对应的终端ID")
-	private String termId1;
+	private String terminalId1;
 
 	@FieldInfo(name = "门牌号1对应的终端编码")
-	private String termCode1;
+	private String terminalNo1;
 
 	@FieldInfo(name = "门牌号2")
-	private String houseNumb2;
+	private String houseNo02;
 
 	@FieldInfo(name = "门牌号2对应的终端ID")
-	private String termId2;
+	private String terminalId2;
 
 	@FieldInfo(name = "门牌号2对应的终端编码")
-	private String termCode2;
+	private String terminalNo2;
 
 	@FieldInfo(name = "门牌号3")
-	private String houseNumb3;
+	private String houseNo03;
 
 	@FieldInfo(name = "门牌号3对应的终端ID")
-	private String termId3;
+	private String terminalId3;
 
 	@FieldInfo(name = "门牌号3对应的终端编码")
-	private String termCode3;
+	private String terminalNo3;
 
 	@FieldInfo(name = "门牌号4")
-	private String houseNumb4;
+	private String houseNo04;
 
 	@FieldInfo(name = "门牌号4对应的终端ID")
-	private String termId4;
+	private String terminalId4;
 
 	@FieldInfo(name = "门牌号4对应的终端编码")
-	private String termCode4;
+	private String terminalNo4;
 
 	@FieldInfo(name = "门牌号5")
-	private String houseNumb5;
+	private String houseNo05;
 
 	@FieldInfo(name = "门牌号5对应的终端ID")
-	private String termId5;
+	private String terminalId5;
 
 	@FieldInfo(name = "门牌号5对应的终端编码")
-	private String termCode5;
+	private String terminalNo5;
 
 	public String getRoomId() {
 		return roomId;
@@ -94,123 +94,124 @@ public class RoomTerm implements Serializable {
 		this.roomCode = roomCode;
 	}
 
-	public String getHouseNumb1() {
-		return houseNumb1;
+	public String getHouseNo01() {
+		return houseNo01;
 	}
 
-	public void setHouseNumb1(String houseNumb1) {
-		this.houseNumb1 = houseNumb1;
+	public void setHouseNo01(String houseNo01) {
+		this.houseNo01 = houseNo01;
 	}
 
-	public String getTermId1() {
-		return termId1;
+	public String getTerminalId1() {
+		return terminalId1;
 	}
 
-	public void setTermId1(String termId1) {
-		this.termId1 = termId1;
+	public void setTerminalId1(String terminalId1) {
+		this.terminalId1 = terminalId1;
 	}
 
-	public String getTermCode1() {
-		return termCode1;
+	public String getTerminalNo1() {
+		return terminalNo1;
 	}
 
-	public void setTermCode1(String termCode1) {
-		this.termCode1 = termCode1;
+	public void setTerminalNo1(String terminalNo1) {
+		this.terminalNo1 = terminalNo1;
 	}
 
-	public String getHouseNumb2() {
-		return houseNumb2;
+	public String getHouseNo02() {
+		return houseNo02;
 	}
 
-	public void setHouseNumb2(String houseNumb2) {
-		this.houseNumb2 = houseNumb2;
+	public void setHouseNo02(String houseNo02) {
+		this.houseNo02 = houseNo02;
 	}
 
-	public String getTermId2() {
-		return termId2;
+	public String getTerminalId2() {
+		return terminalId2;
 	}
 
-	public void setTermId2(String termId2) {
-		this.termId2 = termId2;
+	public void setTerminalId2(String terminalId2) {
+		this.terminalId2 = terminalId2;
 	}
 
-	public String getTermCode2() {
-		return termCode2;
+	public String getTerminalNo2() {
+		return terminalNo2;
 	}
 
-	public void setTermCode2(String termCode2) {
-		this.termCode2 = termCode2;
+	public void setTerminalNo2(String terminalNo2) {
+		this.terminalNo2 = terminalNo2;
 	}
 
-	public String getHouseNumb3() {
-		return houseNumb3;
+	public String getHouseNo03() {
+		return houseNo03;
 	}
 
-	public void setHouseNumb3(String houseNumb3) {
-		this.houseNumb3 = houseNumb3;
+	public void setHouseNo03(String houseNo03) {
+		this.houseNo03 = houseNo03;
 	}
 
-	public String getTermId3() {
-		return termId3;
+	public String getTerminalId3() {
+		return terminalId3;
 	}
 
-	public void setTermId3(String termId3) {
-		this.termId3 = termId3;
+	public void setTerminalId3(String terminalId3) {
+		this.terminalId3 = terminalId3;
 	}
 
-	public String getTermCode3() {
-		return termCode3;
+	public String getTerminalNo3() {
+		return terminalNo3;
 	}
 
-	public void setTermCode3(String termCode3) {
-		this.termCode3 = termCode3;
+	public void setTerminalNo3(String terminalNo3) {
+		this.terminalNo3 = terminalNo3;
 	}
 
-	public String getHouseNumb4() {
-		return houseNumb4;
+	public String getHouseNo04() {
+		return houseNo04;
 	}
 
-	public void setHouseNumb4(String houseNumb4) {
-		this.houseNumb4 = houseNumb4;
+	public void setHouseNo04(String houseNo04) {
+		this.houseNo04 = houseNo04;
 	}
 
-	public String getTermId4() {
-		return termId4;
+	public String getTerminalId4() {
+		return terminalId4;
 	}
 
-	public void setTermId4(String termId4) {
-		this.termId4 = termId4;
+	public void setTerminalId4(String terminalId4) {
+		this.terminalId4 = terminalId4;
 	}
 
-	public String getTermCode4() {
-		return termCode4;
+	public String getTerminalNo4() {
+		return terminalNo4;
 	}
 
-	public void setTermCode4(String termCode4) {
-		this.termCode4 = termCode4;
+	public void setTerminalNo4(String terminalNo4) {
+		this.terminalNo4 = terminalNo4;
 	}
 
-	public String getHouseNumb5() {
-		return houseNumb5;
+	public String getHouseNo05() {
+		return houseNo05;
 	}
 
-	public void setHouseNumb5(String houseNumb5) {
-		this.houseNumb5 = houseNumb5;
+	public void setHouseNo05(String houseNo05) {
+		this.houseNo05 = houseNo05;
 	}
 
-	public String getTermId5() {
-		return termId5;
+	public String getTerminalId5() {
+		return terminalId5;
 	}
 
-	public void setTermId5(String termId5) {
-		this.termId5 = termId5;
+	public void setTerminalId5(String terminalId5) {
+		this.terminalId5 = terminalId5;
 	}
 
-	public String getTermCode5() {
-		return termCode5;
+	public String getTerminalNo5() {
+		return terminalNo5;
 	}
 
-	public void setTermCode5(String termCode5) {
-		this.termCode5 = termCode5;
+	public void setTerminalNo5(String terminalNo5) {
+		this.terminalNo5 = terminalNo5;
 	}
+
 }

@@ -69,7 +69,7 @@ public class PtGradeClassController extends FrameWorkController<PtGradeClass> im
 			} else { // 当选择的区域不为房间时
 				// 当选择的区域不为房间时
 				List<String> claiIdList = new ArrayList<>();
-				String hql = "select a.id from Department a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
+				String hql = "select a.id from PtDepartment a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
 						+ claiId + "%'";
 				claiIdList = thisService.queryEntityByHql(hql);
 
@@ -128,7 +128,7 @@ public class PtGradeClassController extends FrameWorkController<PtGradeClass> im
 		Integer start = super.start(request);
 		Integer limit = super.limit(request);
 
-		String hql = "from GradeClass where isDelete=0";
+		String hql = "from PtGradeClass where isDelete=0";
 		Boolean isSchoolAdminRole = false;
 		List<PtUser> roleUsers = userService.getUserByRoleName("学校管理员");
 		for (PtUser su : roleUsers) {
@@ -139,7 +139,7 @@ public class PtGradeClassController extends FrameWorkController<PtGradeClass> im
 		}
 		if (!isSchoolAdminRole) {
 			// 判断是否是班主任
-			String ghql = "from ClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
+			String ghql = "from PtClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
 			List<PtClassTeacher> classteachers = cTeacherService.queryByHql(ghql);
 			if (classteachers != null && classteachers.size() > 0) {
 				PtClassTeacher cTeacher = classteachers.get(0);

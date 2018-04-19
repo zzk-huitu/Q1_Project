@@ -33,18 +33,18 @@ public class PtClassRedFlagController extends FrameWorkController<PtClassRedFlag
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		PtUser currentUser = getCurrentSysUser();
-		String redflagType = request.getParameter("redflagType");
+		String redFlagType = request.getParameter("redFlagType");
 		String filter = request.getParameter("filter");
 		String whereSql = super.whereSql(request);
 		String orderSql = super.orderSql(request);
-		if (redflagType == null) {
-			redflagType = "";
+		if (redFlagType == null) {
+			redFlagType = "";
 		}
 		if(StringUtils.isNotEmpty(filter)){
 			filter = filter.substring(0, filter.length()-1);
-			filter+=",{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redFlagType\"}"+"]";
+			filter+=",{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redFlagType+"\",\"field\":\"redFlagType\"}"+"]";
 		}else{
-			filter="[{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redflagType+"\",\"field\":\"redFlagType\"}]";
+			filter="[{\"type\":\"string\",\"comparison\":\"\",\"value\":\""+ redFlagType+"\",\"field\":\"redFlagType\"}]";
 		}
 	    //QueryResult<EccClassredflag> qResult =thisService.queryPageResult(super.start(request), super.limit(request),super.sort(request), filter, true);
 		QueryResult<PtClassRedFlag> qResult = thisService.list(super.start(request), super.limit(request),super.sort(request), filter, whereSql, orderSql, currentUser);

@@ -1,8 +1,8 @@
 Ext.define("core.wisdomclass.roomterm.view.RoomTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.wisdomclass.roomterm.roomtree",
-    dataUrl: comm.get('baseUrl') + "/BasePtIrRoomDevice/treelist",
-    model: "com.zd.school.build.define.model.BuildRoomAreaTree", 
+    dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
+    model: "com.yc.q1.pojo.base.pt.RoomAreaTree", 
     extParams: {
         whereSql: "",
         excludes: "checked"

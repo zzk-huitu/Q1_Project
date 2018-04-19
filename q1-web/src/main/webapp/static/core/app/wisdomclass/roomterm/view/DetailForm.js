@@ -30,7 +30,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             columnWidth: 0.4,
             fieldLabel: "门牌号1",
             xtype: "textfield",
-            name: "houseNo1",
+            name: "houseNo01",
             readOnly: true
         }, {
             columnWidth: 0.6,
@@ -43,7 +43,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             configInfo: {
                 fieldInfo: "terminalId1~terminalNo1,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' and isUse='0' ",
-                filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
+                filter: "[{'type':'boolean','comparison':'=','value':'false','field':'isUse'}]",
                 muiltSelect: false, //是否多选
                 width :950,
                 height:500,
@@ -61,7 +61,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号2",
-            name: "houseNo2",
+            name: "houseNo02",
             readOnly: true
         }, {
             columnWidth: 0.6,
@@ -74,7 +74,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             configInfo: {
                 fieldInfo: "terminalId2~terminalNo2,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' ",
-                filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
+                filter: "[{'type':'boolean','comparison':'=','value':'false','field':'isUse'}]",
                 muiltSelect: false, //是否多选
                 width :950,
                 height:500,
@@ -92,7 +92,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号3",
-            name: "houseNo3",
+            name: "houseNo03",
             readOnly: true
         }, {
             columnWidth: 0.6,
@@ -105,7 +105,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             configInfo: {
                 fieldInfo: "terminalId3~terminalNo3,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' ",
-                filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
+                filter: "[{'type':'boolean','comparison':'=','value':'false','field':'isUse'}]",
                 muiltSelect: false, //是否多选
                 width :950,
                 height:500,
@@ -123,7 +123,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号4",
-            name: "houseNo4",
+            name: "houseNo04",
             readOnly: true
         }, {
             columnWidth: 0.6,
@@ -136,7 +136,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             configInfo: {
                 fieldInfo: "terminalId4~terminalNo4,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' ",
-                filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
+                filter: "[{'type':'boolean','comparison':'=','value':'false','field':'isUse'}]",
                 muiltSelect: false, //是否多选
                 width :950,
                 height:500,
@@ -154,7 +154,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             columnWidth: 0.4,
             xtype: "textfield",
             fieldLabel: "门牌号5",
-            name: "houseNo5",
+            name: "houseNo05",
             readOnly: true
         }, {
             columnWidth: 0.6,
@@ -167,7 +167,7 @@ Ext.define("core.wisdomclass.roomterm.view.DetailForm", {
             configInfo: {
                 fieldInfo: "terminalId5~terminalNo5,id~terminalNo",
                 whereSql: " and 1=1 and isDelete='0' and isUse='0' ",
-                filter: "[{'type':'numeric','comparison':'=','value':'0','field':'isUse'}]",
+                filter: "[{'type':'boolean','comparison':'=','value':'false','field':'isUse'}]",
                 muiltSelect: false ,//是否多选
                 width :950,
                 height:500,

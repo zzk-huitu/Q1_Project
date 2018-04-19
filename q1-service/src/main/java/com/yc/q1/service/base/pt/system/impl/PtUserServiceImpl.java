@@ -332,7 +332,7 @@ public class PtUserServiceImpl extends BaseServiceImpl<PtUser> implements PtUser
 		 * list.size(); i++) { String userid = list.get(i) + "";
 		 * users.add(this.get(userid)); }
 		 */
-		String hql = "from User as u inner join fetch u.sysRoles as r where r.roleName='" + roleName
+		String hql = "from PtUser as u inner join fetch u.sysRoles as r where r.roleName='" + roleName
 				+ "' and r.isDelete=0 and u.isDelete=0";
 		return this.queryByHql(hql);
 	}

@@ -24,7 +24,7 @@ Ext.define("core.wisdomclass.redflag.controller.MainController", {
                 var mianGrid = mainlayout.down("basegrid[xtype=wisdomclass.redflag.maingrid]");
                 var store = mianGrid.getStore();
                 var proxy = store.getProxy();
-                proxy.extraParams.redflagType="";
+                proxy.extraParams.redFlagType="";
                 return false;
                 }
             },
@@ -36,7 +36,7 @@ Ext.define("core.wisdomclass.redflag.controller.MainController", {
 				var baseGrid = mainLayout.down("basegrid[xtype=wisdomclass.redflag.maingrid]");
 				var funData = mainLayout.funData;
                 mainLayout.funData = Ext.apply(funData, {
-                    redflagType: record.get("itemCode"),
+                    redFlagType: record.get("itemCode"),
                     redflagTypeName: record.get("itemName"),
                     filter: filter
                 });
@@ -49,7 +49,7 @@ Ext.define("core.wisdomclass.redflag.controller.MainController", {
                 var store = baseGrid.getStore();
                 var proxy = store.getProxy();
                 proxy.extraParams={
-                    redflagType:record.get("itemCode"),
+                    redFlagType:record.get("itemCode"),
                     filter:filter
                 };
                 store.load(); 
@@ -194,7 +194,7 @@ Ext.define("core.wisdomclass.redflag.controller.MainController", {
                  }
 
                  insertObj = Ext.apply(insertObj, {
-                 	redflagType: flagSelected[0].get('itemCode')
+                 	redFlagType: flagSelected[0].get('itemCode')
                  });
                 break;
             case "edit":
@@ -286,7 +286,7 @@ Ext.define("core.wisdomclass.redflag.controller.MainController", {
                     tabItemId:tabItemId,                //指定tab页的itemId
                     insertObj:insertObj,                    //保存一些需要默认值，提供给提交事件中使用
                     funData:popFunData,  
-                    redflagType:insertObj.redflagType,                   //保存funData数据，提供给提交事件中使用
+                    redFlagType:insertObj.redFlagType,                   //保存funData数据，提供给提交事件中使用
                     items:[{
                         xtype:detLayout
                     }]

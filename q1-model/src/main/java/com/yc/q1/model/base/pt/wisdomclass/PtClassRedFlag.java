@@ -63,7 +63,7 @@ public class PtClassRedFlag extends BaseEntity implements Serializable {
 	 */
 
 	// @FieldInfo(name = "红旗类型名称")
-	@Formula("(SELECT a.itemName FROM T_PT_DdicItem a WHERE a.itemCode=redFlagType AND a.ddicId=(SELECT b.ddicId FROM T_PT_Ddic b WHERE b.dicCode='REDFLAG'))")
+	@Formula("(SELECT a.itemName FROM T_PT_DataDictItem a WHERE a.itemCode=redFlagType AND a.dictId=(SELECT b.dictId FROM T_PT_DataDict b WHERE b.dicCode='REDFLAG'))")
 	private String redflagTypeName;
 
 	public String getClassId() {

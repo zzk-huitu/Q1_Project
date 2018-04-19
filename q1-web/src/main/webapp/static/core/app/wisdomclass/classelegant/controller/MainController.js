@@ -89,7 +89,7 @@ Ext.define("core.wisdomclass.classelegant.controller.MainController", {
             return false;
         }
         basePanel.funData.defaultObj={
-            claiId:data.id,
+            classId:data.id,
             className:data.text
         };
 

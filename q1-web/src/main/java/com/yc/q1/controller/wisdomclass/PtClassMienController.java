@@ -31,6 +31,7 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.wisdomclass.PtClassMien;
 import com.yc.q1.service.base.pt.basic.PtAttachmentService;
 import com.yc.q1.service.base.pt.wisdomclass.PtClassMienService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 班级风采
@@ -45,7 +46,8 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 	
 	@Resource
 	PtAttachmentService baseTAttachmentService;// service层接口
-	
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	@Value("${realFileUrl}")  
     private String realFileUrl; //文件目录物理路径
 	
@@ -58,7 +60,7 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String filter=request.getParameter("filter");;
-		String classId = request.getParameter("claiId");
+		String classId = request.getParameter("classId");
 		String claiIdLeaf = request.getParameter("claiIdLeaf");
 		
 		if (StringUtils.isNotEmpty(classId) && !AdminType.ADMIN_ORG_ID.equals(classId)) {
@@ -74,7 +76,7 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 			} else {					// 当选择的区域不为房间时
 				// 当选择的区域不为房间时
 				List<String> claiIdList = new ArrayList<>();
-				String hql = "select a.id from Department a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
+				String hql = "select a.id from PtDepartment a where a.isDelete=0  and a.deptType='05' and a.treeIds like '%"
 						+ classId + "%'";
 		    	claiIdList = thisService.queryEntityByHql(hql);
 			
@@ -181,7 +183,7 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 
 			String doIds = "'" + fileIds.replace(",", "','") + "'";
 
-			String hql = "DELETE FROM Attachment b  WHERE b.id IN (" + doIds + ")";
+			String hql = "DELETE FROM PtAttachment b  WHERE b.id IN (" + doIds + ")";
 
 			int flag = baseTAttachmentService.doExecuteCountByHql(hql);
 
@@ -204,7 +206,7 @@ public class PtClassMienController extends FrameWorkController<PtClassMien> impl
 
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-
+		entity.setId(keyRedisService.getId(PtClassMien.ModuleType));
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)

@@ -27,7 +27,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             afterrender: function(win) {            
                 //回显已经选择的数据
                 var grid=win.down("grid[xtype=pubselect.isselectusergrid]");
-                this.loadSelectedInfo(win,grid,"userIds","userNames","uuid","xm");
+                this.loadSelectedInfo(win,grid,"userIds","userNames","id","xm");
                 return false;
             }
         },
@@ -35,7 +35,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             afterrender: function(win) {            
                 //回显已经选择的数据
                 var grid=win.down("grid[xtype=pubselect.isselectusergrid]");
-                this.loadSelectedInfo(win,grid,"stuIds","stuNames","uuid","xm");
+                this.loadSelectedInfo(win,grid,"stuIds","stuNames","id","xm");
                 return false;
             }
         },
@@ -43,7 +43,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             afterrender: function(win) {            
                 //回显已经选择的数据
                 var grid=win.down("grid[xtype=pbselectRole.isselectrolegrid]");
-                this.loadSelectedInfo(win,grid,"roleIds","roleNames","uuid","roleName");
+                this.loadSelectedInfo(win,grid,"roleIds","roleNames","id","roleName");
                 return false;
             }
         },
@@ -150,7 +150,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
                         var uploadpanel = detPanel.down("panel[xtype=uploadpanel]");
                         var url = funData.action + "/doUpload";
                         var params = {
-                            recordId: data.obj.uuid
+                            recordId: data.obj.id
                         };
                         uploadpanel.onUpload(url, params);
 
@@ -197,7 +197,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
         }
     },
 
-    loadSelectedInfo:function(win,grid,idField,nameField,uuid,name){
+    loadSelectedInfo:function(win,grid,idField,nameField,id,name){
         var tabPanel=Ext.ComponentQuery.query('tabpanel[xtype=app-main]')[0];
         var tabItem=tabPanel.getActiveTab();
         var formPanel=tabItem.down('form[xtype='+win.formPanel+']');
@@ -219,7 +219,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             for(var i=0;i<userIdArr.length;i++){
                 obj={};
                 //store.add({uuid: userIdArr[i], xm:userNameArr[i]});
-                obj[uuid]= userIdArr[i];
+                obj[id]= userIdArr[i];
                 obj[name]= userNameArr[i];
                 
                 datas.push(obj);
@@ -229,7 +229,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
         }
     },
 
-    loadCheckedTree:function(tree,idField,uuid){
+    loadCheckedTree:function(tree,idField,id){
         var win=tree.up("window");    
 
         var tabPanel=Ext.ComponentQuery.query('tabpanel[xtype=app-main]')[0];
@@ -253,7 +253,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
                     for(var i=0; i < childnodes.length; i++){
                         var cNode = childnodes[i];
                         
-                        if(termIds.indexOf(cNode.get(uuid))!=-1)
+                        if(termIds.indexOf(cNode.get(id))!=-1)
                             cNode.set('checked',true);
 
                         if(cNode.hasChildNodes()){                                

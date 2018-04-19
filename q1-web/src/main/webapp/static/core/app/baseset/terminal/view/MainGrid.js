@@ -41,7 +41,7 @@ Ext.define("core.baseset.terminal.view.MainGrid", {
         property: 'updateTime',
         direction: 'DESC'
     },{
-        property: "termCode", //排序字段
+        property: "terminalNo", //排序字段
         direction: "ASC" //升降充
     }],
     //扩展参数
@@ -94,7 +94,7 @@ Ext.define("core.baseset.terminal.view.MainGrid", {
             var title = "使用状态";
             var html = value;
             metaData.tdAttr = 'data-qtitle="' + title + '" data-qtip="' + html + '"';
-            return (value == 0) ? "<font color=red>未使用</font>" : "<font color=green>已使用</font>";
+            return (value == false) ? "<font color=red>未使用</font>" : "<font color=green>已使用</font>";
         }
     }, {
         text: "房间名称",

@@ -94,7 +94,7 @@ Ext.define("core.wisdomclass.classelegant.controller.OtherController", {
                         //执行上传文件
                         var url = funData.action + "/doUpload";
                         var params = {
-                            recordId: data.obj.uuid
+                            recordId: data.obj.id
                         };
                         uploadpanel.onUpload(url, params);
 
@@ -146,9 +146,9 @@ Ext.define("core.wisdomclass.classelegant.controller.OtherController", {
         	var uploadPanel = cmp.down("panel[xtype=uploadpanel]");       
             //1. 加载文件数据
             self.asyncAjax({
-                url: comm.get('baseUrl') + "/BaseAttachment/getFileList",
+                url: comm.get('baseUrl') + "/PtAttachment/getFileList",
                 params: {
-                    recordId: cmp.insertObj.uuid                   
+                    recordId: cmp.insertObj.id                   
                 },
                 //回调代码必须写在里面
                 success: function (response) {
@@ -165,7 +165,7 @@ Ext.define("core.wisdomclass.classelegant.controller.OtherController", {
             var fileView=cmp.down("dataview[ref=fileView]");
             fileView.getStore().load({
                 params: {
-                    recordId: cmp.insertObj.uuid
+                    recordId: cmp.insertObj.id
                 }
             });
         }	

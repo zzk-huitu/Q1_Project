@@ -257,13 +257,13 @@ Ext.define("core.wisdomclass.roomterm.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/BaseInfoterm/doRoomTermExportExcel?ids='+ids+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtInfoTerminal/doRoomTermExportExcel?ids='+ids+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/BaseInfoterm/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtInfoTerminal/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {
@@ -324,7 +324,7 @@ Ext.define("core.wisdomclass.roomterm.controller.MainController", {
 
         //默认参数
         var filter=new Array();
-        filter.push({"type": "numeric", "value": 1, "field": "isUse", "comparison": "="});
+        filter.push({"type": "boolean", "value": "true", "field": "isUse", "comparison": "="});
 
         //获取点击树节点的参数
         var roomId= record.get("id");

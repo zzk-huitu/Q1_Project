@@ -50,7 +50,7 @@ Ext.define("core.wisdomclass.redflag.controller.Otherontroller", {
              var objForm = detPanel.down("baseform[funCode=" + detCode + "]");
         }
         var formObj = objForm.getForm();    //获取表单对象
-        var pkField = formObj.findField("uuid");    //获取主键表单文本对象
+        var pkField = formObj.findField("id");    //获取主键表单文本对象
         var params = self.getFormValue(formObj);    //获取表单的值
         //var redflagType = formObj.findField("redflagType").getValue();
     	if (cmd == "add") {
@@ -59,7 +59,7 @@ Ext.define("core.wisdomclass.redflag.controller.Otherontroller", {
     		var ids = [];
     		var className = [];
     		isSelectStore.each(function(record) {
-    			ids.push(record.getData().uuid);
+    			ids.push(record.getData().id);
     			className.push(record.getData().className);
     		})
     		if (ids.length == 0) {
@@ -67,7 +67,7 @@ Ext.define("core.wisdomclass.redflag.controller.Otherontroller", {
     			return;
     		}
     		params = Ext.apply(params, {
-    			claiId: ids.join(","),
+    			classId: ids.join(","),
     			className: className.join(",")
     		})
     	}
@@ -81,7 +81,7 @@ Ext.define("core.wisdomclass.redflag.controller.Otherontroller", {
             var loading = self.LoadMask(basetab);
     
             self.asyncAjax({
-                url: comm.get("baseUrl") + "/ClassRedflag/" + act,
+                url: comm.get("baseUrl") + "/PtClassRedFlag/" + act,
                 params: params,                
                 //回调代码必须写在里面
                 success: function (response) {

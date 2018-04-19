@@ -47,7 +47,7 @@ Ext.define("core.wisdomclass.roomterm.view.MainGrid", {
     }],
     //扩展参数
     extParams: {
-        filter: "[{'type':'numeric','comparison':'=','value':1,'field':'isUse'}]"
+        filter: "[{'type':'boolean','comparison':'=','value':'true','field':'isUse'}]"
     },
     columns: {
         defaults:{

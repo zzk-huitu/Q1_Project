@@ -12,9 +12,9 @@ Ext.define("core.wisdomclass.eccset.view.MainLayout", {
         action: comm.get("baseUrl") + "/PtAttenceRule", //请求Action
         pkName: "id",
         defaultObj: {
-            inBefore: 30,
-            beLate: 5,
-            absenteeism: 10
+            inAdvanceTime: 30,
+            beLateTime: 5,
+            absenceTime: 10
         },
         tabConfig:{         
             titleField:'ruleName',  

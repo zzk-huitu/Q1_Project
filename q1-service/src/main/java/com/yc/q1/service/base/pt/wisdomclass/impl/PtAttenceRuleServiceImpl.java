@@ -117,8 +117,8 @@ public class PtAttenceRuleServiceImpl extends BaseServiceImpl<PtAttenceRule> imp
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(PtAttenceRule.ModuleType));
-			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
+		    BeanUtils.copyProperties(saveEntity, entity,excludedProp);
+		    saveEntity.setId(keyRedisService.getId(PtAttenceRule.ModuleType));
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
@@ -136,12 +136,12 @@ public class PtAttenceRuleServiceImpl extends BaseServiceImpl<PtAttenceRule> imp
 	public Boolean doUsingOrno(String ids, String usingStatu,PtUser currentUser) {
 		String conditionName = "id";
 		String[] propertyName = {"startUsing","updateUser","updateTime"};
-		Object[] properyValue = {0,currentUser.getId(),new Date()};
+		Object[] properyValue = {false,currentUser.getId(),new Date()};
 		try {
 			//设置为启用，要将其它的启用的了设置为未启用
 			if ("using".equals(usingStatu)){
-				this.updateByProperties("startUsing",1,propertyName,properyValue);
-				properyValue[0] = 1;
+				this.updateByProperties("startUsing",true,propertyName,properyValue);
+				properyValue[0] = true;
 			}
 			this.updateByProperties(conditionName,ids,propertyName,properyValue);
 			return  true;

@@ -126,8 +126,8 @@ public class PtClassRedFlagServiceImpl extends BaseServiceImpl<PtClassRedFlag> i
 			String [] classNames = entity.getClassName().split(",");	
 			for (int i = 0; i < claiIds.length; i++) {
 				PtClassRedFlag saveEntity = new PtClassRedFlag();
-				entity.setId(keyRedisService.getId(PtClassRedFlag.ModuleType));
-				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
+			    BeanUtils.copyProperties(saveEntity, entity,excludedProp);
+				saveEntity.setId(keyRedisService.getId(PtClassRedFlag.ModuleType));
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 				saveEntity.setClassId(claiIds[i]);
 				saveEntity.setClassName(classNames[i]);
@@ -149,7 +149,7 @@ public class PtClassRedFlagServiceImpl extends BaseServiceImpl<PtClassRedFlag> i
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
-		StringBuffer hql = new StringBuffer("from ClassRedFlag o where 1=1 and isDelete=0 ");
+		StringBuffer hql = new StringBuffer("from PtClassRedFlag o where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(filterSql);
 		String rightDeptIds = "";

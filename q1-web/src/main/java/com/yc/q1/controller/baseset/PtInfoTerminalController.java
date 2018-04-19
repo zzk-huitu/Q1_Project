@@ -241,14 +241,14 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		if (StringUtils.isNotEmpty(roomName)) {
 			hql += " and roomName like '%" + roomName + "%' ";
 		}
-		hql += " order by termCode";
+		hql += " order by terminalNo";
 		terminfoList = thisService.queryByHql(hql);
 
 		List<Map<String, String>> terminfoExpList = new ArrayList<>();
 		Map<String, String> terminfoMap = null;
 		for (PtInfoTerminal terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
-			terminfoMap.put("termCode", terminfo.getTerminalNo());
+			terminfoMap.put("terminalNo", terminfo.getTerminalNo());
 			terminfoMap.put("termType", terminfo.getTerminalType());
 			terminfoMap.put("termSpec", terminfo.getTerminalSpec());
 			terminfoMap.put("isUse", terminfo.getIsUse() == false? "未使用" : "已使用");
@@ -275,11 +275,28 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		}
 
 	}
+	@RequestMapping("/checkExportEnd")
+	public void checkExportEnd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		Object isEnd = request.getSession().getAttribute("exportTerminfoIsEnd");
+		Object state = request.getSession().getAttribute("exportTerminfoIsState");
+		if (isEnd != null) {
+			if ("1".equals(isEnd.toString())) {
+				writeJSON(response, jsonBuilder.returnSuccessJson("\"文件导出完成！\""));
+			} else if (state != null && state.equals("0")) {
+				writeJSON(response, jsonBuilder.returnFailureJson("0"));
+			} else {
+				writeJSON(response, jsonBuilder.returnFailureJson("\"文件导出未完成！\""));
+			}
+		} else {
+			writeJSON(response, jsonBuilder.returnFailureJson("\"文件导出未完成！\""));
+		}
+	}
     @Auth("ROOMTERM_export")
 	@RequestMapping("/doRoomTermExportExcel")
 	public void doRoomTermExportExcel(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		request.getSession().setAttribute("exportTerminfoIsEnd", "0");
-		request.getSession().removeAttribute("exportTerminfoIsState");
+		request.getSession().setAttribute("exportRoomTerminfoIsEnd", "0");
+		request.getSession().removeAttribute("exportRoomTerminfoIsState");
 		String ids = request.getParameter("ids");
 
 		List<Map<String, Object>> allList = new ArrayList<>();
@@ -289,13 +306,12 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		if (StringUtils.isNotEmpty(ids)) {
 			hql += " and id in ('" + ids.replace(",", "','") + "')";
 		}
-		hql += " order by termCode";
 		terminfoList = thisService.queryByHql(hql);
 		List<Map<String, String>> terminfoExpList = new ArrayList<>();
 		Map<String, String> terminfoMap = null;
 		for (PtInfoTerminal terminfo : terminfoList) {
 			terminfoMap = new LinkedHashMap<>();
-			terminfoMap.put("termCode", terminfo.getTerminalNo());
+			terminfoMap.put("terminalNo", terminfo.getTerminalNo());
 			terminfoMap.put("houseNumb", terminfo.getHouseNo());
 			terminfoMap.put("roomName", terminfo.getRoomName());
 			terminfoExpList.add(terminfoMap);
@@ -312,19 +328,21 @@ public class PtInfoTerminalController extends FrameWorkController<PtInfoTerminal
 		// 在导出方法中进行解析
 		boolean result = PoiExportExcel.exportExcel(response, "终端分配信息", "终端分配信息", allList);
 		if (result == true) {
-			request.getSession().setAttribute("exportTerminfoIsEnd", "1");
+			request.getSession().setAttribute("exportRoomTerminfoIsEnd", "1");
 		} else {
-			request.getSession().setAttribute("exportTerminfoIsEnd", "0");
-			request.getSession().setAttribute("exportTerminfoIsState", "0");
+			request.getSession().setAttribute("exportRoomTerminfoIsEnd", "0");
+			request.getSession().setAttribute("exportRoomTerminfoIsState", "0");
 		}
 
 	}
 
-	@RequestMapping("/checkExportEnd")
-	public void checkExportEnd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
 
-		Object isEnd = request.getSession().getAttribute("exportTerminfoIsEnd");
-		Object state = request.getSession().getAttribute("exportTerminfoIsState");
+	@RequestMapping("/checkRoomTermExportEnd")
+	public void checkRoomTermExportEnd(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		Object isEnd = request.getSession().getAttribute("exportRoomTerminfoIsEnd");
+		Object state = request.getSession().getAttribute("exportRoomTerminfoIsState");
 		if (isEnd != null) {
 			if ("1".equals(isEnd.toString())) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"文件导出完成！\""));

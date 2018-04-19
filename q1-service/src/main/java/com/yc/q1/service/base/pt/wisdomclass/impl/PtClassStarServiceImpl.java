@@ -126,8 +126,8 @@ public class PtClassStarServiceImpl extends BaseServiceImpl<PtClassStar> impleme
 			String [] classNames = entity.getClassName().split(",");
 			for (int i = 0; i < claiIds.length; i++) {
 				PtClassStar saveEntity = new PtClassStar();
-				entity.setId(keyRedisService.getId(PtClassStar.ModuleType));
 				BeanUtils.copyProperties(saveEntity, entity,excludedProp);
+				saveEntity.setId(keyRedisService.getId(PtClassStar.ModuleType));
 				saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 				saveEntity.setClassId(claiIds[i]);
 				saveEntity.setClassName(classNames[i]);
@@ -148,7 +148,7 @@ public class PtClassStarServiceImpl extends BaseServiceImpl<PtClassStar> impleme
 		String sortSql = StringUtils.convertSortToSql(sort);
 		String filterSql = StringUtils.convertFilterToSql(filter);
 
-		StringBuffer hql = new StringBuffer("from ClassStar o where 1=1 and isDelete=0 ");
+		StringBuffer hql = new StringBuffer("from PtClassStar o where 1=1 and isDelete=0 ");
 		hql.append(whereSql);
 		hql.append(filterSql);
 		String rightDeptIds = "";
