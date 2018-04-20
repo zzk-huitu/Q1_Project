@@ -22,7 +22,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
         },
         items:[{
             fieldLabel: "主键",
-            name: "uuid",
+            name: "id",
             xtype: "textfield",
             hidden: true
         }, {
@@ -141,8 +141,8 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
                 removeBtnText : '移除所有',  
                 cancelBtnText : '取消上传',  
                 file_size_limit : 10,//MB  
-                upload_url : comm.get('baseUrl') + "/OaNotice/doUpload",  
-                delete_url : comm.get('baseUrl') + "/OaNotice/doDeleteFile", 
+                upload_url : comm.get('baseUrl') + "/PtNotice/doUpload",  
+                delete_url : comm.get('baseUrl') + "/PtNotice/doDeleteFile", 
                 style: {
                     border:'1px solid #ccc'
                 },
@@ -205,7 +205,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             xtype: "basetreefield",
             ddCode: "DEPTTREE",
             formPanel: 'wisdomclass.notice.detailform',
-            model: "com.zd.school.plartform.comm.model.CommTreeChk",
+            model: "com.yc.q1.pojo.base.pt.CommTree",
             rootId: "ROOT",
             configInfo: {
                 multiSelect: true,
@@ -213,7 +213,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
                 fieldInfo: "deptNames~deptIds,text~id",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url: comm.get('baseUrl') + "/SysOrg/chkTreeList",
+                url: comm.get('baseUrl') + "/PtDepartment/chkTreeList",
             }
 
         },{
@@ -221,15 +221,15 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             layout: "column",
             items:[{
                 xtype: 'radiogroup',
-                ref:'stuRadio',
+                ref:'studentRadio',
                 fieldLabel: '通知学生',
                 width:400,
                 columns: 3,
                 vertical: true,
                 items: [
-                    { boxLabel: '所有学生', name: 'stuRadio', inputValue: 1 , width:100},
-                    { boxLabel: '指定学生', name: 'stuRadio', inputValue: 2, width:100},
-                    { boxLabel: '不通知', name: 'stuRadio', inputValue: 3,width:100, checked: true  },
+                    { boxLabel: '所有学生', name: 'studentRadio', inputValue: 1 , width:100},
+                    { boxLabel: '指定学生', name: 'studentRadio', inputValue: 2, width:100},
+                    { boxLabel: '不通知', name: 'studentRadio', inputValue: 3,width:100, checked: true  },
                 ],
                 listeners:{
                     change:function( filed, newValue, oldValue, eOpts ){
@@ -237,7 +237,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
                         var formBase=form.getForm();
                         var stuField = formBase.findField("stuNames");
                         
-                        if(newValue.stuRadio==2){                                    
+                        if(newValue.studentRadio==2){                                    
                             stuField.show();                                   
                         }else {
                             stuField.hide();                                              
@@ -273,7 +273,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             funcTitle: "学生选择",     //查询窗口的标题
             funcGrid:'pubselect.isselectusergrid',  //指定从哪个表获取数据（与muiltSelect=true 共同使用）
             configInfo: {
-                fieldInfo: "stuIds~stuNames,uuid~xm",
+                fieldInfo: "stuIds~stuNames,id~name",
                 //whereSql: " and isDelete='0' ",   //根据后台代码，来写 filter参数或whereSql参数
                 //orderSql: " order by createTime Desc ",   //根据后台代码，来写 sort参数或orderSql参数
                 filter:'[{"type":"string","value":"2","field":"category","comparison":""}]',
@@ -320,7 +320,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             ddCode: "TERMINALTREE",
             //funcPanel:'notice.mainlayout',
             formPanel: 'wisdomclass.notice.detailform', //指定当前表单，方便去获取此文本域值
-            model: "com.zd.school.plartform.comm.model.CommTreeChk",    
+            model: "com.yc.q1.pojo.base.pt.CommTree",    
             rootId: "ROOT",
             configInfo: {
                 multiSelect: true,      //多选，true则会显示复选框    
@@ -328,7 +328,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
                 fieldInfo: "termNames~termIds,text~treeid",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
-                url: comm.get('baseUrl') + "/OaNotice/getTerminalTtreeList",
+                url: comm.get('baseUrl') + "/PtNotice/getTerminalTreeList",
             }
         },{
             fieldLabel: "通知角色",
@@ -347,7 +347,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             funcTitle: "角色选择", //查询窗口的标题
             funcGrid:'pbselectRole.isselectrolegrid',
             configInfo: {
-                fieldInfo: "roleIds~roleNames,uuid~roleName",
+                fieldInfo: "roleIds~roleNames,id~roleName",
                 whereSql: " and 1=1 and isDelete='0' ",
                 width: 1000,
                 height: 600,
@@ -369,7 +369,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             funcTitle: "教职工选择",     //查询窗口的标题
             funcGrid:'pubselect.isselectusergrid',  //指定从哪个表获取数据（与muiltSelect=true 共同使用）
             configInfo: {
-                fieldInfo: "userIds~userNames,uuid~xm",
+                fieldInfo: "userIds~userNames,id~name",
                 //whereSql: " and isDelete='0' ",   //根据后台代码，来写 filter参数或whereSql参数
                 //orderSql: " order by createTime Desc ",   //根据后台代码，来写 sort参数或orderSql参数
                 muiltSelect: true, //是否多选

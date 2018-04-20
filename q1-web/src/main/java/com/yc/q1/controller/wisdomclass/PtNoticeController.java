@@ -49,6 +49,7 @@ import com.yc.q1.service.base.pt.system.PtDataDictItemService;
 import com.yc.q1.service.base.pt.system.PtUserService;
 import com.yc.q1.service.base.pt.wisdomclass.PtClassTeacherService;
 import com.yc.q1.service.base.pt.wisdomclass.PtNoticeService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 
@@ -89,6 +90,8 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 	
 	@Resource
 	private PtClassTeacherService cTeacherService;
+	@Resource
+    private PrimaryKeyRedisService keyRedisService;
 	
 	@Value("${realFileUrl}")  
     private String realFileUrl; //文件目录物理路径
@@ -323,7 +326,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 					//String url = "/static/upload/OaNotice/" + sdf.format(System.currentTimeMillis()) + "/";
-					String url = "Notice/" + sdf.format(System.currentTimeMillis()) + "/";
+					String url = "PtNotice/" + sdf.format(System.currentTimeMillis()) + "/";
 					//String rootPath = request.getSession().getServletContext().getRealPath("/");
 					//rootPath = rootPath.replace("\\", "/");				
 					
@@ -340,7 +343,8 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 
 					// 插入数据
 					PtAttachment bt = new PtAttachment();
-					bt.setEntityName("Notice");
+					bt.setId(keyRedisService.getId(PtAttachment.ModuleType));
+					bt.setEntityName("PtNotice");
 					bt.setRecordId(recordId);
 					bt.setFileUrl(url + myFileName);
 					bt.setFileName(myFileName);
@@ -364,7 +368,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 
 			String doIds = "'" + fileIds.replace(",", "','") + "'";
 
-			String hql = "DELETE FROM Attachment b  WHERE b.id IN (" + doIds + ")";
+			String hql = "DELETE FROM PtAttachment b  WHERE b.id IN (" + doIds + ")";
 
 			int flag = baseTAttachmentService.doExecuteCountByHql(hql);
 
@@ -380,8 +384,8 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 	
 	
 
-	@RequestMapping("/getTerminalTtreeList")
-	public void getTerminalTtreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	@RequestMapping("/getTerminalTreeList")
+	public void getTerminalTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
 		String orderSql = request.getParameter("orderSql");
@@ -391,7 +395,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 		
 	
 		//1.创建根目录（深大附中）
-		String hql1="from RoomArea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
+		String hql1="from PtRoomArea t where t.isDelete=0 and t.parentNode='ROOT' and t.nodeLevel=1";
 		List<PtRoomArea> rootAreas=buildRoomareaService.queryEntityByHql(hql1);
 		for(int i=0;i<rootAreas.size();i++){
 			Map<String,Object> rootAreaMap=new LinkedHashMap<>();
@@ -405,7 +409,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 			rootAreaMap.put("children",rootChildren);
 			
 			//2.创建第二层（初中、高中校区）
-			String hql2="from RoomArea t where t.isDelete=0 and t.parentNode=?";
+			String hql2="from PtRoomArea t where t.isDelete=0 and t.parentNode=?";
 			List<PtRoomArea> rootAreasSecond=buildRoomareaService.queryEntityByHql(hql2,rootAreas.get(i).getId());
 			for(int j=0;j<rootAreasSecond.size();j++){
 				
@@ -420,7 +424,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 				tempMap.put("children",tempMapChildren);
 				
 				//查询初中或高中的所有子区域id		
-				String roomareaHql="from RoomArea where isDelete=0 order by orderIndex asc ";
+				String roomareaHql="from PtRoomArea where isDelete=0 order by orderIndex asc ";
 				List<PtRoomArea> roomareaList = buildRoomareaService.queryByHql(roomareaHql);	// 执行查询方法
 				StringBuffer childAreasSB = searchChildArea(rootAreasSecond.get(j).getId(),roomareaList,new StringBuffer());
 				String childAreasStr="";
@@ -429,7 +433,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 				}
 				
 				//3.创建第三层（功能室、办公室、教室、宿舍）
-				String fjlxHql="select a from DataDictItem a,DataDict b where "
+				String fjlxHql="select a from PtDataDictItem a,PtDataDict b where "
 						+ " a.dictId=b.id and b.dicCode=? and a.isDelete=0 and b.isDelete=0 "
 						+ " and a.itemName in ('功能室','办公室','教室','宿舍') "
 						+ " order by a.itemCode asc";
@@ -447,7 +451,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 					
 					//4.创建第四层（房间号）
 					if(StringUtils.isNotEmpty(childAreasStr)){
-						String fjHql="from RoomInfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
+						String fjHql="from PtRoomInfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
 						List<PtRoomInfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
 						for(PtRoomInfo roomInfo:roomInfoList){
 							Map<String,Object> roomInfoMap=new HashMap<>();	//房间类型室
@@ -507,7 +511,7 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 		
 		if (!isSchoolAdminRole) {
 				// 判断是否是班主任
-			String hql = "from ClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
+			String hql = "from PtClassTeacher where isDelete=0 and teacherId='" + currentUser.getId() + "'";
 			List<PtClassTeacher> classteachers = cTeacherService.queryByHql(hql);
 			if (classteachers != null && classteachers.size() > 0) {
 				PtClassTeacher cTeacher = classteachers.get(0);

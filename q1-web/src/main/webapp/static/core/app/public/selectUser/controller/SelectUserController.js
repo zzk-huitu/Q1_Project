@@ -14,14 +14,14 @@ Ext.define("core.public.selectUser.controller.SelectUserController", {
 
             //快速搜索按按钮
             "basepanel basegrid button[ref=gridFastSearchBtn]": {
-                beforeclick: function (btn) {
+                click: function (btn) {
                     this.queryFastSearchForm(btn);
                     return false;
                 }
             },
             //快速搜索文本框回车事件
             "basepanel basegrid field[funCode=girdFastSearchText]": {
-                specialkey: function (field, e) {
+                specialkey: function (field, e) {                    
                     if (e.getKey() == e.ENTER) {
                         this.queryFastSearchForm(field);   
                         return false;             

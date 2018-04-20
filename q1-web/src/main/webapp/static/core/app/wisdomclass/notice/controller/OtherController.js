@@ -27,7 +27,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             afterrender: function(win) {            
                 //回显已经选择的数据
                 var grid=win.down("grid[xtype=pubselect.isselectusergrid]");
-                this.loadSelectedInfo(win,grid,"userIds","userNames","id","xm");
+                this.loadSelectedInfo(win,grid,"userIds","userNames","id","name");
                 return false;
             }
         },
@@ -35,7 +35,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             afterrender: function(win) {            
                 //回显已经选择的数据
                 var grid=win.down("grid[xtype=pubselect.isselectusergrid]");
-                this.loadSelectedInfo(win,grid,"stuIds","stuNames","id","xm");
+                this.loadSelectedInfo(win,grid,"stuIds","stuNames","id","name");
                 return false;
             }
         },
@@ -59,6 +59,24 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
                 return false;
             }
         },
+         //快速搜索按按钮
+         
+        "mtfuncwindow[funcPanel=pubselect.selectuserlayout] button[ref=gridFastSearchBtn]": {
+            beforeclick: function (btn) {
+                this.queryFastSearchForm(btn);
+                return false;
+            }
+        },
+            //快速搜索文本框回车事件
+       "mtfuncwindow[funcPanel=pubselect.selectuserlayout]  field[funCode=girdFastSearchText]": {
+            beforeSpecialkey: function (field, e) {
+                if (e.getKey() == e.ENTER) {                    
+                    this.queryFastSearchForm(field);   
+                    return false;             
+                }
+            }
+        },
+
     },
 
     doSave_Tab:function(btn,cmd){
@@ -78,7 +96,6 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
         //获取当前按钮对应的表单
         var detPanel = basetab.down("basepanel[funCode=" + detCode + "]");
         var objForm = detPanel.down("baseform[funCode=" + detCode + "]");
-
 
         //获取表单的实际数据
         var formObj = objForm.getForm();
@@ -102,14 +119,14 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
 
             //把checkbox的值转换为数字 ；    暂时测试时设置，
             params.deptRadio=objForm.down("radiogroup[ref=deptRadio]").getChecked()[0].inputValue;
-            params.stuRadio=objForm.down("radiogroup[ref=stuRadio]").getChecked()[0].inputValue;
+            params.studentRadio=objForm.down("radiogroup[ref=studentRadio]").getChecked()[0].inputValue;
             params.terminalRadio=objForm.down("radiogroup[ref=terminalRadio]").getChecked()[0].inputValue;
 
             //当为指定具体数据的时候，才传入数据
             if(params.deptRadio!=2)
                 params.deptIds=null;
             
-            if(params.stuRadio!=2)
+            if(params.studentRadio!=2)
                 params.stuIds=null;
                
             if(params.terminalRadio!=2){
@@ -126,7 +143,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
 
             if (Ext.isEmpty(params.deptIds) && Ext.isEmpty(params.roleIds) 
                 && Ext.isEmpty(params.userIds) && Ext.isEmpty(params.stuIds)
-                &&params.deptRadio!=1&&params.stuRadio!=1) {
+                &&params.deptRadio!=1&&params.studentRadio!=1) {
                 self.Warning("通知部门、角色、教职工、学生至少要设置一项数据");
                 return false;
             }
@@ -265,5 +282,33 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
 
             }
         });
-    } 
+    },
+     queryFastSearchForm:function(component){
+        //得到组件                 
+        var baseGrid = component.up("basegrid");
+        if (!baseGrid)
+            return false;
+
+        var toolBar = component.up("toolbar");
+        if (!toolBar)
+            return false;
+
+        //只取两个值
+        var girdSearchTexts = toolBar.query("field[funCode=girdFastSearchText]");
+        var filter = new Array();
+        filter.push("{'type': 'string', 'comparison': '', 'value':'2', 'field': 'category'}");
+         if (girdSearchTexts[0].getValue() != "")
+        filter.push("{'type': 'string', 'comparison': '', 'value':'" + girdSearchTexts[0].getValue() + "', 'field': 'name'}");
+        if (girdSearchTexts[1].getValue() != "")
+            filter.push("{'type': 'string', 'comparison': '=', 'value':'" + girdSearchTexts[1].getValue() + "', 'field': 'deptId'}");
+        filter = "[" + filter.join(",") + "]";
+
+        var store = baseGrid.getStore();
+        var proxy = store.getProxy();
+        proxy.extraParams = {
+            filter: filter
+        };
+       // proxy.extraParams.filter = JSON.stringify(filter);
+        store.loadPage(1);
+    },
 });
