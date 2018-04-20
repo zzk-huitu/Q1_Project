@@ -244,6 +244,7 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                 }
 
                 if(cmd=="edit"){
+            
                     formDeptObj.findField("isNoticeParent").setDisabled(true);
 
                     var uploadpanel = objDetForm.down("panel[xtype=uploadpanel]");
@@ -325,11 +326,11 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                                 if(insertObj.deptRadio==1)
                                     insertObj.deptNames="所有部门";
                                 
-                                if(insertObj.stuRadio==1)
-                                    insertObj.deptNames="所有学生";
+                                if(insertObj.studentRadio==1)
+                                    insertObj.stuNames="所有学生";
                                    
                                 if(insertObj.terminalRadio==1)
-                                    insertObj.stuNames="所有终端";
+                                    insertObj.termNames="所有终端";
                                 
 
                                 //加载表单数据
@@ -348,7 +349,7 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                         params: {
                             recordId: insertObj.id,
                             attachIsMain: '0',
-                            entityName:'OaNotice'
+                            entityName:'PtNotice'
                         }
                     });
                 }
@@ -384,13 +385,13 @@ Ext.define("core.wisdomclass.notice.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/SysJob/doExportExcel?jobName='+value+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtJob/doExportExcel?jobName='+value+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/SysJob/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtJob/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {

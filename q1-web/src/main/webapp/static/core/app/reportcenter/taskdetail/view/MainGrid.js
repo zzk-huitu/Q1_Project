@@ -33,7 +33,7 @@ Ext.define("core.reportcenter.taskdetail.view.MainGrid", {
             emptyText: '请输入任务类型'
         }, {
             xtype:'textfield',
-            name:'termsn',
+            name:'termSn',
             funCode: 'girdFastSearchText',
             emptyText: '请输入设备序列号'
         }, {
@@ -52,7 +52,7 @@ Ext.define("core.reportcenter.taskdetail.view.MainGrid", {
         property: 'updateTime',
         direction: 'DESC'
     },{
-        property: 'executetime',
+        property: 'executeTime',
         direction: 'ASC'
     }],
     extParams: {},

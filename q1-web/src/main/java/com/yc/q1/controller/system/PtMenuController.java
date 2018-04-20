@@ -55,7 +55,8 @@ public class PtMenuController extends FrameWorkController<PtMenu> implements Con
         String strData = "";
         String whereSql = request.getParameter("whereSql");
         String orderSql = request.getParameter("orderSql");
-
+        String excludes = request.getParameter("excludes");
+        
         PtUser currentUser = getCurrentSysUser();
         List<MenuTree> lists = new ArrayList<MenuTree>();
         if (currentUser.getUserName().equals(AdminType.ADMIN_USER_NAME)||getIsAdmin()==1)
@@ -65,7 +66,7 @@ public class PtMenuController extends FrameWorkController<PtMenu> implements Con
             lists = thisService.getTreeList(whereSql, orderSql);
         }
 
-        strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据        
+        strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据        
         writeJSON(response, strData);// 返回数据
     }
 

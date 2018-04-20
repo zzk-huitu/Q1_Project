@@ -154,7 +154,7 @@ public class PtTermBagController extends FrameWorkController<PtTermBag> implemen
 			throws IOException {
 		PtDormDefine dormDefine = null;
 		String querySql = super.querySql(request);
-		String hql = "from StudentDorm where isDelete=0 ";
+		String hql = "from PtStudentDorm where isDelete=0 ";
 		hql += querySql;
 		List<PtStudentDorm> studentDorms = studentdormService.queryByHql(hql);
 		if (studentDorms.size() != 0) {

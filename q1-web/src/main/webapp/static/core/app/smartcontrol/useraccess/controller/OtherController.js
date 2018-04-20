@@ -22,7 +22,7 @@ Ext.define("core.smartcontrol.useraccess.controller.OtherController", {
 			}
 		},
 	   "baseformwin basepanel basegrid[xtype=pubselect.selectusergrid] field[funCode=girdFastSearchText]": {
-            specialkey: function (field, e) {
+            beforeSpecialkey: function (field, e) {
                 var self = this;
                 if (e.getKey() == e.ENTER) {
                     self.doFastSearch(field);

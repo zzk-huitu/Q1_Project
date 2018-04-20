@@ -92,7 +92,7 @@ Ext.override(Ext.button.Button,{
             }
             if (me.menu && !me.hasVisibleMenu() && !me.ignoreNextClick) {
                 me.showMenu();
-            }
+            }            
             var flag = me.fireEvent('beforeclick', me, e);//单击前
             if(flag != false){
                 me.onBlur();
@@ -115,6 +115,27 @@ Ext.override(Ext.button.Button,{
         }
     }
 });
+
+/**
+ * 增加键盘按下之前、之后的事件
+ */
+ 
+Ext.override(Ext.form.field.Base,{
+    /**
+     * @private
+     */
+    fireKey: function(e, eOpts){
+        if(e.isSpecialKey()){
+            var flag = this.fireEvent('beforeSpecialkey', this, e,eOpts);  //按下前
+
+            if(flag!=false)
+                this.fireEvent('specialkey', this, e, eOpts);
+
+            this.fireEvent('specialkeyed', this, e,eOpts);//按下后
+        }
+    },
+});
+
 
 /**附件字段的改造*/
 // Ext.override(Ext.form.field.File,{
@@ -405,4 +426,3 @@ Ext.override(Ext.menu.Menu,{
     mouseLeaveDelay:0,
 });
 
-    

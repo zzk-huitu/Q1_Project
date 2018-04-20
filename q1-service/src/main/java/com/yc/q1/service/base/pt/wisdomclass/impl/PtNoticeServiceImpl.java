@@ -180,6 +180,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 						setOrgs = orgService.queryByProerties("id", propValue);
 					}
 
+					orgs.clear();	//如果不加入clear方法， 那么集合中的数据是一次次的追加，而不是以前端当时修改的数据为准
 					orgs.addAll(setOrgs);
 					saveEntity.setNoticeDepts(orgs);
 				}
@@ -192,6 +193,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				propValue = roleIds.split(",");
 				Set<PtRole> roles = saveEntity.getNoticeRoles();
 				List<PtRole> setRoles = roleService.queryByProerties("id", propValue);
+				roles.clear();
 				roles.addAll(setRoles);
 				saveEntity.setNoticeRoles(roles);
 			}
@@ -200,6 +202,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				propValue = userIds.split(",");
 				Set<PtUser> users = saveEntity.getNoticeUsers();
 				List<PtUser> setUsers = userService.queryByProerties("id", propValue);
+				users.clear();
 				users.addAll(setUsers);
 				saveEntity.setNoticeUsers(users);
 			}
@@ -213,7 +216,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 					List<Object> roomInfo = null;
 
 					if (terminalIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
-						String roomInfoHql = "select id from RoomInfo where isDelete=0";
+						String roomInfoHql = "select id from PtRoomInfo where isDelete=0";
 						roomInfo = this.queryEntityByHql(roomInfoHql);
 
 					} else {
@@ -233,7 +236,8 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 						List<Object> proplist = roomInfo.subList(i, i + increment);
 						oaInfotermsSet.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));
 					}
-
+					
+					oaInfoTrems.clear();
 					oaInfoTrems.addAll(oaInfotermsSet);
 					saveEntity.setNoticeTerms(oaInfoTrems);
 
@@ -248,7 +252,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 					Set<PtUser> stus = saveEntity.getNoticeStus();
 					List<PtUser> setStus = new ArrayList<>();
 					if (stuIds.trim().equals(AdminType.ADMIN_ORG_ID)) {
-						String hql1 = " from User where isDelete=0 and category=2 ";
+						String hql1 = " from PtUser where isDelete=0 and category=2 ";
 						setStus = userService.queryByHql(hql1);
 					} else {
 						propValue = stuIds.split(",");
@@ -266,6 +270,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 							setStus.addAll(userService.queryByProerties("id", proplist.toArray()));
 						}
 					}
+					stus.clear();
 					stus.addAll(setStus);
 					saveEntity.setNoticeStus(stus);
 				}
@@ -308,8 +313,8 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 		try {
 			List<String> excludedProp = new ArrayList<>();
 			excludedProp.add("id");
-			entity.setId(keyRedisService.getId(PtNotice.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity, excludedProp);
+			saveEntity.setId(keyRedisService.getId(PtNotice.ModuleType));
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名
 			entity = this.merge(saveEntity);// 执行修改方法
 
@@ -494,11 +499,11 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 					for (int i = 0; i < propLen; i += increment) {
 						if (propLen <= i + increment) {
 							List<String> proplist = propValueList.subList(i, propLen);
-							setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));
+							setStus.addAll(userService.queryByProerties("id", proplist.toArray()));
 							break;
 						}
 						List<String> proplist = propValueList.subList(i, i + increment);
-						setStus.addAll(userService.queryByProerties("uuid", proplist.toArray()));
+						setStus.addAll(userService.queryByProerties("id", proplist.toArray()));
 					}
 				}
 				stus.addAll(setStus);
@@ -773,7 +778,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				String justDateStr = DateUtil.formatDate(new Date());
 				StringBuffer hql = new StringBuffer(" from PtNotice o ");
 				hql.append(" inner join  fetch o.noticeTerms g ");
-				hql.append(MessageFormat.format(" where o.isDelete=0 and g.uuid=''{0}''", termId));
+				hql.append(MessageFormat.format(" where o.isDelete=0 and g.id=''{0}''", termId));
 				hql.append(MessageFormat.format(" and o.beginDate<=''{0}'' and o.endDate>=''{1}'' ", justDateStr,
 						justDateStr));
 				hql.append("order by o.createTime desc");

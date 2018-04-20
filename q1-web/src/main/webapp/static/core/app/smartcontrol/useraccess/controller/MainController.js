@@ -168,7 +168,6 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
               insertObj: insertObj,        
               items: [{
                 xtype: "pubselect.selectuserlayout",
-                controller: otherController,
                 items: [{
                     xtype:'pubselect.selectusergrid',
                     //width:600,

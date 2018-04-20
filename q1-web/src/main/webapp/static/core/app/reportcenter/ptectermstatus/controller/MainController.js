@@ -96,14 +96,14 @@ Ext.define("core.reportcenter.ptectermstatus.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/PtEcTermStatus/doExportExcel?'+
+                    html: '<iframe src="' + comm.get('baseUrl') + '/DkTermStatus/doExportExcel?'+
                         'roomId='+roomId+'&roomLeaf='+roomLeaf+
                         '&statusDateStart='+statusDateStart+'&statusDateEnd='+statusDateEnd+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/PtEcTermStatus/checkExportEnd',
+                        url: comm.get('baseUrl') + '/DkTermStatus/checkExportEnd',
                         timeout: 1000 * 60 * 30,      
                         success: function (response) {
                             data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
