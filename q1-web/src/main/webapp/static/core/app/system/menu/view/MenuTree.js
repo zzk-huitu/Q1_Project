@@ -6,10 +6,12 @@ Ext.define("core.system.menu.view.MenuTree", {
 	al: true,
 	//menuCode:"MENUMANAGE",
 	//expandFirst:true,
+
 	extParams: {
-		whereSql: " and isDelete='0' ",
-		orderSql: " order by parentNode,isHidden,orderIndex asc"
-	},
+        whereSql: " and isDelete='0' ",
+        orderSql: " order by parentNode,isHidden,orderIndex asc",
+        excludes:"checked"
+    },
 	tbar: [{
 		xtype: 'button',
 		text: '添加下级',

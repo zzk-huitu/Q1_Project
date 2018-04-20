@@ -61,14 +61,14 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
         },
          //快速搜索按按钮
          
-        "mtfuncwindow[funcPanel=pubselect.selectuserlayout] button[ref=gridFastSearchBtn]": {
+        "mtfuncwindow[title=学生选择] button[ref=gridFastSearchBtn]": {
             beforeclick: function (btn) {
                 this.queryFastSearchForm(btn);
                 return false;
             }
         },
             //快速搜索文本框回车事件
-       "mtfuncwindow[funcPanel=pubselect.selectuserlayout]  field[funCode=girdFastSearchText]": {
+       "mtfuncwindow[title=学生选择]  field[funCode=girdFastSearchText]": {
             beforeSpecialkey: function (field, e) {
                 if (e.getKey() == e.ENTER) {                    
                     this.queryFastSearchForm(field);   

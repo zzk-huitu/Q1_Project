@@ -180,6 +180,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 						setOrgs = orgService.queryByProerties("id", propValue);
 					}
 
+					orgs.clear();	//如果不加入clear方法， 那么集合中的数据是一次次的追加，而不是以前端当时修改的数据为准
 					orgs.addAll(setOrgs);
 					saveEntity.setNoticeDepts(orgs);
 				}
@@ -192,6 +193,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				propValue = roleIds.split(",");
 				Set<PtRole> roles = saveEntity.getNoticeRoles();
 				List<PtRole> setRoles = roleService.queryByProerties("id", propValue);
+				roles.clear();
 				roles.addAll(setRoles);
 				saveEntity.setNoticeRoles(roles);
 			}
@@ -200,6 +202,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 				propValue = userIds.split(",");
 				Set<PtUser> users = saveEntity.getNoticeUsers();
 				List<PtUser> setUsers = userService.queryByProerties("id", propValue);
+				users.clear();
 				users.addAll(setUsers);
 				saveEntity.setNoticeUsers(users);
 			}
@@ -233,7 +236,8 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 						List<Object> proplist = roomInfo.subList(i, i + increment);
 						oaInfotermsSet.addAll(oaInfotermService.queryByProerties("roomId", proplist.toArray()));
 					}
-
+					
+					oaInfoTrems.clear();
 					oaInfoTrems.addAll(oaInfotermsSet);
 					saveEntity.setNoticeTerms(oaInfoTrems);
 
@@ -266,6 +270,7 @@ public class PtNoticeServiceImpl extends BaseServiceImpl<PtNotice> implements Pt
 							setStus.addAll(userService.queryByProerties("id", proplist.toArray()));
 						}
 					}
+					stus.clear();
 					stus.addAll(setStus);
 					saveEntity.setNoticeStus(stus);
 				}
