@@ -142,8 +142,8 @@ public class DkTermStatusController extends FrameWorkController<DkTermStatus> im
 		}
 		
 		
-		// hql语句
-		StringBuffer sql = new StringBuffer("EXEC P_EC_TermStatusTotal ");
+		// hql语句  P_DK_GetTermStatusTotal
+		StringBuffer sql = new StringBuffer("EXEC P_DK_GetTermStatusTotal ");
 		sql.append("'" + querySql.replace("'", "''") + "',");
 		sql.append("'" + pageIndex + "',");
 		sql.append("'" + limit + "'");
@@ -293,7 +293,7 @@ public class DkTermStatusController extends FrameWorkController<DkTermStatus> im
 		if (StringUtils.isNotEmpty(statusDateEnd)) {
 			sql1+=" and b.statusDate<='"+statusDateEnd+"'";
 		}
-		StringBuffer sql = new StringBuffer("EXEC P_EC_TermStatusTotal ");
+		StringBuffer sql = new StringBuffer("EXEC P_DK_GetTermStatusTotal ");
 		sql.append("'" + sql1.replace("'", "''") + "',");
 		sql.append("'" + 1 + "',");
 		sql.append("'" + 20 + "'");
@@ -367,12 +367,12 @@ public class DkTermStatusController extends FrameWorkController<DkTermStatus> im
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ areaId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

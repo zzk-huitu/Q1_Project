@@ -135,7 +135,7 @@ Ext.define("core.reportcenter.ptroombagstatus.controller.MainController", {
         var loadding=self.LoadMask(mainLayout);
        
         self.syncAjax({
-            url: comm.get('baseUrl') + "/PtBag/getUserRoomId",
+            url: comm.get('baseUrl') + "/PtTermBag/getUserRoomId",
             params: {
                 querySql: querySql
             },

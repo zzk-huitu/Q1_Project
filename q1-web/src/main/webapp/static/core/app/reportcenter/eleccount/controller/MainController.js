@@ -96,7 +96,7 @@ Ext.define("core.reportcenter.eleccount.controller.MainController", {
                 width: 0,
                 height: 0,
                 hidden: true,
-                html: '<iframe src="' + comm.get('baseUrl') + '/PtEcTermStatus/doEcCountExportExcel?'+
+                html: '<iframe src="' + comm.get('baseUrl') + '/DkTermStatus/doEcCountExportExcel?'+
                     'roomId='+roomId+'&roomLeaf='+roomLeaf+
                     '&statusDateStart='+statusDateStart+'&statusDateEnd='+statusDateEnd+'"></iframe>',
                 renderTo: Ext.getBody()
@@ -104,7 +104,7 @@ Ext.define("core.reportcenter.eleccount.controller.MainController", {
 
             var time = function () {
                 self.syncAjax({
-                    url: comm.get('baseUrl') + '/PtEcTermStatus/checkEcCountExportEnd',
+                    url: comm.get('baseUrl') + '/DkTermStatus/checkEcCountExportEnd',
                     timeout: 1000 * 60 * 30,      
                     success: function (response) {
                         data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

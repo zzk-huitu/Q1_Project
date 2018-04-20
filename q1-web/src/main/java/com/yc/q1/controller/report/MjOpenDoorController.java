@@ -210,12 +210,12 @@ public class MjOpenDoorController extends FrameWorkController<MjOpenDoor> implem
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ roomId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

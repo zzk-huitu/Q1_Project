@@ -105,7 +105,7 @@ Ext.define("core.reportcenter.ptmjopendoor.controller.MainController", {
                 width: 0,
                 height: 0,
                 hidden: true,
-                html: '<iframe src="' + comm.get('baseUrl') + '/PtMjOpenDoor/doExportExcel?'+
+                html: '<iframe src="' + comm.get('baseUrl') + '/MjOpenDoor/doExportExcel?'+
                     'roomId='+roomId+'&roomLeaf='+roomLeaf+
                     '&openDateStart='+openDateStart+'&openDateEnd='+openDateEnd+'"></iframe>',
                 renderTo: Ext.getBody()
@@ -113,7 +113,7 @@ Ext.define("core.reportcenter.ptmjopendoor.controller.MainController", {
 
             var time = function () {
                 self.syncAjax({
-                    url: comm.get('baseUrl') + '/PtMjOpenDoor/checkExportEnd',
+                    url: comm.get('baseUrl') + '/MjOpenDoor/checkExportEnd',
                     timeout: 1000 * 60 * 30,      
                     success: function (response) {
                         data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

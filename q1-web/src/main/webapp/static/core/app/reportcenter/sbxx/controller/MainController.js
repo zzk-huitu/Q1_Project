@@ -43,12 +43,12 @@ Ext.define("core.reportcenter.sbxx.controller.MainController", {
                 width: 0,
                 height: 0,
                 hidden: true,
-                html: '<iframe src="' + comm.get('baseUrl') + '/BasePtTerm/doSbxxExportExcel?termName='+termName+'&roomName='+roomName+'"></iframe>',
+                html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doSbxxExportExcel?termName='+termName+'&roomName='+roomName+'"></iframe>',
                 renderTo: Ext.getBody()
             });
             var time = function () {
                 self.syncAjax({
-                    url: comm.get('baseUrl') + '/BasePtTerm/checkSbxxExportEnd',
+                    url: comm.get('baseUrl') + '/PtTerm/checkSbxxExportEnd',
                     timeout: 1000 * 60 * 30,      
                     success: function (response) {
                         data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));

@@ -281,7 +281,7 @@ public class SkTermStatusController extends FrameWorkController<SkTermStatus> im
 				+ " c.termName,D.roomName,a.termSn,f.nodeText,	e.gatewayName,c.termNo,c.termTypeId	"
 				+ " from T_SK_TermStatus a" + " JOIN T_PT_Term C ON c.termSn=a.termSn	"
 				+ " JOIN T_PT_RoomInfo D ON a.roomId=D.roomId	"
-				+ " LEFT JOIN T_PT_RoomAreaF ON d.areaId=f.areaId	"
+				+ " LEFT JOIN T_PT_RoomArea F ON d.areaId=f.areaId	"
 				+ " LEFT JOIN T_PT_Gateway E ON c.gatewayId=e.gatewayId  " + "where 1=1 and D.roomType!='0' ";
 		
 		String groupSql = " GROUP BY c.termName,D.roomName,a.termSn,f.nodeText, e.gatewayName,c.termNo,c.termTypeId ";
@@ -386,12 +386,12 @@ public class SkTermStatusController extends FrameWorkController<SkTermStatus> im
 		List<String> result = new ArrayList<>();
 
 		// 当选择的区域不为房间时
-		String hql = "select a.id from RoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
+		String hql = "select a.id from PtRoomArea a where a.isDelete=0  and a.areaType='04' and a.treeIds like '%"
 				+ roomId + "%'";
 		List<String> lists = thisService.queryEntityByHql(hql);
 		if (lists.size() > 0) {
 			String areaIds = lists.stream().collect(Collectors.joining("','", "'", "'"));
-			hql = "select a.id from RoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
+			hql = "select a.id from PtRoomInfo a where a.isDelete=0  and a.roomType!='0' and a.areaId in (" + areaIds + ")";
 			result = thisService.queryEntityByHql(hql);
 		}
 

@@ -99,7 +99,7 @@ Ext.define("core.reportcenter.ptsktermstatus.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/PtSkTermStatus/doExportExcel?'+
+                    html: '<iframe src="' + comm.get('baseUrl') + '/SkTermStatus/doExportExcel?'+
                         'roomId='+roomId+'&roomLeaf='+roomLeaf+
                         '&statusDateStart='+statusDateStart+'&statusDateEnd='+statusDateEnd+'"></iframe>',
                     renderTo: Ext.getBody()
@@ -108,7 +108,7 @@ Ext.define("core.reportcenter.ptsktermstatus.controller.MainController", {
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/PtSkTermStatus/checkExportEnd',
+                        url: comm.get('baseUrl') + '/SkTermStatus/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {

@@ -17,7 +17,7 @@ Ext.define("core.reportcenter.ptroombagstatus.view.MainLayout", {
     otherController:'reportcenter.ptroombagstatus.othercontroller',
 
     funData: {
-  		action: comm.get('baseUrl') + "/Bag", //请求Action
+  		action: comm.get('baseUrl') + "/PtTermBag", //请求Action
   		pkName: "id",
   		defaultObj: {
 

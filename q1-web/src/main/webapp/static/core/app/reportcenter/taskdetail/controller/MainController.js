@@ -47,7 +47,7 @@ Ext.define("core.reportcenter.taskdetail.controller.MainController", {
      doDetail_Win:function(grid,record){
         var self = this;
         var basegrid = grid;
-        var uuid = record.get('uuid');
+        var id = record.get('id');
         var termsn= record.get('termsn');
         var win = Ext.create('core.base.view.BaseFormWin', {
             title: "参数详细",
@@ -56,7 +56,7 @@ Ext.define("core.reportcenter.taskdetail.controller.MainController", {
             width: 700,
             height: 450,
             baseGrid: basegrid,
-            uuid: uuid,
+            id: id,
             items: [{
                 xtype: "reportcenter.taskdetail.detailform"
             }]
@@ -64,7 +64,7 @@ Ext.define("core.reportcenter.taskdetail.controller.MainController", {
        // win.show(); 
         //9电控，4门禁
         var form = win.down("baseform[xtype=reportcenter.taskdetail.detailform]");
-        form.formData.uuid = uuid;
+        form.formData.id = id;
         var params = form.formData;
         //var formDeptObj = form.getForm();
         var msgobj=Ext.getCmp("detail");
@@ -102,12 +102,12 @@ Ext.define("core.reportcenter.taskdetail.controller.MainController", {
         var toolBar = btn.up("toolbar");
         var girdSearchTexts = toolBar.query("field[funCode=girdFastSearchText]");
         var tasktype= "";
-        var termsn = "";
+        var termSn = "";
         if(girdSearchTexts[0].getValue()){
             tasktype = girdSearchTexts[0].getValue();
         }
         if(girdSearchTexts[1].getValue()){
-            termsn = girdSearchTexts[1].getValue();
+            termSn = girdSearchTexts[1].getValue();
         }
         var title = "确定要导出任务详细吗？";
         Ext.Msg.confirm('提示', title, function (btn, text) {
@@ -118,7 +118,7 @@ Ext.define("core.reportcenter.taskdetail.controller.MainController", {
                 width: 0,
                 height: 0,
                 hidden: true,
-                html: '<iframe src="' + comm.get('baseUrl') + '/PtTask/doExportExcel?tasktype='+tasktype+'&termsn='+termsn+'"></iframe>',
+                html: '<iframe src="' + comm.get('baseUrl') + '/PtTask/doExportExcel?tasktype='+tasktype+'&termSn='+termSn+'"></iframe>',
                 renderTo: Ext.getBody()
             });
             var time = function () {
@@ -170,7 +170,7 @@ Ext.define("core.reportcenter.taskdetail.controller.MainController", {
         if(girdSearchTexts[0].getValue()!=null){
             var value = girdSearchTexts[0].getValue();
             var name = girdSearchTexts[0].getName();
-            filter.push({"type": "numeric", "value": value, "field": name, "comparison": ""});
+            filter.push({"type": "string", "value": value, "field": name, "comparison": ""});
         }
 
         if(girdSearchTexts[1].getValue()!=null){
