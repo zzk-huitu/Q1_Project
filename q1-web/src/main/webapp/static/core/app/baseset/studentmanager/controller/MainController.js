@@ -420,7 +420,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                             insertObj[propNames[i]] = resultVal;    //替换为具体值
                         }
                         var userInfoContainer = tabItem.down("container[ref=studentBaseInfo]");
-                        insertObj.zp = comm.get("virtualFileUrl")+"/"+insertObj.zp;     //给照片的路径，加上一个虚拟路径
+                        insertObj.photo = comm.get("virtualFileUrl")+"/"+insertObj.photo;     //给照片的路径，加上一个虚拟路径
                         userInfoContainer.setData(insertObj);
 
                         self.asyncAjax({
@@ -667,7 +667,7 @@ Ext.define("core.baseset.studentmanager.controller.MainController", {
                 self.setFormValue(formDeptObj, insertObj);
                 
                 //显示照片
-                if(insertObj.zp!=null)
+                if(insertObj.photo!=null)
                     objDetForm.down('image[ref=photoImage]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.photo);   
               
             }, 30);

@@ -421,7 +421,7 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                         }
 
                         var userInfoContainer = tabItem.down("container[ref=teacherBaseInfo]");
-                        insertObj.zp = comm.get("virtualFileUrl")+"/"+insertObj.zp;  //给照片的路径，加上一个虚拟路径
+                        insertObj.photo = comm.get("virtualFileUrl")+"/"+insertObj.photo;  //给照片的路径，加上一个虚拟路径
                         userInfoContainer.setData(insertObj);       //设置到Data中
                         console.log(insertObj);
 
@@ -669,8 +669,8 @@ Ext.define("core.baseset.teachermanager.controller.MainController", {
                 self.setFormValue(formDeptObj, insertObj);
 
                 //显示照片
-                if(insertObj.zp!=null)
-                    objDetForm.down('image[ref=photoImage]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.zp);   
+                if(insertObj.photo!=null)
+                    objDetForm.down('image[ref=photoImage]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.photo);   
 
             }, 30);
 
