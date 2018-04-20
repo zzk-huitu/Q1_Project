@@ -167,7 +167,7 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 			}
 
 			// 更新课表的教师信息
-			StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(ID),'null') FROM T_PT_CourseArrange");
+			StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(courseArrangeId),'null') FROM T_PT_CourseArrange");
 			sql.append(" WHERE isDelete=0 AND isUse=1");
 			sql.append(" AND classId='" + addTeacher.getClassId() + "'");
 			for (int i = 1; i <= 7; i++) {
@@ -271,7 +271,7 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 			}
 
 			// 删除课表（修改课表中的教师信息）
-			StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(ID),'null') FROM T_PT_CourseArrange");
+			StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(courseArrangeId),'null') FROM T_PT_CourseArrange");
 			sql.append(" WHERE  isDelete=0 AND isUse=1");
 			sql.append(" AND classId='" + jwCourseteacher.getClassId() + "'");
 			for (int i = 1; i <= 7; i++) {
@@ -475,8 +475,8 @@ public class PtCourseTeacherServiceImpl extends BaseServiceImpl<PtCourseTeacher>
 		}
 
 		// 4.更新课表上的教师信息，采用relace的方式
-		StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(ID),'null') FROM T_PT_CourseArrange");
-		sql.append(" WHERE  isDelete=0 AND isUse=1");
+		StringBuffer sql = new StringBuffer("SELECT ISNULL(MAX(courseArrangeId),'null') FROM T_PT_CourseArrange");
+		sql.append(" WHERE isDelete=0 AND isUse=1");
 		sql.append(" AND classId='" + jct.getClassId() + "'");
 		for (int i = 1; i <= 7; i++) {
 			StringBuffer sBuffer = new StringBuffer(" AND courseId0" + i + "='" + jct.getCourseId() + "'");

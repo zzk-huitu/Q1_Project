@@ -173,7 +173,7 @@ public class PtAttendUserController extends FrameWorkController<PtAttendUser> im
 		} else {
 			String[] ids = userIds.split(",");
 			for (int i = 0; i < ids.length; i++) {
-				String hql = " from AttendUser where userId = '" + ids[i] + "'";
+				String hql = " from PtAttendUser where userId = '" + ids[i] + "'";
 				PtAttendUser entity = thisService.getEntityByHql(hql);
 				thisService.delete(entity);
 			}

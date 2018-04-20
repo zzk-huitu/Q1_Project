@@ -23,6 +23,7 @@ import com.yc.q1.service.base.pt.wisdomclass.PtAttendTermService;
 import com.yc.q1.service.base.pt.wisdomclass.PtAttendThemeService;
 import com.yc.q1.service.base.pt.wisdomclass.PtAttendTimeService;
 import com.yc.q1.service.base.pt.wisdomclass.PtAttendUserService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 
@@ -39,13 +40,16 @@ public class PtAttendThemeController extends FrameWorkController<PtAttendTheme> 
 
 	@Resource
 	PtAttendThemeService thisService; // service层接口
+	
 	@Resource
 	PtAttendUserService attUserService;
+	
 	@Resource
 	PtAttendTermService attTermService;
+	
 	@Resource
 	PtAttendTimeService attTimeService;
-
+	
 	/**
 	 * @Title: list
 	 * @Description: 查询数据列表

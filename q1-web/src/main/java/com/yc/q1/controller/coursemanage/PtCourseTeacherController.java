@@ -36,7 +36,7 @@ import com.yc.q1.service.base.pt.system.PtDepartmentService;
  *
  */
 @Controller
-@RequestMapping("/CourseTeacher")
+@RequestMapping("/PtCourseTeacher")
 public class PtCourseTeacherController extends FrameWorkController<PtCourseTeacher> implements Constant {
 
 	@Resource
@@ -195,7 +195,7 @@ public class PtCourseTeacherController extends FrameWorkController<PtCourseTeach
 		Integer studyYear = Integer.parseInt(request.getParameter("studyYear"));
 		String semester = request.getParameter("semester");
 
-		String hql = "select new CourseTeacher(classId,teacherId,courseId,studyYear,semester) from CourseTeacher where studyYear="
+		String hql = "select new PtCourseTeacher(classId,teacherId,courseId,studyYear,semester) from PtCourseTeacher where studyYear="
 				+ studyYear + " and semester='" + semester + "' and isDelete='0' ";
 		List<PtCourseTeacher> lists = thisService.queryByHql(hql);
 		String strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据

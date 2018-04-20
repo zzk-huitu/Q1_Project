@@ -6,8 +6,8 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.MainLayout", {
       /** 关联此视图控制器 */
     controller: 'coursemanage.specialcourseattend.selectterm.maincontroller',
     funData: {
-        action: comm.get("baseUrl") + "/OaInfoterm", //请求Action
-        pkName: "uuid",
+        action: comm.get("baseUrl") + "/PtInfoTerminal", //请求Action
+        pkName: "id",
         width: 500,
         height: 350,
         defaultObj: {

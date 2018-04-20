@@ -137,7 +137,7 @@ Ext.define("core.coursemanage.specialcourseattend.setTimesForm", {
         allowBlank: false,
         blankText: "第几节课不能为空",
         fieldLabel: "第几节课",
-        name: "sections",
+        name: "period",
         xtype: "numberfield",
         value:'',
     }]

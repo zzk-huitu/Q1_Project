@@ -40,6 +40,7 @@ import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.PtCourseArrangeService;
 import com.yc.q1.service.base.pt.system.PtDepartmentService;
+import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 
 /**
@@ -60,6 +61,9 @@ public class PtCourseArrangeController extends FrameWorkController<PtCourseArran
 	
 	@Resource
 	private PtDepartmentService sysOrgService;
+	
+	@Resource
+	private PrimaryKeyRedisService keyRedisService;
 
 	/**
 	 * 标准的查询列表功能
@@ -140,7 +144,8 @@ public class PtCourseArrangeController extends FrameWorkController<PtCourseArran
 		
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-
+		entity.setId(keyRedisService.getId(PtCourseArrange.ModuleType)); // 手动设置id
+		entity.setIsUse(false);
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
@@ -195,7 +200,7 @@ public class PtCourseArrangeController extends FrameWorkController<PtCourseArran
 		
 		thisService.updateByProperties("id", idArr,
 				new String[]{"isUse","updateUser","updateTime"},
-				new Object[]{"0",sysuser.getId(),new Date()});		
+				new Object[]{false,sysuser.getId(),new Date()});		
 		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"禁用课表成功\""));		
 	}

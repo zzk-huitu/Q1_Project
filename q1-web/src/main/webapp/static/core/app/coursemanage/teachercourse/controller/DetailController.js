@@ -40,8 +40,8 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
         	select : function(model, selected, eOpts) {        		
         		var grid=model.view;
 	            // 得到所选教师的id
-	            var teacherId = selected.data.uuid;
-	            var teacherName = selected.data.xm;
+	            var teacherId = selected.data.id;
+	            var teacherName = selected.data.name;
 				var detailLayout = grid.up("basepanel[xtype=coursemanage.teachercourse.detaillayout]");
 			
 				Ext.apply(detailLayout.funData, {
@@ -132,7 +132,7 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
 
 	    var self = this;
 	    var nodeType = record.get("nodeType");
-	    var claiId = record.get("id");
+	    var classId = record.get("id");
 	    var className = record.get("text");
 
 	    //选择的是班级
@@ -165,9 +165,9 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
 	    	/*当前待添加的数据*/
 	        var addTeacher = {
 	        	//teacherGroupId:"",
-	            tteacId: teacherId,
+	            teacherId: teacherId,
 	            courseId: courseId,
-	            claiId: claiId,
+	            classId: classId,
 	            xm: teacherName,
 	            courseName: courseName,
 	            className: className,
@@ -195,13 +195,13 @@ Ext.define("core.coursemanage.teachercourse.controller.DetailController", {
 	        var objs = selectTeacherStore.getRange();
   	
 	        for(var i = 0; i < objs.length;i++ ) {
-	        	var tteacId1=objs[i].data.teacherId;
-	        	var claiId1=objs[i].data.classId;
+	        	var teacherId1=objs[i].data.teacherId;
+	        	var classId1=objs[i].data.classId;
 	        	var courseId1=objs[i].data.courseId;
 	        	var studyYear1=objs[i].data.studyYear;	
 	        	var semester1=objs[i].data.semester;
 	        	   
-	        	if(teacherId==tteacId1&&claiId==claiId1&&courseId==courseId1&&studyYear==studyYear1&&semester==semester1){ 
+	        	if(teacherId==teacherId1&&classId==classId1&&courseId==courseId1&&studyYear==studyYear1&&semester==semester1){ 
 		            self.Warning("请勿输入重复数据！");
 		            return;
 		        }

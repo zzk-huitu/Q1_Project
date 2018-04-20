@@ -4,10 +4,10 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.SelectTermGrid
     al:true,
     frame: false,
     columnLines: false,
-    dataUrl: comm.get("baseUrl") + "/BaseInfoterm/list", //数据获取地址
-    model: "com.zd.school.oa.terminal.model.OaInfoterm", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/PtInfoTerminal/list", //数据获取地址
+    model: "com.yc.q1.model.base.pt.basic.PtInfoTerminal", //对应的数据模型
     defSort: [{
-        property: "termCode", //字段名
+        property: "terminalNo", //字段名
         direction: "ASC" //升降序
     }],
     selModel: {
@@ -56,7 +56,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.SelectTermGrid
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
-                            if (data.uuid == isSelectStore.getAt(i).get('uuid')) {
+                            if (data.uuid == isSelectStore.getAt(i).get('id')) {
                                 Ext.Msg.alert("提示", data.termCode+"已存在!");
                                 return ;
                             }
@@ -89,7 +89,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.SelectTermGrid
             align: 'center'
         },{
         text: "终端号",
-        dataIndex: "termCode",
+        dataIndex: "terminalNo",
          flex:1,
         minWidth:120,
         renderer: function(value, metaData) {
@@ -100,7 +100,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.SelectTermGrid
         }
     } ,{
         text: "门牌号",
-        dataIndex: "houseNumb",
+        dataIndex: "houseNo",
         width:150,
         renderer: function(value, metaData) {
             var title = "门牌号";

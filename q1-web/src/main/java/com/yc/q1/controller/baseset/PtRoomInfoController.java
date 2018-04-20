@@ -19,9 +19,11 @@ import com.yc.q1.core.annotation.Auth;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
+import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
 import com.yc.q1.service.base.pt.build.PtRoomInfoService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
@@ -213,5 +215,15 @@ public class PtRoomInfoController extends FrameWorkController<PtRoomInfo> implem
         else        
         	writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));              
 
+	}
+	
+	@RequestMapping("/getAllRoomTree")
+	public void getAllRoomTree(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String strData = "";
+		String whereSql = request.getParameter("whereSql");
+		String excludes = request.getParameter("excludes");
+		List<CommTree> lists = treeService.getCommTree("V_PT_AreaRoomInfoTree", whereSql);
+		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
+		writeJSON(response, strData);// 返回数据
 	}
 }

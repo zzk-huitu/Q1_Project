@@ -116,7 +116,6 @@ public class PtAttendUserServiceImpl extends BaseServiceImpl<PtAttendUser> imple
 		PtAttendUser saveEntity = new PtAttendUser();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("id");
 			entity.setId(keyRedisService.getId(PtAttendUser.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名

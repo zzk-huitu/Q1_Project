@@ -265,17 +265,17 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
       var baseGrid = btn.up("basegrid");
 
       var title = "确定删除绑定该课程的考勤用户吗？";
-      var deleteUrl = "/AttUser/doUserAttendDelete";
+      var deleteUrl = "/PtAttendUser/doUserAttendDelete";
       var deleteMsg = "没有选择要删除的考勤人员数据，请选择!";
       switch(cmd){
           case "termAttend":
           title = "确定删除绑定该课程的考勤设备吗？";
-          deleteUrl = "/AttendTerm/doTermAttendDelete";
+          deleteUrl = "/PtAttendTerm/doTermAttendDelete";
           deleteMsg = "没有选择要删除的考勤设备数据，请选择!";
         break;
           case "timeAttend":
           title = "确定删除绑定该课程的考勤时间吗？";
-          deleteUrl = "/AttendTime/doTimeAttendDelete";
+          deleteUrl = "/PtAttendTime/doTimeAttendDelete";
           deleteMsg = "没有选择要删除的考勤时间数据，请选择!";
         break;
 
@@ -396,7 +396,7 @@ Ext.define("core.coursemanage.specialcourseattend.controller.OtherController", {
       }else{
         objForm.findField("endTime").setValue("");
       }
-      objForm.findField("sections").setValue(records[0].get('sectionCode'));
+      objForm.findField("period").setValue(records[0].get('sectionCode'));
       win.close();
     },
    saveAttendTimeForm:function(btn){

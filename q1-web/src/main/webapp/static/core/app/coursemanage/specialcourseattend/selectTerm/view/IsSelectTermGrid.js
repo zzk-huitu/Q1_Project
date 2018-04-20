@@ -37,7 +37,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.IsSelectTermGr
         align: 'center'
     },{
         text: "终端号",
-        dataIndex: "termCode",
+        dataIndex: "terminalNo",
         flex:1,
         minWidth:120,
         renderer: function(value, metaData) {
@@ -48,7 +48,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.IsSelectTermGr
         }
     } ,{
         text: "门牌号",
-        dataIndex: "houseNumb",
+        dataIndex: "houseNo",
         width:130,
         renderer: function(value, metaData) {
             var title = "门牌号";
@@ -75,7 +75,7 @@ Ext.define("core.coursemanage.specialcourseattend.selectterm.view.IsSelectTermGr
                 for(var i in newRec){
                     isExist=false;
                     for(var j in oldRec){
-                        if(newRec[i].get("uuid")==oldRec[j].get("uuid")){
+                        if(newRec[i].get("id")==oldRec[j].get("id")){
                             //isSelectStore.remove(oldRec[j]);   //方式一：移除右边的原有数据
                             //this.refresh();
                             isExist=true;

@@ -51,8 +51,8 @@ Ext.define("core.coursemanage.teachercourse.controller.OtherController", {
         var recordData = new Array();
         Ext.each(selectTeacherGrid.getStore().getRange(), function(record) {
             var obj={
-                claiId:record.get("classId"),
-                tteacId:record.get("teacherId"),
+                classId:record.get("classId"),
+                teacherId:record.get("teacherId"),
                 studyYear:record.get("studyYear"),
                 studyYearName:record.get("studyYearName"),
                 semester:record.get("semester"),

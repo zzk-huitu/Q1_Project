@@ -116,7 +116,6 @@ public class PtAttendTimeServiceImpl extends BaseServiceImpl<PtAttendTime> imple
 		PtAttendTime saveEntity = new PtAttendTime();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("id");
 			entity.setId(keyRedisService.getId(PtAttendTime.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名

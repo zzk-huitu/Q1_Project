@@ -287,12 +287,12 @@ public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange>
 		for (int i = 0; i < idArr.length; i++) {
 			this.updateByProperties(new String[] { "classId", "isDelete", "sections" },
 					new Object[] { classIdArr[i], 0, sectionsArr[i] },
-					new String[] { "isUse", "updateUser", "updateTime" }, new Object[] { "0", xm, new Date() });
+					new String[] { "isUse", "updateUser", "updateTime" }, new Object[] { false, xm, new Date() });
 		}
 
 		// 再设置启用的课表
 		this.updateByProperties("id", idArr, new String[] { "isUse", "updateUser", "updateTime" },
-				new Object[] { "1", xm, new Date() });
+				new Object[] { true, xm, new Date() });
 
 	}
 

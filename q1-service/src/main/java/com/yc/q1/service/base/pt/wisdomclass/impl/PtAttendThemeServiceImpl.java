@@ -131,7 +131,6 @@ public class PtAttendThemeServiceImpl extends BaseServiceImpl<PtAttendTheme> imp
 		PtAttendTheme saveEntity = new PtAttendTheme();
 		try {
 			List<String> excludedProp = new ArrayList<>();
-			excludedProp.add("id");
 			entity.setId(keyRedisService.getId(PtAttendTheme.ModuleType));
 			BeanUtils.copyProperties(saveEntity, entity,excludedProp);
 			saveEntity.setCreateUser(currentUser.getId()); // 设置修改人的中文名

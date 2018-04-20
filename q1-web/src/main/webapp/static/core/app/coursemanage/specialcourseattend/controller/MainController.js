@@ -45,8 +45,8 @@ Ext.define("core.coursemanage.specialcourseattend.controller.MainController", {
         var popFunData = Ext.apply(funData, {
             grid: baseGrid
         });
-        var tabTitle =recordData['titleName']+"_考勤人员";
-        var tabItemId = funCode+"UserAttend";  
+        var tabTitle =recordData['themeName']+"_考勤人员";
+        var tabItemId = funCode+"PtAttendUser";  
         var pkValue= recordData[pkName];;
         var operType ="detail";
         insertObj = recordData;
@@ -61,8 +61,8 @@ Ext.define("core.coursemanage.specialcourseattend.controller.MainController", {
         var gridXtype = "coursemanage.specialcourseattend.userattendgrid";
         switch(cmd){
             case "setTerms":
-             tabTitle = recordData['titleName']+"_考勤设备";
-             tabItemId = funCode+"TermAttend";
+             tabTitle = recordData['themeName']+"_考勤设备";
+             tabItemId = funCode+"PtAttendTerm";
              gridXtype = "coursemanage.specialcourseattend.settermsgird";
              itemXtype=[{
                     xtype:detLayout,                        
@@ -74,8 +74,8 @@ Ext.define("core.coursemanage.specialcourseattend.controller.MainController", {
                 }]
             break;
             case "setTimes":
-             tabTitle = recordData['titleName']+"_考勤时间";
-             tabItemId = funCode+"TimeAttend";
+             tabTitle = recordData['themeName']+"_考勤时间";
+             tabItemId = funCode+"PtAttendTime";
              gridXtype = "coursemanage.specialcourseattend.settimesgird";
              itemXtype=[{
                 xtype:detLayout,                        

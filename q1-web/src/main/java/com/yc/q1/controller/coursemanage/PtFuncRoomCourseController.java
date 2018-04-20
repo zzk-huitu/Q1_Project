@@ -130,7 +130,7 @@ public class PtFuncRoomCourseController extends FrameWorkController<PtFuncRoomCo
 	public @ResponseBody List<PtCourseArrange> getCourseByClass(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		String classId=request.getParameter("classId");
-		String hql = "from CourseArrange where 1=1 and isUse=1 and isDelete=0 ";
+		String hql = "from PtCourseArrange where 1=1 and isUse=1 and isDelete=0 ";
 		hql += " and classId='"+classId+"'";
 		hql += " order by sections asc";
 		List<PtCourseArrange> list = courseArrangeService.queryByHql(hql);

@@ -1,8 +1,8 @@
 Ext.define("core.coursemanage.specialcourseattend.selectterm.RoomTree", {
     extend: "core.base.view.BaseTreeGrid",
     alias: "widget.roomterminal.roomtree",
-    dataUrl: comm.get('baseUrl') + "/BaseRoominfo/allRoomTree",
-    model: factory.ModelFactory.getModelByName("com.zd.school.plartform.comm.model.CommTree", "checked").modelName,
+    dataUrl: comm.get('baseUrl') + "/PtRoomInfo/getAllRoomTree",
+    model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.CommTree", "checked").modelName,
     extParams: {
         whereSql: "",
         excludes: "checked"
