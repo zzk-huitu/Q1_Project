@@ -312,8 +312,13 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             xtype: "textfield",
             hidden: true
         }, {
-            hidden: true,
             fieldLabel: "选择终端",
+            name: "termTypes",
+            xtype: "textfield",
+            hidden: true
+        },{
+            hidden: true,
+            fieldLabel: "选择有终端的房间",
             name: "termNames",
             emptyText: "请选择终端",
             xtype: "basetreefield",
@@ -325,7 +330,7 @@ Ext.define("core.wisdomclass.notice.view.DetailForm", {
             configInfo: {
                 multiSelect: true,      //多选，true则会显示复选框    
                 controller:"wisdomclass.notice.othercontroller",    //处理其他事件的控制器
-                fieldInfo: "termNames~termIds,text~treeid",
+                fieldInfo: "termNames~termIds~termTypes,text~treeid~type",
                 whereSql: " and isDelete='0' ",
                 orderSql: " order by parentNode,orderIndex asc",
                 url: comm.get('baseUrl') + "/PtNotice/getTerminalTreeList",

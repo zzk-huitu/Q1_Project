@@ -451,7 +451,8 @@ public class PtNoticeController extends FrameWorkController<PtNotice> implements
 					
 					//4.创建第四层（房间号）
 					if(StringUtils.isNotEmpty(childAreasStr)){
-						String fjHql="from PtRoomInfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
+						//String fjHql="from PtRoomInfo a where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
+						String fjHql="select a from PtRoomInfo a right join PtInfoTerminal b on a.id = b.roomId where a.isDelete=0 and a.roomType=? and a.areaId in ("+childAreasStr+")  order by a.areaId asc,a.roomCode asc";
 						List<PtRoomInfo> roomInfoList=buildRoominfoService.queryEntityByHql(fjHql, baseDicitem.getItemCode());
 						for(PtRoomInfo roomInfo:roomInfoList){
 							Map<String,Object> roomInfoMap=new HashMap<>();	//房间类型室

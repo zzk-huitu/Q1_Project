@@ -102,7 +102,7 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
         var funData = detPanel.funData;
         var pkName = funData.pkName;
         var pkField = formObj.findField(pkName);
-        
+        var termTypes="";
 
 
         //判断当前是保存还是修改操作
@@ -128,10 +128,20 @@ Ext.define("core.wisdomclass.notice.controller.OtherController", {
             
             if(params.studentRadio!=2)
                 params.stuIds=null;
-               
             if(params.terminalRadio!=2){
                 params.termIds=null;    //入库（在编辑时直接显示此值）
                 params.termNames=null;  //入库（在编辑时直接显示此值）
+            }else{
+                termTypes=params.termTypes.split(',');
+                for(i in termTypes){
+                    if(termTypes[i]!="04"){
+                        self.Warning("只能选择有终端的房间");
+                        return false;
+
+                    }
+
+                }
+
             }
 
             if(params.isNoticeParent==false)
