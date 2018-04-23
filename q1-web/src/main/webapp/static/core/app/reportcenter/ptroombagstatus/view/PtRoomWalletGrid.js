@@ -1,7 +1,7 @@
 Ext.define("core.reportcenter.ptroombagstatus.view.PtRoomWalletGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.reportcenter.ptroombagstatus.ptroomwalletgrid",
-    dataUrl: comm.get('baseUrl') + "/PtRoomBag/roombaglist",
+    dataUrl: comm.get('baseUrl') + "/PtTermBag/roombaglist",
     model: "com.yc.q1.model.base.pt.device.PtRoomBag",
     animCollapse: true,
     collapsible: true,

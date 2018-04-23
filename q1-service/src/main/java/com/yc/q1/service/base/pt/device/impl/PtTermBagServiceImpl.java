@@ -39,9 +39,9 @@ public class PtTermBagServiceImpl extends BaseServiceImpl<PtTermBag> implements 
 			String roomId) {
 		String hql = " from PtTermBag g, PtTerm t where t.termSn=g.termSn and  t.roomId='" + roomId
 				+ "' and (t.isDelete=0 or t.isDelete is null) and (g.isDelete=0 or g.isDelete is null)";
-		String select = "select new Map(t.uuid as termid,g.termSn as  termSn,g.termTypeId as termTypeId ,"
+		String select = "select new Map(t.id as termId,g.termSn as  termSn,g.termTypeId as termTypeId ,"
 				+ "		g.bagValue as bagValue,		g.totalBoughtValue as totalBoughtValue,		g.totalUsedValue as totalUsedValue,"
-				+ "		g.totalClearValue  as totalClearValue,		g.subValue as subValue,t.termName as termName ) ";
+				+ "		g.totalClearValue  as totalClearValue,		g.surplusValue as surplusValue,t.termName as termName ) ";
 		QueryResult<Map> qResult = this.queryCountToHql(start, limit, sort, filter, select + hql, null, null);
 		
 		String sql = "select count(*) from T_PT_RoomBagRuleBind where roomId='" + roomId
@@ -49,7 +49,7 @@ public class PtTermBagServiceImpl extends BaseServiceImpl<PtTermBag> implements 
 		Integer bdrole = pttermService.getQueryCountBySql(sql);
 
 		for (Map map : qResult.getResultList()) {
-			PtTerm t = pttermService.get((Serializable) map.get("termid"));
+			PtTerm t = pttermService.get((Serializable) map.get("termId"));
 			map.put("skprice", t.getSkprice());
 			map.put("dkprice", t.getDkprice());
 			map.put("skmeasure", t.getSkmeasure());
