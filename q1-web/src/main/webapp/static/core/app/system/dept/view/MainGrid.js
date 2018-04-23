@@ -82,7 +82,7 @@ Ext.define("core.system.dept.view.MainGrid", {
         ref: 'gridFastSearchBtn',  
         funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型 
         iconCls: 'x-fa fa-search',  
-    }*/{
+    }*//*{
             xtype:'textfield',
             name:'deptId',
             hidden:true,
@@ -108,7 +108,7 @@ Ext.define("core.system.dept.view.MainGrid", {
             funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型
             ref: 'gridFastSearchBtn',
             iconCls: 'x-fa fa-search'
-        }
+        }*/
     ],
 
     columns:  {        

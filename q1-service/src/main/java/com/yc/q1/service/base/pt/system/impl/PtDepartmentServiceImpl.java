@@ -133,8 +133,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		}
 	}
 
+	
 	@Override
-	public String delOrg(String delIds, PtUser currentUser) {
+	public String doDelOrg(String delIds, PtUser currentUser) {
 		// 删除班级
 		//boolean flag = gradeService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE,currentUser.getId());
 		// 删除年级
@@ -148,6 +149,9 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		String[] delUuid = delIds.split(",");
 		for (String id : delUuid) {
 			PtDepartment org = this.get(id);
+			org.setIsDelete(1);
+			this.merge(org);
+			
 			String hql = "select count(*) from PtDepartment where parentNode='" + org.getParentNode() + "' and isDelete=0";
 			Integer count = this.getQueryCountByHql(hql);
 			if (count.equals(0)) {
@@ -179,13 +183,13 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 					}
 					//JwClassRoomAllot 已经不存在
 
-				/*	hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='"
-							+ jwTGradeclass.getId() + "'";
-					count = this.getQueryCountByHql(hql);
-					if (count > 0) {
-						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-						return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
-					}*/
+//					hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='"
+//							+ jwTGradeclass.getId() + "'";
+//					count = this.getQueryCountByHql(hql);
+//					if (count > 0) {
+//						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//						return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
+//					}
 
 					hql = "select count(*) from PtClassDormAllot where isDelete=0 and classId='"
 							+ jwTGradeclass.getId() + "'";
@@ -194,14 +198,14 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 						return jwTGradeclass.getClassName() + "班级下存在宿舍,请删除后重试";
 					}
-				/*	hql = "select count(*) from Term where isDelete=0 and roomId in("
-							+ "select roomId from JwClassRoomAllot where isDelete=0 and claiId='"
-							+ jwTGradeclass.getId() + "')";
-					count = this.getQueryCountByHql(hql);
-					if (count > 0) {
-						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-						return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
-					}*/
+//					hql = "select count(*) from Term where isDelete=0 and roomId in("
+//							+ "select roomId from JwClassRoomAllot where isDelete=0 and claiId='"
+//							+ jwTGradeclass.getId() + "')";
+//					count = this.getQueryCountByHql(hql);
+//					if (count > 0) {
+//						TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//						return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
+//					}
 					hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
 							+ "select dormId from PtClassDormAllot where isDelete=0 and classId='"
 							+ jwTGradeclass.getId() + "')";
@@ -227,13 +231,13 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 					return jwTGradeclass.getClassName() + "班级下存在人员,请删除后重试";
 				}
-				/*hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
-						+ "'";
-				count = this.getQueryCountByHql(hql);
-				if (count > 0) {
-					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-					return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
-				}*/
+//				hql = "select count(*) from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
+//						+ "'";
+//				count = this.getQueryCountByHql(hql);
+//				if (count > 0) {
+//					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//					return jwTGradeclass.getClassName() + "班级下存在教室,请删除后重试";
+//				}
 				hql = "select count(*) from PtClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "'";
 				count = this.getQueryCountByHql(hql);
@@ -242,14 +246,14 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 					return jwTGradeclass.getClassName() + "班级下存在宿舍,请删除后重试";
 				}
 
-				/*hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
-						+ "select roomId from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
-						+ "')";
-				count = this.getQueryCountByHql(hql);
-				if (count > 0) {
-					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
-				}*/
+//				hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
+//						+ "select roomId from JwClassRoomAllot where isDelete=0 and claiId='" + jwTGradeclass.getId()
+//						+ "')";
+//				count = this.getQueryCountByHql(hql);
+//				if (count > 0) {
+//					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//					return jwTGradeclass.getClassName() + "班级下存在设备,请删除后重试";
+//				}
 				hql = "select count(*) from PtTerm where isDelete=0 and roomId in("
 						+ "select dormId from PtClassDormAllot where isDelete=0 and classId='" + jwTGradeclass.getId()
 						+ "')";
@@ -264,8 +268,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 			default:
 				break;
 			}
-			org.setIsDelete(1);
-			this.merge(org);
+			
 		}
 		
 		//删除所有redis部门缓存数据，以免产生误会
@@ -285,7 +288,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	 *      com.zd.school.plartform.system.model.SysUser)
 	 */
 	@Override
-	public PtDepartment addOrg(PtDepartment entity, PtUser currentUser)
+	public PtDepartment doAddOrg(PtDepartment entity, PtUser currentUser)
 			throws IllegalAccessException, InvocationTargetException {
 		String parentNode = entity.getParentNode();
 		String parentName = entity.getParentName();
@@ -838,7 +841,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	}
 	
 	
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true)
 	@Override
 	public DepartmentTree getUserRightDeptTree(PtUser currentUser, String rootId) {
 		//1.查询部门的数据，并封装到实体类中
@@ -860,7 +863,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		return root;
 	}
 	
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true)
 	@Override
 	public List<DepartmentTree> getUserRightDeptTreeList(PtUser currentUser) {
 		String userId = currentUser.getId();
@@ -941,7 +944,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	/**
 	 * 获取用户有权限的部门班级树
 	 */
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true)
 	@Override
 	public List<CommTree> getUserRightDeptClassTreeList(PtUser currentUser) {
 				
@@ -997,7 +1000,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 	/**
 	 * 获取用户有权限的部门学科树
 	 */
-	@Transactional(readOnly=true)
+	//@Transactional(readOnly=true)
 	@Override
 	public List<CommTree> getUserRightDeptDisciplineTreeList(PtUser currentUser) {
 		String userId = currentUser.getId();
