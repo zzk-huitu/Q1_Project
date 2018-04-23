@@ -264,8 +264,8 @@ end
 
 
 /*9.初始化数据字典表
-exec dbo.P_PT_GetKeyId '02'
-select [dbo].[F_PT_GetKeyId]('02') ;
+exec dbo.P_PT_GetKeyId '01'
+select [dbo].[F_PT_GetKeyId]('01') ;
 select  * from T_PT_DataDict
 select  * from Q1_bolun.dbo.BASE_T_DIC where ISDELETE=0
 
@@ -283,7 +283,7 @@ set @i1=1;
 while @index1>0
 begin
 
-	select @id=[dbo].[F_PT_GetKeyId]('02') ;
+	select @id=[dbo].[F_PT_GetKeyId]('01') ;
 	
 	insert into T_PT_DataDict(dictId, createTime,createUser,isDelete,orderIndex,version,
 		isLeaf,nodeLevel,nodeText,parentNode,dicCode,dicType)	--physicalPath临时存放父id
@@ -306,8 +306,8 @@ update a set a.parentNode='ROOT' from T_PT_DataDict a  where a.parentNode IS NUL
 
 
 /*10.初始化数据字典子项
-exec dbo.P_PT_GetKeyId '02'
-select [dbo].[F_PT_GetKeyId]('02') ;
+exec dbo.P_PT_GetKeyId '01'
+select [dbo].[F_PT_GetKeyId]('01') ;
 select  * from T_PT_DataDictItem
 
 select  ROW_NUMBER() over( order by DIC_ID asc,ITEM_CODE asc) rowNum,* into tempTable  from Q1_bolun.dbo.BASE_T_DICITEM where ISDELETE=0 
@@ -315,7 +315,7 @@ select  ROW_NUMBER() over( order by DIC_ID asc,ITEM_CODE asc) rowNum,* into temp
 
 declare @id varchar(20), @index1 int,@rowNum int,@dicId varchar(20),@itemCode varchar(20),@itemDesc varchar(256),@itemName varchar(16);
 	
-select @index1=COUNT(*) from Q1_bolun.dbo.BASE_T_DIC where ISDELETE=0
+select @index1=COUNT(*) from tempTable
 
 select top 1 @rowNum=rowNum,
 	@dicId=(select DIC_CODE from Q1_bolun.dbo.BASE_T_DIC where DIC_ID=a.DIC_ID),
@@ -327,7 +327,7 @@ update T_PT_TempNo set NoValue=1 where NoType='idType';
 while @index1>0
 begin
 
-	select @id=[dbo].[F_PT_GetKeyId]('02') ;
+	select @id=[dbo].[F_PT_GetKeyId]('01') ;
 	
 	insert into T_PT_DataDictItem(dictItemId, createTime,createUser,isDelete,orderIndex,version,
 		dictId,itemCode,itemDesc,itemName)	--physicalPath临时存放父id
