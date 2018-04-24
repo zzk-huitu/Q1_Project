@@ -108,7 +108,7 @@ Ext.define("core.baseset.calendar.view.CalendarGrid", {
         text: "状态",
         dataIndex: "activityState",
         renderer: function(v) {
-            if (v == 1) {
+            if (v == true) {
                 return "<span style='color:green'>已生效</span>";
             } else {
                 return "<span style='color:red'>未生效</span>";

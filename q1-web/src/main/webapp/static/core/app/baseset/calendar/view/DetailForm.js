@@ -9,8 +9,8 @@ var isafgernoons = Ext.create('Ext.data.Store', {
 var needSignIn = Ext.create('Ext.data.Store', {
             fields: ['needSignIn', 'name'],
             data : [
-                {"needSignIn":0, "name":"否"},
-                {"needSignIn":1, "name":"是"}
+                {"needSignIn":'false', "name":"否"},
+                {"needSignIn":'true', "name":"是"}
             ]
         })
 
@@ -102,7 +102,7 @@ Ext.define("core.baseset.calendar.view.DetailForm", {
             queryMode: 'local',
             displayField: 'name',
             valueField: 'needSignIn',
-            value:0,
+            value:'false',
             editable:false
         }]
     },{

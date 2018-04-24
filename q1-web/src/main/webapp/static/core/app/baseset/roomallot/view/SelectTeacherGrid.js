@@ -18,7 +18,7 @@ Ext.define("core.baseset.roomallot.view.SelectTeacherGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'xm',
+            name:'name',
             funCode:'girdFastSearchText',
             emptyText: '请输入教师姓名'
         },{

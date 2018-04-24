@@ -28,7 +28,7 @@ Ext.define("core.baseset.room.view.MainLayout", {
         pkName: "id",
         defaultObj: {
             orderIndex: 1,
-            roomNet:"0"
+            roomNet:"true"
         },
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
             titleField:'roomName',

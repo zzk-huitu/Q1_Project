@@ -19,7 +19,7 @@ Ext.define("core.baseset.campus.controller.OtherController", {
 	    		});
 	    		var formObj = grid.getForm();
 	    		if(data!=null){
-	    			formObj.findField("schoolId").setValue(data.uuid);
+	    			formObj.findField("schoolId").setValue(data.id);
 	    			formObj.findField("schoolName").setValue(data.schoolName);
 	    		}else{
 	    			formObj.findField("schoolId").setValue("");
