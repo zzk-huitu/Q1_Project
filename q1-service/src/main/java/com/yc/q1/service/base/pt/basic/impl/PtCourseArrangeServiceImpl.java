@@ -151,7 +151,7 @@ public class PtCourseArrangeServiceImpl extends BaseServiceImpl<PtCourseArrange>
 						index++;
 
 						// 查询课程信息
-						hql = "from PtCourse where courseName='" + cousreName + "'" + andIsDelete;
+						hql = "from PtBaseCourse where courseName='" + cousreName + "'" + andIsDelete;
 						List<PtBaseCourse> baseCourseList = jtbService.queryByHql(hql);
 						PtBaseCourse basecourse = null;
 						if (baseCourseList.size() == 1) {
