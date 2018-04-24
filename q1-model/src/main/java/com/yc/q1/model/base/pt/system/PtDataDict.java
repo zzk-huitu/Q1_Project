@@ -15,6 +15,8 @@ import com.yc.q1.core.model.TreeNodeEntity;
 /**
  * 数据字典
  * 
+ * 2018/4/23：（加入一个isSystem字段，若为1，则对普通用户隐藏，否则提供给用户操作）
+ * 
  * @author ZZK
  *
  */
@@ -37,6 +39,10 @@ public class PtDataDict extends TreeNodeEntity implements Serializable {
 	@Column(name = "physicalPath", columnDefinition = "varchar(256)", nullable = true)
 	private String physicalPath;
 
+	@FieldInfo(name = "是否系统字典", type = "bit NOT NULL DEFAULT 0", explain = "是否系统字典（0-非 1-是）")
+	@Column(name = "isSystem",columnDefinition = "bit DEFAULT 0", nullable = false)
+	private Boolean isSystem;
+	
 	// @FieldInfo(name = "上级字典名称")
 	@Transient
 	private String parentName;

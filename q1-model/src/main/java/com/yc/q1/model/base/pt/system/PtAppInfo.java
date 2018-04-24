@@ -23,8 +23,8 @@ import com.yc.q1.core.model.BaseEntity;
 @AttributeOverride(name = "id", column = @Column(name = "appInfoId", length = 20, nullable = false) )
 public class PtAppInfo extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
-	
+	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
+
 	@FieldInfo(name = "app是否启用", type = "bit NOT NULL DEFAULT 0", explain = "app是否启用")
 	@Column(name = "appIsuse", columnDefinition = "bit DEFAULT 0", nullable = false)
 	private Boolean appIsuse;
