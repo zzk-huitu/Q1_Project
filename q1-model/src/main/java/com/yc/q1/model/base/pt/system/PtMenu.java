@@ -37,7 +37,7 @@ public class PtMenu extends TreeNodeEntity implements Serializable {
 	private String menuType;
 
 	@FieldInfo(name = "是否系统菜单", type = "bit NOT NULL DEFAULT 0", explain = "是否系统菜单（0-非 1-是）")
-	@Column(name = "isSystem", nullable = false)
+	@Column(name = "isSystem", columnDefinition = "bit DEFAULT 0", nullable = false)
 	private Boolean isSystem;
 
 	@FieldInfo(name = "菜单小图标", type = "varchar(256)  DEFAULT ''", explain = "菜单的小图标")

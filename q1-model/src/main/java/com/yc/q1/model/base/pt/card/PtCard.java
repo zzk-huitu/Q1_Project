@@ -20,6 +20,10 @@ import com.yc.q1.core.util.DateTimeSerializer;
 /**
  * 卡片信息表
  * 
+ * 卡片状态表：被放入到数据字典中
+ * 
+ * 卡流水号:由于信息要写入到卡片中，所以流水号是必须的
+ * 
  * @author ZZK
  *
  */
@@ -29,14 +33,14 @@ import com.yc.q1.core.util.DateTimeSerializer;
 public class PtCard extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
-	
+	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
+
 	@FieldInfo(name = "卡流水号", type = "bigint NOT NULL", explain = "卡流水号")
-	@Column(name = "cardNo", nullable = false)
+	@Column(name = "cardNo", columnDefinition = "bigint IDENTITY(1,1)", nullable = false)
 	private Long cardNo;
 
-	@FieldInfo(name = "卡类型", type = "int NOT NULL", explain = "卡类型")
-	@Column(name = "cardTypeId", nullable = false)
+	@FieldInfo(name = "卡类型", type = "smallint NOT NULL", explain = "卡类型ID")
+	@Column(name = "cardTypeId", columnDefinition = "smallint", nullable = false)
 	private Integer cardTypeId;
 
 	@FieldInfo(name = "物理卡号", type = "bigint default 0", explain = "物理卡号")
@@ -53,12 +57,12 @@ public class PtCard extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date expiryDate;
 
-	@FieldInfo(name = "卡押金", type = "numeric default 0", explain = "卡押金")
-	@Column(name = "deposit", columnDefinition = "numeric default 0", nullable = true)
+	@FieldInfo(name = "卡押金", type = "money default 0", explain = "卡押金")
+	@Column(name = "deposit", columnDefinition = "money default 0", nullable = true)
 	private BigDecimal deposit;
 
-	@FieldInfo(name = "卡状态", type = "int default 0", explain = "卡状态 1正常 2挂失 3注销 4换卡 7冻结")
-	@Column(name = "cardStatusId", columnDefinition = "int default 0", nullable = true)
+	@FieldInfo(name = "卡状态", type = "smallint default 0", explain = "数据字典：1正常2挂失3无卡4退卡 7冻结")
+	@Column(name = "cardStatusId", columnDefinition = "smallint default 0", nullable = true)
 	private Integer cardStatusId;
 
 	@FieldInfo(name = "卡状态改变时间", type = "datetime", explain = "卡状态改变时间")
@@ -75,12 +79,12 @@ public class PtCard extends BaseEntity implements Serializable {
 	@Column(name = "mealCount", columnDefinition = "int default 0", nullable = true)
 	private Integer mealCount;
 
-	@FieldInfo(name = "当日交易金额", type = "numeric default 0", explain = "当日交易金额")
-	@Column(name = "dayValue", columnDefinition = "numeric default 0", nullable = true)
+	@FieldInfo(name = "当日交易金额", type = "money default 0", explain = "当日交易金额")
+	@Column(name = "dayValue", columnDefinition = "money default 0", nullable = true)
 	private BigDecimal dayValue;
 
-	@FieldInfo(name = "当餐交易金额", type = "numeric default 0", explain = "当餐交易金额")
-	@Column(name = "mealValue", columnDefinition = "numeric default 0", nullable = true)
+	@FieldInfo(name = "当餐交易金额", type = "money default 0", explain = "当餐交易金额")
+	@Column(name = "mealValue", columnDefinition = "money default 0", nullable = true)
 	private BigDecimal mealValue;
 
 	@FieldInfo(name = "最后交易时间", type = "datetime", explain = "最后交易时间")
@@ -89,8 +93,8 @@ public class PtCard extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date lastPayDate;
 
-	@FieldInfo(name = "最后交易餐类", type = "int default 0", explain = "最后交易餐类")
-	@Column(name = "lastPayMealType", columnDefinition = "int default 0", nullable = true)
+	@FieldInfo(name = "最后交易餐类", type = "smallint default 0", explain = "最后交易餐类，对应营业时段的编号")
+	@Column(name = "lastPayMealType", columnDefinition = "smallint default 0", nullable = true)
 	private Integer lastPayMealType;
 
 	public Long getCardNo() {
