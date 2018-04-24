@@ -14,7 +14,7 @@ Ext.define("core.system.user.view.selectRoleLayout", {
 			state: '1',
 			userPwd: '123456',
 			orderIndex: 1,
-			isSystem: '1'
+			isSystem: 'true'
 		}
 	},
 	items: [{

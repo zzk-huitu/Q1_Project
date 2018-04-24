@@ -1,3 +1,10 @@
+var isSystem = Ext.create('Ext.data.Store', {
+            fields: ['isSystem', 'name'],
+            data : [
+                {"isSystem":'false', "name":"否"},
+                {"isSystem":'true', "name":"是"}
+            ]
+        })
 Ext.define("core.baseset.dictionary.view.ItemForm", {
     extend: "core.base.view.BaseForm",
     alias: "widget.baseset.dictionary.itemform",
@@ -56,7 +63,7 @@ Ext.define("core.baseset.dictionary.view.ItemForm", {
         name: "orderIndex",
         //xtype: "numberfield",
         emptyText: "同级别字典项的显示顺序",
-    }, {
+    }, /*{
         beforeLabelTextTpl: "",
         xtype: "textfield",
         name: 'itemDesc',
@@ -65,5 +72,17 @@ Ext.define("core.baseset.dictionary.view.ItemForm", {
         emptyText: '请输入字典项说明',
         blankText: "字典项说明不能为空",
         maxLength: 128
-    }]
+    }*/{
+            beforeLabelTextTpl: comm.get('required'),
+            xtype: "combobox",
+            itemId:'isSystemCombo',
+            store: isSystem,
+            fieldLabel: "是否是系统",
+            name: "isSystem",
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'isSystem',
+            value:'false',
+            editable:false
+        }]
 });

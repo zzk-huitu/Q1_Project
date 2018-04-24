@@ -158,7 +158,7 @@ Ext.define("core.system.dept.view.MainGrid", {
             dataIndex: "isSystem",
             width:100,
             renderer: function(value) {
-                return value=="1"?"<font color=green>是</font>":"<font color=red>否</font>"
+                return value=="true"?"<font color=green>是</font>":"<font color=red>否</font>"
             }
         },{
             text: "权限状态",

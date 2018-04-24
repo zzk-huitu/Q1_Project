@@ -40,7 +40,7 @@ Ext.define("core.baseset.dictionary.view.MainLayout", {
 	items: [{
 		xtype: "baseset.dictionary.dicgrid",
 		region: "west",
-		width:550,
+		width:600,
 		split:true,
 		collapsible:true,
 		//margin:'0 5 0 0',

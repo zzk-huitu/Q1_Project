@@ -23,7 +23,7 @@ Ext.define("core.system.role.view.MainLayout", {
         pkName: "id",
         defaultObj: {
             orderIndex: 1,
-            issystem: 1
+            isSystem: 'false'
         },
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
             titleField:'roleName',   //指定这个模块，主表格界面的名称的字段名，用于显示在tab标签页上面

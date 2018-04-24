@@ -58,15 +58,22 @@ Ext.define("core.baseset.dictionary.view.DicGrid", {
         text: "字典名称",
         dataIndex: "text",
         xtype:'treecolumn',
-        width:300
+        width:280
     }, {
         text: "字典编码",
         dataIndex: "dicCode",
         flex:1
     }, {
+        width:100,
+        text: "是否系统角色",
+        dataIndex: "isSystem",
+        renderer: function(value) {
+            return value=="true"?"<font color=green>是</font>":"<font color=red>否</font>"
+        }
+    }, {
         text: "顺序号",
         dataIndex: "orderIndex",
-        flex:1
+        width:80,
     },{
         text:"主键",
         dataIndex:'id',
