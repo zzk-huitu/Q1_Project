@@ -587,7 +587,7 @@ Ext.define("core.system.dept.controller.MainController", {
                     //回调代码必须写在里面
                     success: function(response) {
                         data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
-
+console.log(data);
                         if (data.success) { 
                             baseGrid.getStore().load();
                             self.msgbox(data.obj);

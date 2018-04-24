@@ -141,7 +141,7 @@ Ext.define("core.baseset.calendar.view.MainGrid", {
         text: "是否考勤",
         dataIndex: "needSignIn",
         renderer: function(v) {
-            if (v == 1) {
+            if (v == true) {
                 return "<span style='color:green'>需要</span>";
             } else {
                 return "<span style='color:red'>不需要</span>";

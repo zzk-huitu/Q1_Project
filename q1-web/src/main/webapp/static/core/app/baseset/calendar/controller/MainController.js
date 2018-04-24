@@ -589,13 +589,13 @@ Ext.define("core.baseset.calendar.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/PtCalenderdetail/doExportExcel?canderId='+canderId+"&canderName="+canderName+"&campusName="+campusName+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtCalenderDetail/doExportExcel?canderId='+canderId+"&canderName="+canderName+"&campusName="+campusName+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
                 var time = function () {
                     self.syncAjax({
-                        url: comm.get('baseUrl') + '/PtCalenderdetail/checkExportEnd',
+                        url: comm.get('baseUrl') + '/PtCalenderDetail/checkExportEnd',
                         timeout: 1000 * 60 * 30,        //半个小时
                         //回调代码必须写在里面
                         success: function (response) {

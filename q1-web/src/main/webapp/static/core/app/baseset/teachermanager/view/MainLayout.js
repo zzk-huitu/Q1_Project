@@ -25,10 +25,10 @@ Ext.define("core.baseset.teachermanager.view.MainLayout", {
 		defaultObj: {
 			sex: '1',
 			category: '1',
-			state: '0',
+			state: 'false',
 			orderIndex: 1,
 			userPwd: '123456',
-			issystem: '1'
+			issystem: 'true'
 		},
 		tabConfig: {         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
 			titleField:'userName',

@@ -63,7 +63,7 @@ public interface PtDepartmentService extends BaseService<PtDepartment> {
      * @throws @since
      *             JDK 1.8
      */
-    public String delOrg(String delIds, PtUser currentUser);
+    public String doDelOrg(String delIds, PtUser currentUser);
 
     /**
      * 
@@ -81,7 +81,7 @@ public interface PtDepartmentService extends BaseService<PtDepartment> {
      * @throws @since
      *             JDK 1.8
      */
-    public PtDepartment addOrg(PtDepartment entity, PtUser currentUser) throws IllegalAccessException, InvocationTargetException;
+    public PtDepartment doAddOrg(PtDepartment entity, PtUser currentUser) throws IllegalAccessException, InvocationTargetException;
 
     /**
      * 

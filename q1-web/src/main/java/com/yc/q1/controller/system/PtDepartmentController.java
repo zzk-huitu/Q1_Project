@@ -179,7 +179,7 @@ public class PtDepartmentController extends FrameWorkController<PtDepartment> im
 
 		PtUser sysuser = getCurrentSysUser();
 
-		entity = thisService.addOrg(entity, sysuser);
+		entity = thisService.doAddOrg(entity, sysuser);
 		entity.setParentName(parentName);
 		entity.setParentNode(parentNode);
 		entity.setParentType(parentType);
@@ -204,10 +204,12 @@ public class PtDepartmentController extends FrameWorkController<PtDepartment> im
 			return;
 		}
 		PtUser currentUser = getCurrentSysUser();
-		String flag = thisService.delOrg(deptId, currentUser);
+		String flag = thisService.doDelOrg(deptId, currentUser);
 		if ("1".equals(flag)) {
 			writeJSON(response, JsonBuilder.getInstance().returnSuccessJson("\"删除成功\""));
-		} else {
+		}else if ("0".equals(flag)) {
+			writeJSON(response, JsonBuilder.getInstance().returnSuccessJson("\"删除失败\""));
+		}else {
 			writeJSON(response, JsonBuilder.getInstance().returnFailureJson("\"" + flag + "\""));
 		}
 	}

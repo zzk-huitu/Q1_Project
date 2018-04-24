@@ -1,8 +1,8 @@
 var combostore = new Ext.data.ArrayStore({
     fields: ['id', 'roomNet'],
     data: [
-        ["0", '有网络'],
-        ["1", '无网络']
+        ['true', '有网络'],
+        ['false', '无网络']
     ]
 });
 Ext.define("core.baseset.room.view.BatchRoomForm", {
@@ -59,7 +59,7 @@ Ext.define("core.baseset.room.view.BatchRoomForm", {
         fieldLabel: "网络状态",
         displayField: 'roomNet',
         valueField: 'id',
-        value: "0",
+        value: 'true',
         name: "roomNet",
         triggerAction: 'all',
         emptyText: '请选择...',

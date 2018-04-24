@@ -58,7 +58,7 @@ public class PtCalenderServiceImpl extends BaseServiceImpl<PtCalender> implement
 		try {
 			String sql1 = "update T_PT_Calender set activityState=0 where isDelete=0 and activityState=1 and (SELECT a.campusName FROM T_PT_Campus a WHERE a.campusId=T_PT_Calender.campusId ) in('"
 					+ campusNames.replace(",", "','") + "')"; // 弃用
-			String sql2 = "update T_PT_Calender set activityState=1 where id in('" + calenderIds.replace(",", "','") + "')";// 1：启用
+			String sql2 = "update T_PT_Calender set activityState=1 where calenderId in('" + calenderIds.replace(",", "','") + "')";// 1：启用
 			this.doExecuteCountBySql(sql1);
 			this.doExecuteCountBySql(sql2);
 			return 1;
