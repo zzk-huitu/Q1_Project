@@ -11,6 +11,8 @@ package com.yc.q1.pojo.base.pt;
 
 import java.util.List;
 
+import javax.persistence.Column;
+
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.model.extjs.ExtTreeNode;
 
@@ -66,19 +68,33 @@ public class DataDictTree extends ExtTreeNode<DataDictTree> {
     public void setOrderIndex(Integer orderIndex) {
         this.orderIndex = orderIndex;
     }
+    
+    @FieldInfo(name = "是否系统字典", explain = "是否系统字典（0-非 1-是）")
+	private Boolean isSystem;
+    
+    public Boolean getIsSystem() {
+		return isSystem;
+	}
 
-    public DataDictTree(String id, List<DataDictTree> children) {
+	public void setIsSystem(Boolean isSystem) {
+		this.isSystem = isSystem;
+	}
+
+	
+	
+	public DataDictTree(String id, List<DataDictTree> children) {
 
         super(id, children);
     }
 
     public DataDictTree(String id, String text, String iconCls, Boolean leaf, Integer level, String treeid,
             List<DataDictTree> children, String dicCode, String dicType,  String parent,
-            Integer orderIndex) {
+            Integer orderIndex,Boolean isSystem) {
         super(id, text, iconCls, leaf, level, treeid,parent,orderIndex, children);
         this.dicCode = dicCode;
         this.dicType = dicType;
         this.parent = parent;
         this.orderIndex = orderIndex;
+        this.isSystem = isSystem;
     }
 }

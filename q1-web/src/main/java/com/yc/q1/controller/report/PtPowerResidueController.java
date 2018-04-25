@@ -117,7 +117,7 @@ public class PtPowerResidueController extends FrameWorkController<BaseEntity> {
 				List<Map<String, Object>> studentDorms = stuDormService.queryMapBySql(sql);
 				temp.setRoomName(String.valueOf(studentDorms.get(0).get("roomName")));
 
-				DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
+				//DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
 
 				// 通过反射，去设置各个宿舍人员的数据（这里固定了宿舍人数为6人，实际上可能不合理，推荐使用拼接字符串的形式来实现宿舍人数超过6人的情况）
 				Class clazz = temp.getClass();

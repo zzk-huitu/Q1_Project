@@ -24,7 +24,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "T_LOG_UserOprate")
+@Table(name = "T_LOG_UserOprate",catalog="Q1_Storage",schema="dbo")
 @AttributeOverride(name = "id", column = @Column(name = "userOprateId", length = 20, nullable = false) )
 public class LogUserOprate extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

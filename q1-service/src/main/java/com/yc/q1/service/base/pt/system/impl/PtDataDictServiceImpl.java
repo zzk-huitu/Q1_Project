@@ -60,7 +60,7 @@ public class PtDataDictServiceImpl extends BaseServiceImpl<PtDataDict> implement
 
         for (PtDataDict dic : childs) {
         	DataDictTree child = new DataDictTree(dic.getId(), dic.getNodeText(), "", dic.getLeaf(), dic.getNodeLevel(),
-                    dic.getTreeIds(), new ArrayList<DataDictTree>(), dic.getDicCode(), dic.getDicType(), dic.getParentNode(), dic.getOrderIndex());
+                    dic.getTreeIds(), new ArrayList<DataDictTree>(), dic.getDicCode(), dic.getDicType(), dic.getParentNode(), dic.getOrderIndex(),dic.getIsSystem());
 
             if (dic.getParentNode().equals(TreeVeriable.ROOT)) {
                 result.add(child);

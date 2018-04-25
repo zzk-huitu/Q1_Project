@@ -24,7 +24,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  */
 
 @Entity
-@Table(name = "T_PT_Task")
+@Table(name = "T_PT_Task",catalog="Q1_Storage",schema="dbo")
 @AttributeOverride(name = "id", column = @Column(name = "taskId", length = 20, nullable = false) )
 public class PtTask extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

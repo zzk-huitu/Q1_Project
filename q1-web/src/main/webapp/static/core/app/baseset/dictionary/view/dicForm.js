@@ -1,3 +1,10 @@
+var isSystem = Ext.create('Ext.data.Store', {
+            fields: ['isSystem', 'name'],
+            data : [
+                {"isSystem":'false', "name":"否"},
+                {"isSystem":'true', "name":"是"}
+            ]
+        })
 Ext.define("core.baseset.dictionary.view.DicForm", {
 	extend: "core.base.view.BaseForm",
 	alias: "widget.baseset.dictionary.dicform",
@@ -9,6 +16,7 @@ Ext.define("core.baseset.dictionary.view.DicForm", {
 		labelSeparator: '：', // 分隔符
 		msgTarget: 'qtip',
 		labelAlign: "right",
+		labelWidth:120,
 	},
 	items: [{
 		fieldLabel: '主键',
@@ -59,5 +67,17 @@ Ext.define("core.baseset.dictionary.view.DicForm", {
 		emptyText: '请选择字典类型',
 		xtype: "basecombobox",
 		ddCode: "DICTYPE"
+	},{
+		beforeLabelTextTpl: comm.get('required'),
+		xtype: "combobox",
+		itemId:'isSystemCombo',
+		store: isSystem,
+		fieldLabel: "是否系统字典",
+		name: "isSystem",
+		queryMode: 'local',
+		displayField: 'name',
+		valueField: 'isSystem',
+		value:'false',
+		editable:false
 	}]
 });

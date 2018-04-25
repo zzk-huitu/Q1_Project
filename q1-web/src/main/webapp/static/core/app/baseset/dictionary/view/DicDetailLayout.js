@@ -10,6 +10,8 @@ Ext.define("core.baseset.dictionary.view.DicDetailLayout", {
 			dicType:"LIST"
 		}
 	},
+	 /*关联此视图控制器*/
+    controller: 'baseset.dictionary.detailcontroller',
 	layout: 'fit',
 	bodyPadding: 2,
 	items: [{

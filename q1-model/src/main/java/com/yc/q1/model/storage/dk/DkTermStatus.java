@@ -25,7 +25,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  * @author ZZK Term：terminal 终端机
  */
 @Entity
-@Table(name = "T_DK_TermStatus")
+@Table(name = "T_DK_TermStatus",catalog="Q1_Storage",schema="dbo")
 @AttributeOverride(name = "id", column = @Column(name = "termStatusId", length = 20, nullable = false))
 public class DkTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

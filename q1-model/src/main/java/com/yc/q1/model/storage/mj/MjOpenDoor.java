@@ -24,7 +24,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  *
  */
 @Entity
-@Table(name = "T_MJ_OpenDoor")
+@Table(name = "T_MJ_OpenDoor",catalog="Q1_Storage",schema="dbo")
 @AttributeOverride(name = "id", column = @Column(name = "openDoorId", length = 20, nullable = false) )
 public class MjOpenDoor extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

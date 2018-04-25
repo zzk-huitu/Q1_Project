@@ -79,8 +79,8 @@ public class PtRoleController extends FrameWorkController<PtRole> implements Con
         ExtDataFilter hideDataFilter = new ExtDataFilter();
         hideDataFilter.setComparison("=");
         hideDataFilter.setField("isHidden");
-        hideDataFilter.setType("string");
-        hideDataFilter.setValue("0");
+        hideDataFilter.setType("boolean");
+        hideDataFilter.setValue("false");
 
         //SysUser currentUser = getCurrentSysUser();
         //if (!currentUser.getUserName().equals(AdminType.ADMIN_ROLE_NAME))
