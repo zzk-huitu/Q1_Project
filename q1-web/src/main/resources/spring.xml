@@ -115,7 +115,7 @@
 		<!-- 配置hibernate配置文件所在的位置 -->
 		<property name="configLocation" value="classpath:spring-hibernate.cfg.xml"></property>
 		<!-- 扫描的数据包 -->
-		<property name="packagesToScan" value="com.yc.q1"></property>
+		<property name="packagesToScan" value="com.yc.q1.model"></property>
 	</bean>
 
 	<bean id="transactionManager"
