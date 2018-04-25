@@ -29,7 +29,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  *
  */
 @Entity
-@Table(name = "T_PT_SubsidyFillMoneyItem",catalog="Q1_Storage",schema="dbo", uniqueConstraints = {
+@Table(name = "T_PT_SubsidyFillMoneyItem", catalog = "Q1_Storage", schema = "dbo", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "mainId", "userId" }) })
 @AttributeOverride(name = "id", column = @Column(name = "itemId", length = 20, nullable = false) )
 public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
@@ -45,7 +45,7 @@ public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 	private String userId;
 
 	@FieldInfo(name = "补助金额")
-	@Column(name = "fillMoney", columnDefinition = "Money", nullable = true)
+	@Column(name = "fillMoney", columnDefinition = "Money default 0", nullable = true)
 	private BigDecimal fillMoney;
 
 	@FieldInfo(name = "配置补助时间")
@@ -65,11 +65,11 @@ public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 	private Date getFillDate;
 
 	@FieldInfo(name = "设备id")
-	@Column(name = "termId", length = 20, nullable = true)
+	@Column(name = "termId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String termId;
 
 	@FieldInfo(name = "设备流水号")
-	@Column(name = "termNo", columnDefinition = "bigint", nullable = true)
+	@Column(name = "termNo", columnDefinition = "bigint default 0", nullable = true)
 	private Long termNo;
 
 	@FieldInfo(name = "标识字段 用户是否领取", explain = "0—未领，1—已领")
@@ -77,23 +77,23 @@ public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 	private Boolean fillStats;
 
 	@FieldInfo(name = "领取补助后卡余")
-	@Column(name = "cardValue", columnDefinition = "Money", nullable = true)
+	@Column(name = "cardValue", columnDefinition = "Money default 0", nullable = true)
 	private BigDecimal cardValue;
 
 	@FieldInfo(name = "领取补助前卡余")
-	@Column(name = "cardValueBefore", columnDefinition = "Money", nullable = true)
+	@Column(name = "cardValueBefore", columnDefinition = "Money default 0", nullable = true)
 	private BigDecimal cardValueBefore;
 
 	@FieldInfo(name = "原始记录ID")
-	@Column(name = "originalID", columnDefinition = "bigint", nullable = true)
-	private Long originalID;
+	@Column(name = "oriRecordID", columnDefinition = "varchar(32) default ''", nullable = true)
+	private String oriRecordID;
 
 	@FieldInfo(name = "备注")
 	@Column(name = "itemNotes", columnDefinition = "nvarchar(500) default ''", nullable = true)
 	private String itemNotes;
 
 	@FieldInfo(name = "子类型")
-	@Column(name = "subType", length = 10, nullable = true)
+	@Column(name = "subType", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String subType;
 
 	public String getMainId() {
@@ -184,12 +184,12 @@ public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 		this.cardValueBefore = cardValueBefore;
 	}
 
-	public Long getOriginalID() {
-		return originalID;
+	public String getOriRecordID() {
+		return oriRecordID;
 	}
 
-	public void setOriginalID(Long originalID) {
-		this.originalID = originalID;
+	public void setOriRecordID(String oriRecordID) {
+		this.oriRecordID = oriRecordID;
 	}
 
 	public String getItemNotes() {

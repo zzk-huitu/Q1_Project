@@ -24,7 +24,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  *
  */
 @Entity
-@Table(name = "T_PT_SubsidyFillMoneyMain",catalog="Q1_Storage",schema="dbo")
+@Table(name = "T_PT_SubsidyFillMoneyMain", catalog = "Q1_Storage", schema = "dbo")
 @AttributeOverride(name = "id", column = @Column(name = "mainId", length = 20, nullable = false) )
 public class PtSubsidyFillMoneyMain extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -49,7 +49,7 @@ public class PtSubsidyFillMoneyMain extends BaseEntity implements Serializable {
 	private Boolean isAudit;
 
 	@FieldInfo(name = "审核人", explain = "用户的主键id或姓名")
-	@Column(name = "auditUser", length = 20, nullable = true)
+	@Column(name = "auditUser", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String auditUser;
 
 	@FieldInfo(name = "审核时间")
@@ -63,7 +63,7 @@ public class PtSubsidyFillMoneyMain extends BaseEntity implements Serializable {
 	private String notes;
 
 	@FieldInfo(name = "子类型")
-	@Column(name = "subType", length = 10, nullable = true)
+	@Column(name = "subType", columnDefinition = "varchar(10) default ''", nullable = true)
 	private String subType;
 
 	public BigDecimal getFillMoney() {
