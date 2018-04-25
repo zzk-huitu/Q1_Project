@@ -108,7 +108,7 @@ public class PtTermBagController extends FrameWorkController<PtTermBag> implemen
 				+ "u.userId =d.userId and d.roomId='" + roomid + "'";
 		List<Map<String, Object>> list = roomBagsService.queryMapBySql(sql);
 
-		DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
+		//DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Up6);
 		List<Map> listmap = new ArrayList<Map>();
 		try {
 			for (Map<String, Object> u : list) {

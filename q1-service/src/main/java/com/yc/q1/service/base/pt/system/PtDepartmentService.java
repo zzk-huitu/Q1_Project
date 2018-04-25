@@ -201,5 +201,6 @@ public interface PtDepartmentService extends BaseService<PtDepartment> {
 	 * @return
 	 */
 	public List<CommTree> getUserRightDeptDisciplineTreeList(PtUser currentUser);
+
 	
 }
