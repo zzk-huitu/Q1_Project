@@ -34,7 +34,7 @@ import java.util.Date;
  * @since JDK 1.8
  * @see
  */
-public abstract class BaseController<E extends BaseEntity> {
+public abstract class BaseController<E>{		//<E extends BaseEntity> {
 	/** 日志输出对象 */
 	// private static Logger logger =
 	// LoggerFactory.getLogger(BaseController.class);

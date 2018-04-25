@@ -27,7 +27,7 @@ import com.yc.q1.model.base.pt.system.PtUser;
  * @since JDK 1.8
  * @see
  */
-public abstract class FrameWorkController<E extends BaseEntity> extends BaseController<E> implements Constant {
+public abstract class FrameWorkController<E> extends BaseController<E> implements Constant {
 
     public PtUser getCurrentSysUser() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
