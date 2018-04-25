@@ -413,7 +413,8 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
         var storeGrid = mainLayout.down("panel[xtype=smartcontrol.useraccess.mjuserrightgrid]");
         var store = storeGrid.getStore();
         var proxy = store.getProxy();
-
+        var filter = new Array();
+        filter.push({"type": "string", "value": "4", "field": "termTypeId", "comparison": ""});
         //获取点击树节点的参数            
         var roomId= record.get("id");
         var roomLeaf=record.get("leaf");
@@ -425,7 +426,8 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
         //附带参赛
         proxy.extraParams={
             roomId:roomId,
-            roomLeaf:roomLeaf
+            roomLeaf:roomLeaf,
+            filter:JSON.stringify(filter),
         }
         store.loadPage(1); 
     }
