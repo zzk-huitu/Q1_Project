@@ -2,21 +2,16 @@ package com.yc.q1.model.storage.xf;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
 import com.yc.q1.core.model.BaseEntity;
-import com.yc.q1.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_XF_UserXfAndCreditTotal", catalog = "Q1_Storage", schema = "dbo", uniqueConstraints = {
