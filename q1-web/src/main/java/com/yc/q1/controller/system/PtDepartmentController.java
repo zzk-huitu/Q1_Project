@@ -105,7 +105,6 @@ public class PtDepartmentController extends FrameWorkController<PtDepartment> im
 		if (StringUtils.isNotEmpty(nodeId)) {
 			node = nodeId;
 		}
-
 		PtUser currentUser = getCurrentSysUser();
 		DepartmentTree root = thisService.getUserRightDeptTree(currentUser, node);
 		if (node.equalsIgnoreCase(TreeVeriable.ROOT)) {
@@ -202,7 +201,7 @@ public class PtDepartmentController extends FrameWorkController<PtDepartment> im
 		if (StringUtils.isEmpty(deptId)) {
 			writeJSON(response, JsonBuilder.getInstance().returnSuccessJson("\"没有传入删除主键\""));
 			return;
-		}
+		}		
 		PtUser currentUser = getCurrentSysUser();
 		String flag = thisService.doDelOrg(deptId, currentUser);
 		if ("1".equals(flag)) {

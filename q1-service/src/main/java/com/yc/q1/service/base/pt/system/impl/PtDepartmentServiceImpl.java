@@ -268,7 +268,7 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 			default:
 				break;
 			}
-			
+					
 		}
 		
 		//删除所有redis部门缓存数据，以免产生误会
@@ -1051,7 +1051,6 @@ public class PtDepartmentServiceImpl extends BaseServiceImpl<PtDepartment> imple
 		deptRedisService.setRightDeptDisciplineTreeByUser(userId, chilrens);
 		return chilrens;
 	}
-	
 
 	
 }
