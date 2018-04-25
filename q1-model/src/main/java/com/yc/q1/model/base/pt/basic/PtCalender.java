@@ -46,7 +46,7 @@ public class PtCalender extends BaseEntity implements Serializable {
 	private String campusName;
 
 	@FieldInfo(name = "学段编码", type = "varchar(4) DEFAULT ''", explain = "学段编码")
-	@Column(name = "sectionCode", columnDefinition = "varchar(4) defalut ''", nullable = true)
+	@Column(name = "sectionCode", columnDefinition = "varchar(4) default ''", nullable = true)
 	private String sectionCode;
 
 	@FieldInfo(name = "生效状态", type = "bit NOT NULL default 0", explain = "生效状态")
