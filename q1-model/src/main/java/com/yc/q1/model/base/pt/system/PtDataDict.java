@@ -79,6 +79,14 @@ public class PtDataDict extends TreeNodeEntity implements Serializable {
 		this.parentName = parentName;
 	}
 
+	public Boolean getIsSystem() {
+		return isSystem;
+	}
+
+	public void setIsSystem(Boolean isSystem) {
+		this.isSystem = isSystem;
+	}
+
 	public PtDataDict() {
 		super();
 	}

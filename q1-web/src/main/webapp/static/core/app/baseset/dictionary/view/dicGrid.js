@@ -65,10 +65,10 @@ Ext.define("core.baseset.dictionary.view.DicGrid", {
         flex:1
     }, {
         width:100,
-        text: "是否系统角色",
+        text: "是否系统字典",
         dataIndex: "isSystem",
         renderer: function(value) {
-            return value=="true"?"<font color=green>是</font>":"<font color=red>否</font>"
+            return value==true?"<font color=green>是</font>":"<font color=red>否</font>"
         }
     }, {
         text: "顺序号",

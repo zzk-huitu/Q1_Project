@@ -1,8 +1,8 @@
 Ext.define("core.baseset.dictionary.controller.MainController", {
 	extend: "Ext.app.ViewController",
-    alias: 'controller.baseset.dictionary.maincontroller',
+	alias: 'controller.baseset.dictionary.maincontroller',
 	
-	mixins: {
+	mixins:{
 		suppleUtil: "core.util.SuppleUtil",
 		messageUtil: "core.util.MessageUtil",
 		formUtil: "core.util.FormUtil",
@@ -11,29 +11,36 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 	},
 	
 	init: function() {
-		var self = this
+		var self = this;
 			//事件注册
-		
 
-		this.control({
-			"basepanel basetreegrid[xtype=baseset.dictionary.dicgrid]": {
-                afterrender : function(grid) {
-                    this.hideFuncBtn(grid);                   
-                },
-                beforeitemclick: function(grid) {
-                 	this.disabledFuncBtn(grid);
-                },
-            },
+
+			this.control({
+				"basepanel basetreegrid[xtype=baseset.dictionary.dicgrid]": {
+					afterrender : function(grid) {
+						this.hideFuncBtn(grid);                   
+					},
+					beforeitemclick: function(grid, record, item, index, e, eOpts) {
+						this.disabledFuncBtn(grid);
+						this.loadMainGridStore(grid,record);
+					},
+				},
+				"basegrid[xtype=baseset.dictionary.itemgrid]": {
+					beforeitemclick: function(grid) {
+						this.disabledMainFuncBtn(grid);		
+						return false;		
+					},
+				},
 			/**
 			 * 树形节点点击事件
 			 * 1.展开树 2.刷新右边的字典项 3.显示按钮
 			 * @type {[type]}
 			 */
-			"panel[xtype=baseset.dictionary.dicgrid]": {
-				itemclick: function(grid, record, item, index, e, eOpts) {
-					this.loadItemGridStore(grid,record);				
-				},
-			},
+			 "panel[xtype=baseset.dictionary.dicgrid]": {
+			 	itemclick: function(grid, record, item, index, e, eOpts) {
+			 		this.loadItemGridStore(grid,record);				
+			 	},
+			 },
 
 			//增加下级按钮事件
 			"panel[xtype=baseset.dictionary.dicgrid] button[ref=gridAdd]": {
@@ -52,7 +59,7 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 			"panel[xtype=baseset.dictionary.dicgrid] button[ref=gridEdit]": {
 				click: function(btn) {
 					self.doDetail(btn, "edit");
-				}
+				},
 			},
 			//删除按钮事件
 			"panel[xtype=baseset.dictionary.dicgrid] button[ref=gridDel]": {
@@ -94,20 +101,19 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 			
 			
 			"basegrid[xtype=baseset.dictionary.itemgrid] button[ref=gridAdd_Tab]": {
-                beforeclick: function(btn) {
-                    this.doDetail_Tab(btn,"add");
-                    return false;
-                }
-            },
+				beforeclick: function(btn) {
+					this.doDetail_Tab(btn,"add");
+					return false;
+				}
+			},
 
-            "basegrid[xtype=baseset.dictionary.itemgrid] button[ref=gridEdit_Tab]": {
-                beforeclick: function(btn) {
-                    this.doDetail_Tab(btn,"edit");
-                    return false;
-                }
-            },
+			"basegrid[xtype=baseset.dictionary.itemgrid] button[ref=gridEdit_Tab]": {
+				beforeclick: function(btn) {
+					this.doDetail_Tab(btn,"edit");
+					return false;
+				}
+			},
 
-            
 
 			//字典项删除按钮事件
 			"panel[xtype=baseset.dictionary.itemgrid] button[ref=gridDelete]": {
@@ -115,11 +121,11 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 					this.doDeleteDicItem(btn);					
 					return false;
 				}
-			}
+			},
+			
 		});
+},
 
-	},
-	
 	doDetail_Tab:function(btn, cmd, grid, record) {
         var self = this;
         var baseGrid = btn.up("basegrid");
@@ -132,9 +138,9 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 	    var detLayout = basePanel.detLayout;
 	    var defaultObj = funData.defaultObj;
 		
-		var otherController = basePanel.otherController;
-	        if (!otherController)
-	            otherController = '';
+	    var otherController = basePanel.otherController;
+	    if (!otherController)
+	    	otherController = '';
 		//选择的字典信息
 		var dicGrid = baseGrid.up("panel[xtype=baseset.dictionary.mainlayout]").down("panel[xtype=baseset.dictionary.dicgrid]");
 		var selectObject = dicGrid.getSelectionModel().getSelection();
@@ -276,13 +282,13 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 			grid: baseGrid,
 			whereSql: " and isDelete='0' "
 		});
-
 		//先确定要选择记录
 		var records = baseGrid.getSelectionModel().getSelection();
 		if (records.length != 1) {
 			self.Error("请先选择字典");
 			return;
 		}
+		var isSystem = records[0].get("isSystem");
 		//当前节点
 		var just = records[0].get("id");
 		var justName = records[0].get("text");
@@ -321,7 +327,11 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 				iconCls = "x-fa fa-pencil-square";
 				operType = "edit";
 				title = "修改字典";
-                
+                if(isSystem==true){
+                	self.Warning("不可以编辑系统字典！");
+                	return false;
+
+                }
                 insertObj = records[0].data;
 				insertObj = Ext.apply(insertObj, {
 					parentNode: parent,
@@ -337,8 +347,8 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 			win = Ext.create('core.base.view.BaseFormWin', {
 				id: winId,
 				title: title,
-				width: 500,
-				height: 370,
+				width: 600,
+				height: 400,
 				resizable: false,
 				iconCls: iconCls,
 				operType: operType,
@@ -359,7 +369,6 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 		//console.log(insertObj);
 		self.setFormValue(formDeptObj, insertObj);
 	},
-
 	hideFuncBtn:function(grid){	
         if(comm.get("isAdmin")!="1"){
             var menuCode="DICTIONARY";     // 此菜单的前缀
@@ -413,6 +422,65 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
      	}
 	},
 
+	disabledMainFuncBtn:function(grid){	
+     	var basePanel = grid.up("basepanel");
+        var funData = basePanel.funData;
+     	var basegrid = basePanel.down("basegrid[xtype=baseset.dictionary.itemgrid]");
+     	var records = basegrid.getSelectionModel().getSelection();
+     	var btnAdd = basegrid.down("button[ref=gridAdd_Tab]");
+     	var btnEdit = basegrid.down("button[ref=gridEdit_Tab]");
+     	var btnDel = basegrid.down("button[ref=gridDelete]");
+     	var isSystem = funData.isSystem;
+     	if (records.length == 0) {
+     		btnAdd.setDisabled(true);
+     		btnEdit.setDisabled(true);
+     		btnDel.setDisabled(true);
+     	} else if (records.length == 1) {
+     		if(isSystem==true){
+     			btnAdd.setDisabled(true);
+     			btnEdit.setDisabled(true);
+     			btnDel.setDisabled(true);
+     		}else{
+     			btnAdd.setDisabled(false);
+     			btnEdit.setDisabled(false);
+     			btnDel.setDisabled(false);
+
+     		}
+     		
+     	} else {
+     		btnAdd.setDisabled(true);
+     		btnEdit.setDisabled(true);
+     		if(isSystem==true) {
+     			btnDel.setDisabled(true);
+     		}else{
+     			btnDel.setDisabled(false);
+     		}
+     		
+     	}
+	},
+
+    loadMainGridStore:function(grid,record){
+        var basePanel = grid.up("basepanel");
+        var funData = basePanel.funData;
+        Ext.apply(funData, {
+        	isSystem: record.get("isSystem"),
+        });
+        //加载字典项项信息
+        var mainGrid = basePanel.down("panel[xtype=baseset.dictionary.itemgrid]");
+        var btn1 = mainGrid.down("button[ref=gridAdd_Tab]");
+        var btn2 = mainGrid.down("button[ref=gridEdit_Tab]");
+        var btn3 = mainGrid.down("button[ref=gridDelete]");
+        if(record.get("isSystem")==true){
+        	btn1.setDisabled(true);
+        	btn2.setDisabled(true);
+        	btn3.setDisabled(true);
+        }else{
+        	btn1.setDisabled(false);
+        	btn2.setDisabled(true);
+        	btn3.setDisabled(true);
+        }
+     
+    },
 	loadItemGridStore:function(grid,record){
 		var baseMainPanel = grid.up("panel[xtype=baseset.dictionary.mainlayout]");
 		var funCode = baseMainPanel.funCode;
@@ -442,6 +510,15 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
 			self.msgbox("请选择要删除的数据字典");
 			return false;
 		}
+		var isSystem ='';
+		for(var i in records){
+			isSystem =records[i].get("isSystem");
+			if(isSystem==true){
+               self.Warning("不能删除系统字典！");
+               return false;
+			}
+
+		};
 		var ids = new Array();
 		Ext.each(records, function(rec) {
 			var pkValue = rec.get("id");
