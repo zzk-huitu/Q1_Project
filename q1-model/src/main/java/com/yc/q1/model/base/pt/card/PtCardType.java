@@ -42,7 +42,7 @@ public class PtCardType implements Serializable {
 	@Column(name = "commissionCharge", columnDefinition = "money DEFAULT 0", nullable = true)
 	private BigDecimal commissionCharge;
 
-	@FieldInfo(name = "卡工本费")
+	@FieldInfo(name = "卡工本费(押金)")
 	@Column(name = "deposit", columnDefinition = "money DEFAULT 0", nullable = true)
 	private BigDecimal deposit;
 

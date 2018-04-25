@@ -40,8 +40,8 @@ public class PtMealType implements Serializable {
 	private String beginTime;
 
 	@FieldInfo(name = "就餐结束时间")
-	@Column(name = "endtime", length = 8, nullable = false)
-	private String endtime;
+	@Column(name = "endTime", length = 8, nullable = false)
+	private String endTime;
 
 	@FieldInfo(name = "就餐描述")
 	@Column(name = "mealNotes", columnDefinition = "nvarchar(200) DEFAULT ''", nullable = true)
@@ -71,12 +71,12 @@ public class PtMealType implements Serializable {
 		this.beginTime = beginTime;
 	}
 
-	public String getEndtime() {
-		return endtime;
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getMealNotes() {

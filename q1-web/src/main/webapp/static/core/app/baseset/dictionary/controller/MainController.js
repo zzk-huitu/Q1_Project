@@ -431,30 +431,42 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
      	var btnEdit = basegrid.down("button[ref=gridEdit_Tab]");
      	var btnDel = basegrid.down("button[ref=gridDelete]");
      	var isSystem = funData.isSystem;
+     	var admin = comm.get("isAdmin");
      	if (records.length == 0) {
      		btnAdd.setDisabled(true);
      		btnEdit.setDisabled(true);
      		btnDel.setDisabled(true);
      	} else if (records.length == 1) {
-     		if(isSystem==true){
-     			btnAdd.setDisabled(true);
-     			btnEdit.setDisabled(true);
-     			btnDel.setDisabled(true);
+     		if(admin!='1'){
+     			if(isSystem==true){
+     				btnAdd.setDisabled(true);
+     				btnEdit.setDisabled(true);
+     				btnDel.setDisabled(true);
+     			}else{
+     				btnAdd.setDisabled(false);
+     				btnEdit.setDisabled(false);
+     				btnDel.setDisabled(false);
+     			}
      		}else{
      			btnAdd.setDisabled(false);
      			btnEdit.setDisabled(false);
      			btnDel.setDisabled(false);
-
      		}
      		
      	} else {
      		btnAdd.setDisabled(true);
      		btnEdit.setDisabled(true);
-     		if(isSystem==true) {
-     			btnDel.setDisabled(true);
+     		if(admin!='1'){
+     			if(isSystem==true) {
+     				btnDel.setDisabled(true);
+     			}else{
+     				btnDel.setDisabled(false);
+     			}
      		}else{
      			btnDel.setDisabled(false);
+
      		}
+     		
      		
      	}
 	},
@@ -465,20 +477,30 @@ Ext.define("core.baseset.dictionary.controller.MainController", {
         Ext.apply(funData, {
         	isSystem: record.get("isSystem"),
         });
+        var admin = comm.get("isAdmin");
         //加载字典项项信息
         var mainGrid = basePanel.down("panel[xtype=baseset.dictionary.itemgrid]");
         var btn1 = mainGrid.down("button[ref=gridAdd_Tab]");
         var btn2 = mainGrid.down("button[ref=gridEdit_Tab]");
         var btn3 = mainGrid.down("button[ref=gridDelete]");
-        if(record.get("isSystem")==true){
-        	btn1.setDisabled(true);
-        	btn2.setDisabled(true);
-        	btn3.setDisabled(true);
-        }else{
+        if(admin=='1'){//管理员身份
         	btn1.setDisabled(false);
         	btn2.setDisabled(true);
         	btn3.setDisabled(true);
+
+        }else{
+        	if(record.get("isSystem")==true){//是否是系统字典
+        		btn1.setDisabled(true);
+        		btn2.setDisabled(true);
+        		btn3.setDisabled(true);
+        	}else{
+        		btn1.setDisabled(false);
+        		btn2.setDisabled(true);
+        		btn3.setDisabled(true);
+        	}
+
         }
+       
      
     },
 	loadItemGridStore:function(grid,record){
