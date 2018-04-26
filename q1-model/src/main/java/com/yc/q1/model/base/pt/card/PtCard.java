@@ -57,8 +57,8 @@ public class PtCard extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date expiryDate;
 
-	@FieldInfo(name = "卡押金", type = "money default 0", explain = "卡押金")
-	@Column(name = "deposit", columnDefinition = "money default 0", nullable = true)
+	@FieldInfo(name = "卡押金", type = "decimal(18,2) default 0", explain = "卡押金")
+	@Column(name = "deposit", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal deposit;
 
 	@FieldInfo(name = "卡状态", type = "smallint default 0", explain = "数据字典：1正常2挂失3无卡4退卡 7冻结")
@@ -79,12 +79,12 @@ public class PtCard extends BaseEntity implements Serializable {
 	@Column(name = "mealCount", columnDefinition = "int default 0", nullable = true)
 	private Integer mealCount;
 
-	@FieldInfo(name = "当日交易金额", type = "money default 0", explain = "当日交易金额")
-	@Column(name = "dayValue", columnDefinition = "money default 0", nullable = true)
+	@FieldInfo(name = "当日交易金额", type = "decimal(18,2) default 0", explain = "当日交易金额")
+	@Column(name = "dayValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal dayValue;
 
-	@FieldInfo(name = "当餐交易金额", type = "money default 0", explain = "当餐交易金额")
-	@Column(name = "mealValue", columnDefinition = "money default 0", nullable = true)
+	@FieldInfo(name = "当餐交易金额", type = "decimal(18,2) default 0", explain = "当餐交易金额")
+	@Column(name = "mealValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal mealValue;
 
 	@FieldInfo(name = "最后交易时间", type = "datetime", explain = "最后交易时间")

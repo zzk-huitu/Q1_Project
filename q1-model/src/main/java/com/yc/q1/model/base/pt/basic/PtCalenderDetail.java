@@ -46,15 +46,15 @@ public class PtCalenderDetail extends BaseEntity implements Serializable {
 	@Column(name = "sectionCode", columnDefinition = "nvarchar(10) default ''", nullable = true)
 	private String sectionCode;
 
-	@FieldInfo(name = "开始时间", type = "datetime NOT NULL", explain = "开始时间")
-	@Column(name = "beginTime", columnDefinition = "datetime", nullable = false)
-	@Temporal(TemporalType.TIMESTAMP)
+	@FieldInfo(name = "开始时间", type = "time NOT NULL", explain = "开始时间")
+	@Column(name = "beginTime", columnDefinition = "time", nullable = false)
+	@Temporal(TemporalType.TIME)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date beginTime;
 
-	@FieldInfo(name = "结束时间", type = "datetime", explain = "结束时间")
-	@Column(name = "endTime", columnDefinition = "datetime", nullable = true)
-	@Temporal(TemporalType.TIMESTAMP)
+	@FieldInfo(name = "结束时间", type = "time", explain = "结束时间")
+	@Column(name = "endTime", columnDefinition = "time", nullable = true)
+	@Temporal(TemporalType.TIME)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date endTime;
 

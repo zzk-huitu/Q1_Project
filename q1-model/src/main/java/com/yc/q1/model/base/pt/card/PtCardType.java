@@ -39,11 +39,11 @@ public class PtCardType implements Serializable {
 	private String cardTypeName;
 
 	@FieldInfo(name = "卡管理费比率")
-	@Column(name = "commissionCharge", columnDefinition = "money DEFAULT 0", nullable = true)
+	@Column(name = "commissionCharge", columnDefinition = "decimal(18,2) DEFAULT 0", nullable = true)
 	private BigDecimal commissionCharge;
 
 	@FieldInfo(name = "卡工本费(押金)")
-	@Column(name = "deposit", columnDefinition = "money DEFAULT 0", nullable = true)
+	@Column(name = "deposit", columnDefinition = "decimal(18,2) DEFAULT 0", nullable = true)
 	private BigDecimal deposit;
 
 	@FieldInfo(name = "是否启用", explain = "1为启用，0为不启用")
@@ -55,11 +55,11 @@ public class PtCardType implements Serializable {
 	private String cardNotes;
 
 	@FieldInfo(name = "工本费")
-	@Column(name = "issueFee", columnDefinition = "money DEFAULT 0", nullable = true)
+	@Column(name = "issueFee", columnDefinition = "decimal(18,2)  DEFAULT 0", nullable = true)
 	private BigDecimal issueFee;
 
 	@FieldInfo(name = "折旧费")
-	@Column(name = "zheJiuFee", columnDefinition = "money DEFAULT 0", nullable = true)
+	@Column(name = "zheJiuFee", columnDefinition = "decimal(18,2)  DEFAULT 0", nullable = true)
 	private BigDecimal zheJiuFee;
 
 	public Integer getCardTypeId() {

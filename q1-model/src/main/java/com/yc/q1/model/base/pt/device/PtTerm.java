@@ -64,19 +64,19 @@ public class PtTerm extends BaseEntity implements Serializable {
 	@Column(name = "offlineUse", columnDefinition = "bit default 0", nullable = true)
 	private Boolean offlineUse;
 
-	@FieldInfo(name = "基础参数", type = "varbinary(255)", explain = "基础参数")
+	@FieldInfo(name = "基础参数", type = "varbinary(512)", explain = "基础参数")
 	@Column(name = "baseParam")
 	private byte[] baseParam;
 
-	@FieldInfo(name = "高级参数", type = "varbinary(255)", explain = "高级参数")
+	@FieldInfo(name = "高级参数", type = "varbinary(512)", explain = "高级参数")
 	@Column(name = "advParam")
 	private byte[] advParam;
 
-	@FieldInfo(name = "费率参数", type = "varbinary(255)", explain = "费率参数")
+	@FieldInfo(name = "费率参数", type = "varbinary(512)", explain = "费率参数")
 	@Column(name = "rateParam")
 	private byte[] rateParam;
 
-	@FieldInfo(name = "网络参数", type = "varbinary(255)", explain = "网络参数")
+	@FieldInfo(name = "网络参数", type = "varbinary(512)", explain = "网络参数")
 	@Column(name = "netParam")
 	private byte[] netParam;
 
