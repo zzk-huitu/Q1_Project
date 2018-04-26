@@ -20,12 +20,15 @@ import com.yc.q1.core.util.DateTimeSerializer;
 
 /**
  * 门禁开门记录
+ * 
+ * 主键：从俊哥系统中生成32位长度的id
+ * 
  * @author ZZK
  *
  */
 @Entity
 @Table(name = "T_MJ_OpenDoor",catalog="Q1_Storage",schema="dbo")
-@AttributeOverride(name = "id", column = @Column(name = "openDoorId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "openDoorId", length = 32, nullable = false) )
 public class MjOpenDoor extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.MJ;	//指定此对象生成的模块编码值。
@@ -80,7 +83,7 @@ public class MjOpenDoor extends BaseEntity implements Serializable {
 	@Column(name = "areaId", length = 20,  nullable = false)
 	private String areaId;
 
-	@FieldInfo(name = "记录编号", type = "varchar(20)  NOT NULL", explain = "记录编号")
+	@FieldInfo(name = "记录编号", type = "varchar(32)  NOT NULL", explain = "记录编号")
 	@Column(name = "recordId", length = 20, nullable = false)
 	private String recordId;
 

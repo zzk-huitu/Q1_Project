@@ -27,7 +27,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  */
 @Entity
 @Table(name = "T_SK_TermStatus",catalog="Q1_Storage",schema="dbo")
-@AttributeOverride(name = "id", column = @Column(name = "termStatusId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "termStatusId", length = 32, nullable = false) )
 public class SkTermStatus extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.SK;	//指定此对象生成的模块编码值。
@@ -54,8 +54,8 @@ public class SkTermStatus extends BaseEntity implements Serializable {
 	@Column(name = "measure", columnDefinition = "int DEFAULT 0", nullable = false)
 	private Integer measure;
 
-	@FieldInfo(name = "费率", type = "decimal NOT NULL DEFAULT 0DEFAULT 0", explain = "费率（元/升）")
-	@Column(name = "price", columnDefinition = "decimal DEFAULT 0", nullable = false)
+	@FieldInfo(name = "费率", type = "decimal(18,2) NOT NULL DEFAULT 0DEFAULT 0", explain = "费率（元/升）")
+	@Column(name = "price", columnDefinition = "decimal(18,2) DEFAULT 0", nullable = false)
 	private BigDecimal price;
 
 	@FieldInfo(name = "冷水当前小时使用水量", type = "float NOT NULL DEFAULT 0", explain = "冷水当前小时使用水量（升）")
@@ -74,12 +74,12 @@ public class SkTermStatus extends BaseEntity implements Serializable {
 	@Column(name = "totalUsedPulse", columnDefinition = "bigint DEFAULT 0", nullable = false)
 	private Long totalUsedPulse;
 
-	@FieldInfo(name = "热水交易金额", type = "decimal NOT NULL DEFAULT 0", explain = "热水交易金额")
-	@Column(name = "useMoney", columnDefinition = "decimal DEFAULT 0", nullable = false)
+	@FieldInfo(name = "热水交易金额", type = "decimal(18,2) NOT NULL DEFAULT 0", explain = "热水交易金额")
+	@Column(name = "useMoney", columnDefinition = "decimal(18,2) DEFAULT 0", nullable = false)
 	private BigDecimal useMoney;
 
-	@FieldInfo(name = "热水已交易总额", type = "decimal NOT NULL DEFAULT 0", explain = "热水已交易总额")
-	@Column(name = "totalUsedMoney", columnDefinition = "decimal DEFAULT 0", nullable = false)
+	@FieldInfo(name = "热水已交易总额", type = "decimal(18,2) NOT NULL DEFAULT 0", explain = "热水已交易总额")
+	@Column(name = "totalUsedMoney", columnDefinition = "decimal(18,2) DEFAULT 0", nullable = false)
 	private BigDecimal totalUsedMoney;
 
 	@FieldInfo(name = "热水已交易流水", type = "bigint NOT NULL DEFAULT 0", explain = "热水已交易流水")

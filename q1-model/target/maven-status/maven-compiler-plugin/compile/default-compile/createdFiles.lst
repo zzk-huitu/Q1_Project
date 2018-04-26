@@ -47,6 +47,7 @@ com\yc\q1\pojo\base\app\CheckRuleStudentApp.class
 com\yc\q1\model\base\pt\device\PtPriceBind.class
 com\yc\q1\model\base\pt\system\PtMealType.class
 com\yc\q1\model\base\pt\wisdomclass\PtClassParam.class
+com\yc\q1\model\storage\mj\MjRecord.class
 com\yc\q1\model\base\sk\SkMeterBind.class
 com\yc\q1\model\base\pt\wisdomclass\PtClassMien.class
 com\yc\q1\model\base\sk\SkMeter.class
@@ -93,7 +94,6 @@ com\yc\q1\model\base\pt\build\PtRoomInfo.class
 com\yc\q1\model\base\pt\basic\PtClassStudent.class
 com\yc\q1\model\base\pt\build\PtOfficeAllot.class
 com\yc\q1\pojo\base\app\JKCourseToDayArray.class
-com\yc\q1\model\base\pt\card\PtCardReplenish.class
 com\yc\q1\model\storage\xf\XfCreditAccountBack.class
 com\yc\q1\pojo\base\pt\PowerResidue.class
 com\yc\q1\model\base\pt\device\PtTermBag.class
@@ -112,6 +112,7 @@ com\yc\q1\model\base\pt\wisdomclass\PtNoticeType.class
 com\yc\q1\model\base\pt\build\PtClassRoomDefine.class
 com\yc\q1\model\storage\xf\XfCreditAccount.class
 com\yc\q1\pojo\base\pt\MenuTree.class
+com\yc\q1\model\base\pt\card\PtCardLimit.class
 com\yc\q1\model\base\pt\wisdomclass\PtAttendTerm.class
 com\yc\q1\pojo\base\pt\CommTree.class
 com\yc\q1\pojo\base\pt\DepartmentTree.class
