@@ -27,11 +27,11 @@ import com.yc.q1.core.util.DateTimeSerializer;
 
 @Entity
 @Table(name = "T_MJ_UserRight")
-@AttributeOverride(name = "id", column = @Column(name = "userRightId", length = 20, nullable = false))
+@AttributeOverride(name = "id", column = @Column(name = "userRightId", length = 20, nullable = false) )
 public class MjUserRight extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String ModuleType = ModuleNumType.MJ;	//指定此对象生成的模块编码值。
-	
+	public static final String ModuleType = ModuleNumType.MJ; // 指定此对象生成的模块编码值。
+
 	@FieldInfo(name = "设备主键Id", type = "varchar(20)", explain = "设备主键Id")
 	@Column(name = "termId", length = 20, nullable = false)
 	private String termId;
@@ -40,13 +40,13 @@ public class MjUserRight extends BaseEntity implements Serializable {
 	@Column(name = "userId", length = 20, nullable = false)
 	private String userId;
 
-	@FieldInfo(name = "卡流水号", type = "varchar(16) default ''", explain = "卡流水号")
-	@Column(name = "cardId", columnDefinition = "varchar(16) default ''", nullable = true)
-	private String cardId;
+	@FieldInfo(name = "卡流水号", explain = "卡流水号")
+	@Column(name = "cardNo", columnDefinition = "bigint default 0", nullable = true)
+	private Long cardNo;
 
-	@FieldInfo(name = "物理卡号", type = "varchar(16) default ''", explain = "物理卡号")
-	@Column(name = "cardNo",  columnDefinition = "varchar(16) default ''", nullable = true)
-	private String cardNo;
+	@FieldInfo(name = "物理卡号", explain = "物理卡号")
+	@Column(name = "factoryFixId", columnDefinition = "bigint default 0", nullable = true)
+	private Long factoryFixId;
 
 	@FieldInfo(name = "时段ID", type = "int default 0", explain = "时段ID")
 	@Column(name = "controlsegId", columnDefinition = "int default 0", nullable = true)
@@ -102,20 +102,20 @@ public class MjUserRight extends BaseEntity implements Serializable {
 		this.userId = userId;
 	}
 
-	public String getCardId() {
-		return cardId;
-	}
-
-	public void setCardId(String cardId) {
-		this.cardId = cardId;
-	}
-
-	public String getCardNo() {
+	public Long getCardNo() {
 		return cardNo;
 	}
 
-	public void setCardNo(String cardNo) {
+	public void setCardNo(Long cardNo) {
 		this.cardNo = cardNo;
+	}
+
+	public Long getFactoryFixId() {
+		return factoryFixId;
+	}
+
+	public void setFactoryFixId(Long factoryFixId) {
+		this.factoryFixId = factoryFixId;
 	}
 
 	public Integer getControlsegId() {

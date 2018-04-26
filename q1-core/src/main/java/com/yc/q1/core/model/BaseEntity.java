@@ -50,30 +50,30 @@ public abstract class BaseEntity {
 	}
 
 	@FieldInfo(name = "创建时间")
-	@Column(name = "createTime", nullable = true, columnDefinition = "datetime", updatable = false)
+	@Column(name = "createTime", nullable = true, columnDefinition = "datetime default getDate()", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private Date createTime = new Date();
 
 	@FieldInfo(name = "创建人")
-	@Column(name = "createUser", length = 36)
+	@Column(name = "createUser", columnDefinition = "varchar(20) default ''")
 	private String createUser;
 
 	@FieldInfo(name = "最后修改时间")
-	@Column(name = "updateTime", columnDefinition = "datetime")
+	@Column(name = "updateTime", columnDefinition = "datetime default getDate()")
 	@Temporal(TemporalType.TIMESTAMP)
 	@JsonSerialize(using = DateTimeSerializer.class)
 	@JsonDeserialize(using = DateTimeDeserializer.class)
 	private Date updateTime = new Date();
 
 	@FieldInfo(name = "修改人")
-	@Column(name = "updateUser", length = 36)
+	@Column(name = "updateUser", columnDefinition = "varchar(20) default ''")
 	private String updateUser;
 
 	@FieldInfo(name = "版本")
 	@Version
-	@Column(name = "version", nullable = false)
+	@Column(name = "version", columnDefinition = "int default 0", nullable = false)
 	private Integer version;
 
 	@FieldInfo(name = "是否删除",explain = "0-未删除 1-已删除")

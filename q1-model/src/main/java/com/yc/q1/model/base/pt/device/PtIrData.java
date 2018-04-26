@@ -37,11 +37,11 @@ public class PtIrData extends BaseEntity implements Serializable {
 	@Column(name = "irDataName", columnDefinition = "nvarchar(20) ", nullable = false)
 	private String irDataName;
 
-	@FieldInfo(name = "红外动作数据", type = "varbinary(255) NOT NULL", explain = "红外动作数据")
+	@FieldInfo(name = "红外动作数据", type = "varbinary(512) NOT NULL", explain = "红外动作数据")
 	@Column(name = "irActionData", length = 255, nullable = false)
 	private byte[] irActionData;
 
-	@FieldInfo(name = "红外转换数据", type = "varbinary(255) NOT NULL", explain = "红外转换数据")
+	@FieldInfo(name = "红外转换数据", type = "varbinary(512) NOT NULL", explain = "红外转换数据")
 	@Column(name = "irConvertedData", length = 255, nullable = false)
 	private byte[] irConvertedData;
 

@@ -46,8 +46,8 @@ public class PtStudentDormRemove extends BaseEntity implements Serializable {
 	@Column(name = "isHandle", columnDefinition = "bit default 0", nullable = true)
 	private Boolean isHandle;
 
-	@FieldInfo(name = "amount", type = "numeric default 0", explain = "金额")
-	@Column(name = "amount", columnDefinition = "bit default 0", nullable = true)
+	@FieldInfo(name = "amount", type = "decimal(18, 2) default 0", explain = "金额")
+	@Column(name = "amount", columnDefinition = "decimal(18, 2) default 0", nullable = true)
 	private BigDecimal amount;
 
 	public String getClassDormId() {
