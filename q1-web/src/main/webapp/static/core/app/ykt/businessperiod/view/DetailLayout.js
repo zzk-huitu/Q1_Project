@@ -1,7 +1,7 @@
 Ext.define("core.ykt.businessperiod.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
 	alias : 'widget.ykt.businessperiod.detaillayout',
-	funCode:"jobinfo_detail",
+	funCode:"businessperiod_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtMealType", //请求Action
 		pkName: "mealTypeId",

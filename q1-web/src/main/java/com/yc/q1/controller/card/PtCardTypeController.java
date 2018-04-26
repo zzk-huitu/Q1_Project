@@ -95,7 +95,7 @@ public class PtCardTypeController extends FrameWorkController<PtCardType>{
 			return;
 		}
 		String sql1 = "SELECT MAX(cardTypeId) FROM T_PT_CardType";
-		Integer maxCount = thisService.getEntityBySql(sql1);
+		Short maxCount = thisService.getEntityBySql(sql1);
 		if(null!=maxCount&&maxCount==64){
 			writeJSON(response, jsonBuilder.returnFailureJson("\"超出最大卡类！\""));
 			return;

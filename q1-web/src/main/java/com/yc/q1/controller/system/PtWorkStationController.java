@@ -16,9 +16,9 @@ import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.StringUtils;
-import com.yc.q1.model.base.pt.system.PtMealOperator;
+import com.yc.q1.model.base.pt.system.PtWorkStation;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.service.base.pt.system.PtMealOperatorService;
+import com.yc.q1.service.base.pt.system.PtWorkStationService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
@@ -27,11 +27,11 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
  *
  */
 @Controller
-@RequestMapping("/PtMealOperator")
-public class PtMealOperatorController extends FrameWorkController<PtMealOperator> implements Constant {
+@RequestMapping("/PtWorkStation")
+public class PtWorkStationController extends FrameWorkController<PtWorkStation> implements Constant {
 
 	@Resource
-	PtMealOperatorService thisService; // service层接口
+	PtWorkStationService thisService; // service层接口
 	
 	@Resource
 	private PrimaryKeyRedisService keyRedisService;
@@ -44,16 +44,15 @@ public class PtMealOperatorController extends FrameWorkController<PtMealOperator
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(PtMealOperator entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void list(PtWorkStation entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = ""; // 返回给js的数据
-		QueryResult<PtMealOperator> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+		QueryResult<PtWorkStation> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
 
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
-
-
+	
 	/**
 	 * 标准的添加功能
 	 * 
@@ -64,13 +63,13 @@ public class PtMealOperatorController extends FrameWorkController<PtMealOperator
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-	@Auth("MEALOPERATOR_add")
+	@Auth("WORKSTATION_add")
 	@RequestMapping("/doAdd")
-	public void doAdd(PtMealOperator entity, HttpServletRequest request, HttpServletResponse response)
+	public void doAdd(PtWorkStation entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-		entity.setId(keyRedisService.getId(PtMealOperator.ModuleType));
+		entity.setId(keyRedisService.getId(PtWorkStation.ModuleType));
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)
@@ -84,7 +83,7 @@ public class PtMealOperatorController extends FrameWorkController<PtMealOperator
 	 * request @param @param response @param @throws IOException 设定参数 @return
 	 * void 返回类型 @throws
 	 */
-	@Auth("MEALOPERATOR_delete")
+	@Auth("WORKSTATION_delete")
 	@RequestMapping("/doDelete")
 	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String delIds = request.getParameter("ids");
@@ -107,13 +106,15 @@ public class PtMealOperatorController extends FrameWorkController<PtMealOperator
 	 * BizTJob @param @param request @param @param response @param @throws
 	 * IOException 设定参数 @return void 返回类型 @throws
 	 */
-	@Auth("MEALOPERATOR_update")
+	@Auth("WORKSTATION_update")
 	@RequestMapping("/doUpdate")
-	public void doUpdates(PtMealOperator entity, HttpServletRequest request, HttpServletResponse response)
+	public void doUpdates(PtWorkStation entity, HttpServletRequest request, HttpServletResponse response)
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		String userCh = getCurrentSysUser().getId();
-		PtMealOperator resultEntity = thisService.doUpdateEntity(entity, userCh, null);
+		PtWorkStation resultEntity = thisService.doUpdateEntity(entity, userCh, null);
 		writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(resultEntity)));
 	}
+	
+	
 
 }

@@ -13,8 +13,8 @@ Ext.define("core.ykt.businessperiod.view.MainLayout", {
     /** 关联此视图控制器 */
     controller: 'ykt.businessperiod.maincontroller',
     /** 页面代码定义 */
-    funCode: "jobinfo_main",
-    detCode: "jobinfo_detail",
+    funCode: "businessperiod_main",
+    detCode: "businessperiod_detail",
     detLayout: "ykt.businessperiod.detaillayout",
     /*标注这个视图控制器的别名，以此提供给window处使用*/
     otherController:'ykt.businessperiod.othercontroller',
@@ -25,10 +25,10 @@ Ext.define("core.ykt.businessperiod.view.MainLayout", {
         pkName: "mealTypeId",
         defaultObj: {},
         tabConfig:{         //zzk：2017-6-1加入，用于对tab操作提供基本配置数据
-            titleField:'jobName',   //指定这个模块，主表格界面的名称的字段名，用于显示在tab标签页上面
-        	addTitle:'添加岗位',
-        	editTitle:'编辑岗位',
-        	detailTitle:'岗位详情'
+            titleField:'mealName',   //指定这个模块，主表格界面的名称的字段名，用于显示在tab标签页上面
+        	addTitle:'添加营业时段',
+        	editTitle:'编辑营业时段',
+        	detailTitle:'营业时段详情'
         }
     },
     /*设置最小宽度，并且自动滚动*/

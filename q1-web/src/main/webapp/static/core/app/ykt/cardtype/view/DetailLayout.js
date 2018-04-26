@@ -1,7 +1,7 @@
 Ext.define("core.ykt.cardtype.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
 	alias : 'widget.ykt.cardtype.detaillayout',
-	funCode:"jobinfo_detail",
+	funCode:"cardtype_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtCardType", //请求Action
 		pkName: "cardTypeId",

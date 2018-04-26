@@ -1,7 +1,7 @@
 Ext.define("core.ykt.sysparameters.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
 	alias : 'widget.ykt.sysparameters.detaillayout',
-	funCode:"jobinfo_detail",
+	funCode:"sysparameters_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtSysParameter", //请求Action
 		pkName: "id",

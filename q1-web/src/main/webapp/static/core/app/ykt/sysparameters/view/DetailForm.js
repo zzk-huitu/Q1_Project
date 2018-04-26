@@ -48,6 +48,7 @@ Ext.define("core.ykt.sysparameters.view.DetailForm", {
         xtype: "textareafield",
         fieldLabel: "参数备注",
         name: "sysParamRemark",
+        emptyText: '参数备注(最多100个字符)',
         maxLength: 100,
         maxLengthText: "最多100个字符"
     }]
