@@ -70,7 +70,7 @@ public class PtAccountController extends FrameWorkController<PtAccount> implemen
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-		entity.setId(keyRedisService.getId(PtSysParameter.ModuleType));
+		entity.setId(keyRedisService.getId(PtAccount.ModuleType));
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)

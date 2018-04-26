@@ -1629,6 +1629,13 @@ $include-core-ykt-sysparameters-view-detailform: dynamic(true);;
 $include-core-ykt-sysparameters-view-detaillayout: dynamic(true);;
 $include-core-ykt-sysparameters-view-maingrid: dynamic(true);;
 $include-core-ykt-sysparameters-view-mainlayout: dynamic(true);;
+$include-core-ykt-workstation-controller-detailcontroller: dynamic(true);;
+$include-core-ykt-workstation-controller-maincontroller: dynamic(true);;
+$include-core-ykt-workstation-controller-othercontroller: dynamic(true);;
+$include-core-ykt-workstation-view-detailform: dynamic(true);;
+$include-core-ykt-workstation-view-detaillayout: dynamic(true);;
+$include-core-ykt-workstation-view-maingrid: dynamic(true);;
+$include-core-ykt-workstation-view-mainlayout: dynamic(true);;
 $include-factory-ddcache: dynamic(true);;
 $include-factory-modelfactory: dynamic(true);;
 
