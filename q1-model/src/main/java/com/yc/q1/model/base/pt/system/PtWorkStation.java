@@ -22,7 +22,7 @@ import com.yc.q1.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "TC_WorkStation")
+@Table(name = "T_PT_WorkStation")
 @AttributeOverride(name = "id", column = @Column(name = "workStationId", length = 20, nullable = false) )
 public class PtWorkStation extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
