@@ -21,19 +21,23 @@ Ext.define("core.ykt.accountmanger.view.DetailForm", {
         name: "accountName",
         allowBlank: false,
         emptyText: '账户名称',
-        blankText: '账户名称不能为空'
+        blankText: '账户名称不能为空',
+        maxLength: 20,
+        maxLengthText: "最多20个字符",
     }, {
-        beforeLabelTextTpl: comm.get("required"),
+        // beforeLabelTextTpl: comm.get("required"),
         xtype: "textfield",
         fieldLabel: "账户编号",
         name: "accountNo",
-        allowBlank: false,
-        emptyText: '账户编号',
-        blankText: '账户编号不能为空'   
+        // allowBlank: false,
+        // emptyText: '账户编号',
+        // blankText: '账户编号不能为空'   
     }, {
         xtype: "textfield",
         fieldLabel: "管理员姓名",
-        name: "adminName"
+        name: "adminName",
+        maxLength: 50,
+        maxLengthText: "最多50个字符",
     }, {
         xtype: "textfield",
         fieldLabel: "证件号码",
@@ -60,7 +64,9 @@ Ext.define("core.ykt.accountmanger.view.DetailForm", {
     }, {
         xtype: "textareafield",
         fieldLabel: "账户描述",
-        name: "accountDescription"
+        name: "accountDescription",
+        maxLength: 100,
+        maxLengthText: "最多100个字符",
     }]
 
 });

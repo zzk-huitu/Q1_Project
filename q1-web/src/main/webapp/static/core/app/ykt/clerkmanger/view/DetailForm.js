@@ -30,8 +30,8 @@ Ext.define("core.ykt.clerkmanger.view.DetailForm", {
         fieldLabel : "营业账户",
         name : "accountName",
         xtype: "basefuncfield",
-        funcController: "core.ykt.TcAccount.controller.TcAccountController", //该功能主控制器
-        funcPanel: "TcAccount.TcAccountMainLayout", //该功能显示的主视图
+        funcController: "core.ykt.accountmanger.controller.MainController", //该功能主控制器
+        funcPanel: "ykt.accountmanger.mainlayout", //该功能显示的主视图
         funcTitle: "营业账户查询", //查询窗口的标题
         configInfo: {
         width:"1000px",

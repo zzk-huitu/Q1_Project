@@ -54,7 +54,7 @@ public class PtMealOperator extends BaseEntity implements Serializable {
 
 	@FieldInfo(name = "应用的系统类型", explain = "数据字典项")
 	@Column(name = "useType", columnDefinition = "varchar(16) DEFAULT ''", nullable = true)
-	private String usetype;
+	private String useType;
 
 	@FieldInfo(name = "营业员描述")
 	@Column(name = "operatorNotes", columnDefinition = "nvarchar(100) DEFAULT ''", nullable = true)
@@ -110,12 +110,12 @@ public class PtMealOperator extends BaseEntity implements Serializable {
 		this.factoryFixId = factoryFixId;
 	}
 
-	public String getUsetype() {
-		return usetype;
+	public String getUseType() {
+		return useType;
 	}
 
-	public void setUsetype(String usetype) {
-		this.usetype = usetype;
+	public void setUseType(String useType) {
+		this.useType = useType;
 	}
 
 	public String getOperatorNotes() {

@@ -1,7 +1,7 @@
 Ext.define("core.ykt.clerkmanger.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
 	alias : 'widget.ykt.clerkmanger.detaillayout',
-	funCode:"jobinfo_detail",
+	funCode:"clerkmanger_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtMealOperator", //请求Action
 		pkName: "id",

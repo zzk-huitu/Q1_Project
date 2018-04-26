@@ -13,8 +13,8 @@ Ext.define("core.ykt.clerkmanger.view.MainLayout", {
     /** 关联此视图控制器 */
     controller: 'ykt.clerkmanger.maincontroller',
     /** 页面代码定义 */
-    funCode: "jobinfo_main",
-    detCode: "jobinfo_detail",
+    funCode: "clerkmanger_main",
+    detCode: "clerkmanger_detail",
     detLayout: "ykt.clerkmanger.detaillayout",
     /*标注这个视图控制器的别名，以此提供给window处使用*/
     otherController:'ykt.clerkmanger.othercontroller',
