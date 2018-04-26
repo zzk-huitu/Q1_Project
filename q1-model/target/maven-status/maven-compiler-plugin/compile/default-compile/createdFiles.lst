@@ -59,6 +59,7 @@ com\yc\q1\model\base\mj\MjUserRight.class
 com\yc\q1\model\base\pt\device\PtIrDeviceBrand.class
 com\yc\q1\model\base\pt\wisdomclass\PtNoticeAuditor.class
 com\yc\q1\model\base\pt\device\PtRoomBag.class
+com\yc\q1\model\storage\xf\XfUserXfAndCreditTotal.class
 com\yc\q1\model\base\pt\system\PtAccount.class
 com\yc\q1\model\base\pt\basic\PtCourseArrange.class
 com\yc\q1\model\base\pt\wisdomclass\PtAttendTheme.class
@@ -86,6 +87,7 @@ com\yc\q1\model\base\pt\device\PtIrData.class
 com\yc\q1\pojo\base\app\RoomInfoApp.class
 com\yc\q1\pojo\base\app\VideoForApp.class
 com\yc\q1\pojo\base\app\CheckRuleClassApp.class
+com\yc\q1\model\base\pt\system\PtWorkStation.class
 com\yc\q1\pojo\base\app\DeviceListInClassApp.class
 com\yc\q1\model\base\pt\build\PtRoomInfo.class
 com\yc\q1\model\base\pt\basic\PtClassStudent.class
