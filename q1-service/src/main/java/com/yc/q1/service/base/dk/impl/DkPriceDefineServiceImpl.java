@@ -1,6 +1,7 @@
 package com.yc.q1.service.base.dk.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -41,7 +42,7 @@ public class DkPriceDefineServiceImpl extends BaseServiceImpl<DkPriceDefine> imp
 	public DkPriceDefine doAddEntity(DkPriceDefine entity, PtUser currentUser) {
 		try {
 			Integer orderIndex = this.getDefaultOrderIndex(entity);
-			float priceValue = entity.getPriceValue();
+			BigDecimal priceValue = entity.getPriceValue();
 			DkPriceDefine perEntity = new DkPriceDefine();
 			perEntity.setCreateUser(currentUser.getId());
 			perEntity.setOrderIndex(orderIndex);

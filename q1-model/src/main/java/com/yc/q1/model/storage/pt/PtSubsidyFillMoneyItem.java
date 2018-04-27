@@ -25,13 +25,15 @@ import com.yc.q1.core.util.DateTimeSerializer;
  * 
  * 目前此表采用 补助id+用户id的唯一索引
  * 
+ * oriRecordID：原纪录id，32位长度，由俊哥系统生成
+ * 
  * @author ZZK
  *
  */
 @Entity
 @Table(name = "T_PT_SubsidyFillMoneyItem", catalog = "Q1_Storage", schema = "dbo", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "mainId", "userId" }) })
-@AttributeOverride(name = "id", column = @Column(name = "itemId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "itemId", length = 32, nullable = false) )
 public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
@@ -45,7 +47,7 @@ public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 	private String userId;
 
 	@FieldInfo(name = "补助金额")
-	@Column(name = "fillMoney", columnDefinition = "Money default 0", nullable = true)
+	@Column(name = "fillMoney", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal fillMoney;
 
 	@FieldInfo(name = "配置补助时间")
@@ -77,11 +79,11 @@ public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
 	private Boolean fillStats;
 
 	@FieldInfo(name = "领取补助后卡余")
-	@Column(name = "cardValue", columnDefinition = "Money default 0", nullable = true)
+	@Column(name = "cardValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal cardValue;
 
 	@FieldInfo(name = "领取补助前卡余")
-	@Column(name = "cardValueBefore", columnDefinition = "Money default 0", nullable = true)
+	@Column(name = "cardValueBefore", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal cardValueBefore;
 
 	@FieldInfo(name = "原始记录ID")

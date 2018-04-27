@@ -15,9 +15,15 @@ Ext.define("core.ykt.cardtype.view.DetailForm", {
         name: "cardTypeId",
         hidden: true
     }, {
+		beforeLabelTextTpl: comm.get("required"),
 		xtype : "textfield",
 		fieldLabel : "卡类名称",
 		name : "cardTypeName",
+		allowBlank: false,
+        emptyText: '卡类名称(最多20个字符)',
+        blankText: '卡类名称不能为空',
+        maxLength: 20,
+        maxLengthText: "最多20个字符",
 	}, {
 		xtype : "checkboxfield",
 		fieldLabel : "是否有效",
@@ -50,6 +56,9 @@ Ext.define("core.ykt.cardtype.view.DetailForm", {
 		xtype: 'textareafield',
 		fieldLabel : "卡类描述",
 		name : "cardNotes",
+		emptyText: '卡类描述(最多100个字符)',
+        maxLength: 100,
+        maxLengthText: "最多100个字符",
 	} ]
 
 });

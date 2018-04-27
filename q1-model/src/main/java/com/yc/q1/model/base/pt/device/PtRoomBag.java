@@ -35,20 +35,20 @@ public class PtRoomBag extends BaseEntity implements Serializable {
 	@Column(name = "roomId", length = 20, nullable = false)
 	private String roomId;
 
-	@FieldInfo(name = "房间余额", type = "money NOT NULL default 0", explain = "房间余额")
-	@Column(name = "roomValue", columnDefinition = "money default 0", nullable = false)
+	@FieldInfo(name = "房间余额", type = "decimal(18,2) NOT NULL default 0", explain = "房间余额")
+	@Column(name = "roomValue", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal roomValue;
 
-	@FieldInfo(name = "房间总用", type = "money NOT NULL default 0", explain = "房间总使用金额")
-	@Column(name = "roomTotalUsed", columnDefinition = "money default 0", nullable = false)
+	@FieldInfo(name = "房间总用", type = "decimal(18,2) NOT NULL default 0", explain = "房间总使用金额")
+	@Column(name = "roomTotalUsed", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal roomTotalUsed;
 
-	@FieldInfo(name = "房间总充", type = "money NOT NULL default 0", explain = "房间总充值金额")
-	@Column(name = "roomTotalRecharge", columnDefinition = "money default 0", nullable = false)
+	@FieldInfo(name = "房间总充", type = "decimal(18,2) NOT NULL default 0", explain = "房间总充值金额")
+	@Column(name = "roomTotalRecharge", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal roomTotalRecharge;
 
-	@FieldInfo(name = "水总用", type = "money NOT NULL default 0", explain = "房间总用水金额")
-	@Column(name = "waterTotalUsed", columnDefinition = "money default 0", nullable = false)
+	@FieldInfo(name = "水总用", type = "decimal(18,2) NOT NULL default 0", explain = "房间总用水金额")
+	@Column(name = "waterTotalUsed", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal waterTotalUsed;
 
 	@FieldInfo(name = "水改变时间", type = "datetime", explain = "房间最后用水时间")
@@ -57,8 +57,8 @@ public class PtRoomBag extends BaseEntity implements Serializable {
 	@JsonSerialize(using = DateTimeSerializer.class)
 	private Date waterUpdateTime;
 
-	@FieldInfo(name = "电总用", type = "money NOT NULL default 0", explain = "房间的总用电金额")
-	@Column(name = "eleTotalUsed", columnDefinition = "money default 0", nullable = false)
+	@FieldInfo(name = "电总用", type = "decimal(18,2) NOT NULL default 0", explain = "房间的总用电金额")
+	@Column(name = "eleTotalUsed", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal eleTotalUsed;
 
 	@FieldInfo(name = "电改变时间", type = "datetime", explain = "房间的最后用电时间")

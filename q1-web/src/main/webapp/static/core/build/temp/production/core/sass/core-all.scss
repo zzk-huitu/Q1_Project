@@ -1,5 +1,9 @@
 $app-name:  dynamic( 'core' );
+<<<<<<< HEAD
 $image-search-path: 'F:/workspace_Q1_project/Q1_Project/q1-web/src/main/webapp/static/core/build/production/core/resources';
+=======
+$image-search-path: 'F:/workspace_git_Q1/q1/q1-web/src/main/webapp/static/core/build/production/core/resources';
+>>>>>>> ca966cdd440db33f7119edd78ba7c47375a0528e
 $theme-name:  dynamic( 'theme-triton' );
 $include-ext-abstractcomponent: dynamic(true);;
 $include-ext-abstractcontainer: dynamic(true);;
@@ -1642,6 +1646,14 @@ $include-core-ykt-businessperiod-view-detailform: dynamic(false);;
 $include-core-ykt-businessperiod-view-detaillayout: dynamic(false);;
 $include-core-ykt-businessperiod-view-maingrid: dynamic(false);;
 $include-core-ykt-businessperiod-view-mainlayout: dynamic(false);;
+$include-core-ykt-card-controller-detailcontroller: dynamic(false);;
+$include-core-ykt-card-controller-maincontroller: dynamic(false);;
+$include-core-ykt-card-controller-othercontroller: dynamic(false);;
+$include-core-ykt-card-view-detailform: dynamic(false);;
+$include-core-ykt-card-view-detaillayout: dynamic(false);;
+$include-core-ykt-card-view-maingrid: dynamic(false);;
+$include-core-ykt-card-view-mainlayout: dynamic(false);;
+$include-core-ykt-card-view-usergrid: dynamic(false);;
 $include-core-ykt-cardtype-controller-detailcontroller: dynamic(false);;
 $include-core-ykt-cardtype-controller-maincontroller: dynamic(false);;
 $include-core-ykt-cardtype-controller-othercontroller: dynamic(false);;
@@ -1663,6 +1675,13 @@ $include-core-ykt-sysparameters-view-detailform: dynamic(false);;
 $include-core-ykt-sysparameters-view-detaillayout: dynamic(false);;
 $include-core-ykt-sysparameters-view-maingrid: dynamic(false);;
 $include-core-ykt-sysparameters-view-mainlayout: dynamic(false);;
+$include-core-ykt-workstation-controller-detailcontroller: dynamic(false);;
+$include-core-ykt-workstation-controller-maincontroller: dynamic(false);;
+$include-core-ykt-workstation-controller-othercontroller: dynamic(false);;
+$include-core-ykt-workstation-view-detailform: dynamic(false);;
+$include-core-ykt-workstation-view-detaillayout: dynamic(false);;
+$include-core-ykt-workstation-view-maingrid: dynamic(false);;
+$include-core-ykt-workstation-view-mainlayout: dynamic(false);;
 $include-factory-ddcache: dynamic(true);;
 $include-factory-modelfactory: dynamic(true);;
 $output-paths: ("path": "../resources");

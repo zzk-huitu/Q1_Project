@@ -32,9 +32,9 @@ Ext.define("core.ykt.clerkmanger.view.MainGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'accountName',
+            name:'operatorName',
             funCode: 'girdFastSearchText',
-            emptyText: '请输入营业账户'
+            emptyText: '请输入营业员名称'
         },{
             xtype: 'button',            
             ref: 'gridFastSearchBtn',  
@@ -72,16 +72,19 @@ Ext.define("core.ykt.clerkmanger.view.MainGrid", {
             text : "营业员名称",
             dataIndex : "operatorName",
             flex:1,        
-            minWidth:120,
+            minWidth:100,
         }, {
             text : "营业账户",
             dataIndex : "accountName",
+            width:120
         }, {
             text : "卡号流水",
             dataIndex : "operatorCardId",
+            width:120
         }, {
             text : "物理卡号",
             dataIndex : "factoryFixId",
+            width:120
         }, {
             text : "应用系统",
             dataIndex : "useType",
@@ -90,14 +93,16 @@ Ext.define("core.ykt.clerkmanger.view.MainGrid", {
         }, {
             text : "有效期",
             dataIndex : "validDate",
+            width:140
         }, {
             text : "营业员描述",
             dataIndex : "operatorNotes",
+            width:200
         }, {
             xtype: 'actiontextcolumn',
             text: "操作",
             align: 'center',
-            width: 250,
+            width: 230,
             fixed: true,
             items: [{
                 text:'编辑',  

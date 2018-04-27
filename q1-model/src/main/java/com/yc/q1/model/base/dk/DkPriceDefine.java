@@ -1,6 +1,7 @@
 package com.yc.q1.model.base.dk;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -28,9 +29,9 @@ public class DkPriceDefine extends BaseEntity implements Serializable {
 	@Column(name = "priceName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String priceName;
 
-	@FieldInfo(name = "费率价格", type = "float NOT NULL", explain = "费率价格")
-	@Column(name = "priceValue", nullable = false)
-	private Float priceValue;
+	@FieldInfo(name = "费率价格", explain = "费率价格")
+	@Column(name = "priceValue", columnDefinition = "decimal(18, 2)",  nullable = false)
+	private BigDecimal priceValue;
 
 	@FieldInfo(name = "费率状态", type = "bit NOT NULL default 0", explain = "状态,用于标识是否启用：0禁用。1启用")
 	@Column(name = "priceStatus", columnDefinition = "bit default 0", nullable = false)
@@ -52,11 +53,11 @@ public class DkPriceDefine extends BaseEntity implements Serializable {
 		this.priceName = priceName;
 	}
 
-	public Float getPriceValue() {
+	public BigDecimal getPriceValue() {
 		return priceValue;
 	}
 
-	public void setPriceValue(Float priceValue) {
+	public void setPriceValue(BigDecimal priceValue) {
 		this.priceValue = priceValue;
 	}
 

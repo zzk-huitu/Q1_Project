@@ -22,15 +22,11 @@ import com.yc.q1.core.model.BaseEntity;
  */
 
 @Entity
-@Table(name = "TC_WorkStation")
+@Table(name = "T_PT_WorkStation")
 @AttributeOverride(name = "id", column = @Column(name = "workStationId", length = 20, nullable = false) )
 public class PtWorkStation extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
-
-	@FieldInfo(name = "图书编码")
-	@Column(name = "adminId", columnDefinition = "int default 0", nullable = true)
-	private Integer adminId;
 
 	@FieldInfo(name = "工作站名称")
 	@Column(name = "workStationName", columnDefinition = "nvarchar(30) default ''", nullable = true)
@@ -69,16 +65,9 @@ public class PtWorkStation extends BaseEntity implements Serializable {
 	private Integer commPort;
 
 	@FieldInfo(name = "最大充值额度")
-	@Column(name = "maxCardFree", columnDefinition = "money default 0", nullable = true)
+	@Column(name = "maxCardFree", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal maxCardFree;
 
-	public Integer getAdminId() {
-		return adminId;
-	}
-
-	public void setAdminId(Integer adminId) {
-		this.adminId = adminId;
-	}
 
 	public String getWorkStationName() {
 		return workStationName;

@@ -24,14 +24,18 @@ Ext.define("core.ykt.clerkmanger.view.DetailForm", {
         fieldLabel : "营业员名称",
         name : "operatorName",
         xtype : "textfield",
-        allowBlank : false
+        allowBlank : false,
+        emptyText: '营业员名称(最多20个字符)',
+        blankText: '营业员名称不能为空',
+        maxLength: 20,
+        maxLengthText: "最多20个字符",
     }, {
         beforeLabelTextTpl : comm.get("required"),
         fieldLabel : "营业账户",
         name : "accountName",
         xtype: "basefuncfield",
-        funcController: "core.ykt.TcAccount.controller.TcAccountController", //该功能主控制器
-        funcPanel: "TcAccount.TcAccountMainLayout", //该功能显示的主视图
+        funcController: "core.ykt.accountmanger.controller.MainController", //该功能主控制器
+        funcPanel: "ykt.accountmanger.mainlayout", //该功能显示的主视图
         funcTitle: "营业账户查询", //查询窗口的标题
         configInfo: {
         width:"1000px",
@@ -42,12 +46,13 @@ Ext.define("core.ykt.clerkmanger.view.DetailForm", {
           emptyText: '营业账户', //指定的是文本框中的文字
           blankText: "营业账户不能为空"
     }, {
-        beforeLabelTextTpl : comm.get("required"),
         fieldLabel : "密码",
         name : "password",
         xtype : "textfield",
         inputType : 'password',
-        allowBlank : false
+        emptyText: '密码(最多10个字符)',
+        maxLength: 10,
+        maxLengthText: "最多10个字符",
     }, {
         fieldLabel : "卡号流水",
         name : "operatorCardId",
@@ -58,23 +63,25 @@ Ext.define("core.ykt.clerkmanger.view.DetailForm", {
         name : "factoryFixId",
         xtype : "textfield",
         readOnly:true
-    }, {
-        
+    }, { 
         fieldLabel: "应用系统",
         name: "useType",
         xtype: "basecombobox",
         ddCode: "YYXT",
         emptyText: '请选择...',
-        blankText: '请选择状态',
     },{
         fieldLabel : "有效期",
         name : "validDate",
         xtype: "datetimefield",
-        format:'Y-m-d H:i:s'
+        format:'Y-m-d H:i:s',
+        emptyText: '有效期',
     },{
         fieldLabel : "营业员描述",
         name : "operatorNotes",
-        xtype : "textareafield"
+        xtype : "textareafield",
+        emptyText: '营业员描述(最多100个字符)',
+        maxLength: 100,
+        maxLengthText: "最多100个字符",
     } ]
 
 });

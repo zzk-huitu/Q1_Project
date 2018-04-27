@@ -39,7 +39,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	@Column(name = "deductionMode", length = 1, nullable = false)
 	private String deductionMode;
 
-	@FieldInfo(name = "扣费金额", type = "decimal NOT NUL", explain = "扣费金额（每次扣费的金额）")
+	@FieldInfo(name = "扣费金额", type = "decimal(18,2) NOT NUL", explain = "扣费金额（每次扣费的金额）")
 	@Column(name = "deductionValue", nullable = false)
 	private BigDecimal deductionValue;
 
@@ -47,7 +47,7 @@ public class PtRoomBagRule extends BaseEntity implements Serializable {
 	@Column(name = "noMoneyMode", length = 1, nullable = false)
 	private String noMoneyMode;
 
-	@FieldInfo(name = "报警金额", type = "decimal  NOT NULL", explain = "报警金额（低于此金额后开始尝试扣费）")
+	@FieldInfo(name = "报警金额", type = "decimal(18,2)  NOT NULL", explain = "报警金额（低于此金额后开始尝试扣费）")
 	@Column(name = "warnValue", nullable = false)
 	private BigDecimal warnValue;
 

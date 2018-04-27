@@ -17,9 +17,7 @@ import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtMealOperator;
-import com.yc.q1.model.base.pt.system.PtSysParameter;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.model.base.pt.system.PtMealOperator;
 import com.yc.q1.service.base.pt.system.PtMealOperatorService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
@@ -72,7 +70,7 @@ public class PtMealOperatorController extends FrameWorkController<PtMealOperator
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-		entity.setId(keyRedisService.getId(PtSysParameter.ModuleType));
+		entity.setId(keyRedisService.getId(PtMealOperator.ModuleType));
 		entity = thisService.doAddEntity(entity, currentUser.getId());
 
 		if (entity == null)

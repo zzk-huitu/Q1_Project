@@ -45,11 +45,11 @@ public class PtCardBags extends BaseEntity implements Serializable {
 	private String userId;
 
 	@FieldInfo(name = "钱包余额")
-	@Column(name = "cardValue", columnDefinition = "Money default 0", nullable = true)
+	@Column(name = "cardValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal cardValue;
 
 	@FieldInfo(name = "消费总额")
-	@Column(name = "xfMoneyTotal", columnDefinition = "Money default 0", nullable = true)
+	@Column(name = "xfMoneyTotal", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal xfMoneyTotal;
 
 	@FieldInfo(name = "消费次数")
@@ -57,7 +57,7 @@ public class PtCardBags extends BaseEntity implements Serializable {
 	private Integer xfCount;
 
 	@FieldInfo(name = "充值总额")
-	@Column(name = "czMoneyTotal", columnDefinition = "Money default 0", nullable = true)
+	@Column(name = "czMoneyTotal", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal czMoneyTotal;
 
 	@FieldInfo(name = "充值次数")

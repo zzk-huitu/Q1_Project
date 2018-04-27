@@ -25,14 +25,14 @@ import com.yc.q1.core.util.DateTimeSerializer;
  */
 @Entity
 @Table(name = "T_XF_CreditAccountBack", catalog = "Q1_Storage", schema = "dbo")
-@AttributeOverride(name = "id", column = @Column(name = "creditAccountBackId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "creditAccountBackId", length = 32, nullable = false) )
 public class XfCreditAccountBack extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.XF; // 指定此对象生成的模块编码值。
 
 	@FieldInfo(name = "收支金额")
-	@Column(name = "receiptOutMoney", columnDefinition = "money default 0", nullable = false)
+	@Column(name = "receiptOutMoney", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal receiptOutMoney;
 
 	@FieldInfo(name = "交易时间")
@@ -46,15 +46,15 @@ public class XfCreditAccountBack extends BaseEntity implements Serializable {
 	private Long cardNo;
 
 	@FieldInfo(name = "卡上余额")
-	@Column(name = "cardValue", columnDefinition = "money default 0", nullable = true)
+	@Column(name = "cardValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal cardValue;
 
 	@FieldInfo(name = "手续费")
-	@Column(name = "commissionCharge", columnDefinition = "money default 0", nullable = true)
+	@Column(name = "commissionCharge", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal commissionCharge;
 
 	@FieldInfo(name = "？")
-	@Column(name = "creditFactor", columnDefinition = "money default 0", nullable = true)
+	@Column(name = "creditFactor", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal creditFactor;
 
 	@FieldInfo(name = "使用类型", explain = "100为消费，101为水控")
@@ -62,8 +62,8 @@ public class XfCreditAccountBack extends BaseEntity implements Serializable {
 	private Integer useType;
 
 	@FieldInfo(name = "工作站ID")
-	@Column(name = "workStationId", columnDefinition = "int default 0", nullable = true)
-	private Integer workStationId;
+	@Column(name = "workStationId", columnDefinition = "varchar(20) default 0", nullable = true)
+	private String workStationId;
 
 	@FieldInfo(name = "机器号")
 	@Column(name = "termNo", columnDefinition = "int default 0", nullable = true)
@@ -181,11 +181,11 @@ public class XfCreditAccountBack extends BaseEntity implements Serializable {
 		this.useType = useType;
 	}
 
-	public Integer getWorkStationId() {
+	public String getWorkStationId() {
 		return workStationId;
 	}
 
-	public void setWorkStationId(Integer workStationId) {
+	public void setWorkStationId(String workStationId) {
 		this.workStationId = workStationId;
 	}
 

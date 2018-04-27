@@ -1,7 +1,7 @@
 Ext.define("core.ykt.accountmanger.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
 	alias : 'widget.ykt.accountmanger.detaillayout',
-	funCode:"jobinfo_detail",
+	funCode:"accountmanger_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtAccount", //请求Action
 		pkName: "id",

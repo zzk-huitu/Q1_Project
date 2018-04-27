@@ -26,12 +26,12 @@ rebel*
 
 # files
 .idea/
-q1-zd-core/target/
+q1-core/target/
 q1-model/target/
 q1-service/target/
 q1-dao/target/
 q1-web/target/
-q1-web/src/main/webapp/static/core/build
+q1-web/src/main/webapp/static/core/build/
 .settings/
 q1.iml
 q1-web/src/main/webapp/static/core/bootstrap.json
