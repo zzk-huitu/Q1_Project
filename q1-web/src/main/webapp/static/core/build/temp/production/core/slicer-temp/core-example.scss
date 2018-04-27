@@ -1,9 +1,5 @@
 $app-name:  dynamic( 'core' );
-<<<<<<< HEAD
 $image-search-path: 'F:/workspace_Q1_project/Q1_Project/q1-web/src/main/webapp/static/core/build/production/core/resources';
-=======
-$image-search-path: 'F:/workspace_git_Q1/q1/q1-web/src/main/webapp/static/core/build/production/core/resources';
->>>>>>> ca966cdd440db33f7119edd78ba7c47375a0528e
 $theme-name:  dynamic( 'theme-triton' );
 $include-ext-abstractcomponent: dynamic(true);;
 $include-ext-abstractcontainer: dynamic(true);;
@@ -1216,13 +1212,17 @@ $include-core-consumemanager-consumelimittime-view-detailform: dynamic(true);;
 $include-core-consumemanager-consumelimittime-view-detaillayout: dynamic(true);;
 $include-core-consumemanager-consumelimittime-view-maingrid: dynamic(true);;
 $include-core-consumemanager-consumelimittime-view-mainlayout: dynamic(true);;
+$include-core-consumemanager-consumeterm-batchaddterm-batchaddintroform: dynamic(true);;
 $include-core-consumemanager-consumeterm-controller-detailcontroller: dynamic(true);;
 $include-core-consumemanager-consumeterm-controller-maincontroller: dynamic(true);;
 $include-core-consumemanager-consumeterm-controller-othercontroller: dynamic(true);;
+$include-core-consumemanager-consumeterm-view-consumebaseparamform: dynamic(true);;
+$include-core-consumemanager-consumeterm-view-consumehighparamform: dynamic(true);;
 $include-core-consumemanager-consumeterm-view-detailform: dynamic(true);;
 $include-core-consumemanager-consumeterm-view-detaillayout: dynamic(true);;
 $include-core-consumemanager-consumeterm-view-maingrid: dynamic(true);;
 $include-core-consumemanager-consumeterm-view-mainlayout: dynamic(true);;
+$include-core-consumemanager-consumeterm-view-batchaddlayout: dynamic(true);;
 $include-core-coursemanage-courseinfo-controller-detailcontroller: dynamic(true);;
 $include-core-coursemanage-courseinfo-controller-maincontroller: dynamic(true);;
 $include-core-coursemanage-courseinfo-controller-othercontroller: dynamic(true);;

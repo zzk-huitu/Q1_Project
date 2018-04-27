@@ -1,8 +1,8 @@
 Ext.define("core.consumemanager.consumeterm.view.MainLayout", {
     extend: "core.base.view.BasePanel",
     alias: "widget.consumemanager.consumeterm.mainlayout",
-    funCode: "consumeterm",
-    detCode: "consumeterm",
+    funCode: "consumeterm_main",
+    detCode: "consumeterm_detail",
     detLayout: "consumemanager.consumeterm.detaillayout",
     /** 关联此视图控制器 */
     controller: 'consumemanager.consumeterm.maincontroller',
