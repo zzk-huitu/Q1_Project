@@ -16,6 +16,19 @@ Ext.define("core.ykt.card.view.UserGrid", {
                 fontWeight:800,
                 lineHeight:'30px',
             }
+        },'->',{
+            xtype: 'tbtext', 
+            html:'快速搜索：'
+        },{
+            xtype:'textfield',
+            name:'name',
+            funCode: 'girdFastSearchText',
+            emptyText: '请输入姓名'
+        },{
+            xtype: 'button',            
+            ref: 'gridFastSearchBtn',  
+            funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型 
+            iconCls: 'x-fa fa-search',  
         }]
     },
     panelButtomBar:null,
