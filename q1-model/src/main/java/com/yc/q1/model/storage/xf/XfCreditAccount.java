@@ -62,7 +62,7 @@ public class XfCreditAccount extends BaseEntity implements Serializable {
 	private Integer useType;
 
 	@FieldInfo(name = "工作站ID")
-	@Column(name = "workStationId", columnDefinition = "varhcar(20) default ''", nullable = true)
+	@Column(name = "workStationId", columnDefinition = "varchar(20) default ''", nullable = true)
 	private String workStationId;
 
 	@FieldInfo(name = "机器号")
