@@ -72,7 +72,7 @@ Ext.define("core.ykt.accountmanger.view.DetailForm", {
         name: "createTime"
     }, {
         xtype: "checkboxfield",
-        fieldLabel: "账户状态",
+        fieldLabel: "是否启用",
         name: "accountStatus",
     }, {
         xtype: "textareafield",

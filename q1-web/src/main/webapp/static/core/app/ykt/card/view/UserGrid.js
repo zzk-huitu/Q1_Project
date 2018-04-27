@@ -16,6 +16,19 @@ Ext.define("core.ykt.card.view.UserGrid", {
                 fontWeight:800,
                 lineHeight:'30px',
             }
+        },'->',{
+            xtype: 'tbtext', 
+            html:'快速搜索：'
+        },{
+            xtype:'textfield',
+            name:'name',
+            funCode: 'girdFastSearchText',
+            emptyText: '请输入姓名'
+        },{
+            xtype: 'button',            
+            ref: 'gridFastSearchBtn',  
+            funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型 
+            iconCls: 'x-fa fa-search',  
         }]
     },
     panelButtomBar:null,
@@ -51,81 +64,53 @@ Ext.define("core.ykt.card.view.UserGrid", {
             minWidth:120,
         }, {
             text: "工号",
-            dataIndex: "userNumb"
+            dataIndex: "userNumb",
+            width:160
         }, {
             text: "用户名",
-            dataIndex: "userName"
+            dataIndex: "userName",
+            width:160
         }, {
             text: "性别",
             dataIndex: "sex",
             columnType: "basecombobox", //列类型
-            ddCode: "XBM" //字典代码           
+            ddCode: "XBM", //字典代码
+            width:160           
         }, {
             text: "岗位",
             dataIndex: "jobName",
-        }, {
-            xtype: 'actiontextcolumn',
-            text: "操作",
-            align: 'center',
-            width: 250,
-            fixed: true,
-            items: [{
-                text:'编辑',  
-                style:'font-size:12px;', 
-                tooltip: '编辑',
-                ref: 'gridEdit',
-                getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
-                    if(comm.get("isAdmin")!="1"){
-                        var menuCode="JOBINFO";     // 此菜单的前缀
-                        var userBtn=comm.get("userBtn");   
-                        if(userBtn.indexOf(menuCode+"_gridEdit_Tab")==-1){
-                            return 'x-hidden-display';
-                        }
-                    }
-                    return null; 
-                },  
-                handler: function(view, rowIndex, colIndex, item) {
-                    var rec = view.getStore().getAt(rowIndex);
-                    this.fireEvent('editClick_Tab', {
-                        view: view.grid,
-                        record: rec
-                    });
-                }
-            }, {
-                text:'详细',  
-                style:'font-size:12px;', 
-                tooltip: '详细',
-                ref: 'gridDetail',
-                handler: function(view, rowIndex, colIndex, item) {
-                    var rec = view.getStore().getAt(rowIndex);
-                    this.fireEvent('detailClick_Tab', {
-                        view: view.grid,
-                        record: rec
-                    });
-                }
-            }, {
-                text:'删除',  
-                style:'font-size:12px;', 
-                tooltip: '删除',
-                ref: 'gridDelete',
-                getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
-                    if(comm.get("isAdmin")!="1"){
-                        var menuCode="JOBINFO";     // 此菜单的前缀
-                        var userBtn=comm.get("userBtn");   
-                        if(userBtn.indexOf(menuCode+"_gridDelete")==-1){
-                            return 'x-hidden-display';
-                        }
-                    }
-                    return null; 
-                },  
-                handler: function(view, rowIndex, colIndex, item) {
-                    var rec = view.getStore().getAt(rowIndex);
-                    this.fireEvent('deleteClick', {
-                        view: view.grid,
-                        record: rec
-                    });
-                }
-            }]
+            width:160
         }]
-    }    
+    } ,
+
+ listeners: {
+        beforeitemdblclick: function(grid, record, item, index, e, eOpts) {
+            return false;
+        },
+        beforeitemmousedown: function(grid, record, item, index, e, eOpts) {
+            return false;
+        },
+        beforeitemclick: function(gridview, record, item, index, e, eOpts) {          
+            //var grid=grid.view;    
+            var grid=gridview.grid;
+            var selectRow=grid.getSelection(); 
+            if(selectRow.length!=1){
+                self.msgbox("只能选择一条数据操作!");
+                return;
+            }
+            var temp=selectRow[0].data;
+            var id = temp.id;                  
+
+            var mainlayout = grid.up('panel[xtype=ykt.card.mainlayout]');
+            var baseGrid = mainlayout.down('panel[xtype=ykt.card.maingrid]');
+            var stores = baseGrid.getStore();
+            var proxys = stores.getProxy();
+            var filter = "[{'type':'string','comparison':'in','value':'"+id +"','field':'userId'}]";
+            proxys.extraParams = {
+                 filter: filter
+            };
+            stores.loadPage(1); //刷新
+        }
+    }
+
 });
