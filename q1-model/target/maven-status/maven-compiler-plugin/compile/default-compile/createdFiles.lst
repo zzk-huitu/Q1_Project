@@ -93,7 +93,6 @@ com\yc\q1\model\base\pt\build\PtRoomInfo.class
 com\yc\q1\model\base\pt\basic\PtClassStudent.class
 com\yc\q1\model\base\pt\build\PtOfficeAllot.class
 com\yc\q1\pojo\base\app\JKCourseToDayArray.class
-com\yc\q1\model\base\pt\card\PtCardReplenish.class
 com\yc\q1\model\storage\xf\XfCreditAccountBack.class
 com\yc\q1\pojo\base\pt\PowerResidue.class
 com\yc\q1\model\base\pt\device\PtTermBag.class

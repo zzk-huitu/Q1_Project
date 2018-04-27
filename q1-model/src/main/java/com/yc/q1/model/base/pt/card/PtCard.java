@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Formula;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
@@ -36,7 +38,7 @@ public class PtCard extends BaseEntity implements Serializable {
 	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
 
 	@FieldInfo(name = "卡流水号", type = "bigint NOT NULL", explain = "卡流水号")
-	@Column(name = "cardNo", columnDefinition = "bigint IDENTITY(1,1)", nullable = false)
+	@Column(name = "cardNo", columnDefinition = "bigint IDENTITY(1,1)", nullable = false,updatable=false)
 	private Long cardNo;
 
 	@FieldInfo(name = "卡类型", type = "smallint NOT NULL", explain = "卡类型ID")
@@ -96,6 +98,17 @@ public class PtCard extends BaseEntity implements Serializable {
 	@FieldInfo(name = "最后交易餐类", type = "smallint default 0", explain = "最后交易餐类，对应营业时段的编号")
 	@Column(name = "lastPayMealType", columnDefinition = "smallint default 0", nullable = true)
 	private Integer lastPayMealType;
+	
+	@Formula("(SELECT ISNULL(a.cardTypeName,'') FROM T_PT_CardType a WHERE a.cardTypeId=cardTypeId)")
+	private String cardTypeName;
+
+	public String getCardTypeName() {
+		return cardTypeName;
+	}
+
+	public void setCardTypeName(String cardTypeName) {
+		this.cardTypeName = cardTypeName;
+	}
 
 	public Long getCardNo() {
 		return cardNo;
