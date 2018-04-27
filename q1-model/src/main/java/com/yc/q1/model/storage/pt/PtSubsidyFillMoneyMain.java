@@ -18,20 +18,20 @@ import com.yc.q1.core.model.BaseEntity;
 import com.yc.q1.core.util.DateTimeSerializer;
 
 /**
- * 在线补助组表
+ * 在线补助表
  * 
  * @author ZZK
  *
  */
 @Entity
 @Table(name = "T_PT_SubsidyFillMoneyMain", catalog = "Q1_Storage", schema = "dbo")
-@AttributeOverride(name = "id", column = @Column(name = "mainId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "mainId", length = 32, nullable = false) )
 public class PtSubsidyFillMoneyMain extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
 
 	@FieldInfo(name = "补助金额")
-	@Column(name = "fillMoney", columnDefinition = "Money", nullable = false)
+	@Column(name = "fillMoney", columnDefinition = "decimal(18,2)", nullable = false)
 	private BigDecimal fillMoney;
 
 	@FieldInfo(name = "配置补助时间")

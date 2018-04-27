@@ -20,7 +20,7 @@ import com.yc.q1.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_PtCardStatusChange",catalog="Q1_Storage",schema="dbo")
-@AttributeOverride(name = "id", column = @Column(name = "cardStatusId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "cardStatusId", length = 32, nullable = false) )
 public class PtCardStatusChange extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。

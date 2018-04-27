@@ -39,11 +39,11 @@ public class XfUserXfAndCreditTotal extends BaseEntity implements Serializable {
 	private String dateDay;
 
 	@FieldInfo(name = "充值金额")
-	@Column(name = "creditMoney", columnDefinition = "money default 0", nullable = false)
+	@Column(name = "creditMoney", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal creditMoney;
 
 	@FieldInfo(name = "消费金额")
-	@Column(name = "xfMoney", columnDefinition = "money default 0", nullable = false)
+	@Column(name = "xfMoney", columnDefinition = "decimal(18,2) default 0", nullable = false)
 	private BigDecimal xfMoney;
 
 	public String getUserId() {

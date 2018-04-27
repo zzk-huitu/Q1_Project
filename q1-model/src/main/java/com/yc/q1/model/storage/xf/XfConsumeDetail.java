@@ -25,7 +25,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  */
 @Entity
 @Table(name = "T_XF_ConsumeDetail", catalog = "Q1_Storage", schema = "dbo")
-@AttributeOverride(name = "id", column = @Column(name = "consumeDetailId", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "recordId", length = 32, nullable = false) )
 public class XfConsumeDetail extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -36,11 +36,11 @@ public class XfConsumeDetail extends BaseEntity implements Serializable {
 	private Long cardNo;
 
 	@FieldInfo(name = "消费金额")
-	@Column(name = "consumeValue", columnDefinition = "money default 0", nullable = true)
+	@Column(name = "consumeValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal consumeValue;
 
 	@FieldInfo(name = "卡上余额")
-	@Column(name = "cardValue", columnDefinition = "money default 0", nullable = true)
+	@Column(name = "cardValue", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal cardValue;
 
 	@FieldInfo(name = "卡使用次数")
