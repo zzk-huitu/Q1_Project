@@ -6,7 +6,7 @@ Ext.define("core.consumemanager.consumeterm.view.batchAddLayout", {
 	  /*关联此视图控制器*/
     controller: 'consumemanager.consumeterm.detailcontroller',
      /*设置最小宽度，并且自动滚动*/
-    minWidth:1000,
+    minWidth:750,
     scrollable:true,
     layout: 'card',
     bbar: [{

@@ -129,12 +129,12 @@ Ext.define("core.consumemanager.consumeterm.view.ConsumeBaseParamForm", {
             xtype: "container",
             layout: "column", // 从左往右的布局
             items: [{
-                columnWidth: 0.5,
+                columnWidth: 0.45,
                 fieldLabel: '服务器IP地址',
                 xtype: 'textfield',
                // allowBlank: false,
            }, {
-             columnWidth: 0.5,
+             columnWidth: 0.45,
              fieldLabel: '服务器端口',
              xtype: 'textfield',
                // allowBlank: false,

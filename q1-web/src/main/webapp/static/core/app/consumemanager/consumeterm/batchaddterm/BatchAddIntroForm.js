@@ -7,6 +7,11 @@ Ext.define("core.consumemanager.consumeterm.batchaddterm.BatchAddIntroForm", {
         labelAlign: "right",
         labelWidth: 120,     //label 的寬度
     },
+    defaults:{
+        width:'80%',
+        margin:"20 50 20 50",
+        xtype: "textfield"
+    },
     items:[{
          xtype: "fieldset",
          title:'批量添加设备简介',
@@ -17,12 +22,7 @@ Ext.define("core.consumemanager.consumeterm.batchaddterm.BatchAddIntroForm", {
             fontSize: '16px',
             color: '#C44444',
             fontWeight:400,
-            border: '#097db5 1px solid'
-        },
-        defaults:{
-            width:'80%',
-            margin:"10 5 0 5",
-            xtype: "textfield"
+            border: '#097db5 1px solid',
         },
         items: [{
             xtype: "container",

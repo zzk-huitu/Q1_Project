@@ -218,8 +218,8 @@ Ext.define("core.consumemanager.consumeterm.controller.MainController", {
         });
         
         var winTitle = "批量添加设备";
-        var width = 800;
-        var height = 600;
+        var width = 750;
+        var height = 550;
         if (funData.width)
             width = funData.width;
         if (funData.height)

@@ -37,7 +37,7 @@ Ext.define("core.consumemanager.consumeterm.view.ConsumeHighParamForm", {
             xtype: "container",
             layout: "column", // 从左往右的布局
             items: [{
-                columnWidth: 0.5,
+                columnWidth: 0.45,
                 name:'',
                 fieldLabel: '消费模式',
                 xtype: "combobox",
@@ -70,7 +70,25 @@ Ext.define("core.consumemanager.consumeterm.view.ConsumeHighParamForm", {
                     }
                
             }, {
-                columnWidth: 0.5,
+                columnWidth: 0.45,
+                fieldLabel: '最大卡金额',
+                xtype: 'numberfield',
+                name:'tlvs[3].valInt',
+                value: '',
+                minValue: 0,
+                allowBlank: false,
+                allowDecimals: true,
+                step:0.01
+            }, {
+                columnWidth: 0.05,
+                xtype: "label",
+                html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"           
+            }]
+        }, {
+            xtype: "container",
+            layout: "column", // 从左往右的布局
+            items: [ {
+                columnWidth: 0.7,
                 xtype: 'radiogroup',
                 ref:'',
                 fieldLabel: '开机模式',
@@ -81,24 +99,6 @@ Ext.define("core.consumemanager.consumeterm.view.ConsumeHighParamForm", {
                 { boxLabel: '开机后需要刷营业卡方可消费', name: '', inputValue: 1},   //以下4个数据，对应QYLX区域类型的编号
                 ],
                 listeners:{ }
-            }]
-        }, {
-            xtype: "container",
-            layout: "column", // 从左往右的布局
-            items: [{
-                columnWidth: 0.7,
-                fieldLabel: '最大卡金额',
-                xtype: 'numberfield',
-                name:'tlvs[3].valInt',
-                value: '',
-                minValue: 0,
-                allowBlank: false,
-                allowDecimals: true,
-                step:0.01
-            }, {
-                columnWidth: 0.2,
-                xtype: "label",
-                html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"           
             }]
         }, {
             xtype: "container",
@@ -132,6 +132,13 @@ Ext.define("core.consumemanager.consumeterm.view.ConsumeHighParamForm", {
             margin:"10 5 0 5",
             xtype: "textfield"
         },
+        fieldDefaults: { // 统一设置表单字段默认属性
+        xtype : 'textfield',
+        labelSeparator: '：', // 分隔符
+        labelWidth:170,
+        labelAlign : 'right',
+        msgTarget: 'qtip',
+    },
         items: [{
             xtype: "container",
             layout: "column", // 从左往右的布局
@@ -488,6 +495,11 @@ Ext.define("core.consumemanager.consumeterm.view.ConsumeHighParamForm", {
                 labelAlign : 'right',
             },
         items: [{
+            width:150,
+            xtype: "button",
+            text: "获取营业时间段",
+            ref: "getBusinessHours",        
+        },{
             xtype: "container",
             layout: "column", // 从左往右的布局
             items: [{
