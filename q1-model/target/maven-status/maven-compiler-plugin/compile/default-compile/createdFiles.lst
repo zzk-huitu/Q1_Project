@@ -1,5 +1,6 @@
 com\yc\q1\model\base\pt\wisdomclass\PtClassStar.class
 com\yc\q1\pojo\base\app\PictureApp.class
+com\yc\q1\model\base\pt\system\PtUserBinding.class
 com\yc\q1\pojo\base\pt\CommBase.class
 com\yc\q1\model\storage\pt\PtSubsidyFillMoneyMain.class
 com\yc\q1\model\base\pt\basic\PtInfoTerminalHistory.class
@@ -12,6 +13,7 @@ com\yc\q1\model\base\pt\system\PtMenuPermission.class
 com\yc\q1\model\base\pt\build\PtFuncRoomDefine.class
 com\yc\q1\model\base\pt\system\PtDataDict.class
 com\yc\q1\model\base\pt\system\PtUserDeptRight.class
+com\yc\q1\model\base\xf\XfRateSet.class
 com\yc\q1\model\base\pt\system\PtSysParameter.class
 com\yc\q1\model\base\pt\basic\PtTeacherBaseInfo.class
 com\yc\q1\model\storage\log\LogUserLogin.class
@@ -27,6 +29,7 @@ com\yc\q1\pojo\base\app\GradeClassApp.class
 com\yc\q1\model\base\pt\system\PtRoleMenuPermission.class
 com\yc\q1\model\base\dk\DkPriceDefine.class
 com\yc\q1\model\base\pt\basic\PtInfoTerminal.class
+com\yc\q1\model\base\xf\XfXeSet.class
 com\yc\q1\model\base\pt\basic\PtCourseTeacher.class
 com\yc\q1\model\base\pt\device\PtFrontServer.class
 com\yc\q1\model\base\pt\basic\PtFuncRoomCourse.class
@@ -42,10 +45,12 @@ com\yc\q1\model\base\pt\basic\PtPushInfo.class
 com\yc\q1\model\base\pt\device\PtRoomBagRuleBind.class
 com\yc\q1\model\base\pt\wisdomclass\PtNotice.class
 com\yc\q1\model\base\pt\build\PtDormDefine.class
+com\yc\q1\model\base\xf\XfXcSet.class
 com\yc\q1\pojo\base\app\CheckRuleApp.class
 com\yc\q1\pojo\base\app\CheckRuleStudentApp.class
 com\yc\q1\model\base\pt\device\PtPriceBind.class
 com\yc\q1\model\base\pt\system\PtMealType.class
+com\yc\q1\model\base\xf\XfRateTermSet.class
 com\yc\q1\model\base\pt\wisdomclass\PtClassParam.class
 com\yc\q1\model\storage\mj\MjRecord.class
 com\yc\q1\model\base\sk\SkMeterBind.class
@@ -56,7 +61,9 @@ com\yc\q1\pojo\base\app\ClassMienApp.class
 com\yc\q1\model\base\pt\wisdomclass\PtClassRedFlag.class
 com\yc\q1\model\base\pt\system\PtRole.class
 com\yc\q1\model\base\pt\basic\PtCalender.class
+com\yc\q1\model\base\xf\XfXcTermSet.class
 com\yc\q1\model\base\mj\MjUserRight.class
+com\yc\q1\model\base\xf\XfXeTermSet.class
 com\yc\q1\model\base\pt\device\PtIrDeviceBrand.class
 com\yc\q1\model\base\pt\wisdomclass\PtNoticeAuditor.class
 com\yc\q1\model\base\pt\device\PtRoomBag.class

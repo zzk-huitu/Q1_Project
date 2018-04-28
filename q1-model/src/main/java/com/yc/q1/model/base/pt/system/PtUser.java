@@ -112,7 +112,7 @@ public class PtUser extends BaseEntity implements Serializable {
 			@JoinColumn(name = "roleId") })
 	@Cache(region = "all", usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<PtRole> sysRoles = new HashSet<PtRole>();
-
+	
 	// 默认设置为本部门
 	@FieldInfo(name = "部门权限类型", type = "varchar(1) DEFAULT '2'", explain = "用户拥有的部门权限类型（0-所有权限，1-指定部门[默认包含了本部门和岗位主管的部门]， 2-本部门）")
 	@Column(name = "rightType", columnDefinition = "varchar(1) DEFAULT '2'", nullable = true)
