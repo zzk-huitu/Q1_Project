@@ -3,6 +3,7 @@ package com.yc.q1.service.base.pt.card;
 
 import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.card.PtCard;
+import com.yc.q1.model.base.pt.system.PtUser;
 
 
 /**
@@ -19,6 +20,10 @@ import com.yc.q1.model.base.pt.card.PtCard;
  */
  
 public interface PtCardService extends BaseService<PtCard> {
+	public Boolean doLockOrOn(String cardId ,PtUser currentUser);
 	
+	public Boolean doLockBatch(String ids ,PtUser currentUser);
+	
+	public Boolean doOnBatch(String ids ,PtUser currentUser);
 
 }

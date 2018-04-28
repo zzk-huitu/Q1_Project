@@ -1,7 +1,7 @@
 Ext.define("core.consumemanager.consumeterm.view.DetailLayout", {
 	extend: "core.base.view.BasePanel",
 	alias: "widget.consumemanager.consumeterm.detaillayout",
-	funCode: "courseinfo_detail",
+	funCode: "consumeterm_detail",
 	funData: {
 		action: comm.get("baseUrl") + "/", //请求Action
 		pkName: "id",

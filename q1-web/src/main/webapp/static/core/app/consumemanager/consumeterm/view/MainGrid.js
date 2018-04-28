@@ -28,7 +28,21 @@ Ext.define("core.consumemanager.consumeterm.view.MainGrid", {
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle',
             disabled:false,
-        } ,'->',{
+        } ,{
+            xtype: 'button',
+            text: '高级参数',
+            ref: 'gridHigh',
+            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
+            iconCls: 'x-fa fa-plus-circle',
+            disabled:false,
+        },{
+            xtype: 'button',
+            text: '基础参数',
+            ref: 'gridBase',
+            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
+            iconCls: 'x-fa fa-plus-circle',
+            disabled:false,
+        },/*'->',{
             xtype: 'tbtext', 
             html:'快速搜索：'
         },{
@@ -41,7 +55,7 @@ Ext.define("core.consumemanager.consumeterm.view.MainGrid", {
             ref: 'gridFastSearchBtn',  
             funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型 
             iconCls: 'x-fa fa-search',  
-        }],
+        }*/],
   
    },
     defSort: [{

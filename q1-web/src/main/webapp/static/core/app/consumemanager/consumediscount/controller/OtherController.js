@@ -11,13 +11,7 @@ Ext.define("core.consumemanager.consumediscount.controller.OtherController", {
     },
     /** 该视图内的组件事件注册 */
     control: {    
-           //费率设备删除
-        "basegrid[xtype=consumemanager.consumediscount.termbinggrid] button[ref=gridAdd]": {
-            beforeclick: function(btn) {
-                this.addDiscountTermBing(btn);
-                return false;
-             },
-         },
+         
                 //费率设备删除
         "basegrid[xtype=consumemanager.consumediscount.termbinggrid] button[ref=gridDelete]": {
             beforeclick: function(btn) {

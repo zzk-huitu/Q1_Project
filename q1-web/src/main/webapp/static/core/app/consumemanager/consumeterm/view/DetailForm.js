@@ -122,7 +122,7 @@ Ext.define("core.consumemanager.consumeterm.view.DetailForm", {
         }]
     },{
         fieldLabel: "说明",
-        name: "",
+        name: "",   
         xtype: "textarea",
         emptyText: "",
         maxLength: 512,
