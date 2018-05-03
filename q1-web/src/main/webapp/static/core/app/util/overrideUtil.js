@@ -392,21 +392,42 @@ Ext.override(Ext.form.field.ComboBox,{
         },
     }
 })
+
 //重写timefield获取值的方法
 Ext.override(Ext.form.field.Time,{
     
     getValue: function () {
+        
         var me = this;
 
         if(me.multiSelect)
             return me.rawToValue(me.callParent(arguments)); //原有的处理方式
         else{
             var format = me.submitFormat || me.format,
-                value = me.value;
-     
+                value = me.callParent(arguments);   //这里获取最后修改的值
+                //value = me.value; //此处获取的值不对
+                    
             return value ? Ext.Date.format(value, format) : null;
         }
-    }
+    },
+    /*
+    rawToValue: function (item) {
+        var me = this,
+            items, values, i, len;
+ 
+        if (me.multiSelect) {
+            values = [];
+            items = Ext.Array.from(item);
+ 
+            for (i = 0, len = items.length; i < len; i++) {
+                values.push(me.parseDate(items[i]));
+            }
+ 
+            return values;
+        }
+ 
+        return me.parseDate(item);
+    },*/
 });
 
 
