@@ -3,7 +3,7 @@ Ext.define("core.consumemanager.consumelimit.view.DetailLayout", {
 	alias: "widget.consumemanager.consumelimit.detaillayout",
 	funCode: "consumelimit_detail",
 	funData: {
-		action: comm.get("baseUrl") + "/", //请求Action
+		action: comm.get("baseUrl") + "/XfXeSet", //请求Action
 		pkName: "id",
 		defaultObj: {},
 	},

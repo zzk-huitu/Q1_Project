@@ -72,6 +72,15 @@ public class PtCardTypeController extends FrameWorkController<PtCardType>{
 		writeJSON(response, strData);// 返回数据
 	}
 	
+	@RequestMapping(value = { "/cardTypeList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+			org.springframework.web.bind.annotation.RequestMethod.POST })
+	public void cardTypeList(PtCardType entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String strData = ""; // 返回给js的数据
+		String sql = " select cardTypeId,cardTypeName from PtCardType";
+		List<PtCardType> list = thisService.querySql(sql);
+        strData = jsonBuilder.buildObjListToJson(Long.valueOf(list.size()), list, true);// 处理数据
+		writeJSON(response, strData);// 返回数据
+	}
 	/**
 	 * 
 	 * doAdd @Title: doAdd @Description: TODO @param @param BizTJob

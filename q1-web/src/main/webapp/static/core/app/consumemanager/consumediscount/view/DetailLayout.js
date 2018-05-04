@@ -3,7 +3,7 @@ Ext.define("core.consumemanager.consumediscount.view.DetailLayout", {
 	alias: "widget.consumemanager.consumediscount.detaillayout",
 	funCode: "consumediscount_detail",
 	funData: {
-		action: comm.get("baseUrl") + "/", //请求Action
+		action: comm.get("baseUrl") + "/XfRateSet", //请求Action
 		pkName: "id",
 		defaultObj: {},
 	},

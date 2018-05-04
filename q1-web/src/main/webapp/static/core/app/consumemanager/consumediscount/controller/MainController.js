@@ -11,19 +11,16 @@ Ext.define("core.consumemanager.consumediscount.controller.MainController", {
     init: function() {
         var self = this;
         this.control({
-         "basegrid[xtype=consumemanager.consumediscount.maingrid] button[ref=discountTermBing]": {
+           "basegrid[xtype=consumemanager.consumediscount.maingrid] button[ref=discountTermBing]": {
             beforeclick: function(btn) {
                 this.doDiscountTermBing(btn);
                 return false;
             }
         },
 
-       /* "basegrid[xtype=consumemanager.consumediscount.maingrid] actioncolumn": {
-         
-       },*/
+    });
+},
 
-      });
-    },
      doDiscountTermBing:function(btn){
         var self = this;
         var baseGrid = btn.up("basegrid");

@@ -9,13 +9,13 @@ Ext.define("core.consumemanager.consumelimit.view.MainLayout", {
     /*标注这个视图控制器的别名，以此提供给window处使用*/
     otherController:'consumemanager.consumelimit.othercontroller',
     funData: {
-        action: comm.get("baseUrl") + "/", //请求Action
+        action: comm.get("baseUrl") + "/XfXeSet", //请求Action
         pkName: "id",
         defaultObj: {
         },
         tabConfig:{         
-            titleField:'',  
-            addTitle:'',
+            titleField:'cardTypeName',  
+            addTitle:'添加消费限额',
             editTitle:'消费限额参数设置',
             detailTitle:'',
             addXtype:null,                                     //2018/1/3新加入，用于在公共方法中打开指定的界面

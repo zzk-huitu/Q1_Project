@@ -1,6 +1,5 @@
 com\yc\q1\model\base\pt\wisdomclass\PtClassStar.class
 com\yc\q1\pojo\base\app\PictureApp.class
-com\yc\q1\model\base\pt\system\PtUserBinding.class
 com\yc\q1\pojo\base\pt\CommBase.class
 com\yc\q1\model\storage\pt\PtSubsidyFillMoneyMain.class
 com\yc\q1\model\base\pt\basic\PtInfoTerminalHistory.class
@@ -113,6 +112,7 @@ com\yc\q1\pojo\base\pt\RoomAreaTree.class
 com\yc\q1\model\base\pt\system\PtUserDeptJob.class
 com\yc\q1\model\base\pt\basic\PtGradeClass.class
 com\yc\q1\model\storage\dk\DkTermStatus.class
+com\yc\q1\model\base\pt\system\PtUserBindWorkStation.class
 com\yc\q1\model\base\pt\basic\PtCampus.class
 com\yc\q1\model\base\pt\wisdomclass\PtNoticeOther.class
 com\yc\q1\model\base\pt\wisdomclass\PtNoticeType.class
