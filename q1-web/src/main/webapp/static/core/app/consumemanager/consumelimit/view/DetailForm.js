@@ -13,42 +13,52 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
         xtype: "textfield",
         hidden: true
     }, {
-        xtype: "textfield",
-        name: "",
-        hidden: true
-    }, {
         xtype: "container",
         layout: "column", // 从左往右的布局
+        ref:"consumeContainer",
         items: [{
-            columnWidth: 0.8,
+            columnWidth: 0.4,
             beforeLabelTextTpl: comm.get('required'),
-            xtype: "textfield",
             fieldLabel: "卡类名称",
-            readOnly:true,
-            name: "",
+           // readOnly:true,
+            name: "cardTypeId",
+            xtype: "combobox",
+            store: {
+                type: 'consumemanager.consumediscount.cardtypestore',
+            },
+            allowBlank: false,
+            displayField: 'cardTypeName',
+            valueField: 'cardTypeId',
+            emptyText: "请选择卡类名称",
+            editable: false,
+        
         }]
     }, {
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
-            columnWidth: 0.8,
-            xtype: 'radiogroup',
-            ref:'',
-            fieldLabel: '222',
+            columnWidth: 0.3,
+            xtype: 'checkboxgroup',
+            ref:'xeStatus',
+            fieldLabel: '是否启用消费限额',
             columns: 1,
             vertical: true,
             items: [            
-                { boxLabel: '启用消费限额', name: '', inputValue: 0,checked: true , width:100 },        
+                { boxLabel: '启用消费限额', name: 'xeStatus', inputValue: 0,checked: true , width:100 },        
             ],
             listeners:{
             }
             
+        }, {
+            columnWidth: 0.4,
+            xtype: "label",
+            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>（如需禁用消费限额，请取消勾选[启用消费限额]）</font>"
         }]
     }, {
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
-            columnWidth: 0.7,
+            columnWidth: 0.4,
           //  beforeLabelTextTpl: comm.get('required'),
             xtype: "numberfield",
             value: '0',
@@ -57,17 +67,17 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
             allowBlank: false,
             allowDecimals: false,
             fieldLabel: "日限额",
-            name: "",
+            name: "dailyMoney",
         }, {
-            columnWidth: 0.2,
+            columnWidth: 0.6,
             xtype: "label",
-            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"
+            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元（ 如同时启用日限额和餐限额功能；消费时的判断顺序是先判断日限额再判断餐限额）</font>"
         }]
     }, {
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
-            columnWidth: 0.7,
+            columnWidth: 0.4,
           //  beforeLabelTextTpl: comm.get('required'),
             xtype: "numberfield",
             value: '0',
@@ -76,17 +86,17 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
             allowBlank: false,
             allowDecimals: false,
             fieldLabel: "早餐限额",
-            name: "",
+            name: "meal1Money",
         }, {
-            columnWidth: 0.2,
+            columnWidth: 0.4,
             xtype: "label",
-            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"
+            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元 （各种限制额度如填入0则表示不限制）</font>"
         }]
     }, {
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
-            columnWidth: 0.7,
+            columnWidth: 0.4,
          //   beforeLabelTextTpl: comm.get('required'),
             xtype: "numberfield",
             value: '0',
@@ -95,17 +105,17 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
             allowBlank: false,
             allowDecimals: false,
             fieldLabel: "午餐限额",
-            name: "",
+            name: "meal2Money",
         }, {
-            columnWidth: 0.2,
+            columnWidth: 0.4,
             xtype: "label",
-            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"
+            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元 （各种限制额度如填入0则表示不限制）</font>"
         }]
     },{
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
-            columnWidth: 0.7,
+            columnWidth: 0.4,
           //  beforeLabelTextTpl: comm.get('required'),
             xtype: "numberfield",
             value: '0',
@@ -114,17 +124,17 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
             allowBlank: false,
             allowDecimals: false,
             fieldLabel: "晚餐限额",
-            name: "",
+            name: "meal3Money",
         }, {
-            columnWidth: 0.2,
+            columnWidth: 0.4,
             xtype: "label",
-            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"
+            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元 （各种限制额度如填入0则表示不限制）</font>"
         }]
     },{
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
-            columnWidth: 0.7,
+            columnWidth: 0.4,
            // beforeLabelTextTpl: comm.get('required'),
             xtype: "numberfield",
             value: '0',
@@ -133,21 +143,26 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
             allowBlank: false,
             allowDecimals: false,
             fieldLabel: "夜宵限额",
-            name: "",
+            name: "meal4Money",
         }, {
-            columnWidth: 0.2,
+            columnWidth: 0.4,
             xtype: "label",
-            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元</font>"
+            html: "<font style='color: rgb(196, 68, 68);font-size: 14px;line-height: 30px;padding-left: 10px;'>元 （各种限制额度如填入0则表示不限制）</font>"
         }]
     },{
-        fieldLabel: "备注",
-        name: "",
-        xtype: "textarea",
-        emptyText: "请输入卡类备注",
-        maxLength: 512,
-        height: 100,
-        maxLengthText: ""
-    }, {
+        xtype: "container",
+        layout: "column", // 从左往右的布局
+        items: [{
+            columnWidth: 0.8,
+            fieldLabel: "备注",
+            name: "notes",
+            xtype: "textarea",
+            emptyText: "请输入卡类备注",
+            maxLength: 512,
+            height: 100,
+            maxLengthText: "100"
+        }]
+    }/*, {
         xtype: "container",
         layout: "column", // 从左往右的布局
         items: [{
@@ -158,5 +173,5 @@ Ext.define("core.consumemanager.consumelimit.view.DetailForm", {
             "<br>2. 如需禁用消费限额，请取消勾选[启用消费限额]</br>"+
             "<br>3. 如同时启用日限额和餐限额功能；消费时的判断顺序是先判断日限额再判断餐限额</br></div>"
         }]
-    }]
+    }*/]
 });

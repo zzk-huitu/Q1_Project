@@ -10,6 +10,20 @@ Ext.define("core.consumemanager.consumelimittime.controller.OtherController", {
         /*执行一些初始化的代码*/
     },
     /** 该视图内的组件事件注册 */
-    control: {       
+    control: {  
+      "baseform[xtype=consumemanager.consumelimittime.detailform] ": {
+        afterrender: function(grid) {
+          var baseformtab =  grid.up("baseformtab[funCode=consumelimittime_mian]");
+          var operType = baseformtab.operType;
+          var consumeContainer =  grid.down("container[ref=consumeContainer]");
+          if(operType=='edit'){
+            var cardTypeId=consumeContainer.down('field[name=cardTypeId]');
+            cardTypeId.setReadOnly(true);
+          }
+          return true;
+
+        },
+
+      },     
     },
-});
+  });

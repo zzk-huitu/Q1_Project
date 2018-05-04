@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.Formula;
+
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
 import com.yc.q1.core.model.BaseEntity;
@@ -57,6 +59,18 @@ public class XfXcSet extends BaseEntity implements Serializable {
 	@FieldInfo(name = "备注")
 	@Column(name = "notes", columnDefinition = "nvarchar(100) default ''", nullable = true)
 	private String notes;
+	@FieldInfo(name = "卡类名称")
+	@Formula("(select ISNULL(a.cardTypeName,'') from T_PT_CardType a where a.cardTypeId=cardTypeId)")
+	private String cardTypeName;
+	
+	
+	public String getCardTypeName() {
+		return cardTypeName;
+	}
+
+	public void setCardTypeName(String cardTypeName) {
+		this.cardTypeName = cardTypeName;
+	}
 
 	public Integer getCardTypeId() {
 		return cardTypeId;
