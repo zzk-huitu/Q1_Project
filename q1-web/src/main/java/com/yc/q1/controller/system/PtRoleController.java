@@ -1,4 +1,3 @@
-
 package com.yc.q1.controller.system;
 
 import java.io.IOException;
@@ -28,7 +27,6 @@ import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.StringUtils;
-import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtMenuService;

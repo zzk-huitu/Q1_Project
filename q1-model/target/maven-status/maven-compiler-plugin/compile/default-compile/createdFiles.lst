@@ -1,4 +1,5 @@
 com\yc\q1\model\base\pt\wisdomclass\PtClassStar.class
+com\yc\q1\model\base\pt\system\PtUserAccountBind.class
 com\yc\q1\pojo\base\app\PictureApp.class
 com\yc\q1\pojo\base\pt\CommBase.class
 com\yc\q1\model\storage\pt\PtSubsidyFillMoneyMain.class
@@ -6,6 +7,7 @@ com\yc\q1\model\base\pt\basic\PtInfoTerminalHistory.class
 com\yc\q1\model\base\pt\wisdomclass\PtAttenceRule.class
 com\yc\q1\model\base\pt\device\PtIrRoomDevice.class
 com\yc\q1\model\base\pt\system\PtAppInfo.class
+com\yc\q1\model\base\pt\system\PtUserRoomBind.class
 com\yc\q1\model\base\pt\system\PtDataDictItem.class
 com\yc\q1\model\base\pt\system\PtJob.class
 com\yc\q1\model\base\pt\system\PtMenuPermission.class
@@ -45,6 +47,7 @@ com\yc\q1\model\base\pt\device\PtRoomBagRuleBind.class
 com\yc\q1\model\base\pt\wisdomclass\PtNotice.class
 com\yc\q1\model\base\pt\build\PtDormDefine.class
 com\yc\q1\model\base\xf\XfXcSet.class
+com\yc\q1\model\base\pt\system\PtUserWorkStationBind.class
 com\yc\q1\pojo\base\app\CheckRuleApp.class
 com\yc\q1\pojo\base\app\CheckRuleStudentApp.class
 com\yc\q1\model\base\pt\device\PtPriceBind.class
