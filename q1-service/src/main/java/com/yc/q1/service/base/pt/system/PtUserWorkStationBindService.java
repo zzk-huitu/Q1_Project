@@ -1,6 +1,7 @@
 package com.yc.q1.service.base.pt.system;
 
 import com.yc.q1.core.service.BaseService;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserWorkStationBind;
 
 
@@ -18,5 +19,9 @@ import com.yc.q1.model.base.pt.system.PtUserWorkStationBind;
  */
  
 public interface PtUserWorkStationBindService extends BaseService<PtUserWorkStationBind> {
+	
+	public boolean doAddStation(String userId, String ids, PtUser currentUser);
+	
+	public boolean doDeleteStation(String delIds);
 
 }

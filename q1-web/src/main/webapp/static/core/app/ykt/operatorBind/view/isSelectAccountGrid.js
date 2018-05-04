@@ -1,6 +1,6 @@
-Ext.define("core.ykt.operatorBind.view.isSelectStationGrid", {
+Ext.define("core.ykt.operatorBind.view.isSelectAccountGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.operatorBind.isSelectStationGrid",
+    alias: "widget.ykt.operatorBind.isSelectAccountGrid",
     dataUrl: comm.get('baseUrl') + "/PtRole/selectList",
     al: false,
     noPagging: true,
@@ -53,8 +53,8 @@ Ext.define("core.ykt.operatorBind.view.isSelectStationGrid", {
                 var IsSelectStore = grid.getStore();
                 IsSelectStore.removeAt(index);
 
-                var basePanel = grid.up("panel[xtype=ykt.operatorBind.selectStationLayout]");
-                var selectGrid = basePanel.down("basegrid[xtype=ykt.operatorBind.selectStationGrid]");
+                var basePanel = grid.up("panel[xtype=ykt.operatorBind.selectAccountLayout]");
+                var selectGrid = basePanel.down("basegrid[xtype=ykt.operatorBind.selectAccountGrid]");
                 var selectStore = selectGrid.getStore();
                 selectStore.insert(0, [record]);
                 return false;
@@ -67,7 +67,7 @@ Ext.define("core.ykt.operatorBind.view.isSelectStationGrid", {
         xtype:'toolbar',
         items: [ {
             xtype: 'tbtext',
-            html: '当前已选工作站',
+            html: '当前已选账户',
             style: {
                 fontSize: '16px',
                 color: '#C44444',
@@ -86,7 +86,7 @@ Ext.define("core.ykt.operatorBind.view.isSelectStationGrid", {
         whereSql: "",
         filter: "[{'type':'numeric','comparison':'=','value':0,'field':'isDelete'}]"
     },
-    model: 'com.yc.q1.model.base.pt.system.PtWorkStation',
+    model: 'com.yc.q1.model.base.pt.system.PtAccount',
     columns: { 
         defaults:{
             //flex:1,     //【若使用了 selType: "checkboxmodel"；则不要在这设定此属性了，否则多选框的宽度也会变大 】
@@ -104,38 +104,15 @@ Ext.define("core.ykt.operatorBind.view.isSelectStationGrid", {
             dataIndex: "id",
             hidden: true
         },{
-            text: "工作站名称",
-            dataIndex: "workStationName",
+            text : "账户名称",
+            dataIndex : "accountName",
             type: "string",
             flex:1,        
             minWidth:120,
         }, {
-            text: "计算机名称",
-            dataIndex: "computerName",
+            text : "帐户编号",
+            dataIndex : "accountNo",
             type: "string",
-            width:120,
-        }/*, {
-            text: "IP地址",
-            dataIndex: "workStationIP",
-            type: "string",
-            width:160,
-        }, {
-            text: "MAC地址",
-            dataIndex: "nic",
-            type: "string",
-            width:160,
-        }, {
-            text: "服务器端口",
-            dataIndex: "msServerPort",
-            type: "Integer",
-            width:160,
-        }, {
-            text: "是否在线",
-            dataIndex: "onLine",
-            width:160,
-            renderer:function(v){
-                    return v==true?"<font color=red>是</font>":"<font color=green>否</font>"
-                }
-        }*/]
+        }]
     }
 });

@@ -95,21 +95,40 @@ Ext.define("core.ykt.operatorBind.view.UserGrid", {
             var grid=gridview.grid;
             var selectRow=grid.getSelection(); 
             if(selectRow.length!=1){
-                self.msgbox("只能选择一条数据操作!");
+                this.msgbox("只能选择一条数据操作!");
                 return;
             }
             var temp=selectRow[0].data;
             var id = temp.id;                  
 
             var mainlayout = grid.up('panel[xtype=ykt.operatorBind.mainlayout]');
-            var baseGrid = mainlayout.down('panel[xtype=ykt.operatorBind.maingrid]');
-            var stores = baseGrid.getStore();
-            var proxys = stores.getProxy();
+            var userGrid = mainlayout.down('panel[xtype=ykt.operatorBind.usergrid]');
+            var accountBindGrid = mainlayout.down('panel[xtype=ykt.operatorBind.accountBindGrid]');
+            var roomBindGrid = mainlayout.down('panel[xtype=ykt.operatorBind.roomBindGrid]');
+            var workStationBindGrid = mainlayout.down('panel[xtype=ykt.operatorBind.workStationBindGrid]');
+
             var filter = "[{'type':'string','comparison':'in','value':'"+id +"','field':'userId'}]";
-            proxys.extraParams = {
+            
+            var accountstores = accountBindGrid.getStore();
+            var accountproxys = accountstores.getProxy();
+            accountproxys.extraParams = {
                  filter: filter
             };
-            stores.loadPage(1); //刷新
+            accountstores.loadPage(1); //刷新
+
+            var roomstores = roomBindGrid.getStore();
+            var roomproxys = roomstores.getProxy();
+            roomproxys.extraParams = {
+                 filter: filter
+            };
+            roomstores.loadPage(1); //刷新
+
+            var workStationstores = workStationBindGrid.getStore();
+            var workStationproxys = workStationstores.getProxy();
+            workStationproxys.extraParams = {
+                 filter: filter
+            };
+            workStationstores.loadPage(1); //刷新
         }
     }
 

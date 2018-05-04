@@ -1,6 +1,7 @@
 package com.yc.q1.service.base.pt.system;
 
 import com.yc.q1.core.service.BaseService;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserAccountBind;
 
 
@@ -19,4 +20,7 @@ import com.yc.q1.model.base.pt.system.PtUserAccountBind;
  
 public interface PtUserAccountBindService extends BaseService<PtUserAccountBind> {
 
+	public boolean doAddAccount(String userId, String ids, PtUser currentUser);
+	
+	public boolean doDeleteAccount(String delIds);
 }

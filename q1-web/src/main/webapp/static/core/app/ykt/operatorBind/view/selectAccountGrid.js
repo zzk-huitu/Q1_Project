@@ -1,8 +1,8 @@
-Ext.define("core.ykt.operatorBind.view.selectStationGrid", {
+Ext.define("core.ykt.operatorBind.view.selectAccountGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.operatorBind.selectStationGrid",
-    dataUrl: comm.get('baseUrl') + "/PtWorkStation/selectList",
-    model: 'com.yc.q1.model.base.pt.system.PtWorkStation',
+    alias: "widget.ykt.operatorBind.selectAccountGrid",
+    dataUrl: comm.get('baseUrl') + "/PtAccount/selectList",
+    model: 'com.yc.q1.model.base.pt.system.PtAccount',
     selModel: {
         type: "checkboxmodel",   
         headerWidth:30,    //设置这个值为50。 但columns中的defaults中设置宽度，会影响他
@@ -16,7 +16,7 @@ Ext.define("core.ykt.operatorBind.view.selectStationGrid", {
         xtype:'toolbar',
         items: [ {
             xtype: 'tbtext',
-            html: '待选工作站(选中后拖动添加)',
+            html: '待选账户(选中后拖动添加)',
             style: {
                 fontSize: '16px',
                 color: '#C44444',
@@ -27,10 +27,10 @@ Ext.define("core.ykt.operatorBind.view.selectStationGrid", {
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'workStationName',
+            name:'workAccountName',
             funCode:'girdFastSearchText', 
             isNotForm:true,   //由于文本框重写了baseform下面的funcode值，所以使用这个属性，防止重写这里设定的fundcode值。
-            emptyText: '请输入工作站名称'
+            emptyText: '请输入账户名称'
         },{
             xtype: 'button',
             funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型
@@ -49,12 +49,12 @@ Ext.define("core.ykt.operatorBind.view.selectStationGrid", {
             },
             beforeitemdblclick: function(grid, record, item, index, e, eOpts) {
               
-                var basePanel = grid.up("panel[xtype=ykt.operatorBind.selectStationLayout]");
+                var basePanel = grid.up("panel[xtype=ykt.operatorBind.selectAccountLayout]");
                 var data = record.data;
                 var selectStore = grid.getStore();
                 var isSelectGrid;
                 if(basePanel){
-                    isSelectGrid = basePanel.down("panel[xtype=ykt.operatorBind.isSelectStationGrid]");
+                    isSelectGrid = basePanel.down("panel[xtype=ykt.operatorBind.isSelectAccountGrid]");
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
@@ -98,38 +98,15 @@ Ext.define("core.ykt.operatorBind.view.selectStationGrid", {
             dataIndex: "id",
             hidden: true
         },{
-            text: "工作站名称",
-            dataIndex: "workStationName",
+            text : "账户名称",
+            dataIndex : "accountName",
             type: "string",
             flex:1,        
             minWidth:120,
         }, {
-            text: "计算机名称",
-            dataIndex: "computerName",
+            text : "帐户编号",
+            dataIndex : "accountNo",
             type: "string",
-            width:120,
-        }/*, {
-            text: "IP地址",
-            dataIndex: "workStationIP",
-            type: "string",
-            width:160,
-        }, {
-            text: "MAC地址",
-            dataIndex: "nic",
-            type: "string",
-            width:160,
-        }, {
-            text: "服务器端口",
-            dataIndex: "msServerPort",
-            type: "Integer",
-            width:160,
-        }, {
-            text: "是否在线",
-            dataIndex: "onLine",
-            width:160,
-            renderer:function(v){
-                    return v==true?"<font color=red>是</font>":"<font color=green>否</font>"
-                }
-        }*/]
+        }]
     }
 });

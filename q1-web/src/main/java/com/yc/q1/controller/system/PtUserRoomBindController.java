@@ -71,13 +71,20 @@ public class PtUserRoomBindController extends FrameWorkController<PtUserRoomBind
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-		entity.setId(keyRedisService.getId(PtAccount.ModuleType));
-		entity = thisService.doAddEntity(entity, currentUser.getId());
+		String userId = request.getParameter("userId"); // 获得传过来的用户ID
+		String ids = request.getParameter("ids");
 
-		if (entity == null)
-			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
-		else
-			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
+		if (StringUtils.isEmpty(ids) || StringUtils.isEmpty(userId)) {
+			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要添加的数据\""));
+			return;
+		} else {
+			boolean flag = thisService.doAddRoom(userId, ids, currentUser);
+			if (flag) {
+				writeJSON(response, jsonBuilder.returnSuccessJson("\"添加成功\""));
+			} else {
+				writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败\""));
+			}
+		}
 	}
 
 	/**
@@ -94,7 +101,7 @@ public class PtUserRoomBindController extends FrameWorkController<PtUserRoomBind
 			return;
 		} else {
 			PtUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
+			boolean flag = thisService.doDeleteRoom(delIds);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {

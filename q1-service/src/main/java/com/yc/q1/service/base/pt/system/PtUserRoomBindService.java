@@ -1,6 +1,7 @@
 package com.yc.q1.service.base.pt.system;
 
 import com.yc.q1.core.service.BaseService;
+import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserRoomBind;
 
 
@@ -18,5 +19,6 @@ import com.yc.q1.model.base.pt.system.PtUserRoomBind;
  */
  
 public interface PtUserRoomBindService extends BaseService<PtUserRoomBind> {
-
+	public boolean doAddRoom(String userId, String ids, PtUser currentUser);
+	public boolean doDeleteRoom(String delIds);
 }

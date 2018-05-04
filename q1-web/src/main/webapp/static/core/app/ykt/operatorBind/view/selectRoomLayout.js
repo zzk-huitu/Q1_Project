@@ -1,7 +1,7 @@
-Ext.define("core.ykt.operatorBind.view.selectStationLayout", {
+Ext.define("core.ykt.operatorBind.view.selectRoomLayout", {
 	extend: "core.base.view.BasePanel",
-	alias: 'widget.ykt.operatorBind.selectStationLayout',
-	funCode: "operatorBind_selectStationmain",
+	alias: 'widget.ykt.operatorBind.selectRoomLayout',
+	funCode: "operatorBind_selectRoommain",
 	layout: 'border',
 	//bodyPadding: 5,	
 	funData: {
@@ -18,17 +18,21 @@ Ext.define("core.ykt.operatorBind.view.selectStationLayout", {
 		}
 	},
 	items: [{
-		xtype: "ykt.operatorBind.selectStationGrid",
+		xtype: "ykt.operatorBind.areagrid",
 		region: "west",
 		margin:5,
 		flex:2,
 		title:null
-		//border:true
 	},{
-		xtype: "ykt.operatorBind.isSelectStationGrid",
+		xtype: "ykt.operatorBind.selectRoomGrid",
 		region: "center",
-		flex:1,
 		margin:5,
-		//border:true
+		flex:5,
+		title:null
+	},{
+		xtype: "ykt.operatorBind.isSelectRoomGrid",
+		region: "east",
+		flex:3,
+		margin:5,
 	}]
 })

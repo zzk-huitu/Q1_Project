@@ -1,7 +1,7 @@
-Ext.define("core.ykt.operatorBind.view.selectStationLayout", {
+Ext.define("core.ykt.operatorBind.view.selectAccountLayout", {
 	extend: "core.base.view.BasePanel",
-	alias: 'widget.ykt.operatorBind.selectStationLayout',
-	funCode: "operatorBind_selectStationmain",
+	alias: 'widget.ykt.operatorBind.selectAccountLayout',
+	funCode: "operatorBind_selectAccountmain",
 	layout: 'border',
 	//bodyPadding: 5,	
 	funData: {
@@ -18,14 +18,14 @@ Ext.define("core.ykt.operatorBind.view.selectStationLayout", {
 		}
 	},
 	items: [{
-		xtype: "ykt.operatorBind.selectStationGrid",
+		xtype: "ykt.operatorBind.selectAccountGrid",
 		region: "west",
 		margin:5,
 		flex:2,
 		title:null
 		//border:true
 	},{
-		xtype: "ykt.operatorBind.isSelectStationGrid",
+		xtype: "ykt.operatorBind.isSelectAccountGrid",
 		region: "center",
 		flex:1,
 		margin:5,

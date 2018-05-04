@@ -2,12 +2,14 @@ package com.yc.q1.controller.system;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yc.q1.controller.base.FrameWorkController;
@@ -17,9 +19,11 @@ import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtAccount;
-import com.yc.q1.model.base.pt.system.PtSysParameter;
+import com.yc.q1.model.base.pt.system.PtRole;
 import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserAccountBind;
 import com.yc.q1.service.base.pt.system.PtAccountService;
+import com.yc.q1.service.base.pt.system.PtUserAccountBindService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
@@ -33,6 +37,9 @@ public class PtAccountController extends FrameWorkController<PtAccount> implemen
 
 	@Resource
 	PtAccountService thisService; // service层接口
+	
+	@Resource
+	PtUserAccountBindService ptUserAccountBindService; // service层接口
 	
 	@Resource
 	private PrimaryKeyRedisService keyRedisService;
@@ -116,6 +123,52 @@ public class PtAccountController extends FrameWorkController<PtAccount> implemen
 		writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(resultEntity)));
 	}
 	
-	
+	/**
+     * 获取用户未分配的角色列表
+     * @param entity
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = { "/selectList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+            org.springframework.web.bind.annotation.RequestMethod.POST })
+    public void selectList(@ModelAttribute PtRole entity, HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        String strData = ""; // 返回给js的数据
+        String userId = request.getParameter("userId");
+        int start = super.start(request); // 起始记录数
+        int limit = super.limit(request);// 每页记录数
+        String sort = StringUtils.convertSortToSql(super.sort(request));
+        String filter = StringUtils.convertFilterToSql(super.filter(request));
+        
+        String unBindAccountHql = "from PtUserAccountBind o where o.isDelete=0 ";
+        List<PtUserAccountBind> unBindAccount = ptUserAccountBindService.queryByHql(unBindAccountHql);
+        // hql语句
+        StringBuffer hql = new StringBuffer("from PtAccount o where o.isDelete=0 ");           
+        if (unBindAccount.size() > 0) {
+        	StringBuilder sb = new StringBuilder();
+            for (int i=0 ;i<unBindAccount.size();i++) {
+                sb.append(unBindAccount.get(i).getAccountId());
+                sb.append(",");
+            }
+            sb = sb.deleteCharAt(sb.length()-1);
+            String str = sb.toString().replace(",", "','");
+            hql.append(" and o.id not in('" + str + "')");
+        }
+    
+        //countHql.append("and e not in(:roles)");            
+        if(StringUtils.isNotEmpty(filter)){
+            hql.append(filter);
+        }
+        if(StringUtils.isNotEmpty(sort)){
+            hql.append(" order by ");
+            hql.append( sort);
+        }
+        
+        QueryResult<PtAccount> qr = thisService.queryResult(hql.toString(), start, limit);
+                  
+        strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
+        writeJSON(response, strData);// 返回数据        
+    }
 
 }

@@ -16,7 +16,6 @@ import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.constant.StatuVeriable;
 import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.StringUtils;
-import com.yc.q1.model.base.pt.system.PtAccount;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.model.base.pt.system.PtUserWorkStationBind;
 import com.yc.q1.service.base.pt.system.PtUserWorkStationBindService;
@@ -24,6 +23,7 @@ import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
  * 岗位管理
+ * 
  * @author Administrator
  *
  */
@@ -33,11 +33,13 @@ public class PtUserWorkStationBindController extends FrameWorkController<PtUserW
 
 	@Resource
 	PtUserWorkStationBindService thisService; // service层接口
-	
+
 	@Resource
 	private PrimaryKeyRedisService keyRedisService;
+
 	/**
 	 * 标准的查询列表功能
+	 * 
 	 * @param entity
 	 * @param request
 	 * @param response
@@ -45,7 +47,8 @@ public class PtUserWorkStationBindController extends FrameWorkController<PtUserW
 	 */
 	@RequestMapping(value = { "/list" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
-	public void list(PtUserWorkStationBind entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void list(PtUserWorkStationBind entity, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
 		String strData = ""; // 返回给js的数据
 		QueryResult<PtUserWorkStationBind> qr = thisService.queryPageResult(super.start(request), super.limit(request),
 				super.sort(request), super.filter(request), true);
@@ -53,7 +56,7 @@ public class PtUserWorkStationBindController extends FrameWorkController<PtUserW
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
-	
+
 	/**
 	 * 标准的添加功能
 	 * 
@@ -70,13 +73,20 @@ public class PtUserWorkStationBindController extends FrameWorkController<PtUserW
 			throws IOException, IllegalAccessException, InvocationTargetException {
 		// 获取当前操作用户
 		PtUser currentUser = getCurrentSysUser();
-		entity.setId(keyRedisService.getId(PtAccount.ModuleType));
-		entity = thisService.doAddEntity(entity, currentUser.getId());
+		String userId = request.getParameter("userId"); // 获得传过来的用户ID
+		String ids = request.getParameter("ids");
 
-		if (entity == null)
-			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
-		else
-			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
+		if (StringUtils.isEmpty(ids) || StringUtils.isEmpty(userId)) {
+			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入要添加的数据\""));
+			return;
+		} else {
+			boolean flag = thisService.doAddStation(userId, ids, currentUser);
+			if (flag) {
+				writeJSON(response, jsonBuilder.returnSuccessJson("\"添加成功\""));
+			} else {
+				writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败\""));
+			}
+		}
 	}
 
 	/**
@@ -93,7 +103,7 @@ public class PtUserWorkStationBindController extends FrameWorkController<PtUserW
 			return;
 		} else {
 			PtUser currentUser = getCurrentSysUser();
-			boolean flag = thisService.doLogicDelOrRestore(delIds, StatuVeriable.ISDELETE, currentUser.getId());
+			boolean flag = thisService.doDeleteStation(delIds);
 			if (flag) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			} else {
