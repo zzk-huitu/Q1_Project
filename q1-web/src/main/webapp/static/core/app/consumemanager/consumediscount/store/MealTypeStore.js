@@ -4,7 +4,7 @@ Ext.define("core.consumemanager.consumediscount.store.MealTypeStore",{
 	model:factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtMealType","checked").modelName,
 	proxy: {
 		type: "ajax",
-		url: comm.get('baseUrl') + "/PtMealType/list", //对应后台controller路径or方法
+		url: comm.get('baseUrl') + "/PtMealType/mealTypeList", //对应后台controller路径or方法
 		extraParams : {
 		},
 		reader: {

@@ -17,8 +17,8 @@ Ext.define("core.consumemanager.consumelimittime.controller.OtherController", {
           var operType = baseformtab.operType;
           var consumeContainer =  grid.down("container[ref=consumeContainer]");
           if(operType=='edit'){
-            var cardTypeName=consumeContainer.down('field[name=cardTypeName]');
-            cardTypeName.setReadOnly(true);
+            var cardTypeId=consumeContainer.down('field[name=cardTypeId]');
+            cardTypeId.setReadOnly(true);
           }
           return true;
 

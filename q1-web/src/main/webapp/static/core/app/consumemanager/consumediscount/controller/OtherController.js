@@ -14,16 +14,16 @@ Ext.define("core.consumemanager.consumediscount.controller.OtherController", {
 
     "baseform[xtype=consumemanager.consumediscount.detailform] ": {
       afterrender: function(grid) {
-       /* var baseformtab =  grid.up("baseformtab[funCode=consumediscount_main]");
+        var baseformtab =  grid.up("baseformtab[funCode=consumediscount_main]");
         var operType = baseformtab.operType;
         var consumeContainer =  grid.down("container[ref=consumeContainer]");
         if(operType=='edit'){
-          var cardTypeName=consumeContainer.down('field[name=cardTypeName]');
-          var mealName=consumeContainer.down('field[name=mealName]');
-          cardTypeName.setReadOnly(true);
-          mealName.setReadOnly(true);
+          var cardTypeId=consumeContainer.down('field[name=cardTypeId]');
+          var mealTypeId=consumeContainer.down('field[name=mealTypeId]');
+          cardTypeId.setReadOnly(true);
+          mealTypeId.setReadOnly(true);
         }
-        return true;*/
+        return true;
 
       },
 

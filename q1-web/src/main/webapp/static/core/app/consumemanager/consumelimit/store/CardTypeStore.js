@@ -4,7 +4,7 @@ Ext.define("core.consumemanager.consumelimit.store.CardTypeStore",{
 	model:factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.card.PtCardType","checked").modelName,
 	proxy: {
 		type: "ajax",
-		url: comm.get('baseUrl') + "/PtCardType/list", //对应后台controller路径or方法
+		url: comm.get('baseUrl') + "/PtCardType/cardTypeList", //对应后台controller路径or方法
 		extraParams : {
 		},
 		reader: {
