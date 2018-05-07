@@ -48,7 +48,13 @@ Ext.define("core.ykt.card.controller.MainController", {
                 }
             },
 
-
+            //错扣补款
+            "basegrid[xtype=ykt.card.maingrid] button[ref=gridSupplement]": {
+                beforeclick: function(btn) {
+                    this.doOnBatch(btn);
+                    return false;
+                }
+            },
         });
     },
 
