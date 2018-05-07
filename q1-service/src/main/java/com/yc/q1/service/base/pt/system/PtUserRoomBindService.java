@@ -7,13 +7,13 @@ import com.yc.q1.model.base.pt.system.PtUserRoomBind;
 
 /**
  * 
- * ClassName: BizTJobService
+ * ClassName: PtUserRoomBindService
  * Function: TODO ADD FUNCTION. 
  * Reason: TODO ADD REASON(可选). 
- * Description: 岗位信息实体Service接口类.
- * date: 2016-05-16
+ * Description: 操作员房间绑定Service接口类.
+ * date: 2018-05-05
  *
- * @author  luoyibo 创建文件
+ * @author  tongzy 创建文件
  * @version 0.1
  * @since JDK 1.8
  */

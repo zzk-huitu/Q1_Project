@@ -233,7 +233,7 @@ Ext.define("core.ykt.operatorBind.controller.MainController", {
         if (!win) {
             win = Ext.create('core.base.view.BaseFormWin', {
                 id: winId,
-                title: "绑定工作站选择",
+                title: "绑定账户选择",
                 operType: cmd,
                 width: 1024,
                 height: 600,

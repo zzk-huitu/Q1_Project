@@ -7,6 +7,7 @@ Ext.define("core.ykt.card.view.MainLayout", {
         "core.ykt.card.view.MainLayout",
         "core.ykt.card.view.DetailLayout",
         "core.ykt.card.view.MainGrid",
+        "core.ykt.card.view.DeptTree",
         "core.ykt.card.view.DetailForm"
     ],
     
@@ -35,7 +36,7 @@ Ext.define("core.ykt.card.view.MainLayout", {
     minWidth:1000,
     scrollable:true,
     items: [{
-		    xtype: "baseset.studentmanager.depttree",
+		    xtype: "ykt.card.depttree",
 		    region: "west",
 		    width:250,
 		    split : true,
