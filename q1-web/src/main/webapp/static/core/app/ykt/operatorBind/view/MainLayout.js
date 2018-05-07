@@ -34,7 +34,7 @@ Ext.define("core.ykt.operatorBind.view.MainLayout", {
     minWidth:1000,
     scrollable:true,
     items: [{
-		    xtype: "baseset.studentmanager.depttree",
+		    xtype: "ykt.operatorBind.depttree",
 		    region: "west",
 		    width:250,
 		    split : true,
