@@ -1,13 +1,19 @@
 Ext.define("core.consumemanager.consumediscount.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
     alias: "widget.consumemanager.consumediscount.maingrid",
-    dataUrl: comm.get("baseUrl") + "", //数据获取地址
-    model: "", //对应的数据模型
+    dataUrl: comm.get("baseUrl") + "/XfRateSet/list", //数据获取地址
+    model: "com.yc.q1.model.base.xf.XfRateSet", //对应的数据模型
     menuCode:"",
 
     panelTopBar:{
         xtype:'toolbar',
         items: [{
+            xtype: 'button',
+            text: '添加',
+            ref: 'gridAdd_Tab',
+            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
+            iconCls: 'x-fa fa-pencil-square'
+        },{
             xtype: 'button',
             text: '编辑',
             ref: 'gridEdit_Tab',
@@ -45,40 +51,43 @@ Ext.define("core.consumemanager.consumediscount.view.MainGrid", {
             text: "主键",
             dataIndex: "id",
             hidden: true
-        },  {
+        }, {
             text : "卡类名称",
-            dataIndex : "",
+            dataIndex : "cardTypeName",
             flex:1
         }, {
             text : "餐类",
-            dataIndex : "",
+            dataIndex : "mealName",
             flex:1
         }, {
-            text : "状态",
-            dataIndex : "",
+            text : "折扣状态",
+            dataIndex : "rateStatus",
             flex:1,
             renderer: function(value) {
-                return (value == true) ? '<font color=green>正常</font>' : '<font color=red>锁定</font>';
+                return (value == true) ? '<font color=green>启用</font>' : '<font color=red>禁用</font>';
             }
         },{
-            text : "日折扣",
-            dataIndex : "",        
-            flex:1
+            text : "按日折扣",
+            dataIndex : "rateType",        
+            flex:1,
+             renderer: function(value) {
+                return (value == true) ? '<font color=green>启用</font>' : '<font color=red>禁用</font>';
+            }
         },{
             text : "第一次费率",
-            dataIndex : "",     
+            dataIndex : "ratePrice1",     
             flex:1
         },{
             text : "第二次费率",
-            dataIndex : "",
+            dataIndex : "ratePrice2",
             flex:1
         },{
             text : "第三次费率",
-            dataIndex : "",
+            dataIndex : "ratePrice3",
             flex:1
         },{
             text : "备注",
-            dataIndex : "",
+            dataIndex : "notes",
             flex:1
         },{
            xtype: 'actiontextcolumn',

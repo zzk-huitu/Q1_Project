@@ -2,6 +2,8 @@ package com.yc.q1.controller.system;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,7 +50,27 @@ public class PtMealTypeController extends FrameWorkController<PtMealType>{
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
-	
+	@RequestMapping(value = { "/mealTypeList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+			org.springframework.web.bind.annotation.RequestMethod.POST })
+	public void mealTypeList(PtMealType entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String strData = ""; // 返回给js的数据
+		String sql = " select mealTypeId,mealName from T_PT_MealType";
+		List<Object[]> list = thisService.queryObjectBySql(sql);
+		List<PtMealType> ptMealTypeList = new ArrayList<>();
+		if(list.size()>0){
+			for(Object[] object :list){
+				entity = new PtMealType();
+				entity.setMealTypeId(Integer.valueOf(object[0].toString()));
+				entity.setMealName(object[1].toString());
+				ptMealTypeList.add(entity);
+			}
+			
+		}
+		
+		//List<PtMealType> list1 = thisService.queryEntityBySql(sql,PtMealType.class);
+	    strData = jsonBuilder.buildObjListToJson(Long.valueOf(list.size()), ptMealTypeList, true);// 处理数据
+		writeJSON(response, strData);// 返回数据
+	}
 	/**
 	 * 
 	 * doAdd @Title: doAdd @Description: TODO @param @param BizTJob

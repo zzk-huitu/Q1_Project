@@ -23,9 +23,12 @@ import com.yc.q1.core.util.JsonBuilder;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.build.PtRoomInfo;
 import com.yc.q1.model.base.pt.system.PtUser;
+import com.yc.q1.model.base.pt.system.PtUserAccountBind;
+import com.yc.q1.model.base.pt.system.PtUserRoomBind;
 import com.yc.q1.pojo.base.pt.CommTree;
 import com.yc.q1.service.base.pt.basic.CommTreeService;
 import com.yc.q1.service.base.pt.build.PtRoomInfoService;
+import com.yc.q1.service.base.pt.system.PtUserRoomBindService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
 /**
@@ -46,6 +49,9 @@ public class PtRoomInfoController extends FrameWorkController<PtRoomInfo> implem
 	
 	@Resource
 	private PrimaryKeyRedisService keyRedisService;
+	
+	@Resource
+	private PtUserRoomBindService ptUserRoomBindService;
 	
 	/**
 	 * 根据传入的区域id，查询房间信息
@@ -88,6 +94,93 @@ public class PtRoomInfoController extends FrameWorkController<PtRoomInfo> implem
 					filter+=",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\""+areaId+"\",\"field\":\"areaId\"}"+"]";
 				}else{
 					filter="[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\""+ areaId+"\",\"field\":\"areaId\"}]";
+				}
+			}
+		}
+		
+		QueryResult<PtRoomInfo> qr = thisService.queryPageResult(super.start(request), super.limit(request),
+				super.sort(request), filter, true);
+		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
+		writeJSON(response, strData);// 返回数据
+	}
+	
+	/**
+	 * 根据传入的区域id，查询房间信息
+	 * @param entity
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
+	@RequestMapping(value = { "/selectList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
+			org.springframework.web.bind.annotation.RequestMethod.POST })
+	public void selectList(@ModelAttribute PtRoomInfo entity, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String strData = ""; // 返回给js的数据
+		String userId = request.getParameter("userId");
+		String filter = request.getParameter("filter");
+		String areaId = request.getParameter("areaId");
+		String areaType = request.getParameter("areaType")==null?"04":request.getParameter("areaType");
+		
+		String unBindRoomHql = "from PtUserRoomBind o where o.isDelete=0 ";
+	    List<PtUserRoomBind> unBindRoom = ptUserRoomBindService.queryByHql(unBindRoomHql);
+	    StringBuilder sb = new StringBuilder();
+	    if (unBindRoom.size() > 0) {
+        	
+            for (int i=0 ;i<unBindRoom.size();i++) {
+                sb.append(unBindRoom.get(i).getRoomId());
+                sb.append(",");
+            }
+            sb = sb.deleteCharAt(sb.length()-1);
+        }
+		
+		//若为类型不为楼层，则去查询此区域下的所有楼层
+		if(!"04".equals(areaType)){
+			String hql="select a.id from PtRoomArea a where a.isDelete=0 and a.areaType='04' and a.treeIds like '%"+areaId+"%'";
+			List<String> lists=thisService.queryEntityByHql(hql);
+			if(!lists.isEmpty()){
+				String areaIds=lists.stream().collect(Collectors.joining(","));
+				if(filter.length()>0){
+					filter = filter.substring(0, filter.length()-1);
+					filter+=",{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""+ areaIds+"\",\"field\":\"areaId\"}";
+					
+					if(sb.length()>0){
+						filter+=",{\"type\":\"string\",\"comparison\":\"not in\",\"value\":\""+ sb+"\",\"field\":\"id\"}";
+					}
+					
+					filter+="]";
+				}else{
+					filter="[{\"type\":\"string\",\"comparison\":\"in\",\"value\":\""+ areaIds+"\",\"field\":\"areaId\"}";
+					
+					if(sb.length()>0){
+						filter+=",{\"type\":\"string\",\"comparison\":\"not in\",\"value\":\""+ sb+"\",\"field\":\"id\"}";
+					}
+					filter+="]";
+				}
+			}else{//为楼栋或校区，其下没有楼层
+
+				strData = jsonBuilder.buildObjListToJson(0L,new ArrayList<>(), true);// 处理数据
+				writeJSON(response, strData);// 返回数据
+				return;
+			}
+		}else{
+			if(areaId!=null){
+				if(filter.length()>0){
+					filter = filter.substring(0, filter.length()-1);
+					filter+=",{\"type\":\"string\",\"comparison\":\"=\",\"value\":\""+areaId+"\",\"field\":\"areaId\"}";
+					
+					if(sb.length()>0){
+						filter+=",{\"type\":\"string\",\"comparison\":\"not in\",\"value\":\""+ sb+"\",\"field\":\"id\"}";
+					}
+					
+					filter+="]";
+				}else{
+					filter="[{\"type\":\"string\",\"comparison\":\"=\",\"value\":\""+ areaId+"\",\"field\":\"areaId\"}";
+					
+					if(sb.length()>0){
+						filter+=",{\"type\":\"string\",\"comparison\":\"not in\",\"value\":\""+ sb+"\",\"field\":\"id\"}";
+					}
+					
+					filter+="]";
 				}
 			}
 		}

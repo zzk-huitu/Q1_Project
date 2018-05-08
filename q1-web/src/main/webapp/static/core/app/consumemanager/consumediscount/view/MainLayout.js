@@ -9,15 +9,15 @@ Ext.define("core.consumemanager.consumediscount.view.MainLayout", {
     /*标注这个视图控制器的别名，以此提供给window处使用*/
     otherController:'consumemanager.consumediscount.othercontroller',
     funData: {
-        action: comm.get("baseUrl") + "/", //请求Action
+        action: comm.get("baseUrl") + "/XfRateSet", //请求Action
         pkName: "id",
         defaultObj: {
         },
         tabConfig:{         
-            titleField:'',  
-            addTitle:'',
+            titleField:'cardTypeName',  
+            addTitle:'添加消费折扣',
             editTitle:'消费折扣费率参数设置',
-            detailTitle:''
+            detailTitle:'消费折扣详情'
         }
     },
     minWidth:1000,

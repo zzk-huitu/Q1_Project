@@ -1,6 +1,6 @@
-Ext.define("core.baseset.studentmanager.view.DeptTree", {
+Ext.define("core.ykt.card.view.DeptTree", {
     extend: "core.base.view.BaseTreeGrid",
-    alias: "widget.baseset.studentmanager.depttree",
+    alias: "widget.ykt.card.depttree",
     dataUrl: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptTree",
     model: factory.ModelFactory.getModelByName("com.yc.q1.pojo.base.pt.DepartmentTree", "checked").modelName,
     al: true,

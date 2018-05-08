@@ -5,13 +5,10 @@ import java.io.Serializable;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.Formula;
 
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
@@ -35,8 +32,58 @@ public class PtUserWorkStationBind  extends BaseEntity implements Serializable {
 	@Column(name = "userId", length=20, nullable = false)
 	private String userId;
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	@FieldInfo(name = "工作站ID")
 	@Column(name = "workStationId", length = 30, nullable = false)
 	private String workStationId;
 
+	public String getWorkStationId() {
+		return workStationId;
+	}
+
+	public void setWorkStationId(String workStationId) {
+		this.workStationId = workStationId;
+	}
+	
+	/*
+	 * 以下字段不需要持续化到数据库中
+	 */
+	@Formula("(SELECT a.workStationName FROM T_PT_WorkStation a WHERE a.workStationId=workStationId )")
+	private String workStationName;
+
+	public String getWorkStationName() {
+		return workStationName;
+	}
+
+	public void setWorkStationName(String workStationName) {
+		this.workStationName = workStationName;
+	}
+
+	@Formula("(SELECT a.workStationIP FROM T_PT_WorkStation a WHERE a.workStationId=workStationId )")
+	private String workStationIP;
+
+	public String getWorkStationIP() {
+		return workStationIP;
+	}
+
+	public void setWorkStationIP(String workStationIP) {
+		this.workStationIP = workStationIP;
+	}
+
+	public PtUserWorkStationBind() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public PtUserWorkStationBind(String id) {
+		super(id);
+		// TODO Auto-generated constructor stub
+	}
 }

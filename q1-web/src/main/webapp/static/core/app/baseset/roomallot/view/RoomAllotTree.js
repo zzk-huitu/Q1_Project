@@ -27,6 +27,7 @@ Ext.define("core.baseset.roomallot.view.RoomAllotTree", {
     },
     extParams: {
         whereSql: "",
+        excludes:"checked"
     },
 
     columns:{
