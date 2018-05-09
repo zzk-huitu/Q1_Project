@@ -4,7 +4,7 @@ Ext.define("core.ykt.card.view.MainGrid", {
     dataUrl: comm.get('baseUrl') + "/PtCard/list",
     model: 'com.yc.q1.model.base.pt.card.PtCard',
     al:false,
-    menuCode:"JOBINFO", //new：此表格与权限相关的菜单编码
+    menuCode:"CARDCENTER", //new：此表格与权限相关的菜单编码
     panelTopBar:{
         xtype:'toolbar',
         items: [{
@@ -38,6 +38,20 @@ Ext.define("core.ykt.card.view.MainGrid", {
             disabled:true,
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             disabled:true,
+            iconCls: 'x-fa fa-plus-circle'
+        },{
+            xtype: 'button',
+            text: '充值/退款',
+            ref: 'gridRechargeAndRefund',
+           // disabled:true,
+            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
+            iconCls: 'x-fa fa-plus-circle'
+        },{
+            xtype: 'button',
+            text: '补助设置',
+            ref: 'gridSubsidy',
+           // disabled:true,
+            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle'
         }],
     }, 
