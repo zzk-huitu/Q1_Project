@@ -34,6 +34,24 @@ Ext.define("core.system.dept.controller.MainController", {
                 }
             },
 
+
+            //上移按钮事件
+            "basetreegrid button[ref=gridUp]": {
+                beforeclick: function(btn) {
+                    this.recordUp(btn);
+                    return false;
+                }
+            },
+
+             //下移按钮事件
+            "basetreegrid button[ref=gridDown]": {
+                beforeclick: function(btn) {
+                    this.recordDown(btn);
+                    return false;
+                }
+            },
+
+
             //增加下级按钮事件
             "basetreegrid button[ref=gridAdd_Tab]": {
                 beforeclick: function(btn) {
@@ -518,21 +536,35 @@ Ext.define("core.system.dept.controller.MainController", {
         var btnDelete = basegrid.down("button[ref=gridDelete]");
         var btnsetJob = basegrid.down("button[ref=gridSetJob]");
         var btnsetMainJob = basegrid.down("button[ref=gridSetMainJob]");
+
+        var btngridUp = basegrid.down("button[ref=gridUp]");
+        var btngridDown = basegrid.down("button[ref=gridDown]");
+
         if (records.length == 0) {
             btnEdit.setDisabled(true);
             btnDelete.setDisabled(true);
             btnsetJob.setDisabled(true);
             btnsetMainJob.setDisabled(true);
+
+            btngridUp.setDisabled(true);
+            btngridDown.setDisabled(true);
+
         } else if (records.length == 1) {
             btnEdit.setDisabled(false);
             btnDelete.setDisabled(false);
             btnsetJob.setDisabled(false);
             btnsetMainJob.setDisabled(false);
+
+            btngridUp.setDisabled(false);
+            btngridDown.setDisabled(false);
         } else {
             btnEdit.setDisabled(true);
             btnDelete.setDisabled(false);
             btnsetJob.setDisabled(true);
             btnsetMainJob.setDisabled(false);
+
+            btngridUp.setDisabled(true);
+            btngridDown.setDisabled(true);
         }
     },
 
@@ -587,9 +619,7 @@ Ext.define("core.system.dept.controller.MainController", {
                     //回调代码必须写在里面
                     success: function(response) {
                         data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
-console.log(data);
-                        if (data.success) { 
-                            baseGrid.getStore().load();
+                        if (data.success) {
                             self.msgbox(data.obj);
 
                         }else{
@@ -668,4 +698,120 @@ console.log(data);
         });
 
     }*/
+
+    recordUp:function(btn){  
+        var self = this;
+        var baseGrid = btn.up("basetreegrid");
+        var records = baseGrid.getSelectionModel().getSelection();
+        var record = records[0];
+
+        //获取上一行的数据
+        var upRecord = record.previousSibling;
+        if(!upRecord){
+            self.msgbox("已经是最高层级，无法再上移");
+            return;
+        }
+        
+        var orderIndex = record.get("orderIndex");//当前选中记录的orderIndex
+        var recordId = record.get("id");            //当前选中记录的id
+
+        var upOrderIndex = upRecord.get("orderIndex");//上一条记录的orderIndex
+        var upRecordId = upRecord.get("id");    //上一条记录的id
+
+        record.set("orderIndex",upOrderIndex);  //交换orderIndex
+        upRecord.set("orderIndex",orderIndex);  //交换orderIndex
+
+        //本地提交
+        record.commit();
+        upRecord.commit();
+           
+        /*重新将数据排序*/
+        baseGrid.getStore().sort([{
+            property: 'orderIndex',
+            direction: 'ASC'
+        }]);
+        baseGrid.getView().refresh(); // refesh the row number
+
+        self.asyncAjax({
+            url: comm.get('baseUrl') + "/PtDeptJob/doUpdateRecord",
+            params: {
+                ids: recordId+","+upRecordId,
+                orderIndexs: upOrderIndex+","+orderIndex
+            },
+
+            //回调代码必须写在里面
+            success: function(response) {
+                data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
+                if (data.success) {
+                    self.msgbox(data.obj);
+                    // baseGrid.getStore().load();
+                }else{
+                    self.Error(data.obj);   
+                }
+            },
+            failure: function(response) {           
+                Ext.Msg.alert('请求失败', '错误信息：\n' + response.responseText);           
+            }
+
+        });
+        
+    },
+
+    recordDown:function(btn){  
+        var self = this;
+        var baseGrid = btn.up("basetreegrid");
+        var records = baseGrid.getSelectionModel().getSelection();
+        var record = records[0];
+
+        //获取上一行的数据
+        var downRecord = record.nextSibling;
+        if(!downRecord){
+            self.msgbox("已经是最低层级，无法再下移");
+            return;
+        }
+        
+        var orderIndex = record.get("orderIndex");//当前选中记录的orderIndex
+        var recordId = record.get("id");            //当前选中记录的id
+
+        var downOrderIndex = downRecord.get("orderIndex");//上一条记录的orderIndex
+        var downRecordId = downRecord.get("id");    //上一条记录的id
+
+        record.set("orderIndex",downOrderIndex);  //交换orderIndex
+        downRecord.set("orderIndex",orderIndex);  //交换orderIndex
+
+        //本地提交
+        record.commit();
+        downRecord.commit();
+           
+        /*重新将数据排序*/
+        baseGrid.getStore().sort([{
+            property: 'orderIndex',
+            direction: 'ASC'
+        }]);
+        baseGrid.getView().refresh(); // refesh the row number
+
+        self.asyncAjax({
+            url: comm.get('baseUrl') + "/PtDeptJob/doUpdateRecord",
+            params: {
+                ids: recordId+","+downRecordId,
+                orderIndexs: downOrderIndex+","+orderIndex
+            },
+
+            //回调代码必须写在里面
+            success: function(response) {
+                data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
+                if (data.success) {
+                    self.msgbox(data.obj);
+                    // baseGrid.getStore().load();
+                }else{
+                    self.Error(data.obj);   
+                }
+            },
+            failure: function(response) {           
+                Ext.Msg.alert('请求失败', '错误信息：\n' + response.responseText);           
+            }
+
+        });
+        
+    }
 });
