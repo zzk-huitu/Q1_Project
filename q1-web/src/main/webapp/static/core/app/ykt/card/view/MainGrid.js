@@ -41,15 +41,8 @@ Ext.define("core.ykt.card.view.MainGrid", {
             iconCls: 'x-fa fa-plus-circle'
         },{
             xtype: 'button',
-            text: '充值/退款',
-            ref: 'gridRechargeAndRefund',
-           // disabled:true,
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            iconCls: 'x-fa fa-plus-circle'
-        },{
-            xtype: 'button',
             text: '补助设置',
-            ref: 'gridSubsidy',
+            ref: 'gridSubsidySet',
            // disabled:true,
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle'

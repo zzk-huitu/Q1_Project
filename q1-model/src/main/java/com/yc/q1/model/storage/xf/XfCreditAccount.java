@@ -53,7 +53,7 @@ public class XfCreditAccount extends BaseEntity implements Serializable {
 	@Column(name = "commissionCharge", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal commissionCharge;
 
-	@FieldInfo(name = "？")
+	@FieldInfo(name = "主副卡 1：主卡 0 ：副卡 ？")
 	@Column(name = "creditFactor", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal creditFactor;
 

@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Formula;
+
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
@@ -70,8 +72,8 @@ public class XfConsumeDetail extends BaseEntity implements Serializable {
 	private Date consumeDate;
 
 	@FieldInfo(name = "消费时段ID")
-	@Column(name = "mealTyepId", columnDefinition = "int default 0", nullable = true)
-	private Integer mealTyepId;
+	@Column(name = "mealTypeId", columnDefinition = "int default 0", nullable = true)
+	private Integer mealTypeId;
 
 	@FieldInfo(name = "消费记录标志位")
 	@Column(name = "posRecordState", columnDefinition = "int default 0", nullable = true)
@@ -136,6 +138,18 @@ public class XfConsumeDetail extends BaseEntity implements Serializable {
 	@FieldInfo(name = "物理卡号")
 	@Column(name = "factoryFixId", columnDefinition = "bigint default 0", nullable = true)
 	private Long factoryFixId;
+
+	@Formula("(SELECT ISNULL(a.mealName,'') FROM T_PT_MealType a where a.mealTypeId=mealTypeId)")
+	private String mealName;
+
+	
+	public String getMealName() {
+		return mealName;
+	}
+
+	public void setMealName(String mealName) {
+		this.mealName = mealName;
+	}
 
 	public Long getCardNo() {
 		return cardNo;
@@ -209,12 +223,14 @@ public class XfConsumeDetail extends BaseEntity implements Serializable {
 		this.consumeDate = consumeDate;
 	}
 
-	public Integer getMealTyepId() {
-		return mealTyepId;
+
+
+	public Integer getMealTypeId() {
+		return mealTypeId;
 	}
 
-	public void setMealTyepId(Integer mealTyepId) {
-		this.mealTyepId = mealTyepId;
+	public void setMealTypeId(Integer mealTypeId) {
+		this.mealTypeId = mealTypeId;
 	}
 
 	public Integer getPosRecordState() {
