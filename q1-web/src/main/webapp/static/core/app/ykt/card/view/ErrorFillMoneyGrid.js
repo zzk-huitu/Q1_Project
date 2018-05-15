@@ -4,7 +4,7 @@ Ext.define("core.ykt.card.view.ErrorFillMoneyGrid", {
     dataUrl: comm.get('baseUrl') + "/PtCard/getFillMOneyCardList",
     model: 'com.yc.q1.model.base.pt.card.PtCard',
     al:false,
-    menuCode:"CARDCENTER", //new：此表格与权限相关的菜单编码
+   // menuCode:"", //new：此表格与权限相关的菜单编码
     panelTopBar:{
         xtype:'toolbar',
         items: [{
@@ -111,17 +111,6 @@ Ext.define("core.ykt.card.view.ErrorFillMoneyGrid", {
                 text:'补款操作',  
                 style:'font-size:12px;', 
                 tooltip: '补款操作',
-                ref: 'gridEdit',
-                getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
-                    if(comm.get("isAdmin")!="1"){
-                        var menuCode="";     // 此菜单的前缀
-                        var userBtn=comm.get("userBtn");   
-                        if(userBtn.indexOf(menuCode+"")==-1){
-                            return 'x-hidden-display';
-                        }
-                    }
-                    return null; 
-                },  
                 handler: function(view, rowIndex, colIndex, item) {
                     var rec = view.getStore().getAt(rowIndex);
                     this.fireEvent('fillOperating_Win', {

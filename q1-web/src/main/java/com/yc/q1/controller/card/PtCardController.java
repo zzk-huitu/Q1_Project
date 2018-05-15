@@ -1,9 +1,8 @@
 package com.yc.q1.controller.card;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -19,10 +18,10 @@ import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.model.extjs.QueryResult;
+import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.StringUtils;
-import com.yc.q1.model.base.pt.basic.PtGradeClass;
-import com.yc.q1.model.base.pt.basic.PtStudentBaseInfo;
 import com.yc.q1.model.base.pt.card.PtCard;
+import com.yc.q1.model.base.pt.card.PtCardBags;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.pojo.base.pt.DepartmentTree;
 import com.yc.q1.service.base.pt.basic.PtGradeClassService;
@@ -89,26 +88,28 @@ public class PtCardController extends FrameWorkController<PtCard> {
 		String userId =  request.getParameter("userId");
 		String bagCode =  request.getParameter("bagCode");
      	String wherehql = "";
-		String hql = " select a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,c.cardValue,e.deptName from PtUser a left join PtCard b on a.id = b.userId "
-				+ "  left join PtCardBags  c on a.id = c.userId "
-				+ "  left join PtUserDeptJob d on a.id = d.userId and d.isDelete=0 and  d.isMainDept=1"
-				+ "  left join PtDeptJob e on d.deptJobId = e.id " ;
-				//+ "  where a.id = '"+userId+"' and c.bagCode in ('1','2','3')";
+		String sql = " select a.userId, a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,c.cardValue,e.deptName,f.commissionCharge from "
+				+ "  T_PT_User a left join T_PT_Card b on a.userId = b.userId "
+				+ "  left join T_PT_CardBags  c on a.userId = c.userId "
+				+ "  left join T_PT_UseDeptJob d on a.userId = d.userId and d.isDelete=0 and  d.isMainDept=1"
+				+ "  left join T_PT_DeptJob e on d.deptJobId = e.deptJobId " 
+		        + "  left join  Q1_Storage.dbo.T_XF_CreditAccount f on b.cardNo = f.cardNo and a.userId = f.userId and f.creditFactor = 1"
+		        + "  where 1=1 ";
 		if(StringUtils.isNotEmpty(userId)){
-			wherehql += " and a.id = '"+userId+"'";
+			sql += " and a.userId = '"+userId+"'";
 			
 		}
 		if(StringUtils.isNotEmpty(bagCode)){
-			wherehql += " and c.bagCode in ('"+bagCode+"')";	
+			sql += " and c.bagCode in ('"+bagCode+"')";	
 			
 		}else{
-			wherehql += " and c.bagCode in ('1','2','3')";
+			sql += " and c.bagCode in ('1','2','3')";
 		}
-		QueryResult qr1 =thisService.queryCountToHql(super.start(request), super.limit(request), super.sort(request), super.filter(request), hql, null, null,wherehql);
-    	strData = jsonBuilder.buildObjListToJson(qr1.getTotalCount(), qr1.getResultList(), true);// 处理数据
+		List<Map<String, Object>> qr = thisService.queryMapBySql(sql);
+        strData = jsonBuilder.buildObjListToJson(Long.valueOf(qr.size()), qr, true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
-	//错扣补款人员卡片信息 ???
+	//错扣补款人员卡片信息
 	@RequestMapping(value = { "/getFillMOneyCardList" }, method = {
 			org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
@@ -122,7 +123,7 @@ public class PtCardController extends FrameWorkController<PtCard> {
 				+ "  left join T_PT_CardBags  c on a.userId = c.userId "
 				+ "  left join T_PT_UseDeptJob d on a.userId = d.userId and d.isDelete=0 and  d.isMainDept=1"
 				+ "  left join T_PT_DeptJob e on d.deptJobId = e.deptJobId "
-				+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount f on b.cardNo = f.cardNo and f.creditFactor = 1"
+				+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount f on b.cardNo = f.cardNo and a.userId = f.userId and f.creditFactor = 1"
 		        + "  where a.userId = '"+userId+"' ";
 		       // + "  group by  a.userId ,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, f.useType ";
 		List<Map<String, Object>> qr = thisService.queryMapBySql(sql);
@@ -264,5 +265,45 @@ public class PtCardController extends FrameWorkController<PtCard> {
 		}
 		
 	}
+	
+	@RequestMapping("/doAddAcountOperator")
+	public void doAddAcountOperator(PtCardBags entity, HttpServletRequest request, HttpServletResponse response)
+			throws IOException, IllegalAccessException, InvocationTargetException {
+
+		// 此处为放在入库前的一些检查的代码，如唯一校验等
+
+		// 获取当前操作用户
+		PtUser currentUser = getCurrentSysUser();
+		try {
+			Boolean flag = thisService.doAddAcountOperator(entity, currentUser,request);// 执行增加方法
+			if (flag)
+				writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
+			else
+				writeJSON(response, jsonBuilder.returnFailureJson("'数据增加失败,详情见错误日志'"));
+		} catch (Exception e) {
+			writeJSON(response, jsonBuilder.returnFailureJson("'数据增加失败,详情见错误日志'"));
+		}
+	}
+	@RequestMapping("/doAddFillOperate")
+	public void doAddFillOperate(PtCardBags entity, HttpServletRequest request, HttpServletResponse response)
+			throws IOException, IllegalAccessException, InvocationTargetException {
+
+		// 此处为放在入库前的一些检查的代码，如唯一校验等
+     
+          
+		// 获取当前操作用户
+		PtUser currentUser = getCurrentSysUser();
+		try {
+			Boolean flag = thisService.doAddFillOperate(entity, currentUser,request);// 执行增加方法
+			if (flag)
+				writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
+			else
+				writeJSON(response, jsonBuilder.returnFailureJson("'数据增加失败,详情见错误日志'"));
+		} catch (Exception e) {
+			writeJSON(response, jsonBuilder.returnFailureJson("'数据增加失败,详情见错误日志'"));
+		}
+	}
+	
+
 
 }

@@ -1,8 +1,11 @@
 package com.yc.q1.service.base.pt.card;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.card.PtCard;
+import com.yc.q1.model.base.pt.card.PtCardBags;
 import com.yc.q1.model.base.pt.system.PtUser;
 
 
@@ -25,5 +28,7 @@ public interface PtCardService extends BaseService<PtCard> {
 	public Boolean doLockBatch(String ids ,PtUser currentUser);
 	
 	public Boolean doOnBatch(String ids ,PtUser currentUser);
-
+	public Boolean doAddAcountOperator(PtCardBags entity ,PtUser currentUser,HttpServletRequest request);
+	public Boolean doAddFillOperate(PtCardBags entity ,PtUser currentUser,HttpServletRequest request );
+	
 }
