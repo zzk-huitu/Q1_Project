@@ -133,5 +133,14 @@ public interface PtDeptJobService extends BaseService<PtDeptJob> {
 	 * @return
 	 */
 	public Boolean doSetSuperJob(String ids, String setIds, String setType,PtUser currentUser);
+	
+	/**
+	 * 上下移动grid数据更新Index
+	 * 
+	 * @param deptJobId
+	 * @param currentUser
+	 * @return
+	 */
+	public Boolean doUpdateIndex(String ids, String orderIndexs, PtUser currentUser);
 
 }

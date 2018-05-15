@@ -201,5 +201,32 @@ public class PtDeptJobController extends FrameWorkController<PtDeptJob> implemen
 		
 	}
 	
+	/**
+	 * 
+	 * @Title: doUpdateRecord
+	 * @Description: 上移数据
+	 * @param request
+	 * @param response
+	 * @return void 返回类型
+	 * @throws IOException
+	 *             抛出异常
+	 */
+	@RequestMapping("/doUpdateRecord")
+	public void doUpdateRecord(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String ids = request.getParameter("ids");
+		String orderIndexs = request.getParameter("orderIndexs");
+		if (StringUtils.isEmpty(ids) || StringUtils.isEmpty(orderIndexs)) {
+			writeJSON(response, jsonBuilder.returnSuccessJson("\"参数传入错误\""));
+			return;
+		} else {
+			PtUser currentUser = getCurrentSysUser();
+			Boolean flag = thisService.doUpdateIndex(ids, orderIndexs, currentUser);
+			if (flag) {
+				writeJSON(response, jsonBuilder.returnSuccessJson("\"移动成功\""));
+			} else {
+				writeJSON(response, jsonBuilder.returnFailureJson("\"移动失败,详情见错误日志\""));
+			}
+		}
+	}
 	
 }
