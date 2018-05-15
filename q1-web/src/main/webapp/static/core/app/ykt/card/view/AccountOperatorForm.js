@@ -28,10 +28,21 @@ Ext.define("core.ykt.card.AccountOperatorForm", {
         msgTarget: 'qtip',
         labelAlign: "right",
     },
-  items: [{
-        xtype: "textfield",
-        fieldLabel: "主键",
-        name: "id",
+    items: [{
+        text: "主键",
+        dataIndex: "id",
+        hidden: true
+    },{
+        text: "卡号",
+        dataIndex: "cardNo",
+        hidden: true
+    },{
+        text: "用户id",
+        name: "userId",
+        hidden: true
+    },{
+        text: "钱包余额",
+        name: "cardValue",
         hidden: true
     },{
         xtype: "container",
@@ -60,6 +71,20 @@ Ext.define("core.ykt.card.AccountOperatorForm", {
             xtype: "numberfield",
             allowBlank: false,
             emptyText: "请选择充值金额",
+            listeners:{
+               blur: function(){
+                var form = this.up("form");
+                var cardValue= form.query("field[name=cardValue]")[0].getValue();
+                if(cardValue){
+                   var czMoney= form.query("field[name=czMoney]")[0].getValue();
+                   var czMoneyTotal= form.query("field[name=czMoneyTotal]")[0];
+                   var count =parseFloat(cardValue)+parseFloat(czMoney) ;
+                   czMoneyTotal.setValue(count);   
+
+               }
+               
+             }
+            } ,
         },{
             columnWidth: 0.5,
             beforeLabelTextTpl: comm.get('required'),
@@ -67,6 +92,7 @@ Ext.define("core.ykt.card.AccountOperatorForm", {
             name:"czMoneyTotal",//cardValue+czMoneyTotal  充值金额+ 卡余
             xtype: "textfield",
             editable:false,
+            //allowBlank: false,
 
         }]
     },{
@@ -82,7 +108,20 @@ Ext.define("core.ykt.card.AccountOperatorForm", {
             xtype: "numberfield",
             allowBlank: false,
             emptyText: "请选择退款金额",
-           
+            listeners:{
+             blur: function(){
+                var form = this.up("form");
+                var cardValue= form.query("field[name=cardValue]")[0].getValue();
+                if(cardValue){
+                  var czMoney= form.query("field[name=czMoney]")[0].getValue();
+                  var czMoneyTotal= form.query("field[name=czMoneyTotal]")[0];
+                  var count =parseFloat(cardValue)-parseFloat(tkMoney) ;
+                  czMoneyTotal.setValue(count);   
+              }
+              
+            }
+        } ,
+
         },{
             columnWidth: 0.5,
             beforeLabelTextTpl: comm.get('required'),
@@ -90,6 +129,7 @@ Ext.define("core.ykt.card.AccountOperatorForm", {
             name:"czMoneyTotal",//cardValue-czMoneyTotal 卡余 -退款金额
             xtype: "textfield",
             editable:false,
+            //allowBlank: false,
 
         }]
     }, {
@@ -122,7 +162,7 @@ Ext.define("core.ykt.card.AccountOperatorForm", {
         items: [{
             columnWidth: 0.5,
             fieldLabel: "资金来源",
-            name: "moneySource",
+            name: "payStyle",
             xtype: "combobox",
             store:moneySourceStore,
             displayField:"source",

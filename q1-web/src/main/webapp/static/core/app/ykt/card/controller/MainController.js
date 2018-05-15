@@ -55,6 +55,13 @@ Ext.define("core.ykt.card.controller.MainController", {
                     return false;
                 }
             },
+            //充值和退款
+            "basegrid[xtype=ykt.card.usergrid] button[ref=gridUserOperator]": {
+                beforeclick: function(btn) {
+                    this.doOpen_Tab(btn,"rechargeandrefund");
+                    return false;
+                }
+            },
               //补助设置
             "basegrid[xtype=ykt.card.maingrid] button[ref=gridSubsidySet]": {
                 beforeclick: function(btn) {
@@ -62,13 +69,7 @@ Ext.define("core.ykt.card.controller.MainController", {
                     return false;
                 }
             },
-            //充值和退款
-            "basegrid[xtype=ykt.card.usergrid] button[ref=gridAccountOperator]": {
-                beforeclick: function(btn) {
-                    this.doOpen_Tab(btn,"rechargeandrefund");
-                    return false;
-                }
-            },
+    
         });
     },
 
@@ -281,7 +282,7 @@ Ext.define("core.ykt.card.controller.MainController", {
         var basePanel = baseGrid.up("basepanel[funCode=" + funCode +"]");
         var tabPanel=baseGrid.up("tabpanel[xtype=app-main]");   //获取整个tabpanel
        
-        if(cmd!="subsidySet"){//错扣补款
+        if(cmd!="subsidySet"){//补助设置
           var selectUser = baseGrid.getSelectionModel().getSelection();
           if(selectUser.length!=1){
             self.msgbox("请选中一个用户！");
@@ -292,11 +293,7 @@ Ext.define("core.ykt.card.controller.MainController", {
        //得到配置信息
         var funData = basePanel.funData;
         var defaultObj = funData.defaultObj;
-        //关键：打开新的tab视图界面的控制器
-        var otherController = basePanel.otherController;
-        if (!otherController)
-            otherController = '';
-
+        
         //处理特殊默认值
         var insertObj = self.getDefaultValue(defaultObj);
         var popFunData = Ext.apply(funData, {
@@ -345,7 +342,7 @@ Ext.define("core.ykt.card.controller.MainController", {
                 //创建组件
                 var item=Ext.widget("baseformtab",{
                     operType:'detail',                            
-                    controller:otherController,         //指定重写事件的控制器
+                    controller:'ykt.card.detailcontroller',         //指定重写事件的控制器
                     funCode:funCode,                    //指定mainLayout的funcode
                     detCode:detCode,                    //指定detailLayout的funcode
                     tabItemId:tabItemId,                //指定tab页的itemId
@@ -364,20 +361,18 @@ Ext.define("core.ykt.card.controller.MainController", {
                    var userCardProxy = userCardStore.getProxy();
                    userCardProxy.extraParams = {
                     userId: selectUser[0].id,
-                    //cardNo:selectUser[0].upCardId
                 };
                 userCardStore.load();
             }
             if(cmd=="rechargeandrefund"){// 充值 / 退款
-                 var accountOperatorGrid = item.down("basegrid[xtype=ykt.card.accountoperatorgrid]");
-                 var accountOperatorStore = accountOperatorGrid.getStore();
-                 var accountOperatorProxy = accountOperatorStore.getProxy();
-                 accountOperatorProxy.extraParams = {
+               var accountOperatorGrid = item.down("basegrid[xtype=ykt.card.accountoperatorgrid]");
+               var accountOperatorStore = accountOperatorGrid.getStore();
+               var accountOperatorProxy = accountOperatorStore.getProxy();
+               accountOperatorProxy.extraParams = {
                 userId: selectUser[0].id,
-                    //cardNo:selectUser[0].upCardId
-                };
-                accountOperatorStore.load();
-            }
+            };
+            accountOperatorStore.load();
+          }
 
             },30);
             

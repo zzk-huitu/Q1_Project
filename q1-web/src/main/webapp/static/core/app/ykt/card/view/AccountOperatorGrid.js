@@ -78,6 +78,10 @@ Ext.define("core.ykt.card.view.AccountOperatorGrid", {
             dataIndex: "id",
             hidden: true
         },{
+            text: "用户id",
+            dataIndex: "userId",
+            hidden: true
+        },{
             text: "人员编号",
             dataIndex: "userNumb",
             width:100

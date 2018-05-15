@@ -12,7 +12,7 @@ Ext.define("core.ykt.card.view.ConsumeDetailGrid", {
     dataUrl: comm.get('baseUrl') + "/XfConsumeDetail/getUserConsumeList",
     model: 'com.yc.q1.model.storage.xf.XfConsumeDetail',
     al:false,
-    menuCode:"CARDCENTER", //new：此表格与权限相关的菜单编码
+   // menuCode:"", //new：此表格与权限相关的菜单编码
     panelTopBar:{
         xtype:'toolbar',
         items: [{
@@ -71,20 +71,34 @@ Ext.define("core.ykt.card.view.ConsumeDetailGrid", {
             align: 'center'
         },{
             text: "主键",
-            dataIndex: "id",
+            dataIndex: "userId",
+            hidden: true
+        },{
+            text: "卡号",
+            dataIndex: "cardNo",
             hidden: true
         },{
             text: "消费日期",
             dataIndex: "consumeDate",
             width:150,
+            renderer:function(value){
+                return Ext.Date.format(new Date(value), 'Y/m/d');
+
+           } 
         }, {
             text: "消费金额",
             dataIndex: "consumeValue",
-            width:135
+            width:135,
+            renderer:function(value){
+                return "￥"+parseFloat(value).toFixed(2);
+            }
         }, {
             text: "卡上余额",
             dataIndex: "cardValue",
-            width:135
+            width:135,
+            renderer:function(value){
+                return "￥"+parseFloat(value).toFixed(2);
+            }
         }, {
             text: "餐类",
             dataIndex: "mealName",

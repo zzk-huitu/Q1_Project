@@ -26,7 +26,7 @@ Ext.define("core.ykt.card.view.UserGrid", {
         },{
             xtype: 'button',
             text: '充值/退款',
-            ref: 'gridAccountOperator',
+            ref: 'gridUserOperator',
            // disabled:true,
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle'
