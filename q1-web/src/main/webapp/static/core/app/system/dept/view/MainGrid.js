@@ -9,9 +9,13 @@ Ext.define("core.system.dept.view.MainGrid", {
     //selModel: null,    
     extParams: {
         whereSql: "",
-        orderSql: " order by parentNode,orderIndex asc",
+        //orderSql: " order by parentNode,orderIndex asc",
         excludes:"checked"      //排除这个字段，不显示复选框
     },
+    defSort: [{
+        property: 'orderIndex',
+        direction: 'ASC'
+    }],
     tbar: [{
         xtype: 'button',
         text: '添加',
@@ -69,6 +73,20 @@ Ext.define("core.system.dept.view.MainGrid", {
         text: '刷新',
         ref: 'gridRefresh',
         iconCls: 'x-fa fa-refresh'
+    }, {
+        xtype: 'button',
+        text: '上移',
+        ref: 'gridUp',
+        funCode: 'girdFuntionBtn',
+        iconCls: 'x-fa fa-plus-circle',
+        disabled:true
+    }, {
+        xtype: 'button',
+        text: '下移',
+        ref: 'gridDown',
+        funCode: 'girdFuntionBtn',
+        iconCls: 'x-fa fa-minus-circle',
+        disabled:true
     },'->',/*{
         xtype: 'tbtext', 
         html:'快速搜索：'
@@ -125,11 +143,11 @@ Ext.define("core.system.dept.view.MainGrid", {
             align:'left',
             minWidth: 100,
             flex:2
-        },/* {
+        }, {
             header: '排序号',
             width:80,
             dataIndex: 'orderIndex'
-        }, */{
+        }, {
             header: '部门类型',
             minWidth:80,
             flex:1,

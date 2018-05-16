@@ -41,7 +41,7 @@ public class PtCard extends BaseEntity implements Serializable {
 	@Column(name = "cardNo", columnDefinition = "bigint IDENTITY(1,1)", nullable = false,updatable=false)
 	private Long cardNo;
 
-	@FieldInfo(name = "卡类型", type = "smallint NOT NULL", explain = "卡类型ID")
+	@FieldInfo(name = "卡类型", type = "smallint NOT NULL", explain = "卡类型ID /*1:主卡 2：副卡*/")
 	@Column(name = "cardTypeId", columnDefinition = "smallint", nullable = false)
 	private Integer cardTypeId;
 

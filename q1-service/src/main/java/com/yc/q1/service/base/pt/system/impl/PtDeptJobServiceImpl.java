@@ -423,6 +423,20 @@ public class PtDeptJobServiceImpl extends BaseServiceImpl<PtDeptJob> implements 
 			deptRedisService.deleteDeptTreeByUsers(userIds.toArray());
 		}
 	}
+
+	@Override
+	public Boolean doUpdateIndex(String ids, String orderIndexs, PtUser currentUser) {
+		String[] idArray = ids.split(",");
+		String[] orderIndexArray = orderIndexs.split(",");
+		PtDepartment department = deptService.get(idArray[0]);
+		department.setOrderIndex(Integer.parseInt(orderIndexArray[0]));
+		deptService.merge(department);
+		PtDepartment department1 = deptService.get(idArray[1]);
+		department1.setOrderIndex(Integer.parseInt(orderIndexArray[1]));
+		deptService.merge(department1);
+		deptRedisService.deleteDeptTreeAll();
+		return true;
+	}
 	
 	
 }

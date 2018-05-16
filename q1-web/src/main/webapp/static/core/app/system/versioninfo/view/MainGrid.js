@@ -1,51 +1,45 @@
-Ext.define("core.ykt.card.view.MainGrid", {
+Ext.define("core.system.versioninfo.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.card.maingrid",
-    dataUrl: comm.get('baseUrl') + "/PtCard/list",
-    model: 'com.yc.q1.model.base.pt.card.PtCard',
-    al:false,
-    menuCode:"CARDCENTER", //new：此表格与权限相关的菜单编码
+    alias: "widget.system.versioninfo.maingrid",
+    dataUrl: comm.get('baseUrl') + "/PtSysParameter/list",
+    model: 'com.yc.q1.model.base.pt.system.PtSysParameter',
+
+    menuCode:"JOBINFO", //new：此表格与权限相关的菜单编码
     panelTopBar:{
         xtype:'toolbar',
         items: [{
-            xtype: 'tbtext',
-            html: '卡列表',
-            style: {
-                fontSize: '16px',
-                color: '#C44444',
-                fontWeight:800,
-                lineHeight:'30px',
-            }
-        },{
             xtype: 'button',
-            text: '挂失/解挂',
-            ref: 'gridLockOn',
-            disabled:true,
+            text: '添加',
+            ref: 'gridAdd_Tab',
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle'
         },{
             xtype: 'button',
-            text: '批量挂失',
-            ref: 'gridLockBatch',
+            text: '编辑',
+            ref: 'gridEdit_Tab',
+            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             disabled:true,
+            iconCls: 'x-fa fa-pencil-square'
+        }, {
+            xtype: 'button',
+            text: '删除',
+            ref: 'gridDelete',
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             disabled:true,
             iconCls: 'x-fa fa-minus-circle'
-        }, {
-            xtype: 'button',
-            text: '批量解挂',
-            ref: 'gridOnBatch',
-            disabled:true,
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            disabled:true,
-            iconCls: 'x-fa fa-plus-circle'
+        },'->',{
+            xtype: 'tbtext', 
+            html:'快速搜索：'
         },{
-            xtype: 'button',
-            text: '补助设置',
-            ref: 'gridSubsidySet',
-           // disabled:true,
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            iconCls: 'x-fa fa-plus-circle'
+            xtype:'textfield',
+            name:'sysParamName',
+            funCode: 'girdFastSearchText',
+            emptyText: '请输入参数名称'
+        },{
+            xtype: 'button',            
+            ref: 'gridFastSearchBtn',  
+            funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型 
+            iconCls: 'x-fa fa-search',  
         }],
     }, 
     panelButtomBar:null,
@@ -74,67 +68,33 @@ Ext.define("core.ykt.card.view.MainGrid", {
             text: "主键",
             dataIndex: "id",
             hidden: true
-        }, {
-            text: "卡流水号",
-            dataIndex: "cardNo",
+        },{
+            text: "参数名称",
+            dataIndex: "sysParamName",
             flex:1,        
             minWidth:120,
-        }, {
-            text: "卡状态",
-            dataIndex: "cardStatusId",
-            columnType: "basecombobox", //列类型
-            ddCode: "KZT", //字典代码
-            width:120
-        }, {
-            text: "卡类型",
-            dataIndex: "cardTypeId",
-            renderer: function(value,cellmeta,record,rowIndex,columnIndex,store) {
-                value= record.data.cardTypeName;
-                return value
-            },
-            width:120
-        }, {
-            text: "当日消费次数",
-            dataIndex: "dayCount",
-            hidden: true,
-        }, {
-            text: "当日交易金额",
-            dataIndex: "dayValue",
-            hidden: true
-        }, {
-            text: "卡押金",
-            dataIndex: "deposit",
-            hidden: true
-        }, {
-            text: "创建时间",
-            dataIndex: "createTime",
-            hidden: true
-        }, {
-            text: "有效期",
-            dataIndex: "expiryDate",
-             width:120
-        }, {
-            text: "物理卡号",
-            dataIndex: "factoryFixId",
-            width:140
-        }, {
-            text: "状态修改时间",
-            dataIndex: "statusChangeTime",
-            width:140
-        }, {
-            text: "用户ID",
-            dataIndex: "userId",
-            hidden: true
-        }/*, {
+        },{
+            text: "参数编码",
+            dataIndex: "sysParamCode",
+            width:200
+        },{
+            text: "参数值",
+            dataIndex: "sysParamValue",
+            width:200
+        },{
+            text: "参数备注",
+            dataIndex: "sysParamRemark",
+            width:300
+        },{
             xtype: 'actiontextcolumn',
             text: "操作",
             align: 'center',
-            width: 200,
+            width: 250,
             fixed: true,
             items: [{
-                text:'挂失/解挂',  
+                text:'编辑',  
                 style:'font-size:12px;', 
-                tooltip: '挂失/解挂',
+                tooltip: '编辑',
                 ref: 'gridEdit',
                 getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
                     if(comm.get("isAdmin")!="1"){
@@ -154,9 +114,9 @@ Ext.define("core.ykt.card.view.MainGrid", {
                     });
                 }
             }, {
-                text:'批量挂失',  
+                text:'详细',  
                 style:'font-size:12px;', 
-                tooltip: '批量挂失',
+                tooltip: '详细',
                 ref: 'gridDetail',
                 handler: function(view, rowIndex, colIndex, item) {
                     var rec = view.getStore().getAt(rowIndex);
@@ -166,9 +126,9 @@ Ext.define("core.ykt.card.view.MainGrid", {
                     });
                 }
             }, {
-                text:'批量解挂',  
+                text:'删除',  
                 style:'font-size:12px;', 
-                tooltip: '批量解挂',
+                tooltip: '删除',
                 ref: 'gridDelete',
                 getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
                     if(comm.get("isAdmin")!="1"){
@@ -188,6 +148,6 @@ Ext.define("core.ykt.card.view.MainGrid", {
                     });
                 }
             }]
-        }*/]
+        }]
     }    
 });

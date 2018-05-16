@@ -49,12 +49,27 @@ Ext.define("core.ykt.card.controller.MainController", {
             },
 
             //错扣补款
-            "basegrid[xtype=ykt.card.maingrid] button[ref=gridSupplement]": {
+            "basegrid[xtype=ykt.card.usergrid] button[ref=gridErrorFillMoney]": {
                 beforeclick: function(btn) {
-                    this.doOnBatch(btn);
+                    this.doOpen_Tab(btn,"errorFillMoney");
                     return false;
                 }
             },
+            //充值和退款
+            "basegrid[xtype=ykt.card.usergrid] button[ref=gridUserOperator]": {
+                beforeclick: function(btn) {
+                    this.doOpen_Tab(btn,"rechargeandrefund");
+                    return false;
+                }
+            },
+              //补助设置
+            "basegrid[xtype=ykt.card.maingrid] button[ref=gridSubsidySet]": {
+                beforeclick: function(btn) {
+                    this.doOpen_Tab(btn,"subsidySet");
+                    return false;
+                }
+            },
+    
         });
     },
 
@@ -256,6 +271,116 @@ Ext.define("core.ykt.card.controller.MainController", {
         } else {
             this.msgbox("请至少选择一个需要解除挂失的卡片!");
         }
-    },     
- 
+    },   
+
+      doOpen_Tab:function(btn,cmd){
+        var self = this;
+        var baseGrid = btn.up("basegrid");
+
+        //得到组件
+        var funCode = baseGrid.funCode; 
+        var basePanel = baseGrid.up("basepanel[funCode=" + funCode +"]");
+        var tabPanel=baseGrid.up("tabpanel[xtype=app-main]");   //获取整个tabpanel
+       
+        if(cmd!="subsidySet"){//补助设置
+          var selectUser = baseGrid.getSelectionModel().getSelection();
+          if(selectUser.length!=1){
+            self.msgbox("请选中一个用户！");
+            return;
+            }     
+        }
+
+       //得到配置信息
+        var funData = basePanel.funData;
+        var defaultObj = funData.defaultObj;
+        
+        //处理特殊默认值
+        var insertObj = self.getDefaultValue(defaultObj);
+        var popFunData = Ext.apply(funData, {
+            grid: baseGrid
+        });
+        //获取主键值
+        var pkName = funData.pkName;
+        var pkValue='errorFillMoney';
+        
+        var tabTitle = "错扣补款";
+        var tabItemId = funCode+"_errorFillMoney"; 
+        var detCode =  "card_errorFillMoney";  
+        var detLayout = "ykt.card.errorfillmoneygrid";
+        switch(cmd){
+          case "subsidySet":
+            tabTitle = "补助设置";
+            tabItemId = funCode+"_subsidySet"; 
+            detCode =  "card_subsidySet";  
+            detLayout = "ykt.card.subsidysetgrid";
+            pkValue='subsidySet';
+            break;
+         case "rechargeandrefund":
+            tabTitle = "充值/退款";
+            tabItemId = funCode+"_rechargeandrefund"; 
+            detCode =  "card_rechargeandrefund";  
+            detLayout = "ykt.card.accountoperatorgrid";
+            pkValue='rechargeAndRefund';
+            break;
+        }
+        //获取tabItem；若不存在，则表示要新建tab页，否则直接打开
+        var tabItem=tabPanel.getComponent(tabItemId);
+        if(!tabItem){
+            //创建一个新的TAB
+            tabItem=Ext.create({
+                xtype:'container',
+                title: tabTitle,
+                scrollable :true, 
+                itemId:tabItemId,
+                itemPKV:pkValue,      //保存主键值
+                layout:'fit', 
+            });
+            tabPanel.add(tabItem); 
+
+            //延迟放入到tab中
+            setTimeout(function(){
+                //创建组件
+                var item=Ext.widget("baseformtab",{
+                    operType:'detail',                            
+                    controller:'ykt.card.detailcontroller',         //指定重写事件的控制器
+                    funCode:funCode,                    //指定mainLayout的funcode
+                    detCode:detCode,                    //指定detailLayout的funcode
+                    tabItemId:tabItemId,                //指定tab页的itemId
+                    insertObj:insertObj,                //保存一些需要默认值，提供给提交事件中使用
+                    funData: popFunData,                //保存funData数据，提供给提交事件中使用
+                    selectUser:selectUser,
+                    items:[{
+                        xtype:detLayout,                        
+                        funCode: detCode             
+                    }]
+                }); 
+                tabItem.add(item);  
+                if(cmd=="errorFillMoney"){//错扣补款
+                   var userCardGrid = item.down("basegrid[xtype=ykt.card.errorfillmoneygrid]");
+                   var userCardStore = userCardGrid.getStore();
+                   var userCardProxy = userCardStore.getProxy();
+                   userCardProxy.extraParams = {
+                    userId: selectUser[0].id,
+                };
+                userCardStore.load();
+            }
+            if(cmd=="rechargeandrefund"){// 充值 / 退款
+               var accountOperatorGrid = item.down("basegrid[xtype=ykt.card.accountoperatorgrid]");
+               var accountOperatorStore = accountOperatorGrid.getStore();
+               var accountOperatorProxy = accountOperatorStore.getProxy();
+               accountOperatorProxy.extraParams = {
+                userId: selectUser[0].id,
+            };
+            accountOperatorStore.load();
+          }
+
+            },30);
+            
+        }else if(tabItem.itemPKV&&tabItem.itemPKV!=pkValue){     //判断是否点击的是同一条数据
+            self.Warning("您当前已经打开了一个编辑窗口了！");
+            return;
+        }
+        tabPanel.setActiveTab( tabItem);     
+
+     },
 });
