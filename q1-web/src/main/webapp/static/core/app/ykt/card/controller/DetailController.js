@@ -42,11 +42,12 @@ Ext.define("core.ykt.card.controller.DetailController", {
         "basegrid[xtype=ykt.card.consumedetailgrid] field[funCode=girdFastSearchText]":{
         	specialkey: function (field, e) {
         		if (e.getKey() == e.ENTER) {
-        			this.doFastSearch(field,"consumedetail");                
+        			this.doFastSearch(field,"consumedetail");  
+              return false;              
         		}
         	}
         },
-        "basegrid[xtype=.ykt.card.consumedetailgrid] button[ref=gridFastSearchBtn]":{
+        "basegrid[xtype=ykt.card.consumedetailgrid] button[ref=gridFastSearchBtn]":{
         	beforeclick: function(btn) {
         		this.doFastSearch(btn,"consumedetail");
         		return false;
@@ -85,7 +86,8 @@ Ext.define("core.ykt.card.controller.DetailController", {
         "basegrid[xtype=ykt.card.accountoperatorgrid] field[funCode=girdFastSearchText]":{
          specialkey: function (field, e) {
           if (e.getKey() == e.ENTER) {
-            this.doFastSearch(field,"accountoperator");                
+            this.doFastSearch(field,"accountoperator");   
+            return false;             
           }
         }
       },
@@ -128,7 +130,8 @@ Ext.define("core.ykt.card.controller.DetailController", {
 		"basegrid[xtype=ykt.card.subsidysetgrid] field[funCode=girdFastSearchText]":{
 			specialkey: function (field, e) {
 				if (e.getKey() == e.ENTER) {
-					this.doFastSearch(field,"subsidyset");                
+					this.doFastSearch(field,"subsidyset"); 
+          return false;               
 				}
 			}
 		},
@@ -201,6 +204,7 @@ Ext.define("core.ykt.card.controller.DetailController", {
           var detailLayout = table.up("basepanel[xtype=ykt.card.filloperatelayout]");
           var baseform = detailLayout.down("baseform[xtype=ykt.card.consumedetailform]");
           var formObject = baseform.getForm();
+          record.data.consumeDate = Ext.Date.format(new Date(record.data.consumeDate*1), 'Y/m/d');
           self.setFormValue(formObject, record.data);
         },
 
@@ -279,7 +283,7 @@ Ext.define("core.ykt.card.controller.DetailController", {
       	proxy.extraParams.filter = filter;
       	store.loadPage(1);
 
-        }else if(cmd=="consumedetail"){//消费机类型 未加
+        }else if(cmd=="consumedetail"){//消费机类型 未加 
         	if(value){
         		proxy.extraParams.consumeDate = value;
         		store.loadPage(1);

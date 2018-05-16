@@ -230,7 +230,7 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 					user.setId(object[0].toString());
 					user.setUserNumb(object[1].toString());
 					user.setName(object[2].toString());
-			        user.setUpCardId((String) object[3]==null?0L:Long.valueOf(object[3].toString()));
+			        user.setCardId((String) object[3]==null?0L:Long.valueOf(object[3].toString()));
 					user.setDeptName(object[4].toString());
 					list.add(user);
 					}
