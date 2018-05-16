@@ -35,6 +35,6 @@ Ext.define("core.system.versioninfo.view.MainLayout", {
     minWidth:1000,
     scrollable:true,
     items: [{
-        xtype: "system.versioninfo.maingrid"
+        xtype: "system.versioninfo.detailhtml"
     }]
 })

@@ -377,3 +377,98 @@ table.pg td#ten{
 background:#FFE4F0;
 }
 
+
+
+/**/
+
+.versionInfo{
+    margin:0;
+    padding: 5px 50px 5px 10px;
+    width:100%;
+    position: relative;
+    font-family: '微软雅黑';
+    font-size:14px;
+    font-weight: 400;
+    height:180px;
+    margin-top: 10px;
+    display:flex;
+}
+.versionInfo .versionInfo_left{
+    float:left;
+    width:230px;
+    height: 70%;
+    background-color: #f3f3f3;
+    margin-right: 50px;
+}
+
+.versionInfo .versionInfo_down{
+    float:left;
+    width:230px;
+    height: 70%;
+    background-color: #f3f3f3;
+    margin-right: 50px;
+}
+
+.versionInfo .versionInfo_left span{
+    display: block;
+    width: 100%;
+    color: #000;
+    font-size: 14px;
+    padding: 0px 20px 20px 44px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.versionInfo .versionInfo_down span{
+    display: block;
+    width: 100%;
+    color: #000;
+    font-size: 14px;
+    padding: 20px 20px 10px 24px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.versionInfo .versionInfo_left span.logo{
+    display: block;
+    height: 64px;
+    width: 150px;
+    margin: 15px auto;
+    padding:0px;
+    background-color: #e5e5e5;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.trainClass_classTraineeInfo .trainClass_title button{
+    background-color:#3bb3e0;
+    padding:10px;
+    position:relative;
+    font-family: 'Open Sans', sans-serif;
+    font-size:12px;
+    text-decoration:none;
+    color:#fff;
+    border: solid 1px #186f8f;
+    background-image: linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(44,160,202) 0%, rgb(62,184,229) 100%);
+    background-image: -webkit-gradient(
+    linear,
+    left bottom,
+    left top,
+    color-stop(0, rgb(44,160,202)),
+    color-stop(1, rgb(62,184,229))
+    );
+    -webkit-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 1px 0px #fff;
+    -moz-box-shadow: inset 0px 1px 0px #7fd2f1, 0px 1px 0px #fff;
+    box-shadow: inset 0px 1px 0px #7fd2f1, 0px 1px 0px #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+/**/
