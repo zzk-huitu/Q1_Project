@@ -180,7 +180,7 @@ public class PtUser extends BaseEntity implements Serializable {
 
 	// @FieldInfo(name = "UP卡流水号",type="nvarchar(36)",explain="用户的UP卡流水号")
 	@Formula("(SELECT top 1 a.cardNo FROM T_PT_Card a where a.userId=userId order by a.createTime desc)")
-	private Long upCardId;
+	private Long cardId;
 
 	// @FieldInfo(name = "UP卡状态",type="nvarchar(36)",explain="用户的UP卡状态(1正常 2挂失
 	// 3注销 4换卡 7冻结)")
@@ -413,12 +413,12 @@ public class PtUser extends BaseEntity implements Serializable {
 		this.studyYearname = studyYearname;
 	}
 
-	public Long getUpCardId() {
-		return upCardId;
+	public Long getCardId() {
+		return cardId;
 	}
 
-	public void setUpCardId(Long upCardId) {
-		this.upCardId = upCardId;
+	public void setCardId(Long cardId) {
+		this.cardId = cardId;
 	}
 
 	public Integer getUseState() {

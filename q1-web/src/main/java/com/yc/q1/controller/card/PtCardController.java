@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
+import com.yc.q1.core.enumType.bagCodeEnum;
 import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.StringUtils;
@@ -79,7 +80,7 @@ public class PtCardController extends FrameWorkController<PtCard> {
 		strData = jsonBuilder.buildObjListToJson(qr.getTotalCount(), qr.getResultList(), true);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
-	//账户操作人员卡片信息
+	//用户操作人员卡片信息  充值/退款
 	@RequestMapping(value = { "/getAccountOperatorCardList" }, method = { org.springframework.web.bind.annotation.RequestMethod.GET,
 			org.springframework.web.bind.annotation.RequestMethod.POST })
 	public void getAccountOperatorCardList(PtCard entity, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -88,12 +89,13 @@ public class PtCardController extends FrameWorkController<PtCard> {
 		String userId =  request.getParameter("userId");
 		String bagCode =  request.getParameter("bagCode");
      	String wherehql = "";
-		String sql = " select a.userId, a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,c.cardValue,e.deptName,f.commissionCharge from "
+		String sql = " select a.userId, a.name,a.userNumb,b.cardNo,b.cardTypeId,c.cardValue,e.deptName,f.deposit,f.commissionCharge from "
 				+ "  T_PT_User a left join T_PT_Card b on a.userId = b.userId "
 				+ "  left join T_PT_CardBags  c on a.userId = c.userId "
 				+ "  left join T_PT_UseDeptJob d on a.userId = d.userId and d.isDelete=0 and  d.isMainDept=1"
-				+ "  left join T_PT_DeptJob e on d.deptJobId = e.deptJobId " 
-		        + "  left join  Q1_Storage.dbo.T_XF_CreditAccount f on b.cardNo = f.cardNo and a.userId = f.userId and f.creditFactor = 1"
+				+ "  left join T_PT_DeptJob e on d.deptJobId = e.deptJobId "
+				+ "  left join T_PT_CardType f on f.cardTypeId =b.cardTypeId and f.useFlag=1" 
+		        //+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount f on b.cardNo = f.cardNo and a.userId = f.userId and f.creditFactor = 1"
 		        + "  where 1=1 ";
 		if(StringUtils.isNotEmpty(userId)){
 			sql += " and a.userId = '"+userId+"'";
@@ -103,7 +105,8 @@ public class PtCardController extends FrameWorkController<PtCard> {
 			sql += " and c.bagCode in ('"+bagCode+"')";	
 			
 		}else{
-			sql += " and c.bagCode in ('1','2','3')";
+			//sql += " and c.bagCode in ('1','2','3')";
+			sql += " and c.bagCode in ("+bagCodeEnum.BAGECODE.getIndex()+")";
 		}
 		List<Map<String, Object>> qr = thisService.queryMapBySql(sql);
         strData = jsonBuilder.buildObjListToJson(Long.valueOf(qr.size()), qr, true);// 处理数据
@@ -118,12 +121,13 @@ public class PtCardController extends FrameWorkController<PtCard> {
 		String strData = ""; // 返回给js的数据
 
 		String userId = request.getParameter("userId");
-	    String sql = " select a.userId,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, f.useType "
+	    String sql = " select a.userId,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, g.useType "
 	    		+ "  from T_PT_User a left join T_PT_Card b on a.userId = b.userId "
 				+ "  left join T_PT_CardBags  c on a.userId = c.userId "
 				+ "  left join T_PT_UseDeptJob d on a.userId = d.userId and d.isDelete=0 and  d.isMainDept=1"
 				+ "  left join T_PT_DeptJob e on d.deptJobId = e.deptJobId "
-				+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount f on b.cardNo = f.cardNo and a.userId = f.userId and f.creditFactor = 1"
+				+ "  left join T_PT_CardType f on f.cardTypeId =b.cardTypeId and f.useFlag=1" 
+				+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount g on b.cardNo = g.cardNo and a.userId = g.userId and g.creditFactor = 1"
 		        + "  where a.userId = '"+userId+"' ";
 		       // + "  group by  a.userId ,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, f.useType ";
 		List<Map<String, Object>> qr = thisService.queryMapBySql(sql);

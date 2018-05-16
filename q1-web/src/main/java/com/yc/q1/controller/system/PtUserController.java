@@ -665,7 +665,7 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 			traineeMap.put("category", mapDicItem.get(sysUser.getCategory() + "CATEGORY"));
 			traineeMap.put("zxxbzlb", mapDicItem.get(sysUser.getHeadCountType() + "ZXXBZLB"));
 			traineeMap.put("stustatus", mapDicItem.get(sysUser.getState() + "ACCOUNTSTATE"));
-			traineeMap.put("cardNo", String.valueOf((sysUser.getUpCardId() == null) ? 0 : sysUser.getUpCardId()));
+			traineeMap.put("cardNo", String.valueOf((sysUser.getCardId() == null) ? 0 : sysUser.getCardId()));
 			String useState = "";
 			if (sysUser.getUseState() == null) {
 				useState = "未发卡";

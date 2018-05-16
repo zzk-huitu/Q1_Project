@@ -136,6 +136,13 @@ public class PtCardServiceImpl extends BaseServiceImpl<PtCard> implements PtCard
 		return flag;
 	}
 
+	/**充值/退款 保存：
+	 * 1：先插入备份表数据 XfCreditAccountBack
+	 * 2：插入卡余  PtCardBags 卡余需要加密
+	 * 3：正式表  XfCreditAccount
+	 * 4：对当天的充值记录汇总 XfUserXfAndCreditTotal ：有则追加，没有则插入一条当天的新数据
+	 * 
+	 */
 	@Override
 	public Boolean doAddAcountOperator(PtCardBags entity, PtUser currentUser,HttpServletRequest request) {
         String payStyle = request.getParameter("payStyle");
@@ -211,7 +218,12 @@ public class PtCardServiceImpl extends BaseServiceImpl<PtCard> implements PtCard
 		return flag;
 		
 	}
-
+    /*
+     * 错扣补款保存: 整个保存过程可以参考 up库的存储过程[dbo].[CoumneMoneyError]
+     * 1: 插入表XfConsumeDetail 数据  ： 参考存储过程[usp_TE_ConsumeDetailXFInsert]
+     * 2：  修改 PtCardBags 
+     * 3： 对XfUserXfAndCreditTotal当天消费总值汇总   参考存储过程 usp_total_xfandcredit_forempUpdate
+     * */
 	@Override
 	public Boolean doAddFillOperate(PtCardBags entity, PtUser currentUser,HttpServletRequest request) {
 		Boolean flag = false;

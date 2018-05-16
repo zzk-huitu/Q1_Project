@@ -24,7 +24,7 @@ Ext.define("core.ykt.card.view.ConsumeDetailGrid", {
                 fontWeight:800,
                 lineHeight:'30px',
             }
-        },/*{
+        }/*,{
             name: "termNo", //字段名 ?
             xtype: "basecombobox",
             ddCode:"",
@@ -33,7 +33,7 @@ Ext.define("core.ykt.card.view.ConsumeDetailGrid", {
             blankText: '请选择一个消费机类型', //消费设备
             editable: false,
             funCode: 'girdFastSearchText',
-        },*/{
+        }*/,{
             name: "consumeDate", //字段名
             xtype: "combobox",
             store: consumeDateStroe,
@@ -82,9 +82,18 @@ Ext.define("core.ykt.card.view.ConsumeDetailGrid", {
             dataIndex: "consumeDate",
             width:150,
             renderer:function(value){
-                return Ext.Date.format(new Date(value), 'Y/m/d');
+                var partte=/^\d*$/;
+                if(partte.test(value)){
+                    return Ext.Date.format(new Date(value*1), 'Y/m/d');
+                }else if(value.trim()!=""){
+                    var date=value.replace(new RegExp(/-/gm) ,"/");       
+                    return Ext.Date.format(new Date(date), 'Y/m/d');
+                }else
+                    return "";
+                
+                
 
-           } 
+            } 
         }, {
             text: "消费金额",
             dataIndex: "consumeValue",
