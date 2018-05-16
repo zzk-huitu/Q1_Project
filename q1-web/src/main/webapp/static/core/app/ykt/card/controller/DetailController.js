@@ -87,7 +87,7 @@ Ext.define("core.ykt.card.controller.DetailController", {
          specialkey: function (field, e) {
           if (e.getKey() == e.ENTER) {
             this.doFastSearch(field,"accountoperator");   
-            return false;             
+            return false;           
           }
         }
       },
@@ -131,7 +131,7 @@ Ext.define("core.ykt.card.controller.DetailController", {
 			specialkey: function (field, e) {
 				if (e.getKey() == e.ENTER) {
 					this.doFastSearch(field,"subsidyset"); 
-          return false;               
+          return false;             
 				}
 			}
 		},

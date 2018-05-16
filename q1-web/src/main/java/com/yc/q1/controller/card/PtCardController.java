@@ -121,13 +121,13 @@ public class PtCardController extends FrameWorkController<PtCard> {
 		String strData = ""; // 返回给js的数据
 
 		String userId = request.getParameter("userId");
-	    String sql = " select a.userId,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, f.useType "
+	    String sql = " select a.userId,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, g.useType "
 	    		+ "  from T_PT_User a left join T_PT_Card b on a.userId = b.userId "
 				+ "  left join T_PT_CardBags  c on a.userId = c.userId "
 				+ "  left join T_PT_UseDeptJob d on a.userId = d.userId and d.isDelete=0 and  d.isMainDept=1"
 				+ "  left join T_PT_DeptJob e on d.deptJobId = e.deptJobId "
 				+ "  left join T_PT_CardType f on f.cardTypeId =b.cardTypeId and f.useFlag=1" 
-				+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount d on b.cardNo = d.cardNo and a.userId = d.userId and d.creditFactor = 1"
+				+ "  left join  Q1_Storage.dbo.T_XF_CreditAccount g on b.cardNo = g.cardNo and a.userId = g.userId and g.creditFactor = 1"
 		        + "  where a.userId = '"+userId+"' ";
 		       // + "  group by  a.userId ,a.name,a.userNumb,b.cardNo,b.cardTypeId,b.deposit,b.factoryFixId,c.bagCode,c.cardValue,e.deptName, f.useType ";
 		List<Map<String, Object>> qr = thisService.queryMapBySql(sql);
