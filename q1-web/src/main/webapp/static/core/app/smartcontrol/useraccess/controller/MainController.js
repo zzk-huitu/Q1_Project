@@ -414,7 +414,7 @@ Ext.define("core.smartcontrol.useraccess.controller.MainController", {
         var store = storeGrid.getStore();
         var proxy = store.getProxy();
         var filter = new Array();
-        filter.push({"type": "string", "value": "4", "field": "termTypeId", "comparison": ""});
+        filter.push({"type": "string", "value": "4", "field": "termTypeId", "comparison": "="});
         //获取点击树节点的参数            
         var roomId= record.get("id");
         var roomLeaf=record.get("leaf");
