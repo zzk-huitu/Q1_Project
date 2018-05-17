@@ -33,7 +33,7 @@ public class PtCalender extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
 	
-	@FieldInfo(name = "校历名称", type = "nvarchar(16) NOT NULL", explain = "校历名称")
+	@FieldInfo(name = "作息时间名称", type = "nvarchar(16) NOT NULL", explain = "作息时间名称")
 	@Column(name = "calenderName", columnDefinition = "nvarchar(16)", nullable = false)
 	private String calenderName;
 

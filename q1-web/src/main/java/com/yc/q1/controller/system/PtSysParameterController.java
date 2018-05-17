@@ -23,7 +23,7 @@ import com.yc.q1.core.model.extjs.QueryResult;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtSysParameter;
 import com.yc.q1.model.base.pt.system.PtUser;
-import com.yc.q1.pojo.base.version.VersionInfo;
+import com.yc.q1.pojo.base.pt.VersionInfo;
 import com.yc.q1.service.base.pt.system.PtSysParameterService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
@@ -84,30 +84,7 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 			throws IOException {
 		String strData = ""; // 返回给js的数据
 		String sql = "from PtSysParameter where";
-		//登录界面的图标
-		String mainLogosql = sql+" sysParamCode='MAINLOGO' and isDelete=0 ";
-		PtSysParameter mainLogoList =thisService.getEntityByHql(mainLogosql);
-		entity.setMainLogoId(mainLogoList.getId());
-		entity.setMainLogo(mainLogoList.getSysParamValue());
-		entity.setMainLogoCode(mainLogoList.getSysParamCode());
-		entity.setMainLogoName(mainLogoList.getSysParamName());
-		
-		//小图标
-		String smallLogosql = sql+" sysParamCode='SMALLLOGO' and isDelete=0 ";
-		PtSysParameter smallLogoList = thisService.getEntityByHql(smallLogosql);
-		entity.setSmallLogoId(smallLogoList.getId());
-		entity.setSmallLogo(smallLogoList.getSysParamValue());
-		entity.setSmallLogoCode(smallLogoList.getSysParamCode());
-		entity.setSmallLogoName(smallLogoList.getSysParamName());
-		
-		//学校名称图标
-		String schoolLogosql = sql+" sysParamCode='SCHOOLOGO' and isDelete=0 ";
-		PtSysParameter schoolLogoList = thisService.getEntityByHql(schoolLogosql);
-		entity.setSchoolLogoId(schoolLogoList.getId());
-		entity.setSchoolLogo(schoolLogoList.getSysParamValue());
-		entity.setSchoolLogoCode(schoolLogoList.getSysParamCode());
-		entity.setSchoolLogoName(schoolLogoList.getSysParamName());
-		
+	
 		//客户名称
 		String clientNamesql = sql+" sysParamCode='CLIENTNAME' and isDelete=0 ";
 		PtSysParameter clientNameList = thisService.getEntityByHql(clientNamesql);
@@ -211,19 +188,20 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 		String userCh = getCurrentSysUser().getId();
 		if (!file1.isEmpty() && file1.getSize() > 0) {
 			// 图片服务器路径
-			String file_path = realFileUrl;// String file_path =
+			//String file_path = realFileUrl;// String file_path =
 			// 取得当前上传文件的文件名称
 			String myFileName = file1.getOriginalFilename();
 			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
 				// 重命名上传后的文件名
-				String type = myFileName.substring(myFileName.lastIndexOf("."));
+				/*
+				String type = myFileName.substring(myFileName.lastIndexOf("."));				
 				String fileName = String.valueOf(System.currentTimeMillis()) + type;
-
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				String url = "versionInfo/" + sdf.format(System.currentTimeMillis()) + "/";
+				*/
 
 				// 定义上传路径
-				String path = file_path + url + myFileName;
+				String path = "static/core/resources/images/login/login_logo.png";
 				File localFile = new File(path);
 
 				if (!localFile.exists()) { // 判断文件夹是否存在
@@ -231,50 +209,50 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 				}
 
 				file1.transferTo(localFile);
-				entity.setMainLogo(url + myFileName);
 			}
 		}
 		if (!file2.isEmpty() && file2.getSize() > 0) {
 			// 图片服务器路径
-			String file_path = realFileUrl;// String file_path =
+			//String file_path = realFileUrl;// String file_path =
 			// 取得当前上传文件的文件名称
 			String myFileName = file2.getOriginalFilename();
 			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
 				// 重命名上传后的文件名
+				/*
 				String type = myFileName.substring(myFileName.lastIndexOf("."));
 				String fileName = String.valueOf(System.currentTimeMillis()) + type;
 
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				String url = "versionInfo/" + sdf.format(System.currentTimeMillis()) + "/";
-
+				 */
 				// 定义上传路径
-				String path = file_path + url + myFileName;
+				String path = "static/core/resources/images/index_logo.png";
 				File localFile = new File(path);
-
+				
 				if (!localFile.exists()) { // 判断文件夹是否存在
 					localFile.mkdirs(); // 不存在则创建
 				}
 
 				file2.transferTo(localFile);
-				entity.setSmallLogo(url + myFileName);
 			}
 		}
 		
 		if (!file3.isEmpty() && file3.getSize() > 0) {
 			// 图片服务器路径
-			String file_path = realFileUrl;// String file_path =
+			//String file_path = realFileUrl;// String file_path =
 			// 取得当前上传文件的文件名称
 			String myFileName = file3.getOriginalFilename();
 			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
 				// 重命名上传后的文件名
+				/*
 				String type = myFileName.substring(myFileName.lastIndexOf("."));
 				String fileName = String.valueOf(System.currentTimeMillis()) + type;
 
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				String url = "versionInfo/" + sdf.format(System.currentTimeMillis()) + "/";
-
+				 */
 				// 定义上传路径
-				String path = file_path + url + myFileName;
+				String path = "static/core/resources/images/index_title.png";
 				File localFile = new File(path);
 
 				if (!localFile.exists()) { // 判断文件夹是否存在
@@ -282,7 +260,6 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 				}
 
 				file3.transferTo(localFile);
-				entity.setSchoolLogo(url + myFileName);
 			}
 		}
 		

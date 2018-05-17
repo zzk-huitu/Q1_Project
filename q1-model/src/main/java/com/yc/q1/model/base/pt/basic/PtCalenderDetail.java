@@ -10,7 +10,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
@@ -18,6 +17,7 @@ import com.yc.q1.core.model.BaseEntity;
 import com.yc.q1.core.util.DateTimeSerializer;
 
 /**
+ * 作息时间详情
  * 
  * @author ZZK
  *
@@ -28,9 +28,9 @@ import com.yc.q1.core.util.DateTimeSerializer;
 @AttributeOverride(name = "id", column = @Column(name = "calenderDetailId", length = 20, nullable = false) )
 public class PtCalenderDetail extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
-	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
-	
-	@FieldInfo(name = "校历Id", type = "varchar(20) NOT NULL", explain = "校历Id")
+	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
+
+	@FieldInfo(name = "日历Id", type = "varchar(20) NOT NULL", explain = "日历Id")
 	@Column(name = "calenderId", length = 20, nullable = false)
 	private String calenderId;
 
