@@ -7,31 +7,34 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 import com.yc.q1.core.annotation.FieldInfo;
 import com.yc.q1.core.constant.ModuleNumType;
 import com.yc.q1.core.model.BaseEntity;
 
 @Entity
 @Table(name = "T_PT_SchoolCalendar")
-@AttributeOverride(name = "id", column = @Column(name = "id", length = 20, nullable = false) )
+@AttributeOverride(name = "id", column = @Column(name = "schoolCalendarId", length = 20, nullable = false) )
 public class PtSchoolCalendar  extends BaseEntity implements Serializable{
 	public static final String ModuleType = ModuleNumType.PT;	//指定此对象生成的模块编码值。
 
+	
 	@FieldInfo(name = "标题")
 	@Column(name = "title", length = 200, nullable = true)
 	private String title;
 
 	@FieldInfo(name = "开始时间",type = "varchar(36) DEFAULT ''",explain = "开始时间")
 	@Column(name = "startDate", length = 36, nullable = true)
-	private String startDate;
+	private String start;
 
 	@FieldInfo(name = "结束时间",type = "varchar(36) DEFAULT ''",explain = "开始时间")
 	@Column(name = "endDate", length = 36, nullable = true)
-	private String endDate;
+	private String end;
 
 	@FieldInfo(name = "位置",type = "varchar(200) DEFAULT ''",explain = "位置")
 	@Column(name = "location", length = 200, nullable = true)
-	private String location;
+	private String loc;
 
 	@FieldInfo(name = "WEB链接",type = "varchar(100) DEFAULT ''",explain = "WEB链接")
 	@Column(name = "url", length = 100, nullable = true)
@@ -43,13 +46,23 @@ public class PtSchoolCalendar  extends BaseEntity implements Serializable{
 
 	@FieldInfo(name = "提醒器",type = "varchar(36) DEFAULT ''",explain = "提醒器")
 	@Column(name = "reminder", length = 36, nullable = true)
-	private String reminder;
+	private String rem;
 
 	@FieldInfo(name = "是否全天",type = "bit DEFAULT 0",explain = "是否全天 1:是全天 0：不是全天")
 	@Column(name = "isAllDay", columnDefinition = "bit DEFAULT 0", nullable = false)
-	private Boolean isAllDay;
+	private Boolean ad;
+	
+    //@FieldInfo(name = "id")
+	@Formula("(select a.schoolCalendarId from T_PT_SchoolCalendar a where a.schoolCalendarId=schoolCalendarId)")
+	private String id;
+	
+	public String getId() {
+		return id;
+	}
 
-
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getTitle() {
 		return title;
@@ -59,29 +72,28 @@ public class PtSchoolCalendar  extends BaseEntity implements Serializable{
 		this.title = title;
 	}
 
-	
-	public String getStartDate() {
-		return startDate;
+	public String getStart() {
+		return start;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
-	public String getEndDate() {
-		return endDate;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 
-	public String getLocation() {
-		return location;
+	public String getLoc() {
+		return loc;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
+	public void setLoc(String loc) {
+		this.loc = loc;
 	}
 
 	public String getUrl() {
@@ -100,23 +112,24 @@ public class PtSchoolCalendar  extends BaseEntity implements Serializable{
 		this.notes = notes;
 	}
 
-	
-
-	public String getReminder() {
-		return reminder;
+	public String getRem() {
+		return rem;
 	}
 
-	public void setReminder(String reminder) {
-		this.reminder = reminder;
+	public void setRem(String rem) {
+		this.rem = rem;
 	}
 
-	public Boolean getIsAllDay() {
-		return isAllDay;
+	public Boolean getAd() {
+		return ad;
 	}
 
-	public void setIsAllDay(Boolean isAllDay) {
-		this.isAllDay = isAllDay;
+	public void setAd(Boolean ad) {
+		this.ad = ad;
 	}
+
+
+
 
 	
 

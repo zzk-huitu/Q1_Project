@@ -62,17 +62,16 @@ Ext.onReady(function() {
             }
         }
     });
-
     function conParam(data) {
         return {
-            'title': data.title,
-            'start': data.startDate,
-            'end': data.endDate,
-            'loc': data.location,
-            'notes': data.notes,
-            'ad': data.isAllDay,
-            'url': data.url,
-            'rem': data.reminder,
+            'title': data.Title,
+            'start': data.StartDate,
+            'end': data.EndDate,
+            'loc': data.Location,
+            'notes': data.Notes,
+            'ad': data.IsAllDay,
+            'url': data.Url,
+            'rem': data.Reminder,
             'id': data.EventId
         };
     }

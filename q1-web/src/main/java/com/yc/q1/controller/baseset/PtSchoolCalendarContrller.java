@@ -60,7 +60,7 @@ public class PtSchoolCalendarContrller extends FrameWorkController<PtSchoolCalen
 		
 		PtSchoolCalendar perEntity = thisService.get(entity.getId());
 		BeanUtils.copyPropertiesExceptNull(perEntity, entity);
-		String createUserId = entity.getId();// 获取创建日历的用户id
+		String createUserId = entity.getCreateUser();// 获取创建日历的用户id
 		if (!createUserId.equals(currentUser.getId())) {
 			writeJSON(response, jsonBuilder.returnFailureJson("'修改失败,不能修改非自己创建的校历!'"));
 			return;
@@ -84,7 +84,7 @@ public class PtSchoolCalendarContrller extends FrameWorkController<PtSchoolCalen
 			
 			PtSchoolCalendar  perEntity = thisService.get( entity.getId());
 			PtUser currentUser = getCurrentSysUser();
-			String createUserId=entity.getId();
+			String createUserId=entity.getCreateUser();
 			if (!createUserId.equals(currentUser.getId())) {
 				writeJSON(response, jsonBuilder.returnFailureJson("'删除失败,不能删除非自己创建的校历!'"));
 				return;
