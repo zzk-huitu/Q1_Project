@@ -135,9 +135,9 @@ Ext.define("core.system.versioninfo.controller.MainController", {
                 self.setFormValue(formDeptObj, insertObj);
                 //显示照片
                 
-                objDetForm.down('image[ref=photoImage1]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.mainLogo);
-                objDetForm.down('image[ref=photoImage2]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.smallLogo);
-                objDetForm.down('image[ref=photoImage3]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.schoolLogo);
+                objDetForm.down('image[ref=photoImage1]').setSrc("/static/core/resources/images/login/login_logo.png");
+                objDetForm.down('image[ref=photoImage2]').setSrc("/static/core/resources/images/index_logo.png");
+                objDetForm.down('image[ref=photoImage3]').setSrc("/static/core/resources/images/index_title.png");
                 
             },30);
                            

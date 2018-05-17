@@ -2,7 +2,6 @@ com\yc\q1\model\base\pt\wisdomclass\PtClassStar.class
 com\yc\q1\model\base\pt\system\PtUserAccountBind.class
 com\yc\q1\pojo\base\app\PictureApp.class
 com\yc\q1\pojo\base\pt\CommBase.class
-com\yc\q1\model\storage\pt\PtSubsidyFillMoneyMain.class
 com\yc\q1\model\base\pt\basic\PtInfoTerminalHistory.class
 com\yc\q1\model\base\pt\wisdomclass\PtAttenceRule.class
 com\yc\q1\model\base\pt\device\PtIrRoomDevice.class
@@ -27,6 +26,7 @@ com\yc\q1\model\base\pt\basic\PtGrade.class
 com\yc\q1\pojo\base\app\ClassStudentApp.class
 com\yc\q1\model\base\pt\wisdomclass\PtAttendUser.class
 com\yc\q1\pojo\base\app\GradeClassApp.class
+com\yc\q1\model\base\pt\card\PtSubsidyFillMoneyMain.class
 com\yc\q1\model\base\pt\system\PtRoleMenuPermission.class
 com\yc\q1\model\base\dk\DkPriceDefine.class
 com\yc\q1\model\base\pt\basic\PtInfoTerminal.class
@@ -36,6 +36,7 @@ com\yc\q1\model\base\pt\device\PtFrontServer.class
 com\yc\q1\model\base\pt\basic\PtFuncRoomCourse.class
 com\yc\q1\model\storage\pt\PtTask.class
 com\yc\q1\model\base\pt\basic\PtAttachment.class
+com\yc\q1\model\base\pt\card\PtSubsidyFillMoneyItem.class
 com\yc\q1\model\base\pt\card\PtCardBags.class
 com\yc\q1\model\base\pt\build\PtStudentDormRemove.class
 com\yc\q1\model\base\pt\build\PtTeacherDorm.class
@@ -88,7 +89,6 @@ com\yc\q1\pojo\base\pt\DataDictTree.class
 com\yc\q1\model\base\pt\system\PtPermission.class
 com\yc\q1\pojo\base\app\VideoReturnApp.class
 com\yc\q1\model\base\pt\basic\PtStudentParents.class
-com\yc\q1\model\storage\pt\PtSubsidyFillMoneyItem.class
 com\yc\q1\pojo\base\app\JKCourse.class
 com\yc\q1\model\base\pt\build\PtOfficeDefine.class
 com\yc\q1\model\base\pt\system\PtMenu.class
@@ -103,7 +103,6 @@ com\yc\q1\model\base\pt\build\PtRoomInfo.class
 com\yc\q1\model\base\pt\basic\PtClassStudent.class
 com\yc\q1\model\base\pt\build\PtOfficeAllot.class
 com\yc\q1\pojo\base\app\JKCourseToDayArray.class
-com\yc\q1\pojo\base\version\VersionInfo.class
 com\yc\q1\model\storage\xf\XfCreditAccountBack.class
 com\yc\q1\pojo\base\pt\PowerResidue.class
 com\yc\q1\model\base\pt\device\PtTermBag.class
@@ -125,6 +124,7 @@ com\yc\q1\model\storage\xf\XfCreditAccount.class
 com\yc\q1\pojo\base\pt\MenuTree.class
 com\yc\q1\model\base\pt\card\PtCardLimit.class
 com\yc\q1\model\base\pt\wisdomclass\PtAttendTerm.class
+com\yc\q1\pojo\base\pt\VersionInfo.class
 com\yc\q1\pojo\base\pt\CommTree.class
 com\yc\q1\pojo\base\pt\DepartmentTree.class
 com\yc\q1\model\base\sk\SkPriceDefine.class

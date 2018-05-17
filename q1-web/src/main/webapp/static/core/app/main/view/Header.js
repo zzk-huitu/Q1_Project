@@ -11,7 +11,7 @@ Ext.define("core.main.view.Header",{
         	xtype: 'tbtext',
             width:410,           
             html:'<div class="top_title">'+
-                '<img class="index_logo" src="static/core/resources/images/login_logo.png" />'+
+                '<img class="index_logo" src="static/core/resources/images/index_logo.png" />'+
                 '<img class="index_title" src="static/core/resources/images/index_title.png" />'+
             '</div>',
             /*
