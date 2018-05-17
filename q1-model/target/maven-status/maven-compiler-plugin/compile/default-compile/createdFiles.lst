@@ -111,6 +111,7 @@ com\yc\q1\model\base\pt\wisdomclass\PtAttendTime.class
 com\yc\q1\model\base\pt\card\PtCard.class
 com\yc\q1\pojo\base\app\CourseArrangeApp.class
 com\yc\q1\pojo\base\pt\DpetJobTree.class
+com\yc\q1\model\base\pt\basic\PtSchoolCalendar.class
 com\yc\q1\model\base\pt\device\PtRoomBagRule.class
 com\yc\q1\pojo\base\pt\RoomAreaTree.class
 com\yc\q1\model\base\pt\system\PtUserDeptJob.class

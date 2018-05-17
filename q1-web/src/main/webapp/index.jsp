@@ -112,15 +112,15 @@
 
 
             var element2 = document.createElement("script");
-            element2.src = "${contextPath}/ueditor/ueditor.config.js";
+            element2.src = "${contextPath}/static/ueditor/ueditor.config.js";
             document.body.appendChild(element2);
 
             var element3 = document.createElement("script");
-            element3.src = "${contextPath}/ueditor/ueditor.all.min.js";
+            element3.src = "${contextPath}/static/ueditor/ueditor.all.min.js";
             document.body.appendChild(element3);
 
             var element4 = document.createElement("script");
-            element4.src = "${contextPath}/ueditor/ueditor.parse.min.js";
+            element4.src = "${contextPath}/static/ueditor/ueditor.parse.min.js";
             document.body.appendChild(element4);
     
 

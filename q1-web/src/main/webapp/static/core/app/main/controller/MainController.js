@@ -266,8 +266,12 @@ Ext.define('core.main.controller.MainController', {
                 if (!smallIconCls) {
                     smallIconCls="x-fa fa-link";
                 }
+                var targetStr=btn.menuTarget;
+                if(!targetStr)
+                    targetStr="http://www.baidu.com";
 
                 tabPanel.add({
+                    bodyPadding: '0',
                     title: btn.menuText,
                     //iconCls: smallIconCls,
                     scrollable :true, 
@@ -275,7 +279,7 @@ Ext.define('core.main.controller.MainController', {
                     layout:'fit',    
                     items: [{
                         xtype: 'container',                                                  
-                        html:'<iframe src="http://www.baidu.com" width="100%" height="100%"   frameborder=0  ></iframe>'
+                        html:'<iframe src="'+targetStr+'" width="100%" height="99%"   frameborder=0  ></iframe>'
                     }]
                 });
 
@@ -441,8 +445,12 @@ Ext.define('core.main.controller.MainController', {
                 if (!smallIconCls) {
                     smallIconCls="x-fa fa-link";
                 }
+                var targetStr=data.menuTarget;
+                if(!targetStr)
+                    targetStr="http://www.baidu.com";
 
                 tabPanel.add({
+                    bodyPadding: '0',
                     title: data.text,
                     //iconCls: smallIconCls,
                     scrollable :true, 
@@ -450,7 +458,7 @@ Ext.define('core.main.controller.MainController', {
                     layout:'fit',    
                     items: [{
                         xtype: 'container',                                                  
-                        html:'<iframe src="http://www.baidu.com" width="100%" height="100%"   frameborder=0  ></iframe>'
+                        html:'<iframe src="'+targetStr+'" width="100%" height="99%"   frameborder=0  ></iframe>'
                     }]
                 });
             }
@@ -555,10 +563,13 @@ Ext.define('core.main.controller.MainController', {
                 if (!data.bigIcon) {
                     smallIconCls="x-fa fa-link";
                 }
+                var targetStr=data.menuTarget;
+                if(!targetStr)
+                    targetStr="http://www.baidu.com";
 
                 tabPanel.add({
                     title: data.text,
-                    
+                    bodyPadding: '0',
                     //icon: data.bigIcon,
                     //iconCls:smallIconCls+' MainMenuTreeIconStyle',
 
@@ -567,7 +578,7 @@ Ext.define('core.main.controller.MainController', {
                     layout:'fit',    
                     items: [{
                         xtype: 'container',                                                  
-                        html:'<iframe src="http://www.baidu.com" width="100%" height="100%"   frameborder=0  ></iframe>'
+                        html:'<iframe src="'+targetStr+'" width="100%" height="99%"   frameborder=0  ></iframe>'
                     }]
                 });
             }
@@ -689,8 +700,11 @@ Ext.define('core.main.controller.MainController', {
                 if (!smallIconCls) {
                     smallIconCls="x-fa fa-link";
                 }
-                
+                var targetStr=item.menuTarget;
+                if(!targetStr)
+                    targetStr="http://www.baidu.com";
                 tabPanel.add({
+                    bodyPadding: '0',
                     title: item.textBase,
                     //iconCls: smallIconCls,
                     scrollable :true, 
@@ -698,7 +712,7 @@ Ext.define('core.main.controller.MainController', {
                     layout:'fit',    
                     items: [{
                         xtype: 'container',                                                  
-                        html:'<iframe src="http://www.baidu.com" width="100%" height="100%"   frameborder=0  ></iframe>'
+                        html:'<iframe src="'+targetStr+'" width="100%" height="99%"   frameborder=0  ></iframe>'
                     }]
                 });
             }

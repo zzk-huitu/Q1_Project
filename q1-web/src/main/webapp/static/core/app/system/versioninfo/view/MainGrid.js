@@ -9,24 +9,11 @@ Ext.define("core.system.versioninfo.view.MainGrid", {
         xtype:'toolbar',
         items: [{
             xtype: 'button',
-            text: '添加',
-            ref: 'gridAdd_Tab',
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            iconCls: 'x-fa fa-plus-circle'
-        },{
-            xtype: 'button',
             text: '编辑',
             ref: 'gridEdit_Tab',
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             disabled:true,
             iconCls: 'x-fa fa-pencil-square'
-        }, {
-            xtype: 'button',
-            text: '删除',
-            ref: 'gridDelete',
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            disabled:true,
-            iconCls: 'x-fa fa-minus-circle'
         },'->',{
             xtype: 'tbtext', 
             html:'快速搜索：'
@@ -121,28 +108,6 @@ Ext.define("core.system.versioninfo.view.MainGrid", {
                 handler: function(view, rowIndex, colIndex, item) {
                     var rec = view.getStore().getAt(rowIndex);
                     this.fireEvent('detailClick_Tab', {
-                        view: view.grid,
-                        record: rec
-                    });
-                }
-            }, {
-                text:'删除',  
-                style:'font-size:12px;', 
-                tooltip: '删除',
-                ref: 'gridDelete',
-                getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
-                    if(comm.get("isAdmin")!="1"){
-                        var menuCode="JOBINFO";     // 此菜单的前缀
-                        var userBtn=comm.get("userBtn");   
-                        if(userBtn.indexOf(menuCode+"_gridDelete")==-1){
-                            return 'x-hidden-display';
-                        }
-                    }
-                    return null; 
-                },  
-                handler: function(view, rowIndex, colIndex, item) {
-                    var rec = view.getStore().getAt(rowIndex);
-                    this.fireEvent('deleteClick', {
                         view: view.grid,
                         record: rec
                     });
