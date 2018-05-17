@@ -30,6 +30,9 @@ Ext.define("core.system.versioninfo.controller.MainController", {
                     var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
                     var roleUserContainer = basePanel.down("container[ref=versionBaseInfo]");
                     var roleUserContainer2 = basePanel.down("container[ref=versionBaseInfo2]");
+                    data.mainLogoPhoto = comm.get("virtualFileUrl")+"/"+data.mainLogo;
+                    data.smallLogoPhoto = comm.get("virtualFileUrl")+"/"+data.smallLogo;
+                    data.schoolLogoPhoto = comm.get("virtualFileUrl")+"/"+data.schoolLogo;  
                     roleUserContainer.setData(data);
                     roleUserContainer2.setData(data);
                     }
@@ -130,6 +133,11 @@ Ext.define("core.system.versioninfo.controller.MainController", {
                 var objDetForm = item.down("baseform[funCode=" + detCode + "]");
                 var formDeptObj = objDetForm.getForm();
                 self.setFormValue(formDeptObj, insertObj);
+                //显示照片
+                
+                objDetForm.down('image[ref=photoImage1]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.mainLogo);
+                objDetForm.down('image[ref=photoImage2]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.smallLogo);
+                objDetForm.down('image[ref=photoImage3]').setSrc(comm.get("virtualFileUrl")+"/"+insertObj.schoolLogo);
                 
             },30);
                            

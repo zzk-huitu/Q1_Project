@@ -1,18 +1,13 @@
 package com.yc.q1.service.base.pt.system.impl;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
 import com.yc.q1.core.dao.BaseDao;
 import com.yc.q1.core.service.BaseServiceImpl;
-import com.yc.q1.core.util.BeanUtils;
-import com.yc.q1.model.base.pt.system.PtJob;
 import com.yc.q1.model.base.pt.system.PtSysParameter;
-import com.yc.q1.service.base.pt.system.PtJobService;
+import com.yc.q1.pojo.base.version.VersionInfo;
 import com.yc.q1.service.base.pt.system.PtSysParameterService;
 import com.yc.q1.service.base.redis.PrimaryKeyRedisService;
 
@@ -38,5 +33,34 @@ public class PtSysParameterServiceImpl extends BaseServiceImpl<PtSysParameter> i
 	}
 	@Resource
     private PrimaryKeyRedisService keyRedisService;
+	
+	@Override
+	public boolean doUpdateVerInfo(VersionInfo entity, String userCh) {
+		PtSysParameter mainLogoEntity = this.get(entity.getMainLogoId());
+		mainLogoEntity.setSysParamValue(entity.getMainLogo());
+		this.persist(mainLogoEntity);
+		
+		PtSysParameter smallLogoEntity = this.get(entity.getSmallLogoId());
+		smallLogoEntity.setSysParamValue(entity.getSmallLogo());
+		this.persist(smallLogoEntity);
+		
+		PtSysParameter schoolLogoEntity = this.get(entity.getSchoolLogoId());
+		schoolLogoEntity.setSysParamValue(entity.getSchoolLogo());
+		this.persist(schoolLogoEntity);
+		
+		PtSysParameter clientEntity = this.get(entity.getClientNameId());
+		clientEntity.setSysParamValue(entity.getClientName());
+		this.persist(clientEntity);
+		
+		PtSysParameter serviceEntity = this.get(entity.getServiceNameId());
+		serviceEntity.setSysParamValue(entity.getServiceName());
+		this.persist(serviceEntity);
+		
+		PtSysParameter versionEntity = this.get(entity.getVarsionNameId());
+		versionEntity.setSysParamValue(entity.getVarsionName());
+		this.persist(versionEntity);
+		
+		return true;
+	}
 
 }

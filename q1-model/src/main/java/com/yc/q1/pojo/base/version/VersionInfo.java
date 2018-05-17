@@ -2,29 +2,84 @@ package com.yc.q1.pojo.base.version;
 
 public class VersionInfo {
 
+	private String mainLogoId;
 	private String mainLogo;
 	private String mainLogoName;
 	private String mainLogoCode;
 
+	private String smallLogoId;
 	private String smallLogo;
 	private String smallLogoName;
 	private String smallLogoCode;
 
+	private String schoolLogoId;
 	private String schoolLogo;
 	private String schoolLogoName;
 	private String schoolLogoCode;
 
+	private String clientNameId;
 	private String clientName;
 	private String clientNameName;
 	private String clientNameCode;
 
+	private String serviceNameId;
 	private String serviceName;
 	private String serviceNameName;
 	private String serviceNameCode;
 
+	private String varsionNameId;
 	private String varsionName;
 	private String varsionNameName;
 	private String varsionNameCode;
+
+	
+	public String getMainLogoId() {
+		return mainLogoId;
+	}
+
+	public void setMainLogoId(String mainLogoId) {
+		this.mainLogoId = mainLogoId;
+	}
+
+	public String getSmallLogoId() {
+		return smallLogoId;
+	}
+
+	public void setSmallLogoId(String smallLogoId) {
+		this.smallLogoId = smallLogoId;
+	}
+
+	public String getSchoolLogoId() {
+		return schoolLogoId;
+	}
+
+	public void setSchoolLogoId(String schoolLogoId) {
+		this.schoolLogoId = schoolLogoId;
+	}
+
+	public String getClientNameId() {
+		return clientNameId;
+	}
+
+	public void setClientNameId(String clientNameId) {
+		this.clientNameId = clientNameId;
+	}
+
+	public String getServiceNameId() {
+		return serviceNameId;
+	}
+
+	public void setServiceNameId(String serviceNameId) {
+		this.serviceNameId = serviceNameId;
+	}
+
+	public String getVarsionNameId() {
+		return varsionNameId;
+	}
+
+	public void setVarsionNameId(String varsionNameId) {
+		this.varsionNameId = varsionNameId;
+	}
 
 	public String getMainLogo() {
 		return mainLogo;

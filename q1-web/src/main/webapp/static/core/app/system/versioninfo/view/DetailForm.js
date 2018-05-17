@@ -20,6 +20,11 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
             layout: "vbox",
             labelAlign: "right",
             items: [{
+                fieldLabel: "照片地址", //用于表单提交时，提交此数据
+                name: "mainLogoId",
+                xtype: "textfield",
+                hidden: true
+            }, {
                 fieldLabel: "参数名称",
                 width:'100%',
                 grow: true,
@@ -38,14 +43,19 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 maxLength: 20,
                 maxLengthText: "最多20个字符",
                 hidden: true
+            }, {
+                fieldLabel: "照片地址", //用于表单提交时，提交此数据
+                name: "mainLogo",
+                xtype: "textfield",
+                hidden: true
             }, {               
-                beforeLabelTextTpl: comm.get("required"),
-                allowBlank: false,
+                // beforeLabelTextTpl: comm.get("required"),
+                // allowBlank: false,
                 fieldLabel: "登录LOG",
                 width:'100%',
                 grow: true,
                 // readOnly:true,
-                name: "mainLogo",
+                name: "file1",
                 xtype: "filefield",
                 buttonText:"选择图片",
                 emptyText :'支持文件格式：PNG | JPG | JPEG',
@@ -55,7 +65,7 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
     }, {
         xtype: "container",
         width:130,                  // 这里设置的具体的宽度，那么上边的容器设置的columnWidth就会自动减少可用距离
-        height:30,
+        height:35,
         margin:'0 0 0 10', 
         labelAlign: "right",
         style: {
@@ -64,9 +74,9 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
         },
         items: [{
                 width:'100%',   
-                height:238,            
+                height:35,            
                 xtype:'image',
-                ref:'photoImage',            
+                ref:'photoImage1',            
                 src: '',
             }]
     }, {
@@ -74,7 +84,7 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
         labelAlign: "right",
         items: [{
                 width:'100%',   
-                height:238,
+                height:35,
                 xtype: "label",
                 margin:'5 0 0 5 ',
                 html: "<font color=red,size=12>（推荐65*65）</font>",
@@ -91,6 +101,11 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 layout: "vbox",
                 labelAlign: "right",
                 items: [{
+                    fieldLabel: "照片地址", //用于表单提交时，提交此数据
+                    name: "smallLogoId",
+                    xtype: "textfield",
+                    hidden: true
+            }, {
                     fieldLabel: "参数名称",
                     width:'100%',
                     grow: true,
@@ -109,13 +124,18 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 maxLength: 20,
                 maxLengthText: "最多20个字符",
                 hidden: true
+            }, {
+                fieldLabel: "照片地址", //用于表单提交时，提交此数据
+                name: "smallLogo",
+                xtype: "textfield",
+                hidden: true
             }, {               
-                beforeLabelTextTpl: comm.get("required"),
-                allowBlank: false,
+                // beforeLabelTextTpl: comm.get("required"),
+                // allowBlank: false,
                 fieldLabel: "标题LOG",
                 width:'100%',
                 grow: true,
-                name: "smallLogo",
+                name: "file2",
                 xtype: "filefield",
                 // readOnly:true,
                 buttonText:"选择图片",
@@ -126,7 +146,7 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
         }, {
             xtype: "container",
             width:130,                  // 这里设置的具体的宽度，那么上边的容器设置的columnWidth就会自动减少可用距离
-            height:30,
+            height:35,
             margin:'0 0 0 10', 
             labelAlign: "right",
             style: {
@@ -135,9 +155,9 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
             },
             items: [{
                 width:'100%',   
-                height:238,            
+                height:35,            
                 xtype:'image',
-                ref:'photoImage',            
+                ref:'photoImage2',            
                 src: '',
                 }]
         }, {
@@ -145,7 +165,7 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
             labelAlign: "right",
             items: [{
                 width:'100%',   
-                height:238,
+                height:35,
                 xtype: "label",
                 margin:'5 0 0 5 ',
                 html: "<font color=red,size=12>（推荐65*65）</font>",
@@ -162,6 +182,11 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
             layout: "vbox",
             labelAlign: "right",
             items: [{
+                fieldLabel: "照片地址", //用于表单提交时，提交此数据
+                name: "schoolLogoId",
+                xtype: "textfield",
+                hidden: true
+            }, {
                 fieldLabel: "参数名称",
                 width:'100%',
                 grow: true,
@@ -180,13 +205,18 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 maxLength: 20,
                 maxLengthText: "最多20个字符",
                 hidden: true
+            }, {
+                fieldLabel: "照片地址", //用于表单提交时，提交此数据
+                name: "schoolLogo",
+                xtype: "textfield",
+                hidden: true
             }, {               
-                beforeLabelTextTpl: comm.get("required"),
-                allowBlank: false,
+                // beforeLabelTextTpl: comm.get("required"),
+                // allowBlank: false,
                 fieldLabel: "标题文字图",
                 width:'100%',
                 grow: true,
-                name: "schoolLogo",
+                name: "file3",
                 xtype: "filefield",
                 // readOnly:true,
                 buttonText:"选择图片",
@@ -197,7 +227,7 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
             }, {
                 xtype: "container",
                 width:130,                  // 这里设置的具体的宽度，那么上边的容器设置的columnWidth就会自动减少可用距离
-                height:30,
+                height:35,
                 margin:'0 0 0 10', 
                 labelAlign: "right",
                 style: {
@@ -206,9 +236,9 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 },
                 items: [{
                     width:'100%',   
-                    height:238,            
+                    height:35,            
                     xtype:'image',
-                    ref:'photoImage',            
+                    ref:'photoImage3',            
                     src: '',
                 }]
             }, {
@@ -216,7 +246,7 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 labelAlign: "right",
                 items: [{
                     width:'100%',   
-                    height:238,
+                    height:35,
                     xtype: "label",
                     margin:'5 0 0 5 ',
                     html: "<font color=red,size=12>（推荐65*65）</font>",
@@ -233,6 +263,11 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 layout: "vbox",
                 labelAlign: "right",
                 items: [{
+                    fieldLabel: "客户参数ID", //用于表单提交时，提交此数据
+                    name: "clientNameId",
+                    xtype: "textfield",
+                    hidden: true
+                }, {
                     fieldLabel: "参数名称",
                     width:'100%',
                     grow: true,
@@ -276,6 +311,11 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 layout: "vbox",
                 labelAlign: "right",
                 items: [{
+                    fieldLabel: "公司参数ID", //用于表单提交时，提交此数据
+                    name: "serviceNameId",
+                    xtype: "textfield",
+                    hidden: true
+                }, {
                     fieldLabel: "参数名称",
                     width:'100%',
                     grow: true,
@@ -319,6 +359,11 @@ Ext.define("core.system.versioninfo.view.DetailForm", {
                 layout: "vbox",
                 labelAlign: "right",
                 items: [{
+                    fieldLabel: "版本参数ID", //用于表单提交时，提交此数据
+                    name: "varsionNameId",
+                    xtype: "textfield",
+                    hidden: true
+                }, {
                     fieldLabel: "参数名称",
                     width:'100%',
                     grow: true,
