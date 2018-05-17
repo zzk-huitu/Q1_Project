@@ -11,92 +11,187 @@
 <title>智慧校园系统</title>
 
 <meta name="Resource-type" content="Document" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="renderer" content="webkit">
 
-<link rel="shortcut icon" href="${contextPath}/static/core/resources/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon"
+	href="${contextPath}/static/core/resources/images/favicon.ico"
+	type="image/x-icon">
 
 
-<link rel="stylesheet" type="text/css" href="${contextPath}/static/core/resources/css/login.css"/>
-<link rel="stylesheet" type="text/css" href="${contextPath}/static/core/resources/css/jquery.alerts.css" />
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/static/core/resources/css/login.css" />
+<link rel="stylesheet" type="text/css"
+	href="${contextPath}/static/core/resources/css/jquery.alerts.css" />
 
-<script type="text/javascript" src="${contextPath}/static/core/resources/js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="${contextPath}/static/core/resources/js/login.js"></script>
-<script type="text/javascript" src="${contextPath}/static/core/resources/js/base64.js"></script>
-<script type="text/javascript" src="${contextPath}/static/core/resources/js/layer/layer.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/static/core/resources/js/jquery-1.8.3.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/static/core/resources/js/login.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/static/core/resources/js/base64.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/static/core/resources/js/layer/layer.js"></script>
+<script type="text/javascript"
+	src="${contextPath}/static/core/resources/js/browserType.js"></script>
 
-<script language="JavaScript"> 
-	function keyLogin(me){  
-	  	if (event.keyCode==13) {                        
+<script language="JavaScript">
+	function keyLogin(me) {
+		if (event.keyCode == 13) {
 			//按Enter键的键值为13  
 			me.blur();
 			//var input = document.getElementById("your-input-id");
 			//input.blur();
-		    document.getElementById("input2").click();
+			document.getElementById("input2").click();
 
-		    //document.getElementById("yzz").click();
+			//document.getElementById("yzz").click();
 		}
-	//调用登录按钮的登录事件  
-	}  
+		//调用登录按钮的登录事件  
+	}
 
-	jQuery(function($){
-		var year=new Date().getFullYear();
-		$(".company").html("© "+year+" 深圳市宇川智能系统有限公司");
+	jQuery(function($) {
+		var year = new Date().getFullYear();
+		$(".company").html("© " + year + " 深圳市宇川智能系统有限公司");
 	});
-	
+
+	//判断是否是IE浏览器  
+	function isIE() {
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		var isIE = userAgent.indexOf("compatible") > -1
+				&& userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器  
+		if (isIE) {
+			return "1";
+		} else {
+			return "-1";
+		}
+	}
+
+	//判断是否是IE浏览器，包括Edge浏览器  
+	function IEVersion() {
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		var isIE = userAgent.indexOf("compatible") > -1
+				&& userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器  
+		var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1
+				&& !isIE; //判断是否IE的Edge浏览器  
+		if (isIE) {
+			var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+			reIE.test(userAgent);
+			var fIEVersion = parseFloat(RegExp["$1"]);
+			if (fIEVersion == 7) {
+				return "IE7";
+			} else if (fIEVersion == 8) {
+				return "IE8";
+			} else if (fIEVersion == 9) {
+				return "IE9";
+			} else if (fIEVersion == 10) {
+				return "IE10";
+			} else if (fIEVersion == 11) {
+				return "IE11";
+			} else {
+				return "0"
+			}//IE版本过低  
+		} else if (isEdge) {
+			return "Edge";
+		} else {
+			return "-1";//非IE  
+		}
+	}
+
+	function check() {
+		var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串  
+		var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器  
+		var isIE = userAgent.indexOf("compatible") > -1&& userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器  
+		var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1
+				&& !isIE; //判断是否IE的Edge浏览器  
+		var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器  
+		var isChrome = userAgent.indexOf("Chrome") > -1; //判断Chrome浏览器  
+		var isSafari = userAgent.indexOf("Safari") > -1 && !isChrome; //判断是否Safari浏览器  
+		var is360 = userAgent.indexOf("360se") > -1; //判断360浏览器  
+		var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;//判断IE11浏览器  
+
+		if (isIE) {
+			var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+			reIE.test(userAgent);
+			var fIEVersion = parseFloat(RegExp["$1"]);
+			if (fIEVersion <= 7) {
+				alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+			}//IE版本过低  
+		}//isIE end  
+
+		if (isOpera) {
+			alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+		}
+		
+		if (isSafari) {
+			alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+		}
+		
+		if (isEdge) {
+			alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+		}
+
+	}
+	window.onload = check;
 </script>
 
 </head>
 
 <body>
-<div class="body_bg">
-	<div class="mg">
-		<div class="top_title">
-			<img class="logo" src="${contextPath}/static/core/resources/images/login/index_logo.png">		
+
+	<div class="body_bg">
+		<div class="mg">
+			<div class="top_title">
+				<img class="logo"
+					src="${contextPath}/static/core/resources/images/login/index_logo.png">
+			</div>
 		</div>
-	</div>
-	<div class="contian_box">
-		<div class="login_box">
-			<div class="login_bg">
-				<div class="fl box_lefet">
-					<img src="${contextPath}/static/core/resources/images/login/login_img.png">
-				</div>
-				<div class="fl box_right">
-					<div class="input_top">
-						<label class="textName">用户名：</label><input value="" name="name"  id="name"  type="text" placeholder="请输入用户名" /></br>
-						<label class="textName">密　码：</label><input value="" name="psw" id="psw" type="password" placeholder="请输入密码" /></br>
-						<label class="textName">验证码：</label><input type="text" class="yzm" id="yzm" style='width: 80px;' placeholder="验证码"  onkeydown="keyLogin(this);"/>
-						<div class="yzm-m" id="yzm-m">
-							<img src="${contextPath}/verifycode/image" alt="点击重新生成"
-								id="yzz" onclick="yz();">
-						</div>
+		<div class="contian_box">
+			<div class="login_box">
+				<div class="login_bg">
+					<div class="fl box_lefet">
+						<img
+							src="${contextPath}/static/core/resources/images/login/login_img.png">
 					</div>
-					
-					<div class="lable_box">
-						<div class="fl">
-						<!-- <input class="check" type="checkbox" name="rememberMe" id="rememberMe" /><label>记住帐号</label>
+					<div class="fl box_right">
+						<div class="input_top">
+							<label class="textName">用户名：</label><input value="" name="name"
+								id="name" type="text" placeholder="请输入用户名" /></br> <label
+								class="textName">密 码：</label><input value="" name="psw" id="psw"
+								type="password" placeholder="请输入密码" /></br> <label class="textName">验证码：</label><input
+								type="text" class="yzm" id="yzm" style='width: 80px;'
+								placeholder="验证码" onkeydown="keyLogin(this);" />
+							<div class="yzm-m" id="yzm-m">
+								<img src="${contextPath}/verifycode/image" alt="点击重新生成" id="yzz"
+									onclick="yz();">
+							</div>
+						</div>
+
+						<div class="lable_box">
+							<div class="fl">
+								<!-- <input class="check" type="checkbox" name="rememberMe" id="rememberMe" /><label>记住帐号</label>
 						-->
+							</div>
+							<label class="fr"><a href="javascript:void(0)"
+								style="color: #0b92ff" onclick="yz();">换一张</a></label>
 						</div>
-						<label class="fr"><a  href="javascript:void(0)" style="color:#0b92ff" onclick="yz();">换一张</a></label>
-					</div>
-					
-					<div class="but_box">
-						<a class="but"  id="input1" href="javascript:void(0)" onclick="document.getElementById('input2').click();">登 录</a>
-						<button onclick="login();" id="input2" hidden="true">登 录</button>
+
+						<div class="but_box">
+							<a class="but" id="input1" href="javascript:void(0)"
+								onclick="document.getElementById('input2').click();">登 录</a>
+							<button onclick="login();" id="input2" hidden="true">登 录</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
+		</div>
+		<div class="bottom_box">
+			建议使用1280X768以上分辨率、IE8以上浏览器、谷歌浏览器、360浏览器浏览本站 <br /> <br /> <span
+				class="company"></span>
+		</div>
 	</div>
-	<div class="bottom_box">
-		建议使用1280X768以上分辨率、IE8以上浏览器、谷歌浏览器、360浏览器浏览本站
-		<br/>
-		<br/>
-		<span class="company"></span>
-	</div>
-</div>
 </body>
 
 </html>
