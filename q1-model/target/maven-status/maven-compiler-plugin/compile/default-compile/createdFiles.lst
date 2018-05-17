@@ -103,6 +103,7 @@ com\yc\q1\model\base\pt\build\PtRoomInfo.class
 com\yc\q1\model\base\pt\basic\PtClassStudent.class
 com\yc\q1\model\base\pt\build\PtOfficeAllot.class
 com\yc\q1\pojo\base\app\JKCourseToDayArray.class
+com\yc\q1\pojo\base\version\VersionInfo.class
 com\yc\q1\model\storage\xf\XfCreditAccountBack.class
 com\yc\q1\pojo\base\pt\PowerResidue.class
 com\yc\q1\model\base\pt\device\PtTermBag.class
@@ -110,6 +111,7 @@ com\yc\q1\model\base\pt\wisdomclass\PtAttendTime.class
 com\yc\q1\model\base\pt\card\PtCard.class
 com\yc\q1\pojo\base\app\CourseArrangeApp.class
 com\yc\q1\pojo\base\pt\DpetJobTree.class
+com\yc\q1\model\base\pt\basic\PtSchoolCalendar.class
 com\yc\q1\model\base\pt\device\PtRoomBagRule.class
 com\yc\q1\pojo\base\pt\RoomAreaTree.class
 com\yc\q1\model\base\pt\system\PtUserDeptJob.class
