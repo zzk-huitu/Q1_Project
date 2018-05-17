@@ -2,7 +2,7 @@ package com.yc.q1.service.base.pt.system;
 
 import com.yc.q1.core.service.BaseService;
 import com.yc.q1.model.base.pt.system.PtSysParameter;
-import com.yc.q1.pojo.base.version.VersionInfo;
+import com.yc.q1.pojo.base.pt.VersionInfo;
 
 
 /**

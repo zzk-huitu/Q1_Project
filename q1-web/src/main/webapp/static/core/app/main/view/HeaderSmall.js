@@ -10,7 +10,7 @@ Ext.define("core.main.view.HeaderSmall",{
     items: [{ 
         	xtype: 'tbtext',           
             html:'<div class="top_title">'+
-                '<img class="index_logo" src="static/core/resources/images/login_logo.png" />'+
+                '<img class="index_logo" src="static/core/resources/images/index_logo.png" />'+
                 '<img class="index_title" src="static/core/resources/images/index_title.png" />'+
             '</div>',
             /*

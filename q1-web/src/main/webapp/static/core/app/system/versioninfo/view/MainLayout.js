@@ -6,7 +6,6 @@ Ext.define("core.system.versioninfo.view.MainLayout", {
     	"core.system.versioninfo.controller.MainController",
         "core.system.versioninfo.view.MainLayout",
         "core.system.versioninfo.view.DetailLayout",
-        "core.system.versioninfo.view.MainGrid",
         "core.system.versioninfo.view.DetailForm"
     ],
     

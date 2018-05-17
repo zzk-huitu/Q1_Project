@@ -139,6 +139,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
 
 	<div class="body_bg">
 		<div class="mg">
@@ -146,6 +147,12 @@
 				<img class="logo"
 					src="${contextPath}/static/core/resources/images/login/index_logo.png">
 			</div>
+=======
+<div class="body_bg">
+	<div class="mg">
+		<div class="top_title">
+			<img class="logo" src="${contextPath}/static/core/resources/images/login/login_logo.png">		
+>>>>>>> 8b4f5cdfb845e65f75e6c11dd202ea8e949371cd
 		</div>
 		<div class="contian_box">
 			<div class="login_box">

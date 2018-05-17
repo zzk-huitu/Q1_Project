@@ -1,4 +1,4 @@
-package com.yc.q1.model.storage.pt;
+package com.yc.q1.model.base.pt.card;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -31,7 +31,7 @@ import com.yc.q1.core.util.DateTimeSerializer;
  *
  */
 @Entity
-@Table(name = "T_PT_SubsidyFillMoneyItem", catalog = "Q1_Storage", schema = "dbo", uniqueConstraints = {
+@Table(name = "T_PT_SubsidyFillMoneyItem", uniqueConstraints = {
 		@UniqueConstraint(columnNames = { "mainId", "userId" }) })
 @AttributeOverride(name = "id", column = @Column(name = "itemId", length = 32, nullable = false) )
 public class PtSubsidyFillMoneyItem extends BaseEntity implements Serializable {
