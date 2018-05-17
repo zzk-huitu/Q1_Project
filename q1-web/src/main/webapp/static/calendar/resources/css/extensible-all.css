@@ -375,7 +375,7 @@
 td.ext-cal-dtitle {
     font-family: helvetica, arial, sans-serif;
     border-top:1px solid #C3D9FF;
-    color: #A7C6DF;
+    color: #097db5;
     line-height:14px;
     overflow:hidden;
     text-align:right;
@@ -392,7 +392,7 @@ td.ext-cal-dtitle div {
 }
 /* Today's title cell */
 td.ext-cal-dtitle-today div {
-    color: #BFA52F;
+    color: red;
     white-space: nowrap;
 }
 /* Today time span */

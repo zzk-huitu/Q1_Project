@@ -65,14 +65,14 @@ Ext.onReady(function() {
 
     function conParam(data) {
         return {
-            'title': data.Title,
-            'start': data.StartDate,
-            'end': data.EndDate,
-            'loc': data.Location,
-            'notes': data.Notes,
-            'ad': data.IsAllDay,
-            'url': data.Url,
-            'rem': data.Reminder,
+            'title': data.title,
+            'start': data.startDate,
+            'end': data.endDate,
+            'loc': data.location,
+            'notes': data.notes,
+            'ad': data.isAllDay,
+            'url': data.url,
+            'rem': data.reminder,
             'id': data.EventId
         };
     }

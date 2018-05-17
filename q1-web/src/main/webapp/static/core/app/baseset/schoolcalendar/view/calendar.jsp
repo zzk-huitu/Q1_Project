@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
     <script type="text/javascript" src="${contextPath}/static/calendar/Extensible-config.js"></script>
     
     <!-- Page-specific includes -->
-    <script type="text/javascript" src="basic.js"></script>
+    <script type="text/javascript" src="${contextPath}/static/core/resources/js/schoolCalendar/basicCalendar.js"></script>
     <style>
         .sample-ct {      
             height: 500px;
