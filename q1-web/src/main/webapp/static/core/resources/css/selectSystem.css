@@ -1,0 +1,68 @@
+*{
+	margin:0;
+	padding: 0;
+	font-family: arial;
+}
+#welecome_home{
+	height: 40px;
+	overflow: hidden;
+	line-height: 40px;
+	background-image: url(/static/core/resources/images/selectSystem/index_top.png);
+}
+.img{
+    vertical-align:middle;
+    margin-left: 30px;
+    margin-bottom: 4px
+}
+.welcome_in{
+    margin-left: 10px;
+}
+.welcome_about{
+    float: right; 
+    margin-right: 30px;
+}
+
+.welcome_in,
+.welcome_about{
+    font-size: 18px;
+    color: #b2daf4;
+}
+#center{
+	width: 1200px;
+	margin: auto;
+	min-height: 698px;
+    position: relative;
+}
+#logo_box{
+	text-align: center;
+	margin-top: 30px;
+	position: initial;
+
+}
+#sysytem_box{
+    position: absolute;
+}
+#sysytem_box .top ,
+#sysytem_box .bottom{
+	/* height: 200px;*/
+
+}
+#sysytem_box .top li{
+	text-decoration: none;  /*去掉前面的圆点*/  
+	list-style: none;  
+	float: left; 
+	margin: 56px 44px;
+
+}
+#sysytem_box .bottom{
+	float: left; 
+
+
+}
+#sysytem_box .bottom li{
+	text-decoration: none;  /*去掉前面的圆点*/  
+	list-style: none;  
+	float: left; 
+	margin: 0px 44px;
+
+}
