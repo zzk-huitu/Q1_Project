@@ -114,21 +114,21 @@
 			reIE.test(userAgent);
 			var fIEVersion = parseFloat(RegExp["$1"]);
 			if (fIEVersion <= 7) {
-				 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});				
+				alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');				
 			}//IE版本过低  
 		}//isIE end  
 
 		if (isOpera) {
-			 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});
-			alert('');
+			 alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+			
 		}
 		
 		if (isSafari) {
-			 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});
+			alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
 		}
 		
 		if (isEdge) {
-			 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});
+			alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
 		}
 
 	}
