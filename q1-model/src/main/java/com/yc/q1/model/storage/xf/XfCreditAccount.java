@@ -53,9 +53,14 @@ public class XfCreditAccount extends BaseEntity implements Serializable {
 	@Column(name = "commissionCharge", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal commissionCharge;
 
-	@FieldInfo(name = "主副卡 1：主卡 0 ：副卡 ？")
+	/*@FieldInfo(name = "主副卡 1：主卡 0 ：副卡 ？")
 	@Column(name = "creditFactor", columnDefinition = "decimal(18,2) default 0", nullable = true)
 	private BigDecimal creditFactor;
+	*/
+	@FieldInfo(name = "主副卡类型", type = "tinyint NOT NULL", explain = "主卡：204，副卡：0")
+	@Column(name = "mainDeputyType", columnDefinition = "tinyint default 204", nullable = false)
+	private Integer mainDeputyType;
+	
 
 	@FieldInfo(name = "使用类型", explain = "100为消费，101为水控")
 	@Column(name = "useType", columnDefinition = "int default 0", nullable = true)
@@ -154,12 +159,13 @@ public class XfCreditAccount extends BaseEntity implements Serializable {
 		this.commissionCharge = commissionCharge;
 	}
 
-	public BigDecimal getCreditFactor() {
-		return creditFactor;
+
+	public Integer getMainDeputyType() {
+		return mainDeputyType;
 	}
 
-	public void setCreditFactor(BigDecimal creditFactor) {
-		this.creditFactor = creditFactor;
+	public void setMainDeputyType(Integer mainDeputyType) {
+		this.mainDeputyType = mainDeputyType;
 	}
 
 	public Integer getUseType() {

@@ -191,18 +191,24 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 			//String file_path = realFileUrl;// String file_path =
 			// 取得当前上传文件的文件名称
 			String myFileName = file1.getOriginalFilename();
-			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
-				// 重命名上传后的文件名
+			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在						
+				String type = myFileName.substring(myFileName.lastIndexOf("."));		
+				if(!type.equalsIgnoreCase(".PNG")&&!type.equalsIgnoreCase(".JPG")&&!type.equalsIgnoreCase(".JPEG")){
+ 	            	writeJSON(response, jsonBuilder.returnFailureJson("'上传失败,请选择PNG|JPG|JPEG类型的图片！'"));
+ 	            	return;
+ 	            }	
 				/*
-				String type = myFileName.substring(myFileName.lastIndexOf("."));				
+				 * // 重命名上传后的文件名	
 				String fileName = String.valueOf(System.currentTimeMillis()) + type;
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 				String url = "versionInfo/" + sdf.format(System.currentTimeMillis()) + "/";
 				*/
 
 				// 定义上传路径
-				String path = "static/core/resources/images/login/login_logo.png";
-				File localFile = new File(path);
+				String rootPath = request.getSession().getServletContext().getRealPath("/");
+	 	        rootPath = rootPath.replace("\\", "/");
+				String path = "/static/core/resources/images/login/login_logo.png";
+				File localFile = new File(rootPath+path);
 
 				if (!localFile.exists()) { // 判断文件夹是否存在
 					localFile.mkdirs(); // 不存在则创建
@@ -217,7 +223,11 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 			// 取得当前上传文件的文件名称
 			String myFileName = file2.getOriginalFilename();
 			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
-				// 重命名上传后的文件名
+				String type = myFileName.substring(myFileName.lastIndexOf("."));		
+				if(!type.equalsIgnoreCase(".PNG")&&!type.equalsIgnoreCase(".JPG")&&!type.equalsIgnoreCase(".JPEG")){
+ 	            	writeJSON(response, jsonBuilder.returnFailureJson("'上传失败,请选择PNG|JPG|JPEG类型的图片！'"));
+ 	            	return;
+ 	            }
 				/*
 				String type = myFileName.substring(myFileName.lastIndexOf("."));
 				String fileName = String.valueOf(System.currentTimeMillis()) + type;
@@ -226,8 +236,10 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 				String url = "versionInfo/" + sdf.format(System.currentTimeMillis()) + "/";
 				 */
 				// 定义上传路径
-				String path = "static/core/resources/images/index_logo.png";
-				File localFile = new File(path);
+				String rootPath = request.getSession().getServletContext().getRealPath("/");
+	 	        rootPath = rootPath.replace("\\", "/");
+				String path = "/static/core/resources/images/index_logo.png";
+				File localFile = new File(rootPath+path);
 				
 				if (!localFile.exists()) { // 判断文件夹是否存在
 					localFile.mkdirs(); // 不存在则创建
@@ -243,7 +255,11 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 			// 取得当前上传文件的文件名称
 			String myFileName = file3.getOriginalFilename();
 			if (myFileName.trim() != "") {// 如果名称不为“”,说明该文件存在，否则说明该文件不存在
-				// 重命名上传后的文件名
+				String type = myFileName.substring(myFileName.lastIndexOf("."));		
+				if(!type.equalsIgnoreCase(".PNG")&&!type.equalsIgnoreCase(".JPG")&&!type.equalsIgnoreCase(".JPEG")){
+ 	            	writeJSON(response, jsonBuilder.returnFailureJson("'上传失败,请选择PNG|JPG|JPEG类型的图片！'"));
+ 	            	return;
+ 	            }
 				/*
 				String type = myFileName.substring(myFileName.lastIndexOf("."));
 				String fileName = String.valueOf(System.currentTimeMillis()) + type;
@@ -252,8 +268,10 @@ public class PtSysParameterController extends FrameWorkController<PtSysParameter
 				String url = "versionInfo/" + sdf.format(System.currentTimeMillis()) + "/";
 				 */
 				// 定义上传路径
-				String path = "static/core/resources/images/index_title.png";
-				File localFile = new File(path);
+				String rootPath = request.getSession().getServletContext().getRealPath("/");
+	 	        rootPath = rootPath.replace("\\", "/");
+				String path = "/static/core/resources/images/index_title.png";
+				File localFile = new File(rootPath+path);
 
 				if (!localFile.exists()) { // 判断文件夹是否存在
 					localFile.mkdirs(); // 不存在则创建

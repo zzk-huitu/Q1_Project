@@ -37,13 +37,17 @@ public class PtCard extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String ModuleType = ModuleNumType.PT; // 指定此对象生成的模块编码值。
 
-	@FieldInfo(name = "卡流水号", type = "bigint NOT NULL", explain = "卡流水号")
-	@Column(name = "cardNo", columnDefinition = "bigint IDENTITY(1,1)", nullable = false,updatable=false)
+	@FieldInfo(name = "卡流水号", type = "bigint NOT NULL", explain = "卡流水号（上次罗工讨论说卡流水改为手动插入）")
+	@Column(name = "cardNo", columnDefinition = "bigint" /*IDENTITY(1,1)*/, nullable = false, updatable = false)
 	private Long cardNo;
 
-	@FieldInfo(name = "卡类型", type = "smallint NOT NULL", explain = "卡类型ID /*1:主卡 2：副卡*/")
+	@FieldInfo(name = "卡类型", type = "smallint NOT NULL", explain = "卡类型ID")
 	@Column(name = "cardTypeId", columnDefinition = "smallint", nullable = false)
 	private Integer cardTypeId;
+
+	@FieldInfo(name = "主副卡类型", type = "tinyint NOT NULL", explain = "主卡：204，副卡：0")
+	@Column(name = "mainDeputyType", columnDefinition = "tinyint default 204", nullable = false)
+	private Integer mainDeputyType;
 
 	@FieldInfo(name = "物理卡号", type = "bigint default 0", explain = "物理卡号")
 	@Column(name = "factoryFixId", columnDefinition = "bigint default 0", nullable = true)
@@ -98,7 +102,7 @@ public class PtCard extends BaseEntity implements Serializable {
 	@FieldInfo(name = "最后交易餐类", type = "smallint default 0", explain = "最后交易餐类，对应营业时段的编号")
 	@Column(name = "lastPayMealType", columnDefinition = "smallint default 0", nullable = true)
 	private Integer lastPayMealType;
-	
+
 	@Formula("(SELECT ISNULL(a.cardTypeName,'') FROM T_PT_CardType a WHERE a.cardTypeId=cardTypeId)")
 	private String cardTypeName;
 
@@ -220,6 +224,14 @@ public class PtCard extends BaseEntity implements Serializable {
 
 	public void setLastPayMealType(Integer lastPayMealType) {
 		this.lastPayMealType = lastPayMealType;
+	}
+
+	public Integer getMainDeputyType() {
+		return mainDeputyType;
+	}
+
+	public void setMainDeputyType(Integer mainDeputyType) {
+		this.mainDeputyType = mainDeputyType;
 	}
 
 	public PtCard() {
