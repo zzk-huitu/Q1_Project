@@ -346,8 +346,9 @@
 }
 /* Background table cell */
 .ext-cal-day {
-    border-left: 1px solid #C3D9FF;
+    border-left: 1px solid #bcd2ef;
     cursor: pointer;
+    background: #eff9fc;
 }
 .ext-cal-day-first {
    border-left: 0;
@@ -375,7 +376,7 @@
 td.ext-cal-dtitle {
     font-family: helvetica, arial, sans-serif;
     border-top:1px solid #C3D9FF;
-    color: #097db5;
+    color: #097db6; 
     line-height:14px;
     overflow:hidden;
     text-align:right;
@@ -401,7 +402,7 @@ td.ext-cal-dtitle-today div {
 }
 /* Weekend background cell */
 .ext-cal-day-we {
-    background: #EFF9FC;
+    background: #b9f1eb4d;
 }
 /* Today's background cell */
 .ext-cal-day-today {
