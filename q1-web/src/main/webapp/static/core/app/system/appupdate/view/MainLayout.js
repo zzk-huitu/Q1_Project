@@ -1,9 +1,9 @@
-Ext.define("core.system.appupdate.view.MainLayout", {
+Ext.define("core.system.appUpdate.view.MainLayout", {
     extend: "core.base.view.BasePanel",
-    alias: 'widget.system.appupdate.mainlayout',
-    funCode: "appupdate_main",
-    detCode: 'appupdate_detail',
-    detLayout: 'system.appupdate.detaillayout',
+    alias: 'widget.system.appUpdate.mainLayout',
+    funCode: "appUpdate_main",
+    detCode: 'appUpdate_detail',
+    detLayout: 'system.appUpdate.detailLayout',
     funData: {
         action: comm.get('baseUrl') + "/PtAppInfo", //请求Action
         pkName: "id",
@@ -16,18 +16,18 @@ Ext.define("core.system.appupdate.view.MainLayout", {
         }
     },
     requires: [    
-        "core.system.appupdate.controller.MainController",
+        "core.system.appUpdate.controller.MainController",
     ],
       /*关联此视图控制器*/
-    controller: 'system.appupdate.maincontroller',
+    controller: 'system.appUpdate.mainController',
     
     /*标注这个视图控制器的别名，以此提供给window处使用*/
-    otherController:'system.appupdate.othercontroller',
+    otherController:'system.appUpdate.otherController',
 
     minWidth:1000,
     scrollable:true,
     items: [{
-        xtype: "system.appupdate.maingrid",        
+        xtype: "system.appUpdate.mainGrid",        
     }]
   
 });

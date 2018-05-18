@@ -1,7 +1,7 @@
 
-Ext.define("core.system.appupdate.controller.OtherController", {
+Ext.define("core.system.appUpdate.controller.OtherController", {
 	extend: "Ext.app.ViewController",
-	alias: 'controller.system.appupdate.othercontroller',
+	alias: 'controller.system.appUpdate.otherController',
 	mixins: {
 		suppleUtil: "core.util.SuppleUtil",
 		messageUtil: "core.util.MessageUtil",
@@ -13,7 +13,7 @@ Ext.define("core.system.appupdate.controller.OtherController", {
 
 	},
 	control: {
-		"baseformtab[detCode=appupdate_detail] button[ref=formSave]":{
+		"baseformtab[detCode=appUpdate_detail] button[ref=formSave]":{
 			beforeclick: function(btn) {
 				this.doSave_Tab(btn);
 				return false;

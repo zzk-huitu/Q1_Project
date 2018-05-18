@@ -1,7 +1,7 @@
 
-Ext.define("core.system.appupdate.controller.MainController", {
+Ext.define("core.system.appUpdate.controller.MainController", {
 	extend: "Ext.app.ViewController",
-	alias: 'controller.system.appupdate.maincontroller',
+	alias: 'controller.system.appUpdate.mainController',
 	mixins: {
     	suppleUtil: "core.util.SuppleUtil",
         messageUtil: "core.util.MessageUtil",
@@ -13,7 +13,7 @@ Ext.define("core.system.appupdate.controller.MainController", {
 	        
 	},
     control: {
-        "basepanel basegrid[xtype=system.appupdate.maingrid]": {
+        "basepanel basegrid[xtype=system.appUpdate.maingrid]": {
             afterrender : function(grid) {
                 this.hideFuncBtn(grid);
                 
@@ -23,19 +23,19 @@ Ext.define("core.system.appupdate.controller.MainController", {
             }
 
         },
-        "basegrid[xtype=system.appupdate.maingrid] button[ref=gridUse]": {
+        "basegrid[xtype=system.appUpdate.maingrid] button[ref=gridUse]": {
             beforeclick: function(btn) {
                 this.doUseOrCancel(btn,"use");
                 return false;
             }
         },
-        "basegrid[xtype=system.appupdate.maingrid] button[ref=gridCancel]": {
+        "basegrid[xtype=system.appUpdate.maingrid] button[ref=gridCancel]": {
             beforeclick: function(btn) {
                 this.doUseOrCancel(btn,"cancel");
                 return false;
             }
         },
-        "basegrid[xtype=system.appupdate.maingrid] actioncolumn": {
+        "basegrid[xtype=system.appUpdate.maingrid] actioncolumn": {
             userClick_Tab: function (data) {
                 this.doUseOrCancel(null,"use",data.view,data.record);
                 return false;
@@ -121,7 +121,7 @@ Ext.define("core.system.appupdate.controller.MainController", {
 
     disabledFuncBtn:function(grid){
         var basePanel = grid.up("basepanel");
-        var basegrid = basePanel.down("basegrid[xtype=system.appupdate.maingrid]");
+        var basegrid = basePanel.down("basegrid[xtype=system.appUpdate.maingrid]");
         var records = basegrid.getSelectionModel().getSelection();
         var btnCancel = basegrid.down("button[ref=gridCancel]");
         var btnUse = basegrid.down("button[ref=gridUse]");

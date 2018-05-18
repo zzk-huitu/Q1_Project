@@ -1,7 +1,7 @@
 
-Ext.define("core.system.appupdate.controller.DetailController", {
+Ext.define("core.system.appUpdate.controller.DetailController", {
 	  extend: "Ext.app.ViewController",
-	    alias: 'controller.system.appupdate.detailcontroller',
+	    alias: 'controller.system.appUpdate.detailController',
 	    mixins: {
 	      },
 	    init: function() {

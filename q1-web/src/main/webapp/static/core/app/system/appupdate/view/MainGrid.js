@@ -1,6 +1,6 @@
-Ext.define("core.system.appupdate.view.MainGrid", {
+Ext.define("core.system.appUpdate.view.MainGrid", {
     extend: 'core.base.view.BaseGrid',
-    alias: "widget.system.appupdate.maingrid",
+    alias: "widget.system.appUpdate.mainGrid",
     dataUrl: comm.get('baseUrl') + "/PtAppInfo/list",
     model: factory.ModelFactory.getModelByName("com.yc.q1.model.base.pt.system.PtAppInfo", "checked").modelName,
 

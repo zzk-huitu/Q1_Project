@@ -1,6 +1,6 @@
-Ext.define("core.system.appupdate.view.DetailForm", {
+Ext.define("core.system.appUpdate.view.DetailForm", {
     extend: "core.base.view.BaseForm",
-    alias: "widget.system.appupdate.detailform",
+    alias: "widget.system.appUpdate.detailForm",
     fileUpload: true,
     items: [{
         xtype: 'label',

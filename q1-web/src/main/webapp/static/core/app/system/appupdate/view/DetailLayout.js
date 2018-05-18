@@ -1,7 +1,7 @@
-Ext.define("core.system.appupdate.view.DetailLayout",{
+Ext.define("core.system.appUpdate.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
-	alias : 'widget.system.appupdate.detaillayout',
-	funCode:"appupdate_detail",
+	alias : 'widget.system.appUpdate.detailLayout',
+	funCode:"appUpdate_detail",
 	funData: {
 		action: comm.get('baseUrl') + "/PtAppInfo", //请求Action
 		pkName: "id"
@@ -9,6 +9,6 @@ Ext.define("core.system.appupdate.view.DetailLayout",{
     minWidth:1000,
     scrollable:true,
 	items: [{
-		xtype: "system.appupdate.detailform"
+		xtype: "system.appUpdate.detailForm"
 	}]
 })
