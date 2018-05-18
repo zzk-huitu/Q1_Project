@@ -1,6 +1,6 @@
-Ext.define("core.ykt.card.SubsidySetSelectUserGrid", {
+Ext.define("core.cardCenter.subsidyConfig.SelectUserGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.card.selectusergrid",
+    alias: "widget.cardCenter.subsidyConfig.selectUserGrid",
     al:false,
     frame: false,
     columnLines: false,
@@ -67,12 +67,12 @@ Ext.define("core.ykt.card.SubsidySetSelectUserGrid", {
             },
             beforeitemdblclick: function(grid, record, item, index, e, eOpts) {
               
-                var basePanel = grid.up("panel[xtype=ykt.card.SubsidySet.selectuserlayout]");
+                var basePanel = grid.up("panel[xtype=cardCenter.subsidyConfig.selectUserLayout]");
                 var data = record.data;
                 var selectStore = grid.getStore();
                 var isSelectGrid;
                 if(basePanel){
-                    isSelectGrid = basePanel.down("panel[xtype=ykt.card.isselectusergrid]");
+                    isSelectGrid = basePanel.down("panel[xtype=cardCenter.subsidyConfig.isSelectUserGrid]");
                     if(isSelectGrid.isVisible()==true){
                         var isSelectStore = isSelectGrid.getStore();
                         for (var i = 0; i < isSelectStore.getCount(); i++) {
@@ -120,13 +120,18 @@ Ext.define("core.ykt.card.SubsidySetSelectUserGrid", {
         },{
             flex:1,
             minWidth:90,
+            text: "部门名称",
+            dataIndex: "deptName"
+        },{
+            flex:1,
+            minWidth:90,
             text: "工号/学号",
             dataIndex: "userNumb"
         }, {
             flex:1,
             minWidth:90,
             text: "卡号",
-            dataIndex: "upCardId"
+            dataIndex: "cardId"
         }]
     },
     emptyText: '<span style="width:100%;text-align:center;display: block;">暂无数据</span>'

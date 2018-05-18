@@ -8,28 +8,19 @@ var auditStore = new Ext.data.ArrayStore({
     ],
 
 });
-Ext.define("core.ykt.card.view.SubsidySetGrid", {
+Ext.define("core.cardCenter.subsidyConfig.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.card.subsidysetgrid",
+    alias: "widget.cardCenter.subsidyConfig.mainGrid",
     dataUrl: comm.get('baseUrl') + "/PtSubsidyFillMoneyMain/list",
     model: 'com.yc.q1.model.storage.pt.PtSubsidyFillMoneyMain',
+    menuCode:"SUBSIDY_CONFIG",
     al:true,
     panelTopBar:{
         xtype:'toolbar',
         items: [{
-            xtype: 'tbtext',
-            html: '补助钱包充值设置',
-            style: {
-                fontSize: '16px',
-                color: '#C44444',
-                fontWeight:800,
-                lineHeight:'30px',
-            }
-        },{
             xtype: 'button',
             text: '添加',
             ref: 'gridAdd',
-           // disabled:true,
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle'
         },{
@@ -61,7 +52,6 @@ Ext.define("core.ykt.card.view.SubsidySetGrid", {
             store:auditStore,
             displayField:"auditStatus",
             valueField:"id",
-           // value:"false",
             name:'isAudit',
             funCode: 'girdFastSearchText',
             emptyText: '请选择浏览条件',
@@ -130,8 +120,8 @@ Ext.define("core.ykt.card.view.SubsidySetGrid", {
             text: "审核日期",
             dataIndex: "auditDate",
             width:150,
-            renderer: function(value) {  
-              if(value!=""){      
+            renderer: function(value) {
+              if(value!=null){      
                 return Ext.Date.format(new Date(value), 'Y/m/d H:i:s');
             } 
          }
@@ -152,6 +142,61 @@ Ext.define("core.ykt.card.view.SubsidySetGrid", {
                 metaData.tdAttr = 'data-qtitle="' + title + '" data-qtip="' + value + '"';  
                 return value;  
             }
+        },{
+           xtype: 'actiontextcolumn',
+           text: "操作",
+           align: 'center',
+           width: 100,
+           fixed: true,
+           items: [{
+                text: '编辑',
+                style: 'font-size:12px;',
+                tooltip: '编辑此信息',
+                getClass: function(view, metadata, record, rowIndex, colIndex, store) {
+                    var isAudit = record.get("isAudit");
+                    if(isAudit==true){
+                        return 'x-hidden-display';
+                    }else if(comm.get("isAdmin")!="1"){
+                        var menuCode="SUBSIDY_CONFIG";     // 此菜单的前缀
+                        var userBtn=comm.get("userBtn");                 
+                        if(userBtn.indexOf(menuCode+"_gridEdit_Tab")==-1){
+                            return 'x-hidden-display';
+                        }
+                    }
+                    return null;
+                },
+                handler: function(view, rowIndex, colIndex, item) {
+                    var rec = view.getStore().getAt(rowIndex);
+                    this.fireEvent('editClick_Win', {
+                        view: view.grid,
+                        record: rec
+                    });
+                }
+            }, {
+                text: '删除',
+                style: 'font-size:12px;',
+                tooltip: '删除',
+                getClass: function(view, metadata, record, rowIndex, colIndex, store) {
+                       var isAudit = record.get("isAudit");
+                    if(isAudit==true){
+                        return 'x-hidden-display';
+                    }else if(comm.get("isAdmin")!="1"){
+                        var menuCode="SUBSIDY_CONFIG";     // 此菜单的前缀
+                        var userBtn=comm.get("userBtn");                 
+                        if(userBtn.indexOf(menuCode+"_gridDelete")==-1){
+                            return 'x-hidden-display';
+                        }
+                    }
+                    return null;
+                },
+                handler: function(view, rowIndex, colIndex, item) {
+                    var rec = view.getStore().getAt(rowIndex);
+                    this.fireEvent('deleteClick', {
+                        view: view.grid,
+                        record: rec
+                    });
+                }
+            }]
         }]
     }    
 });

@@ -1,6 +1,6 @@
-Ext.define("core.ykt.card.SubsidySet.UserGrid", {
+Ext.define("core.cardCenter.subsidyConfig.UserGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.card.SubsidySet.usergrid",
+    alias: "widget.cardCenter.subsidyConfig.userGrid",
     model: "com.yc.q1.model.storage.pt.PtSubsidyFillMoneyItem",
     dataUrl: comm.get('baseUrl') + "/PtSubsidyFillMoneyMain/getFillMoneyUsers",
     extParams: {
@@ -36,7 +36,7 @@ Ext.define("core.ykt.card.SubsidySet.UserGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "id",
+            dataIndex: "userId",
             hidden: true
         }, {
             width:120,
@@ -55,7 +55,7 @@ Ext.define("core.ykt.card.SubsidySet.UserGrid", {
         }, {
             width: 120,
             text: "卡号",
-            dataIndex: "upCardId",
+            dataIndex: "cardId",
           
         }, {
             width:120,

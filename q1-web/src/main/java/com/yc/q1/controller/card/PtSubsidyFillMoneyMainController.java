@@ -82,18 +82,17 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 		PtUser currentUser = getCurrentSysUser();
 	    String allowRepeat = request.getParameter("allowRepeat");
 		String userIds = request.getParameter("userIds");
-		DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Storage);
-		if (allowRepeat.equals("true")) { // 当月允许重复时 ，均可以充值
+	   if (allowRepeat.equals("true")) { // 当月允许重复时 ，均可以充值
 			entity = thisService.doAddEntity(entity,currentUser,userIds);
 		
 		} else {
 			// 判断PtSubsidyFillMoneyMain 是否已经存在该用户的该月的补助信息
-			String sql = "select b.userId from T_PT_SubsidyFillMoneyMain a left join  T_PT_SubsidyFillMoneyItem b on a.mainId = b.mainId where b.userId in ('"
+			String hql = "select b.userId from PtSubsidyFillMoneyMain a left join  PtSubsidyFillMoneyItem b on a.id = b.mainId where b.userId in ('"
 					+ userIds.replace(",", "','") + "') and a.fillDate = '" + DateUtil.formatDate(entity.getFillDate()) + "'";
-		    List<String> userIdList  = thisService.getDao().queryEntityBySql(sql);
+		    List<String> userIdList  = thisService.queryEntityByHql(hql);
 			if (userIdList.size() > 0) {
 				for (int i = 0; i < userIdList.size(); i++) {
-					String userSql = " select userNumb,name from Q1_Base.dbo.T_PT_User where userId ='"+userIdList.get(i)+"' ";
+					String userSql = " select userNumb,name from T_PT_User where userId ='"+userIdList.get(i)+"' ";
 					Object[] object = userService.getEntityBySql(userSql);
 					writeJSON(response, jsonBuilder.returnFailureJson("\"['" +  object[0] + "'-'"
 							+ object[1] + "']在['" + DateUtil.formatDate(entity.getFillDate()) + "']已有设置充值\""));
@@ -105,8 +104,7 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 				entity = thisService.doAddEntity(entity,currentUser,userIds);
 			}
 		}
-		DBContextHolder.clearDBType();
-		if (entity == null)
+	    if (entity == null)
 			writeJSON(response, jsonBuilder.returnFailureJson("\"添加失败，请重试或联系管理员！\""));
 		else
 			writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
@@ -130,18 +128,17 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 		String allowRepeat = request.getParameter("allowRepeat");
 		// 获取当前的操作用户
 		PtUser currentUser = getCurrentSysUser();
-		DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Storage);
 		try {
 			if (allowRepeat.equals("true")) { // 当月允许重复时 ，均可以充值
 				entity = thisService.doUpdateEntity(entity,currentUser,userIds);
 			} else {
 				// 判断PtSubsidyFillMoneyMain 是否已经存在该用户的该月的补助信息
-				String sql = "select b.userId from T_PT_SubsidyFillMoneyMain a left join  T_PT_SubsidyFillMoneyItem b on a.mainId = b.mainId where b.userId in ('"
+				String hql = "select b.userId from PtSubsidyFillMoneyMain a left join  PtSubsidyFillMoneyItem b on a.id = b.mainId where b.userId in ('"
 						+ userIds.replace(",", "','") + "') and a.fillDate = '" + DateUtil.formatDate(entity.getFillDate()) + "'";
-			    List<String> userIdList  = thisService.getDao().queryEntityBySql(sql);
+			    List<String> userIdList  = thisService.queryEntityByHql(hql);
 				if (userIdList.size() > 0) {
 					for (int i = 0; i < userIdList.size(); i++) {
-						String userSql = " select userNumb,name from Q1_Base.dbo.T_PT_User where userId ='"+userIdList.get(i)+"' ";
+						String userSql = " select userNumb,name from T_PT_User where userId ='"+userIdList.get(i)+"' ";
 						Object[] object = userService.getEntityBySql(userSql);
 						writeJSON(response, jsonBuilder.returnFailureJson("\"['" +  object[0] + "'-'"
 								+ object[1] + "']在['" +DateUtil.formatDate(entity.getFillDate()) + "']已有设置充值\""));
@@ -150,8 +147,7 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 					entity = thisService.doUpdateEntity(entity,currentUser,userIds);
 				}
 			}
-			DBContextHolder.clearDBType();
-		    if (ModelUtil.isNotNull(entity))
+			if (ModelUtil.isNotNull(entity))
 				writeJSON(response, jsonBuilder.returnSuccessJson(jsonBuilder.toJson(entity)));
 			else
 				writeJSON(response, jsonBuilder.returnFailureJson("'数据修改失败,详情见错误日志'"));
@@ -163,7 +159,6 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 	@RequestMapping("/doDelete")
 	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String delIds = request.getParameter("ids");
-		DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Storage);
 		if (StringUtils.isEmpty(delIds)) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入删除主键\""));
 			return;
@@ -172,7 +167,6 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
             String  hql2 = " delete from PtSubsidyFillMoneyMain where id in ('"+delIds.replace(",", "','")+"') ";
             Integer count1 =thisService.doExecuteCountByHql(hql1);
             Integer count2 =thisService.doExecuteCountByHql(hql2);
-            DBContextHolder.clearDBType();
             if (count1 > 0 && count2 > 0) {
 				writeJSON(response, jsonBuilder.returnSuccessJson("\"删除成功\""));
 			}else{			
@@ -187,8 +181,7 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 		String auditUser = request.getParameter("auditUser");
 		String[] mainIds = ids.split(",");
 		Date date = new Date();
-		DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Storage);
-		if (StringUtils.isEmpty(ids)) {
+	    if (StringUtils.isEmpty(ids)) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入审核主键\""));
 			return;
 		} else {
@@ -200,7 +193,6 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 				Integer count1 = thisService.doExecuteCountByHql(hql1);
 				Integer count2 = thisService.doExecuteCountByHql(hql2);
 			}
-			DBContextHolder.clearDBType();
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"审核成功\""));
 		
 		}
@@ -212,18 +204,18 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 		List<PtUser> list = new ArrayList<>();
 		PtUser user = new PtUser();
 		String strData="";
-	    DBContextHolder.setDBType(DBContextHolder.DATA_SOURCE_Storage);
-		if (StringUtils.isEmpty(mainId)) {
+	    if (StringUtils.isEmpty(mainId)) {
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入主键\""));
 			return;
 		} else {
-			String sql = "select b.userId from T_PT_SubsidyFillMoneyMain a left join  T_PT_SubsidyFillMoneyItem b on a.mainId = b.mainId ";
-			List<String> userIdList = thisService.getDao().queryEntityBySql(sql);
+			String hql = "select b.userId from PtSubsidyFillMoneyMain a left join  PtSubsidyFillMoneyItem b on a.id = b.mainId "
+					    + "  where a.id = '"+mainId+"'";
+			List<String> userIdList = thisService.queryEntityByHql(hql);
 			if (userIdList.size() > 0) {
 				for (int i = 0; i < userIdList.size(); i++) {
-					String userSql = " select a.userId,a.userNumb,a.name,b.cardNo,d.deptName from Q1_Base.dbo.T_PT_User a left join  Q1_Base.dbo.T_PT_Card b on a.userId = b.userId "
-							+ "  left join Q1_Base.dbo.T_PT_UseDeptJob c on a.userId = c.userId and c.isDelete=0 and  c.isMainDept=1"
-							+ "  left join Q1_Base.dbo.T_PT_DeptJob d on c.deptJobId = d.deptJobId "
+					String userSql = " select a.userId,a.userNumb,a.name,b.cardNo,d.deptName from T_PT_User a left join  T_PT_Card b on a.userId = b.userId "
+							+ "  left join T_PT_UseDeptJob c on a.userId = c.userId and c.isDelete=0 and  c.isMainDept=1"
+							+ "  left join T_PT_DeptJob d on c.deptJobId = d.deptJobId "
 							+ "  where a.userId ='"+userIdList.get(i)+"' ";
 					Object[] object = userService.getEntityBySql(userSql);
 					user = new PtUser();
@@ -231,12 +223,10 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 					user.setUserNumb(object[1].toString());
 					user.setName(object[2].toString());
 			        user.setCardId((String) object[3]==null?0L:Long.valueOf(object[3].toString()));
-					user.setDeptName(object[4].toString());
+					user.setDeptName((String) object[4]==null?"":object[4].toString());
 					list.add(user);
 					}
 			  }
-			
-			DBContextHolder.clearDBType();
 			strData = jsonBuilder.buildObjListToJson(Long.valueOf(list.size()), list, true);// 处理数据
 			writeJSON(response, strData);// 返回数据
 	      
