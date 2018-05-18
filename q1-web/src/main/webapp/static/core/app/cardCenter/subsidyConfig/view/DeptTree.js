@@ -1,6 +1,6 @@
-Ext.define("core.ykt.card.SubsidySet.DeptTree", {
+Ext.define("core.cardCenter.subsidyConfig.DeptTree", {
     extend: "core.base.view.BaseTreeGrid",
-    alias: "widget.ykt.card.SubsidySet.depttree",
+    alias: "widget.cardCenter.subsidyConfig.deptTree",
     dataUrl: comm.get('baseUrl') + "/PtDepartment/getUserRightDeptTree",
     model: " com.yc.q1.pojo.base.pt.DepartmentTree",
     al: true,
@@ -48,8 +48,8 @@ Ext.define("core.ykt.card.SubsidySet.DeptTree", {
 
     listeners: {
         itemclick: function(grid, record, item, index, e) {
-            var mainLayout = grid.up("panel[xtype=ykt.card.SubsidySet.selectuserlayout]");        
-            var userGrid = mainLayout.down("panel[xtype=ykt.card.selectusergrid]");
+            var mainLayout = grid.up("panel[xtype=cardCenter.subsidyConfig.selectUserLayout]");        
+            var userGrid = mainLayout.down("basegrid[xtype=cardCenter.subsidyConfig.selectUserGrid]");
             var store = userGrid.getStore();
             var proxy = store.getProxy();
 

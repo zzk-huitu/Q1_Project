@@ -39,13 +39,6 @@ Ext.define("core.ykt.card.view.MainGrid", {
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             disabled:true,
             iconCls: 'x-fa fa-plus-circle'
-        },{
-            xtype: 'button',
-            text: '补助设置',
-            ref: 'gridSubsidySet',
-           // disabled:true,
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            iconCls: 'x-fa fa-plus-circle'
         }],
     }, 
     panelButtomBar:null,

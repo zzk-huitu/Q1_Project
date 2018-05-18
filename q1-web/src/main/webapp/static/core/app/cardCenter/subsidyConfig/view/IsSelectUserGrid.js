@@ -1,6 +1,6 @@
-Ext.define("core.ykt.card.SubsidySet.IsSelectUserGrid", {
+Ext.define("core.cardCenter.subsidyConfig.IsSelectUserGrid", {
     extend: "Ext.grid.Panel",
-    alias: "widget.ykt.card.isselectusergrid",
+    alias: "widget.cardCenter.subsidyConfig.isSelectUserGrid",
     ref: 'isselectusergrid',
    // title: "<font color='#C44444'>已选用户(向左拖动或双击移除)</font>",
     columnLines: true,
@@ -31,7 +31,7 @@ Ext.define("core.ykt.card.SubsidySet.IsSelectUserGrid", {
     },
 
     store: {
-        type: "ykt.card.isselecteduserstore"
+        type: "cardCenter.subsidyConfig.issSelectedUserStore"
     },
     columns: [/*{
         xtype: "rownumberer",
@@ -91,8 +91,8 @@ Ext.define("core.ykt.card.SubsidySet.IsSelectUserGrid", {
                 var IsSelectStore = grid.getStore();
                 IsSelectStore.removeAt(index);
 
-                var basePanel = grid.up("panel[xtype=ykt.card.SubsidySet.selectuserlayout]");
-                var selectGrid = basePanel.down("basegrid[xtype=ykt.card.selectusergrid]");
+                var basePanel = grid.up("panel[xtype=cardCenter.subsidyConfig.selectUserLayout]");
+                var selectGrid = basePanel.down("basegrid[xtype=cardCenter.subsidyConfig.selectUserGrid]");
                 var selectStore = selectGrid.getStore();
                 selectStore.insert(0, [record]);
                 return false;

@@ -1,6 +1,6 @@
-Ext.define("core..ykt.card.SubsidySet.SelectUserLayout", {
+Ext.define("core.cardCenter.subsidyConfig.SelectUserLayout", {
     extend: "core.base.view.BasePanel",
-    alias: 'widget.ykt.card.SubsidySet.selectuserlayout',
+    alias: 'widget.cardCenter.subsidyConfig.selectUserLayout',
     layout:'border',
     border: false,
     funCode:"selectUser_main",
@@ -13,18 +13,18 @@ Ext.define("core..ykt.card.SubsidySet.SelectUserLayout", {
     },
     items: [{
     	split: true,//对模块分开的线条
-        xtype: "ykt.card.SubsidySet.depttree",
+        xtype: "cardCenter.subsidyConfig.deptTree",
         width: 200,
         region: "west",
     }, {
     	flex:1,
     	split: true,
-        xtype: "ykt.card.selectusergrid",
+        xtype: "cardCenter.subsidyConfig.selectUserGrid",
         region: "center",
     }, {
     	split: true,
     	width: 220,
-    	xtype: "ykt.card.isselectusergrid",
+    	xtype: "cardCenter.subsidyConfig.isSelectUserGrid",
         region: "east",
     }]
 })

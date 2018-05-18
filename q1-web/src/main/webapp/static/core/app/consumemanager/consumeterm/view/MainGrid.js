@@ -106,7 +106,7 @@ Ext.define("core.consumemanager.consumeterm.view.MainGrid", {
             text : "消费模式",
             dataIndex : "",
             flex:1,
-             columnType: "basecombobox", //列类型
+            columnType: "basecombobox", //列类型
             ddCode: "", //字典代码     
         },{
             text : "工作区域",
@@ -118,7 +118,7 @@ Ext.define("core.consumemanager.consumeterm.view.MainGrid", {
             text : "结算账户",
             dataIndex : "",
             flex:1,
-             columnType: "basecombobox", //列类型
+            columnType: "basecombobox", //列类型
             ddCode: "", //字典代码     
         },{
             text : "说明",

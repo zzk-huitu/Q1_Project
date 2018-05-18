@@ -1,6 +1,6 @@
-Ext.define("core.ykt.card.SubsidySet.UserGrid", {
+Ext.define("core.cardCenter.subsidyConfig.UserGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.ykt.card.SubsidySet.usergrid",
+    alias: "widget.cardCenter.subsidyConfig.userGrid",
     model: "com.yc.q1.model.storage.pt.PtSubsidyFillMoneyItem",
     dataUrl: comm.get('baseUrl') + "/PtSubsidyFillMoneyMain/getFillMoneyUsers",
     extParams: {

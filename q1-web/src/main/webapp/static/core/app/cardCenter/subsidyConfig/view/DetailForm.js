@@ -1,6 +1,6 @@
-Ext.define("core.ykt.card.SubsidySet.PayMoneyForm", {
+Ext.define("core.cardCenter.subsidyConfig.DetailForm", {
     extend: "core.base.view.BaseForm",
-    alias: "widget.ykt.card.SubsidySet.paymoneyform",
+    alias: "widget.cardCenter.subsidyConfig.detailForm",
     layout: "form",
     autoHeight: true,
     frame: false,
