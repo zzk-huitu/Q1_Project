@@ -114,20 +114,21 @@
 			reIE.test(userAgent);
 			var fIEVersion = parseFloat(RegExp["$1"]);
 			if (fIEVersion <= 7) {
-				alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+				 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});				
 			}//IE版本过低  
 		}//isIE end  
 
 		if (isOpera) {
-			alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+			 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});
+			alert('');
 		}
 		
 		if (isSafari) {
-			alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+			 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});
 		}
 		
 		if (isEdge) {
-			alert('建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器');
+			 layer.alert( '建议使用IE8及以上、火狐(firefox)、360或者谷歌(chrome)浏览器',{title:'提示',icon: 4,closeBtn:0});
 		}
 
 	}
@@ -136,51 +137,41 @@
 
 </head>
 
-<body>
+<body style='background-color: white;'>
+
 	<div class="body_bg">
 		<div class="mg">
 			<div class="top_title">
-				<img class="logo"
-					src="${contextPath}/static/core/resources/images/login/index_logo.png">
+				<img class="logo" src="${contextPath}/static/core/resources/images/login/login_logo.png">		
 			</div>
-<div class="body_bg">
-	<div class="mg">
-		<div class="top_title">
-			<img class="logo" src="${contextPath}/static/core/resources/images/login/login_logo.png">		
 		</div>
 		<div class="contian_box">
 			<div class="login_box">
 				<div class="login_bg">
 					<div class="fl box_lefet">
-						<img
-							src="${contextPath}/static/core/resources/images/login/login_img.png">
+						<img src="${contextPath}/static/core/resources/images/login/login_img.png">
 					</div>
 					<div class="fl box_right">
 						<div class="input_top">
-							<label class="textName">用户名：</label><input value="" name="name"
-								id="name" type="text" placeholder="请输入用户名" /></br> <label
-								class="textName">密 码：</label><input value="" name="psw" id="psw"
-								type="password" placeholder="请输入密码" /></br> <label class="textName">验证码：</label><input
-								type="text" class="yzm" id="yzm" style='width: 80px;'
-								placeholder="验证码" onkeydown="keyLogin(this);" />
+							<label class="textName">用户名：</label><input value="" name="name"  id="name"  type="text" placeholder="请输入用户名" /><br/>
+							<label class="textName">密　码：</label><input value="" name="psw" id="psw" type="password" placeholder="请输入密码" /><br/>
+							<label class="textName">验证码：</label><input type="text" class="yzm" id="yzm" style='width: 80px;' placeholder="验证码"  onkeydown="keyLogin(this);"/>
 							<div class="yzm-m" id="yzm-m">
-								<img src="${contextPath}/verifycode/image" alt="点击重新生成" id="yzz"
-									onclick="yz();">
+								<img src="${contextPath}/verifycode/image" alt="点击重新生成"
+									id="yzz" onclick="yz();">
 							</div>
 						</div>
-
+						
 						<div class="lable_box">
 							<div class="fl">
-								<!-- <input class="check" type="checkbox" name="rememberMe" id="rememberMe" /><label>记住帐号</label>
-						-->
+							<!-- <input class="check" type="checkbox" name="rememberMe" id="rememberMe" /><label>记住帐号</label>
+							-->
 							</div>
-							<label class="fr"><a href="javascript:void(0)"
-								style="color: #0b92ff" onclick="yz();">换一张</a></label>
+							<label class="fr"><a  href="javascript:void(0)" style="color:#0b92ff" onclick="yz();">换一张</a></label>
 						</div>
-
+						
 						<div class="but_box">
-							<a class="but" id="input1" href="javascript:void(0)"
-								onclick="document.getElementById('input2').click();">登 录</a>
+							<a class="but"  id="input1" href="javascript:void(0)" onclick="document.getElementById('input2').click();">登 录</a>
 							<button onclick="login();" id="input2" hidden="true">登 录</button>
 						</div>
 					</div>
@@ -189,8 +180,10 @@
 
 		</div>
 		<div class="bottom_box">
-			建议使用1280X768以上分辨率、IE8以上浏览器、谷歌浏览器、360浏览器浏览本站 <br /> <br /> <span
-				class="company"></span>
+			建议使用1280X768以上分辨率、IE8以上浏览器、谷歌浏览器、360浏览器浏览本站
+			<br/>
+			<br/>
+			<span class="company"></span>
 		</div>
 	</div>
 </body>

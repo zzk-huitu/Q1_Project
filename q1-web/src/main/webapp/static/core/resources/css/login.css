@@ -11,7 +11,7 @@
 .mg{ width: 950px; margin: 0 auto; padding: 4% 0;}
 .top_title{ width: 100%; overflow: hidden;text-align: center;
 }
-.top_title .logo{ margin-right:10px;}
+.top_title .logo{ margin-right:10px;height: 105px;}
 .top_title .img2{ margin-top: 8px;}
 .contian_box{  width: 100%;  background: url(../images/login/login_bg.png) no-repeat center top; 
         background-size: cover;

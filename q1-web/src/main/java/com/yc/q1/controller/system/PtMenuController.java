@@ -146,10 +146,11 @@ public class PtMenuController extends FrameWorkController<PtMenu> implements Con
             writeJSON(response, jsonBuilder.returnFailureJson("\"菜单编码不能重复！\""));
             return;
         }
+        /*
         if (thisService.IsFieldExist("nodeText", menuName, "-1", hql)) {
             writeJSON(response, jsonBuilder.returnFailureJson("\"菜单名称不能重复！\""));
             return;
-        }
+        }*/
         String hql1 = " o.isDelete='0' and o.parentNode='" + parentNode + "' ";
         if (thisService.IsFieldExist("orderIndex", orderIndex.toString(), "-1", hql1)) {
             writeJSON(response, jsonBuilder.returnFailureJson("\"同一级别已有此顺序号！\""));
@@ -193,10 +194,11 @@ public class PtMenuController extends FrameWorkController<PtMenu> implements Con
             writeJSON(response, jsonBuilder.returnFailureJson("\"菜单编码不能重复！\""));
             return;
         }
+        /*
         if (thisService.IsFieldExist("nodeText", menuName, uuid, hql)) {
             writeJSON(response, jsonBuilder.returnFailureJson("\"菜单名称不能重复！\""));
             return;
-        }
+        }*/
         String hql1 = " o.isDelete='0' and o.parentNode='" + parentNode + "' ";
         if (thisService.IsFieldExist("orderIndex", orderIndex.toString(), uuid, hql1)) {
             writeJSON(response, jsonBuilder.returnFailureJson("\"同一级别已有此顺序号！\""));
