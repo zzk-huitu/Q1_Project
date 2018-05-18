@@ -62,13 +62,7 @@ Ext.define("core.ykt.card.controller.MainController", {
                     return false;
                 }
             },
-              //补助设置
-            "basegrid[xtype=ykt.card.maingrid] button[ref=gridSubsidySet]": {
-                beforeclick: function(btn) {
-                    this.doOpen_Tab(btn,"subsidySet");
-                    return false;
-                }
-            },
+      
     
         });
     },
@@ -282,14 +276,12 @@ Ext.define("core.ykt.card.controller.MainController", {
         var basePanel = baseGrid.up("basepanel[funCode=" + funCode +"]");
         var tabPanel=baseGrid.up("tabpanel[xtype=app-main]");   //获取整个tabpanel
        
-        if(cmd!="subsidySet"){//补助设置
-          var selectUser = baseGrid.getSelectionModel().getSelection();
-          if(selectUser.length!=1){
+        var selectUser = baseGrid.getSelectionModel().getSelection();
+        if(selectUser.length!=1){
             self.msgbox("请选中一个用户！");
             return;
-            }     
-        }
-
+        }     
+      
        //得到配置信息
         var funData = basePanel.funData;
         var defaultObj = funData.defaultObj;
@@ -308,13 +300,6 @@ Ext.define("core.ykt.card.controller.MainController", {
         var detCode =  "card_errorFillMoney";  
         var detLayout = "ykt.card.errorfillmoneygrid";
         switch(cmd){
-          case "subsidySet":
-            tabTitle = "补助设置";
-            tabItemId = funCode+"_subsidySet"; 
-            detCode =  "card_subsidySet";  
-            detLayout = "ykt.card.subsidysetgrid";
-            pkValue='subsidySet';
-            break;
          case "rechargeandrefund":
             tabTitle = "充值/退款";
             tabItemId = funCode+"_rechargeandrefund"; 

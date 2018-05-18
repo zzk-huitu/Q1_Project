@@ -353,8 +353,12 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		String roomId = request.getParameter("roomId");
 		String roomLeaf = request.getParameter("roomLeaf");
 		String termName = request.getParameter("termName");
+		String termTypeId = request.getParameter("termTypeId");
 
 		String hql = " from PtTerm a where a.isDelete=0 ";
+		if(StringUtils.isNotEmpty(termTypeId)){
+			hql +="and a.termTypeId='"+termTypeId+"'";
+		}
 		// 组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
