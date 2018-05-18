@@ -19,24 +19,25 @@
        
     			<div id="sysytem_box">
     				<div class = "top">
-    					<ul>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_zongheguanli.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_kawuzhongxin.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_xiaofeiguanli.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_shuikongguanli.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_diankongguanli.png"></li>
-    					</ul>
+                        <ul>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_zongheguanli.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_kawuzhongxin.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_xiaofeiguanli.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_shuikongguanli.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_diankongguanli.png"></li>
+                       </ul>
     				</div>
     				<div class="bottom">
     					<ul>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_zongheguanli.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_kawuzhongxin.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_xiaofeiguanli.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_shuikongguanli.png"></li>
-    					<li><img src="${contextPath}/static/core/resources/images/selectSystem/index_diankongguanli.png"></li>
-    					</ul>
-    				</div>
-    			</div>
+                         <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_menkongguanli.png"></li>
+                         <li>
+                           <img src="${contextPath}/static/core/resources/images/selectSystem/index_zhinengkongzhi.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_zhihuibanpai.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_jiesuanzhongxin.png"></li>
+                           <li><img src="${contextPath}/static/core/resources/images/selectSystem/index_dingcanguanli.png"></li>
+                       </ul>
+                   </div>
+               </div>
 
     			<div>
 

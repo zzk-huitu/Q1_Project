@@ -42,11 +42,6 @@
 #sysytem_box{
     position: absolute;
 }
-#sysytem_box .top ,
-#sysytem_box .bottom{
-	/* height: 200px;*/
-
-}
 #sysytem_box .top li{
 	text-decoration: none;  /*去掉前面的圆点*/  
 	list-style: none;  
