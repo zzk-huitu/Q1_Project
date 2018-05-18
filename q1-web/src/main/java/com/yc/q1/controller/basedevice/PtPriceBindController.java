@@ -134,7 +134,7 @@ public class PtPriceBindController extends FrameWorkController<PtPriceBind> impl
 		} else {
 			String[] ids =termIds.split(",");
 			for(int i=0;i<ids.length;i++){
-				 String hql = " from PriceBind where termId = '"+ ids[i]+"'";
+				 String hql = " from PtPriceBind where termId = '"+ ids[i]+"'";
 				 PtPriceBind entity = thisService.getEntityByHql(hql);
 				 thisService.delete(entity);
 			}
