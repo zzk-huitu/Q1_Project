@@ -120,8 +120,8 @@ Ext.define("core.cardCenter.subsidyConfig.view.MainGrid", {
             text: "审核日期",
             dataIndex: "auditDate",
             width:150,
-            renderer: function(value) {  
-              if(value!=""){      
+            renderer: function(value) {
+              if(value!=null){      
                 return Ext.Date.format(new Date(value), 'Y/m/d H:i:s');
             } 
          }
@@ -153,7 +153,10 @@ Ext.define("core.cardCenter.subsidyConfig.view.MainGrid", {
                 style: 'font-size:12px;',
                 tooltip: '编辑此信息',
                 getClass: function(view, metadata, record, rowIndex, colIndex, store) {
-                    if(comm.get("isAdmin")!="1"){
+                    var isAudit = record.get("isAudit");
+                    if(isAudit==true){
+                        return 'x-hidden-display';
+                    }else if(comm.get("isAdmin")!="1"){
                         var menuCode="SUBSIDY_CONFIG";     // 此菜单的前缀
                         var userBtn=comm.get("userBtn");                 
                         if(userBtn.indexOf(menuCode+"_gridEdit_Tab")==-1){
@@ -164,7 +167,7 @@ Ext.define("core.cardCenter.subsidyConfig.view.MainGrid", {
                 },
                 handler: function(view, rowIndex, colIndex, item) {
                     var rec = view.getStore().getAt(rowIndex);
-                    this.fireEvent('editClick_Tab', {
+                    this.fireEvent('editClick_Win', {
                         view: view.grid,
                         record: rec
                     });
@@ -174,7 +177,10 @@ Ext.define("core.cardCenter.subsidyConfig.view.MainGrid", {
                 style: 'font-size:12px;',
                 tooltip: '删除',
                 getClass: function(view, metadata, record, rowIndex, colIndex, store) {
-                    if(comm.get("isAdmin")!="1"){
+                       var isAudit = record.get("isAudit");
+                    if(isAudit==true){
+                        return 'x-hidden-display';
+                    }else if(comm.get("isAdmin")!="1"){
                         var menuCode="SUBSIDY_CONFIG";     // 此菜单的前缀
                         var userBtn=comm.get("userBtn");                 
                         if(userBtn.indexOf(menuCode+"_gridDelete")==-1){

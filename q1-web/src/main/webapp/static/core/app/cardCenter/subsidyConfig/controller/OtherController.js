@@ -77,10 +77,10 @@ Ext.define("core.cardCenter.subsidyConfig.controller.OtherController", {
         var pkValue = record.get("id");
         if(ids.indexOf(pkValue)==-1){
           newRecord = new Object();
-          newRecord["id"] = record.get("id");
+          newRecord["userId"] = record.get("id");
           newRecord["name"] = record.get("name");
           newRecord["userNumb"] = record.get("userNumb");
-          newRecord["upCardId"] = record.get("upCardId");
+          newRecord["cardId"] = record.get("cardId");
           newRecord["deptName"] = record.get("deptName");
           newRecord["fillMoney"] = fillMoney;
           newRecord["fillDate"] = fillDate;
@@ -92,7 +92,7 @@ Ext.define("core.cardCenter.subsidyConfig.controller.OtherController", {
      win.close();
 
    },
-     doSaveAddAndEdit_Win:function(btn){
+    doSaveAddAndEdit_Win:function(btn){
       var self = this;
       var win = btn.up("baseformwin");
       var basePanel = win.down("basepanel[funCode='"+win.funCode+"']");
@@ -113,7 +113,7 @@ Ext.define("core.cardCenter.subsidyConfig.controller.OtherController", {
        }
       for(var j = 0; j <store.getCount(); j++){
        var userRecode = store.getAt(j);
-       var userId = userRecode.get("id");
+       var userId = userRecode.get("userId");
        ids.push(userId);
       }
       params["userIds"] =ids.join(',');

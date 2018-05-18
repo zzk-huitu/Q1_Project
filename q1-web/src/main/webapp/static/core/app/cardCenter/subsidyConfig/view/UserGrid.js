@@ -36,7 +36,7 @@ Ext.define("core.cardCenter.subsidyConfig.UserGrid", {
         },
         items: [{
             text: "主键",
-            dataIndex: "id",
+            dataIndex: "userId",
             hidden: true
         }, {
             width:120,
@@ -55,7 +55,7 @@ Ext.define("core.cardCenter.subsidyConfig.UserGrid", {
         }, {
             width: 120,
             text: "卡号",
-            dataIndex: "upCardId",
+            dataIndex: "cardId",
           
         }, {
             width:120,

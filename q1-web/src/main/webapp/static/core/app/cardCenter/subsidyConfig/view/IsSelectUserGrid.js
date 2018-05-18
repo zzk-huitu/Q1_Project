@@ -49,9 +49,14 @@ Ext.define("core.cardCenter.subsidyConfig.IsSelectUserGrid", {
     },{
         flex:1,
         minWidth:90,
+        text: "用户名",
+        dataIndex: "userName"
+        }/*{
+        flex:1,
+        minWidth:90,
         text: "卡号",
-        dataIndex: "upCardId"
-    }],
+        dataIndex: "cardId"
+    }*/],
     viewConfig: {
         plugins: {
             ptype: 'gridviewdragdrop',

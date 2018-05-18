@@ -32,6 +32,7 @@ Ext.define("core.cardCenter.subsidyConfig.controller.MainController", {
        "basegrid[xtype=cardCenter.subsidyConfig.mainGrid]": {   
 	        beforeitemclick: function(grid, record, item, index, e, eOpts) {
 	          this.disabledFuncBtn(grid);
+              return false;
 	        }
        },
 
@@ -50,7 +51,7 @@ Ext.define("core.cardCenter.subsidyConfig.controller.MainController", {
 			} 
 	   },
        "basegrid[xtype=cardCenter.subsidyConfig.mainGrid] actioncolumn":{
-            editClick: function(data) {
+            editClick_Win: function(data) {
                 this.doAddAndEdit_Win(null,"edit",data.view,data.record);  
                 return false;      
             },
@@ -136,7 +137,7 @@ Ext.define("core.cardCenter.subsidyConfig.controller.MainController", {
         });
         win.show();
         if(cmd=="edit"){
-        	var detPanel = win.down("basepanel[funCode='"+funCode+"']");
+        	var detPanel = win.down("basepanel[funCode='"+win.funCode+"']");
         	var objDetForm = detPanel.down("baseform[xtype=cardCenter.subsidyConfig.detailForm]");
         	var formDeptObj = objDetForm.getForm();
         	self.setFormValue(formDeptObj, insertObj);

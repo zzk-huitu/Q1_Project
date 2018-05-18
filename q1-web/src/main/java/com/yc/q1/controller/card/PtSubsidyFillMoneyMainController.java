@@ -208,7 +208,8 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 			writeJSON(response, jsonBuilder.returnSuccessJson("\"没有传入主键\""));
 			return;
 		} else {
-			String hql = "select b.userId from PtSubsidyFillMoneyMain a left join  PtSubsidyFillMoneyItem b on a.id = b.mainId ";
+			String hql = "select b.userId from PtSubsidyFillMoneyMain a left join  PtSubsidyFillMoneyItem b on a.id = b.mainId "
+					    + "  where a.id = '"+mainId+"'";
 			List<String> userIdList = thisService.queryEntityByHql(hql);
 			if (userIdList.size() > 0) {
 				for (int i = 0; i < userIdList.size(); i++) {
@@ -222,7 +223,7 @@ public class PtSubsidyFillMoneyMainController  extends FrameWorkController<PtSub
 					user.setUserNumb(object[1].toString());
 					user.setName(object[2].toString());
 			        user.setCardId((String) object[3]==null?0L:Long.valueOf(object[3].toString()));
-					user.setDeptName(object[4].toString());
+					user.setDeptName((String) object[4]==null?"":object[4].toString());
 					list.add(user);
 					}
 			  }

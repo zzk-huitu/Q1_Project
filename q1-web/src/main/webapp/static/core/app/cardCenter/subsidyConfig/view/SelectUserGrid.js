@@ -120,13 +120,18 @@ Ext.define("core.cardCenter.subsidyConfig.SelectUserGrid", {
         },{
             flex:1,
             minWidth:90,
+            text: "部门名称",
+            dataIndex: "deptName"
+        },{
+            flex:1,
+            minWidth:90,
             text: "工号/学号",
             dataIndex: "userNumb"
         }, {
             flex:1,
             minWidth:90,
             text: "卡号",
-            dataIndex: "upCardId"
+            dataIndex: "cardId"
         }]
     },
     emptyText: '<span style="width:100%;text-align:center;display: block;">暂无数据</span>'
