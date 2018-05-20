@@ -34,6 +34,7 @@ import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
 import com.yc.q1.core.util.ModelUtil;
+import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtUser;
 import com.yc.q1.service.base.pt.system.PtRoleService;
 import com.yc.q1.service.base.pt.system.PtUserService;
@@ -174,21 +175,47 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 			writeJSON(response, jsonBuilder.returnFailureJson("'没有得到登录用户'"));
 	}
 
+	@RequestMapping("/selectSystem")
+	public ModelAndView selectSystem(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Subject subject = SecurityUtils.getSubject();
+		Session session = subject.getSession();
+		if (session.getAttribute(SESSION_SYS_USER) == null) {
+			return new ModelAndView("login");	//返回登录页面
+		} else {
+			try {
+				return new ModelAndView("redirect:/selectSystem.jsp");
+			} catch (Exception e) {
+				logger.error(e.toString());
+				return new ModelAndView("login");	//返回登录页面
+			}
+		}
+	}
+	
 	@RequestMapping("/desktop")
 	public ModelAndView desktop(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Subject subject = SecurityUtils.getSubject();
 		Session session = subject.getSession();
+		
+		//将系统菜单code保存到session
+		String systemMenuCode=request.getParameter("SystemMenuCode");
+		session.setAttribute("SystemMenuCode", systemMenuCode);
+		
 		if (session.getAttribute(SESSION_SYS_USER) == null) {
-			return new ModelAndView();
-		} else {
-			PtUser sysUser = (PtUser) session.getAttribute(SESSION_SYS_USER);
+			return new ModelAndView("login");	//返回登录页面
+		} if(StringUtils.isEmpty(systemMenuCode)){
+			return new ModelAndView("selectSystem");	//返回登录页面
+		}else {
+			//PtUser sysUser = (PtUser) session.getAttribute(SESSION_SYS_USER);
 			try {
 				// List<Authority> allMenuList =
 				// authorityService.queryAllMenuList(globalRoleKey);
+				/*zzk：判断用户是否具备此子系统权限；不具备则调到无权限页面*/
+				/*.................*/
+				
 				return new ModelAndView("redirect:/index.jsp", "authorityList", null);
 			} catch (Exception e) {
 				logger.error(e.toString());
-				return new ModelAndView();
+				return new ModelAndView("login");	//返回登录页面
 			}
 		}
 	}

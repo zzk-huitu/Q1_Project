@@ -24,7 +24,7 @@ a:hover{
 	position: fixed;
     width: 100%;
     top: 0;
-	background-image: url(/static/core/resources/images/selectSystem/index_top.png);
+    background-color: rgba(20, 123, 186, 0.6);
 	z-index: 999;
 }
 .img{

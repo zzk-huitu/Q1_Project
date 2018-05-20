@@ -146,7 +146,7 @@
 						<prop key="kaptcha.session.key">code</prop>
 						<prop key="kaptcha.textproducer.char.length">4</prop>
 						<prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
-						<prop key="kaptcha.textproducer.char.string">ABCDEFGHJKLMNPQRSTUVWXYZ2345679</prop>
+						<prop key="kaptcha.textproducer.char.string">012345679</prop>
 						<prop key="kaptcha.noise.impl">com.google.code.kaptcha.impl.NoNoise</prop>
 					</props>
 				</constructor-arg>

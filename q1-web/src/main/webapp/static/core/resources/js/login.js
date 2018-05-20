@@ -99,7 +99,7 @@ function login() {
                                     addCookie("userName", userName, 7, "/");
                                     addCookie("userPwd", userPwd, 7, "/");
                                 }
-                                document.location.href = getContextPath() + "/login/desktop";
+                                document.location.href = getContextPath() + "/login/selectSystem";
                                 //window.opener=null;
                                 //window.close();
                                 //window.open (getContextPath()+'/login/desktop','newwindow','width='+(window.screen.availWidth-10)+',height='+(window.screen.availHeight-30)+ ',top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');

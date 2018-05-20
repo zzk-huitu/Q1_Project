@@ -102,16 +102,24 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 		List<PtMenu> typeList = super.queryByHql(hql.toString());
 		List<MenuTree> result = new ArrayList<MenuTree>();
 		// 构建Tree数据
-		recursion(new MenuTree(TreeVeriable.ROOT, new ArrayList<MenuTree>()), result, typeList);
+		recursion(new MenuTree(TreeVeriable.ROOT, new ArrayList<MenuTree>()), result, typeList,true);
 
 		return result;
 	}
 
-	private void recursion(MenuTree parentNode, List<MenuTree> result, List<PtMenu> list) {
+	private void recursion(MenuTree parentNode, List<MenuTree> result, List<PtMenu> list,boolean isFirst) {
 		List<PtMenu> childs = new ArrayList<PtMenu>();
 		for (PtMenu SysMenu : list) {
 			if (SysMenu.getParentNode().equals(parentNode.getId())) {
 				childs.add(SysMenu);
+				continue;
+			}
+			//如果为初始进来，则把当前节点也加进来（当parentNode为子系统节点时，导致数据拼接不出来的bug）
+			if(isFirst==true){
+				if(SysMenu.getId().equals(parentNode.getId())){
+					childs.add(SysMenu);
+					isFirst=false;
+				}
 			}
 		}
 		for (PtMenu SysMenu : childs) {
@@ -127,7 +135,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 				trees.add(child);
 				parentNode.setChildren(trees);
 			}
-			recursion(child, result, list);
+			recursion(child, result, list,false);
 		}
 
 	}
@@ -202,7 +210,7 @@ public class PtMenuServiceImpl extends BaseServiceImpl<PtMenu> implements PtMenu
 		}
 		List<MenuTree> result = new ArrayList<MenuTree>();
 		// 构建Tree数据
-		recursion(new MenuTree(TreeVeriable.ROOT, new ArrayList<MenuTree>()), result, lists);
+		recursion(new MenuTree(roodId, new ArrayList<MenuTree>()), result, lists,true);
 
 		return result;
 

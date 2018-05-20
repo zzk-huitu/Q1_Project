@@ -49,6 +49,62 @@ Ext.define('core.main.controller.MainController', {
         }
     },
 
+    onShowSystemPanel:function(btn,e){
+        var id= sessionStorage.systemMenuWindowId;
+        
+        var win=Ext.getCmp(id); 
+        if(!win){
+            win = Ext.create("Ext.window.Window", {
+                //bodyPadding: '0 10 10 0',
+                width:570,
+                //height:200,
+                margin:'0 0 0 10',
+                scrollable:true, 
+                title:null,
+                draggable :false,
+                resizable :false,
+                closable:false,
+                tpl:new Ext.XTemplate(
+                    '<tpl for=".">',
+                        '<tpl if="url== \'\'">',
+                            '<a href="javascript:Ext.Msg.alert(\'温馨提示\',\'此系统暂无超链接！\');" /*target="_bank"*/ style="color: #333;">',
+                                '<div class="mainMenuIcon-wrap" style="padding: 10px 0px;margin:0px;width:110px;">',                                    
+                                    '<img src="{bigIcon}" class="mainMenuIcon-img" style="width:50px;height:50px;"/>',                                
+                                    '<br/><span class="mainMenuIcon-text" style="padding-top: 5px;">{text}</span>',
+                                '</div>',
+                            '</a>',
+                        '<tpl else>',
+                            '<a href="{url}" /*target="_bank"*/ style="color: #333;">',//在desktop方法中进行系统权限判断
+                                '<div class="mainMenuIcon-wrap" style="padding: 10px 0px;margin:0px;width:110px;">',                                    
+                                    '<img src="{bigIcon}" class="mainMenuIcon-img" style="width:50px;height:50px;border-radius: 0px;"/>',                                
+                                    '<br/><span class="mainMenuIcon-text" style="padding-top: 5px;">{text}</span>',
+                                '</div>',
+                            '</a>',
+                        '</tpl>',           
+                    '</tpl>'
+                ),
+                data:this.getView().getViewModel().get("systemList") 
+            }); 
+        
+            var x=btn.getXY()[0];
+            var y=btn.getXY()[1]+40;
+            win.showAt(x-250,y);
+
+
+            sessionStorage.systemMenuWindowId=win.getId();
+        } else{
+            if(win.hidden){
+                var x=btn.getXY()[0];
+                var y=btn.getXY()[1]+40;
+                win.showAt(x-250,y);
+            }else{
+                win.hide();
+            }
+            
+        }
+
+    },
+
 
     //顶部head中的菜单按钮事件
     onChangeHeadMenu:function(btn){

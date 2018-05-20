@@ -253,27 +253,35 @@ public class PtUserController extends FrameWorkController<PtUser> implements Con
 		Session session = subject.getSession();
 		PtUser currentUser = (PtUser) session.getAttribute(SESSION_SYS_USER);
 		String strData = null;
-
+		
+		String excludes = request.getParameter("excludes");
+		String nodeId="";
+		String sysMenuCode = String.valueOf(session.getAttribute("SystemMenuCode"));		//选择某个子系统,在index方法中保存menuCode到session中
+		if (StringUtils.isNotEmpty(sysMenuCode)) {
+			String hql="select id from PtMenu where menuCode=? and isDelete=0 ";
+			nodeId= sysMenuService.getEntityByHql(hql, sysMenuCode);
+		}
+		if (StringUtils.isEmpty(nodeId) || TreeVeriable.ROOT.equalsIgnoreCase(nodeId)) {
+			nodeId = TreeVeriable.ROOT;
+		}	
+		
 		// 获取缓存数据
-		Object userMenuTree = userRedisService.getMenuTreeByUser(currentUser.getId());
-
+		Object userMenuTree = userRedisService.getMenuTreeByUser(currentUser.getId(),sysMenuCode);
+		
 		if (userMenuTree == null) { // 若存在，则不需要设置
-			String node = request.getParameter("node");
-			String excludes = request.getParameter("excludes");
 
-			if (StringUtils.isEmpty(node) || TreeVeriable.ROOT.equalsIgnoreCase(node)) {
-				node = TreeVeriable.ROOT;
-			}
-
-			List<MenuTree> lists = sysMenuService.getPermTree(node, currentUser.getId(), AuthorType.USER, true,
+			List<MenuTree> lists = sysMenuService.getPermTree(nodeId, currentUser.getId(), AuthorType.USER, true,
 					false);
+			
 			strData = jsonBuilder.buildList(lists, excludes);
-
+			
 			// 存入redis中
-			userRedisService.setMenuTreeByUser(currentUser.getId(), strData);
+			userRedisService.setMenuTreeByUser(currentUser.getId(),sysMenuCode, strData);
 
+			
+			
 		} else {
-			strData = (String) userMenuTree;
+			strData =(String)userMenuTree;			
 		}
 
 		// 取出json字符串

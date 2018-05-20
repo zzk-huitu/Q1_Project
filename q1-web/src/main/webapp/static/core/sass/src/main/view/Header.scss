@@ -37,7 +37,22 @@
     border:none;
     background:none;
 }
-
+.core-header-button-over
+{   
+    color:#c3190c;
+    background-color: #fff;
+    border-color: #f43c2f;
+}
+.core-header-button-focus
+{
+    color:#c3190c;
+    background-color: #fff;
+    border-color: #f43c2f;
+}
+.header-button-icon-size30{
+    font-size:30px;
+    width: 30px !important;
+}
 .header-button-color{
     color:#fff;
 }
@@ -92,3 +107,4 @@
     margin-right: auto;
     margin-left: auto;
 }
+

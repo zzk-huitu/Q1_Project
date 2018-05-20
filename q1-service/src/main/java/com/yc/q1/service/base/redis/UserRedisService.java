@@ -5,13 +5,13 @@ import java.util.Set;
 public interface UserRedisService {
 	
 	
-	public Object getMenuTreeByUser(String userId);
+	public Object getMenuTreeByUser(String userId,String sysMenuCode);
 	public Object getDeskFuncByUser(String userId);
 	public Object getAuthByUser(String userId);
 	public Object getBtnByUser(String userId);
 	
 	
-	public void setMenuTreeByUser(String userId,Object values);
+	public void setMenuTreeByUser(String userId,String sysMenuCode,Object values);
 	public void setDeskFuncByUser(String userId,Set<String> values);
 	public void setAuthByUser(String userId,Set<String> values);
 	public void setBtnByUser(String userId,Set<String> values);

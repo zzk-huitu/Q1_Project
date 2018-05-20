@@ -139,6 +139,48 @@ Ext.define('core.main.model.MainModel', {
         //     "issystem": 1
         // }],
 
+        systemList:[{ 
+            text:'综合管理系统',
+            bigIcon:'/static/core/resources/images/selectSystem/ZHGL.png',
+            url:'/login/desktop?SystemMenuCode=INTEGRATE_SYSTEM'
+        },{ 
+            text:'卡务中心',
+            bigIcon:'/static/core/resources/images/selectSystem/KWZX.png',
+            url:'/login/desktop?SystemMenuCode=CARD_CENTER_SYSTEM'
+        },{ 
+            text:'消费管理系统',
+            bigIcon:'/static/core/resources/images/selectSystem/XFGL.png',
+            url:'/login/desktop?SystemMenuCode=XF_SYSTEM'
+        },{ 
+            text:'水控管理系统',
+            bigIcon:'/static/core/resources/images/selectSystem/SKGL.png',
+            url:'/login/desktop?SystemMenuCode=SK_SYSTEM'
+        },{ 
+            text:'电控管理系统',
+            bigIcon:'/static/core/resources/images/selectSystem/DKGL.png',
+            url:'/login/desktop?SystemMenuCode=DK_SYSTEM'
+        },{ 
+            text:'门控管理系统',
+            bigIcon:'/static/core/resources/images/selectSystem/MKGL.png',
+            url:'/login/desktop?SystemMenuCode=MJ_SYSTEM'
+        },{ 
+            text:'智能控制系统',
+            bigIcon:'/static/core/resources/images/selectSystem/ZNKZ.png',
+            url:'/login/desktop?SystemMenuCode=SMART_CONTROL_SYSTEM'
+        },{ 
+            text:'智慧班牌系统',
+            bigIcon:'/static/core/resources/images/selectSystem/ZHBP.png',
+            url:'/login/desktop?SystemMenuCode=WISDOM_CLASS_SYSTEM'
+        },{ 
+            text:'结算中心',
+            bigIcon:'/static/core/resources/images/selectSystem/JSZX.png',
+            url:'/login/desktop?SystemMenuCode=REPORT_CENTER'
+        },{ 
+            text:'订餐管理系统',
+            bigIcon:'/static/core/resources/images/selectSystem/DCGL.png',
+            url:'/login/desktop?SystemMenuCode=ORDER_MEAL_SYSTEM'
+        }],
+
         menuType:{
             value:'mainmenu'
         },

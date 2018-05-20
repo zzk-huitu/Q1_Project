@@ -20,7 +20,22 @@ Ext.define("core.main.view.Header",{
         	},*/
          
          	id: 'app-header-title' 
-        },{ // 2017/12/5 显示顶部第一层菜单
+        }, /*{
+            //2018-05-20：加入选择子系统的面板
+            // xtype: 'button', // default for Toolbars
+            tooltip: '点击打开/关闭面板', 
+            text:null,
+            //text: '<span style="color:#fff;font-size: 14px;">收起</span>',
+            iconCls: 'x-fa fa-chevron-circle-down header-button-color header-button-icon-size30', 
+            cls: 'core-header-button', 
+            //overCls: '', 
+            focusCls : '',    
+            width:40,
+            height:40,   
+            listeners:{
+                click:'onShowSystemPanel' 
+            }
+        },*//*{ // 2017/12/5 显示顶部第一层菜单；2018-05-20：不再显示第一层菜单
             xtype:'container',
             height:100,
             width:430,
@@ -29,7 +44,7 @@ Ext.define("core.main.view.Header",{
                 cls:'appHeader-btnTbar',
                 style:{
                     background: 'none'
-                }/*
+                },
                 items:[
                     { 
                         //width:50,
@@ -47,9 +62,9 @@ Ext.define("core.main.view.Header",{
                         },
                         //handler: 'onChangePassword' 
                     }
-                ]*/
+                ]
             }]
-        },
+        },*/
         '->',{
             xtype:'container',
             height:100,
@@ -74,6 +89,18 @@ Ext.define("core.main.view.Header",{
                         changeType:'mainsmallheader',
                         listeners:{
                             click:'onChangeMainHeader' 
+                        },
+                        //handler: 'onChangePassword' 
+                    },
+                    { 
+                        tooltip: '切换系统', 
+                        text: '<span style="color:#fff;font-size: 14px;">切换系统</span>',
+                        iconCls: 'x-fa fa-chevron-circle-down header-button-color', 
+                        cls: 'core-header-button', 
+                        //overCls: '', 
+                        focusCls : '', 
+                        listeners:{
+                            click:'onShowSystemPanel' 
                         },
                         //handler: 'onChangePassword' 
                     },
@@ -203,7 +230,7 @@ Ext.define("core.main.view.Header",{
             })
         }
 
-        this.items[1].items[0].items=menusItems;
+        //this.items[1].items[0].items=menusItems;
         this.callParent();  
     },  
 });
