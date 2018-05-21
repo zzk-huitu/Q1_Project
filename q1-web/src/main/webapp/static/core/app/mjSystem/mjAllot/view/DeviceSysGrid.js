@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.view.DeviceSysGrid", {
+Ext.define("core.mjSystem.mjAllot.view.DeviceSysGrid", {
     extend: "Ext.grid.Panel",
-    alias: "widget.dkSystem.dkAllot.deviceSysGrid",
+    alias: "widget.mjSystem.mjAllot.deviceSysGrid",
     //title: "<font color='#ffeb00'>选中的设备 (双击移除)</font>",
     columnLines: true,
     loadMask: true,
@@ -13,7 +13,7 @@ Ext.define("core.dkSystem.dkAllot.view.DeviceSysGrid", {
         stripeRows: true
     },
     store: {
-        type: "dkSystem.dkAllot.isSelectStore"
+        type: "mjSystem.mjAllot.isSelectStore"
     },
 
     tbar:[{
@@ -69,8 +69,8 @@ Ext.define("core.dkSystem.dkAllot.view.DeviceSysGrid", {
     
     listeners: {
         beforeitemdblclick: function(grid, record, item, index, e, eOpts) {
-            var mainlayout = grid.up('panel[xtype=dkSystem.dkAllot.deviceAllotLayout]');
-            var deviceAllotGrid = mainlayout.down("panel[xtype=dkSystem.dkAllot.deviceAllotGrid]");
+            var mainlayout = grid.up('panel[xtype=mjSystem.mjAllot.deviceAllotLayout]');
+            var deviceAllotGrid = mainlayout.down("panel[xtype=mjSystem.mjAllot.deviceAllotGrid]");
 
             var IsSelectStore = grid.getStore();
             IsSelectStore.removeAt(index);

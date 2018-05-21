@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkManage.view.MainGrid", {
+Ext.define("core.mjSystem.mjManage.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.dkSystem.dkManage.mainGrid",
+    alias: "widget.mjSystem.mjManage.mainGrid",
     dataUrl: comm.get('baseUrl') + "/PtTerm/list",
     model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
@@ -47,7 +47,7 @@ Ext.define("core.dkSystem.dkManage.view.MainGrid", {
         property: 'createTime',
         direction: 'DESC'
     }*/],
-    extParams: {filter: '[{"type":"string","comparison":"=","value":"9","field":"termTypeId"}]'},
+    extParams: {filter: '[{"type":"string","comparison":"=","value":"4","field":"termTypeId"}]'},
     columns:  {        
         defaults:{
             titleAlign:"center"
@@ -94,7 +94,7 @@ Ext.define("core.dkSystem.dkManage.view.MainGrid", {
             align: 'center',
             width: 150,
             fixed: true,
-            items: [/*{
+            items: [{
                 text:'高级参数',  
                 style:'font-size:12px;', 
                 tooltip: '设置高级参数',
@@ -116,7 +116,7 @@ Ext.define("core.dkSystem.dkManage.view.MainGrid", {
                         record: rec
                     });
                 }
-            }, */{
+            }, {
                 text:'基础参数',  
                 style:'font-size:12px;', 
                 tooltip: '设置基础参数',

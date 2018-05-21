@@ -1,18 +1,18 @@
-Ext.define("core.dkSystem.dkAllot.view.MainLayout", {
+Ext.define("core.mjSystem.mjAllot.view.MainLayout", {
     extend: "core.base.view.BasePanel",
-    alias: 'widget.dkSystem.dkAllot.mainLayout',
+    alias: 'widget.mjSystem.mjAllot.mainLayout',
     requires: [   
-        "core.dkSystem.dkAllot.view.MainLayout",
+        "core.mjSystem.mjAllot.view.MainLayout",
     ],
     
     /** 关联此视图控制器 */
-    controller: 'dkSystem.dkAllot.mainController',
+    controller: 'mjSystem.mjAllot.mainController',
     /** 页面代码定义 */
-    funCode: "dkAllot_main",
-    detCode: 'dkAllot_detaillayout',
-    detLayout: "dkSystem.dkAllot.detailLayout",
+    funCode: "mjAllot_main",
+    detCode: 'mjAllot_detaillayout',
+    detLayout: "mjSystem.mjAllot.detailLayout",
     /*标注这个视图控制器的别名，以此提供给window处使用*/
-    otherController:'dkSystem.dkAllot.otherController',
+    otherController:'mjSystem.mjAllot.otherController',
     border:false,
     funData: {
         action: comm.get('baseUrl') + "/PtTerm", //请求Action 
@@ -31,12 +31,12 @@ Ext.define("core.dkSystem.dkAllot.view.MainLayout", {
     
     items: [{
         split: true,
-        xtype: "dkSystem.dkAllot.roomInfoTree",
+        xtype: "mjSystem.mjAllot.roomInfoTree",
         region: "west",
         width:250
         //width: comm.get("clientWidth") * 0.16
     }, {
-        xtype: "dkSystem.dkAllot.mainGrid",
+        xtype: "mjSystem.mjAllot.mainGrid",
         region: "center"
     }]
 })

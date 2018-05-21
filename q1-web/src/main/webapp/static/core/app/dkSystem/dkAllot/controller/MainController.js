@@ -223,7 +223,7 @@ Ext.define("core.dkSystem.dkAllot.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doExportPtTermAllotExcel?termSn='+termSn+'&roomId='+roomId+'&termSN='+termSN+'&termNo='+termNo+'&termName='+termName+'&roomLeaf='+roomLeaf+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doExportPtTermAllotExcel?termSn='+termSn+'&roomId='+roomId+'&termSN='+termSN+'&termTypeId=9&termNo='+termNo+'&termName='+termName+'&roomLeaf='+roomLeaf+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 

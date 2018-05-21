@@ -1,16 +1,16 @@
-Ext.define("core.dkSystem.dkManage.view.MainLayout", {
+Ext.define("core.mjSystem.mjManage.view.MainLayout", {
 	extend : "core.base.view.BasePanel",
-	alias : 'widget.dkSystem.dkManage.mainLayout',
+	alias : 'widget.mjSystem.mjManage.mainLayout',
 
-	requires : [ "core.dkSystem.dkManage.controller.MainController", ],
+	requires : [ "core.mjSystem.mjManage.controller.MainController", ],
 	/** 关联此视图控制器 */
-	controller : 'dkSystem.dkManage.mainController',
+	controller : 'mjSystem.mjManage.mainController',
 	/** 页面代码定义 */
-	funCode : "dkManage_main",
-	detCode : "dkManage_detail",
-	detLayout : "dkSystem.dkManage.detailLayout",
+	funCode : "mjManage_main",
+	detCode : "mjManage_detail",
+	detLayout : "mjSystem.mjManage.detailLayout",
 	/*标注这个视图控制器的别名，以此提供给window处使用*/
-	otherController : 'dkSystem.dkManage.otherController',
+	otherController : 'mjSystem.mjManage.otherController',
 
 	layout : 'fit',
 	border : false,
@@ -32,11 +32,11 @@ Ext.define("core.dkSystem.dkManage.view.MainLayout", {
 
 	items : [ {
 		split : true,
-		xtype : "dkSystem.dkManage.roomInfoTree",
+		xtype : "mjSystem.mjManage.roomInfoTree",
 		region : "west",
 		width : 250
 	}, {
-		xtype : "dkSystem.dkManage.mainGrid",
+		xtype : "mjSystem.mjManage.mainGrid",
 		region : "center"
 	} ]
 })

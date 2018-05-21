@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkManage.controller.OtherController", {
+Ext.define("core.mjSystem.mjManage.controller.OtherController", {
     extend: "Ext.app.ViewController",
-    alias: 'controller.dkSystem.dkManage.otherController',
+    alias: 'controller.mjSystem.mjManage.otherController',
     mixins: {
     	  suppleUtil: "core.util.SuppleUtil",
         messageUtil: "core.util.MessageUtil",

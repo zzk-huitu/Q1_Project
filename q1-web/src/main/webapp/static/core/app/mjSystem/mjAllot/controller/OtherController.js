@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.controller.OtherController", {
+Ext.define("core.mjSystem.mjAllot.controller.OtherController", {
     extend: "Ext.app.ViewController",
-    alias: 'controller.dkSystem.dkAllot.otherController',
+    alias: 'controller.mjSystem.mjAllot.otherController',
     mixins: {
     	  suppleUtil: "core.util.SuppleUtil",
         messageUtil: "core.util.MessageUtil",
@@ -14,7 +14,7 @@ Ext.define("core.dkSystem.dkAllot.controller.OtherController", {
     },
     /** 该视图内的组件事件注册 */
     control: {
-    	 "basetreegrid[xtype=dkSystem.dkAllot.roomInfoTree2] button[ref=gridRefresh]": {
+    	 "basetreegrid[xtype=mjSystem.mjAllot.roomInfoTree2] button[ref=gridRefresh]": {
             beforeclick: function(btn) {
              btn.up('basetreegrid').getStore().load();
              return false;
@@ -28,14 +28,14 @@ Ext.define("core.dkSystem.dkAllot.controller.OtherController", {
         },
       },
       //快速搜索按按钮
-      "basegrid[xtype=dkSystem.dkAllot.deviceAllotGrid] button[ref=gridFastSearchBtn]": {
+      "basegrid[xtype=mjSystem.mjAllot.deviceAllotGrid] button[ref=gridFastSearchBtn]": {
           beforeclick: function (btn) {
             this.queryFastSearchForm(btn);
             return false;
             }
         },
       //快速搜索文本框回车事件
-      "basegrid[xtype=dkSystem.dkAllot.deviceAllotGrid] field[funCode=girdFastSearchText]": {
+      "basegrid[xtype=mjSystem.mjAllot.deviceAllotGrid] field[funCode=girdFastSearchText]": {
         specialkey: function (field, e) {
           if (e.getKey() == e.ENTER) {
             this.queryFastSearchForm(field);   
@@ -53,9 +53,9 @@ Ext.define("core.dkSystem.dkAllot.controller.OtherController", {
         var detCode = win.detCode;
         //找到详细布局视图
         var allotlayout = win.down("basepanel[funCode=" + detCode + "]");
-        //var treegrid = allotlayout.down('basetreegrid[xtype=dkSystem.dkAllot.roominfotree2]');
-        var baseGrid =allotlayout.down('panel[xtype=dkSystem.dkAllot.deviceSysGrid]');
-        var deviceAllotGrid =allotlayout.down('panel[xtype=dkSystem.dkAllot.deviceAllotGrid]');
+        //var treegrid = allotlayout.down('basetreegrid[xtype=mjSystem.mjAllot.roominfotree2]');
+        var baseGrid =allotlayout.down('panel[xtype=mjSystem.mjAllot.deviceSysGrid]');
+        var deviceAllotGrid =allotlayout.down('panel[xtype=mjSystem.mjAllot.deviceAllotGrid]');
         var rows =  baseGrid.getStore().getCount();
         if (rows <= 0) {
           self.msgbox("选中的设备列表没有数据，请选择!");

@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.view.DeviceAllotGrid", {
+Ext.define("core.mjSystem.mjAllot.view.DeviceAllotGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.dkSystem.dkAllot.deviceAllotGrid",
+    alias: "widget.mjSystem.mjAllot.deviceAllotGrid",
     dataUrl: comm.get('baseUrl') + "/PtTerm/getNoAllotList",
     model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:true,
@@ -51,7 +51,7 @@ Ext.define("core.dkSystem.dkAllot.view.DeviceAllotGrid", {
         property: 'createTime',
         direction: 'DESC'
     }],
-    extParams: {filter: '[{"type":"string","comparison":"=","value":"9","field":"termTypeId"}]'},
+    extParams: {filter: '[{"type":"string","comparison":"=","value":"4","field":"termTypeId"}]'},
     columns:  {        
         defaults:{
             titleAlign:"center"
@@ -118,9 +118,9 @@ Ext.define("core.dkSystem.dkAllot.view.DeviceAllotGrid", {
     listeners: {
         beforeitemdblclick: function(grid, record, item, index, e, eOpts) {
 
-            var mainlayout = grid.up('panel[xtype=dkSystem.dkAllot.deviceAllotLayout]');
-            var deviceSysGrid = mainlayout.down("panel[xtype=dkSystem.dkAllot.deviceSysGrid]");
-            var tree = mainlayout.down("basetreegrid[xtype=dkSystem.dkAllot.roomInfoTree2]");
+            var mainlayout = grid.up('panel[xtype=mjSystem.mjAllot.deviceAllotLayout]');
+            var deviceSysGrid = mainlayout.down("panel[xtype=mjSystem.mjAllot.deviceSysGrid]");
+            var tree = mainlayout.down("basetreegrid[xtype=mjSystem.mjAllot.roomInfoTree2]");
             var treelevel = tree.getSelectionModel().getSelection()[0];
             if (treelevel == null) {
                 Ext.example.msg("提示", "请选择房间!");
@@ -134,12 +134,12 @@ Ext.define("core.dkSystem.dkAllot.view.DeviceAllotGrid", {
             }
 
 
-            var basePanel = grid.up("panel[xtype=dkSystem.dkAllot.deviceAllotLayout]");
+            var basePanel = grid.up("panel[xtype=mjSystem.mjAllot.deviceAllotLayout]");
             var isSelectGrid;
             var data = record.data;
             var selectStore = grid.getStore();
             if(basePanel){
-                isSelectGrid = basePanel.down("panel[xtype=dkSystem.dkAllot.deviceSysGrid]");
+                isSelectGrid = basePanel.down("panel[xtype=mjSystem.mjAllot.deviceSysGrid]");
                 if(isSelectGrid.isVisible()==true){
                     var isSelectStore = isSelectGrid.getStore();
                     for (var i = 0; i < isSelectStore.getCount(); i++) {

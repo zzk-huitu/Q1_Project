@@ -66,7 +66,6 @@ Ext.define("core.dkSystem.dkPrice.view.MainGrid", {
         property: 'updateTime',
         direction: 'DESC'
     }],
-    extParams: {},
     columns:  {        
         defaults:{
             titleAlign:"center"

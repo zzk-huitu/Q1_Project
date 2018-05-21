@@ -139,7 +139,7 @@ Ext.define("core.dkSystem.dkPrice.controller.OtherController", {
         var basepanel = win.down("basepanel[detCode=" + detCode + "]");
         var termId = [];
         var termSn=[];
-        var isselectgrid = basepanel.down('panel[xtype=dkSystem.dkPrice.skDataGridTwo]');
+        var isselectgrid = basepanel.down('panel[xtype=dkSystem.dkPrice.dkDataGridTwo]');
         var getCount = isselectgrid.getStore().getCount();
         if (getCount <= 0) {
             self.msgbox("有数据才能继续操作!");

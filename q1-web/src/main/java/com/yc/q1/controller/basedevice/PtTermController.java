@@ -543,14 +543,10 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		String termSn = request.getParameter("termSn");
 		String termNo = request.getParameter("termNo");
 		String termName = request.getParameter("termName");
-   
-		String termTypeId = request.getParameter("termTypeId");
+        String termTypeId = request.getParameter("termTypeId");
 
 		String hql = " from PtTerm a where a.isDelete=0 ";
-		if(StringUtils.isNotEmpty(termTypeId)){
-			hql +="and a.termTypeId='"+termTypeId+"'";
-		}
-	
+		
 		//组装房间id参数
 		if (StringUtils.isNotEmpty(roomId) && !AdminType.ADMIN_ORG_ID.equals(roomId)) {
 			if ("1".equals(roomLeaf)) { // 当选择的区域为房间时
@@ -570,6 +566,9 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 
 		if (StringUtils.isNotEmpty(termSn)) {
 			hql += " and a.termSn like'%" + termSn + "%'";
+		}
+		if (StringUtils.isNotEmpty(termTypeId)) {
+			hql += " and a.termTypeId ='" + termTypeId + "'";
 		}
 		if (StringUtils.isNotEmpty(termNo)) {
 			hql += " and a.termNo like'%" + termNo + "%'";

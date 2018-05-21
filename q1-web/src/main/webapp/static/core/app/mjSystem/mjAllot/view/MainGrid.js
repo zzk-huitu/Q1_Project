@@ -1,11 +1,13 @@
-Ext.define("core.dkSystem.dkAllot.view.MainGrid", {
+Ext.define("core.mjSystem.mjAllot.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.dkSystem.dkAllot.mainGrid",
+    alias: "widget.mjSystem.mjAllot.mainGrid",
     dataUrl: comm.get('baseUrl') + "/PtTerm/list",
     model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
     menuCode:"DEVICEALLOT",
-    extParams: {filter: '[{"type":"string","comparison":"=","value":"9","field":"termTypeId"}]'},
+    extParams: {
+    	filter: '[{"type":"string","comparison":"=","value":"4","field":"termTypeId"}]'
+    },
     panelTopBar:{
         xtype:'toolbar',
         items: [{
@@ -63,7 +65,7 @@ Ext.define("core.dkSystem.dkAllot.view.MainGrid", {
         }],
     }, 
     panelButtomBar:{
-        xtype:'dkSystem.dkAllot.mainQueryPanel'
+        xtype:'mjSystem.mjAllot.mainQueryPanel'
     },
     //排序字段及模式定义
     defSort: [{
@@ -73,7 +75,6 @@ Ext.define("core.dkSystem.dkAllot.view.MainGrid", {
         property: 'createTime',
         direction: 'DESC'
     }*/],
-    extParams: {},
     columns:  {        
         defaults:{
             titleAlign:"center"

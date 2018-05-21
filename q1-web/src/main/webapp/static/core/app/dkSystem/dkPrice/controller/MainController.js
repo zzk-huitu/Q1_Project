@@ -112,7 +112,7 @@ Ext.define("core.dkSystem.dkPrice.controller.MainController", {
         var basePanel = baseGrid.up("basepanel[funCode=" + funCode +"]");
         var tabPanel=baseGrid.up("tabpanel[xtype=app-main]");   //获取整个tabpanel
         
-        var categroy = "0";
+        var categroy = "1";
         
         //得到配置信息
         var funData = basePanel.funData;
@@ -283,7 +283,7 @@ Ext.define("core.dkSystem.dkPrice.controller.MainController", {
                             url: funData.action + "/doDelete",
                             params: {
                                  ids: ids.join(","),
-                                 categroy:"水控"
+                                 categroy:"电控"
                             },                    
                             success: function(response) {
                                 var data = Ext.decode(Ext.valueFrom(response.responseText, '{}'));
@@ -337,7 +337,7 @@ Ext.define("core.dkSystem.dkPrice.controller.MainController", {
             detCode:detCode,
             items: [{
                 detCode:detCode,
-                xtype: "dkSystem.dkPrice.skMainLayout",
+                xtype: "dkSystem.dkPrice.dkMainLayout",
             }],
         }).show();	
      },

@@ -5,9 +5,9 @@ var combostore = new Ext.data.ArrayStore({
         ['true', '启用']
     ]
 });
-Ext.define("core.dkSystem.dkAllot.view.DetailForm", {
+Ext.define("core.mjSystem.mjAllot.view.DetailForm", {
 	extend: "core.base.view.BaseForm",
-    alias: "widget.dkSystem.dkAllot.detailForm",
+    alias: "widget.mjSystem.mjAllot.detailForm",
     fieldDefaults: { // 统一设置表单字段默认属性
         labelSeparator: '：', // 分隔符
         msgTarget: 'qtip',

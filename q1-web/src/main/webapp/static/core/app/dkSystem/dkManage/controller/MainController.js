@@ -267,7 +267,7 @@ Ext.define("core.dkSystem.dkManage.controller.MainController",{
 						var termTypeId = recordData.termTypeId;
 						if (termTypeId == '9') {
 							// 电控基础参数
-							xItemType = "dkSystem.dkManage.dkbaseparamform";
+							xItemType = "dkSystem.dkManage.dkBaseParamForm";
 						} else if (termTypeId == '4') {
 							// 门禁基础参数
 							xItemType = "dkSystem.dkManage.doorcontrolform";
