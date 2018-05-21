@@ -1,8 +1,10 @@
 package com.yc.q1.controller.system;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -33,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.yc.q1.controller.base.FrameWorkController;
 import com.yc.q1.core.constant.AdminType;
 import com.yc.q1.core.constant.Constant;
+import com.yc.q1.core.constant.MenuCodeType;
 import com.yc.q1.core.util.ModelUtil;
 import com.yc.q1.core.util.StringUtils;
 import com.yc.q1.model.base.pt.system.PtUser;
@@ -346,7 +349,23 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 		// DictionaryItemCache.clearAll();
 		PtUser sysUser = getCurrentSysUser();
 		HashOperations<String, String, Object> hashOper = redisTemplate.opsForHash();
-		hashOper.delete("userMenuTree", sysUser.getId());
+		
+		//加入菜单code后缀
+		List<String> userMenuCode=new ArrayList<>();
+		String userId= sysUser.getId();
+		userMenuCode.add(userId+"-"+MenuCodeType.PT);
+		userMenuCode.add(userId+"-"+MenuCodeType.KW);
+		userMenuCode.add(userId+"-"+MenuCodeType.XF);
+		userMenuCode.add(userId+"-"+MenuCodeType.SK);
+		userMenuCode.add(userId+"-"+MenuCodeType.DK);
+		userMenuCode.add(userId+"-"+MenuCodeType.MJ);
+		userMenuCode.add(userId+"-"+MenuCodeType.KZ);
+		userMenuCode.add(userId+"-"+MenuCodeType.BP);
+		userMenuCode.add(userId+"-"+MenuCodeType.JS);
+		userMenuCode.add(userId+"-"+MenuCodeType.DC);
+		hashOper.delete("userMenuTree", userMenuCode.toArray());
+		//hashOper.delete("userMenuTree",userId);
+		
 		hashOper.delete("userAuth", sysUser.getId());
 		hashOper.delete("userBtn", sysUser.getId());
 
@@ -362,7 +381,7 @@ public class LoginController extends FrameWorkController<PtUser> implements Cons
 		hashOper.delete("userRightDeptTree", sysUser.getId());
 		hashOper.delete("userRightDeptClassTree", sysUser.getId());
 		hashOper.delete("userRightDeptDisciplineTree", sysUser.getId());
-
+		
 		writeJSON(response, jsonBuilder.returnSuccessJson("\"缓存清除成功\""));
 	}
 
