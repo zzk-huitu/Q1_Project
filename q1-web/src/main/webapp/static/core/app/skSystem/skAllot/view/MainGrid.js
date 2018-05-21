@@ -73,7 +73,6 @@ Ext.define("core.skSystem.skAllot.view.MainGrid", {
         property: 'createTime',
         direction: 'DESC'
     }*/],
-    extParams: {},
     columns:  {        
         defaults:{
             titleAlign:"center"
