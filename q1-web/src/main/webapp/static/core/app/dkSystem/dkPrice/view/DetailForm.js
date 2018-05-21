@@ -13,9 +13,9 @@ var combostore1 = new Ext.data.ArrayStore({
         ["1", '电控']
     ]
 });
-Ext.define("core.skSystem.skPrice.view.DetailForm", {
+Ext.define("core.dkSystem.dkPrice.view.DetailForm", {
 	extend: "core.base.view.BaseForm",
-    alias: "widget.skSystem.skPrice.detailForm",
+    alias: "widget.dkSystem.dkPrice.detailForm",
     fieldDefaults: { // 统一设置表单字段默认属性
         labelSeparator: '：', // 分隔符
         msgTarget: 'qtip',
@@ -43,7 +43,7 @@ Ext.define("core.skSystem.skPrice.view.DetailForm", {
         	triggerAction: 'all',
         	emptyText: '请选择...',
         	blankText: '请选择类别',
-            value:"0",
+            value:"1",
             readOnly:true,
         	editable: false,
         	mode: 'local'
@@ -85,7 +85,7 @@ Ext.define("core.skSystem.skPrice.view.DetailForm", {
         },{
             columnWidth: 0.3,
             xtype: "label",
-            html: "&nbsp;<font style='color: rgb(196, 68, 68);font-size: 14px;font-weight:400;line-height: 30px;padding-left: 10px;'>(水控：金额/升)</font>",
+            html: "&nbsp;<font style='color: rgb(196, 68, 68);font-size: 14px;font-weight:400;line-height: 30px;padding-left: 10px;'>(电控：金额/度)</font>",
         }]
     }, {
         xtype: "container",

@@ -1,7 +1,7 @@
-Ext.define("core.skSystem.skPrice.view.MainGrid", {
+Ext.define("core.dkSystem.dkPrice.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.skSystem.skPrice.mainGrid",
-    dataUrl: comm.get('baseUrl') + "/BasePriceDefine/skList",
+    alias: "widget.dkSystem.dkPrice.mainGrid",
+    dataUrl: comm.get('baseUrl') + "/BasePriceDefine/dkList",
     model: 'com.yc.q1.model.base.sk.SkPriceDefine',
     menuCode:"BASERATE",
     panelTopBar:{
@@ -57,7 +57,7 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
         }],
     }, 
     panelButtomBar:null,
-    extParams: {},
+    
     //排序字段及模式定义
     defSort: [/*{
         property: 'createTime',

@@ -1,14 +1,18 @@
-Ext.define("core.skSystem.skPrice.view.MainGrid", {
+Ext.define("core.xfSystem.xfAllot.view.MainGrid", {
     extend: "core.base.view.BaseGrid",
-    alias: "widget.skSystem.skPrice.mainGrid",
-    dataUrl: comm.get('baseUrl') + "/BasePriceDefine/skList",
-    model: 'com.yc.q1.model.base.sk.SkPriceDefine',
-    menuCode:"BASERATE",
+    alias: "widget.xfSystem.xfAllot.mainGrid",
+    dataUrl: comm.get('baseUrl') + "/PtTerm/list",
+    model: "com.yc.q1.model.base.pt.device.PtTerm",
+    al:false,
+    menuCode:"DEVICEALLOT",
+    extParams: {
+    	filter: '[{"type":"string","comparison":"=","value":"0","field":"termTypeId"}]'
+    },
     panelTopBar:{
         xtype:'toolbar',
         items: [{
             xtype: 'tbtext',
-            html: '数据列表',
+            html: '已存在设备',
             style: {
                 fontSize: '16px',
                 color: '#C44444',
@@ -16,9 +20,8 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
             }
         },'->',{
             xtype: 'button',
-            text: '添加',
+            text: '分配设备',
             ref: 'gridAdd_Tab',
-            funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             iconCls: 'x-fa fa-plus-circle'
         },{
             xtype: 'button',
@@ -29,43 +32,49 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
             iconCls: 'x-fa fa-pencil-square'
         },{
             xtype: 'button',
-            text: '删除',
+            text: '移除',
+            msg:'是否要移除此设备？',
             ref: 'gridDelete',
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
             disabled:true,
             iconCls: 'x-fa fa-minus-circle'
         },{
             xtype: 'button',
-            text: '费率绑定',
-            ref: 'gridBinding',
+            text: '导出',
+            ref: 'gridExport',
             funCode:'girdFuntionBtn',   //指定此类按钮为girdFuntionBtn类型，用于于右边的按钮进行功能区分
-            iconCls: 'x-fa fa-link',
-            disabled:true,
+            iconCls: 'x-fa fa-file-excel-o'
         },{
             xtype: 'tbtext', 
             html:'快速搜索：'
         },{
             xtype:'textfield',
-            name:'priceName',
+            name:'termSn',
             funCode: 'girdFastSearchText',
-            emptyText: '请输入名称'
+            emptyText: '请输入序列号'
         },{
             xtype: 'button',            
             ref: 'gridFastSearchBtn',  
             funCode:'girdSearchBtn',    //指定此类按钮为girdSearchBtn类型 
             iconCls: 'x-fa fa-search',  
+        },' ',{
+            xtype: 'button',
+            text: '高级搜索',
+            ref: 'gridHignSearch',
+            iconCls: 'x-fa fa-sliders'
         }],
     }, 
-    panelButtomBar:null,
-    extParams: {},
+    panelButtomBar:{
+        xtype:'xfSystem.xfAllot.mainQueryPanel'
+    },
     //排序字段及模式定义
-    defSort: [/*{
-        property: 'createTime',
-        direction: 'DESC'
-    }, */{
+    defSort: [{
         property: 'updateTime',
         direction: 'DESC'
-    }],
+    }/*{
+        property: 'createTime',
+        direction: 'DESC'
+    }*/],
     columns:  {        
         defaults:{
             titleAlign:"center"
@@ -79,54 +88,46 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
             text: "主键",
             dataIndex: "id",
             hidden: true
-        },{
-            text: "名称",
-            dataIndex: "priceName",
+        }, {
+            text: "序列号",
+            dataIndex: "termSn",
             width: 120,
-            field: {
-                xtype: "textfield"
-            }
+        },{
+            text: "机号",
+            dataIndex: "termNo",
+            width: 120,
         }, {
-            text: "费率",
-            dataIndex: "priceValue",
-            width: 100,
-            field: {
-                xtype: "textfield"
-            }
+            text: "设备名称",
+            dataIndex: "termName",
+            flex:1,
+            minWidth:100,
         }, {
-            text: "状态",
-            dataIndex: "priceStatus",
-            width: 80,
-             renderer: function(value) {
+            text: "房间名称",
+            dataIndex: "roomName",
+            hidden: true
+        }, {
+            text: "网关名称",
+            dataIndex: "gatewayName",
+            width: 120,	
+        }, {
+            text: "设备类型",
+            dataIndex: "termTypeId",
+            columnType: "basecombobox", //列类型
+            ddCode: "PTTERMTYPE", //字典代码
+            width: 120,
+        }, {
+            text: "设备状态",
+            dataIndex: "termStatus",
+            width: 120,
+            renderer: function(value) {
                 switch (value) {
                     case false:
                         return '<font color=red>禁用</font>';
                         break;
                     case true:
-                        return '<font color=green>启用</font>';                    
+                        return '<font color=green>启用</font>';
                         break;
                 }
-            }
-        }, {
-            text: "币种",
-            width: 120,
-            dataIndex: "currencyType",
-            field: {
-                xtype: "textfield"
-            }
-        }, {
-            text: "备注",
-            flex:1,
-            minWidth:120,
-            dataIndex: "priceNotes",
-            field: {
-                xtype: "textfield"
-            },
-            renderer:function(value,metaData){
-                var title="备注";
-                metaData.tdAttr= 'data-qtitle="' + title + '" data-qtip="' + value + '"';
-                return value;  
-
             }
         },{
             xtype: 'actiontextcolumn',
@@ -141,7 +142,7 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
                 ref: 'gridEdit',
                 getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
                     if(comm.get("isAdmin")!="1"){
-                        var menuCode="BASERATE";     // 此菜单的前缀
+                        var menuCode="DEVICEALLOT";     // 此菜单的前缀
                         var userBtn=comm.get("userBtn");                 
                         if(userBtn.indexOf(menuCode+"_gridEdit_Tab")==-1){
                             return 'x-hidden-display';
@@ -156,14 +157,14 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
                         record: rec
                     });
                 }
-            },  {
-                text:'删除',  
+            },{
+                text:'移除',  
                 style:'font-size:12px;', 
-                tooltip: '删除',
+                tooltip: '移除此设备',
                 ref: 'gridDelete',
                 getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
                     if(comm.get("isAdmin")!="1"){
-                        var menuCode="BASERATE";     // 此菜单的前缀
+                        var menuCode="DEVICEALLOT";     // 此菜单的前缀
                         var userBtn=comm.get("userBtn");                 
                         if(userBtn.indexOf(menuCode+"_gridDelete")==-1){
                             return 'x-hidden-display';
@@ -175,29 +176,8 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
                     var rec = view.getStore().getAt(rowIndex);
                     this.fireEvent('deleteClick', {
                         view: view.grid,
-                        record: rec
-                    });
-                }
-            },{
-                text:'费率设备',  
-                style:'font-size:12px;', 
-                tooltip: '费率设备',
-                ref: 'priceBingTerm',
-                getClass :function(v,metadata,record,rowIndex,colIndex,store){                            
-                    if(comm.get("isAdmin")!="1"){
-                        var menuCode="BASERATE";     // 此菜单的前缀
-                        var userBtn=comm.get("userBtn");                 
-                        if(userBtn.indexOf(menuCode+"_priceBingTerm")==-1){
-                            return 'x-hidden-display';
-                        }
-                    }
-                    return null; 
-                },
-                handler: function(view, rowIndex, colIndex, item) {
-                    var rec = view.getStore().getAt(rowIndex);
-                    this.fireEvent('priceBingClick', {
-                        view: view.grid,
-                        record: rec
+                        record: rec,
+                        msg:'是否要移除此设备？'
                     });
                 }
             }]

@@ -1,6 +1,6 @@
-Ext.define("core.skSystem.skAllot.controller.MainController", {
+Ext.define("core.dkSystem.dkAllot.controller.MainController", {
     extend: "Ext.app.ViewController",
-    alias: 'controller.skSystem.skAllot.mainController',
+    alias: 'controller.dkSystem.dkAllot.mainController',
     mixins: {
         suppleUtil: "core.util.SuppleUtil",
         messageUtil: "core.util.MessageUtil",
@@ -15,11 +15,11 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
     control: {
     	
         //区域列表刷新按钮
-        "basetreegrid[xtype=skSystem.skAllot.roomInfoTree] button[ref=gridRefresh]": {
+        "basetreegrid[xtype=dkSystem.dkAllot.roomInfoTree] button[ref=gridRefresh]": {
             beforeclick: function(btn) {
                 btn.up('basetreegrid').getStore().load();
-                var mainlayout = btn.up("basepanel[xtype=skSystem.skAllot.mainlayout]");
-                var mianGrid = mainlayout.down("basegrid[xtype=skSystem.skAllot.maingrid]");
+                var mainlayout = btn.up("basepanel[xtype=dkSystem.dkAllot.mainlayout]");
+                var mianGrid = mainlayout.down("basegrid[xtype=dkSystem.dkAllot.maingrid]");
                 var store = mianGrid.getStore();
                 var proxy = store.getProxy();
                 proxy.extraParams.roomId="";
@@ -29,14 +29,14 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
         },
     	
         //分配设备按钮
-    	"basegrid[xtype=skSystem.skAllot.mainGrid] button[ref=gridAdd_Tab]": {
+    	"basegrid[xtype=dkSystem.dkAllot.mainGrid] button[ref=gridAdd_Tab]": {
             beforeclick: function(btn) {
            	    this.doAllot(btn);
                 return false;
             }
         },
                 
-    	 "basegrid[xtype=skSystem.skAllot.mainGrid] button[ref=gridDelete]": {
+    	 "basegrid[xtype=dkSystem.dkAllot.mainGrid] button[ref=gridDelete]": {
             beforeclick: function(btn) {
                 this.doDeleteRecords(btn);
                 return false;
@@ -46,7 +46,7 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
          /**
          * 操作列的操作事件
          */
-         "basegrid[xtype=skSystem.skAllot.mainGrid] actioncolumn": {
+         "basegrid[xtype=dkSystem.dkAllot.mainGrid] actioncolumn": {
 
             deleteClick: function(data) {
                 this.doDeleteRecords(null,data.view,data.record);
@@ -55,7 +55,7 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
             
         }, 
         
-        "basegrid[xtype=skSystem.skAllot.mainGrid] button[ref=gridExport]": {
+        "basegrid[xtype=dkSystem.dkAllot.mainGrid] button[ref=gridExport]": {
             beforeclick: function(btn) {
                 this.doExport(btn);
                 return false;
@@ -76,7 +76,7 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
       	var otherController = basePanel.otherController;    //关键：打开的tab页面的视图控制器
       	if (!otherController)
       		  otherController = '';  
-         var itemXtype = "skSystem.skAllot.deviceAllotLayout";
+         var itemXtype = "dkSystem.dkAllot.deviceAllotLayout";
          var xItemType=[{
             xtype:itemXtype,
             funCode:detCode
@@ -163,9 +163,9 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
     doExport:function(btn){
         var self = this;
         var baseGrid = btn.up("basegrid");
-        var mainlayout=baseGrid.up("panel[xtype=skSystem.skAllot.mainLayout]");
+        var mainlayout=baseGrid.up("panel[xtype=dkSystem.dkAllot.mainLayout]");
        
-        var roominfotreegrid=mainlayout.down("panel[xtype=skSystem.skAllot.roomInfoTree]");
+        var roominfotreegrid=mainlayout.down("panel[xtype=dkSystem.dkAllot.roomInfoTree]");
         var records = roominfotreegrid.getSelectionModel().getSelection();
         var roomId ="";
         var roomLeaf ="";
@@ -177,7 +177,7 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
             else
                 roomLeaf="0";
         }
-        var userGrid = mainlayout.down("basegrid[xtype=skSystem.skAllot.mainGrid]");
+        var userGrid = mainlayout.down("basegrid[xtype=dkSystem.dkAllot.mainGrid]");
         //获取快速搜索栏数据
         var girdSearchTexts = userGrid.query("field[funCode=girdFastSearchText]");
         var termSN ="";
@@ -187,7 +187,7 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
         }
         
         //获取高级搜索栏数据
-        var queryPanel = userGrid.down("basequeryform[xtype=skSystem.skAllot.mainQueryPanel]"); 
+        var queryPanel = userGrid.down("basequeryform[xtype=dkSystem.dkAllot.mainQueryPanel]"); 
         var queryFields=queryPanel.query("basequeryfield");
         var termSN2="";
         var termNo="";
@@ -223,7 +223,7 @@ Ext.define("core.skSystem.skAllot.controller.MainController", {
                     width: 0,
                     height: 0,
                     hidden: true,
-                    html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doExportPtTermAllotExcel?termSn='+termSn+'&roomId='+roomId+'&termSN='+termSN+'&termTypeId=8&termNo='+termNo+'&termName='+termName+'&roomLeaf='+roomLeaf+'"></iframe>',
+                    html: '<iframe src="' + comm.get('baseUrl') + '/PtTerm/doExportPtTermAllotExcel?termSn='+termSn+'&roomId='+roomId+'&termSN='+termSN+'&termTypeId=9&termNo='+termNo+'&termName='+termName+'&roomLeaf='+roomLeaf+'"></iframe>',
                     renderTo: Ext.getBody()
                 });
 
