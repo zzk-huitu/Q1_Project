@@ -1,10 +1,10 @@
 /**
  * This class is the view model for the Main view of the application.
  */
-Ext.define('core.dkSystem.dkManage.model.MainModel', {
+Ext.define('core.mjSystem.mjManage.model.MainModel', {
     extend: 'Ext.app.ViewModel',
 
-    alias: 'viewmodel.dkSystem.dkManage.mainModel',
+    alias: 'viewmodel.mjSystem.mjManage.mainModel',
 
     data: {
         workPatternType:{

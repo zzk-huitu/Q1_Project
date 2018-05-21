@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.view.MainQueryPanel", {
+Ext.define("core.mjSystem.mjAllot.view.MainQueryPanel", {
     extend: "core.base.view.BaseQueryForm",
-    alias: "widget.dkSystem.dkAllot.mainQueryPanel",
+    alias: "widget.mjSystem.mjAllot.mainQueryPanel",
     layout: "form",
     frame: false,
     height: 100,

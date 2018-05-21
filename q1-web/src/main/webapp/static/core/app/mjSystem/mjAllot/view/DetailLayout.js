@@ -1,7 +1,7 @@
-Ext.define("core.dkSystem.dkAllot.view.DetailLayout",{
+Ext.define("core.mjSystem.mjAllot.view.DetailLayout",{
 	extend:"core.base.view.BasePanel",
-	alias : 'widget.dkSystem.dkAllot.detailLayout',
-	funCode:"dkAllot_detaillayout",
+	alias : 'widget.mjSystem.mjAllot.detailLayout',
+	funCode:"mjAllot_detaillayout",
 	funData: {
 		action: comm.get('baseUrl') + "/PtTerm", //请求Action
 		pkName: "id",
@@ -13,9 +13,9 @@ Ext.define("core.dkSystem.dkAllot.view.DetailLayout",{
     scrollable:true,
 
     /*关联此视图控制器*/
-	controller: 'dkSystem.dkAllot.detailController',
+	controller: 'mjSystem.mjAllot.detailController',
 	
 	items: [{
-		xtype: "dkSystem.dkAllot.detailForm"
+		xtype: "mjSystem.mjAllot.detailForm"
 	}]
 })

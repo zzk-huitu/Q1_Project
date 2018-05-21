@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkManage.view.HighParamForm", {
+Ext.define("core.mjSystem.mjManage.view.HighParamForm", {
     extend: "core.base.view.BaseForm",
-    alias: "widget.dkSystem.dkManage.highParamForm",
+    alias: "widget.mjSystem.mjManage.highParamForm",
     autoScroll: false,
     items :[ {
        xtype: "fieldset",
@@ -159,7 +159,7 @@ Ext.define("core.dkSystem.dkManage.view.HighParamForm", {
             funcPanel: "public.selectGateway.selectgatewaylayout", //该功能显示的主视图
             funcGrid:'public.selectGateway.isselectgatewaygrid',    //指定多选时，获取数据的表格别名
             //refController:'system.dept.othercontroller',             //指定弹出的window引用的控制器，方便方法重写。 若不需要重写，则不配置此项
-            formPanel: "dkSystem.dkManage.highparamform",   //指定当前表单的别名，方便其他地方能找到这个表单组件
+            formPanel: "mjSystem.mjManage.highparamform",   //指定当前表单的别名，方便其他地方能找到这个表单组件
             funcTitle: "设备选择", //查询窗口的标题
             configInfo: {
                 width:1250,

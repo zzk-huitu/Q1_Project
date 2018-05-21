@@ -543,6 +543,7 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 		String termSn = request.getParameter("termSn");
 		String termNo = request.getParameter("termNo");
 		String termName = request.getParameter("termName");
+		String termTypeId = request.getParameter("termTypeId");
 
 		String hql = " from PtTerm a where a.isDelete=0 ";
 		//组装房间id参数
@@ -564,6 +565,9 @@ public class PtTermController extends FrameWorkController<PtTerm> implements Con
 
 		if (StringUtils.isNotEmpty(termSn)) {
 			hql += " and a.termSn like'%" + termSn + "%'";
+		}
+		if (StringUtils.isNotEmpty(termTypeId)) {
+			hql += " and a.termTypeId ='" + termTypeId + "'";
 		}
 		if (StringUtils.isNotEmpty(termNo)) {
 			hql += " and a.termNo like'%" + termNo + "%'";

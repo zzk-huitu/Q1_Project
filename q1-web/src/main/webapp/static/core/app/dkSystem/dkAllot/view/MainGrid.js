@@ -5,7 +5,9 @@ Ext.define("core.dkSystem.dkAllot.view.MainGrid", {
     model: "com.yc.q1.model.base.pt.device.PtTerm",
     al:false,
     menuCode:"DEVICEALLOT",
-    extParams: {filter: '[{"type":"string","comparison":"=","value":"9","field":"termTypeId"}]'},
+    extParams: {
+    	filter: '[{"type":"string","comparison":"=","value":"9","field":"termTypeId"}]'
+    },
     panelTopBar:{
         xtype:'toolbar',
         items: [{
@@ -73,7 +75,6 @@ Ext.define("core.dkSystem.dkAllot.view.MainGrid", {
         property: 'createTime',
         direction: 'DESC'
     }*/],
-    extParams: {},
     columns:  {        
         defaults:{
             titleAlign:"center"

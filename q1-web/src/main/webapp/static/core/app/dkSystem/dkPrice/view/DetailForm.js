@@ -85,7 +85,7 @@ Ext.define("core.dkSystem.dkPrice.view.DetailForm", {
         },{
             columnWidth: 0.3,
             xtype: "label",
-            html: "&nbsp;<font style='color: rgb(196, 68, 68);font-size: 14px;font-weight:400;line-height: 30px;padding-left: 10px;'>(电控：金额/度)&nbsp&nbsp(水控：金额/升)</font>",
+            html: "&nbsp;<font style='color: rgb(196, 68, 68);font-size: 14px;font-weight:400;line-height: 30px;padding-left: 10px;'>(电控：金额/度)</font>",
         }]
     }, {
         xtype: "container",

@@ -94,7 +94,7 @@ Ext.define("core.dkSystem.dkManage.view.MainGrid", {
             align: 'center',
             width: 150,
             fixed: true,
-            items: [/*{
+            items: [{
                 text:'高级参数',  
                 style:'font-size:12px;', 
                 tooltip: '设置高级参数',
@@ -116,7 +116,7 @@ Ext.define("core.dkSystem.dkManage.view.MainGrid", {
                         record: rec
                     });
                 }
-            }, */{
+            }, {
                 text:'基础参数',  
                 style:'font-size:12px;', 
                 tooltip: '设置基础参数',

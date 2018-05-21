@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkManage.view.DetailForm", {
+Ext.define("core.mjSystem.mjManage.view.DetailForm", {
     extend: "core.base.view.BaseForm",
-    alias: "widget.dkSystem.dkManage.detailForm",
+    alias: "widget.mjSystem.mjManage.detailForm",
     layout: "form",
     autoHeight: true,
     frame: false,

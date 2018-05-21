@@ -57,7 +57,7 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
         }],
     }, 
     panelButtomBar:null,
-    
+    extParams: {},
     //排序字段及模式定义
     defSort: [/*{
         property: 'createTime',
@@ -66,7 +66,6 @@ Ext.define("core.skSystem.skPrice.view.MainGrid", {
         property: 'updateTime',
         direction: 'DESC'
     }],
-    extParams: {},
     columns:  {        
         defaults:{
             titleAlign:"center"

@@ -58,7 +58,7 @@ Ext.define("core.dkSystem.dkPrice.view.RoomInfoTree", {
             else
                 filter = JSON.stringify(filter);
 
-            var mainLayout =tree.up("panel[xtype=dkSystem.dkPrice.skMainLayout]");
+            var mainLayout =tree.up("panel[xtype=dkSystem.dkPrice.dkMainLayout]");
     		var funData = mainLayout.funData;
             var roomId=record.get("id");
             var roomLeaf=record.get("leaf");
@@ -71,7 +71,7 @@ Ext.define("core.dkSystem.dkPrice.view.RoomInfoTree", {
                 leaf :record.get("leaf"),//true: 房间 false:区域
             });
             // 加载房间的人员信息
-            var mianGrid = mainLayout.down("panel[xtype=dkSystem.dkPrice.skDataGrid]");
+            var mianGrid = mainLayout.down("panel[xtype=dkSystem.dkPrice.dkDataGrid]");
             var store = mianGrid.getStore();
             var proxy = store.getProxy();
                proxy.extraParams={

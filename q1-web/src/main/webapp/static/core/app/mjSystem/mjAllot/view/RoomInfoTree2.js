@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.view.RoomInfoTree2", {
+Ext.define("core.mjSystem.mjAllot.view.RoomInfoTree2", {
 	extend: "core.base.view.BaseTreeGrid",
-    alias: "widget.dkSystem.dkAllot.roomInfoTree2",
+    alias: "widget.mjSystem.mjAllot.roomInfoTree2",
     dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
     model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     al: true,

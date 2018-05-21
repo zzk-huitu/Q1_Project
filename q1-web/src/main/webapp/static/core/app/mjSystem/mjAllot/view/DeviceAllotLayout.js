@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.view.DeviceAllotLayout", {
+Ext.define("core.mjSystem.mjAllot.view.DeviceAllotLayout", {
     extend: "core.base.view.BasePanel",
-    alias: 'widget.dkSystem.dkAllot.deviceAllotLayout',
+    alias: 'widget.mjSystem.mjAllot.deviceAllotLayout',
     layout:'border',
     border: false,
     
@@ -15,19 +15,19 @@ Ext.define("core.dkSystem.dkAllot.view.DeviceAllotLayout", {
     },
     items: [{
     	split: true,//对模块分开的线条
-        xtype: "dkSystem.dkAllot.roomInfoTree2",
+        xtype: "mjSystem.mjAllot.roomInfoTree2",
         width: 250,
         region: "west",
     }, {
     	flex:1,
     	split: true,
-        xtype: "dkSystem.dkAllot.deviceAllotGrid",
+        xtype: "mjSystem.mjAllot.deviceAllotGrid",
         region: "center",
         //width:600,
     }, {
     	split: true,
     	width: 360,
-    	xtype: "dkSystem.dkAllot.deviceSysGrid",
+    	xtype: "mjSystem.mjAllot.deviceSysGrid",
         region: "east",
     }]
 })

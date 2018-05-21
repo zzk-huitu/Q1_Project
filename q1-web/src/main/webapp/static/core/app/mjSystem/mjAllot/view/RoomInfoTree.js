@@ -1,6 +1,6 @@
-Ext.define("core.dkSystem.dkAllot.view.RoomInfoTree", {
+Ext.define("core.mjSystem.mjAllot.view.RoomInfoTree", {
 	extend: "core.base.view.BaseTreeGrid",
-    alias: "widget.dkSystem.dkAllot.roomInfoTree",
+    alias: "widget.mjSystem.mjAllot.roomInfoTree",
     dataUrl: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
     model: "com.yc.q1.pojo.base.pt.RoomAreaTree",
     al: true,
@@ -49,7 +49,7 @@ Ext.define("core.dkSystem.dkAllot.view.RoomInfoTree", {
     },
     listeners: {
         itemclick: function (tree, record, item, index, e, eOpts) {
-        	var mainLayout = tree.up("panel[xtype=dkSystem.dkAllot.mainLayout]");
+        	var mainLayout = tree.up("panel[xtype=mjSystem.mjAllot.mainLayout]");
         	var funData = mainLayout.funData;
             mainLayout.funData = Ext.apply(funData, {
                 roomId: record.get("id"),
@@ -57,10 +57,10 @@ Ext.define("core.dkSystem.dkAllot.view.RoomInfoTree", {
                 arealevel: record.get("level"),
             });
             // 加载房间的人员信息
-            var mianGrid = mainLayout.down("panel[xtype=dkSystem.dkAllot.mainGrid]");
+            var mianGrid = mainLayout.down("panel[xtype=mjSystem.mjAllot.mainGrid]");
             var girdSearchTexts = mianGrid.query("field[funCode=girdFastSearchText]");
             var filter=new Array();
-            filter.push({"type": "string", "value": "9", "field": "termTypeId", "comparison": "="});
+            filter.push({"type": "string", "value": "4", "field": "termTypeId", "comparison": "="});
             if(girdSearchTexts[0].getValue()){
                 filter.push({"type": "string", "value": girdSearchTexts[0].getValue(), "field": "termSn", "comparison": ""})
             }

@@ -1,17 +1,17 @@
-Ext.define("core.dkSystem.dkManage.controller.DetailController", {
+Ext.define("core.mjSystem.mjManage.controller.DetailController", {
     extend: "Ext.app.ViewController",
-    alias: 'controller.dkSystem.dkManage.detailController',
+    alias: 'controller.mjSystem.mjManage.detailController',
     mixins: {},
     init: function () {
         /*执行一些初始化的代码*/
     },
     /** 该视图内的组件事件注册 */
     control: {
-    	'baseform[xtype=dkSystem.dkManage.skBaseParamForm] button[ref=checkall]':{
+    	'baseform[xtype=mjSystem.mjManage.skBaseParamForm] button[ref=checkall]':{
             click:function(btn){
-                var objForm=btn.up("baseform[xtype=dkSystem.dkManage.dkBaseParamForm]");
+                var objForm=btn.up("baseform[xtype=mjSystem.mjManage.mjBaseParamForm]");
                 for(var i=0;i<4;i++){
-                    var checkbox = objForm.down("checkboxgroup[ref=dkBaseParamForm_lblOperationBehaviors" + (i+1) + "]");    
+                    var checkbox = objForm.down("checkboxgroup[ref=mjBaseParamForm_lblOperationBehaviors" + (i+1) + "]");    
                     for (var j = 0; j < checkbox.items.items.length; j++) {
                         if (checkbox.items.items[j].checked == true) {
                             checkbox.items.items[j].setValue(false)
