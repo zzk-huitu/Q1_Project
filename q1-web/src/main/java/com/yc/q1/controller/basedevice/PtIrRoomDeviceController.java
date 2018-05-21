@@ -146,10 +146,11 @@ public class PtIrRoomDeviceController extends FrameWorkController<PtIrRoomDevice
 	public void getTreeList(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		String strData = "";
 		String whereSql = request.getParameter("whereSql");
+		String excludes = request.getParameter("excludes");
 		//List<CommTree> lists = treeService.getCommTree("JW_V_AREAROOMINFOTREE", whereSql);
 		//只显示已定义的房间
 		List<CommTree> lists = treeService.getCommTree("V_PT_AreaDefinedRoomInfoTree", whereSql);
-		strData = JsonBuilder.getInstance().buildList(lists, "");// 处理数据
+		strData = JsonBuilder.getInstance().buildList(lists, excludes);// 处理数据
 		writeJSON(response, strData);// 返回数据
 	}
 
