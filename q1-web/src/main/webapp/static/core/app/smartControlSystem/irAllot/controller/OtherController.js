@@ -29,7 +29,17 @@ Ext.define("core.smartControlSystem.irAllot.controller.OtherController", {
             }
           }
       },
+     //
+      "baseformtab[funCode=irAllot_main] button[ref=formSave]": {
+        beforeclick: function (btn) {
+          var result = this.doSaveDetail_Tab(btn);
+          if(!result){
+            this.msgbox("只能选择房间！");
+                return false;
 
+          }
+        }
+      },
             //弹出窗口的确认按钮
       "baseformwin[detCode=allotSmartDevice_main] button[ref=formSave]": {
         beforeclick: function(btn) {
@@ -37,6 +47,16 @@ Ext.define("core.smartControlSystem.irAllot.controller.OtherController", {
           return false;
         },
       },
+    },
+
+    doSaveDetail_Tab:function(btn){
+      var baseformtab = btn.up("baseformtab");
+      var objForm = baseformtab.down("baseform[xtype=smartControlSystem.irAllot.detailForm]");
+      var roomType =  objForm.query("field[name=roomType]")[0].getValue();
+      console.log(roomType);
+      if(roomType=='true')//选中的是房间
+        return true;
+      return false;
     },
    //确认绑定事件
     saveAllot:function(btn){

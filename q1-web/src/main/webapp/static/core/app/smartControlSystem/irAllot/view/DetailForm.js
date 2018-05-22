@@ -35,13 +35,17 @@ Ext.define("core.smartControlSystem.irAllot.view.DetailForm", {
         rootId: "ROOT",
         configInfo: {
             multiSelect: false,
-            fieldInfo: "roomName~roomId,text~id",
+            fieldInfo: "roomName~roomId~roomType,text~id~leaf",
             url: comm.get('baseUrl') + "/PtIrRoomDevice/treelist",
             excludes:"checked"
         }
     }, {
         xtype: "textfield",
         name: "roomId",
+        hidden: true
+    }, {
+        xtype: "textfield",
+        name: "roomType",
         hidden: true
     },{
         columnWidth:0.5,
